@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Listenverarbeitung}
+
+S. 120 sind alle Funktionen und Objekte für Listen
+
+$'()$ Die Leere Liste
+
+$(cons obj list)$ "constructor" $(cons '(0 1) '(2 3 4)) \implies ((0 1) 2 3 4)$ oder $(cons 1 '(2 3 4)) \implies (1 2 3 4)$
+
+$(append list_1 list_2)$ Hängt beide Listen zusammen $(append '(1 2 3) '(4 5)) \implies (1 2 3 4 5)$
+
+$(car list)$ oder $(first list)$ Das erste Element
+
+$(cdr list)$ oder $(rest list)$ Die Liste ohne das erste Element
+
+$(null? list)$ gibt \#t zurück, wenn $list$ leer ist.
+
+$(list obj_1\dots obj_n)$ Gibt die Liste $(obj_1\dots obj_n)$ zurück
+
+\subsection{Aufgaben}
+
+Eine Liste umdrehen.
+
+Bonus: Liste abwechselnd in zwei Listen aufteilen.
+
+Bonus: Zwei Listen abwechselnd in eine Liste zusammenfügen.
+
+\subsection{Speichermodell und Variablen}
+
+Wir haben eine Namenstabelle und einen Speicher. Die Namen zeigen auf eine Stelle im Speicher.
+
+Ich kann die Variable woanders im Speicher zeigen lassen. Oder den Speicher wo diese hinzeigt, ändern.
+
+Temporäre Variablen existieren nur in ihrem Scope.
+
+\subsection{Special Form: cond}
+
+Nach cond kommt eine Liste an Klauseln. Jede Klausel hat einen Test (= x 10) und mehrere Ausdrücke.
+
+\end{document}

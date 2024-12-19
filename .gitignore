@@ -5,6 +5,9 @@
 *.fls
 *.out
 *.toc
+*.bak
+
+# ignore Files which latex creates when compiling
 *.synctex.gz
 *.pdf
 

@@ -1,0 +1,11 @@
+(define (scalar-mult lst fak)
+(if (null? lst)
+    '()
+    (cons (* (car lst) fak)
+          (scalar-mult (cdr lst) fak))
+    )
+  )
+
+(display (scalar-mult '(1 2 3) 5))
+(display (scalar-mult '(7 11 15) 0.5))
+(display (scalar-mult '() 42))
