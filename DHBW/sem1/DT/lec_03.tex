@@ -1,0 +1,79 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kodierungen}
+
+Haben Verschiedene Maße um eine Kodierung zu bewerten. Hier wiederhole ich nochmal die Redundanz.
+
+\subsection{Redundanz}
+
+Anteil einer Nachricht (die der Einheit Bit), die keine Informationen enthält; lässt sich abschätzen durch $R=\log{N/M}$
+
+N: mögliche Anzahl der mit $n$ Bit kodierbaren Zeichen.
+
+M: tatsächliche Anzahl der im Code verwendeten Zeichen.
+
+\subsection{BCD-Code}
+
+Teilt jede dezimalziffer in eine Tetrade. Diese haben 4 Bit und gehen ganz klassisch dann von $0_{10}=0000_2$ und $9_{10}=1001_2$.
+
+Redundanz: $R=\log_2(\frac{16}{10}=\log_{2}16-\log_{2}10)=4-3,32=0,678$
+
+\subsubsection{Logarithmik}
+
+Beliebige Logarithmen zu einem anderen Basis umformen.
+
+\begin{equation}
+    \log_{b}x=\frac{\ln x}{\ln b}=\frac{\log_{10}x}{\log_{10}b}
+\end{equation}
+
+\subsection{Aiken-Code}
+
+Hat auch je Dezimalziffer eine Tetrade. Hier ist die Wertigkeit der Bits aber anders.
+
+\begin{equation}
+    \begin{array}{c|cccc}
+        \text{Wert} & 2 & 4 & 2 & 1 \\
+        \hline
+        0           & 0 & 0 & 0 & 0 \\
+        1           & 0 & 0 & 0 & 1 \\
+        2           & 0 & 0 & 1 & 0 \\
+        3           & 0 & 0 & 1 & 1 \\
+        4           & 0 & 1 & 0 & 0 \\
+        5           & 1 & 0 & 1 & 1 \\
+        6           & 1 & 1 & 0 & 0 \\
+        7           & 1 & 1 & 0 & 1 \\
+        8           & 1 & 1 & 1 & 0 \\
+        9           & 1 & 1 & 1 & 1 \\
+    \end{array}
+\end{equation}
+
+\subsection{Gray-Code}
+
+Die Distanz der benachbarten Codewörtern ist gleich 1 und ist somit Stetig.
+
+Um den nächst größeren Gray-Code zu erstellen, Spiegel ich die bisherigen Bits und habe das Original mit einer 0 vorne und die neue Ruflektion mit einer 1 vorne.
+
+Somit: $G_1=0,1$, dann $G_2=?0, ?1 \mid ?1, ?0$. Nun die neuen Stellen füllen ergibt: $G_2=00,01\mid 11,10$.
+
+\subsection{Fehlererkennende Codes}
+
+Wir ergänzen den Dual-Code um ein weiteres Bit, welche angibt, ob eine ungerade Anzahl an Bits 1 ist. Diese Bit heißt Paritätsbit.
+
+Hier ist die Hamming-Distanz (Die minimale Distanz zwischen Beliebigen Werten) $H=2$.
+
+Die Redundanz ist: $\log_{2}\frac{32}{16}=1$
+
+\subsection{Hamming(7,4)-Code}
+
+Ist ein häufig verwendeter fehlerkorrigierender Code.
+
+\end{document}

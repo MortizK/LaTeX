@@ -1,0 +1,102 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Funktionales Programmieren in Scheme}
+
+Aktueller Stand ist $R^7RS$ seid 2013. Wir benutzen $R^5RS$.
+
+\subsection{Eigenschaften von LISP}
+
+auch List Processing genannt. Diese sind FUnktional, Interaktiv (read-eval-print), einen einfachen, konsistenten Syntax (s-expressions) und dynamisch getypt sein.
+
+\subsection{Eigenschaften von Scheme}
+
+Ist Minimalistisch und hat Iteration ((fast) nur) durch Rekursion.
+
+\subsection{Syntax}
+
+Scheme besteht aus symbolischen Ausdrücken (s-expressions)
+
+\subsubsection{s-expressions}
+
+Atome (Zahlen, Strings, Identifier,\dots)
+
+Wenn $E-1,e_2,\dots,3_n$ s-expressions sind, dann ist es eine Liste an s-expressions.
+
+\subsubsection{Beispiele}
+
+"a" String
+
++ (ein Identifier mit vordefinierter Bedeutung)
+
+if (ein Identifier mit vordefinierter Bedeutung)
+
+fak (ein Identifier ohne vordefinierter Bedeutung)
+
+(+ 1 2) (ein Ausdruck in Prefix-Notation)
+
+Prefix-Notation kann verschachtelt werden.
+
+(define (fak x) (if (= x 0) 1 (* x (fak (- x 1)))))
+
+\subsection{Dr Racket}
+
+Unsere IDE für Scheme.
+
+Wir können keinen Overflow erzeugen. Hat einen BigNum Typ.
+
+Von 32 Bit werden die letzten 2 für eine Art der Speicherung genutzt und hier gibt es eine if else, welche die Daten in einen "unbegrenzte" Struktur umleitet. Somit können die häufig genutzten Daten schnell genutzt werden und alles was größer ist, kann auch dargestellt werden.
+
+\subsection{Semantik}
+
+Auswerten von Atomen funktioniert einwandfrei. Die Konstanten haben ihren Wert und Identifier haben einen Wert, wenn dieser Definiert wurde.
+
+Auswertung von (normalen) Listen passiert in biliebiger Reihenfolge aller Listenelemente. Danach wird das erste ELement als Funktion mit den Werten der anderen als Argument aufgerufen.
+
+\subsubsection{Besonderheiten}
+
+(if (= x 0) 1 (/ 10 x)) ist eine "special forms". Hier wird zuerst die Bedingung ausgewertet und nur den Notwendigen Rückgabewert.
+
+Zudem gibt es Abkürzungen wie bei (quote element) kann auch als 'element abgekürzt werden.
+
+\subsubsection{Define}
+
+(define a 12) ist eine Globale Variable
+
+(define (f args) exprs) ist eine Definition von einer Funktion
+
+\subsection{Datentypen}
+
+Jedes Objekt hat einen Klaren Typ.
+
+Namen können Objekte verschiedenen Typs referenzieren.
+
+Manche Funktion erwartet bestimmte Typen (z.B. erwartet + Zahlen)
+
+\subsubsection{Wichtige}
+
+Boolesche Werte \#t, f\#
+
+Zahlen $\mathbb{Z}, \mathbb{R}, \mathbb{I}$
+
+Strings
+
+Einzelne Zeichen (\#$\backslash$ a ist das einzelne a)
+
+Vektoren (arrays, Felder)
+
+Prozeduren (oder Funktionen sind Datentypen)
+
+Listen (eigentlich: cons-Paare)
+
+Symbole (z.B. hallo, +, vector->list)
+
+\end{document}

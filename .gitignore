@@ -1,0 +1,12 @@
+# ignore ALL files
+*.log
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.synctex.gz
+*.pdf
+
+# ignore ALL files in ANY directory
+temp/

@@ -1,0 +1,199 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Relation}
+
+Eine Relation ist eine Menge aus Tupeln, Welche eine Teilmenge von dem Kreuzprodukt zweier Menge ist.
+
+\subsection{Graphendarstellung}
+
+Grafik kann von der Folie entnommen werden.
+
+Alle Eigenschaften von einer Relation, können einfach von einem Menschen abgelesen werden.
+
+\subsection{Tabellendarstellung}
+
+Diese Art der Darstellung ist auch einfach im Rechner realisierbar. Ein Lookup von $xRy$ ist schnell.
+
+\begin{equation}
+    \begin{array}{c|cccc}
+          & 0 & 1 & 2 & 3 \\
+        \hline
+        0 & 1 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 1 & 0 \\
+        2 & 0 & 0 & 0 & 1 \\
+        3 & 0 & 1 & 0 & 1 \\
+    \end{array}
+\end{equation}
+
+Ein Nachteil ist, dass die Tabelle sehr groß wird, denn wächst $n^2$. Wir verschwenden also viel zu viel Speicher.
+
+\subsection{Inverse Relation}
+
+Sei $R$ eine Relation. Die Inverse Relation (zu $R$) ist $R^{-1}=\{(y,x)\mid(x,y)\in R\}$
+
+Für symmetrische Relation gilt $R^{-1}=R$.
+
+\subsection{Relationsprodukt}
+
+Seien $R_1,R_2$ zwei (binäre) Relationen. Das Relationsprodukt $R_2\circ R_1$ ist die Relation $\{(x,y)\mid\exists z: (x,z)\in R_1\text{ und }(z,y)\in R_12\}$.
+
+\subsection{Identitätsrelation}
+
+Sei $M$ eine Menge. Dann ist $id_M=\{(x,y)\mid x\in M\}$ (kurz: id) die Identitätsrelation über $M$.
+
+\subsection{Relationsalgebra}
+
+Sei H die Menge aller Menschen, die jemals gelebt haben.
+
+Sei $V\subseteq H\times H$ die Vater-Relation (also $V=\{(x,y)\mid y\text{ ist Vater von }x\}$)
+
+Sei analog $M\subseteq H\times H$ die Mutter-Relation.
+
+Dann können wir auch eine Großmutter-Relation $G$ wie folgt beschreiben: $G\subseteq M\circ(M\cup H)$
+
+\subsection{Potenzierung}
+
+\subsubsection{Übung}
+
+Sei $M=\{a,b,c,d\}$, $R=\{(a,b),(b,c),(c,d)\}$
+
+Für die Klausur, entweder die Nullen eintragen, oder die Großen Flächen an Nullen markieren.
+
+Die Pfeildarstellung kann helfen, da ein $R^2$ alle Pfaden enthält, die die Länge $2$ haben.
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|cccc}
+            R^{-1} & a & b & c & d \\
+            \hline
+            a      &   &   &   &   \\
+            b      & 1 &   &   &   \\
+            c      &   & 1 &   &   \\
+            d      &   &   & 1 &   \\
+        \end{array} &
+        \begin{array}{c|cccc}
+            R^0 & a & b & c & d \\
+            \hline
+            a   & 1 &   &   &   \\
+            b   &   & 1 &   &   \\
+            c   &   &   & 1 &   \\
+            d   &   &   &   & 1 \\
+        \end{array}    &
+        \begin{array}{c|cccc}
+            R^1 & a & b & c & d \\
+            \hline
+            a   &   & 1 &   &   \\
+            b   &   &   & 1 &   \\
+            c   &   &   &   & 1 \\
+            d   &   &   &   &   \\
+        \end{array}            \\
+                                  &   & \\
+        \begin{array}{c|cccc}
+            R^2 & a & b & c & d \\
+            \hline
+            a   &   &   & 1 &   \\
+            b   &   &   &   & 1 \\
+            c   &   &   &   &   \\
+            d   &   &   &   &   \\
+        \end{array}    &
+        \begin{array}{c|cccc}
+            R^3 & a & b & c & d \\
+            \hline
+            a   &   &   &   & 1 \\
+            b   &   &   &   &   \\
+            c   &   &   &   &   \\
+            d   &   &   &   &   \\
+        \end{array}    &
+        \begin{array}{c|cccc}
+            R^4 & a & b & c & d \\
+            \hline
+            a   &   &   &   &   \\
+            b   &   &   &   &   \\
+            c   &   &   &   &   \\
+            d   &   &   &   &   \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+Sei $S=\{(a,a),(b,b),(c,c)\}$. Wir gehen über das Rechten - $R$ - zu einem Element aus $S$, also $S\circ R$.
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|cccc}
+            S\circ S & a & b & c & d \\
+            \hline
+            a        & 1 &   &   &   \\
+            b        &   & 1 &   &   \\
+            c        &   &   & 1 &   \\
+            d        &   &   &   & 0 \\
+        \end{array} &
+        \begin{array}{c|cccc}
+            S\circ R & a & b & c & d \\
+            \hline
+            a        &   & 1 &   &   \\
+            b        &   &   & 1 &   \\
+            c        &   &   &   & 0 \\
+            d        &   &   &   &   \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+\subsection{Erweiterung: "Hüllenbildung"}
+
+Auf einer Neuen Folie, noch nachtragen
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|cccc}
+            \text{reflexiv } R\cup R^0 & a & b & c & d \\
+            \hline
+            a                          & 1 & 1 &   &   \\
+            b                          &   & 1 & 1 &   \\
+            c                          &   &   & 1 & 1 \\
+            d                          &   &   &   & 1 \\
+        \end{array} &
+        \begin{array}{c|cccc}
+            \text{symmetrisch } R\cup R^{-1} & a & b & c & d \\
+            \hline
+            a                                & 0 & 1 &   &   \\
+            b                                & 1 & 0 & 1 &   \\
+            c                                &   & 1 & 0 & 1 \\
+            d                                &   &   & 1 & 0 \\
+        \end{array}    \\
+        \begin{array}{c|cccc}
+            \text{transitiv } R^{+} & a & b & c & d \\
+            \hline
+            a                       &   & 1 & 1 & 1 \\
+            b                       &   &   & 1 & 1 \\
+            c                       &   &   &   & 1 \\
+            d                       &   &   &   &   \\
+        \end{array}    &
+        \begin{array}{c|cccc}
+            \text{reflexiv \& transitiv } R^{*} & a & b & c & d \\
+            \hline
+            a                                   & 1 & 1 & 1 & 1 \\
+            b                                   &   & 1 & 1 & 1 \\
+            c                                   &   &   & 1 & 1 \\
+            d                                   &   &   &   & 1 \\
+        \end{array} \\
+        \begin{array}{c|cccc}
+            \text{alles }(R\cup R^{-1})^{*} & a & b & c & d \\
+            \hline
+            a                               & 1 & 1 & 1 & 1 \\
+            b                               & 1 & 1 & 1 & 1 \\
+            c                               & 1 & 1 & 1 & 1 \\
+            d                               & 1 & 1 & 1 & 1 \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+\end{document}

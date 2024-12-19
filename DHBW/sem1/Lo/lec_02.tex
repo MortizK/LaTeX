@@ -1,0 +1,296 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Ziele}
+
+Mengenlehre
+
+\section{Definitionen}
+
+\subsection{Definition}
+
+Eine Definition ist einer genaue Beschreibung eines Objektes oder Konzepts.
+
+Können einfach oder Komplex sein. Sie müssen Präzise sein.
+
+Eine Definition versucht, ein "reales" Konzept formal zu beschreiben. Hier steckt oft die intuition fürs Verständnis hinter.
+
+Die Definition darf aber keine Intuition enthalten
+
+\subsection{Beweis}
+
+Ein Beweis ist ein Argument, das einen verständigen (Empfänger muss folgen können) und unvoreingenommen Empfänge von der unbestreitbaren Wahrheit einer Aussage überzeugt.
+
+Oft mindestens semi-formal.
+
+Aussage ist fast immer ein Konditional (d.h. eine bedingte Aussage)
+
+Wir benutzen Annahmen, wie z.B. was macht + oder was sind $\mathbb{N}$ Natürliche Zahlen.
+
+Wir brauchen eine 100\% Sicherheit, sonst hilft uns dieser Beweis nicht so viel.
+
+\section{Mengenlehre}
+
+\subsection{Definition (Menge)}
+
+Eine Menge ist eine Sammlung von Objekten, betrachtet als Einheit.
+
+Die Objekte heißen auch Elemente der Menge.
+
+Menge können auch Menge und Funktionen enthalten. Ein Objekt oder Element kann alles sein, auch Kurse an der DHBW \dots
+
+Es gibt eine universelle Trägermenge, wo alles drin ist, was drin sein kann. Um das Russelsche Paradox aus dem Weg zu gehen.
+
+\subsection{Notationen}
+
+\subsubsection{Explezite Aufzählung}
+
+\begin{equation}
+    \begin{split}
+        A={2, 3, 5, 7, 11, 13} \\
+        \mathbb{N}={0,1,2,3,\dots}
+    \end{split}
+\end{equation}
+
+\subsubsection{Beschreibung}
+
+\begin{equation}
+    A={x\mid x \text{ ist Primzahl und } x<13}
+\end{equation}
+
+\subsection{Mengenzugehörigkeit}
+
+\begin{equation}
+    2\in A
+\end{equation}
+
+\subsection{Eigenschaften}
+
+Mengen sind ungeordnet. Sie sind also KEINE Listen.
+
+Jedes Element kommt maximal einmal vor. Wenn wir also 1 aus ${1,1,1}$ entfernen ist diese Menge nun ${}$.
+
+\subsection{Teilmengen und Mengengleichheit}
+
+Wenn $M_1=M_2$, dann sind die Mengen Mengengleich.
+% Hier nochmal checken, ob diese dann dieselbe Menge sind oder ob diese nur den gleichen Inhalt haben
+
+Wenn es eine Teilmenge Prüfen wollen, können wir auch in beide Richtungen Prüfen, ob Sie jeweils eine Teilmenge der anderen sind.
+
+\subsection{Echte Teilmengen}
+
+Es gibt auch Obermengen
+
+\subsection{Wichtige Menge}
+
+Leere Menge $\{\}$ oder $\emptyset$. Sie ist auch eine Teilmenge von jeder Menge $\emptyset\subset M$.
+
+$\mathbb{N}=\{0,1,2,3,\dots\}$ Die natürlichen Zahlen
+
+$\mathbb{N}^+=\{1,2,3,\dots\}$ Die positiven natürlichen Zahlen
+
+$\mathbb{Z}=\{\dots ,-2, -1, 0,1,2,\dots\}$ Die ganzen Zahlen
+
+$\mathbb{Q}=\{\frac{p}{q}\mid p\in \mathbb{Z}, q\in\mathbb{N}^+\}$ Die rationalen Zahlen
+
+$\mathbb{R}$ Die reellen Zahlen
+
+\subsection{Mengenbeschreibung}
+
+Alle geraden Zahlen $=\left\{x\mid \frac{x}{2}\in\mathbb{Z}\right\}=\{2x\mid x\in\mathbb{Z}\}$
+
+Alle quadratzahlen $=\{x*x\mid x\in\mathbb{N}\}$
+
+Alle Primzahlen $=\{x\mid x\neq 1\land\forall_{2<y<x}\frac{x}{y}\notin\mathbb{N}\}=\{x\mid x\in\mathbb{N}, x>1, \text{für alle }y, z\in\mathbb{N}\text{ gilt: Wenn }y*z=x\text{, dann }y=1\text{ oder }z=1\}$
+
+\section{Mathematik: Die Grundlagenkrise}
+
+Bertrand Russell und Alfred North Whitehead haben einen Boden für die Mathematik gebaut, sodass wir z.B. $\mathbb{N}$ Natürliche Zahlen haben.
+
+\subsection{Grundlagen von $\mathbb{N}$}
+
+Sie entstehen alle aus der leeren Menge $\emptyset$.
+
+So ist $\emptyset$ entspricht $0$.
+
+So ist $\{\emptyset\}$ entspricht $1$.
+
+So ist $\{\{\emptyset\}\}$ entspricht $2$.
+
+\subsection{Addition in Termalgebra}
+
+Durch ein regelsystem
+
+\begin{equation}
+    \begin{split}
+        a(x,0)    & =x          \\
+        a(x, s(y) & =s(a(x,y)))
+    \end{split}
+\end{equation}
+
+Durch wiederholte Anwendung dieser Regeln, kann man Addieren.
+
+Hier wird die Addition von 1 und 2 ausgeführt und ergibt 3, durch Mechanik.
+
+\begin{equation}
+    a(s(0),s(s(0)))=s(s(s(0)))
+\end{equation}
+
+
+\subsection{Multiplikation in Termalgebra}
+
+Als Aufgabe
+
+\begin{equation}
+    \begin{split}
+        m(0,y)    & =0            \\
+        m(s(x),y) & =a(ma(x,y),x)
+    \end{split}
+\end{equation}
+
+Wird nicht als gesamt-ergebnis immer Null zurückgeben, da $m(0,y)$ als ganz kleine Schachtel in der Rekursion zurückgegeben wird.
+
+\subsection{Kommentare zur Zahlenkonstruktion}
+
+Die Rechnungen sind alle rein mechanisch. Und wir verwenden nur die einfachste Definition auf Basis des Mengenbegriffes, der leeren Menge $\emptyset$.
+
+Die Konstruktion der Natürlichen Zahlen ist induktiv.
+
+Im ersten Fall wird direkt eine Lösung zurückgegeben, der zweite ist rekursiv.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{rekursion_bsp}
+    \caption{Rekursion Beispiel - Füllfunktion von Paint}
+    \label{fig:rekursion_bsp}
+\end{figure}
+
+Die Füllfunktion geht Rekursiv vor. Überprüft, ist dieser Pixel schon gefüllt, wenn nicht: Füllen, sonst fertig. Danach Gehe die 4 Nachbarn ab.
+
+\section{Venn-Diagramme}
+
+Sind Kreise oder Menge, welche Schnittmenge haben. z.B. $\mathbb{N}$ und alle Primezahlen.
+
+\subsection{Mengenoperatoren}
+
+Vereinigung - beide, addition
+
+Schnittmenge - beide, zusammen
+
+Differenz
+
+Symmetrische Differenz - entweder Oder
+
+Kompliment - alles bis auf eine Menge
+
+\subsection{Aufgaben}
+
+Sei $T=\{1,2,\dots,12\},M_1=\{1,2,3,4,5,6,7,8\}, M_2=\{2,4,6,8,10,12\}$.
+
+Berechnen und visualisieren Sie diese.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{venn_diagramm}
+    \caption{Venn Diagramm}
+    \label{fig:venn_diagramm}
+\end{figure}
+
+\begin{equation}
+    \begin{split}
+        M_1\cup M_2           & =\{1,2,3,4,5,6,7,8,10,12\} \\
+        M_1\cap M_2           & =\{2,4,6,8\}               \\
+        M_1/ M_2              & =\{1,3,5,7\}               \\
+        M_1\bigtriangleup M_2 & =\{1,3,5,7,10,12\}         \\
+        \overline{M_1}        & =\{9,10,11,12\}            \\
+        \overline{M_2}        & =\{1,3,5,7,11\}
+    \end{split}
+\end{equation}
+
+\section{Hausaufgaben in Termalgebra}
+
+Die Multiplikation und Addition für Negative Zahlen mechanisch zu machen.
+
+Auf S.470 im Skript
+
+\subsection{Differenz}
+
+Meine Lösung gilt nur dann, wenn $x>y$ ist. na steht für negative addition. Mir sit nichts besseres eingefallen.
+
+\begin{equation}
+    \begin{split}
+        na(x,0)       & =0          \\
+        na(s(x),s(y)) & =s(na(x,y))
+    \end{split}
+\end{equation}
+
+Eine allgemeine Differenz könnte sonst auch so aussehen.
+
+\begin{equation}
+    \begin{split}
+        d(x,0)       & =0         \\
+        d(0,x)       & =0         \\
+        d(s(x),s(y)) & =s(d(x,y))
+    \end{split}
+\end{equation}
+
+\subsection{Negative Zahlen}
+
+Wir definieren einen neuen Operator $n()$, welche eine Zahl aus Leeren Menge beinhaltet. Hier fehlt dann noch die Definition $n(0)=0$, somit sind die Nullen $-0=0$ identisch.
+
+Mit dieser Regelungen können wir Addition auf Negative Zahlen erweitern und stellen damit auch eine Subtraktion dar. Mit $a(x,n(y))$.
+
+\subsubsection{Addition mit Negativen Zahlen}
+
+Die Reihenfolge ist hier wichtig, somit wird sich zuerst um negative Zahlen gekümmert.
+
+\begin{equation}
+    \begin{split}
+        n(0)            & =0         \\
+        a(x,0)          & =x         \\
+        a(0,y)          & =y         \\
+        a(n(x),n(y))    & =n(a(x,y)) \\
+        a(n(x),y)       & =a(y,n(x)) \\
+        a(s(x),n(s(y))) & =a(x,n(y)) \\
+        a(x,s(y))       & =s(a(x,y))
+    \end{split}
+\end{equation}
+
+\subsubsection{Multiplikation mit Negativen Zahlen}
+
+Die Reihenfolge ist hier auch wichtig, aus dem selbem Grund. Zudem ist die Variante, wenn $m(n(x),y)$, redundant, da diese von der Addition mit Negativen Zahlen gelöst werden kann ohne eine Zahl zu Produzieren die $n(n())$ eine doppelte Negierung hat.
+
+\begin{equation}
+    \begin{split}
+        m(x,0)       & =0           \\
+        m(n(x),n(y)) & =m(x,y)      \\
+        m(x,n(y))    & =n(m(x,y))   \\
+        m(x,s(y))    & =a(x,m(x,y))
+    \end{split}
+\end{equation}
+
+
+\subsection{Division}
+
+Das Ergebnis dieser Funktion is immer Aufgerundet. Das heißt eine division von $5/2=2$ und $2/2=1$.
+
+Eine Erweiterung auf negative Zahlen sieht ähnlich aus wie bei der Multiplikation. Hier müssen nur alle drei Möglichkeiten für Negative Zahlen ihre Bedingung bekommen.
+
+\begin{equation}
+    \begin{split}
+        d(x,0)       & =e                 \\
+        d(0,y)       & =0                 \\
+        s(d(n(x),y)) & =0                 \\
+        d(x,y)       & =s(d(a(x,n(y)),y))
+    \end{split}
+\end{equation}
+
+\end{document}

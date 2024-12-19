@@ -1,0 +1,296 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Klausur}
+
+5 Aufgaben in 2 Stunden
+
+\subsection{Taschenrechner}
+
+Einfacher Taschenrechner mit 2 Zeilendisplay
+
+\section{Einleitung}
+
+\subsection{Imaginäre Zahlen}
+
+\begin{equation}
+    \begin{split}
+        i^2 = -1     \\
+        (2+3i)(5+2i) \\
+        =10+15i+4i+6i^2
+    \end{split}
+\end{equation}
+
+\subsection{A4 Klausurzettel}
+
+Ich darf einen A4 Seite Handschriftliche Formelsammlung mitnehmen
+
+\subsection{Übungen}
+
+Am Mittwoch eine Stunde vor der Eigentlichen Vorlesung
+
+% Fett markiern fehlt
+Es gibt 5 Bonuspunkte zu vergeben, durch Vorrechnen. Zudem sauber versuchen Vorzustellen.
+
+\section{Rechenübungen}
+
+\subsection{Bruchrechnen}
+
+Grundregeln lernen -> Übungen sind auf Moodle
+
+\subsection{Potenzgesetze}
+
+\begin{equation}
+    \begin{split}
+        a^3*a^4         & = a*a*a*a*a*a*a                   \\
+        \frac{a^5}{a^2} & = \frac{a*a*a*a*a}{a*a} = a^(5-2) \\
+        \frac{a^2}{a^3} & = \frac{1}{a^3} =: a^-3
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        a^n * a^m       & = a^(n+m)        \\
+        \frac{a^n}{a^m} & =a^(n-m)         \\
+        a^-m            & =: \frac{1}{a^m} \\
+        a^0             & =: 1             \\
+        (a^n)^m         & =a^(n*m)
+    \end{split}
+\end{equation}
+
+Wenn =:, dann wird ein neues Element eingeführt
+
+\subsubsection{Rechnenstufe}
+
+$^n$ wird zu $*$ wird zu $+$
+
+$\sqrt[n]{}$ wird zu $:$ wird zu $-$
+
+\subsubsection{Potenzgesetze}
+
+\begin{equation}
+    \begin{split}
+        \sqrt{3}        & = a^x               \\
+        3^1             & = \sqrt{3}^2=3^(2x) \\
+        x               & = \frac{1}{2}       \\
+        \sqrt[3]{5}     & = 5^y               \\
+        y=\sqrt[3]{5}^3 & =(5^y)^3=5^(3y)     \\
+        y               & = \frac{1}{3}       \\
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    a^{\frac{3}{5}}=a^{\frac{1}{5}*3}=(a^\frac{1}{5})^3=\sqrt[5]{a}^3
+\end{equation}
+
+\begin{equation}
+    a^{-\frac{19}{17}}=\frac{1}{a^{\frac{19}{17}}}=\frac{1}{\sqrt[17]{a}^{19}}=\frac{1}{\sqrt[17]{a^{19}}}=\frac{1}{\sqrt[17]{a^{17}}*\sqrt[17]{a^2}}=\frac{1}{a*\sqrt[17]{a^2}}
+\end{equation}
+
+\section{Überblick}
+
+\subsection{Elementare Aussagenlogik}
+
+Bis wir Verstehen wie ein Beweis funktioniert
+Was sind Tautologien
+
+\subsubsection{Beweise}
+So sieht ein falscher Beweis aus
+\begin{equation}
+    \begin{split}
+        5 & =7 |*0 \\
+        0 & =0
+    \end{split}
+\end{equation}
+
+Man  sartet bei einer Wahrheit.
+Verknüpfungen von Wahrheiten bis hin zu einer Neuen Aussage
+
+\begin{figure}[ht]
+    \centering
+    \incfig{beweis-sumpf}
+    \caption{Beweis Sumpf}
+    \label{fig:Beweis}
+\end{figure}
+
+Niemand sagt einem, wo man startet, geschweige denn, welche Schritte richtig sind.
+
+Mann kann auch einen Gegenbeweis machen.
+
+\subsection{Mengen}
+
+Was ist 2?
+
+Lässt sich das beantworten?
+
+Der Barbier hat den Befehl bekommen, alle zu rasieren, die sich nicht selbts rasieren. Wer rasiert aber den Barbier? Wenn Dieser sich selbst rasiert, darf er sich nicht rasieren. Wenn er sich aber selbst rasiert, darf er sich nicht selbst rasieren.
+
+\begin{equation}
+    E: 2x_1-x_2+5x_3=7
+\end{equation}
+
+Eine Menge ist nicht diese Gleichung, sondern eine Menge an Punkten die diese Gleichung erfüllen.
+
+\begin{equation}
+    \begin{split}
+        E        & =\left\{\begin{bmatrix}
+                               x_1 \\
+                               x_2 \\
+                               x_3
+                           \end{bmatrix}\in R^3\mid2x_1-x_2+5x_3=7\right\} \\
+        g        & =\left\{p+tu\mid t\in R\right\}                         \\
+        F        & =\left\{\begin{bmatrix}
+                               x_1 \\
+                               x_2 \\
+                               x_3
+                           \end{bmatrix}\mid3x_1+2x_2-x_3=1\right\}        \\
+        E \cap F & = \left\{\begin{bmatrix}
+                                x_1 \\
+                                x_2 \\
+                                x_3
+                            \end{bmatrix}\mid\begin{matrix}
+                                                 2x_1-x_2+5x_3=7 \\
+                                                 3x_1+2x_2-x_3=1
+                                             \end{matrix}\right\}
+    \end{split}
+\end{equation}
+
+So wurde aus der Leeren Menge $\emptyset=\{\}$ die Natürlichen Zahlen $\mathbb{N}$
+
+\begin{equation}
+    \begin{split}
+        \{\emptyset\}           & =                                1 \\
+        \{\{\emptyset\}\}=\{1\} & =2                                 \\
+        \{0,1\}                 & =2
+    \end{split}
+\end{equation}
+
+Zählbarkeit und Mächtigkeit von Mengen
+
+Siehe Notizblock mit Vermerk LA 3.12
+
+\begin{equation}
+    \begin{split}
+        \mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q} & \subset\mathbb{R}\subset\mathbb{C} \\
+        \text{Zählbar}                               & \mid \text{nicht Zählbar}
+    \end{split}
+\end{equation}
+
+\subsection{RSA-Verfahren}
+\subsubsection{Zahlentheorie}
+\subsubsection{Rechnen Modulo}
+
+Kleinen Satz von FERMAT
+
+\begin{equation}
+    7^{10000}
+\end{equation}
+
+Was sind die ersten beiden Stellen?
+
+\subsection{Vektorräume: $R^2, R^3, R^n$}
+
+Kann ich im Skriptum nachlesen, was ein Vektor ist.
+
+\subsubsection{Länge, Norm $\|a\|$}
+
+\subsubsection{Winkel: Skalarprodukt}
+
+\subsubsection{Flächeninhalt: Kreuzprodukt}
+
+\subsubsection{Volumen: Spartprodukt}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{spartprodukt}
+    \caption{Spartprodukt}
+    \label{fig:spart}
+\end{figure}
+
+\section{Übungsaufgaben 1}
+\subsection{Schulwissen?}
+
+\begin{equation}
+    \begin{split}
+        \frac{20x+2}{6x+6}-1 & =\frac{6x-4}{2x+2} \quad \mid \text{erweiterung um }3      \\
+        \frac{20x+2}{6x+6}-1 & =\frac{18x-12}{6x+6} \quad \mid+1 \mid-\frac{18x-12}{6x+6} \\
+        \frac{2x+14}{6x+6}   & =1 \quad \mid*(6x+6)                                       \\
+        2x+14                & = 6x+6 \quad \mid-2x-6                                     \\
+        4x                   & =8 \quad \mid:4                                            \\
+        x                    & = 2
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        x                             & = \sqrt{x*\sqrt{x}-x}+\sqrt{x} \quad \mid-\sqrt{x} \\
+        x+\sqrt{x}                    & = \sqrt{x*\sqrt{x}-x} \quad \mid^2                 \\
+        x^2-2x\sqrt{x}+x              & = x*\sqrt{x}-x \quad \mid-x*\sqrt{x} \mid+x        \\
+        x^2-3x\sqrt{x}+2x             & = 0                                                \\
+        x*(x-3\sqrt{x}+2)             & =0                                                 \\
+        \text{Somit Ergibt sich } x_1 & = 0                                                \\
+        \text{Sei } x                 & = u^2                                              \\
+        u^2-3u+2                      & =0                                                 \\
+        u_{1,2}                       & = \frac{3\pm\sqrt{9-8}}{2} = \frac{3\pm1}{2}       \\
+        u_1 = 2                       & \implies x_2 = u_1^2 = 2^2 = 4                     \\
+        u_2 = 1                       & \implies x_3 = u_2^2 = 1^2 = 1
+    \end{split}
+\end{equation}
+
+In dieser Rechnung gibt es einen Fehler, da $1000^x$ nicht gleich $10^{x+2}$ ist, sondern $10^{3^x}$.
+
+Somit Ergibt sich $10^x*(10^x*10^x-2*10^x-3)$, Dies kann man umformen. Zu: $10^x(10^x-3)(10^x+1)$.
+
+Hier zeigt sich, dass $10^x$ und $10^x+1$ keine Lösung haben. Somit bleibt $10^x-3$, welches nach umformen die Lösung $\log{3}$ hat.
+
+\begin{equation}
+    \begin{split}
+        3*10^x & = 1000^x-2*100^2 \quad \mid-3*10^x \\
+        0      & = 10^{x+2}-2*10^{x+1}-3*10^x       \\
+        0      & = 10^x*(10^2-2*10^1-3)             \\
+        0      & = 10^x*77
+        \implies\text{Kann niemals }=0\text{ sein.}
+    \end{split}
+\end{equation}
+
+\subsection{Fingerübung}
+
+\begin{equation}
+    \begin{split}
+        3+\frac{1}{7+\frac{1}{15+\frac{1}{1+\frac{1}{292}}}} & = 3+\frac{1}{7+\frac{1}{15+\frac{292}{293}}}                                  \\
+                                                             & =3+\frac{1}{7+\frac{1}{\frac{4395+292}{293}}} =3+\frac{1}{7+\frac{293}{4687}} \\
+                                                             & =3+\frac{1}{\frac{32900-91+293}{4687}}=3+\frac{4687}{33102}                   \\
+                                                             & =\frac{99306+4687}{33102} = \frac{103993}{33103}
+    \end{split}
+\end{equation}
+
+Hier sind wieder Fehler drin. Der Einfachere Weg wäre mit den jeweiligen Wurzeln zu erweitern, um auf $\sqrt{6}$ zu kommen. Danach kann man durch cleveres Erweitern die Wurzeln vom Nenner entfernen und kommt zum Ergebnis.
+
+Das Untere Ergebnis ist falsch.
+
+\begin{equation}
+    \begin{split}
+        \frac{\sqrt{6}}{\frac{1}{\sqrt{2}}+\frac{2}{\sqrt{3}}} & = \frac{\sqrt{6}}{\frac{\sqrt{1}}{\sqrt{2}}+\frac{\sqrt{4}}{\sqrt{3}}}                                 \\
+                                                               & =\frac{\sqrt{6}}{\sqrt{\frac{1}{2}}+\sqrt{\frac{4}{3}}}                                                \\
+                                                               & =\sqrt{6*\frac{2}{1}}+\sqrt{6*\frac{3}{4}}                                                             \\
+                                                               & = \sqrt{12}+\sqrt{\frac{9}{2}}                                                                         \\
+                                                               & = \sqrt{4*3}+\sqrt{\frac{9}{2}}                                        = 2*\sqrt{3}+\frac{3}{\sqrt{2}}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        \frac{1}{\frac{1}{\sqrt[4]{5}-1}-\frac{1}{\sqrt[4]{5}+1}} = \frac{1}{\frac{\sqrt[4]{5}+1-(\sqrt[4]{5}-1)}{(\sqrt[4]{5}-1)*(\sqrt[4]{5}+1)}} = \frac{1}{\frac{2}{\sqrt{5}-1}} = \frac{\sqrt{5}-1}{2}
+    \end{split}
+\end{equation}
+
+\end{document}

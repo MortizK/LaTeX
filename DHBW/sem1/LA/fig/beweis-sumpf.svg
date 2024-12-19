@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="132.96489mm"
+   height="35.603973mm"
+   viewBox="0 0 132.96489 35.603973"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1">
+    <rect
+       x="81.772957"
+       y="137.52725"
+       width="37.169525"
+       height="33.452572"
+       id="rect5" />
+    <rect
+       x="507.36404"
+       y="165.40439"
+       width="42.744953"
+       height="29.73562"
+       id="rect4" />
+  </defs>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-20.060597,-24.486093)">
+    <circle
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="path1"
+       cx="26.307119"
+       cy="41.058773"
+       r="6.146523" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="path2"
+       cx="49.663906"
+       cy="48.18874"
+       rx="5.4089403"
+       ry="4.9172182" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="path3"
+       cx="83.10099"
+       cy="30.486755"
+       rx="6.8841062"
+       ry="5.9006624" />
+    <ellipse
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       id="path4"
+       cx="139.15729"
+       cy="47.205299"
+       rx="13.768212"
+       ry="12.784768" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text4"
+       style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect4)"><tspan
+         x="507.36328"
+         y="178.78517"
+         id="tspan1">A</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text5"
+       style="font-size:14.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5)"><tspan
+         x="81.773438"
+         y="150.90822"
+         id="tspan2">B</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       d="m 29.503311,35.158113 c 9.096854,-5.654802 18.931292,8.35927 18.931292,8.35927"
+       id="path5" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       d="M 54.826987,48.434603 C 78.429635,50.401489 82.609271,36.633277 82.609271,36.633277"
+       id="path6" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+       d="m 89.001654,31.224339 c 19.914736,-15.735101 40.812916,6.392383 40.812916,6.392383"
+       id="path7" />
+  </g>
+</svg>

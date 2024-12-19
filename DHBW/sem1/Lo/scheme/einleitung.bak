@@ -1,0 +1,14 @@
+(define (hello)
+  (display "Hello-World")
+  (newline)
+)
+
+(hello)
+
+(define (fak n)
+  (if (= n 0)
+      1
+      (* n (fak (- n 1)))))
+
+(fak 10)
+(fak 30)

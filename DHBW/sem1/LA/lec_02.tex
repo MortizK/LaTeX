@@ -1,0 +1,347 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+% Ergänzung zum Überblick vom 2.12
+\section{Überblick}
+
+\subsection{Matrixen, lineare Abbildungen}
+
+\subsection{Drehungen, Streckungen, Perspektive}
+
+\begin{equation}
+    D_{\alpha} =\begin{bmatrix}
+        \cos(\alpha)    & -\delta'(\alpha) \\
+        \delta'(\alpha) & \cos(\alpha)
+    \end{bmatrix}
+\end{equation}
+
+Die Drehung in einem System Lösen, wo wir es Lösen können und sonstige Vektoren, in dieses System Übertragen mit einer Transformationsmatrix.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{drehmatrix}
+    \caption{Drehmatrix}
+    \label{fig:Drehmatrix}
+\end{figure}
+
+\subsection{Selbstadjungierten Matrixen/ Lin. Abb.}
+
+- Eigenwerttheorie
+
+- Hauptachsentransformation - Quadtriken
+
+Quadtrik (Kegelschnitt) sind Ellipsen, Parabeln, Hyperbel
+
+\begin{figure}[ht]
+    \centering
+    \incfig{kegelschnitt}
+    \caption{Kegelschnitt}
+    \label{fig:Kegelschnitt}
+\end{figure}
+
+Diese Figuren finden sich im Sonnensystem wieder. Dort habe wir Planeten auf Ellipsen und Kometen, welche ohne Startgeschwindigkeit eine Parabel sind und mit Startgeschwindigkeiten Hyperbel um die Sonne machen.
+
+Hauptanwendung wird
+
+% Als wichtig markieren
+Wir werden viel Gauß-verfahren machen. Wir werden ein bindendes Gauß-Verfahren erarbeiten.
+
+\begin{equation}
+    \begin{split}
+        I   & \text{ ---- } \mid I + 2*II \\
+        II  & \text{ ---- }               \\
+        III & \text{ ---- }               \\
+        \hline
+        I   & \text{ ---- }               \\
+        II  & \text{ ---- }               \\
+        III & \text{ ---- }
+    \end{split}
+\end{equation}
+
+\section{Aussagenlogik}
+
+Von Neumann hat es hinbekommen, einen Satz zu entwickeln, welche Grundsätzlich nicht entscheidbar ist.
+
+Herr Hellmich hat die Mathematische Geschichte echt drauf.
+
+\begin{equation}
+    \begin{matrix}
+        \text{Aussage} \\
+        \hline
+        w              \\
+        \hline
+        f
+    \end{matrix}
+\end{equation}
+
+\begin{equation}
+    \begin{matrix}
+        A & \neg A \\
+        \hline
+        w & f      \\
+        f & w
+    \end{matrix}
+\end{equation}
+
+\begin{equation}
+    \begin{array}{c|c|c|c|c}
+          &   & \text{A und B} & \text{A oder B} & \text{A folgt B} \\
+        A & B & A \land B      & A\vee B         & A \implies B     \\
+        \hline
+        w & w & w              & w               & w                \\
+        w & f & f              & w               & f                \\
+        f & w & f              & w               & w                \\
+        f & f & f              & f               & w                \\
+    \end{array}
+\end{equation}
+
+% Gehört zur Spalte wenn A, falsch ist
+Aus Falschem kann man alles folgern.
+
+\begin{equation}
+    \begin{split}
+        \text{A: }2+2 & =5\mid *0 \\
+        \text{B: }0   & =0
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        (A\land B)\implies C \\
+        a\land(B\implies C)
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{array}{c|c|c|c|c}
+          &   &              &                       & \text{Tautologie}              \\
+        A & B & A \implies B & A\land (A \implies B) & A\land(A\implies B) \implies B \\
+        \hline
+        w & w & w            & w                     & w                              \\
+        w & f & f            & f                     & w                              \\
+        f & w & w            & f                     & w                              \\
+        f & f & w            & f                     & w                              \\
+    \end{array}
+\end{equation}
+
+Eine einfachere Tautologie ist der Satz vom Ausgeschlossenem dritten
+
+$A\land \neg A = w$
+
+\begin{equation}
+    \begin{split}
+        \begin{array}{c|c|c|c|c|c}
+              &   &          & \neg B\implies\neg A &             &                                 \\
+            A & B & A \iff B & A\implies B          & B\implies A & (A\implies B)\land(B\implies A) \\
+            \hline
+            w & w & w        & w                    & w           & w                               \\
+            w & f & f        & f                    & w           & f                               \\
+            f & w & f        & w                    & f           & f                               \\
+            f & f & w        & w                    & w           & w
+        \end{array} \\
+        \begin{array}{c}
+            (A \iff B) \iff ((\neg B\implies\neg A)\land(B\implies A)) \\
+            (A \iff B) \iff ((A\implies B)\land(B\implies A))          \\
+            \hline
+            w                                                          \\
+            w                                                          \\
+            w                                                          \\
+            w
+        \end{array}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{array}{c|c|c|c|c}
+        A & B & A\implies B & \neg B\implies\neg A & (A\implies B)\iff(\neg B\implies\neg A) \\
+        \hline
+        w & w & w           & w                    & w                                       \\
+        w & f & f           & f                    & w                                       \\
+        f & w & w           & w                    & w                                       \\
+        f & f & w           & w                    & w
+    \end{array}
+\end{equation}
+
+Wir müssen immer von etwas Wahrem $A$ starten. Niemals von einem Falschem $A$!
+
+\subsection{De Morgansche Regel}
+
+\begin{equation}
+    \begin{split}
+        \neg(A\land B)     & \iff \neg A \lor \neg B           \\
+        \neg(A\lor B)      & \iff \neg A \land \neg B          \\
+        (A \land B) \lor C & \iff (A \lor C) \land (B \lor C)  \\
+        (A \lor B) \land C & \iff (A \land C) \lor (B \land C)
+    \end{split}
+\end{equation}
+
+\subsubsection{Aufgaben}
+
+Habe ich an der Tafel gemacht. Die Bilder sind auf meinem Handy vom 05.12.2024.
+
+\subsubsection{Wanderer}
+
+Es gab auch die Aufgabe eines Wanderers. Dieser ist an einer Weggabelung und darf nur einem der beiden Wächter eine Frage stellen. Nur leider antwortet der eine immer die Wahrheit und der andere Lügt immer. Die beiden Wächter sind nicht zu unterscheiden.
+
+Welche Frage stellst du?
+
+Was würde der andere Antworteten, wenn ich Ihn Frage, wo ich zur Stadt A komme.
+
+Das Logische Konzept ist: Eine Frage zu Konstruieren, welche beide Gleich beantworten würde.
+
+Bei meiner Farge bekomme ich immer die Falsche Antwort. Somit laufe ich in die andere Richtig, die mir beantwortet wurde.
+
+\subsubsection{Holmes}
+
+Die Personen Robin, John und Mark kürze ich mit ihrem jeweiligem erstem Buchstaben ab.
+
+Aus dem Text lassen sich folgende Regeln herauslesen:
+
+\begin{equation}
+    \begin{array}{cccc}
+        A: & R\lor J                      & \implies & \overline{M} \\
+        B: & \overline{M}\lor\overline{J} & \implies & R            \\
+        C: & J                            & \implies & M
+    \end{array}
+\end{equation}
+
+Aus diesen Regeln, können wir eine Wahrheitstabelle mit allen Möglichen Schuld-situationen zu bauen.
+
+\begin{equation}
+    \begin{array}{ccc|c|c|c|c}
+        R & J & M & A & B & C & A\land B\land C \\
+        \hline
+        1 & 1 & 1 & 0 & 1 & 1 & 0               \\
+        1 & 1 & 0 & 1 & 1 & 0 & 0               \\
+        1 & 0 & 1 & 0 & 1 & 1 & 0               \\
+        1 & 0 & 0 & 1 & 1 & 1 & 1               \\
+        0 & 1 & 1 & 0 & 1 & 1 & 0               \\
+        0 & 1 & 0 & 1 & 0 & 0 & 0               \\
+        0 & 0 & 1 & 1 & 0 & 1 & 0               \\
+        0 & 0 & 0 & 1 & 0 & 1 & 0
+    \end{array}
+\end{equation}
+
+Aus der Tabelle können wir entnehmen, dass alle Regeln nur Zustimmen, wenn nur Robin der Täter ist. Somit kommt Holmes zum Schluss, dass Robin der Täter sein muss.
+
+Case Closed.
+
+\subsubsection{Fingerübung}
+
+Erster eigener Versuch ist halb korrekt.
+
+Es gibt nur eine positive Wurzel aus der Zahl $a>0$.
+
+\begin{equation}
+    \forall_{a\in\mathbb{I}^{+}}\nexists_{x, y\in\mathbb{I}^{+}} a=x^2=y^2\land x\neq y\land x>0\land y>0
+\end{equation}
+
+Wir haben gezeigt, dass aus $x^2=y^2$ durch umstellen $(x-y)(x+y)=0$ wird.
+
+Hier ergibt sich schon der erste wiederspruch, da $x\neq y$ sein darf.
+
+Damit der zweite Fall stimmt, wird entweder $x$ oder $y$ negiert, welche unsere anderen Bedingungen widerspricht.
+
+Somit gibt es keine Lösungen und die Ursprüngliche Aussage ist somit wahr.
+
+\subsubsection{Fingerübung korrekt \& einfach}
+
+Vor: Für $a>0$ gibt es genau ein $x>0$: $x^2=a$
+
+Widerspruch: Annahme
+
+\begin{equation}
+    \exists_{y>0}y^2=a \land \exists_{
+        \begin{array}{c}
+            x>0 \\
+            x\neq y
+        \end{array}x^2=a
+    }
+\end{equation}
+
+Also $x^2=a=y^2$, d.h. $0=x^2+y^2=(x+y)(x-y)$
+
+d.h. $x+y=$ oder $x-y=0$
+
+\begin{equation}
+    \begin{split}
+        I  & \text{unmöglich, da Summer positiver Zahlen }\neq 0                         \\
+        II & \text{würde  }x=y \text{ bedeuten, im Widerspruch zu unserer Voraussetzung} \\
+    \end{split}
+\end{equation}
+
+D.h. unsere Annahme war falsch
+
+\subsubsection{Gelernt aus Fingerübung}
+
+Vieles in Worten und Sätzen aufschreiben.
+
+Zum Beispiel: Die Aussage in Worten formulieren, statt eine Komplizierten Aussageform.
+
+\subsection{Diskurs Mengen}
+
+\begin{equation}
+    \begin{split}
+        A=\left\{x \in X \mid A(x)\right\} \\
+        A(x): x \text{ ist Primzahl}       \\
+        B=\left\{x \in X \mid B(x)\right\} \\
+        A \cap B = \left\{x \in X \mid A(x) \land A(x)\right\}
+    \end{split}
+\end{equation}
+
+\subsection{Aussageformen}
+
+Für jedes x einer Menge X sei A(x) eine Aussage.
+
+Dann heißt A Aussageform auf der Menge X.
+
+Quantoren um Aussagen über  A (also die gesamte Aussageform) treffen zu können:
+
+Existenzquantor: $\exists x\in X^{A(x)}$* es gibt (wenigstens) eine Wahre Aussage A(x) in  der Aussageform (die neue Aussage kann auch falsch sein)
+
+% sollte ein Großes Or sein
+*) Verallgemeinerung: deshalb das "oder" $\lor_{ x \in X}A(x)$
+
+Allquantor: $\forall x\in X^{A(x)}$**
+
+**) Verallgemeinerung:deshalb das "und" $\land_{ x \in X}A(x)$
+
+\subsubsection{deMorgan Verallg:}
+
+Negierungen von Aussagen, können auf ihre Funktion umgeleitet werden.
+Hierbei wird auch der Quantor geändert.
+Von $\exists$ zu $\forall$ und umgekehrt.
+
+\begin{equation}
+    \begin{split}
+        \neg(\exists x\in X^{A(x)}) \iff \forall x\in X^{\neg A(x)} \\
+        \neg(\forall\in X^{A(x)}) \iff \exists x\in X^{\neg A(x)}   \\
+        \exists_{ 3>0}\forall_{ n \in \mathbb{N}} \exists_{ m >= n} |a_n-n| >= 3
+    \end{split}
+\end{equation}
+
+Wenn diese Quantoren verschachtelt sind, kann man der Verschachtlung einer Funktion zuordnen.
+Hier $B(x)=\forall y\in x^{A(x, y)}$.
+Diese Negierung kennen wir schon von vorhin.
+Somit können wir den Inhalt der Funktion negieren.
+
+\begin{equation}
+    \begin{split}
+         & \neg(\exists x\in X \forall y\in x^{A(x, y)})   \\
+         & = \neg(\exists x\in X^{B(x)})                   \\
+         & = \forall x\in X^{\neg(B(x))}                   \\
+         & = \forall x\in X \neg(\forall y\in x^{A(x, y)}) \\
+         & = \forall x\in X \exists y\in x^{\neg(A(x, y))}
+    \end{split}
+\end{equation}
+
+\end{document}

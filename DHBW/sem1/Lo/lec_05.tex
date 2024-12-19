@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Funktionen}
+
+Seien M, N Mengen. Eine (totale) Funktion $f:M\to N$ ist eine Relation $f\subseteq(M\times N)$ , die linkstotal und rechtseindeutig ist.
+
+Eine partielle Funktion $f: M\to N$ ist eine Relation $f\subseteq(M\times N)$, die rechtseindeutig ist.
+
+Eine Funktion, auch Abbildung, ordnet (jedem) Element aus $M$ höchstens ein Element aus $N$ zu.
+
+\subsection{Begriffe}
+
+$M$ heißt Definitionsmenge von $f$.
+
+$N$ heißt Zielmenge von $f$.
+
+\subsection{Bild, Urbild einer Menge}
+
+Sei $M, N$ Mengen und $f : M \to N$ eine Funktion. Sei $M_0 \subseteq M$ und $N_ \subseteq N$
+
+$f(M_0) = {y\in \mathbb{N}\mid\exists_{x\in M_0} : f (x) = y }$ ist das Bild von $M_0$ unter $f$.
+
+$\{x\in M\mid \exists_{y\in N_0}:f(x)=y\}$ ist das Urbild von $N_0$ unter $f$.
+
+\subsection{Eigenschaften}
+
+Sei $f:M\to N$ eine totale Funktion.
+
+$f$ heißt surjektiv, wenn $\forall_{y\in N}\exists_{x\in M}:f(x)=y$.
+
+$f$ heißt injektiv, wenn $\forall_{x,z\in M}:f(x)=y \text{ und } f(z)=y\to x=z$
+
+$f$ heißt bijektiv (oder "1-zu-1"), wenn $f$ inketiv und surjektiv ist.
+
+\subsection{Beispielfunktion}
+
+\begin{equation}
+    f_1:\mathbb{Z}\to \mathbb{N},x\to|x|
+\end{equation}
+
+$\mathbb{Z}$ sind alle positiven und negativen ganze Zahlen und $\mathbb{N}$ sind alle positiven ganzen Zahlen.
+
+Das heißt die Definitionsmenge ist $\mathbb{Z}$ und die Zielmenge ist $\mathbb{N}$. Angewendet auf die Funktion nach dem Komma ergibt sich: $\mathbb{Z}\to |\mathbb{Z}|$.
+
+\subsubsection{Surjektiv}
+
+Diese Funktion ist Surjektiv, weil jedem Wert aus der Zielmenge $\mathbb{N}$ mindestens einem Erzeugerwert aus der Definitionsmenge $\mathbb{Z}$ zugeordnet werden kann.
+
+\subsubsection{Injektiv}
+
+Ist nicht Injektiv, da es mehrere Erzeugerwerte aus der Definitionsmenge $\mathbb{Z}$ gibt, für einen Wert aus der Zielmenge $\mathbb{N}$.
+
+Beispiel: $f(2)=2$ und $f(-2)=2$.
+
+\subsubsection{Bijektiv}
+
+Diese Funktion ist nicht Bijektiv, da sie nicht Surjektiv und Injektiv ist.
+
+\section{Mengen}
+
+\subsection{Kardinalität}
+
+Die Mächtigkeit oder Kardinalität $|M|$ einer MEnge $M$ ist ein Maß für die Anzahl der Elemente in $M$.
+
+Zwei Mengen $M, N$ sind gleichmächtig, wenn eine bijektive Abbildung $f:M\to N$ existiert.
+
+Eine unendliche Menge $M$ heißt abzählbar, wenn Sie die selbe Kardinalität wie $\mathbb{N}$ hat.
+
+\end{document}

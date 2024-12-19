@@ -1,0 +1,158 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Termalgebra Ergänzung}
+
+\subsection{Definitionen}
+
+Ergänzung auf Negative Zahlen. $p(x)$ ist der vorgänger von $x$ und $n(x)$ ist die negative Zahl von $x$
+
+\begin{equation}
+    \begin{split}
+        p(x)       & :=x-1 \\
+        p(0)       & =-1   \\
+        p(p(0))    & =-2   \\
+        p(p(p(0))) & =-3   \\
+        n(0)       & =0    \\
+        n(x)       & :=-x  \\
+        n(n(x))    & =x
+    \end{split}
+\end{equation}
+
+\subsection{Regeln}
+
+Ergänzende Regeln um die Terme zu kürzen.
+
+\begin{equation}
+    \begin{split}
+        s(p(x)) & =x       \\
+        p(s(x)) & =x       \\
+        n(s(x)) & =p(n(x)) \\
+        n(p(x)) & =s(n(x))
+    \end{split}
+\end{equation}
+
+\subsection{Subtraktion}
+
+\begin{equation}
+    \begin{split}
+        a(x,p(x))=p(a(x,y)) \\
+    \end{split}
+\end{equation}
+
+\subsection{Division}
+
+Ist eine unvollständige Funktion, da nicht durch 0 dividiert werden kann.
+
+\section{Übung Mengenoperatoren}
+
+$T=\mathbb{N}, M_1=\{3i\mid i\in \mathbb{N}\}, M_2=\{2i+1\mid i\in \mathbb{N}\}$
+
+Eine Darstellung auf einem Zahlenstrahl hilft hierbei. Es zeigt sich ein Muster, welches sich alle 6 Werte wiederholt.
+
+Ich kann auch die jeweiligen Mengen, kann auch umgangssprachlich formuliert werden, um die Einfachheit zu erkennen.
+
+\begin{equation}
+    \begin{split}
+        M_1\cup M_2                 & =\{6i+j\mid i\in \mathbb{N}, j\in\{0,1,3,5\}\} \\
+        M_1\cap M_2                 & =\{6i+3\mid i\in \mathbb{N}\}                  \\
+        M_1\backslash M_2           & =\{6i\mid i\in \mathbb{N}\}                    \\
+        M_1\backslash\overline{M_2} & =M_1\cap M_2=\{3(2i+1)\mid i\in \mathbb{N}\}   \\
+        M_1\bigtriangleup M_2       & =\{6i+j\mid i\in \mathbb{N}, j\in \{0,1,5\}\}  \\
+    \end{split}
+\end{equation}
+
+\section{Kartesische Produkt}
+
+\begin{equation}
+    \begin{split}
+        M_1\times M_2=\{(x,y)\mid x\in M_1, y\in M_2\} \\
+        M_1\times M_2\dots\times M_n={(x_1,x_2\dots,x_n)\mid x_i\in M_i}
+    \end{split}
+\end{equation}
+
+\subsection{Tuple}
+
+In einem Tuple ist die Reihenfolge wichtig.
+
+\subsection{n-Tuple über einer Menge}
+
+Sei $M$ eine beliebe Menge. Dann ist $M^n=M\times\dots\times M$, die Multiplikation wird n-mal wiederholt. Es wird auch n-Tuple über M.
+
+Spezialfall: $n=1: M^1=\{(x)\mid x\in M\}$ wird oft auch $M$ genannt, obwohl diese verschieden sind, da: $\{0\}$ und $\{(0)\}$ unterschiedlich sind.
+
+Spezialfall: $n=0: M^0=\{()\}$. Diese enthält das leere Tuple.
+
+\subsection{Potenzmenge}
+
+\begin{equation}
+    \begin{split}
+        M_1=\{1,2\}                              \\
+        2^{M_1}=\{\emptyset,\{1\},\{2\}\{1,2\}\} \\
+    \end{split}
+\end{equation}
+
+\section{Mengenalgebra}
+
+Algebraische Strukturen $(\mathbb{Z},+)$ ist eine Gruppe. Es gibt eine neutrales Element und eine Inverses Element.
+
+$(\mathbb{Z},+,*)$ ist ein Ring. Hier gibt es auch ein Neutrales Element, aber kein Inverses Element.
+
+$(\{0,s(0),s(s(0)),\dots,\},a,m)$ ist eine Termalgebra.
+
+\subsection{Algebraische Regeln}
+
+Es gelten: Kommutativgesetze, Neutrale Elemente, Absorption, Assoziativgesetz, Distributivgesetz, Komplementäre Elemente, Idempotenz, Gesetze von De-Morgan, Doppelte Komplementbildung.
+
+Das Distributivgesetz wurde an der Tafel Grafisch dargestellt, warum das funktioniert.
+
+\section{Relation}
+
+Seien $M_1,M_2,\dots M_n$ Mengen. Eine (n-stellige) Relation $R$ über $M_1,M_2,\dots M_n$ ist eine Teilmenge des kartesischen Produktes der Mengen, also $R\subseteq M_1\times M_2\times\dots\times M_n$ (oder äquivalent $R\in M^{M_1\times M_2\times\dots\times M_n}$)
+
+\subsection{Homogene Relation}
+
+$R$ heißt homogen, falls $M_i=M_j$ für alle $i,j\in\{1,\dots,n\}$
+
+\subsection{Binäre Relation}
+
+$R$ heißt binär, falls $n=2$
+
+Beide Arten können auch kombiniert werden
+
+\subsection{Beispiele}
+
+$=$ über $\mathbb{N}$ ist also $\{(0,0),(1,1),(2,2),\dots\}$
+
+Und weitere auf der Folie.
+
+\subsection{Eigenschaften}
+
+Linkstotal und Rechtseindeutig
+
+Linkstotal heißt: Jedes erste Element hat mindestens eine Relation.
+
+Rechtseindeutig: Jedes erste Element hat genau eins oder keine Relation.
+
+\subsubsection{Äquivalenzrelation}
+
+Reflexiv, symmetrisch, transitiv, Äquivalenzrelation heißt alle drei
+
+Zug fahren ist meistens eine Äquivalenzrelation. Du kannst bleibe wo du bist, du kannst über drei Ecken einen Ort erreichen und meist auch wieder zurück.
+
+\subsubsection{Übung}
+
+
+Alle Äquivalenzrelation sind Rechtseindeutig - Nein, da wir ein $a=\{a,b\}$ und aus dieser eine Relation $R=\{(a,a),(b,b),(a,b),(b,a)\}$ bilden können. Somit haben wir ein Gegenbeispiel gefunden.
+
+Alle Äquivalenzrelation sind Linkstotal - Ja, denn alle Äquivalenzrelation sind Reflexiv und somit ist jedem a ein a zugeordnet: $\{(a,a)\}$.
+
+\end{document}

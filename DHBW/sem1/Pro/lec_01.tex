@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Programmieren in C}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Organisatorisch}
+
+\subsection{Materialien}
+
+Onlinequellen wie: \url{de.cppreference.com} und \url{stackoverflow.com}
+
+Clean Code: A Handbock of Agile Software Craftmanship - Robert C. Martin.
+
+The Programming Language C - Kerninghan and Rithcie
+
+\subsection{Hinweis}
+
+Verzichten auf Stackoverflow, GitHub Copilot und ChatGPT für die Übungen. Um die Prinzipien zu Lernen, später im Job kann ich diese dann effektiv einsetzen.
+
+\subsection{GitHub Classroom}
+
+Wir bekommen Aufgaben über GitHub Classroom.
+
+\subsection{Prüfungsleistung}
+
+Die GitHub Aufgaben sind teil der Punkte bei der Prüfungsleistung. Hierdurch können bis zu 10\% Punkte erreichen.
+
+Wir können auch Programme vorstellen und können 5\% zusätzlich erreichen.
+
+Programmieraufgabe für 85\% in 85min vor Ort.
+
+Termin ist auf Anfang bis Mitte Februar angelegt.
+
+\section{Introduction of C}
+
+\subsection{Algorithmus und Programme}
+
+Was ist ein Algorithmus? Eine Abfolge von Befehlen, Eine Blackbox mit Inputs und Outputs. Ein Beschreibung eines Algorithmus heißt Programm und für ein Algorithmus brauchen wir eine formale Sprache.
+
+Ein Algorithmus ist eine Beschreibung von Aufgaben, welche aus Inputs einen Output berechnen.
+
+\subsubsection{Eigenschaften}
+
+Specification (Ein und Ausgabe müssen Konkret sein)
+
+Feasibility (Das Program muss endlich lang sein, Effizient)
+
+Correctness (Alles muss Richtige Ergebnisse liefern und muss Terminieren)
+
+\subsubsection{Pseudocodes und FLowcharts}
+
+Um effiziente Lösungsansätze zu generieren.
+
+Eine Art ist als Flussdiagramm für die Verschiedenen Level eines Projektes/ Algorithmus.
+
+Definition: \url{https://www.edrawsoft.com/de/flowchart-definition.html}
+
+Ich kann auch PapDesigner oder Structurizer benutzen.
+
+Im Grundkonzept gibt es auch noch Process description und UML (Unified Modelling Language)
+
+\subsection{Programming Tools}
+
+\subsubsection{VSCode}
+
+Unsere IDE
+
+\subsubsection{Gnu Compiler Collection}
+
+ist unsere Compiler für C. Kurz auch $gcc$.
+
+\subsubsection{Compilation Process}
+
+Wir haben verschiedenen C Dateien mit einer main.c.
+
+Jede ?.c Datei hat eine ?.h (Header Datei) um auf sich selbst zu verweisen, damit Funktion sich gegenseitig aufrufen können.
+
+Pre-Processor: Der Pre-Processor \#include die header Datei. Dieser macht eine Textersetzung. Alles mit \# ist ein Pre-Processor Schritt.
+
+Der Compiler nimmt sich jeder ?.c Datei und macht ein ?.o Objekt Datei draus
+
+Der Linker löst platzhalter, welche der Compiler frei lässt, da dort Funktionen aus anderen ?.c Dateien aufgerufen werden, und fügt diese ein. Somit wird eine Ausführbare Datei erstellt.
+
+\subsubsection{\#Inlcude}
+
+Es gibt zwei unterschiedlicher Arten: \#include "blah.h" sind eigene Dateien wie zusätzliche blah.c Dateien. Oder \#include <stdio.h> für externe Libraries.
+
+\subsubsection{ASCII}
+
+Ist ein wichtiger Standard, welcher zahlen (Bytes) in unsere Zeichen und Symbole repräsentiert.
+
+\subsection{Variablen und Konstanten}
+
+Charakteristiken: name, data type, value, address
+
+derived data types: struct, union, pointer, arrays
+
+numeric data types: char, short, int, float, double
+
+\subsubsection{Magic Numbers}
+
+Diese sollten vermieden werden, und wo möglich konstanten verwendet werden. Hier ist die Namensgebung wichtig um zu sehen, was diese Konstante macht und dass es eine Konstante ist.
+
+\subsubsection{Konstanten}
+
+entweder mit \#define name value. Hier ist der Datentyp nicht sicher.
+
+es gibt auch const data\_type name = value;
+
+als UPPER\_SNAKE\_CASE
+
+\subsubsection{Variablen}
+
+als camelCase: Beispiele: aValue, radiusCircle
+
+\subsection{Ciding Conventions}
+
+\subsubsection{UPER\_SNAKE\_CASE}
+
+MAX\_BUFFER\_SIZE, PI\_value
+
+\subsubsection{camelCase}
+
+für lokale Variablen und Funktionen
+
+\subsubsection{PascalCase}
+
+für die derived data wie struct und union
+
+\subsection{GitHub}
+
+Ist ein Versions-Kontroll Tool. Für den Workflow
+
+\url{https://github.com/MortizK}
+
+\end{document}

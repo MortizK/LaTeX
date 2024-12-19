@@ -1,0 +1,152 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kapitel 1 | Einführung}
+
+Heißt auch Technische Informatik I im Modulhandbuch
+
+\subsection{Lernziele}
+
+Grundlagen
+Zahlendarstellung
+Booleschen Algebra Anwendung
+Systematischen Entwurd von Schaltnezten
+Typische Flip Flop Arten, aka Schaltwerke (Zähler/ Frequenzteiler)
+
+\subsection{Bücher}
+
+auf dem Skript
+
+Digitaltechnik (Elektronik 4) Klaus BEuth, Olaf BEuth
+
+Digitaltechnik: Lehr und Übungsbuch, Klaus Fricke für Elektrotechnik und Informatiker - gibt es in der online Bibi
+
+Digitaltechnik: Grundlagen, VHDL, FPGAs, Mikrocontroller, Winfried
+Gehrke - gibt es in der online Bibi.
+
+\subsection{Aufgabe}
+
+Gibt es jede Woche. Wird teilweise in der Vorlesung besprochen.
+
+\subsection{Moodle}
+
+Vorlesungsfolien sind als pdf auf moodle.
+
+Die Aufgaben sind auch dort.
+
+\subsection{Klausur}
+
+90min entsprechen 90 Punkte.
+
+Man braucht 45P um zu bestehen.
+
+Schwerpunkt wird die Realisierung von Schaltwerken.
+
+\section{Mitstudierende}
+
+Viele sind bei Mercedes, Teilweise INformatik Firmem und Polizei.
+
+Zudem habe einige eine Hintergrund mit der
+
+\section{Einführung}
+
+\subsection{Lernziele}
+
+Vor und Nachteile analog vs. Digitaltechnik
+Kodierungen in positiv, negativ.
+
+\subsection{Motivation}
+
+unterste Schicht der Rechnerachritektur
+
+Digitale Logik (GAtter)
+
+Mikroachritektur (ALU)
+
+Instruktionssatz (Schnittstelle Hard- Software)
+
+System (Busse, CPU und Chips)
+
+\subsection{Historisches}
+
+Bei bedarf aus dem Skript entnehmen
+
+\subsection{Analog- und Digitaltechnik}
+
+Analgotechnik hat kontinuierliche Signale (Kurven)
+
+Digitale Signale sind diskrete (Stufenweise), sie haben nur k Zustände
+
+Bei $k=2$ spricht man von binären Signalen
+
+\subsection{Spannungen}
+
+\begin{equation}
+    \begin{split}
+        U<0.8V \implies \text{logisch 1} \\
+        U>3.2V \implies \text{logisch 0} \sum
+    \end{split}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{uri}
+    \caption{URI}
+    \label{fig:URI}
+\end{figure}
+
+\subsection{Vor und Nachteile}
+
+%Nachtragen aus dem Script
+Nachtragen aus dem Script
+
+\subsection{Analog- und Digitaltechnik}
+
+Kodierung erfolgt in Wortbreite n.
+
+n repräsentiert ein Bit (also 1 oder 0)
+
+$n=8$ ist ein Byte
+
+$n=16$ ist ein Halbwort
+
+$n=32$ ist ein Wort
+
+$n=64$ ist ein Doppelwort (64Bit Prozessoren)
+
+\subsection{Darstellung Positiver Zahlen}
+
+\begin{equation}
+    \begin{split}
+        \sum_{i=0}^{n-1}x_i*10^i & \mid \text{Dezimalzahlen} \\
+        \sum_{i=0}^{n-1}y_i*2^i  & \mid \text{Binärzahlen}
+    \end{split}
+\end{equation}
+
+Es gibt auch noch andere Zahlensysteme: Oktalzahlen (Basis 8) oder Hexadezimal (Basis 16)
+
+\subsection{Umwandlung von Zahlendarstellung}
+
+Dividiere Decimalzahlen $x$ durch die größte Zahl $2^k$, welche $x<=2^k$ ist. Diese von x subtrahieren und diesen Schritt bis $x=0$ wiederholen.
+
+Es gibt auch die Variante mit modulo Rechnung. Hier muss auf die Richtige Aufschreibreihenfolge geachtet werden.
+
+\begin{equation}
+    \begin{array}{c c c}
+        29/2 & =14, & r_0=1 \\
+        14/2 & =7,  & r_1=0 \\
+        7/2  & =3,  & r_2=1 \\
+        3/2  & =1,  & r_3=1 \\
+        1/2  & =0,  & r_4=1
+    \end{array}
+\end{equation}
+
+\end{document}

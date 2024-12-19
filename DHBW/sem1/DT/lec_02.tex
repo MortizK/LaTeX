@@ -1,0 +1,225 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kapitel 1 | Einführung}
+
+\subsection{Quiz}
+
+Umrechnungen in verschiedene Zahlensysteme und Vor- und Nachteile vom Binärsystem (Digital vs. Analog)
+
+\subsection{Darstellung von Festkommazahlen}
+
+Die Zahlen werden aufgebrochen in einem ganzzahligen Teil und einen gebrochenen Teil.
+
+\begin{equation}
+    z=\sum_{i=-k}^{n-k-1}z_i*b^{i}
+\end{equation}
+
+Das heißt für eine 8-Bit Zahl mit k=3 gilt: $z=01101,110_2=2^3+2^2+2^0+1^{-1}+1^{-2}$ somit ergibt sich $13,75$
+
+\subsubsection{Umwandeln in Hexadezimal}
+
+\begin{equation}
+    \begin{split}
+        555:16     & = 34, r=11\cong B                    \\
+        34:16      & = 2, r=2\cong 2                      \\
+        2:16       & = 0, r=2\cong 2                      \\
+        \hline                                            \\
+        0,3*16     & =4,8 , \text{ü}=4\cong 4             \\
+        0,8*16     & =12,8, \text{ü}=12\cong C            \\
+        0,8*16     & =12,8, \text{ü}=12\cong C            \\
+        \hline                                            \\
+        555,3_{10} & \cong 22B,3CC\dots=22B,3\overline{C}
+    \end{split}
+\end{equation}
+
+\subsection{Negative Zahlen}
+
+Es gibt 3 Möglichkeiten
+
+\subsubsection{Vorzeichen und Betrag}
+
+Die Höchste Ziffer ist nun das Vorzeichen.
+
+\subsubsection{(b-1)-Komplement}
+
+Hier wird zur Bildung von $-z$ jede der n Ziffern $z_{i}$ gemäß $\overline{u_{i}}=b-1-z_{i}$ komplimentiert.
+
+\begin{equation}
+    \begin{split}
+        -1234_{10} & =8765_{10,9er-Komplement} \\
+        \hline                                 \\
+        z          & =1234                     \\
+        -z         & =8765                     \\
+        \hline
+                   & =9999
+    \end{split}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{zahlengerade}
+    \caption{Zahlengerade mit dem (b-1)-Komplement}
+    \label{fig:zahlengerade_(b-1)-Komplement}
+\end{figure}
+
+Rechnen am Beispiel: $2000-1234\cong2000+8765=1\mid 0765$ mit diesem Ergebnis können wir weiterarbeiten $0765+1=0766$. Dieses Ergebnis ist Richtig.
+
+\subsubsection{b-Komplement}
+
+Hier ist die Summe aus $z$ und $-z$ ergibt $b^{n}$
+
+\begin{figure}[ht]
+    \centering
+    \incfig{zahlengerade_b-kompliment}
+    \caption{Zahlengerade mit dem b-Komplement}
+    \label{fig:zahlengerade_b-Komplement}
+\end{figure}
+
+\subsection{Negative Binärzahlen}
+
+Bei einer Wortlänge von $n=8$ und einen Basis von $b=2$.
+
+Hier gibt es wieder alle 3 Möglichkeiten.
+
+Das mit dem Vorzeichen und Betrag, das Einerkomplement und das Zweier-komplement.
+
+\subsubsection{Einerkomplement}
+
+$z=00101101_2=45_{10} \implies -z=11010010_2=-45_{10}$
+
+\subsubsection{Zweierkomplement}
+
+$z=00101101_2=45_{10} \implies -z=11010011_2=-45_{10}$
+
+\subsection{Vor- und Nachteile von diesen Darstellung}
+
+Mit dem Vorzeichen und Betrag kann man nicht Rechnen.
+
+Mit den anderen beiden kann man Rechnen.
+
+\subsubsection{Einerkomplement}
+
+Diese hat einen Symmetrischen Zahlenbereich. Deshalb gibt es auch 2 Nullen, die +0 und -0.
+
+Zudem muss zum Rechnen noch ein Korrekturschritt gemacht werden.
+
+Diese Problematik kann man gut in einem Zahlenkreis darstellen. Hier muss man zum subtrahieren von 5, den Zeiger um 6 nach hinten bewegen, statt 5.
+
+\subsubsection{Zweierkomplement}
+
+Dieser Zahlenbereich ist leicht asymmetrisch. Der negative Bereich hat eine Zahl mehr.
+
+\subsection{Aufgaben}
+
+Es gibt ein Aufgabenblatt auf Moodle, welches bis nächste WOche bearbeitet werden soll.
+
+\section{Kapitel 2 | Codes}
+
+\subsection{Lernziele}
+
+Bewertung verschiedener Codes.
+
+Aufbau und EIgenschaften verschiedener Codes
+
+Verstehen von Fehlercodes und Fehlerkorrektioncodes.
+
+\subsection{Kodierung}
+
+Ein Code ist eine Abbildungsvorschrift, die jedem Zeichen einer Urbildmenge ein Zeichen/ Zeichenfolge der Bildenge zuordnet.
+
+\subsubsection{Quellenkodierung}
+
+Umwandlung, ggf. mit Kompression
+
+\subsubsection{Kanalkodierung}
+
+Kodierung für die Übertragung in einem Kanal, kann Fehlererkennung und -korrekur enthalten.
+
+\subsubsection{Leitungskodierung}
+
+Kodierung für den physischen Transport über ein Medium.
+
+Es gibt eine Schöne Grafik auf dem Foliensatz.
+
+Zudem sieht die Manchaster Kodierung so aus und ist Teil der Leitungskodierung.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{manchaster-kodierung}
+    \caption{manchaster-kodierung}
+    \label{fig:manchaster-kodierung}
+\end{figure}
+
+\subsection{Quellenkodierung}
+
+Hier wird zwischen Numerischen Codes und Alphanumerischen Codes.
+
+\subsubsection{Numerische Codes}
+
+Zur Darstellung von Zahlen
+
+\subsubsection{Alphanumerischen Codes}
+
+Zur Darstellung von Buchstaben, Ziffern und anderen Sonderzeichen. Bekannte Codes umfassen Morsecode und ASCII.
+
+Zudem gibt es den Unicode als UTF-8 und UTF-16
+
+\subsection{Verschiedene Maße}
+
+Wertigkeit: Gibt es eine Stellwert für jede Position.
+
+Distanz: Anzahl der Bitstellen, in den sich zwei Codewörter unterscheiden. Durch die verschiedene Wertigkeiten der Bits, unterscheiden sich die Distanzen zwischen 2 benachbarten Werten um 1, 2, 3, 4, da sich bis zu allen 4 Bits gleichzeitig ändern können.
+
+Hamming-Distanz: das Minimum aller Abstände zwischen Wörtern innerhalb eines Codes
+
+Stetigkeit: Die Distanz zwei benachbarten Codewörtern eines numerischen Codes ist konstant. Durch unter Distanz beschrieben Verhalten, von Binärcodes, sind diese nicht stetig.
+
+% von der Folie entnehmen
+Redundanz: von der Folie entnehmen
+
+\subsection{Binäre Codes}
+
+Wir können alle gängigen mathematischen Operationen wie + - * / durchführen.
+
+Aufgrund der festgelegten Wortlänge können durch einen Überlauf Fehler passieren. Da das Ergebnis evtl. eine größere Wortlänge bräuchte.
+
+Bei der Multiplikation, kann das Ergebnis eine Wortlänge bis zu 2n haben, wenn die beiden Zahlen eine Wortlänge von n haben.
+
+\subsubsection{Bewertung}
+
+Wertigkeit: Die Stelle i hat den Stellenwert $2^{i}$
+
+Die Distanz zwischen zwei benachbarten n-Bit Codewörtern ist minimal 1 und maximal n
+
+Der Code ist nicht stetig
+
+Die Hamming-Distanz $H$ ist 1
+
+Die Redundanz $R$ ist 0 Bit
+
+\subsection{BCD-Code}
+
+Jede Ziffer aus dem Dezimalsystem wird in je 4 Bit kodiert. Jede Ziffer ist eine Tetrade.
+
+Bei eine Addition, die in einem Pseudotetrade endet. muss mit diese Tetrade mit eine Binär 6 Addiert werden. Achte auf den Übertrag.
+
+Wertigkeit: Es gibt stellen, den keinen Position zugeordnet ist. Die Pseudotetraden.
+
+Distanz: ist minimal 1 und maximal n
+
+Hamming-Distanz: ist 1
+
+Stetigkeit: ist nicht stetig
+
+Redundanz: hat eine Redundanz $R=\log(\frac{16}{10}=0,678)$
+
+\end{document}

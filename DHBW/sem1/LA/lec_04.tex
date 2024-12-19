@@ -1,0 +1,217 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Vollständige Induktion}
+
+Induktionsprinzip
+
+\begin{equation}
+    M\subseteq \mathbb{N}\land 1\in M \land (n\in M \implies n+1\in M)\implies M=\mathbb{N}
+\end{equation}
+
+$A_n$ Aussagen alle wahr?
+
+Verfahren alle Aussagen als wahr zu beweisen.
+
+\begin{equation}
+    \begin{split}
+        \text{i) }  & A_1 \text{wahr}      \\
+        \text{ii) } & A_n \implies A_{n+1}
+    \end{split}
+\end{equation}
+
+Ich zeige, dass das voranschreiten der Wahrheit wahr ist. Somit: Wenn $A_n$ wahr ist, dann ist auch $A_{n+1}$ wahr ist.
+
+\subsubsection{Beispiel}
+\begin{equation}
+    A_n: 1+2+\dots+n=\frac{1}{2}n(n(+1))\\
+    \text{IV = Induktionsvoraussetzung}
+\end{equation}
+
+Induktion:
+
+$n=1$: $A_1$ behauptet $1=\frac{1}{2}1*2$, was offensichtlich wahr ist. Kein: $1=1$, da dies nicht die Wahrheit dieser Aussage überprüft.
+
+$n\to n+1$: zu zeigen: $A_{n+1}$: $\frac{1}{2}(n+1)(n+2)$.
+
+Also: $1+2+3+\dots+n+(n+1)\begin{array}{c}
+        IV \\
+        =
+    \end{array}\frac{1}{2}n(n+a)+n+1=(n+1)(\frac{1}{2}n+\frac{2}{2})=\frac{1}{2}(n+1)(n+2)$
+
+\subsubsection{Also}
+
+Also funktioniert als Startzeichen, um mit dem Rechnen anzufangen. Vor dem Also legen wir nur Werkzeuge fest.
+
+\subsubsection{Kurzsprache mit Induktion}
+
+\begin{equation}
+    \begin{split}
+        A: \sum_{k=1}^{n} k=1+2+\dots+k+\dots+n=\frac{1}{2}n(n+1)
+    \end{split}
+\end{equation}
+
+Induktion:
+
+$n=1$: $A_1$ behauptet $\sum_{k=1}^{n}=1=\frac{1}{2}1*2$, was offensichtlich wahr ist.
+
+$n\to n+1$: z.z. $A_{n+1}$: $\sum_{k=1}^{n+1}=\frac{1}{2}(n+1)(n+2)$
+
+Also:
+
+\begin{equation}
+    \sum_{k=1}^{n+1}=\sum_{k=1}^{n}k+n+1\begin{array}{c}
+        IV \\
+        =
+    \end{array}=\frac{1}{2}n(n+a)+n+1=(n+1)(\frac{1}{2}n+\frac{2}{2})=\frac{1}{2}(n+1)(n+2)
+\end{equation}
+
+\subsection{Summe}
+
+Definition:
+
+\begin{equation}
+    \sum_{k=m}^{n}a_k:= a_m+a_{m+1}+a_{m+2}+\dots+a_n
+\end{equation}
+
+\subsubsection{Beispiele}
+
+\begin{equation}
+    \begin{split}
+        \sum_{k=1}^{n}\frac{1}{k}   & =1+\frac{1}{2}+\frac{1}{3}+\dots+\frac{1}{n}\text{ harmonische Reihe} \\
+        \sum_{k=1}^{n}\frac{1}{k^2} & =1+\frac{1}+\frac{1}{9}+\dots+\frac{1}{n^2}\to\frac{\pi^2}{6}         \\
+        \sum_{k=1}^{n}k^2           & =1+4+9+\dots+n^2
+    \end{split}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{quadratsumme}
+    \caption{Quadratsumme}
+    \label{fig:quadratsumme}
+\end{figure}
+
+\subsection{Produkte}
+
+Definition
+
+\begin{equation}
+    \prod_{k=m}^{n}a_k:= a_m*a_{m+1}*a_{m+2}*\dots*a_n
+\end{equation}
+
+\subsection{Binomische Formeln}
+
+\begin{equation}
+    \begin{split}
+        (a+b)^1 & =a+b                                                                                                   \\
+        (a+b)^2 & =a^2+2ab+b^2                                                                                           \\
+        (a+b)^3 & =a^3+3a^2b+3ab^2+b^3                                                                                   \\
+        (a+b)^4 & =a^4+4a^3b+6a^2b^2+4ab^3+b^4                                                                           \\
+        (a+b)^n & =\binom{n}{0}a^n+na^{n-1}b^1+\binom{n}{2}a^{n-2}b^2+\dots+\binom{n}{k}a^{n-k}b^k+\dots+\binom{n}{n}b^n \\
+                & =\sum_{k=0}^{n}\binom{n}{k}a^{n-k}b^{k}=\sum_{k=0}^{n}\binom{n}{k}b^{n-k}a^{k}
+    \end{split}
+\end{equation}
+
+\subsubsection{Pascalsche Dreieck}
+
+\begin{equation}
+    \begin{split}
+        \text{1}                                                                         \\
+        \text{1  1}                                                                      \\
+        \text{1  2  1}                                                                   \\
+        \text{1  3  3  1}                                                                \\
+        \text{1  4  6  4  1}                                                             \\
+        1 \binom{n}{1} \binom{n}{2} \dots \binom{n}{k-1} \binom{n}{k} \dots \binom{n}{n} \\
+        1 \binom{n+1}{1} \binom{n+1}{2} \dots \binom{n+1}{k} \dots \binom{n}{n}
+    \end{split}
+\end{equation}
+
+\subsubsection{Binominial Koeffizienten}
+
+Geschlossen aus dem Pascalsche Dreieck
+
+\begin{equation}
+    \binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}:=\frac{n!}{k!(n-k)!}=\binom{n}{n-k}
+\end{equation}
+
+Diese Formel gilt nur bei $1\leq k \leq n$
+
+\subsubsection{Fakultät}
+
+Definition
+
+\begin{equation}
+    \begin{split}
+        n! & :=1*2*3*\dots*n, n\geq 1 \\
+        0! & :=1
+    \end{split}
+\end{equation}
+
+\section{Mengen}
+
+\subsection{Intervalle}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{intervalle}
+    \caption{Intervalle}
+    \label{fig:intervalle}
+\end{figure}
+
+Plus die kombinationen aus den verschieden möglichkeiten
+
+\subsection{Produktmenge}
+
+\begin{equation}
+    \begin{split}
+        A,B       & \text{ Mengen},                      \\
+        A\times B & := \{[a,b]\mid a\in A \land b\in B\}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        A & = [1,3], B=[2,5] \\
+        [1,3]\times [2,5]=\{[x,y]\mid 1\leq x\leq 3 \land 2\leq y\leq5\}
+    \end{split}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{produktmenge}
+    \caption{Produktmenge}
+    \label{fig:produktmenge}
+\end{figure}
+
+\subsection{Potenzmenge}
+
+Potenzmenge einer Menge A
+
+\begin{equation}
+    \begin{split}
+        P(A)                   & : \text{ Menge aller Teilmengen von A}                              \\
+        P(\{1\})               & = \{\emptyset,\{1\}\}                                               \\
+        P(\{1,2\})             & =\{\emptyset,\{1\},\{2\},\{1,2\}\}                                  \\
+        P(\{1,2,3\})           & = \{\emptyset,\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\},\{1,2,3\}\} \\
+        |P(\{1,2,3,\dots,n\})| & = 2^n                                                               \\
+        |P(\mathbb{N})|        & =2^{\aleph_0}=c
+    \end{split}
+\end{equation}
+
+\subsection{Raselsche Paradox}
+
+Eine Gute Menge enthält alles denkbare, nur nicht sich selbst.
+
+Nun erstelle ich eine Menge, welche alles gute Mengen enthält. Wenn diese selbst eine Gute Menge wäre müsste Sie sich selbst enthalten und wäre keine Gute Menge mehr. Hier herrscht ein Paradoxon.
+
+\end{document}

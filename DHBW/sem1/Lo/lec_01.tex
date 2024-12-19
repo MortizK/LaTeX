@@ -1,0 +1,174 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Deckblatt der Folie}
+
+Rekursion ist von oben nach untern
+Und Induktion ist von unten nach oben
+
+\section{Einleitung}
+
+Welche Erfahrung haben wir?
+
+\subsection{Wenn zu Schnell}
+
+Herr Schulz hat schon 11 mal diese Modul unterrichtet.
+Wenn Er zu schnell ist, einfach nach haken.
+
+\subsection{Problem der multiplen Generäle}
+
+Es gibt Problem, die man nicht lösen kann.
+Beschließen, durch Theorie, dass es nicht lösbar ist.
+Also BEschließen, dass es ausreicht!
+
+\subsection{Klausur}
+
+8 bis 9 Aufgaben.
+
+ca. 1 Punkt pro Minute, also 90P
+
+Wir dürfen 2 Tragbare Gegenstände mitnehmen.
+
+Zum Lesen, statt ausdrucken auch das Tablet.
+
+Es gibt echte Klausuren aus den Vorjahren
+
+\subsection{Übersicht}
+
+Mengenlehre
+
+Nichtprozeurale Programmiermodelle (Funktional: Racket)
+Das Ziel ist es mal anders zu denken, statt den Standard
+
+Aussagenlogik
+
+Prädikatenlogik
+
+\subsection{Literatur}
+
+Einiges kann dem Skript entnommen werden. Wie die links zu den digitalen Versionen.
+
+Theoretische Informatik, Dirk W. Hoffmann - eine Empfehlung ab 3 Auflage, wegen Fehlern
+
+Theoretische Informatik I - Logik und MEngenlehre, Karl Stroetmann
+
+Introduction to Mathematical Philosophy, Bertrand Russell (1918) - digital
+
+First-Order Logic, Raymond M. Smullyan (1968) - ist quasi Prädikatenlogik
+
+Grundlagen der Archimetric, \dots
+
+Structure and Interpretation of COmputer Programs, G. J. Sussmann and H. Abelson - gibt es digital
+
+\subsection{Ziele}
+
+Vokabular beibringen um über Informatik reden zu können.
+
+\subsubsection{Methoden}
+
+Modellierung
+
+Anwendungen von und über Logik und Deduktion
+
+Argumentieren über Logik, Deduktion und Programme, sowie dessen Verhalten.
+
+Gibt es requirements, welche zu viel Arbeit machen oder nicht lösbar sind. Wofür wird dass gebraucht oder gibt es eine andere Lösung.
+
+\subsection{Das MIU-Rätsel}
+
+Alle Worte bestehen aus den Buchstaben M, I und U.
+
+mehrere Regeln für diese Worte.
+
+Kommt aus einem Buchstaben
+
+\subsubsection{Formale Aufschreibung}
+
+\begin{equation}
+    \begin{split}
+        1. xI    & \implies xIU \\
+        2. xIIIy & \implies xUy \\
+        3. xUUy  & \implies xy  \\
+        4. Mx    & \implies Mxx
+    \end{split}
+\end{equation}
+
+Invariante: alle Worte starten mit einem M
+
+\begin{equation}
+    \begin{split}
+        MI & -_4MII-_4MIIII-_2MUI-_1-MUIU                    \\
+        MI & -_4^3MIIIIIIII-_1MIIIIIIIIU-_2MIIIIIUU-_3MIIIII \\
+        MI & -_4^4MI^{16}-_2^5MUUUUUI-_3MUUUI                \\
+        MI & - \text{Gibt keine Lösung} - MU
+    \end{split}
+\end{equation}
+
+\subsubsection{Reflektion}
+
+Wir haben verschiedene Notationen Eingeführt.
+
+Wie $-_4^3$ zur mehrfach ausführung der Regel 4.
+Sowie die kurze schreibweise um Buchstaben zu zählen, wie: $MI^4$ für $MIIII$.
+
+\section{Logik}
+
+Logik ist die Lehre von der Bedeutung oder Sinn der Lehre an Sich.
+
+% Problem von Göttle ergänzen
+Problem von Göttle ergänzen!
+
+AND in Programm oder if() sind Prädikatenlogik!
+
+\subsection{Deduktionsmethoden}
+
+\subsubsection{Eindeutige Spezifikation}
+
+Syntax
+
+Sematik
+
+\subsubsection{Objektiv richtige Ableitung von neuem Wissen}
+
+Was bedeutet "Richtigkeit"?
+
+Kann man RIchtigkeit automatisch sicherstellen?
+
+Kann man neue Fakten automatisch herleiten?
+
+\subsection{Exkurs Lotzen}
+
+Logische Abfragen erstellen, welche alles Testen können, was ein Kunde haben möchte.
+
+Daraufhin kann man jedem Kunden seine Aussagenkombination geben.
+
+Die Entwickler meinten, viele Funktionen sind zu teuer. Somit wurde ein umstellung. Die Entwickler habe es umgestellt. Um es günstiger zu machen.
+
+Diese Umstellung musste Bewiesen werden. Hierbei beachten: Es git nur LowerAirSpace und HigherAirSpace. Nichts weiteres.
+
+\section{Aufgaben}
+
+Installierung von Racket.
+
+Und ausprobieren von mindestens "Hello World". Auf PDF S. 465
+
+\section{Lehren von Heute}
+
+Wir dürfen eigene Definition für z.B Schreibweisen erstellen.
+Wie bei dem MIU-Rätsle.
+
+Zudem kann mann auch mal das Ziel hinterfragen oder schwächen um überhaupt zu einem Ergebnis zu kömmen.
+Hier das beispiel mit dem Gemüse der Ziege und dem Wolf, welche auf die andere Insel müsen. Leider passt ins Boot nur Ich und ein andere oder anderes.
+Zudem kann die Ziege nicht mit dem Gemüse allein gelassen werden, der Wolf nicht mit der Ziege.
+So ist es unlösbar, also lässt man den Wolf zurück.
+Weil: wofür braucht man einen Wolf?
+
+\end{document}

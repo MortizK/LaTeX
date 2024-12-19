@@ -1,0 +1,251 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+Wir müssen von tatsachen folgern um etwas zu beweisen. Ich kann nicht aus dem Ziel Schlüsse ziehen, da das Ziel ja falsch sein kann.
+
+\subsection{Aussageformen}
+
+\begin{equation}
+    \begin{split}
+        x\in X:          & A(x) \text{ eine Aussage}                 \\
+        \forall_{x\in X} & A(x) \text{ "für alle"}                   \\
+        \exists_{x\in X} & A(x) \text{ "es gibt wenigstens eins..."}
+    \end{split}
+\end{equation}
+
+Beispiel für Aussage mit Primzahlen und dem Versuch eines Widerspruchsbeweis.
+
+\begin{equation}
+    \begin{split}
+        X            & =\mathbb{N}, P(n): n \text{ ist Primzahl} \\
+        U            & := \forall_{n\in \mathbb{N}}\exists_{
+            \begin{array}{c}
+                m\in \mathbb{N} \\
+                m\geq n
+            \end{array}
+        }P(m) \text{ Es gibt unendlich viele Primzahlen}         \\
+        \overline{U} & =\exists_{n\in \mathbb{N}}\forall_{
+            \begin{array}{c}
+                m\in \mathbb{N} \\
+                m\geq n
+            \end{array}
+        }\overline{P(x)} \text{ Es eine größte Primzahl}
+    \end{split}
+\end{equation}
+
+\subsection{Mengen}
+
+Definition (Cantor 1895)
+
+Unter einer Menge verstehen wir die Zusammenfassung von bestimmten, wohlunterschiedenen Objekten unserer Anschauungen, oder unseres Denkens zu einem Ganzen.
+
+wohlunterschiedenen bedeutet, dass die $2$ nicht mehrmals in einer Menge gibt. Also $\{2, 4\}\cap\{1,2,3\}=\{1,2,3,4\}$
+
+\subsubsection{Beispiele}
+
+\begin{equation}
+    \begin{split}
+        W_1:= & \{1,2,3,4,5,6\}\text{ Würfelergebnisse mit 1 Würfel}      \\
+        W_2:= & \{                                                        \\
+              & (1,1),(1,2),\dots,(1,6)                                   \\
+              & (2,1),(2,2),\dots,(2,6)                                   \\
+              & \vdots                                                    \\
+              & (6,1),(6,2),\dots,(6,6)
+        \}                                                                \\
+        W_2:= & \{(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(2,2),(2,3),\dots\} \\
+    \end{split}
+\end{equation}
+
+Bei dem zweitem $W_2$ ergibt sich ein Dreieck, wo die Reihenfolge der Tuple nicht wichtig ist.
+
+\begin{equation}
+    \begin{split}
+        G:= & \{2,4,6,7,10,\dots\}         \\
+        U:= & \{1,3,5,7,\dots\}            \\
+        F:= & \{1,2,3,5,8,13,21,34,\dots\} \\
+    \end{split}
+\end{equation}
+
+\subsubsection{Andere Logik, andere Statistik}
+
+Bei Quantencomputern und Polarisation von Licht, sind die Wahrscheinlichkeiten im gegensatz zum zweitem $W_2$ alle gleich.
+
+Es gibt keine Unterscheidbarkeit.
+
+\subsubsection{Schreibweise von Allgemeinen Mengen}
+
+Die Pünktchen haben bei komischen Formeln für eine Menge keinen bestand, also eine Neue Schreibweise.
+
+Methode 1: $\{f(x)\mid x\in X\}$
+
+\begin{equation}
+    \begin{split}
+        \{4,5,8,\dots\} & =\{n^2-2n+5\mid n\in \mathbb{N}\}
+    \end{split}
+\end{equation}
+
+Die Formel vor dem $\mid$ ist der Formelteil "Form der Elemente der Menge und nach dem $\mid$ der Deklarationsteil der Variablen.
+
+Methode 2: $\{x\in X\mid A(x)\}$
+
+Diese Methode kann nur teilmengen einer anderen Menge beschreiben.
+
+\begin{equation}
+    \begin{split}
+        G=\{n\in \mathbb{N}\mid \exists_{k\in \mathbb{N}}n=2k\}\subset \mathbb{N}
+    \end{split}
+\end{equation}
+
+Die Formel nach dem $\mid$ ist eine Aussageform über $\mathbb{N}$ und vor dem $\mid$ steht die Menge, auf die die Aussageform geprüft wird. Und die neue Menge ist nur die Menge, wo die Aussage war ist.
+
+\subsubsection{Notationen}
+
+\begin{equation}
+    \begin{split}
+        \in\dots                     & \text{ Element von ...}             \\
+        x\in X                       & \text{ x ist (ist) Element von X}   \\
+                                     & \text{ x gehört zu X}               \\
+        \overline{x\in X}=:x\notin X & \text{ x (ist) nicht Element von X} \\
+                                     & \text{ x gehört nicht zu X}         \\
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        A\subseteq B & :\iff x\in A \implies x\in B                                  \\
+        A\subset B   & :\iff (x\in A \implies x\in B)\land\exists_{x\in B} x\notin A \\
+    \end{split}
+\end{equation}
+
+\subsubsection{Lemma}
+
+Ein Lemma ist ein Hilfsmittel, welcher zum Beweis eines Satzes genutzt wird, selber aber kein Satz ist.
+
+\begin{equation}
+    \begin{split}
+        A=B & \iff A\subseteq B \land B\subseteq A \\
+        A=B & \to \dots \text{trivial}
+    \end{split}
+\end{equation}
+
+Ich darf im Studium niemals etwas als trivial beschreiben.
+
+\subsection{Widerspruchsbeweis}
+
+Bezogen auf das Lemma.
+
+"$\implies$" trivial.
+
+"$\impliedby$": Durch Widerspruch.
+
+Wir gehen von $A\subseteq B \cap B\subseteq A$ aus und nehmen $\overline{A=B}=:A\neq B$ an.
+
+Das heißt (D.h.) es gibt wenigstens ein Element $x\in A$ und $x\notin B$, oder ein $x\in B$ und $x\notin A$.
+
+% ist wichtig
+O.B.d.A (Ohne Beschränkung der Allgemeinheit)
+
+Sei $x\in A \land x \notin B$, d.h $x\in A$ und daher $x\in B$, denn $A\subseteq B$. D.h $x\in B \land x\notin B$: W!
+
+Also gilt $A=B$
+
+\subsection{Natürliche Zahlen $\mathbb{N}$}
+
+Konstruktion der Natürlichen Zahlen mit der Variante von Neumann.
+
+\begin{equation}
+    \begin{split}
+        \emptyset=\{\}           & =: 0                             \\
+        \{\emptyset\}=\{0\}      & =: 1                             \\
+        \{0,1\}                  & =: 2 = \{0\}\cup\{1\}=1\cup\{1\} \\
+        \{0,1,2\}                & =: 3 = 2\cup \{2\}               \\
+        1\subset 2               & \subset 3                        \\
+                                 & \vdots                           \\
+        \text{Nachfolger} \to n' & := n\cup\{n\}                    \\
+                                 & \vdots                           \\
+        n\leq m                  & :\iff n\subseteq m
+    \end{split}
+\end{equation}
+
+$\mathbb{N}$: Menge aller Nachfolger von 0.
+
+\subsubsection{Definition}
+
+$\mathbb{N}_0:=\mathbb{N}\cup\{0\}.$
+
+\subsection{Induktionsprinzip}
+
+Für eine Menge $M\subseteq \mathbb{N}$ soll gelten.
+
+\begin{equation}
+    \begin{split}
+        \text{i) }  & 1\in M                   \\
+        \text{ii) } & n\in M \implies n+1\in M \\
+    \end{split}
+\end{equation}
+
+$\implies M = \mathbb{N}$
+
+\subsection{Vollständige Induktion}
+
+Problem: $\infty$-viele Aussagen, zeige dass alle wahr sind.
+
+\begin{equation}
+    \begin{split}
+        A_n & : \frac{1}{2}n(n+1)=1+2+\dots+n-1+n \\
+    \end{split}
+\end{equation}
+
+$M   =\{n\in \mathbb{N}\mid A_n\}$. Zu zeigen: $M= \mathbb{N}$ (dann sind nämlich alle Aussagen wahr). $A_n$ ist die Menge der wahren Indizes.
+
+\begin{equation}
+    \begin{split}
+        \text{i) }  & A_1 ist wahr                                                                  \\
+        \text{ii) } & \text{falls }n\in M \text{, d.h. falls }A_n\text{ wahr,}                      \\
+                    & \text{dann ist zu zeigen, dass auch }A_{n+1}\text{ wahr ist -- d.h } n+1\in M
+    \end{split}
+\end{equation}
+
+Wir nehmen an, $A_n$ wäre wahr und überprüfen, ob eine Schlussfolgerung auf $A_{n+1}$ auch wahr ist.
+
+Kurz: $A_n$: für alle $n\in \mathbb{N}$
+
+\begin{equation}
+    \begin{split}
+        \text{i) }  & A_1 \text{ ist wahr}                          \\
+        \text{ii) } & A_n \text{ wahr}\implies A_{n+1} \text{ wahr}
+    \end{split}
+\end{equation}
+
+B $A_n: 1+2+\dots+n=\frac{1}{2}n(n+1)$ (IV = Induktionsvoraussetzung)
+
+\begin{equation}
+    \begin{split}
+        \text{i) }  & n=1 \text{ Zu zeigen ist } 1= \frac{1}{2}*1*2 \text{, was offensichtlich wahr ist} \\
+        \text{ii) } & n\to n+1                                                                           \\
+                    & 1+2+\dots+n+n+1 \begin{array}{cc}
+                                          (IV) &                                  \\
+                                          =    & \frac{1}{2}n(n+1)+(n+1)          \\
+                                          =    & (n+1)(\frac{1}{2}n+\frac{2}{2}1) \\
+                                          =    & \frac{1}{2}(n+1)(n+2)
+                                      \end{array}
+    \end{split}
+\end{equation}
+
+Aufpassen mit falscher beweisrichtung $1= \frac{1}{2}*1*2 \implies 1=1$. Dies wird als Fehler gewertet. $1= \frac{1}{2}*1*2 \iff 1=1$ würde ok sein. Aber Benutzung von "was offensichtlich wahr ist" ist besser.
+
+\section{Für Nächste Vorlesung}
+
+Wir müssen noch Intervalle einführen
+
+\end{document}

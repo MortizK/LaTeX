@@ -1,0 +1,159 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kodierungen}
+
+\subsection{Fehlererkennende Codes}
+
+Ein Code mit der Hamming-Distanz $h$ kann $(h-1)$ Bitfehler erkennen.
+
+Ein Code mit der Hamming-Distanz $h$ kann $(h-1)/2$ Bitfehler korrigieren.
+
+\subsection{Hamming(7,4)-Code}
+
+Hat 7 Bits und 3 Korrekturbits. Jedes Korrekturbit hat die Parität von unterschiedlichen Gruppen an Wertbits.
+
+Alice sendet $10_{10}=1010_2=101\_0\_\_$. Somit wird $1010010$ gesendet. Leider kommt $1000010$ mit einem Fehler an. Wenn wir nun die Prüfbits dieser Zahl neu korrigieren, kommen wir auf $1001011$. Wir listen nur die falschen Prüfbits auf und kommen auf $101_2=5_{10}$. Somit ist das fünfte Bit, beginnend mit 1 von rechts nach links das Falsche Bit.
+
+Wenn wir diesen Code nun erweitern, fällt auf, das die Paritätsbits an den stellen $2^n$ sind, somit: $1,2,4,8,\dots$.
+
+Allgemein gilt: $(2^k-1,2^k-1-n)$-Hamming-Codes mit $k=$Paritätsbit, $n=$ Datenbits und $N=n+k=2^k-1$.
+
+\subsubsection{Beispiel Fehlererkennenung}
+
+Mithilfe der Übertragung werden die Prüfbits neu Berechnet. Wenn diese mit den Übertragenen Prüfbits nicht Übereinstimmen, wird eine 1 gemerkt.
+
+Somit wird aus $1000010$ mit der Wertigkeit $D_4, D_3, D_2, P_3, D_1, P_2, P_1$. Anhand der Datenbits ermitteln wir, das die Prüfbits $1,1,1$ sein müssten, aber $010$ sind. Somit liegt er Fehler an dem Bit $101_2=5$ an der 5ten stelle der Übertragung. Hier wäre also die richtige Nachricht $1010010$
+
+\section{Kombinatorische Logik}
+
+Aus der Sicht der Logik ergeben sich 2 Zustände. wahr/ falsche, 1/0.
+
+Elektronisch sind das kein (oder ein sehr geringer) Stromfluss. Und aus ist ein (oder ein großer) Stromfluss.
+
+\subsection{Gatter}
+
+Ein Gatter ist eine "Black Box". mit einem, zwei oder mehreren Eingängen $A,B,C\in \{0,1\}$.
+
+Die gängige Form ein Gatter zu schreiben ist eine Box mit einem Symbol in der Box um das Gatter zu innenzitieren.
+
+Ein Sinnvoller Link zu Sebastian Lague: \url{https://github.com/SebLague/Digital-Logic-Sim}
+
+\subsubsection{UND-Gatter}
+
+Auch Konjunktion genannt. $Y=A*B$ oder auch $Y=AB$, $Y=A\land B$ und $Y=A\& B$
+
+Symbol in der Box ist $\&$
+
+\begin{equation}
+    \begin{array}{c|c|c}
+        A & B & Y=A*B \\
+        \hline
+        0 & 0 & 0     \\
+        0 & 1 & 0     \\
+        1 & 0 & 0     \\
+        1 & 1 & 1     \\
+    \end{array}
+\end{equation}
+
+\subsubsection{ODER-Gatter}
+
+Auch Disjunktion genannt. $Y=A+B$.
+
+Symbol in der Box ist: $\geq 1$
+
+\begin{equation}
+    \begin{array}{c|c|c}
+        A & B & Y=A+B \\
+        \hline
+        0 & 0 & 0     \\
+        0 & 1 & 1     \\
+        1 & 0 & 1     \\
+        1 & 1 & 1     \\
+    \end{array}
+\end{equation}
+
+\subsubsection{NICHT-Gatter}
+
+Oder auch Negation oder Inverter genannt. $Y=\overline{A}$
+
+Symbol in der Box ist $1$
+
+\begin{equation}
+    \begin{array}{c|c}
+        A & Y=\overline{A} \\
+        \hline
+        0 & 1              \\
+        1 & 0              \\
+    \end{array}
+\end{equation}
+
+\subsubsection{NAND, NOR}
+
+Die Negation wird auch durch einen Kreis bei dem Ausgang einer Box gekennzeichnet.
+
+Diese beiden Nicht Elementaren Gatter können mit den oben genannten Elementaren Gattern gebaut werden.
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|c|c}
+            A & B & Y=\overline{A*B} \\
+            \hline
+            0 & 0 & 1                \\
+            0 & 1 & 1                \\
+            1 & 0 & 1                \\
+            1 & 1 & 0                \\
+        \end{array} &
+        \begin{array}{c|c|c}
+            A & B & Y=\overline{A+B} \\
+            \hline
+            0 & 0 & 1                \\
+            0 & 1 & 0                \\
+            1 & 0 & 0                \\
+            1 & 1 & 0                \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+\subsubsection{XOR, XNOR}
+
+Das XOR hat das Symbol $=1$. Auch Antivalenz genannt.
+
+Das XNOR, auch Equivalent hat das Symbol $=1$ mit einem Punkt hinter der Box für die Negation.
+
+Das XOR und XNOR sind auch Nicht Elementare Gatter und können durch die Elementaren Gatter AND, OR und NOT gebildet werden.
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|c|c}
+            A & B & Y=A\oplus B \\
+            \hline
+            0 & 0 & 0           \\
+            0 & 1 & 1           \\
+            1 & 0 & 1           \\
+            1 & 1 & 0           \\
+        \end{array} &
+        \begin{array}{c|c|c}
+            A & B & Y=A\equiv B \\
+            \hline
+            0 & 0 & 1           \\
+            0 & 1 & 0           \\
+            1 & 0 & 0           \\
+            1 & 1 & 1           \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+\subsection{Boolesche Algebra}
+
+Verschoben auf den nächsten Termin.
+
+\end{document}

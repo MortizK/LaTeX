@@ -1,0 +1,65 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Elemente der Zahlentheorie}
+
+\subsection{Übung: Erweiterter Euklidischer Algorithmus}
+
+Der $ggT(5610, 637)$ ist $1$ und die Darstellung ist $1=145*5610-1277*637$
+
+Es gibt immer $ggT(p, q)=tp+sq$, $t,s\in \mathbb{Z}$
+
+\subsection{Teilbarkeitssatz}
+
+$p\in \mathbb{N}$, $a,b\in \mathbb{N}$
+
+i) $p|a*b\land ggT(a,p)=1\implies p|b$
+
+ii) $p|ab\land p\in \mathbb{P}\implies p|a \lor p|b$
+
+
+$\exists_kab=k*p$
+
+Beweis: i) $ggT(p,a)=1\implies 1=ta+sp\mid *b\implies b=t*ab+sb*ptkp+sbp=(tk+sb)*p\implies p|b$
+
+ii) $p|ab\land p\in \mathbb{P}$: Zwei Fälle $\substack{ggT(a,p)=p\implies p|a\\ggT(a,p)=1\substack{\text{i)}\\ \implies}p|b}$
+
+\subsection{Satz}
+
+Satz: $p\in \mathbb{P}\implies \sqrt{p}\notin \mathbb{Q}$
+
+Beweis durch Widerspruch: Annahme $\sqrt{p}=\frac{a}{b}$, oBdA $ggT(a,b)=1$
+
+Weitere auf La 18.12
+
+\subsection{Rechnen modulo p}
+
+Definition: $a,b\in \mathbb{Z}, p\in \mathbb{N}, a=b\mod p:\iff p|a-b\iff a=_{p}b$, wenn $p$ die Differenz teilt.
+
+Das bedeutet: $a=b\mod p$, d.h. $p|a-b$, d.h. $\exists_{t\in \mathbb{Z}}a-b=t*p\iff \exists_{t\in \mathbb{Z}}a=b+t*p$ d.h. $a=b\mod p$ genau dann, wenn sich $a$ von $b$ nur um ganzzahlige vielfachen von $p$ unterscheiden.
+
+\subsubsection{Übungsaufgabe}
+
+die ersten beiden Stellen von $7^{1000}$
+
+$=7^{2*500}=49^{500}=49^{2*250}=2401^250=_{100}1^{250}=1$
+
+Somit sind die ersten beiden Ziffern 1 (Einer) und 0 (Zehner).
+
+\subsubsection{Beweise +,-,*}
+
+$a=_pa'$ und $b=_pb'\implies a+b=_pa'+b'$.
+
+d.h. $a=a'+t*p$ und $b=b'+s*p\implies a\pm b=a'\pm b'+(t\pm s)p=_pa'\pm b'$
+
+$a*b=(a'+tp)(b'+sp)=a'b'+a'sp+tb'p+tsp^2=a'b'+(a's+tb'+tsp)p=_pa'b'$
+
+\end{document}
