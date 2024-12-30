@@ -9,7 +9,8 @@
 
 # ignore Files which latex creates when compiling
 *.synctex.gz
-*.pdf
+*/*/*.pdf
+*/*/*/*.pdf
 
 # ignore ALL files in ANY directory
 temp/
