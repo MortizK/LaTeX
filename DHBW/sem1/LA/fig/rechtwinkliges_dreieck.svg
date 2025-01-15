@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="240mm"
+   height="120mm"
+   viewBox="0 0 240 120"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="rechtwinkliges_dreieck.svg"
+   inkscape:export-filename="rechtwinkliges_dreieck.pdf"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.66954508"
+     inkscape:cx="458.52028"
+     inkscape:cy="210.59075"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showborder="true"
+     width="200mm"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1368"
+     inkscape:window-height="842"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815"
+       units="mm"
+       spacingx="10"
+       spacingy="10"
+       empspacing="4"
+       dotted="false"
+       originx="0"
+       originy="0"
+       visible="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-177)">
+    <g
+       id="g11"
+       transform="matrix(1.1827099,0,0,1.1827099,-23.960031,-43.815088)">
+      <g
+         id="g8"
+         transform="matrix(1.6881079,0,0,1.6881079,-59.208579,-179.10337)">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:fill markers stroke"
+           d="M 67.573865,264.33231 H 144.63178 V 227.18644 Z"
+           id="path1" />
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="63.691822"
+           y="268.09305"
+           id="text1"><tspan
+             sodipodi:role="line"
+             id="tspan1"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="63.691822"
+             y="268.09305">B</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="145.69009"
+           y="269.09488"
+           id="text2"><tspan
+             sodipodi:role="line"
+             id="tspan2"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="145.69009"
+             y="269.09488">C</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="145.16093"
+           y="226.65727"
+           id="text3"><tspan
+             sodipodi:role="line"
+             id="tspan3"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="145.16093"
+             y="226.65727">A</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="105.04448"
+           y="243.64273"
+           id="text4"><tspan
+             sodipodi:role="line"
+             id="tspan4"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="105.04448"
+             y="243.64273">c</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="145.16093"
+           y="246.81769"
+           id="text5"><tspan
+             sodipodi:role="line"
+             id="tspan5"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="145.16093"
+             y="246.81769">b</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="106.10282"
+           y="268.5657"
+           id="text6"><tspan
+             sodipodi:role="line"
+             id="tspan6"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="106.10282"
+             y="268.5657">a</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="76.267586"
+           y="263.55164"
+           id="text7"><tspan
+             sodipodi:role="line"
+             id="tspan7"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="76.267586"
+             y="263.55164">$\alpha$</tspan></text>
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:fill markers stroke"
+           d="m 93.294299,251.60689 c 5.203558,6.2871 4.644705,12.72541 4.644705,12.72541"
+           id="path7" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:fill markers stroke"
+           d="m 131.47019,264.33231 c 0,-10.62972 13.16159,-11.60772 13.16159,-11.60772"
+           id="path8" />
+        <text
+           xml:space="preserve"
+           style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+           x="138.73528"
+           y="260.40881"
+           id="text8"><tspan
+             sodipodi:role="line"
+             id="tspan8"
+             style="stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
+             x="138.73528"
+             y="260.40881">.</tspan></text>
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="119.2624"
+         y="280.79919"
+         id="text9"><tspan
+           sodipodi:role="line"
+           id="tspan9"
+           style="stroke-width:0.264583"
+           x="119.2624"
+           y="280.79919">Ankathete</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="186.24367"
+         y="244.8347"
+         id="text10"><tspan
+           sodipodi:role="line"
+           id="tspan10"
+           style="stroke-width:0.264583"
+           x="186.24367"
+           y="244.8347">Gegenkathete</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="100.39093"
+         y="223.9317"
+         id="text11"><tspan
+           sodipodi:role="line"
+           id="tspan11"
+           style="stroke-width:0.264583"
+           x="100.39093"
+           y="223.9317">Hypotenuse</tspan></text>
+    </g>
+  </g>
+</svg>

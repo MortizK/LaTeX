@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Wiederholung}
+
+\subsection{Lemma}
+
+\begin{equation}
+    \begin{split}
+        b\neq q\in \mathbb{P} \\
+        a=_pb\land a=_qb\implies a=_{pq}b
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        ggT(a, pq)=1\implies a^{(p-1)(q-1)}=_{pq}1
+    \end{split}
+\end{equation}
+
+\section{RSA Verfahren}
+
+Name kommt von den Entwicklern: Rivest, Shamir, Adleman.
+
+1. Wähle zwei verschiedene Primzahlen $p, q$ und bilde $n:= p*q$.
+
+2. Wähle $1<e<\varphi:=(p-1)(q-1)$ mit $ggT(\varphi, e)=1$. Dann ist $S_o:=[e, n]$
+
+3. Bilde die Inverse $d$ von $e$ modulo $\varphi$ (mit erw. euklid. Alg.) $d=_{\varphi}e^{-1}$. Dann ist $S_p:=[d, n]$
+
+Danach ist die Schlüsselgeneration abgeschlossen. $p$ und $q$ können gelöscht werden. $S_p$ muss verschlüsselt auf dem Rechner gespeichert werden.
+
+4. Eine Nachricht $0<M<n$ wird durch den öffentlichen Schlüssel ($S_o$) verschlüsselt: $C:=_n M^{e}$
+
+5. $C$ wird mit $S_p$ entschlüsselt: $M=_n C^{d}$
+
+\subsection{Beweis}
+
+Nur 5.: 1. $ggT(M, pq)=1$, d.h. wir wissen $M^{(p-1)(q-1)}=_n 1$
+
+$C^{d}=_n (M^{e})^{d}=M^{ed}$
+
+Wir wissen $ed=_{\varphi}1$, d.h. $ed = 1 + t\varphi= 1+t(p-1)(q-1)$.
+
+Also: $M^{ed}=M^{1+t(p-1)(q-1)}=M*M^{(p-1)(q-1)t}=_n M*1=M$
+
+2. OBdA $ggT(M, pq)=\substack{\*\\p}\implies ggT(M, q)=1\implies M^{q-1}=_q 1\implies (m^{q-1})^{p-1}=M^{(p-1)(q-1)}=_q 1\implies M^{(p-1)(q-1)t}=_q 1$.
+
+d.h. $M^{(p-1)(q-1)t}=1+rq$
+
+Also: $M^{ed}=M*M^{(p-1)(q-1)t}=M(1+rq)=M+rMq\substack{\*\\=}M+rspq=_n M$
+
+\subsection{Rechnung}
+
+$p=101, q=17, M=405, e=411$
+
+$e=-109*411+28*1600=_{\varphi}-109*411\implies d=1600-109=1491$
+
+\subsubsection{Grundrechnung}
+
+Immer wieder einzelne Produkte modulo $n$ hier $1717$ Rechnen.
+
+\begin{equation}
+    C=_{1717}405^{411}=405*(405^2)^{205}=_{1717}405*910^{205}
+\end{equation}
+
+\section{Aufräumen}
+
+\subsection{Winkel}
+
+Winkeleinheiten 360°$=2\pi$ Bogenmaß ist einfach die Strecke des Bogens, welcher der Winkel in einem Einheitskreis hat.
+
+1°=60' (Minuten)
+
+1'=60'' (Sekunden)
+
+\begin{equation}
+    \begin{array}{c|c}
+        deg^\circ & rad                        \\
+        \hline
+        0^\circ   & 0                          \\
+        360^\circ & 2\pi                       \\
+        180^\circ & \pi                        \\
+        \alpha    & b = \frac{\pi}{180}*\alpha \\
+    \end{array}
+\end{equation}
+
+\subsection{Sinus und Cosinus}
+
+Trigonometrische Funktionen:
+
+\begin{figure}[ht]
+    \centering
+    \incfig{rechtwinkliges_dreieck}
+    \caption{Rechtwinkliges Dreieck}
+    \label{fig:rechtwinkliges_dreieck}
+\end{figure}
+
+Die Verhältnisse zweier Seiten hängen nicht vom Maßstab ab.
+
+\begin{equation}
+    \begin{split}
+        \frac{b}{c} & =\sin{\alpha}                                                                         \\
+        \frac{a}{c} & =\cos{\alpha}                                                                         \\
+        \frac{b}{a} & =\tan{\alpha} = \frac{b*\frac{1}{c}}{a*\frac{1}{c}}=\frac{\sin{\alpha}}{\cos{\alpha}} \\
+    \end{split}
+\end{equation}
+
+Wir wählen den Maßstab im Einheitskreis, wo die Hypotenuse $c = 1$ ist. Hier ergibt sich $\frac{b}{c} =\sin{\alpha}\implies b=\sin{\alpha}$. Und Satz des Pythagoras ergibt $1=a^2+b^2\implies 1=\sin^2{\alpha}+\cos^2{\alpha}$
+
+Um eine Strecke für den Tangens zu bekommen, wählen wir die Ankathete $a=1$ und können das Dreieck vergrößern. Nun ist die Gegenkathete unser Tangens.
+
+\section{Vektoren}
+
+\end{document}

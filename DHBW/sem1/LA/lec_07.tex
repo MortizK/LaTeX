@@ -1,0 +1,233 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 7, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Wiederholung}
+
+\subsection{Teilen mit Rest}
+
+$p$ wird von $q$ geteilt mit dem Rest $r$.
+
+\begin{equation}
+    p\in \mathbb{Z}, q\in \mathbb{N}: p = tq + r, 0\leq r < q, t\in \mathbb{Z}
+\end{equation}
+
+\subsection{ggT}
+
+Satz nach Euklid haben wir bekommen durch den erweiterten Euklidischen Algorithmus.
+
+\begin{equation}
+    \begin{split}
+        ggT(p,q) =          & tp + sq, t, s\in \mathbb{Z} \\
+        ggT(p_1, p_2): p_1= & t_2p_2+p_3, 0\leq p_3 < p_2 \\
+        p_2=                & t_3p_3+p_4, 0\leq p_4 < p_3 \\
+        p_{n-1}=            & t_np_n+0, 0\leq p_n < p_3   \\
+    \end{split}
+\end{equation}
+
+\subsection{Teilbarkeilsätze}
+
+\begin{equation}
+    \begin{split}
+        p|ab\land ggT(p,a)=1      & \implies p|b          \\
+        p|ab\land p\in \mathbb{P} & \implies p|a \lor p|b
+    \end{split}
+\end{equation}
+
+\subsubsection{Beweis von i)}
+
+Mit Hilfe von dem Satz von Euklid.
+
+\begin{equation}
+    \begin{split}
+        1=tp+sa \mid *b \\
+        b=tb*p+sab
+    \end{split}
+\end{equation}
+
+Da $ab=k*p$ ist und somit ein Vielfaches von $p$ ist. Somit zeigt die Gleichung $b=p*(\dots)\implies p|b$
+
+\subsection{Rechnen Modulo p}
+
+\begin{equation}
+    \begin{split}
+        p                         & \in \mathbb{N}                               \\
+        a                         & = b \text{ mod } p                           \\
+        a                         & =_{p} b \iff \exists_{t\in \mathbb{Z}a=b+tp} \\
+        \mathbb{Z} \text{ mod } 7 & : \{0, 1, 2, 3, 4, 5, 6\}=\mathbb{Z}_7
+    \end{split}
+\end{equation}
+
+\subsubsection{Addition}
+
+\begin{equation}
+    \begin{split}
+        a            & =a'+tp                   \\
+        b            & =a'+sp                   \\
+        \implies a+b & = a'+b'+(s+t)*p=_p a'+b'
+    \end{split}
+\end{equation}
+
+\subsubsection{Multiplikation}
+
+\begin{equation}
+    a*b=(a'+tp)(b'+sp)=a'b'+(tb'+sa'+tsp)p=_p a'b'
+\end{equation}
+
+\subsubsection{Rechentabelle}
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{c|ccccccc}
+            +/7 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+            \hline
+            0   & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+            1   & 1 & 2 & 3 & 4 & 5 & 6 & 0 \\
+            2   & 2 & 3 & 4 & 5 & 6 & 0 & 1 \\
+            3   & 3 & 4 & 5 & 6 & 0 & 1 & 2 \\
+            4   & 4 & 5 & 6 & 0 & 1 & 2 & 3 \\
+            5   & 5 & 6 & 0 & 1 & 2 & 3 & 4 \\
+            6   & 6 & 0 & 1 & 2 & 3 & 4 & 5 \\
+        \end{array} &
+        \begin{array}{c|cccccc}
+            */7 & 1 & 2 & 3 & 4 & 5 & 6 \\
+            \hline
+            1   & 1 & 2 & 3 & 4 & 5 & 6 \\
+            2   & 2 & 4 & 6 & 1 & 3 & 5 \\
+            3   & 3 & 6 & 2 & 5 & 1 & 4 \\
+            4   & 4 & 1 & 5 & 2 & 6 & 3 \\
+            5   & 5 & 3 & 1 & 6 & 4 & 2 \\
+            6   & 6 & 5 & 4 & 3 & 2 & 1 \\
+        \end{array}
+    \end{matrix}
+\end{equation}
+
+Aus der Multiplikationstabelle lässt sich auch eine Inverse herauslesen, denn die Inverse ist eine Zahl, welche bei der Multiplikation 1 ergibt. Hier gibt es in jeder spalte genau eine Zahl.
+
+Alle Grundrechenarten $\implies$ Körper. bisherige Körper die wir kennen sind $\mathbb{Q}, \mathbb{R}, \mathbb{C}$ und nun auch $\mathbb{Z}_p$
+
+Das liegt folgender Vermutung nahe:
+
+\begin{equation}
+    p\in \mathbb{N}, a\in \mathbb{N}\land ggT(a,p)=1\land 0<a<p\implies \exists_{b\in \mathbb{N}}^{!}0<b<p \land a*b=_p1
+\end{equation}
+
+\subsubsection{Lemma}
+
+1.
+
+\begin{equation}
+    \begin{split}
+        ggT(a,p)=1 \implies 1 = ta+so =_p ta; \\
+        \text{F.N.}: 0<t<p: t=b               \\
+        \text{andernfalls: Teilen mit Rest}   \\
+        t = kp*r, 0\leq r < p                 \\
+        r=0?: \implies p|1: \text{W! } 0<r<p  \\
+        1=p ta= (r+kp)*a=ra+kap=_p ra         \\
+        \text r=b.
+    \end{split}
+\end{equation}
+
+2. Eindeutig durch W!: Annahme es gibt ein weiteres $b'$ mit $0<b<p\land a*b'=_p 1$
+
+\begin{equation}
+    \begin{split}
+        d.h. \substack{ab=_p 1                     \\
+        ab'=_p 1} & \implies ab=_P 1 =_p ab'       \\
+                  & \implies ab-ab' = a(b-b')=_p 0 \\
+                  & d.h. p|a(b-b')                 \\
+                  & \substack{ggT(p,a)= 1          \\
+        \implies } p|b-b'                          \\
+                  & b-b'<p: \text{ W!}
+    \end{split}
+\end{equation}
+
+\subsubsection{Beispiel}
+
+\begin{equation}
+    \begin{split}
+        ggT(5610, 637) & = 1 = -1277*637 + 145*5610 =_{5610} -1277*637 \\
+                       & =(5610-1277)*637=4333*637
+    \end{split}
+\end{equation}
+
+Definition: $a,p\in \mathbb{N}, a<p \land ggT(a,p)=1$. Dann gibt es genau ein $b\in \mathbb{N}: b<p\land a*b=1$. $b$ heißt Inverse von $a \text{ mod } b$. $a^{-1} \text{ mod } p$.
+
+\begin{equation}
+    a,p\in \mathbb{N}, a<p \land ggT(a,p)=1.
+\end{equation}
+
+\subsubsection{Satz: kleiner Satz von FERMAT}
+
+$a\in \mathbb{N}, p\in \mathbb{P}$. Dann gilt $a^p=_p a$.
+
+Falls zusätzlich $ggT(a, p)=1$. Dann gilt $a^{p-1}=_p 1$.
+
+\begin{equation}
+    \begin{split}
+        a=1                                   & : \text{trivial}                                      \\
+        a\to a+1                              & : a^p=_p a (IV), z.z. (a+1)^p=_p a+1                  \\
+        \text{Also}                           & : (a+1)^p=\sum_{k=1}^{p}\binom{p}{k}a^k               \\
+                                              & = 1+a^p+\sum_{k=1}^{p-1}\binom{p}{k}a^k               \\
+                                              & =_p 1+a + \sum_{k=1}^{p-1}\binom{p}{k}a^k             \\
+        k!\binom{p}{k}=k!*\frac{p!}{k!(p-k)!} & =k!\frac{(p-k)!(p-k+1)(p-k+2)\dots(p-1)*p}{k!*(p-k)!}
+        \\
+        d.h. p|k!\binom{p}{k}                 & \substack{\implies                                    \\
+            ggT(p,k!)=1}p|\binom{p}{k}
+    \end{split}
+\end{equation}
+
+Falls $ggT(a,p)=1: \exists_b ab=_p 1$.
+
+\begin{equation}
+    \begin{split}
+        a^p        & =_p a \mid *b \\
+        a^{p-1}*ab & =_p a*b =_p 1 \\
+    \end{split}
+\end{equation}
+
+\subsubsection{Lemma}
+
+$p\neq q\in \mathbb{P}, a=_p b\land a=_q b \implies a =_{pq} b$
+
+\begin{equation}
+    \begin{split}
+        a=_p b:      & a=b+tp                                                         \\
+        a=_q b:      & a=b+sq                                                         \\
+                     & 0= tp-sq, tp= sq \implies p|sq \implies p|s,\text{ d.h. }s=r*p \\
+        \text{Also } & a=b+sq=b+rpq=_{pq} b
+    \end{split}
+\end{equation}
+
+Kleine Version des Satzes von EULER
+
+$p\neq q\in \mathbb{P}$ und $ggT(a, pq)=1 \implies a^{(p-1)(q-1)=_{pq} 1}$.
+
+Beweis: $ggT(a, pq)=1$, d.h. $ggT(a,p)=1\land ggT(a,q)=1$
+
+\begin{equation}
+    \begin{split}
+        \begin{array}{cc}
+            ggT(a,p)=1                    & ggT(a,q)=1                    \\
+            \implies a^{p-1}=_p 1         & \implies a^{q-1}=_q 1         \\
+            (a^{p-1})^{q-1}=_p 1^{q-1}= 1 & (a^{q-1})^{p-1}=_q 1^{p-1}= 1 \\
+        \end{array} \\
+        \text{d.h. } a^{(p-1)(q-1)}=_p 1 \land a^{(p-1)(q-1)}=_q 1    \\
+        \substack{Lemma                                               \\
+            \implies} a^{(p-1)(q-1)}=_{pq} 1
+    \end{split}
+\end{equation}
+
+\section{RSA Verfahren}
+
+
+
+\end{document}

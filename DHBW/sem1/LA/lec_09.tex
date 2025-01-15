@@ -1,0 +1,164 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 14, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vektoren}
+
+im $\mathbb{R}^2$
+
+\begin{figure}[ht]
+    \centering
+    \incfig{vektoren}
+    \caption{Vektoren mit Addition}
+    \label{fig:vektoren}
+\end{figure}
+
+Vektoren = Handlungsanweisung
+
+Zuerst b dann c ist eine Handlungsanweisung, also muß dazu ein Vektor gehören.
+
+\begin{equation}
+    \begin{split}
+        d      & =\begin{bmatrix}
+                      -1+4 \\
+                      3+4
+                  \end{bmatrix}=\begin{bmatrix}
+                                    3 \\
+                                    7
+                                \end{bmatrix} \\
+        d      & =: b+c=c+b                    \\
+        "-b"   & :=\begin{bmatrix}
+                       -b_1 \\
+                       -b_2
+                   \end{bmatrix}              \\
+        b+(-b) & =0                            \\
+        c+(-b) & =:c-b=\begin{bmatrix}
+                           c_1-b_1 \\
+                           c_2-b_2
+                       \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        t*b:=\begin{bmatrix}
+                 tb_1 \\
+                 tb_2
+             \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\subsection{Linearkombination}
+
+Allgemein: $ta+sb$
+
+$a$ und $b$ sind Vektoren und $t$ und $s$ sind Faktoren
+
+\subsection{Geraden}
+
+Geraden und Geraden Stück
+
+\begin{equation}
+    \begin{split}
+        g   & =\{p+tu\mid t\in \mathbb{R}\} \\
+        g_1 & =\{p+tu\mid t\in[-2, 3]\}
+    \end{split}
+\end{equation}
+
+\subsection{Ebenen}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{ebenen}
+    \caption{Ebene im $\mathbb{R}^3$}
+    \label{fig:ebenen}
+\end{figure}
+
+\begin{equation}
+    \begin{split}
+        E & =\{p+tu+sv\mid t,s\in \mathbb{R}\}                                \\
+        E & =\left\{\begin{bmatrix}
+                        x_1 \\
+                        x_2 \\
+                        x_3
+                    \end{bmatrix}\in \mathbb{E}^3\mid 2x_1-x_2+3x_3=5\right\}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        x_1 & =0+1*x_1+0*x_3             \\
+        x_2 & =-5+2x_1+1*x_3             \\
+        x_3 & =0+0*x_1+1*x_3             \\
+        E   & =\left\{\begin{bmatrix}
+                          0 \\-5\\0
+                      \end{bmatrix}+x_1*
+        \begin{bmatrix}
+            1 \\2\\0
+        \end{bmatrix}+x_3
+        \begin{bmatrix}
+            0 \\3\\1
+        \end{bmatrix}\mid x_1,x_3\in \mathbb{R}\right\}
+    \end{split}
+\end{equation}
+
+\subsection{Länge = Norm}
+
+Der Norm eines Vektor ist $\|x\|$
+
+Im $\mathbb{R}^2$ ist $\|x\|=x_1^2+x_2^2$ oder $\|x\|=\sqrt{x_1^2+x_2^2}$
+
+Im $\mathbb{R}^3$ ist $\|x\|=d^2+x_3^2=x_1^2+x_2^2+x_3^2$ oder $\|x\|=\sqrt{x_1^2+x_2^2+x_3^2}$
+
+Im $\mathbb{R}^4$ ist $\|x\|:=\sqrt{x_1^2+x_2^2+x_3^2+x_4^2}$
+
+\begin{equation}
+    \begin{split}
+        \|tx\|=\|\begin{bmatrix}
+                     tx_1 \\
+                     tx_2
+                 \end{bmatrix}\|
+         & =\sqrt{t^2x_1^2+t^2x_2^2}=\sqrt{t^2*(x_1^2+x_2^2)} \\
+         & =\sqrt{t^2}*\sqrt{x_1^2+x_2^2}=|t|*\|x\|
+    \end{split}
+\end{equation}
+
+i) $\|x\|\geq 0$, $=0\iff x=0$ Nur Null, wenn es der Nullvektor ist (Definitheit)
+
+ii) $\|tx\|=|t|*\|x\|$ (Homogenität)
+
+iii) $\|x+y\|\leq \|x\|+\|y\|$ (Dreiecks-Ungleichung)
+
+\subsection{Abstand: Metrik}
+
+Eine Grafik mit zwei Vektoren und dem Abstandsvektor zwischen den beiden Punkten: $\|x-y\|=\|y-x\|=:d(x,y)$
+
+i) $d(x,y)\geq 0$, wenn $=0\iff x=y$
+
+ii) $d(x, y)= d(y, x)$
+
+iii) $d(x, y)\leq d(x, z) + d(z, y)$ (Dreiecks-Ungleichung)
+
+\subsection{Skalarprodukt}
+
+Winkel $\to$ Skalarprodukt
+
+\subsubsection{Kosinus-Satz}
+
+$c^2=a^2+b^2-2ab\cos{\gamma}$
+
+Auf LA 14.01
+
+\subsection{Differenzen}
+
+Immer Endpunkt minus Startpunkt - Können auch Negativ sein
+
+\end{document}

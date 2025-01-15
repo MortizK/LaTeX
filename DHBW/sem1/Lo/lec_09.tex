@@ -1,0 +1,39 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 15, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sortieren}
+
+\subsection{Big O Notation}
+
+Insert brauchte wir etwa $\frac{1}{4}n^2$, hat also eine Komplexität von $O(n^2)$
+
+MergeSort hat zwei Teile. Den Split, welche zweimal aufgerufen wird und jeweils $\frac{1}{2}n$ Wiederholungen hat. Dieser Split wird auch wiederholt aufgerufen und zwar $\log(n)$. Somit ist die gesamtkomplexität $=(n\log(n))$
+
+\section{Input und Output}
+
+ (read port) List ein Scheme-Objekt in normaler Scheme-Syntax con dem angegebenem Port.
+
+(write obj port) Schreibt ein Scheme-Objekt in normaler Scheme-Syntax auf angegebene Port
+
+Somit können wir einlesen, was wir mit read geschrieben haben - ohne zu serialisieren oder umzuwandeln :)
+
+Es gibt auch weitere Funktionen wie: (newline port) schreibt Zeilenumbruch, (read-char port) und (write-char c port) und (peek-char port)
+
+(peek-char port) Versucht ein Zeichen einzulesen und gibt dieses zurück ohne es zu entfernen. Wenn es kein Zeichen gibt, gibt es ein eof-objekt zurück. Diese kann mit (eof-object? obj) geprüft werden.
+
+\section{Erweiterung: Kommandozeilen}
+
+Ist kein Standard, genaueres kommt nächsten Termin.
+
+Funktioniert nur als Ausführbare Datei, nicht in der IDE. Diese kann unter Racket und dann create Executable kreiert werden.
+
+\end{document}

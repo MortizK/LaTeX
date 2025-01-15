@@ -1,0 +1,98 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{January 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kombinatorische Logik}
+
+\subsection{Ausgezeichnete Terme}
+
+Produktterm: $x, y, \overline{x}*y, x*\overline{y}, x*\overline{y}*z$
+
+Summenterm: $x, y, \overline{x}+y, x+\overline{y}, x+\overline{y}+z$
+
+Minterm: Produktterm, in dem jede Variable einer booleschen Funktion genau einmal vorkommt. $x*y*z$ einer Funktion $f(x,y,z)$
+
+Maxterm: Summenterm, in dem jede Variable einer booleschen Funktion genau einmal vorkommt. $x+y+z$ einer Funktion $f(x,y,z)$
+
+\subsection{Normalformen}
+
+Disjunktive Normalform (DNF): Summe von Produkten wie: $(\overline{x}*y)+(x*\overline{y}*z)$
+
+Konjunktive Normalform (KNF): Produkt von Summen wie: $(\overline{x}+y)*(x+\overline{y}+z)$
+
+Kanonische Disjunktive Normalform (KDNF): Summe von Mintermen wie: $(x*\overline{y}*z)+(x*y*z)$ einer Funktion $f(x,y,z)$
+
+Kanonische Konjunktive Normalform (KKNF): Produkte von Maxtermen wie: $(x+\overline{y}+z)*(x+y+z)$ einer Funktion $f(x,y,z)$
+
+\subsubsection{Satz}
+
+Jede Boolesche Funktion lässt sich als genau eine KDNF (Summe von Mintermen) darstellen. FÜr jede Zeile in der Wahrheitstabelle mit $f(x_1, x_2, \dots, x_n)=1$ wird ein Minterm aufgestellt. Diese Minterme werden alle mit einem ODER verknüpft.
+
+\begin{equation}
+    \begin{array}{ccc|c|cc}
+        A & B & C & Y & DNF                                    & KNF                                    \\
+        \hline
+        0 & 0 & 0 & 1 & \overline{A}*\overline{B}*\overline{C} &                                        \\
+        0 & 0 & 1 & 1 & \overline{A}*\overline{B}*C            &                                        \\
+        0 & 1 & 0 & 1 & \overline{A}*B*\overline{C}            &                                        \\
+        0 & 1 & 1 & 0 &                                        & A+\overline{B}+\overline{C}            \\
+        1 & 0 & 0 & 1 & A*\overline{B}*\overline{C}            &                                        \\
+        1 & 0 & 1 & 0 &                                        & \overline{A}+B+\overline{C}            \\
+        1 & 1 & 0 & 0 &                                        & \overline{A}+\overline{B}+C            \\
+        1 & 1 & 1 & 0 &                                        & \overline{A}+\overline{B}+\overline{C} \\
+    \end{array}
+\end{equation}
+
+Beispiel zu KDNF: \begin{equation}
+    Y_D=\overline{A}*\overline{B}*\overline{C}+\overline{A}*\overline{B}*C+\overline{A}*B*\overline{C}+A*\overline{B}*\overline{C}
+\end{equation}
+
+Beispiel zu KKNF und Umwandlung in das KDNF: \begin{equation}
+    \begin{split}
+        Y_K =  & (A+\overline{B}+\overline{C})*(\overline{A}+B+\overline{C})*(\overline{A}+\overline{B}+C)*(\overline{A}+\overline{B}+\overline{C})                                      \\
+        Y_K  = & (A+\overline{B}+\overline{C})*(\overline{A}+B+\overline{C})*(\overline{A}+\overline{B}+\overline{C})*(\overline{A}+\overline{B}+(C*\overline{C}))                       \\
+        0   =  & C*\overline{C}\text{ Diesen Schritt für die drei Terme wiederholen}                                                                                                     \\
+        Y_K =  & (\overline{A}+\overline{B})*(\overline{B}+\overline{C})*(\overline{A}+\overline{C})                                                                                     \\
+               & \text{Ausmultiplizieren}                                                                                                                                                \\
+        Y_K =  & \overline{A}*\overline{B}+\overline{A}*\overline{C}+\overline{B}*\overline{C}+\overline{A}*\overline{B}*\overline{C}                                                    \\
+        Y_K =  & \overline{A}*\overline{B}*1+\overline{A}*\overline{C}*1+\overline{B}*\overline{C}*1+\overline{A}*\overline{B}*\overline{C}                                              \\
+        Y_K =  & \overline{A}*\overline{B}*(C+\overline{C})+\overline{A}*(B+\overline{B})*\overline{C}+(A+\overline{A})*\overline{B}*\overline{C}+\overline{A}*\overline{B}*\overline{C} \\
+               & \text{Ausmultiplizieren und Duplikate entfernen}                                                                                                                        \\
+        Y_K =  & \overline{A}*\overline{B}*\overline{C}+\overline{A}*\overline{B}*C+\overline{A}*B*\overline{C}+A*\overline{B}*\overline{C} = Y_D
+    \end{split}
+\end{equation}
+
+\subsubsection{Umsetzung}
+
+Eine Realisierung einer Booleschen Funktion $f$ kann erzeugt werden durch:
+
+1. Aufstellung der Wahrheitstabelle von $f$
+
+2. Bilder der KDNF (oder KKNF) von $f$
+
+3. Realisierung der KDNF (oder KKNF) mit Gattern
+
+Eine KDNF kann günstiger sein als eine KKNF, wenn die Anzahl der Notwendigen Minterme geringer ist als die Anzahl der Notwendigen Maxterme - Es gibt weniger 1 als 0.
+
+\begin{equation}
+    \begin{array}{cc|c}
+        x_1 & x_2 & f(x_1,x_2) \\
+        \hline
+        0   & 0   & 1          \\
+        0   & 1   & 1          \\
+        1   & 0   & 0          \\
+        1   & 1   & 1          \\
+    \end{array}
+\end{equation}
+
+Hier ist eine KKNF günstiger, da weniger Terme genutzt werden müssen.
+
+\end{document}

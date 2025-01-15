@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+Hier fehlen kleine Ecken, die aus dem Script nachgetragen werden können.
+
+\subsection{Special Form: and}
+
+And kann beliebig viele Werte entgegen nehmen und überprüft solange, bis ein Falsche wahr ist, dann wird \#f zurückgegeben, sonst der Wert des letzten Wertes.
+
+\subsection{Special Form: or}
+
+Funktioniert genau wie das and. Nur wenn ein Wert True ist, wird dieser Wert zurückgegeben.
+
+\subsection{Special Form: let}
+
+let führt Temporäre Variablen für zwischenergebnisse ein. Hier werden erst alle Werte der Bindungen ausgewertet, dann die Variablen angelegt und dann beschrieben.
+
+(let ((a 10)(b 20)) (+ a b)) gibt 30 zurück
+
+(let ((a +)(b *)) (a (b 10 20) (b 5 10))) gibt 250 zurück
+
+\subsubsection{let*}
+
+Hier werden die Bindungen sequentiell ausgewertet
+
+(let* ((a 10)(b (+ a 20))) (+ a b)) gibt 40 zurück
+
+\section{Sortieren}
+
+Sortieren mit Insert Sort
+
+(define (insert k lst)
+(cond ((null? lst) (list k))
+((< k (car lst)) (cons k lst))
+(else (cons (car lst) (insert k (cdr lst))))))
+
+(define (isort lst)
+(if (null? lst)
+lst
+(insert (car lst) (isort (cdr lst)))))
+
+\end{document}
