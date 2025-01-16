@@ -1,0 +1,115 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Programmieren}
+\author{Moritz}
+\date{January 16, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Übungsaufgaben}
+
+Loader: lädt ein Programm und deren Abhängigkeiten in den Arbeitsspeicher und bereit sie für die Ausführung vor.
+
+Debugger: hilft Entwicklern, nach dem Bauen des Programms, um dieses Schrittweise auszuführen und tieferer Informationen zu dem Programm.
+
+\subsection{Preferences of C}
+
+Most Important Features: Rosalie fragen
+
+Main Preferences and Characteristics: Speicherverwaltung, Prä-Processor macht nur Sachen, die neu sind
+
+Characteristics of C as a procedural programming language: Sequenzielle Abwicklung
+
+\section{GitHub}
+
+Wir können eine Lokal Branch haben, dann den Main Branch pullen und danach mergen. Somit behalten wir unsere Lokalen Änderungen und können die Konflikte Lösen.
+
+\section{Funktionen und Libraries}
+
+Funktionen sind Programmausschnitte, welche für andere Programme zur Verfügung stehen. Diese Funktionen haben einen Namen und können Eingabe- und Ausgabewerte haben.
+
+Jede Funktion Hat einen Return Wert, einen Namen, eingabeWerte und einen Scope.
+
+\subsection{Libraries}
+
+Libraries sind Sammlungen an Funktionen und Definitionen. Diese sind separate Dateien und können von mehreren Programmen benutzt werden.
+
+Wir können auch unsere eigenen Libraries erstellen.
+
+Als header file .h, als Implementation file .c. Diese Custom Library wird mit $\#$include"lib.h" inkludiert.
+
+Wir können ein Library mit gcc main.c lib.c -o myProgram erstellen.
+
+\section{Datentypen}
+
+\subsection{Pointer}
+
+Ein Pointer ist eine Variable, die eine Adresse Speichert. Dieser hat einen Wert und selber auch eine Adresse. Die Eigenen Adresse kann: 0x4712 sein und der Wert des Pointers speichert dann eine Adresse z.B. 0x001A.
+
+Wenn wir noch nicht wissen, wohin der Pointer Zeigen soll, Initialisiere eine Nullpointer: int * pointer = NULL;
+
+Um dem Pointer auf einen Variable Zeigen zu lassen brauchen wir ein $\&$. Kann also so aussehen: int a = 42; int * pointer = $\&$ a;
+
+\subsubsection{Pointer Operations}
+
+Wir können Pointer auch inkrementieren, somit zeigt er auf die nächste Adresse, mit einer Schrittweite von dem aktuellen Datentype. Wir addieren somit die Größe eines Speichers.
+
+\subsection{Arrays}
+
+Ist eine Variable mit mehreren Werten. Auf diese Werte kann über einen Index zugegriffen werden.
+
+Es können auch mehrdimensionale Arrays gebildet werden.
+
+\subsection{struct}
+
+Ein Struct ist ein Datentyp, welche mehrere Andere Datentypen zuordnet.
+
+struct person {int age = 20; char[20] name = "Moritz"}
+
+\subsubsection{Typedef}
+
+Wir können auch ein Struct als "typedef struct {} name" festlegen. Dies ermöglicht uns die Zuweisung zu vereinfachen auf "name test" anstatt "struct name test".
+
+\subsubsection{Zugriff}
+
+Über die Punktschreibweise oder mit einem Pointer auf ein struct gezeigt wird über einen Pfeil: pointer->age oder für den Namen: strcpy(pointer->name "Ben")
+
+\subsubsection{Special Type: Time}
+
+Es gibt ein Paar standard stucts, ein Beispiel ist tm mit der Zeit in verschiedenen Einheiten.
+
+\subsection{union}
+
+Ist dazu da um mehre Zustände eines Wertes zu wechseln. Es speichert zur Zeit nur in einem der Werte von einem union.
+
+Ein Beispiel ist die Speicherung einer Zahl, entweder als Binär oder Decimal Zahl.
+
+\section{assert()}
+
+Ist ein Debugging Werkzeug um Logikfehler zu finden. Es kann mit $\#$include <assert.h> eingebunden werden.
+
+Wenn die Bedingung von assert false ausgibt, dann wird eine Fehlermeldung ausgegeben. Bei einer Rückgabe von true, passiert nichts.
+
+\section{Passing Arguments}
+
+\subsection{Call by Value}
+
+Eine Kopie von dem Wert wird übergeben, damit die Funktion damit rechnen kann.
+
+Veränderungen in der Funktion, ändern das Original nicht.
+
+\subsection{Call by Reference}
+
+Hier wird die Reference weitergegeben, die Funktion rechnet dann mit den eigentlichen Werte über die Reference, wo diese sind.
+
+Veränderungen ändern das Original.
+
+Ist Speichereffizienzen als Call by Value bei Großen Datenmengen.
+
+Es können unvorhergesehene Nebeneffekte entstehen.
+
+\end{document}

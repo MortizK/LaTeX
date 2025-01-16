@@ -13,4 +13,4 @@
 */*/*/*.pdf
 
 # ignore ALL files in ANY directory
-temp/
+/doc
