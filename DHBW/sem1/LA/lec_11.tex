@@ -1,0 +1,137 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vektoren}
+
+\subsection{Kreuzprodukt}
+
+Existiert nur im $\mathbb{R}^3$ (und im $\mathbb{C}^3$). In dem Kreuzprodukt sind mehrere Informationen enthalten.
+
+Die Richtung ist der Normalvektor von der Ebene der beiden Vektoren. In der Länge des Kreuzproduktes ist zudem die Fläche des gespannten Parallelogramms.
+
+\subsection{Drehung}
+
+\subsubsection{In 2D}
+
+Die Formel ist für Rechtsdrehende System entwickelt.
+
+\begin{equation}
+    \begin{split}
+         & x_1b_1+x_2b_2                   \\
+         & \begin{bmatrix}
+               x_1\cos(\alpha)-x_2\sin(\alpha) \\
+               x_1\sin(\alpha)+x_2\cos(\alpha)
+           \end{bmatrix} \\
+         & \begin{bmatrix}
+               \cos(\alpha) & -\sin(\alpha) \\
+               \sin(\alpha) & \cos(\alpha)
+           \end{bmatrix} *
+        \begin{bmatrix}
+            x_1 \\ x_2
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+Wenn wir nun in 3D um die $x_3$ Achse drehen, haben wir nun wieder eine Drehung die wir in 2D machen können.
+
+\subsubsection{In 3D}
+
+Wir machen aus unsere Drehachse $n$ ein Neues Koordinatensystem mit den Achsen $b_1, b_2, b_3$ mit $b_3=n$.
+
+Da die Formel im 2D, auf die wir das Problem vereinfachen wollen, eine Rechtsdrehende Formel, somit müssen unsere gewählten Achsen auch Rechtsdrehend wählen und darauf Prüfen.
+
+\subsection{Spatprodukt}
+
+Gibt es auch nur im $\mathbb{R}^3$ und wird auch Determinante genannt.
+
+Die Grundfläche unseres Spat ist ein Parallelogramms. Die Fläche des Parallelogramms ist die Länge des Kreuzprodukt $\|a\times b\|$
+
+\begin{equation}
+    \begin{split}
+        h & =\langle\frac{a\times b}{\|a\times b\|}\mid c\rangle                                 \\
+          & \implies V = G*h = \|a\times b\|*\langle\frac{a\times b}{\|a\times b\|}\mid c\rangle \\
+          & = \langle a\times b\mid c\rangle = det(a, b, c)                                      \\
+          & = -\langle b\times a\mid c\rangle
+    \end{split}
+\end{equation}
+
+Wir können $a, b, c$ fast willkürlich wählen. Wenn wir aber a und b vertauschen, resultiert das Spatprodukt in einer negativen Zahl. Diese NEgative bedeutet für uns, dass das System der 3 Vektoren ein Linksdrehendes System ist.
+
+Somit sind unsere Relevanten Informationen der Determinante +, -, gleich 0 oder nicht 0.
+
+\subsubsection{Lineare Abhängigkeit}
+
+Wenn der Wert des Spatproduktes gleich 0 ist, bilden die Vektoren eine Ebene und die Vektoren sind linear abhängig. Somit gibt es überflüssige Vektoren.
+
+\subsubsection{Lineare Unabhängig}
+
+Wenn das Spatprodukt einen Wert ungleich 0 hat, sind alle Vektoren notwendig und somit linear unabhängig.
+
+\subsubsection{In 2D}
+
+Im $\mathbb{R}^2$ können wir unser wissen aus $\mathbb{R}^3$ nutzen. Wir erweitern unsere Vektoren der Fläche einfach auf die Dritte Dimension und erstellen einen Normalvektor $e_3=[0, 0, 1]$. Somit erhalten wir ein Volumen, welches den Wert der Fläche hat.
+
+Somit ergibt sich $\langle b\times a\mid e_3\rangle = a_1b_2-a_2b_1$
+
+\subsection{Determinante}
+
+$det(a_1, a_2, a_3,\dots, a_n), a\in \mathbb{R}^n$
+
+i) $det(a_1, a_2, \dots, a_k, \dots, a_l, \dots, a_n) = -det(a_1, a_2, \dots, a_l, \dots, a_k, \dots, a_n)$ alternierend: Wenn wir zwei Werte Tauschen, können wir das, aber handeln uns ein Minus ein.
+
+ii) $det(t_1a_1+s_1b_1, a_2, \dots, a_n) = t_1*det(a_1, a_2, \dots, a_n) + s_1*det(b_1, a_2, \dots, a_n)$ multilinear: Dadurch, dass wir nach i) auch alles Tauschen können ist jeder Wert linear.
+
+iii) $det(e_1, e_2, \dots, e_n) = 1$ normiert: Die Determinante, von den allen Normalvektoren ist 1. $e_1=[1, 0, 0, \dots, 0]$ und alle weiteren sind die Kanonische Basis: $K:={e_1, e_2, \dots, e_n}$
+
+\subsubsection{Pfadschreibweise}
+
+Wir können alle Pfade in einer Matrix aufzeichnen. Wenn wir nun diese Matrix in einer besonderen Form haben, der oberen Dreiecksform, ist die Determinante nur das Produkt der Diagonale, da alle anderen Werte mit 0 multipliziert werden.
+
+\begin{equation}
+    \begin{matrix}
+        \begin{bmatrix}
+            a_1 & b_1 & c_1 \\
+            a_2 & b_2 & c_2 \\
+            a_3 & b_3 & c_3 \\
+        \end{bmatrix} &
+        \begin{bmatrix}
+            . & . & . & . & . \\
+              & . & . & . & . \\
+              &   & . & . & . \\
+              &   &   & . & . \\
+              &   &   &   & . \\
+        \end{bmatrix}
+    \end{matrix}
+\end{equation}
+
+Nun brauchen wir eine Methode um aus allen Matrizen zu einer in der Oberen Dreiecksform zu bilden. Das funktioniert mit GAUSS-VErfahren.
+
+\subsubsection{GAUSS-Verfahren}
+
+GAUSS-VErfahren ändert den Wert einer Determinante nicht:
+
+\begin{equation}
+    \begin{split}
+         & det(a_1+ta_2, a_2, a_3, \dots)                         \\
+         & =det(a_1, a_2, a_3, \dots)+t*det(a_2, a_2, a_3, \dots) \\
+         & =det(a_1, a_2, a_3, \dots)+t*0                         \\
+         & =det(a_1, a_2, a_3, \dots)                             \\
+    \end{split}
+\end{equation}
+
+Wenn wir eine Operation wie $det(sa_1+ta_2, a_2, a_3, \dots)$ machen, verändern wir den Wert der Determinante um den Faktor $s$. Dieser muss kompensiert werden mit $\frac{1}{s}$. Für mehrere dieser Werte wird in einer Extra Spalte Buch-geführt.
+
+\section{Besprechen}
+
+Termin der Übungsklausur!
+
+\end{document}
