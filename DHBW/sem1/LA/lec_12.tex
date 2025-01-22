@@ -1,0 +1,254 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vektoren}
+
+\subsection{Determinante}
+
+\subsubsection{GAUSS-Verfahren}
+
+Wir Arbeiten im GAUSS-Verfahren mit einer spalte für Arbeitsaufträge und eine für Korrekturfaktoren.
+
+Jede Arbeitszeile kann nur einmal benutzt werden, sonst werden unsere 0 wieder verändert.
+
+Wenn wir wie in erstem Tempo bei $III$ mit 2 multiplizieren, müssen wir den Korrekturfaktor aufschreiben und später die Determinante korrigieren.
+
+WICHTIG: Wenn wir Zeilen oder Spalten tauschen, müssen wir einen Korrekturfaktor von $-1$ aufschreiben.
+
+\begin{equation}
+    \begin{array}{c|cccc|c|c}
+            & s_1 & s_2 & s_3 & s_4  &               &              \\
+        \hline
+        I   & 2   & 0   & 5   & 7    &               &              \\
+        II  & 4   & 1   & 2   & 6    & II - 2*I      &              \\
+        III & -3  & 3   & 6   & 1    & 2*III + 3*II  & \frac{1}{2}  \\
+        IV  & 6   & 0   & 3   & 4    & IV - 3*I      &              \\
+        \hline
+            & 2   & 0   & 5   & 7    &               &              \\
+            & 0   & 1   & -8  & -8   &               &              \\
+            & 0   & 6   & 27  & 23   & III - 6*II    &              \\
+            & 0   & 0   & -12 & -17  &               &              \\
+        \hline
+            & 2   & 0   & 5   & 7    &               &              \\
+            & 0   & 1   & -8  & -8   &               &              \\
+            & 0   & 0   & 75  & 71   &               &              \\
+            & 0   & 0   & -12 & -17  & 25*IV + 4*III & \frac{1}{25} \\
+        \hline
+            & 2   & 0   & 5   & 7    &               &              \\
+            & 0   & 1   & -8  & -8   &               &              \\
+            & 0   & 0   & 75  & 71   &               &              \\
+            & 0   & 0   & 0   & -141 &               &              \\
+        \hline
+    \end{array}
+\end{equation}
+
+Also ist die Determinante der Matrix A, das Produkt der Diagonal mal allen Korrekturfaktoren.
+
+\begin{equation}
+    \begin{split}
+        det(A) & =2*1*75*-141*\frac{1}{2}*\frac{1}{25} \\
+        det(A) & =-141*\frac{2}{2}*\frac{75}{25}       \\
+               & =-141*3                               \\
+               & = -423
+    \end{split}
+\end{equation}
+
+\subsection{Gleichungssysteme}
+
+\begin{equation}
+    \begin{split}
+        \begin{split}
+            2x_1+0x_2+5x_3+2x_4  & = 3  \\
+            4x_1+1x_2+2x_3+6x_4  & = 9  \\
+            -3x_1+3x_2+6x_3+1x_4 & = 0  \\
+            6x_1+0x_2+3x_3+4x_4  & = 12 \\
+        \end{split} \\
+        \begin{array}{ccccc|c}
+            x_1 & x_2 & x_3 & x_4 & y  \\
+            \hline
+            2   & 0   & 5   & 7   & 3  \\
+            4   & 1   & 2   & 6   & 9  \\
+            -3  & 3   & 6   & 1   & 0  \\
+            6   & 0   & 3   & 4   & 12 \\
+        \end{array}
+    \end{split}
+\end{equation}
+
+Die 4x4 Matrix des Schema nennen wir A
+
+\begin{equation}A:=\begin{bmatrix}
+        2  & 0 & 5 & 7 \\
+        4  & 1 & 2 & 6 \\
+        -3 & 3 & 6 & 1 \\
+        6  & 0 & 3 & 4 \\
+    \end{bmatrix}
+\end{equation}
+
+Unsere Neu Multiplikation ist somit $A*x=y$. Bedingungen für die Größen sind: $A$ hat $m$ Zeilen und $n$ Spalten und wird mit $x$ (Vektor der Länge $n$) und ergibt y (Vektor der Länge $m$)
+
+\subsubsection{Rechenregeln}
+
+\begin{equation}
+    \begin{split}
+        A*x             & = y \\
+        \begin{bmatrix}
+            a_{11} & a_{12} & a_{13} & \dots  & a_{1n} \\
+            a_{21} & a_{22} & a_{23} & \dots  & a_{2n} \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            a_{m1} & a_{m2} & a_{m3} & \dots  & a_{mn} \\
+        \end{bmatrix} *
+        \begin{bmatrix}
+            x_1    \\
+            x_2    \\
+            x_3    \\
+            \vdots \\
+            x_n
+        \end{bmatrix} & =
+        \begin{bmatrix}
+            y_1    \\
+            y_2    \\
+            \vdots \\
+            y_m
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+Diese Rechenregeln sind linear.
+
+\begin{equation}
+    \begin{split}
+        A*(tx)    & =t*A*x       \\
+        A*(x+z)   & =A*x+A*z     \\
+        A*(tx+sz) & =t*A*x+s*A*z
+    \end{split}
+\end{equation}
+
+\subsubsection{Ablauf}
+
+GAUSS-Verfahren $\to$ LGS lösen $\to$ Matrix-Schreibweise $\to$ allgemeine Lösungstheorie lineare Gleichung
+
+\begin{equation}
+    \begin{split}
+        A: m\times n\text{-Matrix} & = [a_1, a_2, a_3, \dots, a_n] \\
+        a_1=\begin{bmatrix}
+                a_{11} \\
+                a_{21} \\
+                a_{31} \\
+                \vdots \\
+                a_{m1} \\
+            \end{bmatrix},        &
+        a_2=\begin{bmatrix}
+                a_{12} \\
+                a_{22} \\
+                a_{32} \\
+                \vdots \\
+                a_{m2} \\
+            \end{bmatrix}                                         \\
+    \end{split}
+\end{equation}
+
+A: $m\times n$-Matrix
+
+Also steht: $A*x=y$ und $A: m\times n$, $x: n\times 1$ und $y: m\times 1$ Matrizen.
+
+\subsection{Lösungstheorien linearer Gleichungen}
+
+$Ax=y$ mit $y\neq 0$: inhomogene Gleichung; eine Lösung $x$ heißt inhomogene Lösung.
+
+$Ax=0$: homogene Gleichung; eine Lösung $x$ heißt homogene Lösung.
+
+JEDE inhomogene Lösung $x$, setzt sich zusammen aus EINER FESTEN inhomogene Lösung $x_1$ und EINER homogene Lösung $x_0$.
+
+\begin{equation}
+    x = x_1 + x_0
+\end{equation}
+
+Denn: \begin{equation}
+    \begin{split}
+        Ax_1       & = y \\
+        Ax_0       & = 0 \\
+        Ax_1+Ax_0  & = y \\
+        A(x_1+x_0) & = y
+    \end{split}
+\end{equation}
+
+Umkehrung: \begin{equation}
+    \begin{split}
+        Ax   & = y                        \\
+        Ax_1 & = y                        \\
+        x    & = x_1+ (x-x_1) = x_1 + x_0
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        Ax_0=A(x-x_1)=Ax-Ax_1=y-y=0
+    \end{split}
+\end{equation}
+
+\subsection{Lineare (Un)Abhängigkeit}
+
+Im $\mathbb{R}^3$
+
+Linear Unabhängig (l.u.), wenn die drei Vektoren $a, b, c$ eine "Frittentüte" bilden.
+
+Linear Abhängig (l.a.), wenn die drei Vektoren in einer Ebene liegen. Hier gilt $b = tc+sa$. Allgemein: $a, b$ oder $c$ lässt sich aus den restlichen kombinieren: z.B. $b=t*c+s*a$ oder $a = tb + sc$.
+
+\begin{equation}
+    \begin{split}
+        b=t*c+s*a   & \implies 0=sa-1b+tc  \\
+        a = tb + sc & \implies 0=-1a+tb+sc \\
+    \end{split}
+\end{equation}
+
+Wenn die einzige Lösung von $t*a+s*b+r*c=0$ nur $t=s=r=0$. Wenn die Lösung eindeutig ist, sind die Vektoren linear Unabhängig (l.u.).
+
+Hier lohnt es sich, GAUSS-Verfahren, nur bis zur oberen Dreiecksform zu lösen. Wenn es diese gibt, ist das Gleichungssysteme eindeutig Lösbar und es wird unsere triviale Lösung $t=s=r=0$ sein.
+
+Nach GAUSS Form: \begin{equation}
+    \begin{array}{cc}
+        \begin{bmatrix}
+            . & . & . & . & . \\
+              & . & . & . & . \\
+              &   & . & . & . \\
+              &   &   & . & . \\
+              &   &   &   & . \\
+        \end{bmatrix}     &
+        \begin{bmatrix}
+            . & . & . & . & . \\
+              & . & . & . & . \\
+              &   & . & . & . \\
+              &   &   & . & . \\
+              &   &   &   &   \\
+        \end{bmatrix}          \\
+        \text{Linear Unabhängig} &
+        \text{Linear Abhängig}
+    \end{array}
+\end{equation}
+
+\subsubsection{Definition}
+
+Im $\mathbb{R}^n$ sind $k$ Vektoren ${a_1, a_2, \dots, a_k}$ mit $k\leq n$ heißen linear unabhängig, falls jede Nullkombination trivial ist.
+
+$t_1a_1+t_2a_2+\dots+t_ka_k=0$ trivial ist, d.h. es muss $t_1=t_2=\dots=t_k=0$ gelten.
+
+Praktisch: Bilde eine Nullkombination $t_1a_1+t_2a_2+\dots+t_ka_k=0$ und versuche sie mit GAUSS zu lösen. Wenn dabei zwingend $t_1=t_2=\dots=t_k=0$ rauskommt, sind sie l.u., andernfalls l.a.
+
+i) GAUSS in obere Dreiecksform mit allen Werten der Diagonalen $\neq 0$.
+
+ii) GAUSS in obere Dreiecksform mit mindesten einem Wert der Diagonal $= 0$
+
+\section{Besprechen}
+
+Termin der Übungsklausur!
+
+\end{document}

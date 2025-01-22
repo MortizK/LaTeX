@@ -1,0 +1,102 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Syntax}
+
+Was ist ein korrekter Satz?
+
+\subsubsection{Atomare Aussagen}
+
+Beispiele: C ist schuldig, C, Die Straße ist nass, StraßeNass
+
+\subsubsection{Operatoren}
+
+$land$ und, $lor$ oder, $\to$ impliziert, $\neq$ nicht
+
+\subsubsection{Beispiel}
+
+1. Wenn A schuldig und B unschuldig, so ist C schuldig
+
+2. C arbeitet niemals allein
+
+3. A arbeitet niemals mit C
+
+4. Niemand außer A, B oder C war beteiligt und mindestens ein muss es gewesen sein.
+
+1. $A\land \neq B\to C$
+
+2. $C\to (A\lor B)$ (mit 4.)
+
+3. $A\to\neg C$
+
+4. $A\lor B\lor C$
+
+\subsubsection{Definition}
+
+Eine aussagenlogische Signatur $\sum$ ist eine (Nichtleere) abzählbare Menge von Symbolen, etwa
+
+\subsubsection{Logische Symbole}
+
+$\top$ für den Wahrheitswert "wahr"
+
+$\bot$ für den Wahrheitswert "falsch"
+
+$\neg$ Negations "nicht"
+
+$\land$ Konjunktion "und"
+
+$\lor$ Disjunktion "oder"
+
+$\to$ Implikation "wenn ..., dann"
+
+$\leftrightarrow$ Äquivalenz "genau dann, wenn"
+
+() Klammern
+
+\subsubsection{Definition: Menge der Formeln}
+
+Die Menge aller Formeln. $\top$ und $\bot$ sind Teil der Menge, sowie alle Atome. Zudem gilt, wenn $P, Q\in For0_{\sum}$, dann sind auch $(\neg P), (P\land Q), (P\lor Q), (P\to Q), (P \leftrightarrow Q)$
+
+\begin{equation}
+    \sum=\{A_0,\dots,A_n\}
+\end{equation}
+
+Hier müssen wir darauf achten, dass der Syntax immer Klammern um Jede Formel hat.
+
+\subsubsection{Klammern}
+
+Wir erlauben uns durch Faulheit, manche Klammern wegzulassen. Somit können wir die äußersten Klammer weglassen.
+
+Zudem haben wir wieder eine Präzedenz, welche den Verschiedenen Operatoren eine Gewichtung und somit eine Rechenreihenfolge gibt.
+
+Die Reihenfolge ist: $\neg , \land, \lor, \to, \leftrightarrow$. Somit brauchen wir hier: $C\land(P\to A\lor C)$
+
+\subsection{Semantik}
+
+Wann ist ein Satz (inhaltlich) wahr oder falsch?
+
+\subsubsection{Definition}
+
+Sei $\sum$ eine aussagenlogische Signatur.
+
+Eine Interpretation (über $\sum$) ist eine beliebige Abbildung $I: \sum\to\{1, 0\}$
+
+Die Menge aller Interpretationen über $\sum$ bezeichnen wir als $I_{\sum}$
+
+\subsubsection{Auswertung}
+
+Wir Definieren einfach für alle Operatoren die Ergebnisse in Abhängigkeit von den Ergebnisse ihre Teile.
+
+Somit bilden wir die Wertetabellen für alle Operatoren für zwei Atome.
+
+\end{document}

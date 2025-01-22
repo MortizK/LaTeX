@@ -1,0 +1,194 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{January 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kombinatorische Logik}
+
+\subsection{KV Diagramm}
+
+Wenn wir "don't care" Werte in einem KV Diagramm haben, markieren wir die 1 und die d für "don't care". Wir bilden also immer die größten Rechtecke um möglichst wenig Terme zu benutzen.
+
+\subsubsection{4 Stellig}
+
+Das Modell finde ich am ende der letzten Vorlesung. Hier nochmal eine leicht vereinfachte Version mit Indexen.
+
+\begin{equation}
+    \begin{array}{cc|cccc|cc}
+          &     & 0  & 0   & 1   & 1   &     &   \\
+          &     &    &     & x_3 & x_3 &     &   \\
+        \hline
+        0 &     & 0  & 1   & 5   & 4   &     & 0 \\
+        1 & x_2 & 2  & 3   & 7   & 6   &     & 0 \\
+        1 & x_2 & 10 & 11  & 15  & 14  & x_4 & 1 \\
+        0 &     & 8  & 9   & 13  & 12  & x_4 & 1 \\
+        \hline
+          &     &    & x_1 & x_1 &     &     &   \\
+          &     & 0  & 1   & 1   & 0   &     &   \\
+    \end{array}
+\end{equation}
+
+\subsubsection{7 Segment Display - Aiken Code}
+
+\begin{equation}
+    \begin{array}{c|cccc|ccccccc}
+        BCD & x_4 & x_3 & x_2 & x_1 & a & b & c & d & e & f & g \\
+        \hline
+        0   & 0   & 0   & 0   & 0   & 1 & 1 & 1 & 1 & 1 & 1 &   \\
+        1   & 0   & 0   & 0   & 1   &   & 1 & 1 &   &   &   &   \\
+        2   & 0   & 0   & 1   & 0   & 1 & 1 &   & 1 & 1 &   & 1 \\
+        3   & 0   & 0   & 1   & 1   & 1 & 1 & 1 & 1 &   &   & 1 \\
+        4   & 0   & 1   & 0   & 0   &   & 1 & 1 &   &   & 1 & 1 \\
+            & 0   & 1   & 0   & 1   &   &   &   &   &   &   &   \\
+            & 0   & 1   & 1   & 0   &   &   &   &   &   &   &   \\
+            & 0   & 1   & 1   & 1   &   &   &   &   &   &   &   \\
+            & 1   & 0   & 0   & 0   &   &   &   &   &   &   &   \\
+            & 1   & 0   & 0   & 1   &   &   &   &   &   &   &   \\
+            & 1   & 0   & 1   & 0   &   &   &   &   &   &   &   \\
+        5   & 1   & 0   & 1   & 1   & 1 &   & 1 & 1 &   & 1 & 1 \\
+        6   & 1   & 1   & 0   & 0   & 1 &   & 1 & 1 & 1 & 1 & 1 \\
+        7   & 1   & 1   & 0   & 1   & 1 & 1 & 1 &   &   &   &   \\
+        8   & 1   & 1   & 1   & 0   & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+        9   & 1   & 1   & 1   & 1   & 1 & 1 & 1 & 1 &   & 1 & 1 \\
+    \end{array}
+\end{equation}
+
+\begin{equation}
+    \begin{matrix}
+        \begin{array}{cc|cccc}
+                &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 0 & 1   &     & 4   \\
+                & x_2 & 2 & 3   &     &     \\
+            x_4 & x_2 &   & 5   & 9   & 8   \\
+            x_4 &     &   &     & 7   & 6   \\
+        \end{array} &
+        \begin{array}{cc|cccc}
+            a   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 &     & d   &     \\
+                & x_2 & 1 & 1   & d   & d   \\
+            x_4 & x_2 & d & 1   & 1   & 1   \\
+            x_4 &     & d & d   & 1   & 1   \\
+        \end{array} &
+        \begin{array}{cc|cccc}
+            b   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 & 1   & d   & 1   \\
+                & x_2 & 1 & 1   & d   & d   \\
+            x_4 & x_2 & d &     & 1   & 1   \\
+            x_4 &     & d & d   & 1   &     \\
+        \end{array} \\ \\
+        \begin{array}{cc|cccc}
+            c   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 & 1   & d   & 1   \\
+                & x_2 &   & 1   & d   & d   \\
+            x_4 & x_2 & d & 1   & 1   & 1   \\
+            x_4 &     & d & d   & 1   & 1   \\
+        \end{array} &
+        \begin{array}{cc|cccc}
+            d   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 &     & d   &     \\
+                & x_2 & 1 & 1   & d   & d   \\
+            x_4 & x_2 & d & 1   & 1   & 1   \\
+            x_4 &     & d & d   &     & 1   \\
+        \end{array} &
+        \begin{array}{cc|cccc}
+            e   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 &     & d   &     \\
+                & x_2 & 1 &     & d   & d   \\
+            x_4 & x_2 & d &     &     & 1   \\
+            x_4 &     & d & d   &     & 1   \\
+        \end{array} \\ \\
+        \begin{array}{cc|cccc}
+            f   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     & 1 &     & d   & 1   \\
+                & x_2 &   &     & d   & d   \\
+            x_4 & x_2 & d & 1   & 1   & 1   \\
+            x_4 &     & d & d   &     & 1   \\
+        \end{array} &
+        \begin{array}{cc|cccc}
+            g   &     &   &     & x_3 & x_3 \\
+                &     &   & x_1 & x_1 &     \\
+            \hline
+                &     &   &     & d   & 1   \\
+                & x_2 & 1 & 1   & d   & d   \\
+            x_4 & x_2 & d & 1   & 1   & 1   \\
+            x_4 &     & d & d   &     & 1   \\
+        \end{array} &
+    \end{matrix}
+\end{equation}
+
+\begin{equation}
+    \begin{matrix}
+        a= (\overline{x_3}+x_4)*(\overline{x_1}+x_2+x_4)    &
+        b= (\overline{x_4}+x_3)*(\overline{x_4}+x_2+x_1)            \\
+        c= x_3+\overline{x_2}+x_1                           &
+        d= x_2+\overline{x_3}*\overline{x_1}+x_4*x_3*\overline{x_1} \\
+        e= \overline{x_3}*\overline{x_1}+x_4*\overline{x_1} &
+        f= x_4*x_2+\overline{x_2}*\overline{x_1}+\overline{x_4}*x_3 \\
+        g=x_3*\overline{x_1}+x_2
+    \end{matrix}
+\end{equation}
+
+Diese Funktionen habe ich in einem Logic Simulator nachgebaut und überprüft. Sie funktionieren.
+
+\subsubsection{Minimale KDNF und KKNF}
+
+Entweder durch das Zusammenfassen von 0 oder 1. Die DNF wird aus 1 gebildet und die KNF aus 0.
+
+\subsection{Schaltnetze}
+
+Ein Schaltnetz wird auch als Kombinatorische Logik bezeichnet. Ein Schaltnetz kann beliebig viele Eingänge und Ausgangsfunktionen haben.
+
+Zudem haben Sie einen weiteren Input, welcher der control genannt wird. Dieser gibt an, welcher wert wir durchschalten wollen.
+
+\subsubsection{1-aus-k Multiplexer}
+
+Dieser schaltet den k-ten Wert durch. Wir können einen Multiplexer auch als Logikschaltung darstellen.
+
+\subsubsection{1-zu-k Demultiplexer}
+
+Dieser schalten den einen Eingang nur an einem der vielen Ausgänge durch.
+
+\subsubsection{k-zu-n Kodierer}
+
+Wir haben k Eingänge, n Ausgänge und keine Control Leitung.
+
+Hier darf nur genau ein Eingang auf 1 sein. Als Ausgang, kommt dan der Index von dem gesetztem Eingang.
+
+\subsubsection{n-zu-k Dekodierer}
+
+Als Input kommt ein Index, und als Ausgang kommt dann $K_n$ als 1.
+
+\subsubsection{Realisierung}
+
+\subsection{Gatter}
+
+Gatter haben in der Realen Welt eine kleine Verzögerung. Zudem springt der Wert nicht, sonder die Spannung verändert sich kontinuierlich.
+
+Die Verzögerung nennen wir Tau: $\tau$ ist definiert als Zeitspanne zwischen den ZEitpunkten der Überschreitung eines 50$\%$ Pegel der realen Schaltung.
+
+\subsubsection{Zeitverhalten}
+
+Durch die kleine Verzögerung entsteht das sogenannte Strukturhazard.
+
+\end{document}

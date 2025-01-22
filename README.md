@@ -1,0 +1,54 @@
+# Dokumentation
+
+Dies ist meine Dokumentation von der DHBW-Stuttgart. Meine Fachrichtung ist Informatik.
+
+## Latex
+
+All meine Dokumente sind in Latex formuliert. Das Formatting ist noch Standard, wird in Zukunft evt. noch geändert.
+
+### preamble
+
+Damit ich in jedem .tex file die gleichen imports für z.B. Mathe Formeln und Symbole, hat jedes Semester ein preamble.tex, welches von jedem lec_XX.tex referenziert wird.
+
+### Ordnerstruktur DHBW
+
+```
+├── .vscode
+├── current
+├── helper
+│   ├── inkscape
+│   │   └── template.svg
+│   └── scripts
+├── sem1
+│   ├── preamble.tex
+│   ├── module_01
+│   │   ├── fig
+│   │   │   ├── figure_name.svg
+│   │   │   ├── figure_name.pdf
+│   │   │   ├── figure_name.tex
+│   │   ├── info.yaml
+│   │   ├── lec_01.tex
+│   │   ├── lec_02.tex
+│   │   ├── ...
+│   ├── module_02
+│   ├── ...
+└── sem2
+```
+
+## Zusätze in Modulen
+
+In Manchen Fächern/ Modulen gibt es noch zusätzliche Dateien, welche in der Ordnerstruktur des einzelnen Moduls sind.
+
+### Ordner /scheme
+
+Für Scheme Programme in der Sprache Racket im Standard R5RS.
+
+### Ordner /c
+
+Für Programme in der Sprache C.
+
+Dies sind nur ein Paar Übungen, da der Großteil der Aufgaben in einem Anderen Repo sind.
+
+### Ordner /pap
+
+Für Dateien im .pap format um Ablaufplane zu kreieren und zu speichern.

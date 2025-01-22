@@ -51,7 +51,7 @@ int e_euklid(int (*pointer)[64])
 int convert(int front, int M, int n, int e)
 {
     printf("%d*%d^%d\n", front, M, e);
-    if (M == 1)
+    if (M == 1 || e == 0)
     {
         return front;
     }
@@ -68,7 +68,7 @@ int convert(int front, int M, int n, int e)
 void main()
 {
     // Die Nachricht
-    int M = 405;
+    int M = 5;
 
     // Die Beiden Riesigen Primzahlen
     int p1 = 17;
@@ -90,8 +90,8 @@ void main()
     printf("\nEuklidischer Algorithmus\n");
     euklid(e, phi, pointer);
 
-    // dies funktion gibt eine Form 1 = x_1*phi + x_2*e zurück, modulo phi = x_2*e
-    // Und die Positive x_2 interresiert uns.
+    // dies Funktion gibt eine Form 1 = x_1*phi + x_2*e zurück, modulo phi = x_2*e
+    // Und die Positive x_2 interessiert uns.
 
     printf("\nErweiterter Euklidischer Algorithmus\n");
     int d = e_euklid(pointer);
@@ -100,11 +100,11 @@ void main()
 
     // Nachricht Verschlüsseln
     // Die Form C modulo n = M^e
-    printf("\nNachrich Verschluesseln\n");
+    printf("\nNachricht Verschluesseln\n");
     int C = convert(1, M, n, e);
     printf("C= %d\n", C);
 
-    // Nachrich Entschlüsseln
-    printf("\nNachrich Entschluesseln\n");
+    // Nachricht Entschlüsseln
+    printf("\nNachricht Entschluesseln\n");
     printf("M= %d\n", convert(1, C, n, d));
 }

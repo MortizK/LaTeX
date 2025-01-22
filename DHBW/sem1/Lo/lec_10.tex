@@ -1,0 +1,88 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 16, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Listen}
+
+Wie sehen Listen unter der Haube aus?
+
+Nichtleere Liste bestehen aus cons-Paaren. Diese cons-Paare sind zwei Pointer. Der erste zeigt auch car und der zweiter auf den Reste der Liste. Der zweiter zeigt somit entweder selber auf ein cons-Paar oder auf den Nullpointer (Leere Liste).
+
+Somit sind Listen Rekursiv definiert.
+
+\subsection{cons a b}
+
+Erstelle ein Neues cons-Paar.
+
+Schreibt den Pointer auf a in dessen car.
+
+Schreibt den Pointer auf b in dessen cdr.
+
+\subsection{car und cdr verallgemeinert}
+
+Wir können auch Abkürzungen bis ebene 4 Zusammenfassen.
+
+Somit ist (caar x) = (car (car x)) und Kombinationen wie (cadd x) = (car (cdr (cdr x)))
+
+\subsection{Typen}
+
+(pair? obj) prüft, ob obj ein cons-Paar ist.
+
+(list? obj) prüft, ob obj eine Liste ist.
+
+(null? obj) prüft, ob obj die leere Liste ist.
+
+\subsection{Lambda}
+
+((lambda (x y)(+ (* 2 x) y)) 3 5) => 11
+
+lambda erstellt eine Funktion mit Parametern. Hier werden (3 5) für (x y) eingesetzt und der Body wird dann ausgeführt.
+
+\subsection{map}
+
+(map (lambda (x) (* x 3) '(1 2 3 4))) => '(3 6 9 12)
+
+map kann auch mehrere Parameter haben, aber nur dann, wenn die Funktion in map mehrere Parameter braucht. Aso z.B.: (map (lambda (x y) (if (> x y) x y)) '(2 5) '(3 4)) => '(3 5)
+
+\subsection{apply}
+
+(apply + '(11 7 14)) => 32
+
+Hier wird die Funktion zwischen jedem Element der Liste Ausgewertet.
+
+(apply map (list (lambda ( x )(+ x 3 )) '(1 2 3)))
+(apply map '(x->x+3 '(1 2 3)))
+(map x->x+3 '(1 2 3)) => '(4 5 6)
+
+\subsection{eval}
+
+eval nimmt einen Scheme-Ausdruck und wertet ihn in der aktuellen Umgebung aus. (eval (+ 2 11)) => 13
+
+\subsection{set-mcar! und set-mcdr!}
+
+In Scheme, aber nicht in Racket, gibt es diese Funktionen und "Modifizierbaren Listen".
+
+\section{Namenskonvention}
+
+Verändernde (destruktive) Funktionen enden in !
+set!, set-car!, vector-set!, . . .
+
+Prädikate (liefern $\#$t oder $\#$f) enden in ?
+null?, pair?, equal?. . .
+
+Konvertierungsfunktionen enthalten ->
+string->number, list->vector
+
+\section{Mut zur Lücke}
+
+Was wir in Scheme nicht bearbeitet haben. Finde ich in der Folie auf S. 187
+
+\end{document}
