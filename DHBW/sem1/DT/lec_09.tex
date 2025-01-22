@@ -1,0 +1,105 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{January 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Kombinatorische Logik}
+
+\subsection{Gatter}
+
+\subsubsection{Zeitverhalten}
+
+Um diesen Strukturhazard zu umgehen, können wir die Schaltung so zu ändern, dass alle Pfade dieselbe Pfadlänge haben.
+
+Dies können wir tun, indem wir unnötige Gatter verwenden. So verändert wir ein $x_1$ zu $x_1\land x_1$, welches die gleiche Laufzeit wie $\overline{x_2}$ hat.
+
+Wir können auch zusätzliche Logikgatter hinzufügen, um das Hazard zu unterdrücken.
+
+Diese können wir aus dem KV-Diagramm ablesen
+
+\begin{equation}
+    \begin{array}{c|cccc}
+            &   & x_0 & x_0 &     \\
+        \hline
+            & 0 & 0   & 1   & 1   \\
+        x_1 & 0 & 1   & 1   & 0   \\
+        \hline
+            &   &     & x_2 & x_2 \\
+    \end{array}
+\end{equation}
+
+Nun kombinieren wir alle Paare in dieser Schaltung um den Sprung zwischen den beiden Werte mit zu berücksichtigen. SOmit landen wir auf einem Term von $Y=x_1*x_0+x_2*\overline{x_1}+x_2*x_0$
+
+\subsection{Logikbausteine}
+
+Logikgatter sind zu klein um diese Einzeln zu kaufen. Die Kleinsten Bausteine sind TTL-ICs. Diese haben mehrere Pins welche mehrere der selben Art von Gattern anliegen und diese Verarbeiten.
+
+Es gibt auch noch programmierbare Logikbausteine und hochintegrierte Bausteine.
+
+\subsubsection{PROM}
+
+Programmable Read Only Memory. In diesem sind alle UND GATTER für die Anzahl der Eingänge fest verdrahte und wir können die Verbindungen zu den ODER GATTERN programmieren.
+
+Einen PROM können wir Programmieren, indem wir die Ergebnisse (y) aus unser Wahrheitstabelle kopieren.
+
+\subsubsection{PAL/ GAL}
+
+Programmable/ Generic Array Logic. Hier ist es genau anders herum. Hier ist die ODER Matrix fest. So können wir. Die feste ODER Matrix erlaubt nur 4 Produktterme.
+
+\subsubsection{PLA}
+
+Programmable Logic Array. Hier sind beide Matrizen Programmierbar.
+
+\section{Sequentielle Logik}
+
+Lernziele in Kapitel 4 auf S.2.
+
+Systematische Entwurf eines synchrones Schaltnetzes Entwerfern aus einer Problembeschreibung. Als Moore- oder Mealy-Automat
+
+\subsection{Schaltwerke}
+
+Ein Schaltnetz hat n Eingänge und m Ausgänge.
+
+Ein Schaltwerk hat zusätzlich einen Speicher, von dem die Verarbeitung abhält.
+
+Was passiert wenn wir eine Rückkopplung haben. Kann eine unerwünschte Schwingung entstehen, welche eine unbestimmte Frequenz hat.
+
+\subsubsection{RS FLip FLop}
+
+Wenn wir zwei NOR Gatter mit einander Rückkoppeln, indem wir den Ausgang von Gatter 1 als Eingang von Gatter 2 und anders herum nutzen, können wir einen FLip FLop Bauen.
+
+\begin{equation}
+    \begin{array}{c|cc|cc|c}
+            & A & B & X & Y &               \\
+        \hline
+        t_1 & 1 & 1 & 0 & 0 &               \\
+        t_2 & 1 & 0 & 0 & 1 & \text{ Reset} \\
+        t_3 & 0 & 0 & 0 & 1 & \text{ Save}  \\
+        t_4 & 0 & 1 & 1 & 0 & \text{ Set X} \\
+        t_5 & 0 & 0 & 1 & 0 & \text{ Save}  \\
+    \end{array}
+\end{equation}
+
+Da wir $Y=\overline{X}$ fordern und $A=B=1$ nicht erlauben um Schwingungen zu verhindern. Können wir unsere Name auch zu dem Buchstaben ihrer Beschreibung benennen. Reset und Save - auch RS Flip FLop.
+
+\begin{equation}
+    \begin{array}{cc|c}
+        R & S & Q' \\
+        \hline
+        0 & 0 & Q  \\
+        0 & 1 & 1  \\
+        1 & 0 & 0  \\
+        1 & 1 & ?  \\
+    \end{array}
+\end{equation}
+
+Dieser Flip FLop hat einen Zeitverzögerung von $2*\Delta t$.
+
+\end{document}
