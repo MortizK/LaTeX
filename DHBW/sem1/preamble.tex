@@ -30,3 +30,17 @@
 
 %% Formatting
 \usepackage{parskip}
+
+%%% Command for box with heading
+\fboxsep2mm
+\newcommand{\know}[2]{
+    \noindent\fbox{
+        \parbox{\textwidth-21pt}{
+
+            \textbf{#1:}
+            \vspace{0.125cm}
+
+            #2
+        }
+    }
+}
