@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\usepackage{listings}
 
 \title{Logik}
 \author{Moritz}
@@ -38,14 +39,17 @@ Hier werden die Bindungen sequentiell ausgewertet
 
 Sortieren mit Insert Sort
 
-(define (insert k lst)
-(cond ((null? lst) (list k))
-((< k (car lst)) (cons k lst))
-(else (cons (car lst) (insert k (cdr lst))))))
+\begin{lstlisting}
+    (define (insert k lst)
+        (cond ((null? lst) (list k))
+              ((< k (car lst)) (cons k lst))
+              (else (cons (car lst) 
+                          (insert k (cdr lst))))))
 
-(define (isort lst)
-(if (null? lst)
-lst
-(insert (car lst) (isort (cdr lst)))))
+    (define (isort lst)
+        (if (null? lst)
+            lst
+            (insert (car lst) (isort (cdr lst)))))
+\end{lstlisting}
 
 \end{document}

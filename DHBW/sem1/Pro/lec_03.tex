@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\input{./preamble.tex}
 
 \title{Programmieren}
 \author{Moritz}
@@ -38,11 +39,11 @@ In C muss sich der Programmierer um diese Management kümmern.
 
 \subsubsection{Beispiel}
 
-int * ptr;
-
-ptr = (int *) malloc (sizeof(int));
-
-* ptr = 42; free (ptr);
+\begin{lstlisting}[language=C]
+    int * ptr;
+    ptr = (int *) malloc (sizeof(int));
+    * ptr = 42; free (ptr);
+\end{lstlisting}
 
 \subsubsection{Beschreibung}
 
@@ -70,7 +71,6 @@ realloc: Wir können die Größe des reservierten Speicherbereich ändern.
 
 free: Macht den Bereich im Heap Speicher wieder frei.
 
-
 \section{Lists}
 
 \subsection{Single Linked List}
@@ -81,13 +81,17 @@ Wir haben zum Start einen Pointer auf dem Stack, welches auf das erste Paar der 
 
 \subsubsection{Beispiel}
 
-struct list $\{$ ...; struct list * next;$\}$;
-
-struct list * start = NULL;
-
-start = (struct list *) malloc(sizeof(struct list));
-
-start->next = NULL;
+\begin{lstlisting}[language=C]
+    struct list { 
+        ...; 
+        struct list * next;
+    };
+    
+    struct list * start = NULL;
+    
+    start = (struct list *) malloc(sizeof(struct list));
+    start->next = NULL;
+\end{lstlisting}
 
 \section{Double Linked Lists}
 

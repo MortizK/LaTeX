@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\input{./preamble.tex}
 
 \title{Programmieren}
 \author{Moritz}
@@ -68,7 +69,12 @@ Es können auch mehrdimensionale Arrays gebildet werden.
 
 Ein Struct ist ein Datentyp, welche mehrere Andere Datentypen zuordnet.
 
-struct person {int age = 20; char[20] name = "Moritz"}
+\begin{lstlisting}[language=C]
+    struct person {
+        int age = 20; 
+        char[20] name = "Moritz"
+    };
+\end{lstlisting}
 
 \subsubsection{Typedef}
 

@@ -43,14 +43,15 @@
 
 \begin{equation}
     \begin{split}
-        a*\sum_{k=1}^{n}b_k & =a*(b_1+b_2+b_3\dots b_n)     \\
-                            & =a*b_1+a*b_2+a*b_3\dots a*b_n \\
-                            & =\sum_{k=1}^{n}a*b_k          \\
+        a*\sum_{k=1}^{n}b_k                 & =a*(b_1+b_2+b_3\dots b_n)                \\
+                                            & =a*b_1+a*b_2+a*b_3\dots a*b_n            \\
+                                            & =\sum_{k=1}^{n}a*b_k                     \\
         % funktioniert für + und -
-        % \sum_{k=1}^{n}a_k\sum_{k=1}^{n}b_k&=a_1+a_2\dots a_n+b_1+b_2\dots b_n \\
-        %                     & a_1+b_1+a_2+b_2\dots a_n+b_n                   \\
-        %                     & \sum_{k=1}^{n}a_k+b_k                          \\
-        % \sum_{k=1}^{n}a_k*\sum_{k=1}^{n}b_k&=(a_1+a_2)=\sum_{k=1}^{n}\sum_{k=1}^{n}\sum_{l=1}^{n}a_k*b_l
+        \sum_{k=1}^{n}a_k+\sum_{k=1}^{n}b_k & = a_1+a_2\dots a_n+b_1+b_2\dots b_n      \\
+                                            & = a_1+b_1+a_2+b_2\dots a_n+b_n           \\
+                                            & = \sum_{k=1}^{n}a_k+b_k                  \\
+        \sum_{k=1}^{n}a_k*\sum_{k=1}^{n}b_k & = (a_1+a_2\dots a_n) * \sum_{k=1}^{n}b_k \\
+                                            & =\sum_{k=1}^{n}\sum_{l=1}^{n}a_k*b_l
     \end{split}
 \end{equation}
 
