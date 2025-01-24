@@ -51,4 +51,4 @@
 (solve (all_pos 4) '())
 (solve (all_pos 5) '())
 (solve (all_pos 6) '())
-;;(solve (all_pos 12) '())
+(length (solve (all_pos 12) '()))

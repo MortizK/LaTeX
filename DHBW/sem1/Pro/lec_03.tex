@@ -1,0 +1,130 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Programmieren}
+\author{Moritz}
+\date{January 23, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Dynamic Memory Management}
+
+\subsection{Code Segment}
+
+Idt der Speicher, wo unser Programmtext gespeichert wird.
+
+\subsection{Data Segment}
+
+?
+
+\subsection{Stack}
+
+Ist ein Stapel an Speicher. Hier sind lokale Variablen und die Funktionsaufrufe.
+
+Der Stack is limitiert auf ca. 10MB, ist dafür sehr schnell und einfach für das OS zu managen.
+
+Das OS bestimmt auch, wann und was von Stack runterkommt, wenn er zu groß wird.
+
+\subsection{Heap}
+
+Dynamischer Speicher ohne Limitierung durch das Programm. Das obere Limit is der RAM.
+
+Die Große von Variablen kann geändert werden und dies auch von mehreren Programmen gleichzeitig.
+
+In C muss sich der Programmierer um diese Management kümmern.
+
+\subsubsection{Beispiel}
+
+int * ptr;
+
+ptr = (int *) malloc (sizeof(int));
+
+* ptr = 42; free (ptr);
+
+\subsubsection{Beschreibung}
+
+malloc() gibt einen void pointer zurück, dieser muss ge-Typecast werden, damit C damit was anfangen kann.
+
+C macht keine Automatische Garbage Collection. Dies kann zu einem Memory Leak/ Overflow führen. Somit müssen wir immer Speicher wieder freigeben, wenn wir diesen nicht mehr brauchen.
+
+Zudem kann C nicht direkt den HEap ansprechen, deshalb tun wir dies mit einem Pointer, der auf diesen anderen Speicher zeigt.
+
+\subsubsection{Memory Leak}
+
+Ist, wenn wir die Daten nicht wieder freigeben und somit von Angreifer auslesen können, da diese nicht gelöscht wurden.
+
+\subsection{malloc und calloc}
+
+malloc: Memory Allocation
+
+calloc: Initialisiert zusätzlich den Speicher.
+
+Mit malloc können mehrere Programme auf dei gleiche Stelle im Speicher zeigen und diesen Auslesen.
+
+\subsection{realloc und free}
+
+realloc: Wir können die Größe des reservierten Speicherbereich ändern.
+
+free: Macht den Bereich im Heap Speicher wieder frei.
+
+
+\section{Lists}
+
+\subsection{Single Linked List}
+
+Funktioniert wie in Scheme. Wir haben verkettete Paare, ein Paar speichert den Wert und einen Pointer zum dem nächsten Paar, bis wir einen NULL-pointer haben.
+
+Wir haben zum Start einen Pointer auf dem Stack, welches auf das erste Paar der Liste zeigt. Alle Paare der Liste sind auf dem Heap und müssen am Ende wieder freigegeben werden.
+
+\subsubsection{Beispiel}
+
+struct list $\{$ ...; struct list * next;$\}$;
+
+struct list * start = NULL;
+
+start = (struct list *) malloc(sizeof(struct list));
+
+start->next = NULL;
+
+\section{Double Linked Lists}
+
+Wie die Single Linked List, nur mit einem Pointer für das nächste Element und das vorherige Element.
+
+\subsection{Aufgabe}
+
+Sind auf der Folie, einfach etwas rumprobieren um dies zu präsentieren.
+
+\section{Parameter at Program Start}
+
+Auf der Folie, sind globale Variablen.
+
+\section{Testing}
+
+Es gibt verschiedene Libraries mit denen Test durchgeführt werden kann. Unit-Tests sind wichtig um bei weiteren ergänzungen nicht irgendwas kapputt zu machen.
+
+\subsection{ctype.h}
+
+Um Verschiedene Chars zu überprüfen, ob diese eine Gewisse Form haben. Wie z.B. eine Zahl, Großgeschrieben, usw.
+
+\subsection{assert.h}
+
+Um die Tatsächlichen Unit-Tests zu schrieben. Gibt eine Fehlermeldung in der Konsole aus, wenn der Test fehlschlägt.
+
+\section{Aufgaben}
+
+Es gibt ein Aufgaben Pdf mit mehreren Aufgaben als Übungen.
+
+\section{Coding Conventions}
+
+\subsection{Funktionen}
+
+In C wollen wir uns eine Programmstruktur bauen. Dies machen wir indem wir kleine Funktionen erstellen, die verschiedene Aufgaben erfüllen.
+
+\subsection{If, else}
+
+Ich kann ein "globales" if else auch durch ein if(a) { ...; return 0} ersetzen, um das Program lesbarer zu machen.
+
+\end{document}
