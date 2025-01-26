@@ -50,15 +50,13 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.5)%
+  \begin{picture}(1,0.24253473)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
+    \put(0.49426432,-0.02283691){\color[rgb]{0.06666667,0.8,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$I$\end{tabular}}}}%
+    \put(0.36328489,0.12201311){\color[rgb]{0,0.33333333,0.8}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$K$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{produktmenge.pdf}}%
-    \put(0.19683531,0.40306537){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}5\end{tabular}}}}%
-    \put(0.19183805,0.23565845){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2\end{tabular}}}}%
-    \put(0.19386367,0.31936191){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}y\end{tabular}}}}%
-    \put(0.41285872,0.01328233){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1  x  3\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{produktmenge.pdf}}%
-    \put(0.52187511,0.30879039){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$[1,3]\times[2,5]$\end{tabular}}}}%
+    \put(0.6183376,-0.02247862){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}x\end{tabular}}}}%
+    \put(0.37183009,0.22947865){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}y\end{tabular}}}}%
   \end{picture}%
 \endgroup%
