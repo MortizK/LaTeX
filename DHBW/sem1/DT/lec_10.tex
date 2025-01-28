@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{January 28, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sequentielle Logik}
+
+\subsection{Strukturhazard}
+
+Entsteht, wenn wir einen Eingang ändern und dadurch zwischenzeitlich einFalschen Output-Wert ausgegeben wird.
+
+Diese sind in einem KV-Diagramm leicht zu erkennen
+
+\begin{center}
+    \begin{tabular}{c|c c c c|c}
+              &   & $x_0$ & $x_0$ &       &       \\
+        \hline
+              &   &       &       &       &       \\
+        $x_1$ & 1 & 1     & 1     & 1     &       \\
+        $x_1$ &   &       & 1     &       & $x_3$ \\
+              & 1 &       & 1     &       & $x_3$ \\
+        \hline
+              &   &       & $x_4$ & $x_4$ &       \\
+    \end{tabular}
+\end{center}
+
+Hier sieht man, dass zwischen $\overline{x_3}x_1$ und $x_4x_3x_0$ ein Hazard entsteht. Dies kann gelöst werden, indem wir diese beiden Regionen mit einer Verbindungsregion $x_4x_1x_0$ hinzufügen.
+
+\subsection{Schaltwerke}
+
+\subsubsection{RS Flip-Flop}
+
+Es gibt mehrere Bistabile Kippschalter. Das bekannte Beispiel sind die beiden rückgekoppelt NOR Gatter, man kann aber auch andere Bauen aus z.B. Zwei NAND Gatter oder auch andere Strukturen.
+
+\subsubsection{Getaktetes RS Flip-Flop}
+
+Es kann mit zwei davor geschaltete AND Gatter ein Clock dazugeschaltet werden. Somit werden R und S nur dann übernommen, wenn die Clk. = 1 ist.
+
+Für das Schaltsymbol wir ein neuer Eingang (C) auf der linken Seite in der Mitte hinzugefügt.
+
+Wenn wir nun anhand der Ausgänge R und S bestimmen, haben wir mehrere Schwankungen je Taktzyklus.
+
+\subsubsection{Flankengetriggert}
+
+Hier können wir die Eingänge R und S gezielt zu entweder der steigende oder fallenden Flanke ändern. Hierzu wir im Symbol ein $>$ Zeichen for dem C hinzugefügt. Wenn dieser Input negiert ist = fallende Flanke, nicht negiert = steigende Flanke.
+
+\know{Flankengetriggert}{Es können als nur Änderungen zu der gewählten Flanke passieren.}
+
+\subsection{Pipeline}
+
+Wir können nun mehrere Schaltnetze zwischen Flankengetriggerten Flipflops geschaltet werden. So können wir zwischenergebnisse schon Speicher, den so kann ein Schaltnetz eine Aufgabe in einem Takt bearbeiten und für das nächste Schaltnetz zwischenspeichern.
+
+Diese Methode der Pipelines, ermöglicht eine Schneller Bearbeitung von Aufgaben durch Aufteilen.
+
+\subsection{D Flip-Flop}
+
+Dies ist eine Erweiterung des RS Flip-Flop mit nur einem Eingang D und Clk.
+
+\begin{center}
+    \begin{tabular}{c c| c}
+        D & Clk & Q' \\
+        \hline
+        0 & 0   & Q  \\
+        0 & 1   & 0  \\
+        1 & 0   & Q  \\
+        1 & 1   & 1  \\
+    \end{tabular}
+\end{center}
+
+Durch diese Ergänzung mit der Nicht-Erlaubte Zustand vom RS Flip-Flop immer vermieden.
+
+Dieser kann auch durch die Flankentrigger ergänzt werden.
+
+\subsection{n-Bit Register}
+
+Ein Datenbus sind mehrere Leitungen an Daten und einer Load.
+
+Mit einem Register, können wir bei Load $\to$ 1 in n-D-Flipflops die Werte der n-Datenleitungen speichern.
+
+Das Symbol ist eine Art Turm mit einem Clk. und n-"Speicherzellen".
+
+\subsection{n-Bit-Schieberegister}
+
+Sind in Reihe geschaltete D-Flipflops welche dafür sorgen, dass mit jedem Takt die Binärwerte um eins nach Rechts verschoben.
+
+Das Symbol ist wie das Register nur ohne den Datenbus.
+
+\subsection{Links, Rechts-Schieberegister}
+
+Hierzu wird eine Steuereinheit (Multiplexer) hinzugefügt.
+
+Das Symbol ist gleich dem Schieberegister nur mit einem Input für die Richtung und Inputs für jeder der beiden Richtungen.
+
+\subsection{JK Flip-Flop}
+
+Ist eine Erweiterung vom dem RS-Flipflops. Hierzu werden die Eingänge $R=K*Q$ und $S=J*\overline{Q}$ vorgeschaltet. Dies erweitert die Funktion des RS-Flipflops um eine Invertierung mit den vorher verbotenen Schaltmöglichkeit.
+
+\begin{center}
+    \begin{tabular}{c c|c}
+        J & K & Q'             \\
+        \hline
+        0 & 0 & Q              \\
+        0 & 1 & 0              \\
+        1 & 0 & 1              \\
+        1 & 1 & $\overline{Q}$ \\
+    \end{tabular}
+\end{center}
+
+\subsection{T Flip-Flop}
+
+Ist ein Toggle und lässt sich einfach durch ein JK-Flipflops ausdrücken. SO sind hier J=T und K=T. Dies sorgt dafür, dass die Wahrheitstabelle nur den anliegenden Ausgang negiert, wenn die Flanke getriggert wird.
+
+\subsection{Alle FLipflops}
+
+sind auf Papier auf DT 28.01!
+
+\end{document}

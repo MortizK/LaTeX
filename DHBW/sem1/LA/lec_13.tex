@@ -1,0 +1,226 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 28, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vektoren}
+
+\subsection{Lineare (Un)Abhängigkeit}
+
+Lineare (Un)Abhängigkeit einer Teilmenge $\{b_1, b_2, \dots, b_n\}\subset V$ (V: Vektorraum) heißen l.u., falls
+
+\begin{center}
+    jede Nullkombination der Vektoren trivial ist!
+
+    (d.h.: $t_1b_1+t_2b_2+\dots+t_nb_n=0\implies t_1=t_2=\dots=t_n=0$)
+\end{center}
+
+andernfalls l.a.
+
+Nach GAUSS Form: \begin{equation}
+    \begin{array}{cc}
+        \begin{bmatrix}
+            . & . & . & . & . \\
+              & . & . & . & . \\
+              &   & . & . & . \\
+              &   &   & . & . \\
+              &   &   &   & . \\
+        \end{bmatrix}     &
+        \begin{bmatrix}
+            . & . & . & . & . \\
+              & . & . & . & . \\
+              &   & . & . & . \\
+              &   &   & . & . \\
+              &   &   &   &   \\
+        \end{bmatrix}          \\
+        \text{Linear Unabhängig} &
+        \text{Linear Abhängig}
+    \end{array}
+\end{equation}
+
+\know{Linear Abhängig}{Hier bleiben Parameter Übrig und wir müssen die anderen PAramter in abhängigkeit angeben.}
+
+\subsubsection{Dimension}
+
+Definition: Die Maximale Anzahl $n$ von einer linear unabhängigen Menge $\mathcal{B}:=\{b_1, \dots, b_n\}\subset V$ heißt Dimension von $V$,
+
+\begin{center}
+    dim $V=n$
+\end{center}
+
+Falls es keine maximale Anzahl gibt, heißt V $\infty$-Dimensional: dim $V=\infty$. z.B. in dem Vektorraum der Polynome (Alle Funktion $p^n$).
+
+Einordnung von l.a. in unsere Vorstellung:
+
+\begin{center}
+    $t_1b_1+t_2b_2+\dots+t_nb_n=0$ mit $[t_1, t_2, \dots, t_n]\neq 0$
+\end{center}
+
+Dies wäre eine nicht triviale Nullkombination. oBdA: $t_1\neq 0$ und $t_1=1\implies b_1+t_2b_2+\dots+t_nb_n$. Da $t_1$ nicht Null ist, können wir alle anderen $t$ durch $t_1$ teilen und neuere Faktoren definieren. Somit können wir sagen, dass $t_1=1$ sein muss.
+
+\begin{equation}
+    b_1=-t_2b_2-\dots-t_2b_n
+\end{equation}
+
+d.h.: $b_1$ lässt sch au den restlichen linear kombinieren.
+
+\know{Basis}{Eine solche Menge $\mathcal{B}$ heißt Basis von V. Dann lässt sich jeder Vektor $x\in V$ in dieser Basis entwickeln}
+
+d.h. $x=\tilde{x}_1b_1+\tilde{x}_2b_2+\dots+\tilde{x}_nb_n$.
+
+Koordinatenvektor bzg. der Basis $\mathcal{B}$.
+
+\begin{equation}
+    x_{\mathcal{B}}:=\begin{bmatrix}
+        \tilde{x}_1 \\\tilde{x}_2\\\vdots\\\tilde{x}_n
+    \end{bmatrix}_{\mathcal{B}}
+\end{equation}
+
+Diese Darstellung ist eindeutig. Annahme:
+
+\begin{equation}
+    \begin{split}
+        x & = \tilde{x}_1b_1+\dots+\tilde{x}_nb_n                                                          \\
+        x & = \tilde{y}_1b_1+\dots+\tilde{y}_nb_n                                                          \\
+        0 & = (\tilde{x}_1-\tilde{y}_1)b_1+(\tilde{x}_2-\tilde{y}_2)b_2+\dots+(\tilde{x}_n-\tilde{y}_n)b_n \\
+    \end{split}
+\end{equation}
+
+muss eine triviale Nullkombinationsein $\implies \tilde{x}_1=\tilde{y}_1,\dots,tilde{x}_n=\tilde{y}_n$.
+
+\section{Komplexen Zahlen $\mathbb{C}$}
+
+\know{Komplexen Zahlen $\mathbb{C}$}{\begin{center}
+        $i^2=-1$
+    \end{center}}
+
+\subsection{Mitternachtsformel}
+
+\begin{equation}
+    \begin{split}
+        x^2+px+q & =0                                      \\
+        x_{1/2}  & =-\frac{p}{2}\pm \sqrt{\frac{p^2}{4}-q}
+    \end{split}
+\end{equation}
+
+Um zu abc-Formel zu kommen, einfach $p=\frac{b}{a}$ und $q=\frac{c}{a}$
+
+Wo kommt sie her?
+
+\begin{equation}
+    \begin{split}
+        (x+r)^2                         & =t                          \\
+        x^2+2rx+r^2                     & =t                          \\
+        x^2+2px+q                       & =0                          \\
+        x^2+2*\frac{p}{2}               & =-q                         \\
+        x^2+2*\frac{p}{2}+\frac{p}{2}^2 & =-q+\frac{p}{2}^2           \\
+        (x+\frac{p}{2})^2               & =\frac{p^2}{4}-q            \\
+        x_{1/2}+\frac{p}{2}             & = \pm\sqrt{\frac{p^2}{4}-q}
+    \end{split}
+\end{equation}
+
+\subsubsection{Nullstellen Raten}
+
+\begin{equation}
+    \begin{split}
+        3x^3-x^2+5x-7     & =0             \\
+        \text{Annahme } x & \in \mathbb{Z} \\
+        3x^3-x^2+5      x & =7             \\
+        x(3x^2-x+5)       & =7
+    \end{split}
+\end{equation}
+
+Somit ist $x$ ein Teiler von 7 (auch negativ).
+
+\subsubsection{Kubische Parabeln}
+
+$ax^3+bx^2+cx+d=0$ CARDANO-Formeln. Kann transformiert werden zu $y^3+py+q=0$.
+
+\begin{equation}
+    \begin{split}
+        y      & =n-v                                                   \\
+        u      & =\sqrt[3]{\sqrt{\Delta}-\frac{q}{2}}                   \\
+        v      & =\sqrt[3]{\sqrt{\Delta}+\frac{q}{2}}                   \\
+        \Delta & =\left(\frac{p}{3}\right)^3+\left(\frac{q}{2}\right)^2
+    \end{split}
+\end{equation}
+
+\subsection{Definition}
+
+\begin{equation}
+    \mathbb{C}:=\{a+ib\mid a, b\in \mathbb{R}\}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        z            & =a+ib                                     \\
+        z            & =2+3i                                     \\
+        w            & =5-8i                                     \\
+        z+w          & =7.5i                                     \\
+        z*w          & =(2+3i)*(5-8i)                            \\
+                     & = 10 - 16i + 15i - 24i^2                  \\
+                     & = 10 - 16i + 15i - 24*(-1)                \\
+                     & = 34 - i                                  \\
+        (a+ib)(c+id) & = ac-bd+i(bc+ad)                          \\
+        \frac{1}{z}  & = \frac{1}{a+ib}*\frac{a-ib}{a-ib}        \\
+                     & = \frac{a-ib}{a^2+b^2}=-i\frac{b}{a^2b^2}
+    \end{split}
+\end{equation}
+
+\know{(Rechner) Mathematik}{$z=[a, b]$. Im Beispiel ist $z=[2, 3], w=[5, -8], z+w=[2+5, 3-8]$. Dies erinnert an die Vektorrechnung im $\mathbb{R}^2$ mit ein paar extra Rechenregeln.
+
+\begin{center}
+    \begin{tabular}{c c c}
+        $[a, b]+[c, d]$ & := & $[a+c, b+d]$                           \\
+        $[a, b]*[c, d]$ & := & $[ac-bd, bc+ad]$                       \\
+        $[0, 1]*[0, 1]$ & =  & $[-1, 0]$                              \\
+        $[a, b]^{-1}$   & := & $[\frac{a}{a^2b^2},-\frac{b}{a^2b^2}]$
+    \end{tabular}
+\end{center}}
+
+\begin{center}
+    $\mathbb{C}=\mathbb{R}^2+$Rechengesetze
+\end{center}
+
+\subsubsection{Darstellung}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{komplexe}
+    \caption{komplexe}
+    \label{fig:komplexe}
+\end{figure}
+
+\begin{equation}
+    \begin{split}
+        z       & =a+ib  \\
+        \bar{z} & :=a-ib
+    \end{split}
+\end{equation}
+
+$b$ ist der imaginäre Teil von $z$, kurz $Im(z)$. Das gleiche für den Realen Teil: $Re(z)$. SOmit hat jede imaginäre Zahl die Form:
+
+\begin{equation}
+    \begin{split}
+        z         & =Re(z)+i*Im(z)                                                             \\
+        z*\bar{z} & =a^2+b^2 = |z|^2                                                           \\
+        z^{-1}    & = \frac{a-ib}{a^2+b^2} = \frac{\bar{z}}{z*\bar{z}} = \frac{\bar{z}}{|z|^2} \\
+        z*z^{-1}  & = z *\frac{\bar{z}}{|z|^2} = \frac{z*\bar{z}}{|z|^2}                       \\
+                  & = \frac{|z|^2}{|z|^2} = 1
+    \end{split}
+\end{equation}
+
+Nennt man auch die zu $z$ konjungiert komplexe Zahl.
+
+\section{Besprechen}
+
+Termin der Übungsklausur!
+
+\end{document}
