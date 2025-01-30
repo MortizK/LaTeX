@@ -1,0 +1,206 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{January 29, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sequentielle Logik}
+
+\subsection{Flipflops}
+
+\subsubsection{Charakteristische Gleichung}
+
+\begin{center}
+    \begin{tabular}{r l}
+        RS & $Q' = S+Q\overline{R}$             \\
+        D  & $Q' = D$                           \\
+        JK & $Q' = Q\overline{K}+\overline{Q}J$ \\
+        T  & $Q' = \overline{T}Q+T\overline{Q}$ \\
+    \end{tabular}
+\end{center}
+
+Um auf die Lösung für das JK-Flipflop zu kommen habe ich ein KV-Diagramm zur Hilfe genommen.
+
+\begin{center}
+    \begin{tabular}{c c}
+        \begin{tabular}{c c|c}
+            J & K & Q'             \\
+            \hline
+            0 & 0 & Q              \\
+            0 & 1 & 0              \\
+            1 & 0 & 1              \\
+            1 & 1 & $\overline{Q}$
+        \end{tabular} \quad & \quad
+        \begin{tabular}{c|c c c c}
+              &   & J & J &   \\
+              &   &   & K & K \\
+            \hline
+              & 0 & 1 & 1 & 0 \\
+            Q & 1 & 1 & 0 & 0 \\
+        \end{tabular}
+    \end{tabular}
+\end{center}
+
+\subsubsection{Zeitverhalten}
+
+Bei realen Flankengetriggerten Flipflops gibt es verschieden Zeiten zu beachten:
+
+So gibt es eine Setup-Zeit, wie für das Signal schon vor der Flanke der Clk. anliegen muss.
+
+Die Hold-Zeit: Wie lange das Signal nach der Flanke noch gehalten werden muss.
+
+Und die Propagate-Zeit, nach welcher Zeit das Neue Ergebnis des Flipflops anliegt.
+
+\subsection{Synchrones Schaltwerk}
+
+Wir haben endliche Zustände die in einem Zustandsdiagramm dargestellt werden. Wir notieren auch die Abhängigkeiten, welche wir taktsynchron sind.
+
+Und noch eine Aussagenlogik, welche nach den Flipflops kommt.
+
+\subsubsection{Moore}
+
+Hier gibt es ein Schaltnetz vor und hinter den FLipflops. Die Besonderheit ist, dass die Eingänge nur in das erste Schaltnetz kommen.
+
+Die Ausgabe ist Taktsynchron!
+
+\subsubsection{Mealy}
+
+Hier werden die Eingänge zusätzlich noch in als Inputs des zweiten Schaltnetzes genutzt.
+
+Kann schneller auf die Eingänge Reagieren.
+
+Dieser kann auch zu einer Reduzierung der Schaltlogik resultieren, wenn die Ausgaben komplexer von den Eingängen abhängen.
+
+\subsubsection{Vorgehensweise}
+
+\begin{enumerate}
+    \item Erstellen eines Zustandsdiagramm
+    \item Erstellen einer Zustandstabelle
+    \item Auswahl der Binären Zustandskodierung
+    \item Auswahl eines FLipflops und Ermittlung der Zustandsübergänge
+    \item Ermittlung der Ausgangsgleichung
+    \item Minimierung
+    \item Realisierung
+\end{enumerate}
+
+Zustandsdiagramm besteht aus knotenpunkten welche einen Zustand haben (A). Aus jedem Knoten gibt es beide binären Möglichkeiten (0 oder 1). Diese Möglichkeiten können als Pfeile zu anderen Zuständen Zeigen, damit dort die nächste Entscheidung gefällt werden kann.
+
+Zudem hat jeder Knoten eine Ausgabe: Den Wert, an dem wir interessiert sind.
+
+\subsection{Moore}
+
+\subsubsection{Zustandstabelle}
+
+\begin{center}
+    \begin{tabular}{c c}
+        \begin{tabular}{c c|c c}
+            S & E & S' & Y \\
+            \hline
+            A & 0 & B  & 0 \\
+            A & 1 & A  & 0 \\
+            B & 0 & B  & 0 \\
+            B & 1 & C  & 0 \\
+            C & 0 & D  & 0 \\
+            C & 1 & A  & 0 \\
+            D & 0 & B  & 1 \\
+            D & 1 & C  & 1 \\
+        \end{tabular} \quad & \quad
+        \begin{tabular}{c c c|c c c}
+            $Q_1$ & $Q_0$ & E & $Q_1$' & $Q_0$' & Y \\
+            \hline
+            0     & 0     & 0 & 0      & 1      & 0 \\
+            0     & 0     & 1 & 0      & 0      & 0 \\
+            0     & 1     & 0 & 0      & 1      & 0 \\
+            0     & 1     & 1 & 1      & 0      & 0 \\
+            1     & 0     & 0 & 1      & 1      & 0 \\
+            1     & 0     & 1 & 0      & 0      & 0 \\
+            1     & 1     & 0 & 0      & 1      & 1 \\
+            1     & 1     & 1 & 1      & 0      & 1 \\
+        \end{tabular}
+    \end{tabular}
+\end{center}
+
+Im nächsten Schritt, werden die Symbolischen Zustände durch ihre Binären Ausgetauscht.
+
+\subsubsection{Flipflop Übergangstabelle}
+
+\begin{center}
+    \begin{tabular}{c c|c c|l}
+        Q & Q' & J & K &                               \\
+        \hline
+        0 & 0  & 0 & d & Setzen oder Speicher          \\
+        0 & 1  & 1 & d & Setzen oder Invertieren       \\
+        1 & 0  & d & 1 & Zurücksetzen oder Invertieren \\
+        1 & 1  & d & 0 & Zurücksetzen oder Speicher    \\
+    \end{tabular}
+\end{center}
+
+Wir habe aktuell den Zustand Q und wollen eine Schalttabelle erstellen, damit wir gezielt, den FLipflop umstellen können. Somit ergibt sich bei $0\to 1$ zwei Möglichkeiten für J und K: Setzen oder Invertieren. Dies können wir mit dem "d" ausdrücken um die Schaltung später zu minimieren.
+
+\subsubsection{Flipflop Ansteuerung}
+
+Hier brauche wir nun für jedes Bit, welches unsere Zustände Darstellt, einen Flip Flop für alle Zustände in unserer Zustandstabelle.
+
+\begin{center}
+    \begin{tabular}{c c}
+        \begin{tabular}{c c c|c c}
+            $Q_1$ & $Q_1$' & E & $J_1$ & $K_1$ \\
+            \hline
+            0     & 0      & 0 & 0     & d     \\
+            0     & 0      & 1 & 0     & d     \\
+            0     & 0      & 0 & 0     & d     \\
+            0     & 1      & 1 & 1     & d     \\
+            1     & 1      & 0 & d     & 0     \\
+            1     & 0      & 1 & d     & 1     \\
+            1     & 0      & 0 & d     & 1     \\
+            1     & 1      & 1 & d     & 0     \\
+        \end{tabular} \quad & \quad
+        \begin{tabular}{c c c|c c}
+            $Q_0$ & $Q_0$' & E & $J_0$ & $K_0$ \\
+            \hline
+            0     & 1      & 0 & 1     & d     \\
+            0     & 0      & 1 & 0     & d     \\
+            1     & 1      & 0 & d     & 0     \\
+            1     & 0      & 1 & d     & 1     \\
+            0     & 1      & 0 & 1     & d     \\
+            0     & 0      & 1 & 0     & d     \\
+            1     & 1      & 0 & d     & 0     \\
+            1     & 0      & 1 & d     & 1     \\
+        \end{tabular}
+    \end{tabular}
+\end{center}
+
+\subsubsection{Ausgangsgleichung}
+
+Hier wird nun nur noch anhand der anliegenden Werte der Flipflops die Eigentliche Ausgabe bestimmt.
+
+\subsection{Mealy}
+
+Hier haben im Diagramm die Kanten die Eingabe und die Ausgabe.
+
+\know{Was sich ändert}{Die Ausgabe in unsere Zustandstabelle würde sich ändern. Somit änder sich nur ein paar
+    \begin{center}
+        \begin{tabular}{c c|c c}
+            S & E & S' & Y \\
+            \hline
+            C & 0 & D  & 1 \\
+            D & 0 & B  & 0 \\
+            D & 1 & C  & 0 \\
+        \end{tabular}
+    \end{center}}
+
+Durch diese Schaltung ist Mealy einen Takt schneller, da dieser nicht auf die Zustandsänderung wartet sondern sieht, dass die Änderung in einem wahren Ausgabe resultiert.
+
+\subsection{Reduktion von ZUständen}
+
+Wir dürfen die Pfeile auch mit Kombination von $d, 1, 0$ beschriften um zu vereinfachen.
+
+Wir dürfen auch Knoten zusammenfassen, wenn diese die gleicher Ausgabe und den gleichen nächsten Zustand haben.
+
+\end{document}

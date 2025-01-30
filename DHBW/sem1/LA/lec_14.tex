@@ -1,0 +1,173 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{January 29, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Komplexen Zahlen $\mathbb{C}$}
+
+\subsection{Darstellung}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{komplexe}
+    \caption{komplexe}
+    \label{fig:komplexe}
+\end{figure}
+
+Polardarstellung von $z=|z|*(\cos(\alpha)+i\sin(\alpha))$
+
+\subsubsection{Additionssätze der Trigonometrie}
+
+Regeln Hergeleitet auf LA 29.01 in meinem Buch.
+
+\begin{equation}
+    \begin{split}
+        \cos(\alpha +\beta) & =\sin(\alpha)\sin(\beta)+\cos(\beta)\cos(\alpha) \\
+        \sin(\alpha +\beta) & =\sin(\alpha)\cos(\beta)+\sin(\beta)\cos(\alpha) \\
+        \sin(2\alpha)       & =2\sin(\alpha)\cos(\alpha)                       \\
+        \cos(2\alpha)       & =2\cos^2(\alpha) - 1
+    \end{split}
+\end{equation}
+
+Daraus folgt:
+
+\begin{center}
+    $z*w=|z|*|w|*(\cos(\alpha+\beta)+i\sin(\alpha+\beta))$
+\end{center}
+
+\subsection{EULER-Formel}
+
+\begin{equation}
+    \begin{split}
+        e^{i\alpha}         & =\cos(\alpha)+i\sin(\alpha) \\
+        e^{i(\alpha+\beta)} & =e^{i\alpha}*e^{i\beta}
+    \end{split}
+\end{equation}
+
+\subsubsection{Eigenschaften}
+
+Eigenschaften von $e^{i\alpha}$:
+
+\begin{enumerate}[i.]
+    \item $|e^{i\alpha}|=1$
+    \item $\bar{e^{i\alpha}}=\cos(\alpha)-i\sin(\alpha)=\cos(-\alpha)+i\sin(-\alpha)=e^{-i\alpha}$
+    \item $e^{i\alpha}/e^{i\beta}=e^{i(\alpha-\beta)}$
+    \item $\frac{z}{w}=\frac{|z|}{|w|}e^{i(\alpha-\beta)}$
+\end{enumerate}
+
+\begin{center}
+    \begin{tabular}{r c l}
+        $e^{i0}$              & $=$ & $1$                        \\
+        $e^{i\pi}$            & $=$ & $-1$                       \\
+        $e^{i\frac{\pi}{2}}$  & $=$ & $i$                        \\
+        $e^{i\frac{3\pi}{2}}$ & $=$ & $-i$                       \\
+        $e^{i2\pi}$           & $=$ & $1$                        \\
+        $e^{i\frac{\pi}{4}}$  & $=$ & $\frac{1}{2}\sqrt{2}(1+i)$ \\
+        $e^{i\frac{\pi}{3}}$  & $=$ & $\frac{1}{2}(1+i\sqrt{3})$ \\
+    \end{tabular}
+\end{center}
+
+\subsection{Wurzeln}
+
+Die n-ten Einheitswurzeln: $u^n=1$.
+
+Die 3-ten Einheitswurzeln
+
+\begin{figure}[ht]
+    \centering
+    \incfig{einheitswurzeln}
+    \caption{3-ten Einheitswurzeln}
+    \label{fig:3-ten Einheitswurzeln}
+\end{figure}
+
+Allgemein für beliebige $n\in \mathbb{N}$ gilt:
+
+\begin{equation}
+    u_k:=e^{ik*\frac{2\pi}{n}}, k=0, 1,\dots, n-1
+\end{equation}
+
+\subsubsection{Für alle Wurzeln}
+
+n-ten Wurzeln aus $z$: Suche alle Zahlen $w$ mit $w^n=z$: $z=|z|e^{i\alpha}$
+
+\begin{figure}[ht]
+    \centering
+    \incfig{wurzel}
+    \caption{Beliebige Wurzeln}
+    \label{fig:Beliebige Wurzeln}
+\end{figure}
+
+\begin{equation}
+    \begin{split}
+        w_0:=\sqrt[n]{|z|}*e^{i\frac{\alpha}{2}} \\
+        w_k:=n_k*w_0                             \\
+        n_k: \text{n-te Einheitswurzel}          \\
+    \end{split}
+\end{equation}
+
+Denn: $W_k^n=W_0^n*u_k^n=z*1=z$
+
+\subsubsection{Polardarstellung}
+
+Wir haben a und b als die Koordinaten und wollen aus diese in die Polardarstellung umwandeln. Hierzu können wir $\alpha$ so bestimmen:
+
+\begin{equation}
+    \alpha = \begin{cases}
+        \cos^{-1}(\frac{a}{|z|})  & \quad, b\geq 0 \\
+        -\cos^{-1}(\frac{a}{|z|}) & \quad, b < 0
+    \end{cases}
+\end{equation}
+
+\subsection{Matrixmultiplikation - Interpretation}
+
+In der ersten Anschauung ist $a_1=[a_{11}, a_{21}, \dots, a_{n1}]$.
+
+\begin{equation}
+    \begin{split}
+        A   & = [a_1, a_2, \dots, a_n]     \\
+        A*x & = A *
+        \begin{bmatrix}
+            x_1 \\ x_2\\ \vdots\\ x_n
+        \end{bmatrix} = [a_1, a_2, \dots, a_n] *
+        \begin{bmatrix}
+            x_1 \\ x_2\\ \vdots\\ x_n
+        \end{bmatrix}           \\
+            & = x_1a_1+x_2a_2+\dots+x_na_n \\
+    \end{split}
+\end{equation}
+
+Aktive Betrachtung: Matrix als lineare Abbildung. $\mathbb{R}^n$  oder $\mathbb{C}^n$ nun auch $\mathbb{K}^n$ genannt.
+
+\begin{equation}
+    \mathbb{K}^n\substack{A\\\to} \mathbb{K}^m
+\end{equation}
+
+Problem: Zu einer gegebenen linearen Abbildung $A$ die zugehörige Matrix finden, d.h. finde $a_1, a_2, \dots a_n$.
+
+Universelles Konstruktionsprinzip:
+
+\begin{equation}
+    a_1=A*e_1, a_2=Ae_2, \dots, a_n=Ae_n
+\end{equation}
+
+d.h. die Spaltenvektoren von $A$ sind die Bilder der kanonischen Basisvektoren $e_1, e_2, \dots, e_n = [0, 0, \dots, 0, 1]$
+
+\subsubsection{Drehmatrix}
+
+In einem zweidimensionales Koordinatensystem sind die Basisvektoren die Achsen und es ergiben sich bei der Drehung um $\alpha$ zwei Rechtwinklinge Dreiecke im Einheitskreis.
+
+\begin{equation}
+    D_{\alpha}=\begin{bmatrix}
+        \cos(\alpha) & -\sin(\alpha) \\
+        \sin(\alpha) & \cos(\alpha)  \\
+    \end{bmatrix}
+\end{equation}
+
+\end{document}

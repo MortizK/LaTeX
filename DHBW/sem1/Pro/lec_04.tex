@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\input{./preamble.tex}
+
+\title{Programmieren}
+\author{Moritz}
+\date{January 30, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Variadic Functions}
+
+Diese können eine Variable Anzahl an Inputs haben. Ein Beispiel ist die printf() Funktion.
+
+Um Funktionen mit Variablen Inputs zu deklarieren und auf diese Inputs zuzugreifen, brauchen wir die macros va\_list, va\_start, va\_arg und va\_end. Zudem werden die Variablen mit ... deklariert.
+
+\subsection{Beispiel Sum}
+
+\begin{lstlisting}[language=C]
+    #include <stdio.h>
+    #include <stdarg.h>
+
+    // Function for calculating the sum 
+    // of a variable number of arguments
+    int calcSumVariadic(int count, ...)
+    {
+        // Deklarieren von den Argumenten, 
+        // welche von ... uebergeben werden
+        va_list args;
+        int tempSum = 0;
+
+        var_start(args, count);
+
+        for (int i = 0; i < count; i++)
+        {
+            // Hier wird das naechste Element aus der 
+            // Argumenten-Liste ausgelesen
+            tempSum += va_arg(args, int);
+        }
+
+        // Beendet die Nutzung
+        va_end(args);
+
+        return tempSum;
+    }
+
+    void main()
+    {
+        int sum = calcSumVariadic(3, 1, 2, 3);
+        printf("\nSUM OF 1,2,3 --> %d", sum);
+        return 0;
+    }
+\end{lstlisting}
+
+\section{Debugging}
+
+Wir brauchen einen Debugger und ausführbarer Code. Dieser Code wird getestet um logische Fehler zu finden.
+
+Wie z.B. Unit-tests die fehlschlagen.
+
+Variables: Wir können alle jetzt genutzten Variablen mit ihren Werten einsehen.
+
+Watch: Wir können die werte Variablen im Verlauf des Programmes überwachen.
+
+Call Stack: Einsehen, in welcher reihenfolge calls aufgerufen werden.
+
+\know{Debugging}{Um unsere Debugging Umgebung zu start, muss unsere Aufgabe in einem eigenem VS-Code Fenster geöffnet werden.}
+
+\subsection{Methoden}
+
+Output mit printf oder logging.
+
+Debugging Tools wie VS-Code, GDB mit Breakpoints, variable monitoring und call stacks.
+
+Analyse Tools wie Automatic Error Detection.
+
+\section{Transformation}
+
+Funktionen aus stdlib.h, dies ermöglicht beispielweise eine Umwandlung von strings in long oder unsigned long. Wir können auch in Gleitkommazahlen umwandeln.
+
+atoi: ASCII to int
+
+\section{Sorting}
+
+Ist die Übung und das Assignment.
+
+Merge, Quick, Heap und Bubble-sort.
+
+\section{CS50}
+
+Ist der Computer Science Kurs von Harvard \href{https://cs50.harvard.edu/x/2025/}{CS50} und auf \href{https://www.youtube.com/@cs50}{YouTube}.
+
+\end{document}
