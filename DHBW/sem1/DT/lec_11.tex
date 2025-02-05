@@ -134,10 +134,10 @@ Im nächsten Schritt, werden die Symbolischen Zustände durch ihre Binären Ausg
     \begin{tabular}{c c|c c|l}
         Q & Q' & J & K &                               \\
         \hline
-        0 & 0  & 0 & d & Setzen oder Speicher          \\
+        1 & 1  & d & 0 & Setzen oder Speicher          \\
         0 & 1  & 1 & d & Setzen oder Invertieren       \\
         1 & 0  & d & 1 & Zurücksetzen oder Invertieren \\
-        1 & 1  & d & 0 & Zurücksetzen oder Speicher    \\
+        0 & 0  & 0 & d & Zurücksetzen oder Speicher    \\
     \end{tabular}
 \end{center}
 
