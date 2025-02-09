@@ -562,8 +562,6 @@ Ist identisch für das Entschlüsseln nur mit anderem Ansatz
 
 \subsection{Chinesische Restsatz}
 
-
-
 \section{Kombinatorik}
 
 \subsection{Die Urnenmodelle}
@@ -571,6 +569,155 @@ Ist identisch für das Entschlüsseln nur mit anderem Ansatz
 \section{Vektorräume}
 
 \subsection{$\mathbb{R}^2$ und $\mathbb{R}^3$ als Vektorraum}
+
+Sind Ursprünglich Definiert als die Produktmenge mehrere Mengen.
+
+\begin{center}
+    $\mathbb{R}^n=\{[x_1, x_2, \dots, x_n]\mid x_1, x_2, \dots, x_n\in \mathbb{R}\}$
+\end{center}
+
+Wir können Vektoren miteinander addieren und sie auch mit einem einfachen Skalar, multiplizieren:
+
+\begin{center}
+    $x+y$ oder halt $t*x$
+\end{center}
+
+Es gibt zudem noch den Nullvektor, welche einfach $0:=[0, 0, \dots, 0]$ definiert wird.
+
+\know{Linearkombination}{Ist im allgemeinsten eine addition von gestreckten Vektoren
+    \begin{center}
+        $t_1x_1+t_2x_2+\dots t_nx_n$
+    \end{center}}
+
+\subsubsection{Geraden und Ebenen}
+
+Im allgemeinsten können wir Geraden und Ebenen als Menge Beschreiben, welche einen Stützvektor $q$ haben und eine Anzahl an Richtungsvektoren. Für Gerade ist es ein Richtungsvektor $u$ und bei der Ebene sind es zwei $u$ und $v$.
+
+\begin{center}
+    $g:=\{q+tu\mid t\in \mathbb{R}\}$
+
+    $e:=\{q+tu+sv\mid t, s\in \mathbb{R}\}$
+\end{center}
+
+\subsubsection{Norm}
+
+Die Norm: Ist die Länge eines Vektors und lässt sich mit dem Satz von Pythagoras bestimmen.
+
+\begin{center}
+    $\|x\|:=\sqrt{x_1^2+x_2^2+\dots+x_n^2}$
+\end{center}
+
+\subsubsection{Skalarprodukt}
+
+Skalarprodukt: Dies ermöglicht den Winkel zwischen zwei Vektoren zu bestimmen.
+
+\begin{center}
+    $\langle x\mid y\rangle:=\|x\|*\|y\|*\cos(\alpha)$
+\end{center}
+
+Mithilfe des Kosinussatzes $c^2=a^2+b^2-2ab\cos(\gamma)$ und etwas umformen erhalten wir die einfache Form vom Skalarprodukt:
+
+\begin{equation}
+    \langle x\mid y\rangle = x_1y_1+x_2+y_2+x_3y_3
+\end{equation}
+
+Eigenschaften des Skalarproduktes:
+
+\begin{enumerate}[\qquad i)]
+    \item $\langle x\mid x\rangle\geq 0, =0\iff x=0$ \qquad\qquad  Definitheit
+    \item $\langle x\mid y\rangle=\langle y\mid x\rangle$ \qquad\qquad\qquad\qquad\qquad Symmetrie
+    \item $\langle tx + sy\mid z\rangle=t*\langle x\mid z\rangle+s*\langle y\mid z\rangle$ \qquad Linearität
+\end{enumerate}
+
+Um nun den Winkel $\alpha$ zu bestimmen, stellen wir nach $\cos(\alpha)$ um:
+
+\begin{equation}
+    \cos(\alpha)=\frac{\langle x\mid y\rangle}{\|x\|*\|y\|}
+\end{equation}
+
+\know{Senkrecht: $\langle x\mid y\rangle=0$}{Wenn das Skalarprodukt gleich $0$ ist, so stehen die beiden Vektoren seknrecht aufeinander. Dies wird auch Orthogonal genannt:
+    \begin{center}
+        $x\bot y:\iff \langle x\mid y\rangle=0$
+    \end{center}}
+
+\subsubsection{Kreuzprodukt}
+
+Das Kreuzprodukt zweier Vektoren $x$ und $y$ resultiert in einem Vektor, welche Senkrecht zur $x$ und $y$ ist.
+
+\begin{equation}
+    x\times y:=
+    \begin{bmatrix}
+        x_2y_3 - x_3y_2 \\
+        x_3y_1 - x_1y_3 \\
+        x_1y_2 - x_2y_1 \\
+    \end{bmatrix}
+\end{equation}
+
+Eigenschaften
+
+\begin{enumerate}[\qquad i)]
+    \item $(tx + sy)\times z=tx\times z+sy\times z$
+    \item $x\times y = -y\times x$
+    \item $x\times y=0\iff x\| y$
+    \item $\|x\times y\|=\|x\|*\|y\|\cos(\alpha)$ Die Länge des Skalarproduktes ist der Flächeninhalt des Parallelogram zwischen $x$ und $y$, da $h=\|y\|\cos(\alpha)$
+\end{enumerate}
+
+\subsubsection{Normalform der Ebene}
+
+Wir so gebaut: Wir haben einen Punkt in der Ebene $p\in E$ und bilden alle Vektoren $x-p$. Diese Vektoren sind nur dann $\in E$, wenn diese Senkrecht zu dem Normalvektor $n$ sind. Dieser Normalvektor ist auch Normiert $n_0=n / \|n\|$. Also:
+
+\begin{center}
+    $E:=\{x\in \mathbb{R}^3\mid \langle x-p\mid n_0\rangle=0\}$
+
+    $E:=\{x\in \mathbb{R}^3\mid \langle x\mid n_0\rangle=\langle p\mid n_0\rangle\}$
+\end{center}
+
+\subsubsection{Koordinatenform}
+
+In der Koordinatenform ist der Normalvektor kodiert.
+
+\begin{center}
+    $E=\{x_1, x_2, x_3\in \mathbb{R}\mid n_1x_1+n_2x_2+n_3x_3=d\}$
+\end{center}
+
+Der Normalvektor setzt sich aus $n=[n_1, n_2, n_3]$ zusammen.
+
+Und unser $d=\langle p\mid n_0\rangle$, wo $p$ unser Punkt in der Ebene ist.
+
+\subsubsection{Abstand: Punkt zur Ebene}
+
+Da das Skalarprodukt eine Projektion von einem Vektor $y$ auf $x$ ist, können wir wenn wir einen Punkt (Vektor) auf den Normalvektor projektieren, den Abstandsvektor bestimmen und dessen Norm (Länge) ist die Lösung:
+
+\begin{equation}
+    d(y, E):=\frac{1}{\|n\|}*|\langle x\mid n_0\rangle-\langle p\mid n_0\rangle|
+\end{equation}
+
+\subsubsection{Spatprodukt und Determinante}
+
+Das Spatprodukt kombiniert die geometrischen Interpretationen von dem Kreuzprodukt $x\times y$ und dem Skalarprodukt $\langle x\mid y\rangle$.
+
+So bildet das Kreuzprodukt die Grundfläche des Spats und das Skalarprodukt wird auf den Normalvektor dieser Grundfläche projektiert und ist somit die Höhe.
+
+\begin{center}
+    $\langle x\times y\mid z\rangle$
+\end{center}
+
+Diese Spatprodukt kann positiv und negativ sein. Wenn es negativ ist, benutzen wir zum korrigieren einfach $-z$ statt $z$.
+
+\know{Positives Spatprodukt}{Wenn das Spatprodukt positiv ist, sprechen wir bei den drei Vektoren von einem Rechtssystem oder auch mathematisch positiv orientiert
+    \begin{center}
+        Rechte-Hand-Regel
+    \end{center}}
+
+\subsubsection{Determinante}
+
+Die Determinante ist die Verallgemeinerung des Spatproduktes auch für höhere Dimensionen.
+
+\begin{center}
+    $det(x, y, z)$
+\end{center}
+
+% Hier muss ich weiterarbeiten !!
 
 \subsection{Die komplexen Zahlen}
 
