@@ -1,0 +1,39 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 5, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sequentielle Logik}
+
+\subsection{Zähler}
+
+\subsubsection{Aufwärt- und Abwärtszählen}
+
+Zum Hochzählen benutzen wir ein negativ flankengetriggerten Flipflop, Da hier die Zustände sich nur ändern, wenn der vorherige Flipflop den Zustand auf 0 ändern. Dies sorgt für die zusätzliche Zeitverzögerung.
+
+Zum Runterzählen benutzen wir ein positiv flankengetriggerten Flipflop, da hier im ersten Schritte alle Flipflops etwas Zeitverzögert auf 1 Schaltet.
+
+\subsection{Frequenzteiler}
+
+Ein Zähler kann auch als Frequenzteiler betrachtet werden, da dieser jedes - vorher betrachtetes Bit - um die halbe Frequenz teilt.
+
+\subsubsection{Teilerverhältnis}
+
+Wenn das Teilerverhältnis m:1 mit m eine Zweierpotenz, bleibt das Tastverhältnis bei 50\% konstant.
+
+Bei Teilerverhältnisen ungleich einer Zweierpotenz, ergeben sich oft Tastverhältnis von ungleich 50\%.
+
+Das Tastverhältnis ist der Anteil der Impulsdauer innerhalb einer Periode.
+
+\subsection{Realisierung von Schaltwerken}
+
+
+
+\end{document}

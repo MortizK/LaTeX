@@ -1,0 +1,94 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 23, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Modelle}
+
+Modelle sind auf S. 213
+
+Ein Modell einer Formel mit $A\in For=_{\sum}$ ist $val_I(A)=1$. Zudem können wir auch ein Modell für eine Formelmenge bilden:  $M\subset For=_{\sum}$ ist $val_I(A)=1$, für alle $A\in M$.
+
+Eine Formelmenge ist auch die Konjunktion $(\land)$ ihrer einzelnen Formeln.
+
+\subsubsection{Modellmenge}
+
+Sei $A\in For0_{\sum}$ eine Formel. $Mod(A)=\{I\in I_{\sum}\mid I(A)=1\}$. Dies lässt sich auch auf die Formelmenge erweitern.
+
+\subsubsection{Mengenlehre}
+
+Dadurch, dass wir unsere Logik als Mengen ausdrücken können, sind wir in der Lage unsere Atome und Grundformeln der Aussagenlogik in Mengenoperatoren umzuwandeln. Dies ist auf S. 217.
+
+\begin{equation}
+    \begin{split}
+        \sum     & = \{p, q, r\}             \\
+        F        & = \{p\lor q\}             \\
+        G        & = \{p\to r\}              \\
+        I_{\sum} & = \{I_0, I_1,\dots, I_7\}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{array}{cc}
+        \begin{array}{c|ccc}
+            I_{\sum} & p & q & r \\
+            \hline
+            I_0      & 0 & 0 & 0 \\
+            I_1      & 0 & 0 & 1 \\
+            I_2      & 0 & 1 & 0 \\
+            I_3      & 0 & 1 & 1 \\
+            I_4      & 1 & 0 & 0 \\
+            I_5      & 1 & 0 & 1 \\
+            I_6      & 1 & 1 & 0 \\
+            I_7      & 1 & 1 & 1 \\
+        \end{array} &
+        \begin{aligned}
+            Mod(p)        & = \{I_4, I_5, I_6, I_7\}           \\
+            Mod(q)        & = \{I_2, I_3, I_6, I_7\}           \\
+            Mod(r)        & = \{I_1, I_3, I_5, I_7\}           \\
+            Mod(F)        & = \{I_2, I_3,I_4, I_5, I_6, I_7\}  \\
+            Mod(G)        & = \{I_0, I_1, I_2, I_3, I_5, I_7\} \\
+            Mod(\neg F)   & = \{I_0, I_1\}                     \\
+            Mod(\neg G)   & = \{I_4, I_6\}                     \\
+            Mod(F\land G) & = \{I_2, I_3, I_5, I_7\}           \\
+            Mod(F\to G)   & = \{I_0, I_1, I_2, I_3, I_5, I_7\} \\
+        \end{aligned}
+    \end{array}
+\end{equation}
+
+\subsection{Tautologie}
+
+Eine Tautologie oder allgemeingültigkeit, falls $val_I(F)=1$ für jede Interpretation $I$. Schreibweise $\models I$.
+
+Da eine Tautologie immer wahr ist, ist die Modellmenge $Mode(F)=I_{\sum}$.
+
+\subsubsection{Beispiele}
+
+$T$, $A\land\neg A$, $A\to A$
+
+\subsection{Unerfüllbarkeit}
+
+Eine Formel heißt unerfüllbar, wenn sie kein Modell hat. z.B. $\bot$, $A\land\neg A$ oder $\{(A\land B), (A\lor\neg B), (\neg A\lor B), (\neg A \lor\neg B)\}$
+
+\subsection{Dualität}
+
+Eine Formel $F$ ist genau dann eine Tautologie, wenn $\neg F$ unerfüllbar ist.
+
+Hierzu machen wir zwei Beweise: Einen für jeder der beiden Richtungen.
+
+Für den Beweis beweisen wir es für ein Beliebiges unbestimmtes $I$ und zeigen dadurch, dass es für alle $I$ gültig ist.
+
+\subsection{Logische Folgerung}
+
+Eine Formel $A$ folgt logisch aus Formelmenge $KB$ gdw. alle Modelle $KB$ auch Modelle von $A$ sind. $(Mod(KB)\subset Mod(A))$ oder geschrieben $KB\models A$.
+
+\end{document}

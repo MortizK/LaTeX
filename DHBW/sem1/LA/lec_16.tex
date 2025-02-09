@@ -1,0 +1,276 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 5, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Matrizen}
+
+\subsection{Transponieren}
+
+\subsubsection{Notation}
+
+\begin{equation}
+    x=\begin{bmatrix}
+        x_1 \\x_2\\\vdots\\x_n
+    \end{bmatrix}=[x_1, x_2, \dots, x_n]^t
+\end{equation}
+
+Das t steht für transponieren.
+
+Für Matrizen gilt dann:
+
+\begin{equation}
+    A^t=[a_1, a_2, \dots,a_n]^t=\begin{bmatrix}
+        a_1^t \\a_2^t\\\vdots\\a_n^t
+    \end{bmatrix}
+\end{equation}
+
+\subsubsection{Beispiel}
+
+Bei Quadratischen Matrizen, ist das transponieren eine Spiegelung um die Hauptachse.
+
+\begin{equation}
+    \begin{split}
+        A^t & =
+        \begin{bmatrix}
+            2   & 4i & 5  \\
+            6   & 0  & -3 \\
+            1+i & 2  & 3
+        \end{bmatrix}^t=
+        \begin{bmatrix}
+            2  & 6  & 1+i \\
+            4i & 0  & 2   \\
+            5  & -3 & 3
+        \end{bmatrix} \\
+        B^t & =
+        \begin{bmatrix}
+            2 & 5  \\
+            0 & 1  \\
+            3 & -i \\
+            1 & 9
+        \end{bmatrix}^t=
+        \begin{bmatrix}
+            2 & 0 & 3  & 1 \\
+            5 & 1 & -i & 9
+        \end{bmatrix} \\
+        c^t & =
+        \begin{bmatrix}
+            0 & 1  & 4  \\
+            1 & 3  & -6 \\
+            4 & -6 & 5
+        \end{bmatrix} = C
+    \end{split}
+\end{equation}
+
+Bei einer Adjungierten Matrix, welche im Komplexen liegt, hat tauscht bei dem transponieren z.B. $i$ mit $-i$, welche durch das Konjungierkomplex das vorzeichen wieder tauscht.
+
+\subsection{Adjungierung}
+
+\begin{equation}
+    \begin{split}
+        A^*        & =[a_1, a_2, \dots, a_n]^*=
+        \begin{bmatrix}
+            a_1^* \\a_2^*\\\vdots\\a_n^*
+        \end{bmatrix}             \\
+        A          & =
+        \begin{bmatrix}
+            a_{11} & a_{12} & \dots & a_{1n} \\
+            a_{21} & a_{22} & \dots & a_{2n} \\
+            \vdots &        &       & \vdots \\
+            a_{m1} & a_{m2} & \dots & a_{mn} \\
+        \end{bmatrix} =:
+        [a_{ij}]_{\substack{i=1,\dots,m         \\j=1,\dots, n}}\\
+        A_{ij}     & =a_{ij}                    \\
+        (A^*)_{ij} & =\bar{a_{ji}}
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        \langle A^*x\mid y\rangle    & = \langle x\mid Ay\rangle   \\
+        \langle A^*x\mid e_1\rangle  & = \langle x\mid Ae_1\rangle \\
+        A^*x=
+        \begin{bmatrix}
+            a_1^* \\a_2^*\\\vdots\\a_n^*
+        \end{bmatrix}*x & =
+        \begin{bmatrix}
+            \bar{x_11} & \bar{x_21} & \dots & \bar{x_m1} \\
+                       & a_2        &       &            \\
+                       & \vdots     &       &            \\
+                       & a_n        &       &            \\
+        \end{bmatrix} *
+        \begin{bmatrix}
+            x_1 \\x_2\\\vdots\\x_n
+        \end{bmatrix} =
+        \begin{bmatrix}
+            \langle a_1\mid x\rangle \\
+            \langle a_2\mid x\rangle \\
+            \vdots                   \\
+            \langle a_m\mid x\rangle \\
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+Den Rest für die allgemeine Form lässt sich durch Rechnen mit der Summe aller Basisvektoren $\langle A^*x\mid\sum_{j=1}^{m}y_je_j\rangle$. Diese Formen wir dann einfach um, bis wir die allgemeine Form erhalten $\langle A^*x\mid y\rangle = \langle x\mid Ay\rangle$.
+
+\subsubsection{Rechenregeln}
+
+\begin{enumerate}[i.]
+    \item $\langle A^*x\mid y\rangle = \langle x\mid Ay\rangle$
+    \item $(tA+sB)^* = \bar{t}A^*+\bar{s}B^*$
+    \item $(AB)^* = B^*A^*$
+\end{enumerate}
+
+\begin{equation}
+    \begin{split}
+        \langle x\mid ABy\rangle   & = \langle (AB)^*x\mid y\rangle                              \\
+        \langle x\mid A(By)\rangle & = \langle A^*x\mid By\rangle = \langle B^*A^*x\mid y\rangle \\
+                                   & \implies (AB)^*x=B^*A^*x                                    \\
+                                   & \implies (AB)^*=B^*A^*
+    \end{split}
+\end{equation}
+
+\subsubsection{Folgerungen}
+
+$A^*x$ sind Skalarprodukt in jeder Zeile. Daraus können wir auch was für $A^*B$ folgern
+
+\begin{equation}
+    \begin{split}
+        A^*B & =A^*[b_1, b_2, \dots, b_m]=[A^*b_1, A^*b_2, \dots, A^*b_m] \\
+             & =
+        \begin{bmatrix}
+            \langle a_1\mid b_1\rangle & \langle a_1\mid b_2\rangle & \dots & \langle a_1\mid b_m\rangle \\
+            \langle a_2\mid b_1\rangle & \langle a_2\mid b_2\rangle & \dots & \langle a_2\mid b_m\rangle \\
+            \vdots                     & \vdots                     &       & \vdots                     \\
+            \langle a_n\mid b_1\rangle & \langle a_n\mid b_2\rangle & \dots & \langle a_n\mid b_m\rangle \\
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\subsubsection{Beispiel mit Inversen}
+
+$B=[b_1, b_2, b_3]$ ist eine Orthogonalbasis mit Normierten Vektoren.
+
+\begin{equation}
+    \begin{split}
+        B^*B         & =
+        \begin{bmatrix}
+            \langle b_1\mid b_1\rangle & \langle b_1\mid b_2\rangle & \langle b_1\mid b_3\rangle \\
+            \langle b_2\mid b_1\rangle & \langle b_2\mid b_2\rangle & \langle b_2\mid b_3\rangle \\
+            \langle b_3\mid b_1\rangle & \langle b_3\mid b_2\rangle & \langle b_3\mid b_3\rangle \\
+        \end{bmatrix} \\
+                     & =
+        \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+        \end{bmatrix} = \text{Eins Matrix}                                                   \\
+        \implies B^* & =B^{-1}
+    \end{split}
+\end{equation}
+
+Unter dieser Bedingung ist die Adjungierte Matrix gleich der Inversen Matrix.
+
+\subsection{Beispiele}
+
+\begin{equation}
+    \begin{split}
+        \begin{bmatrix}
+            2 & 1 \\
+            6 & 3
+        \end{bmatrix} *
+        \begin{bmatrix}
+            -1 \\ 2
+        \end{bmatrix} =
+        \begin{bmatrix}
+            0 \\ 0
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+Die Lösungsmenge der homogenen Gleichungen $Ax=0$ heißt Kern von $A$.
+
+\begin{center}
+    $ker A =\{x\in V\mid Ax=0\}\subseteq V$
+\end{center}
+
+Das Bild von $A$,
+
+\begin{center}
+    $im A:=\{y\in W\mid \exists_{x\in V} y=Ax\}\subseteq W$
+\end{center}
+
+\subsubsection{Vektorraum}
+
+Die "richtige" Kategorie von Teilmengen eines Vektorraums sind Teilräume. $T\subseteq V$ ist Teilraum
+
+\begin{center}
+    $x, y\in T\implies \forall_{t, s\in \mathbb{K}}tx+sy\in T$
+\end{center}
+
+d.h. anschaulich:
+
+\begin{center}
+    $T$ ist ein kleiner Vektorraum im großem Vektorraum $V$.
+\end{center}
+
+Im $\mathbb{R}^3$ sind das Gerade, Ebenen, die Null und der gesamte $\mathbb{R}^3$. Die Geraden und Ebenen müssen durch den Nullpunkt gehen.
+
+\subsubsection{Lemma}
+
+Kern von A $ker A$ und Bild von A $im A$ sind Teilräume.
+
+$ker A$ heißt $x, y \in ker A$, d.h. $Ax=0\land Ay=0$.
+
+Zu zeigen $tx+sy\in ker A$ dann
+
+\begin{equation}
+    \begin{split}
+         & A(tx+sy)=tAx+sAy= t*0+s*0=0 \\
+         & \implies tx+sy\in ker A
+    \end{split}
+\end{equation}
+
+Somit ist $ker A$ Teilraum von $W$.
+
+$im A$. heißt $y_1, y_2\in im A$, d.h. $\exists_{x_1, x_2\in V}: y_1=Ax_1, y_2=Ax_2$
+
+\begin{equation}
+    \begin{split}
+        ty_1+sy_2=tAx_1+sAx_2=A(tx_1+sx_2) \\
+        \implies ty_1+sy_2\in im A
+    \end{split}
+\end{equation}
+
+Somit ist $im A$ Teilraum von $W$.
+
+\subsection{Dimensionsformel für lineare Abbildung}
+
+Ist in meinem Heft auf LA 05.02 unter Dimensionsformel mit Skizze
+
+\subsection{Injektivität für lin. Abbildung}
+
+\begin{equation}
+    \begin{split}
+        Ax=Ax'\implies A(x-x')=0 \\
+        \implies x-x'\in ker A   \\
+        \implies x = x'
+    \end{split}
+\end{equation}
+
+d.h. $ker A =\{0\}\implies A$ ist injektiv.
+
+\section{Relationen}
+
+Eine $f$ Funktion/ Abbildung heißt injektive: $\iff x\neq x'\implies f(x)\neq f(x')\iff f(x)=f(x')\implies x=x'$
+
+$f$ heißt surjektiv, falls $im f = y$. Und bijektiv, wenn injektive $\land$ surjektiv.
+
+\end{document}

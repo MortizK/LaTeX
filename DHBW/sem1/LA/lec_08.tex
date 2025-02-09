@@ -31,17 +31,15 @@
 
 Name kommt von den Entwicklern: Rivest, Shamir, Adleman.
 
-1. Wähle zwei verschiedene Primzahlen $p, q$ und bilde $n:= p*q$.
+\begin{enumerate}
+    \item Wähle zwei verschiedene Primzahlen $p, q$ und bilde $n:= p*q$.
+    \item Wähle $1<e<\varphi:=(p-1)(q-1)$ mit $ggT(\varphi, e)=1$. Dann ist $S_o:=[e, n]$
+    \item Bilde die Inverse $d$ von $e$ modulo $\varphi$ (mit erw. euklid. Alg.) $d=_{\varphi}e^{-1}$. Dann ist $S_p:=[d, n]$
 
-2. Wähle $1<e<\varphi:=(p-1)(q-1)$ mit $ggT(\varphi, e)=1$. Dann ist $S_o:=[e, n]$
-
-3. Bilde die Inverse $d$ von $e$ modulo $\varphi$ (mit erw. euklid. Alg.) $d=_{\varphi}e^{-1}$. Dann ist $S_p:=[d, n]$
-
-Danach ist die Schlüsselgeneration abgeschlossen. $p$ und $q$ können gelöscht werden. $S_p$ muss verschlüsselt auf dem Rechner gespeichert werden.
-
-4. Eine Nachricht $0<M<n$ wird durch den öffentlichen Schlüssel ($S_o$) verschlüsselt: $C:=_n M^{e}$
-
-5. $C$ wird mit $S_p$ entschlüsselt: $M=_n C^{d}$
+          Danach ist die Schlüsselgeneration abgeschlossen. $p$ und $q$ können gelöscht werden. $S_p$ muss verschlüsselt auf dem Rechner gespeichert werden.
+    \item Eine Nachricht $0<M<n$ wird durch den öffentlichen Schlüssel ($S_o$) verschlüsselt: $C:=_n M^{e}$
+    \item $C$ wird mit $S_p$ entschlüsselt: $M=_n C^{d}$
+\end{enumerate}
 
 \subsection{Beweis}
 

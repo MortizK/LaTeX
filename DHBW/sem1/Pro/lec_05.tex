@@ -1,0 +1,200 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\input{./preamble.tex}
+
+\title{Programmieren}
+\author{Moritz}
+\date{February 6, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Recap}
+
+Es gab ein Update für das Script der letzten Vorlesung. Hier gibt es eine Tabelle mit den verschiedenen Sortieralgorithmen und ihren Eigenschaften:
+
+\begin{enumerate}
+    \item Zeitkomplexität
+    \item Speicherkomplexität
+    \item in place
+    \item stabil
+    \item ...
+\end{enumerate}
+
+\section{Libraries}
+
+Ein Library ist eine Sammlung an Deklarationen, Typedefs, Macros und Funktionen.
+
+Die Standard Libraries sind schon pre-compiled. Sie liegen dem System schon als Maschinencode vor und sind somit schneller und optimiert.
+
+stdio.h: steht für Standard Input/ Output
+
+\subsection{Prozess des includes}
+
+\begin{enumerate}
+    \item Pre-processor (Copy the Libraries into the project)
+    \item Compilation (Create a Object file of the Libraries)
+    \item Linking (create exe from Object)
+    \item Linker (Dynamic/ Static Libraries)
+    \item Embedding (Static are included/ Dynamic only the reference)
+\end{enumerate}
+
+\section{File Handling}
+
+Es gibt ein Paar Funktionen
+
+\begin{lstlisting}
+#include <stdio.h>
+
+void printFile(FILE *stream);
+
+void main()
+{
+    const char name[] = "input.txt";
+    FILE *stream = fopen(name, "r+");
+
+    // error handling
+    if (!stream)
+    {
+        printf("File could not be opened");
+        return;
+    }
+
+    // read the File
+    printFile(stream);
+
+    // write the end of the file (add it)
+    const char input[] = "\nHello World";
+    fputs(input, stream);
+    // rewinds the pointer to the start of the stream
+    rewind(stream); 
+
+    // print the File
+    printFile(stream);
+
+    // Write Data to the File
+    fwrite("\nOverwrite", sizeof(char), 10, stream);
+
+    rewind(stream);
+    printFile(stream);
+
+    fclose(stream);
+
+    return;
+}
+
+void printFile(FILE *stream)
+{
+    // note: int, not char, required to handle EOF
+    int c;
+    // standard C I/O file reading loop
+    while ((c = fgetc(stream)) != EOF)
+    {
+        putchar(c);
+    }
+
+    if (feof(stream))
+    {
+        printf("\n\nEnd of File reached\n\n");
+    }
+}
+\end{lstlisting}
+
+\section{Threads}
+
+\know{Threads}{Sind Aufteilungen von Processen.
+    \href{https://www.youtube.com/watch?v=d50Nir52aS8&pp=ygUYUHJvZ3JhbW1pZXJlbiBMZXJuZW4gIzU2}{Programmieren Lernen - Threads}}
+
+
+\subsection{Process}
+
+Das Programm started als ein Process in einem Thread:
+
+\begin{center}
+    Process: CODE $|$ DATA $|$ FILES $|$
+
+    THREAD1: REGISTER $|$ STACK $|$
+\end{center}
+
+\begin{lstlisting}
+    x++;
+    doSmth();
+    x--;
+\end{lstlisting}
+
+Wir können auch weitere Threads eröffnen, welche parallel oder sequentiell laufen. Jeder weitere Thread hat wieder sein eigenes Register und Stack. Alle Threads teilen sich den Code, Data und die Files.
+
+\begin{lstlisting}
+    new Thread() ------> New;
+    (---Start()--------> Runnable)
+    ----run()----------> Running
+    ----sleep()--------> Waiting - Pausiert von Innen
+    ----wait()---------> Waiting - Pausiert vom System
+    ----notify()-------> Running
+    ----return/SIGKILL-> DEAD
+\end{lstlisting}
+
+\subsection{Definition}
+
+Threads haben verschiedene Vorteile: Sie ermöglichen Multitasking innerhalb eines Processes. Dies kann parallel auf mehreren CPU cores mit ihren jeweiligen Threads ausgeführt werden.
+
+Es es ist wichtig, das die benutzen Threads synchrone sind und aufeinander abgestimmt sind um z.B. Datenzugriff zu regeln.
+
+\subsection{In C}
+
+Implementation über POSIX  (pthread) oder der Windows Threading API (auf Windows)
+
+Beispiele sind in dem Repo von \href{https://github.com/PandaLehre/c_dhbw_students}{PandaLehre}
+
+\section{Klausur evtl.}
+
+\subsection{Vorlesungen}
+
+Vorlesung 00
+
+\begin{enumerate}
+    \item  Fragen zu Tooling und Grundlagen
+\end{enumerate}
+
+Vorlesung 01
+
+\begin{enumerate}
+    \item Funktionen, Pointer und Arrays.
+    \item Call by Value, Call by reference
+    \item Structs und Unions
+\end{enumerate}
+
+Vorlesung 02
+
+\begin{enumerate}
+    \item Heap und Stack
+    \item Single Linked List (Double Linked wird ausgeschlossen)
+    \item Parameterübergabe an main()
+    \item Testing
+\end{enumerate}
+
+Vorlesung 03
+
+\begin{enumerate}
+    \item Variadic Functions (evtl.)
+    \item Transformation (?)
+\end{enumerate}
+
+Vorlesung 04
+
+\begin{enumerate}
+    \item File Handling (Ja)
+    \item Threads (Nein)
+\end{enumerate}
+
+\subsection{Coding Conventions}
+
+local variables camelCase
+
+constants UPPER\_SNAKE\_CASE
+
+Alles andere PascalCase
+
+\end{document}

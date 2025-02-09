@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\input{./preamble.tex}
 
 \title{Programmieren}
 \author{Moritz}
@@ -68,7 +69,12 @@ Es können auch mehrdimensionale Arrays gebildet werden.
 
 Ein Struct ist ein Datentyp, welche mehrere Andere Datentypen zuordnet.
 
-struct person {int age = 20; char[20] name = "Moritz"}
+\begin{lstlisting}[language=C]
+    struct person {
+        int age = 20; 
+        char[20] name = "Moritz"
+    };
+\end{lstlisting}
 
 \subsubsection{Typedef}
 
@@ -83,6 +89,8 @@ Wir können auch ein Struct als "typedef struct {} name" festlegen. Dies ermögl
 Es gibt ein Paar standard stucts, ein Beispiel ist tm mit der Zeit in verschiedenen Einheiten.
 
 \subsection{union}
+
+Alle Zustände des Union liegen an der gleiche stelle im Speicher und liegen quasi übereinander. SOmit kann man Daten als ein Datentyp schreiben und als einen anderen wieder einlesen.
 
 Ist dazu da um mehre Zustände eines Wertes zu wechseln. Es speichert zur Zeit nur in einem der Werte von einem union.
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="240mm"
+   height="120mm"
+   viewBox="0 0 240 120"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="einheitswurzeln.svg"
+   inkscape:export-filename="einheitswurzeln.pdf"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70312851"
+     inkscape:cx="369.77593"
+     inkscape:cy="270.22087"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g7"
+     showgrid="false"
+     showborder="true"
+     width="200mm"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1368"
+     inkscape:window-height="842"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815"
+       units="mm"
+       spacingx="10"
+       spacingy="10"
+       empspacing="4"
+       dotted="false"
+       originx="0"
+       originy="0"
+       visible="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-177)">
+    <g
+       id="g7"
+       transform="matrix(1.7967795,0,0,1.7967795,-98.488884,-183.57977)">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+         d="M 81.42058,237 H 120 156.72131"
+         id="path1" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+         d="M 120,237 V 200.68115 Z"
+         id="path2" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+         d="M 120,267.46731 V 237"
+         id="path3" />
+      <circle
+         style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke"
+         id="path4"
+         cx="120"
+         cy="237"
+         r="21.497837" />
+      <path
+         style="fill:none;stroke:#00cc00;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#Triangle);paint-order:fill markers stroke;stroke-opacity:1"
+         d="m 120,237 h 21.49783"
+         id="path5" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+         x="144.0825"
+         y="236.31598"
+         id="text5"><tspan
+           sodipodi:role="line"
+           id="tspan5"
+           style="stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+           x="144.0825"
+           y="236.31598">$u_0=1$</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="143.84944"
+         y="241.41832"
+         id="text6"><tspan
+           sodipodi:role="line"
+           id="tspan6"
+           style="stroke-width:0.264583"
+           x="143.84944"
+           y="241.41832">1</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+         x="98.208466"
+         y="214.7215"
+         id="text7"><tspan
+           sodipodi:role="line"
+           id="tspan7"
+           style="stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+           x="98.208466"
+           y="214.7215">$u_1=e^{i\frac{2\pi}{3}}$</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+         x="98.208466"
+         y="261.43539"
+         id="text7-3"><tspan
+           sodipodi:role="line"
+           id="tspan7-7"
+           style="stroke-width:0.264583;fill:#00cc00;fill-opacity:1"
+           x="98.208466"
+           y="261.43539">$u_2=e^{i\frac{4\pi}{3}}$</tspan></text>
+      <path
+         style="fill:none;stroke:#00cc00;stroke-width:0.192389;stroke-linecap:round;stroke-linejoin:round;marker-start:url(#Triangle);marker-end:url(#Triangle);paint-order:fill markers stroke;stroke-opacity:1"
+         d="M 109.66104,218.84058 120,237 109.28214,255.11077"
+         id="path7" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 5, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Tableaux}
+
+Ist ein Tool um zu beweisen, dass eine Formel unerfüllbar ist.
+
+\subsection{Logische Äquivalenz}
+
+Eine Formel heißt Äquivalent, wenn sie sich gegenseitig folgern lassen. Wir schreiben $F\equiv G$.
+
+\subsection{Basis der Aussagenlogik}
+
+Eine Basis ist die Menge der gültigen Operatoren womit es möglich ist zwei Formeln zu bauen, welche nur aus den Operatoren in der Basis bestehen.
+
+Bekannte Basen sind: $\{\land, \lor, \neg\}$, $\{\to, \neg\}$ oder $\{\land, \neg\}$
+
+\subsection{Beweis einer Basis}
+
+\subsubsection{Behauptung}
+
+Behauptung: $o=\{\land, \lor, \neg\}$ sit eine Basis der Aussagenlogik
+
+zu zeigen: Zu jeder Formel $F\in For_0\Sigma$ existiert eine Formel $F'\in For_0\Sigma$ mit zwei Eigenschaften:
+
+\begin{enumerate}[1.]
+    \item $F\equiv F'$
+    \item $F'$ enthält nur Operatoren aus $0$
+\end{enumerate}
+
+Beweis durch Induktion über den Aufbau
+
+\subsubsection{Induktionsanfang}
+
+Induktionsanfang: Sie $F$ eine elementare (atomare) Formel, dann gilt: $F=\top$ oder $F=\bot$ oder $F=a\in\Sigma$
+
+\begin{enumerate}[Fall 1.]
+    \item $F=\top$. Betrachte $F'=\top$. Dann gilt $F=F'$ und enthält nur Operatoren aus $o$.
+    \item $F=\bot$. Betrachte $F'=\bot$. Dann gilt $F=F'$ und enthält nur Operatoren aus $o$.
+    \item $F=a\in\Sigma$. Betrachte $F'=a\in\Sigma$. Dann gilt $F=F'$ und enthält nur Operatoren aus $o$.
+\end{enumerate}
+
+In allen 3 Fällen existiert das gesuchte F'. Also ist der Induktionsanfang gesichert.
+
+\subsubsection{Induktionsvoraussetzung}
+
+Induktionsvoraussetzung: Die Behauptung gelten für $A$ und $B\in For_0\Sigma$. Also: Es existiert $A', B'\in For_0\Sigma$ mit $A\equiv A'$, $B\equiv B'$ und $A', B'$ enthalten nur Operatoren aus $o$.
+
+\subsubsection{Induktionsschritt}
+
+Induktionsschritt: Sei $F$ eine zusammengesetze Formel, dann gilt: $F$ hat die Formen $(\neg A),(A\land B),(A\lor B),(A\to B)$ oder $(A\iff B)$
+
+\begin{enumerate}[1.]
+    \item $F\equiv F'$
+    \item $F'$ enthält nur Operatoren aus $o$
+\end{enumerate}
+
+\begin{enumerate}[Fall 1.]
+    \item $F=\neg A$. Dann existiert nach IV $A'$ mit 1 und 2. Betrachte $F'=\neg A'$. Dann gilt $F=F'$ Wahrheitstabelle und 2.
+    \item $F=A\land B$. Dann existiert nach IV $A'$ und $B'$ mit 1 und 2. Betrachte $F'=A'\land B'$. Dann gilt $F=F'$ Wahrheitstabelle und 2.
+    \item $F=A\lor B$. Dann existiert nach IV $A'$ und $B'$ mit 1 und 2. Betrachte $F'=A'\lor B'$. Dann gilt $F=F'$ Wahrheitstabelle und 2.
+    \item $F=A\to B$. Betrachte $F'=\neg A'\lor B'$. Dann:
+          \begin{center}
+              \begin{tabular}{c c c|c c c}
+                  $A$ & $B$ & $F$ & $A'$ & $B'$ & $F'$ \\
+                  \hline
+                  0   & 0   & 1   & 0    & 0    & 1    \\
+                  0   & 1   & 1   & 0    & 1    & 1    \\
+                  1   & 0   & 0   & 1    & 0    & 0    \\
+                  1   & 1   & 1   & 1    & 1    & 1    \\
+              \end{tabular}
+          \end{center}
+          Dann gilt $F=F'$ und 2.
+    \item $F=A\iff B$. Betrachte $F'=(\neg A'\lor B')\land(A'\lor\neg B')$. Dann:
+          \begin{center}
+              \begin{tabular}{c c c|c c c}
+                  $A$ & $B$ & $F$ & $A'$ & $B'$ & $F'$ \\
+                  \hline
+                  0   & 0   & 1   & 0    & 0    & 1    \\
+                  0   & 1   & 0   & 0    & 1    & 0    \\
+                  1   & 0   & 0   & 1    & 0    & 0    \\
+                  1   & 1   & 1   & 1    & 1    & 1    \\
+              \end{tabular}
+          \end{center}
+          Dann gilt $F=F'$ und 2.
+\end{enumerate}
+
+\subsection{Teilformel}
+
+Die Menge aller Teilformel einer Formel sind z.B.:
+
+\begin{center}
+    $TF(A\land\neg B)=\{(A\land B),(A),(\neg B, (B))\}$
+\end{center}
+
+Wir können zudem Äquivalente Teilformeln eine Formel austauschen, ohne die gesamtformel zu ändern.
+
+\subsubsection{Kalkül}
+
+\begin{equation}
+    \begin{split}
+        \top & \vdash_{LU}\neg B\lor \top          \\
+             & \vdash_{LU}\neg B\lor(A\lor\neg A)  \\
+             & \vdash_{LU}\neg B\lor(\neg A\lor A) \\
+             & \vdash_{LU}(\neg B\lor\neg A)\lor A \\
+             & \vdash_{LU}(\neg A\lor\neg B)\lor A \\
+             & \vdash_{LU}\neg A\lor(\neg B\lor A) \\
+             & \vdash_{LU}A\to (\neg B\lor A)      \\
+             & \vdash_{LU}A\to(B\to A)             \\
+    \end{split}
+\end{equation}
+
+\subsubsection{Korrektheit}
+
+Das Kalkül der logischen Umformungen ist korrekt und vollständig. Somit ist jede Tautologie durch dieses Kalkül herleitbar.
+
+\end{document}

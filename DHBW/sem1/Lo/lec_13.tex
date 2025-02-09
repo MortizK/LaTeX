@@ -1,0 +1,91 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 29, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Deduktionstheorem}
+
+Eine Formel G folgt aus einer Formelmenge $\{F_1, \dots, F_n\}$ genau dann, wenn die Formel $(F_1\land \dots\land F_n)\to G$ allgemeingültig ist ...
+
+... und also genau dann, wenn $neg((F_1\land \dots\land F_n)\to G)$ unerfüllbar ist.
+
+\subsection{Widerspruchskalküle}
+
+Es wird auf Unerfüllbarkeit eine Formel-(Menge) geprüft.
+
+\subsection{Baum}
+
+Ein Baum besteht aus Knoten, Vertices und Kanten, Edges.
+
+Es gibt nur eine Wurzel und diese ist der einzige Knoten ohne Vorgänger. Alle anderen Knoten haben genau einen Vorgänger.
+
+Es gibt noch verschieden Begriffe: Wurzel, Blatt, innerer Knoten, Pfad, Ast.
+
+Ein Baum, wo jeder Knoten maximal 2 Nachfolger hat heißt Binärbaum.
+
+\subsection{Tableaux}
+
+Ist ein Widerlegungskalkül, welches durch vollständige Fallunterscheidung die Unerfüllbarkeit zu zeigen.
+
+Wir teilen Formeln immer in zwei und versuchen über beide teile Aussagen zu treffen: z.b. $a\land b$:
+
+\begin{center}
+    a = 1 und\\
+    b = 1
+\end{center}
+
+\subsubsection{Formelntyp}
+
+Primitive Formeln: $a, \neg b$
+
+Konjunktive Formel $\alpha$: ist zerlegbar und beide Seiten müssen Wahr sein.
+
+Disjunktive Formel $\beta$: ist zerlegbar und hier muss mindestens eins Wahr sein.
+
+\subsubsection{Zerlegung von $\alpha$ und $\beta$ Formeln}
+
+Für Klausur auf S. 247 in dem Script
+
+\begin{center}
+    \begin{tabular}{c c}
+        \begin{tabular}{c|c c}
+            $\alpha$        & $\alpha_1$ & $\alpha_2$ \\
+            \hline
+            $A\land B$      & $A$        & $B$        \\
+            $\neg(A\lor B)$ & $\neg A$   & $\neg B$   \\
+            $\neg(A\to B)$  & $A$        & $\neg B$   \\
+            $A\iff B$       & $A\to B$   & $B\to A$   \\
+            $\neg\neg A$    & $A$        &
+        \end{tabular} \quad & \quad
+        \begin{tabular}{c|c c}
+            $\beta$          & $\beta_1$      & $\beta_2$       \\
+            \hline
+            $\neg(A\land B)$ & $\neg A$       & $\neg B$        \\
+            $A\lor B$        & $A$            & $B$             \\
+            $A\to B$         & $\neg A$       & $B$             \\
+            $\neg(A\iff B)$  & $A\land\neg B$ & $\neg A\land B$ \\
+                             &                &
+        \end{tabular}
+    \end{tabular}
+\end{center}
+
+\subsubsection{Tableaux Konstruktion}
+
+Startregel: Initialisiere Eine Formel
+
+$\alpha$-Regel: Beide $\alpha$ untereinander in den Baum eintragen.
+
+$\beta$-Regel: Unter allen Ästen dieses Zweigs, eine neue Gabelung mit $\beta_1$ und $\beta_2$ einfügen.
+
+Abbruchbedingung: Atomare Konflikt in einem Ast oder eine Formel $A$ und $\neg A$ tritt auf.
+
+\end{document}

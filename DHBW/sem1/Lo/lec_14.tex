@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{January 30, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Tableaux}
+
+Sei $F$ eine Formeln und $T$ ein geschlossenes Tableau für $F$. Dann ist $F$ unerfüllbar. Wenn es geschlossen ist, ist die Formel unerfüllbar.
+
+\subsubsection{Beweis mit Lemma}
+
+Hierfür der Beweis mithilfe der Induktion:
+
+Nach dem Lemma ist der Begin des Tableau mit nur der Ursprungsformel $F$. Diese ist WAHR.
+
+Wenn wir nun durch unsere Induktionsvoraussetzung davon ausgehen, dass es einen Pfad gibt welche unter $I = 1$ ist.
+
+Nun gibt es eine Fallunterscheidung. Wir expandieren einen Knoten, der Nicht auf dem Pfad, welcher unter $I = 1$ ist, verändert dieser den Pfad nicht.
+
+Wenn wir einen Knoten auf unserem Pfad expandieren müssen wir unter $\alpha$ und $\beta$ unterschieden.
+
+\begin{enumerate}
+    \item[$\alpha$] Hier ist der neue Pfad unter $I(\langle M, \alpha_1, \alpha_2\rangle)=1$
+    \item[$\beta$] Bei $\beta$ wissen wir das einer von beiden Ästen war sein muss. $I(\langle M, \beta_1\rangle)=1$ oder $I(\langle M, \beta_2\rangle)=1$
+\end{enumerate}
+
+\subsubsection{Satz}
+
+Beweis des Lemmas durch Widerspruch.
+
+Wenn unsere Tableau geschlossen ist und wir annehmen, dass F erfüllbar ist. Nach dem Lemma existiert nun ein Ast welcher unter $I(M)=1$ wahr ist. Dies kann aber nicht sein, da ein geschlossenes Tableau per Definition zwei komplementäre Formeln hat.
+
+Widerspruch: Die Annahme war falsch $\to$ F ist unerfüllbar.
+
+Das gleicher für ein vollständiges Tableau, welches erfüllbar sein muss.
+
+\subsubsection{vollständigekeit und Korrektheit}
+
+Sei $F\in For0_{\sum}$ eine Aussagenlogische Formel. Dann gilt:
+
+\begin{enumerate}
+    \item Das Tableau lässt sich in n Schritten vervollständigen.
+    \item Wenn das Tableau offen ist, so ist $F$ erfüllbar.
+    \item Wenn das Tableau geschlossen ist, so ist $F$ unerfüllbar.
+\end{enumerate}
+
+\end{document}

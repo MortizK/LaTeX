@@ -20,8 +20,30 @@
 }
 
 %% Links
-\usepackage[
+\usepackage{hyperref}
+\hypersetup{
     colorlinks=true,
-    urlcolor=blue,
-    linkcolor=black
-]{hyperref}
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=cyan
+}
+
+%% Formatting
+\usepackage{parskip}
+
+%% Custom Enumerations
+\usepackage{enumerate}
+
+%%% Command for box with heading
+\fboxsep2mm
+\newcommand{\know}[2]{
+    \noindent\fbox{
+        \parbox{\textwidth-21pt}{
+
+            \textbf{#1:}
+            \vspace{0.125cm}
+
+            #2
+        }
+    }
+}

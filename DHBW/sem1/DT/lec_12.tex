@@ -1,0 +1,39 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 4, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sequentielle Logik}
+
+\subsection{Zähler}
+
+Für einen 3-Bit Zähler brauchen wir 3 JK-Flipflops schalten um die Zustände ineinander übergehen zu lassen. Dies kann genauso gemacht werden wie in einem Moore Automat.
+
+Somit wir aus dem Zustand $000$, der Folgezustand $001$. Für jedes Bit brauchen wir ein Flipflop um den Zustand taktsynchrone zu speichern.
+
+\begin{center}
+    \begin{tabular}{c c|c c|c c c c}
+        \multicolumn{2}{c|}{Zustand}       &
+        \multicolumn{2}{|c|}{Folgezustand} &
+        \multicolumn{4}{|c}{Flipflops}                                                               \\
+        $Q_0$                              & $Q_1$ & $Q_0'$ & $Q_1'$ & $J_1$ & $K_1$ & $J_0$ & $K_0$ \\
+        \hline
+        0                                  & 0     & 0      & 1      & 0     & d     & 1     & d     \\
+        0                                  & 1     & 1      & 0      & 1     & d     & d     & 1     \\
+        1                                  & 0     & 1      & 1      & d     & 0     & 1     & d     \\
+        1                                  & 1     & 0      & 0      & 1     & d     & 1     & d     \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Asynchrone Zähler}
+
+Hier gibt es den Takt nur auf dem Erstem Flipflop, alle anderen bekommen ihren Takt, nur von dem Ausgang des vorherigem Flipflop. Somit erhöht sich mit jedem Flipflop die Zeitverzögerung um $\tau$.
+
+\end{document}
