@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 6, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Normalformen}
+
+Sind Aussagenlogische Formeln, welche beliebig verschachtelt werden. In der Normalform, sind diese kompakter.
+
+Algorithmen und Kalküle werden einfache für einfachere Sprachen.
+
+\subsubsection{Negations-Normalform (NNF)}
+
+Es gibt nur $\land, \lor, \neg$ und $\neg$ kommt nur vor Atomen vor. Zudem sind die Wahrheitswerte $\top, \bot$ nur bei Formeln die entweder Tautologien sind oder unerfüllbar sind.
+
+Zur Umwandlung drei Schritte
+
+\begin{enumerate}
+    \item $A\iff B$ durch $(A\to B)\land(B\to A)$ austauschen.
+    \item $A\to B$ durch $\neg A \lor B$ austauschen.
+    \item Durch De Morgan die $\neg$ nach innen schieben, sowie alle $\top$ und $\bot$ Regeln anwenden.
+\end{enumerate}
+
+\know{Literal}{Ist ein Atom (aussagenlogische Formel) oder die Negation eiens Atom
+    \begin{center}
+        $A$ oder $\neg A$
+    \end{center}}
+
+\know{Klausel}{Ist eine Disjunktion von Literalen
+    \begin{center}
+        $(A\lor\neg B\lor C)$
+    \end{center}
+    Es gibt auch die leere Klause, diese ist unerfüllbar.}
+
+\subsubsection{Konjunktive Normalform (KNF)}
+
+Ist eine Konjunktion von Klauseln.
+
+\begin{center}
+    $(A\lor\neg B)\land(B\lor\neg C\lor\neg D)$
+
+    $(A\lor B)$ und $(A)\land (B)$ sind auch KNF
+\end{center}
+
+Und die leere Konjunktion ist eine Tautologie.
+
+\end{document}
