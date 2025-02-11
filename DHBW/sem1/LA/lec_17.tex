@@ -1,0 +1,178 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 11, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Matrizen}
+
+\subsection{Dimensionsformel}
+
+\begin{equation}
+    dim V = dim ker A + dim im A, A:V\to W
+\end{equation}
+
+
+\know{A lineare Abbildung: $m\times n$-Matrix}{
+    \begin{center}
+        A injektiv $\iff ker A =\{0\}$
+
+        $\iff A=[a_1, \dots, a_n]\land \{a_1, \dots,a_n\} l.u.$
+
+        $\underset{*)n=m}{\iff}det(a)\neq 0$
+    \end{center}}
+
+\begin{enumerate}
+    \item A inj: $x\in kern A: Ax=0=A0\overset{A inj}{\implies} x=0 \implies ker A=\{=\}$
+    \item $ker A =\{0\}: Ax=Ax'\implies A(\underset{\in ker A}{x-x'})=0\implies x=x'$
+\end{enumerate}
+
+\subsubsection{Quadratische Matrizen}
+
+Wenn wir eine $n\times n$-Matrix haben, gelten noch weiteres:
+
+A inj. $\implies ker A=\{0\}\iff dim ker A = 0$, nach der Dimensionsformel gilt somit, dass die Dimension von A gleich der Dimension vom Bild von A ist, da die Dimension vom Kern = 0 ist.
+
+\begin{center}
+    $dim V = dim ker A + dim im A = 0 + dim im A \iff im A = \mathbb{K}^n\iff$ A surj.
+\end{center}
+
+\know{Bijektivität}{Eine Quadratische Matrix ist bijektiv, wenn sie entweder surjektiv oder injektiv ist, da wir aus dem einem immer das andere Schließen können.
+    \begin{center}
+        A inj $\iff$ A surj. $\iff$ A bij.
+    \end{center}
+    In dieser Situation gibt es eine inverse Abbildung $A^{-1}$ von $A$}
+
+\subsubsection{Inverse Matrix}
+
+A: $n\times n$-Matrix. Dann gilt:
+
+\begin{equation}
+    A^{-1}ex. \iff \exists_B BA=1\lor AB=1
+\end{equation}
+
+In diesem Fall ist $B=A^{-1}$
+
+Beweis:
+
+\begin{enumerate}
+    \item $AB=!\implies A\underset{0}{Bx}=x$ f.a. $x\in \mathbb{K}^n\implies im A =\mathbb{K}^n\implies$ A surj. $\iff A^{-1} ex.$
+    \item $BA=!\land x\in ker A$ dann $x=B\underset{=0}{Ax}=B0=0\implies ker A=\{0\}$
+\end{enumerate}
+
+Also AB=1 oder BA=1 führt dazu, dass $A^{-1}$ existiert.
+
+\begin{equation}
+    \implies A^{-1} / AB=1 \implies A^{-1}A=B=A^{-1}*1=A^{-1}
+\end{equation}
+
+\subsubsection{Ausrechnen von der Inverse}
+
+Also praktisches Verfahren zum Test auf Existenz von $A^{-1}$ und gegebenenfalls zur Berechnung von $A^{-1}$:
+
+\begin{center}
+    $AB=1=[e_1, e_2, \dots, e_n]$
+
+    $B=[b_1, b_2, b_n]$
+\end{center}
+
+Daraus können wir mehrere GAUSS-Verfahren durchführen der Form $Ab=e$
+
+\begin{center}
+    Ab = e und mit GAUSS wird es zu der Form 1*b=b
+\end{center}
+
+mit diesem Wissen können wir jür jeden Spaltenvektor GAUSS machen. Hier wird aber jedes mal das gleiche GAUSS-Verfahren gemacht nur mit einem anderen e. Somit können wir auch ein "großes" GAUSS machen.
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+            &   \\
+        $A$ & 1 \\
+            &   \\
+        \hline
+    \end{tabular} $\underset{GAUSS}{\to}$
+    \begin{tabular}{|c|c|}
+        \hline
+          &          \\
+        1 & $A^{-1}$ \\
+          &          \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection{Rechenregeln der Inversenbildung}
+
+A, B seien invertierbar
+
+\begin{enumerate}
+    \item $\implies (AB)^{-1}=B^{-1}A^{-1}$, denn $AB*B^{-1}*A^{-1}=A*A^{-1}=1$
+    \item $(A^*)^{-1}=(A^{-1})^*$, denn $(A^{-1})^*A^*=(AA^{-1})^*=1^*=1$
+\end{enumerate}
+
+\subsubsection{Determinanten-Entwicklungssatz}
+
+Wir nutzen einfach die Entwicklung der Determinante in einer Spalte oder einer Zeile.
+
+So können wir in eine Schwachen Spalte nach den einzelnen kleineren Determinanten auflösen.
+
+\begin{equation}
+    det
+    \begin{bmatrix}
+        2 & 5 & -1 \\
+        3 & 2 & 1  \\
+        4 & 0 & 5
+    \end{bmatrix} = 5*det
+    \begin{bmatrix}
+        3 & 1 \\
+        4 & 5
+    \end{bmatrix} - 2*det
+    \begin{bmatrix}
+        2 & -1 \\
+        4 & 5
+    \end{bmatrix}
+\end{equation}
+
+Genauere Skizze mit zwischenschritten und Erklärung in meinem Heft.
+
+
+Wenn wir nicht überschneidende Quadrate haben, welche Kante and Kante ind er Determinate liegen, gilt noch eine zusätzliche Regel:
+
+\begin{equation}
+    det\begin{bmatrix}
+        1 & 2 & 0 & 4 & 3  & 0 & 1  \\
+        3 & 4 & 3 & 4 & -3 & 7 & 9  \\
+          &   & 5 & 0 & 1  & 0 & 7  \\
+          &   & 0 & 2 & 7  & 5 & 9  \\
+          &   & 3 & 3 & 1  & 0 & 1  \\
+          &   &   &   &    & 1 & -1 \\
+          &   &   &   &    & 3 & 8  \\
+    \end{bmatrix}=det
+    \begin{bmatrix}
+        1 & 2 \\
+        3 & 4
+    \end{bmatrix}*det
+    \begin{bmatrix}
+        5 & 0 & 1 \\
+        0 & 2 & 7 \\
+        3 & 5 & 1
+    \end{bmatrix}*det
+    \begin{bmatrix}
+        1 & -1 \\
+        3 & 8
+    \end{bmatrix}
+\end{equation}
+
+\subsubsection{Determinanten-Produktsatz}
+
+\begin{center}
+    $det(A*B)=det(A)*det(B)$
+\end{center}
+
+\end{document}
