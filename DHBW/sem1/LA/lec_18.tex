@@ -1,0 +1,175 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Matrizen}
+
+\subsection{Dimensionsformel}
+
+\subsubsection{Dimension vom Kern}
+
+Dimension vom Kern lässt sich durch das Abzählen der Elemente der Basis vom Kern.
+
+\begin{equation}
+    ker A=\{x\mid Ax=0\}
+\end{equation}
+
+Beispielweise haben wir diese Lösungen nach GAUSS:
+
+\begin{equation}
+    \begin{matrix}
+        x_1 &     &     & + 2x_4 & +4x_5 & +3x_6  & =0 \\
+            & x_2 &     &        & + x_5 & + 4x_6 & =0 \\
+            &     & x_3 & - 3x_4 & +5x_5 &        & =0
+    \end{matrix}
+\end{equation}
+
+Nach dem Umstellen nach $x_1, \dots x_6$
+
+\begin{equation}
+    \begin{matrix}
+        x_1=  & -2x_4 & -4x_5 & -3x_6 \\
+        x_2 = &       & -x_5  & -4x_6 \\
+        x_3 = & 3x_4  & -5x_5 &       \\
+        x_4 = & 1x_4  &       &       \\
+        x_5 = &       & 1x_5  &       \\
+        x_6 = &       &       & 1x_6  \\
+    \end{matrix}
+\end{equation}
+
+Somit ist unser Kern:
+
+\begin{equation}
+    ker A=\left\{x_4
+    \begin{bmatrix}
+        -2 \\0\\3\\1\\0\\0
+    \end{bmatrix}+x_5
+    \begin{bmatrix}
+        -4 \\-1\\-5\\0\\1\\0
+    \end{bmatrix}+x_6
+    \begin{bmatrix}
+        -3 \\-4\\0\\0\\0\\1
+    \end{bmatrix}\mid x_4, x_5, x_6\in \mathbb{C}\right\}
+\end{equation}
+
+Und die Basis hat nur diese drei Vektoren $B_{ker A}=\{b_1, b_2, b_3\}$ und die Dimension vom Kern is $=3$.
+
+\know{Klausuraufgabe}{Berechne die Dimenstion vom Kern, bedeuted: GAUSS-Verfahren machen und somit den gesammten Kern berechnen. }
+
+\subsection{Koordinatentransformation}
+
+\begin{center}
+    $\mathfrak{B}:=\{b_1, b_2, b_3\}$ Basis
+
+    $\mathcal{B}:=[b_1, b_2, b_2]$
+
+    $x=Bx_B$
+
+    $x_B=B^{-1}x$
+\end{center}
+
+In der Kanonischen Basis gilt $x=x_1e_1+x_2e_2+x_3e_3$. Dies Können wir auch in eine anderen Basis machen. Somit haben:
+
+\begin{equation}
+    x=\tilde{x}_1b_1+\tilde{x}_2b_2+\tilde{x}_3b_3 \hat{=}
+    \begin{bmatrix}
+        \tilde{x}_1 \\\tilde{x}_2\\\tilde{x}_3
+    \end{bmatrix}_B = x_B
+\end{equation}
+
+Also: $x=Bx_B$ ist die Gleichung der Koordinatentransformation für $x$. Und wir können $x_B=B^{-1}x$ mit GAUSS bestimmen.
+
+\know{Orthogonalbasis}{Falls $\mathfrak{B}$ eine Orthogonalbasis ist, so ist\begin{center}
+        $\mathcal{B}^{-1}=\mathcal{B}^*$
+
+        $x_{\mathcal{B}}=B^*x$
+    \end{center}}
+
+\subsection{Drehung um eine Beliebige Achse}
+
+Drehung um eine Beliebige Achse mittels Koordinatentransformation.
+
+Wir Drehen im Allgemeinen nur in einer der Ebenen unsere Basis:
+
+\begin{equation}
+    \begin{bmatrix}
+        \cos(\alpha) & -\sin(\alpha) & 0 \\
+        \sin(\alpha) & \cos(\alpha)  & 0 \\
+        0            & 0             & 1
+    \end{bmatrix}_B=:D_3(\alpha)
+\end{equation}
+
+Wir haben unsere Achse $n$ als Normalvektor; $x$ wird gedreht.
+
+\begin{enumerate}
+    \item $b_3:= n$, zwei weitere Basisvektoren  $b_1$ und $b_2$ zu wählen, dass
+          \begin{center}
+              $\mathfrak{B}:=\{b_1, b_2, b_3\}$
+          \end{center} eine positiv orientierte ONB ergibt.
+    \item $B=[b_1, b_2, b_3]$ Matrix der Koordinatentransformation
+    \item $B^{-1}=B^*$; $x_B=B^*x$
+    \item Der gedrehte Vektor (in der Basis B dargestellt)
+          \begin{center}
+              $x_B'=D_3(\alpha)*x_B$
+          \end{center}
+          Zurücktransformieren:
+          \begin{center}
+              $x'=Bx_B'$
+          \end{center}
+\end{enumerate}
+
+\know{Drehformel}{Wir können mit volgerne Formel eine Drehung durchführen:
+    \begin{center}
+        $x'=Bx_B'=BD_3(\alpha)x_B=BD_3(\alpha)B^*x=D_n(\alpha)x$
+
+        $D_n(\alpha):=BD_3(\alpha)B^*x$
+    \end{center}wo $n$ der Drehvektor ist}
+
+\subsubsection{Einfache Basis}
+
+\begin{equation}
+    \left\{\frac{1}{3}
+    \begin{bmatrix}
+        1 \\2\\2
+    \end{bmatrix},\frac{1}{3}
+    \begin{bmatrix}
+        2 \\-2\\1
+    \end{bmatrix},\frac{1}{3}
+    \begin{bmatrix}
+        2 \\1\\-2
+    \end{bmatrix},\right\}=B
+\end{equation}
+
+\begin{equation}
+    \frac{1}{3}\begin{bmatrix}
+        1 & 2  & 2  \\
+        2 & -2 & 1  \\
+        2 & 1  & -2
+    \end{bmatrix}=B
+\end{equation}
+
+Beispielrechnung in dieser Basis ist in meinem Heft unter LA 12.02 Drehung. Es gibt aber eine Fehler, da irgendwo ein Faktor 2 verloren gegangen ist.
+
+\subsubsection{Allgemeine Dreh-formel/-matrix}
+
+$n$ Drehvektor mit $\|n\|=1$.
+
+\begin{equation}
+    D_n(\alpha)=P_n+\cos(\alpha)(1-P_n)+\sin(\alpha)R_n
+\end{equation}
+
+Herleitung in meinem Heft unter LA 12.02 Drehformel/matrix
+
+\subsection{Ausblick: Eigenwerttheorie}
+
+
+
+\end{document}

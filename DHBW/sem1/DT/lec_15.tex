@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Halbleitertechnik}
+
+\subsection{SRAM}
+
+Wir können mehrere SRAMs in Reihe Schalten um einen größeren Speicher zu haben. Hierzu werden die Adressenräume erweitert von z.B. 16 auf 18. An die SRAM Zellen werden dennoch nur die 16 Als eingabe gegeben und die Restlichen zwei kommen in einen Multiplexer um das Chip Select (CS) Signal zu erstellen.
+
+Somit können wir aus $4 64k\times 8$-Bausteine einen $256k\times 8$-Baustein bauen. Hierzu werden die Signale $A_{17}, A_{16}$ in einen 2Bit Multiplexer geleitet. Dieser macht daraus 4 Leitungen, welche in das dazugehörige $64k\times 8$-Baustein verbunden werden.
+
+\subsection{DRAM}
+
+Die DRAM Zelle hat einen sehr hohe Speicherkapazität durch geringen Flächenbedarf.
+
+Sie besteht aus einem Kondensator und einem Transistor.
+
+Zum beschreiben, wird das Bit Signal für eine Zeit gesetzt und mit Select fangen wir an den Kondensator aufzuladen.
+
+Beim Auslesen wird der Kondensator entladen, muss somit nach jedem Lesen wieder gesetzt/ aufgeladen werden.
+
+\subsubsection{Adresse}
+
+Die Adressen beinhalten die Zeilen und Spalten für einen $m\times m$ DRAM.
+
+Beispiel an einer 16Bit Adresse.
+
+\begin{enumerate}
+    \item Die Zeilen sind von $A_{15}, A_{14}, \dots, A_8$
+    \item Die Spalten sind von $A_7, A_6, \dots, A_0$
+\end{enumerate}
+
+\know{DRAM Adressen}{Die Zeilen und Spalten benutzen die gleichen Leitungen. Damit das Funktioniert braucht man noch Steuersignale:\begin{center}
+        RAS (Row Active) und CAS (Column Active)
+    \end{center}um anzugeben, ob es sich gerade um eine Zeile oder Spalte handelt}
+
+CAS und RAS sind Flankengetriggert und zwar auf der Fallenden Flanke.
+
+\subsubsection{Auslesen}
+
+Das RAS wird gesetzt und somit wird die gesamte Zeile in den Leseverstärker geschrieben. Danach wird CAS gesetzt um die Zelle auszulesen.
+
+Falls in der gleichen Zeile nochmal was ausgelesen werden soll, muss nicht nochmal die Ziele ausgewählt werden, sondern es kann direkt gelesen werden über CAS.
+
+Nach dem Lesen muss die gesamte Zeile wieder beschrieben werden.
+
+\subsubsection{Schreiben}
+
+Identisch mit Lesen, nur wird noch Write Enable gesetzt.
+
+Skizze zum Zeitverhalten vom Schreiben und Lesen sind in meinem Heft unter DT 12.02 DRAM.
+
+\subsubsection{Merkmale}
+
+Der Kondensator in eine DRAM Zelle entlädt sich nicht nur beim Auslesen, sondern auch mit der Zeit (einige ms).
+
+Um diesen Verlust zu verhindern, wird jede Zeile der Zelle alle 32ms oder 64ms gelesen, da diese beim Lesen neu geschrieben/ aufgeladen wird.
+
+Die Auslese Zeit ist relativ Lang 30ns, kann aber bei folgezugriffen in der gleichen Zeile schneller sein 10ns.
+
+Das Notwendige Refresh macht keinen großen Datenbandverlust, verbraucht aber konstant Energie.
+
+\subsubsection{Vergrößerung}
+
+Entweder über Vergrößerung der Wortbreite (mehr Ausgänge) oder Vergrößerung des Adressraumes (mehr Eingänge).
+
+Beide dieser Möglichkeiten können auch kombiniert werden.
+
+\end{document}
