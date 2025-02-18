@@ -1,0 +1,153 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 18, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Matrizen}
+
+\subsection{Eigenwerttheorie}
+
+Eigenwertgleichung
+
+\begin{equation}
+    \exists_{x\neq 0}\quad Ax=\lambda x
+\end{equation}
+
+Lambda $\lambda$ ist der Eigenwert (EW) zum Eigenvektor (EV) $x$
+
+Die Menge aller Eigenwerte von $A$ heißt Spektrum von $A$; $sp(A)$
+
+\subsubsection{Lösen der EW-Gleichung}
+
+Mit mehreren Schlüssen, können wir die EW-Gleichung umformen:
+
+\begin{equation}
+    \begin{split}
+        \exists_{x\neq 0, \lambda\in \mathbb{C}} Ax=\lambda x & \iff \exists_{x\neq 0, \lambda\in \mathbb{C}} (A-\lambda 1)x = 0 \\
+                                                              & \iff \exists_{\lambda\in \mathbb{C}} ker(A-\lambda 1)\neq\{0\}   \\
+                                                              & \iff A-\lambda 1 \text{nicht invertierbar}                       \\
+                                                              & \iff det(A-\lambda 1)=0                                          \\
+                                                              & =:\chi_a(\lambda)
+    \end{split}
+\end{equation}
+
+Chi $\chi$ auch charakteristisch Polynom genannt.
+
+Das Spektrum besteht also aus allen Nullstellen des charakt. Polynoms.
+
+Beispiel:
+
+\begin{equation}
+    \begin{split}
+        A               & =
+        \begin{bmatrix}
+            1 & 2 \\
+            4 & 3
+        \end{bmatrix}                                                \\
+        A-\lambda 1     & =
+        \begin{bmatrix}
+            1 & 2 \\
+            4 & 3
+        \end{bmatrix}-
+        \begin{bmatrix}
+            \lambda & 0       \\
+            0       & \lambda
+        \end{bmatrix}=
+        \begin{bmatrix}
+            1-\lambda & 2         \\
+            4         & 3-\lambda
+        \end{bmatrix}                                         \\
+        \chi_A(\lambda) & =det
+        \begin{bmatrix}
+            1-\lambda & 2         \\
+            4         & 3-\lambda
+        \end{bmatrix}=(1-\lambda)(3-\lambda)-8=\lambda^2-4\lambda+3-8 \\
+                        & = \lambda^2-4\lambda-5=0                    \\
+        \lambda_{1/2}   & =2\pm\sqrt{4+5}=5;-1
+    \end{split}
+\end{equation}
+
+EV zum EW 5: $\begin{bmatrix}
+        -4 & 2  \\
+        4  & -2
+    \end{bmatrix}x=0$ ergibt $b_1\sim\begin{bmatrix}
+        2 \\4
+    \end{bmatrix}\sim\frac{1}{\sqrt{5}}\begin{bmatrix}
+        1 \\2
+    \end{bmatrix}$
+
+EV zum EW -1:$\begin{bmatrix}
+        2 & 2 \\
+        4 & 4
+    \end{bmatrix}x=0$ ergibt $b_2\sim\begin{bmatrix}
+        -1 \\1
+    \end{bmatrix}\sim\frac{1}{\sqrt{2}}\begin{bmatrix}
+        -1 \\1
+    \end{bmatrix}$
+
+Somit ergibt sich die Basis der EV:
+
+\begin{equation}
+    B = \begin{bmatrix}
+        \frac{1}{\sqrt{5}} & -\frac{1}{\sqrt{2}} \\
+        \frac{2}{\sqrt{5}} & \frac{1}{\sqrt{2}}
+    \end{bmatrix}=\frac{1}{\sqrt{10}}\begin{bmatrix}
+        \sqrt{2}  & -\sqrt{5} \\
+        2\sqrt{2} & \sqrt{5}
+    \end{bmatrix}
+\end{equation}
+
+Inverse von A in $2\times 2$
+
+\begin{equation}
+    A^{-1}=\frac{1}{det(A)}*\begin{bmatrix}
+        d  & -b \\
+        -c & a
+    \end{bmatrix}
+\end{equation}
+
+\know{Ergebnis}{Nach dem bestimmen der Inversen können wir in dieser Basis mit den Eigenvektoren Rechnen:
+    \begin{center}
+        $A=B\begin{bmatrix}
+                5 & 0  \\
+                0 & -1
+            \end{bmatrix}B^{-1}$
+    \end{center}}
+
+\subsubsection{Selbstadjungierte Abbildungen}
+
+\begin{center}
+    $\langle x\mid Ay\rangle=\langle Ax\mid y\rangle \implies A^*=\overline{A}^{t}=A$
+\end{center}
+
+\begin{enumerate}
+    \item Alle EWe sind reell: $Ax=\lambda x$, mit $x\neq 0$
+          \begin{center}
+              $\langle x\mid Ax\rangle=\langle x\mid \lambda x\rangle=\lambda \langle x\mid x\rangle = \lambda\|x\|^2$
+
+              $\langle Ax\mid x\rangle=\langle \lambda x\mid  x\rangle=\overline{\lambda} \langle x\mid x\rangle = \overline{\lambda}\|x\|^2$
+
+              $\implies (\overline{\lambda} -\lambda)\|x\|^2=0\implies \overline{\lambda} = \lambda\implies \lambda\in \mathbb{R}$
+          \end{center}
+    \item Die EVen zu verschieden EWen sind Orthogonal:
+          \begin{center}
+              $Ax=\lambda x, Ay=\gamma y, \lambda\neq\gamma$
+
+              $\langle x\mid Ay\rangle=\langle x\mid \gamma y\rangle=\gamma\langle x\mid y\rangle$
+
+
+              $\langle Ax\mid y\rangle=\langle \lambda x\mid  y\rangle=\lambda\langle x\mid y\rangle$
+
+              $(\lambda - \gamma)\langle x\mid y\rangle\implies \langle x\mid y\rangle = 0 \iff x \bot y$
+          \end{center}
+          Da $\gamma$ und $\lambda$ nicht gleich sind, können wir die orhtogonalität finden.
+\end{enumerate}
+
+\end{document}

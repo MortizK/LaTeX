@@ -172,7 +172,26 @@ Wenn wir nicht überschneidende Quadrate haben, welche Kante and Kante ind er De
 \subsubsection{Determinanten-Produktsatz}
 
 \begin{center}
-    $det(A*B)=det(A)*det(B)$
+    $det(A*B) = det(A)*det(B)$
+
+    $1 = det(1) = det(A*A^{-1}) = det(A) * det(A^{-1})$
 \end{center}
+
+Dies lässt sich auch Umstellen
+
+\know{Berechne die Inverse mit ihrer Determinante}{HIerfür kann mit GAUSS und Korrekturspalte die Inverse und die Determinante der Normalen bestimmt werden. Nach Der Produktregel:
+    \begin{center}
+        $det(A^{-1})=1 / det(A)$
+    \end{center}}
+
+Zuletzt gilt auch noch:
+
+\begin{equation}
+    \begin{split}
+        A      & =B*\tilde{A}*B^{-1}                                      \\
+        det(A) & =det(B*\tilde{A}*B^{-1})=det(B)det(\tilde{A})det(B^{-1}) \\
+               & = det(B)det(\tilde{A})*\frac{1}{det(B)}=det(\tilde{A})
+    \end{split}
+\end{equation}
 
 \end{document}
