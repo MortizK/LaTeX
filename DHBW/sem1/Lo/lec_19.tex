@@ -1,0 +1,86 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 19, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Prädikatenlogik}
+
+\subsection{Übung}
+
+Formalisierung Prädikat der Primzahl
+
+\begin{center}
+    $\forall x(prim(x)\iff x>1 \land \forall yz(mult(y, z)=x) \implies (y = 1\lor z = 1))$
+\end{center}
+
+Aussage: Zu jeder Primzahl gibt es eine größere Primzahl
+
+\begin{center}
+    $\forall x(prim(x)\implies \exists y(prim(y)\land y > x))$
+\end{center}
+
+Modelle:
+
+\begin{enumerate}
+    \item $U=\mathbb{N}$
+    \item $I(prim)=\{(p)\mid p$ ist Primzahl$\}$
+    \item $I(mult)=(x,y)\to x*y$
+    \item $I(1)=1$
+    \item $I(>)=>$
+    \item $I(=)==$
+\end{enumerate}
+
+Das nicht-Modell: $I(>)=<$
+
+\subsection{Grund- und geschlossene Formeln}
+
+Wir haben Funktionen, die die Menge der Variablen zurückgibt: $Vars(t)$ und auch eine die nur die freien Variablen zurückgibt: $FVras(F)$, dies sind die, die nicht von Quantoren gebunden sind.
+
+Eine Geschlossenen Formeln ist eine, wo $Vars(t)=\{\emptyset\}$ entspricht.
+
+\subsection{Resolution}
+
+\subsubsection{Quantoren Regeln}
+
+Quantoren gleicher Art sind Kommutativ. $\forall x\forall y = \forall y\forall x$
+
+Dualität gilt für beide: $\forall x \dots= \neg \exists x\neg \dots$
+
+Distribution von $\forall$: $\forall x(\dots \land \dots)=\forall x \dots \land \forall x \dots$
+
+Distribution von $\exists$: $\exists x(\dots \lor \dots)=\exists x \dots \lor \exists x \dots$
+
+\subsubsection{Negationsnormalform (NNF)}
+
+Erlaube nur $\neg, \land, \lor, \exists, \forall$ und $\neg$ nur direkt vor dem Atom.
+
+Dies kann über De-Morgan erreicht werden.
+
+\subsubsection{Variable Normierte Formel}
+
+Ist eine Form, wo jeder Quantor seine eigenen Variable bindet.
+
+\subsubsection{Prenex-Normalform (PNF)}
+
+Alle Quantoren werden quasi ausgeklammert. Somit haben wir einen Prefix aus Quantoren mit unterschiedlichen Variablen, sowie der MAtrix $G$, welche die Formel enthält.
+
+\subsubsection{Skolemisierung: Elemination von $\exists$}
+
+Wir erweitern, die Interpretation durch die $sk_0$-Werte (Skolem Werte), welche den Wert haben, den der Existensquantor gefunden hätte.
+
+Für Existensquantoren, die nicht an erster Stelle stehen, bauen wir Skolem-Funktionen. $sk_1(x)$
+
+\subsubsection{Skolem-Normalform (SNF)}
+
+Ist ein PNF ohne Existensquantoren. Durch diese Umformung sind die Formeln nicht mehr equivalent, aber noch erfüllbarequivalent!
+
+Siehe Skolemisierung.
+
+\end{document}
