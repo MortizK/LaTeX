@@ -351,216 +351,216 @@ Eine Äquivalenzrelationen ist eine Relation, welche Reflexiv, Transitiv und Sym
 
 \section{Zahlentheorie}
 
-\subsection{Teilbarkeitstheorie ganzer Zahlen}
+% \subsection{Teilbarkeitstheorie ganzer Zahlen}
 
-Wir können die Teilbarkeit auch durch die Umstellung ausdrücken mit $a, b, c\in \mathbb{Z}$
+% Wir können die Teilbarkeit auch durch die Umstellung ausdrücken mit $a, b, c\in \mathbb{Z}$
 
-\begin{center}
-    $b=c*a$
-\end{center}
+% \begin{center}
+%     $b=c*a$
+% \end{center}
 
-Wir schreiben: $a|b$, $a$ teilt $b$.
+% Wir schreiben: $a|b$, $a$ teilt $b$.
 
-Wir können diese Regeln auch erweitern, denn jede division, kann in eine eindeutige Schreibweise mit Rest formuliert werden.
+% Wir können diese Regeln auch erweitern, denn jede division, kann in eine eindeutige Schreibweise mit Rest formuliert werden.
 
-\begin{center}
-    \begin{tabular}{c c}
-        $p=tq+r$, & $0\leq r < q$
-    \end{tabular}
-\end{center}
+% \begin{center}
+%     \begin{tabular}{c c}
+%         $p=tq+r$, & $0\leq r < q$
+%     \end{tabular}
+% \end{center}
 
-\subsubsection{Teilbarkeitssätze}
+% \subsubsection{Teilbarkeitssätze}
 
-\begin{enumerate}[i.]
-    \item $p|ab\land ggT(p, a)=1 \implies p|b$
-    \item $p|ab\land p\in \mathbb{P} \implies p|a\lor p|b$
-\end{enumerate}
+% \begin{enumerate}[i.]
+%     \item $p|ab\land ggT(p, a)=1 \implies p|b$
+%     \item $p|ab\land p\in \mathbb{P} \implies p|a\lor p|b$
+% \end{enumerate}
 
-\subsubsection{ggT und euklidischer Algo.}
+% \subsubsection{ggT und euklidischer Algo.}
 
-Der größte gemeinsame Teiler beschreibt die größte $t$, für mehrere Zahlen $p$. Wenn $ggT(p_1, p_2)=1$ sind $p_1$ und $p_2$ teilerfremd.
+% Der größte gemeinsame Teiler beschreibt die größte $t$, für mehrere Zahlen $p$. Wenn $ggT(p_1, p_2)=1$ sind $p_1$ und $p_2$ teilerfremd.
 
-ggT kann durch wiederholtes teilen mit Rest bestimmt werden.
+% ggT kann durch wiederholtes teilen mit Rest bestimmt werden.
 
-\begin{center}
-    \begin{tabular}{r c l c r c l}
-        $84$ & $=$ & $4*18 + 12$ & $\implies$ & $12$ & $=$ & $84 - 4*18$ \\
-        $18$ & $=$ & $1*12 + 6$  & $\implies$ & $6$  & $=$ & $18 - 1*12$ \\
-        $12$ & $=$ & $2*6 + 0$   &            &      &     &             \\
-    \end{tabular}
-\end{center}
+% \begin{center}
+%     \begin{tabular}{r c l c r c l}
+%         $84$ & $=$ & $4*18 + 12$ & $\implies$ & $12$ & $=$ & $84 - 4*18$ \\
+%         $18$ & $=$ & $1*12 + 6$  & $\implies$ & $6$  & $=$ & $18 - 1*12$ \\
+%         $12$ & $=$ & $2*6 + 0$   &            &      &     &             \\
+%     \end{tabular}
+% \end{center}
 
-Somit ist der $ggT(84, 18)=6$. Der $ggT$ ist auch für alle Variationen von $84, -84$ mit $18, -18$ gleich $6$.
+% Somit ist der $ggT(84, 18)=6$. Der $ggT$ ist auch für alle Variationen von $84, -84$ mit $18, -18$ gleich $6$.
 
-\know{Euklid}{Es gibt zu jedem $ggT$ auch die Form
-    \begin{center}\begin{tabular}{c c}
-            $ggT(p, q)=xp+yq$, $x, y\in \mathbb{Z}$
-        \end{tabular}\end{center}}
+% \know{Euklid}{Es gibt zu jedem $ggT$ auch die Form
+%     \begin{center}\begin{tabular}{c c}
+%             $ggT(p, q)=xp+yq$, $x, y\in \mathbb{Z}$
+%         \end{tabular}\end{center}}
 
-Um in diese Form zu kommen, können wir den erweiterten euklidischen Algorithmus anwenden. Dieser stellt wie ob, die Gleichung einfach um und setzt die oberen Gleichung in die unteren ein.
+% Um in diese Form zu kommen, können wir den erweiterten euklidischen Algorithmus anwenden. Dieser stellt wie ob, die Gleichung einfach um und setzt die oberen Gleichung in die unteren ein.
 
-Wenn $ggT(p, q)=1$ ist die gesuchte Form $1=xp+yq$
+% Wenn $ggT(p, q)=1$ ist die gesuchte Form $1=xp+yq$
 
-\begin{center}
-    $6=18-1*(84-4*18)=3*18-1*84$
-\end{center}
+% \begin{center}
+%     $6=18-1*(84-4*18)=3*18-1*84$
+% \end{center}
 
-\subsection{Rechnen Modulo p}
+% \subsection{Rechnen Modulo p}
 
-Zwei Zahlen Modulo $p$ sind genau dann gleich, wenn Sie sich um ein vielfaches von $p$ unterscheiden:
+% Zwei Zahlen Modulo $p$ sind genau dann gleich, wenn Sie sich um ein vielfaches von $p$ unterscheiden:
 
-\begin{center}
-    $x=_{p}y \iff \exists t\in \mathbb{Z}: x=y+tp$
-\end{center}
+% \begin{center}
+%     $x=_{p}y \iff \exists t\in \mathbb{Z}: x=y+tp$
+% \end{center}
 
-Die Rechnung modulo $p$ ist eine Äquivalenzrelationen, welche eine unendlich Große Menge auch eine endliche Menge reduziert.
+% Die Rechnung modulo $p$ ist eine Äquivalenzrelationen, welche eine unendlich Große Menge auch eine endliche Menge reduziert.
 
-\begin{center}
-    $\mathbb{Z}_p=\{0,1,2,3,\dots,p-1\}$
-\end{center}
+% \begin{center}
+%     $\mathbb{Z}_p=\{0,1,2,3,\dots,p-1\}$
+% \end{center}
 
-\subsubsection{Addition}
+% \subsubsection{Addition}
 
-Wir können Zahlen modulo $p$ mit einander addieren und subtrahieren. $x_1=_px_2$ und $y_1=_py_2$. Beide haben die Form $x_1=x_2+tp$, wenn wir diese Addieren oder Subtrahieren, bekommen wir:
+% Wir können Zahlen modulo $p$ mit einander addieren und subtrahieren. $x_1=_px_2$ und $y_1=_py_2$. Beide haben die Form $x_1=x_2+tp$, wenn wir diese Addieren oder Subtrahieren, bekommen wir:
 
-\begin{center}
-    $x_1\pm y_1=x_2+tp\pm y_2\pm sp=_px_2\pm y_2$
-\end{center}
+% \begin{center}
+%     $x_1\pm y_1=x_2+tp\pm y_2\pm sp=_px_2\pm y_2$
+% \end{center}
 
-\subsubsection{Multiplikation}
+% \subsubsection{Multiplikation}
 
-Die Multiplikation funktioniert in modulo $p$ auch:
+% Die Multiplikation funktioniert in modulo $p$ auch:
 
-\begin{center}
-    $x_1*y_1=(x_2+tp)(y_2+sp)=x_2y_2+tpy_2+spx_2+tsp^2=_px_2y_2$
-\end{center}
+% \begin{center}
+%     $x_1*y_1=(x_2+tp)(y_2+sp)=x_2y_2+tpy_2+spx_2+tsp^2=_px_2y_2$
+% \end{center}
 
-\subsubsection{Inverse modulo p}
+% \subsubsection{Inverse modulo p}
 
-Die Inverse modulo $p$ ist definiert als $ab=_p1$, dabei muss $p>1$ und für jedes $a\in \mathbb{Z}_p^{*}$ muss $ggT(a, p)=1$ gelten.
+% Die Inverse modulo $p$ ist definiert als $ab=_p1$, dabei muss $p>1$ und für jedes $a\in \mathbb{Z}_p^{*}$ muss $ggT(a, p)=1$ gelten.
 
-\begin{center}
-    \begin{tabular}{c c}
-        \begin{tabular}{c|c c c c c c c}
-            $*/7$ & 1 & 2 & 3 & 4 & 5 & 6 \\
-            \hline
-            1     & 1 & 2 & 3 & 4 & 5 & 6 \\
-            2     & 2 & 4 & 6 & 1 & 3 & 5 \\
-            3     & 3 & 6 & 2 & 5 & 1 & 4 \\
-            4     & 4 & 1 & 5 & 2 & 6 & 3 \\
-            5     & 5 & 3 & 1 & 6 & 4 & 2 \\
-            6     & 6 & 5 & 4 & 3 & 2 & 1 \\
-        \end{tabular} &
-        \begin{tabular}{c|c c c c}
-            $*/12$ & 1  & 5  & 7  & 11 \\
-            \hline
-            1      & 1  & 5  & 7  & 11 \\
-            5      & 5  & 1  & 11 & 7  \\
-            7      & 7  & 11 & 1  & 5  \\
-            11     & 11 & 7  & 5  & 1  \\
-        \end{tabular}
-    \end{tabular}
-\end{center}
+% \begin{center}
+%     \begin{tabular}{c c}
+%         \begin{tabular}{c|c c c c c c c}
+%             $*/7$ & 1 & 2 & 3 & 4 & 5 & 6 \\
+%             \hline
+%             1     & 1 & 2 & 3 & 4 & 5 & 6 \\
+%             2     & 2 & 4 & 6 & 1 & 3 & 5 \\
+%             3     & 3 & 6 & 2 & 5 & 1 & 4 \\
+%             4     & 4 & 1 & 5 & 2 & 6 & 3 \\
+%             5     & 5 & 3 & 1 & 6 & 4 & 2 \\
+%             6     & 6 & 5 & 4 & 3 & 2 & 1 \\
+%         \end{tabular} &
+%         \begin{tabular}{c|c c c c}
+%             $*/12$ & 1  & 5  & 7  & 11 \\
+%             \hline
+%             1      & 1  & 5  & 7  & 11 \\
+%             5      & 5  & 1  & 11 & 7  \\
+%             7      & 7  & 11 & 1  & 5  \\
+%             11     & 11 & 7  & 5  & 1  \\
+%         \end{tabular}
+%     \end{tabular}
+% \end{center}
 
-Aus diesen Tabellen lassen sich die inversen leicht auslesen.
+% Aus diesen Tabellen lassen sich die inversen leicht auslesen.
 
-\know{Kleiner Satz von FERMAT}{Dieser zeigt, dass für jedes $p\in \mathbb{P}$, $a^p=_pa$ gilt. Wenn zudem noch $ggT(a, p)=1$, dann gilt zusätzlich $a^{p-1}=_p1$. Dies erhalten wir durch erweitern mit der inversen $b$, wo $ab=1$ gilt:
-    \begin{center}
-        $a^{p-1}=_pa^{p-1}*ab=a^pb=_pab=_p1$
-    \end{center}}
+% \know{Kleiner Satz von FERMAT}{Dieser zeigt, dass für jedes $p\in \mathbb{P}$, $a^p=_pa$ gilt. Wenn zudem noch $ggT(a, p)=1$, dann gilt zusätzlich $a^{p-1}=_p1$. Dies erhalten wir durch erweitern mit der inversen $b$, wo $ab=1$ gilt:
+%     \begin{center}
+%         $a^{p-1}=_pa^{p-1}*ab=a^pb=_pab=_p1$
+%     \end{center}}
 
-Für zwei unterschiedliche Primzahl $p,q$ gilt $a=_{pq}b$, wenn $a=_pb$, $a=_qb$ gelten. Mit dem kleinem Satz von FERMAT gilt unter der Bedingung, dass $ggT(a, pq)=1$ zusätzlich:
+% Für zwei unterschiedliche Primzahl $p,q$ gilt $a=_{pq}b$, wenn $a=_pb$, $a=_qb$ gelten. Mit dem kleinem Satz von FERMAT gilt unter der Bedingung, dass $ggT(a, pq)=1$ zusätzlich:
 
-\begin{center}
-    $a^{(p-1)(q-1)}=_{pq}1$
-\end{center}
+% \begin{center}
+%     $a^{(p-1)(q-1)}=_{pq}1$
+% \end{center}
 
-\subsection{RSA-Verschlüsselung}
+% \subsection{RSA-Verschlüsselung}
 
-\begin{enumerate}[i.]
-    \item Wähle zwei verschiedene Primzahlen $p, q$ und bilde $n:= p*q$.
-    \item Wähle $1<e<\varphi:=(p-1)(q-1)$ mit $ggT(\varphi, e)=1$. Dann ist $S_o:=[e, n]$
-    \item Bilde die Inverse $d$ von $e$ modulo $\varphi$ (mit erw. euklid. Alg.) $d=_{\varphi}e^{-1}$. Dann ist $S_p:=[d, n]$
+% \begin{enumerate}[i.]
+%     \item Wähle zwei verschiedene Primzahlen $p, q$ und bilde $n:= p*q$.
+%     \item Wähle $1<e<\varphi:=(p-1)(q-1)$ mit $ggT(\varphi, e)=1$. Dann ist $S_o:=[e, n]$
+%     \item Bilde die Inverse $d$ von $e$ modulo $\varphi$ (mit erw. euklid. Alg.) $d=_{\varphi}e^{-1}$. Dann ist $S_p:=[d, n]$
 
-          Danach ist die Schlüsselgeneration abgeschlossen. $p$ und $q$ können gelöscht werden. $S_p$ muss verschlüsselt auf dem Rechner gespeichert werden.
-    \item Eine Nachricht $0<M<n$ wird durch den öffentlichen Schlüssel ($S_o$) verschlüsselt:
-          \begin{center}
-              $C:=_n M^{e}$
-          \end{center}
-          $C$ wird mit $S_p$ entschlüsselt:
-          \begin{center}
-              $M=_n C^{d}$
-          \end{center}
-\end{enumerate}
+%           Danach ist die Schlüsselgeneration abgeschlossen. $p$ und $q$ können gelöscht werden. $S_p$ muss verschlüsselt auf dem Rechner gespeichert werden.
+%     \item Eine Nachricht $0<M<n$ wird durch den öffentlichen Schlüssel ($S_o$) verschlüsselt:
+%           \begin{center}
+%               $C:=_n M^{e}$
+%           \end{center}
+%           $C$ wird mit $S_p$ entschlüsselt:
+%           \begin{center}
+%               $M=_n C^{d}$
+%           \end{center}
+% \end{enumerate}
 
-\subsubsection{Rechnungen}
+% \subsubsection{Rechnungen}
 
-Es gibt einen online Rechner zur Korrektur: \href{https://rsa-calculator.netlify.app/}{RSA-Calculator}
+% Es gibt einen online Rechner zur Korrektur: \href{https://rsa-calculator.netlify.app/}{RSA-Calculator}
 
-$p=101, q=17$ und $e=411$ sind gegeben und die beiden Schlüssel sollen bestimmt werden.
+% $p=101, q=17$ und $e=411$ sind gegeben und die beiden Schlüssel sollen bestimmt werden.
 
-Für den Öffentlichen Schlüssel muss nur noch $n=p*q$ bestimmt werden. Somit ist $n=101*17=1717$ und falls $ggT(\varphi, e)=1$, gilt $S_o=[e, n]$. $\varphi=(p-1)(q-1)=100*16=1600$.
+% Für den Öffentlichen Schlüssel muss nur noch $n=p*q$ bestimmt werden. Somit ist $n=101*17=1717$ und falls $ggT(\varphi, e)=1$, gilt $S_o=[e, n]$. $\varphi=(p-1)(q-1)=100*16=1600$.
 
-\begin{equation}
-    \begin{split}
-        1600 & = 3*411 + 367 \\
-        411  & = 1*367 + 44  \\
-        367  & = 8*44 + 15   \\
-        44   & = 2*15 + 14   \\
-        15   & = 1*14 + 1    \\
-    \end{split}
-    \qquad\qquad
-    \begin{split}
-        367 & = 1600 - 3*411 \\
-        44  & = 411 - 1*367  \\
-        15  & = 367 - 8*44   \\
-        14  & = 44 - 2*15    \\
-        1   & = 15 - 1*14    \\
-    \end{split}
-\end{equation}
+% \begin{equation}
+%     \begin{split}
+%         1600 & = 3*411 + 367 \\
+%         411  & = 1*367 + 44  \\
+%         367  & = 8*44 + 15   \\
+%         44   & = 2*15 + 14   \\
+%         15   & = 1*14 + 1    \\
+%     \end{split}
+%     \qquad\qquad
+%     \begin{split}
+%         367 & = 1600 - 3*411 \\
+%         44  & = 411 - 1*367  \\
+%         15  & = 367 - 8*44   \\
+%         14  & = 44 - 2*15    \\
+%         1   & = 15 - 1*14    \\
+%     \end{split}
+% \end{equation}
 
-$S_o=[411, 1717]$. Für den Privaten Schlüssel brauchen wir die Darstellung nach EUKLID:
+% $S_o=[411, 1717]$. Für den Privaten Schlüssel brauchen wir die Darstellung nach EUKLID:
 
-\begin{equation}
-    \begin{split}
-        1 & = 15 - 1*14 = 15 - 1*(44 - 2*15)= 3*15 - 1*44 \\
-          & =  3*(367 - 8*44) - 1*44 = 3*367 - 25*44      \\
-          & =  3*367 - 25*(411 - 1*367) = 28*367 - 25*411 \\
-          & =  28*(1600 - 3*411) - 25*411                 \\
-          & = 28*1600 - 109*411
-    \end{split}
-\end{equation}
+% \begin{equation}
+%     \begin{split}
+%         1 & = 15 - 1*14 = 15 - 1*(44 - 2*15)= 3*15 - 1*44 \\
+%           & =  3*(367 - 8*44) - 1*44 = 3*367 - 25*44      \\
+%           & =  3*367 - 25*(411 - 1*367) = 28*367 - 25*411 \\
+%           & =  28*(1600 - 3*411) - 25*411                 \\
+%           & = 28*1600 - 109*411
+%     \end{split}
+% \end{equation}
 
-$d=1600-109=1491$. Daraus ergibt sich $S_p=[1491, 1717]$
+% $d=1600-109=1491$. Daraus ergibt sich $S_p=[1491, 1717]$
 
-Zum Verschlüsseln und Entschlüsseln gilt der gleiche Ansatz, wir brauchen nur noch ein $M=405$:
+% Zum Verschlüsseln und Entschlüsseln gilt der gleiche Ansatz, wir brauchen nur noch ein $M=405$:
 
-\begin{equation}
-    \begin{split}
-        C & =_n M^e                                                    \\
-          & =_{1717} 405^{411} = 405*405^{410} = 405*(405^2)^{205}     \\
-          & =_{1717} 405*910^{205} \text{ Es gilt: } 405^2=_{1717} 910 \\
-          & =_{1717} 409*910*910^{204} =409*910*(910^2)^{102}          \\
-          & =_{1717} 1112*506^102 = 1112 * (506^2)^{51}                \\
-          & =_{1717} 1112 * 203^{51} = 1112*203 * (203^2)^{25}         \\
-          & =_{1717} 809 * 1^{25} = 809
-    \end{split}
-\end{equation}
+% \begin{equation}
+%     \begin{split}
+%         C & =_n M^e                                                    \\
+%           & =_{1717} 405^{411} = 405*405^{410} = 405*(405^2)^{205}     \\
+%           & =_{1717} 405*910^{205} \text{ Es gilt: } 405^2=_{1717} 910 \\
+%           & =_{1717} 409*910*910^{204} =409*910*(910^2)^{102}          \\
+%           & =_{1717} 1112*506^102 = 1112 * (506^2)^{51}                \\
+%           & =_{1717} 1112 * 203^{51} = 1112*203 * (203^2)^{25}         \\
+%           & =_{1717} 809 * 1^{25} = 809
+%     \end{split}
+% \end{equation}
 
-Ist identisch für das Entschlüsseln nur mit anderem Ansatz
+% Ist identisch für das Entschlüsseln nur mit anderem Ansatz
 
-\begin{equation}
-    \begin{split}
-        M & =_n C^d                                 \\
-          & =_{1717} 809^{1491} = 809*(809^2)^{745} \\
-          & =_{1717} 809*304*(304^2)^{372}          \\
-          & =_{1717} 405 * (1415^2)^{186}           \\
-          & =_{1717} 405 * (203^2)^{93}             \\
-          & =_{1717} 405 * 1^{93} = 405
-    \end{split}
-\end{equation}
+% \begin{equation}
+%     \begin{split}
+%         M & =_n C^d                                 \\
+%           & =_{1717} 809^{1491} = 809*(809^2)^{745} \\
+%           & =_{1717} 809*304*(304^2)^{372}          \\
+%           & =_{1717} 405 * (1415^2)^{186}           \\
+%           & =_{1717} 405 * (203^2)^{93}             \\
+%           & =_{1717} 405 * 1^{93} = 405
+%     \end{split}
+% \end{equation}
 
-\subsection{Chinesische Restsatz}
+% \subsection{Chinesische Restsatz}
 
 \section{Kombinatorik}
 
@@ -841,21 +841,201 @@ Die Kardanische Formel bestehen aus mehreren Schritten und funktionieren in der 
 
 \subsection{$\mathbb{C}^n$ als Vektorraum}
 
-% bin Jetzt hier
+In dem Komplexen Vektorraum müssen wir unsere Norm und das Skalarprodukt leicht ändern:
+
+\begin{align*}
+    \|x\|                  & :=\sqrt{\sum_{k-1}^{n}|x_k|^2}     \\
+    \langle x\mid y\rangle & := \sum_{k-1}^{n}\overline{x_k}y_k
+\end{align*}
+
+Diese Änderungen behalten die gewünschten Eigenschaften $\langle x\mid x\rangle=\|x\|^2$.
+
+Aber: Durch unsere Änderung in dem Skalarprodukt, ist dies nur noch in der zweiten Komponente $y$ linear, in der ersten ist Sie antilinear, da $\overline{x}$ benutzt wird, selbts wenn $x$ die Eingabe ist.
+
+\begin{center}
+    $\langle \lambda x_1 + \gamma x_2 \mid y\rangle = \overline{\lambda}\langle x_1 \mid y\rangle + \overline{\gamma}\langle x_2 \mid y\rangle$
+\end{center}
 
 \subsection{Der allgemeine Vektorraumbegriff$^*$}
 
+Die Kurzform ist: Ein Vektorraum ist eine Menge $V$, wessen Elemente $x, y, z$ sich in einem Körper $\mathbb{K}$ befinden.
+
+Wir können Vektoren miteinander Addieren und diese mit Skalaren $t, s, r$ strecken, ohne dass diese den Vektorraum verlassen. So sind $x+y\in V$ und $t*x\in V$.
+
+\begin{enumerate}
+    \item Es gibt immer einen Nullvektor, $x+0=x$
+    \item Es gibt immer eine Inverse, $x+(-x)=0$
+    \item Es gibt das Einselement $1\in \mathbb{K}$, $1*x=x$
+\end{enumerate}
+
+\subsubsection{Teilmengen des Vektorraums}
+
+Eine Teilraum $W\subset V$ besteht dann, wenn wir durch Addition oder Multiplikation mit Skalaren, diesen Teilraum nicht verlassen.
+
+Dafür kennen wir die Linearkombination:
+
+\begin{center}
+    $s*x+t*y\in W$
+\end{center}
+
 \subsection{Vektorräume mit Norm und Skalarprodukt}
+
+Hier wird im Skript der Zusammenhang zwischen Norm und Skalarprodukt im allgemeinem Vektorraum gezeigt.
+
+Mit vielen Beispielen und Beweisen, welche ich hier nicht übernehmen werde.
 
 \section{Matrizen}
 
 \subsection{Lineare Gleichungssysteme und das GAUSS-Verfahren}
 
+Das unten Aufgeführte GAUSS-Verfahren ist mit Korrekturspalte, für die Korrekturfaktoren der Determinante einer Matrix.
+
+Hier wird sich zudem die Ergebnisspalte von $2x_1+5x_3+7x_4=0$ gedacht.
+
+\begin{center}
+    \begin{tabular}{l|cccc|l|c}
+              & $x_1$ & $x_2$ & $x_3$ & $x_4$ & Aufgaben        &                \\
+        \hline
+        $I$   & 2     & 0     & 5     & 7     &                 &                \\
+        $II$  & 4     & 1     & 3     & 6     & $II-2*I$        &                \\
+        $III$ & -3    & 3     & 6     & 2     & $2*III+3*I$     & $\frac{1}{2}$  \\
+        $IV$  & 6     & 0     & 4     & 4     & $IV-3*I$        &                \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 6     & 27    & 23    & $III - 6*II$    &                \\
+              & 0     & 0     & -12   & -17   &                 &                \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 0     & 75    & 71    &                 &                \\
+              & 0     & 0     & -12   & -17   & $25*IV + 4*III$ & $\frac{1}{25}$ \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 0     & 75    & 71    &                 &                \\
+              & 0     & 0     & 0     & -141  &                 &                \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Das allgemein GAUSS-Verfahren wird nicht nur bis zur oberen Dreiecksform gerechnet, aber an dieser kann man etwas über die Lösungen aussagen:
+
+\begin{center}
+    \begin{tabular}{ccc}
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   &   &   & . & . \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular} &
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   & 0 &   &   & 0 \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular} &
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   & 0 &   &   & . \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular}    \\\\
+        genau eine Lösung          &
+        $\infty$ viele Lösungen    &
+        keine Lösung
+    \end{tabular}
+\end{center}
+
+\know{Inhomogene \& Homogene Lösungen}{Die Inhomogene Lösung ist die, die nur aus Zahlen besteht.
+
+    Die Homogenen Lösungen sind die, die an eine Variable gebunden sind. Diese gibt es nur bei $\infty$ viele Lösungen.}
+
 \subsection{Die Matrix zum LGS}
+
+Eine $n\times m$-Matrix lässt sich mit einem $n$ großem Vektor multiplizieren:
+
+\begin{center}
+    $\begin{bmatrix}
+            a_{11} & a_{12} & \dots  & a_{1n} \\
+            a_{21} & a_{22} & \dots  & a_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            a_{m1} & a_{m2} & \dots  & a_{mn}
+        \end{bmatrix}*
+        \begin{bmatrix}
+            x_1 \\x_2\\\vdots\\x_n
+        \end{bmatrix}$
+\end{center}
+
+Die Multiplikation kann man sich vorstellen, indem wir den Vektor auf die MAtrix raufkippen und dann Ziele für Zeile Reinmultiplizieren. Das Ergebnis ist wieder eine Matrix.
 
 \subsection{Das Schema zum GAUSS-Verfahren}
 
+\begin{center}
+    \begin{tabular}{|l|cccc|l|}
+        \hline
+           & $x_1$ & $x_2$ & $x_3$ &    &        \\
+        \hline
+        I  & 1     & 2     & 1     & 2  & I-2*II \\
+        II & 0     & 1     & 3     & -4 &        \\
+        \hline
+        I  & 1     & 0     & -5    & 10 &        \\
+        II & 0     & 1     & 3     & -4 &        \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Mit diesem Ergebnis können wir nun einen Lösungsvektor erstellen:
+
+\begin{equation*}
+    \begin{bmatrix}
+        x_1 \\x_2\\x_3
+    \end{bmatrix}=
+    \begin{bmatrix}
+        10+5x_3 \\
+        -4-3x_3 \\
+        x_3
+    \end{bmatrix}=
+    \begin{bmatrix}
+        10 \\-4\\0
+    \end{bmatrix}+x_3
+    \begin{bmatrix}
+        5 \\-3\\1
+    \end{bmatrix}
+\end{equation*}
+
+Hier ist der erste Vektor die Inhomogene Lösung und der zweiter, welche an $x_3$ gebunden ist der einzige Homogen.
+
+Somit ist die Lösungsmenge:
+
+\begin{equation*}
+    L=\left\{
+    \begin{bmatrix}
+        10 \\-4\\0
+    \end{bmatrix}+t
+    \begin{bmatrix}
+        5 \\-3\\1
+    \end{bmatrix}\mid t\in \mathbb{R}
+    \right\}
+\end{equation*}
+
 \subsection{Lineare Unabhängigkeit}
+
+Eine Nullkombination $\lambda_1b_1+\lambda_2b_2+\dots+\lambda_nb_n=0$ heißt linear unabhängig, wenn diese nur durch die trivial-Lösung $\lambda_1=\lambda_2=\dots=\lambda_n=0$ zu erfüllen ist.
+
+% Hier muss ich weiter arbeiten!
 
 \subsection{Basis und Dimension}
 
@@ -872,5 +1052,15 @@ Die Kardanische Formel bestehen aus mehreren Schritten und funktionieren in der 
 \subsection{Koordinatentransformation}
 
 \subsection{Determinanten}
+
+\section{Eigenwerttheorie}
+
+\subsection{Spektrum und Eigenvektoren}
+
+\subsection{Selbtsadjungierte lineare Abbildungen}
+
+\subsection{Funktionalkalkül}
+
+\subsection{Normale Abbildungen}
 
 \end{document}
