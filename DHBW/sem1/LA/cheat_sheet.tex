@@ -1031,23 +1031,239 @@ Somit ist die Lösungsmenge:
     \right\}
 \end{equation*}
 
+
+\subsubsection{Das Komplexe GAUSS-Verfahren}
+
+Unser Beispiel:
+
+\begin{align*}
+    C & :=
+    \begin{bmatrix}
+        1 & 0 & 2 \\
+        0 & 1 & 2 \\
+        3 & 1 & 4
+    \end{bmatrix}+i
+    \begin{bmatrix}
+        1 & -1 & 0 \\
+        1 & 2  & 4 \\
+        0 & 2  & 1
+    \end{bmatrix} \\
+    w & :=
+    \begin{bmatrix}
+        16 \\-8\\15
+    \end{bmatrix}+i
+    \begin{bmatrix}
+        3 \\34\\18
+    \end{bmatrix}
+\end{align*}
+
+Hierzu splitten wir die GAUSS-Tabelle in zwei Hälften und 4 Quadranten:
+
+\begin{center}
+    \begin{tabular}{|l|ccc|ccc|c|l|}
+        \hline
+            & $x_1$ & $x_1$ & $x_1$ & $y_1$ & $y_1$ & $y_1$ &    & \\
+        \hline
+        I   & 1     & 0     & 2     & - 1   & 1     & 0     & 16 & \\
+        II  & 0     & 1     & 2     & - 1   & -2    & -4    & -8 & \\
+        III & 3     & 1     & 4     & 0     & -2    & -1    & 15 & \\
+        \hline
+        IV  & 1     & -1    & 0     & 1     & 0     & 2     & 3  & \\
+        V   & 1     & 2     & 4     & 0     & 1     & 2     & 34 & \\
+        VI  & 0     & 2     & 1     & 3     & 1     & 4     & 18 & \\
+        \hline
+    \end{tabular}
+\end{center}
+
 \subsection{Lineare Unabhängigkeit}
 
 Eine Nullkombination $\lambda_1b_1+\lambda_2b_2+\dots+\lambda_nb_n=0$ heißt linear unabhängig, wenn diese nur durch die trivial-Lösung $\lambda_1=\lambda_2=\dots=\lambda_n=0$ zu erfüllen ist.
 
-% Hier muss ich weiter arbeiten!
+\know{Umformulierung}{Eine Teilmenge $\mathcal{B}$ eines Vektorraumes $V$ ist genau dann linear unabhängig, wenn kein Vektor aus $\mathcal{	B}$ eine Linearkombination der übrigen Vektoren aus $\mathcal{B}$ ist.
 
-\subsection{Basis und Dimension}
+    Kein Vektor lässt sich aus den anderen Ausrechnen.}
+
+\subsection{Basis}
+
+Eine Basis $\mathcal{B}$ ist eine Matrix, welche linear unabhängig ist. Somit sind es eindeutige Richtungsvektoren in einem Vektorraum $\mathbb{K}^n$.
+
+Die Einfachste Basis ist die Basis der Kanonischen Basisvektoren:
+
+\begin{equation*}
+    \varepsilon=
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+    \end{bmatrix}
+\end{equation*}
+
+Hier sieht man sehr deutlich, dass sich jeder Vektor $x$ in einer Basis, aus eine linearkombination der Basisvektoren bilden lassen muss:
+
+\begin{equation*}
+    x=t_1b_1+t_2b_2+t_3b_3
+\end{equation*}
+
+Die Koeffizienten lassen sich durch das einsetzten in ein GAUSS-Verfahren ausrechnen.
+
+\subsubsection{Orthogonalbasis (ONB)}
+
+Ist eine Basis, wo alle Vektoren $b_1, b_2, \dots, b_n$ zusätzlich senkrecht aufeinander stehen und auf die Länge 1 normiert sind.
+
+Eine ONB im $\mathbb{R}^3$ lässt sich aus einem $n$ und $b$ wie folgt bilden:
+
+\begin{equation}
+    \mathcal{B}=\{n, \|n\|^2b-\langle n\mid b\rangle n, n\times b\}
+\end{equation}
+
+Zusätzlich müssen die einzelnen Terme noch normiert werden.
+
+\subsubsection{Darstellung eines Vektors in der Basis}
+
+Um nun einen Vektor $x$ in einer ONB darzustellen gilt:
+
+\begin{equation*}
+    x=\langle b_1\mid x\rangle + \langle b_2\mid x\rangle + \langle b_3\mid x\rangle
+\end{equation*}
+
+Wir nutzen aus, dass das Skalarprodukt mit $\|b_1\|=1$ den Anteil an $b_1$ Richtung zurückgibt.
 
 \subsection{Matrizen als lineare Abbildung}
+
+Mit Matrizen können wir Vektoren unterschiedlich Linear Abbilden. Ein einfaches Beispiel ist die Rotation im $\mathbb{R}^2$
+
+\begin{equation*}
+    D(\alpha)=
+    \begin{bmatrix}
+        \cos(\alpha) & -\sin(\alpha) \\
+        \sin(\alpha) & \cos(\alpha)
+    \end{bmatrix}
+\end{equation*}
+
+Diese Formel lässt sich aus einer Rotation der Basisvektoren
+$\begin{bmatrix}
+        0 \\1
+    \end{bmatrix}$ und
+$\begin{bmatrix}
+        1 \\0
+    \end{bmatrix}$ des $\mathbb{R}^2$ herleiten.
+
+Wir können auch mehrere Abbildungen hintereinander Ausführen. Typischerweise $BA$. Hier müssen nur die Anzahl der Spalten von $B$ mit der Anzahl von Zeilen von $A$ übereinstimmen.
+
+\begin{equation*}
+    BA=\begin{bmatrix}
+        1 & 2 \\
+        2 & 1 \\
+        0 & 2
+    \end{bmatrix}*
+    \begin{bmatrix}
+        -1 & 3 & 4 & 1  \\
+        2  & 3 & 3 & -1
+    \end{bmatrix}=
+    \begin{bmatrix}
+        3 & 9 & 10 & -1 \\
+        0 & 9 & 11 & 1  \\
+        4 & 6 & 6  & -2
+    \end{bmatrix}
+\end{equation*}
+
+\subsubsection{Ausführung mehrere Drehungen}
+
+Wir wissen intuitiv, das eine Drehung um $\alpha$ und danach um $\beta$, dass gleiche ist wie eine Drehung um $\alpha+\beta$.
+
+\begin{equation*}
+    D(\alpha)D(\beta)=D(\alpha + \beta)
+\end{equation*}
+
+Wenn man dies mal durchgerechnet hat treten diese Trigonometrische Gleichungen auf:
+
+\begin{center}
+    $\sin(\alpha + \beta)=\sin(\alpha)\cos(\beta)+\cos(\alpha)\sin(\beta)$
+
+    $\cos(\alpha + \beta)=\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)$
+\end{center}
+
+\subsubsection{Wichtige Abbildungen}
+
+Die Nullabbildung, welche alles auf 0 Abbildet und die Einsabbildung, welche alles auf sich selbst Abbildet.
 
 \subsection{Direkte Zerlegung eines Vektorraum}
 
 \subsection{Die Dimensionsformel}
 
+Für eine Lineare Abbildung $A:V\to W$ gibt es den Kern $ker A$ und das Bild $im A$.
+
+\begin{enumerate}
+    \item $ker A := \{x\in V\mid Ax=0\}$. Alle Vektoren, welche auf den Nullvektor abgebildet werden.
+    \item $im A := \{y\in W\mid \exists x\in V (y=Ax)\}$. Alle Vektoren, auf Welche die Abbildung abbildet.
+\end{enumerate}
+
+Beides sind ein Teilraum von $V$ bzw. $W$.
+
+\know{Dimensionsformel}{
+    \begin{center}
+        $dim V$ = $dim$ $ker A$ + $dim$ $im A$
+    \end{center}}
+
 \subsection{Die inverse Matrix}
 
+Eine Abbildung kann nur invertiert werden, wenn es nur eine Abbildung aud die 0 gibt ($ker A=\{0\}$ und $dim$ $ker A = 0$). Somit muss $dim V = dim$ $ker A$ gelten.
+
+Die inverse Matrix behandelt ab hier $n\times n$-Matrizen.
+
+Hierfür können wir das GAUSS-Verfahren wieder nutzen um die Gleichung $AB=1$ oder $BA=1$ zu lösen.
+
+\begin{center}
+    \begin{tabular}{|l|ccc|ccc|l|}
+        \hline
+        I   & 1   & 2   & 3   & 1   & 0   & 0  &             \\
+        II  & 4   & 1   & 2   & 0   & 1   & 0  & II-4*I      \\
+        III & 3   & 4   & 1   & 0   & 0   & 1  & III-3*I     \\
+        \hline
+        I   & 1   & 2   & 3   & 1   & 0   & 0  & I*7         \\
+        II  & 0   & -7  & -10 & -4  & 1   & 0  & II*(-1)     \\
+        III & 0   & -2  & -8  & -3  & 0   & 1  & III*(-7)    \\
+        \hline
+        I   & 7   & 14  & 21  & 7   & 0   & 0  & I-2*II      \\
+        II  & 0   & 7   & 10  & 4   & -1  & 0  &             \\
+        III & 0   & 14  & 56  & 21  & 0   & -7 & III-2*II    \\
+        \hline
+        I   & 7   & 0   & 1   & -1  & 2   & 0  & 36*I-III    \\
+        II  & 0   & 7   & 10  & 4   & -1  & 0  & 18*II-5*III \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+        I   & 252 & 0   & 0   & -49 & 70  & 7  & I/7         \\
+        II  & 0   & 126 & 0   & 7   & -28 & 35 & II/7*2      \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+        I   & 36  & 0   & 0   & -7  & 10  & 1  &             \\
+        II  & 0   & 36  & 0   & 2   & -8  & 10 &             \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\begin{equation*}
+    A^{-1}=\frac{1}{36}
+    \begin{bmatrix}
+        -7 & 10 & 1  \\
+        2  & -8 & 10 \\
+        13 & 2  & -7
+    \end{bmatrix}
+\end{equation*}
+
 \subsection{Die adjungierte Matrix}
+
+Die adjungierte Matrix eine Abwandlung der transponierten Matrix. Im $\mathbb{K}=\mathbb{C}$ müssen alle Werte mit ihrem konjugiert komplexen Wert getauscht werden.
+
+\begin{equation*}
+    A^*=\overline{A^t}
+\end{equation*}
+
+Ein nicht Quadratische $n\times m$-Matrix $A$ wird durch das adjungieren zu einer $m\times n$-Matrix.
+
+% Hier muss ich weitermachen
 
 \subsection{Koordinatentransformation}
 
