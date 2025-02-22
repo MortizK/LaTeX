@@ -1,0 +1,538 @@
+\section{Matrizen}
+
+\subsection{Lineare Gleichungssysteme und das GAUSS-Verfahren}
+
+Das unten Aufgeführte GAUSS-Verfahren ist mit Korrekturspalte, für die Korrekturfaktoren der Determinante einer Matrix.
+
+Hier wird sich zudem die Ergebnisspalte von $2x_1+5x_3+7x_4=0$ gedacht.
+
+\label{gauss}
+\begin{center}
+    \begin{tabular}{l|cccc|l|c}
+              & $x_1$ & $x_2$ & $x_3$ & $x_4$ & Aufgaben        &                \\
+        \hline
+        $I$   & 2     & 0     & 5     & 7     &                 &                \\
+        $II$  & 4     & 1     & 3     & 6     & $II-2*I$        &                \\
+        $III$ & -3    & 3     & 6     & 2     & $2*III+3*I$     & $\frac{1}{2}$  \\
+        $IV$  & 6     & 0     & 4     & 4     & $IV-3*I$        &                \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 6     & 27    & 23    & $III - 6*II$    &                \\
+              & 0     & 0     & -12   & -17   &                 &                \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 0     & 75    & 71    &                 &                \\
+              & 0     & 0     & -12   & -17   & $25*IV + 4*III$ & $\frac{1}{25}$ \\
+        \hline
+              & 2     & 0     & 5     & 7     &                 &                \\
+              & 0     & 1     & -8    & -8    &                 &                \\
+              & 0     & 0     & 75    & 71    &                 &                \\
+              & 0     & 0     & 0     & -141  &                 &                \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Das allgemein GAUSS-Verfahren wird nicht nur bis zur oberen Dreiecksform gerechnet, aber an dieser kann man etwas über die Lösungen aussagen:
+
+\begin{center}
+    \begin{tabular}{ccc}
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   &   &   & . & . \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular} &
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   & 0 &   &   & 0 \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular} &
+        \begin{tabular}{|ccccc|c|}
+            \hline
+            . & . & . & . & . & . \\
+              & . & . & . & . & . \\
+              &   & . & . & . & . \\
+              &   &   & . & . & . \\
+              &   & 0 &   &   & . \\
+              &   & 0 &   &   & 0 \\
+            \hline
+        \end{tabular}    \\\\
+        genau eine Lösung          &
+        $\infty$ viele Lösungen    &
+        keine Lösung
+    \end{tabular}
+\end{center}
+
+\know{Inhomogene \& Homogene Lösungen}{Die Inhomogene Lösung ist die, die nur aus Zahlen besteht.
+
+    Die Homogenen Lösungen sind die, die an eine Variable gebunden sind. Diese gibt es nur bei $\infty$ viele Lösungen.}
+
+\subsection{Die Matrix zum LGS}
+
+Eine $n\times m$-Matrix lässt sich mit einem $n$ großem Vektor multiplizieren:
+
+\begin{center}
+    $\begin{bmatrix}
+            a_{11} & a_{12} & \dots  & a_{1n} \\
+            a_{21} & a_{22} & \dots  & a_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            a_{m1} & a_{m2} & \dots  & a_{mn}
+        \end{bmatrix}*
+        \begin{bmatrix}
+            x_1 \\x_2\\\vdots\\x_n
+        \end{bmatrix}$
+\end{center}
+
+Die Multiplikation kann man sich vorstellen, indem wir den Vektor auf die MAtrix raufkippen und dann Ziele für Zeile Reinmultiplizieren. Das Ergebnis ist wieder eine Matrix.
+
+\subsection{Das Schema zum GAUSS-Verfahren}
+
+\begin{center}
+    \begin{tabular}{|l|cccc|l|}
+        \hline
+           & $x_1$ & $x_2$ & $x_3$ &    &        \\
+        \hline
+        I  & 1     & 2     & 1     & 2  & I-2*II \\
+        II & 0     & 1     & 3     & -4 &        \\
+        \hline
+        I  & 1     & 0     & -5    & 10 &        \\
+        II & 0     & 1     & 3     & -4 &        \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Mit diesem Ergebnis können wir nun einen Lösungsvektor erstellen:
+
+\begin{equation*}
+    \begin{bmatrix}
+        x_1 \\x_2\\x_3
+    \end{bmatrix}=
+    \begin{bmatrix}
+        10+5x_3 \\
+        -4-3x_3 \\
+        x_3
+    \end{bmatrix}=
+    \begin{bmatrix}
+        10 \\-4\\0
+    \end{bmatrix}+x_3
+    \begin{bmatrix}
+        5 \\-3\\1
+    \end{bmatrix}
+\end{equation*}
+
+Hier ist der erste Vektor die Inhomogene Lösung und der zweiter, welche an $x_3$ gebunden ist der einzige Homogen.
+
+Somit ist die Lösungsmenge:
+
+\begin{equation*}
+    L=\left\{
+    \begin{bmatrix}
+        10 \\-4\\0
+    \end{bmatrix}+t
+    \begin{bmatrix}
+        5 \\-3\\1
+    \end{bmatrix}\mid t\in \mathbb{R}
+    \right\}
+\end{equation*}
+
+
+\subsubsection{Das Komplexe GAUSS-Verfahren}
+
+Unser Beispiel:
+
+\begin{align*}
+    C & :=
+    \begin{bmatrix}
+        1 & 0 & 2 \\
+        0 & 1 & 2 \\
+        3 & 1 & 4
+    \end{bmatrix}+i
+    \begin{bmatrix}
+        1 & -1 & 0 \\
+        1 & 2  & 4 \\
+        0 & 2  & 1
+    \end{bmatrix} \\
+    w & :=
+    \begin{bmatrix}
+        16 \\-8\\15
+    \end{bmatrix}+i
+    \begin{bmatrix}
+        3 \\34\\18
+    \end{bmatrix}
+\end{align*}
+
+Hierzu splitten wir die GAUSS-Tabelle in zwei Hälften und 4 Quadranten:
+
+\begin{center}
+    \begin{tabular}{|l|ccc|ccc|c|l|}
+        \hline
+            & $x_1$ & $x_1$ & $x_1$ & $y_1$ & $y_1$ & $y_1$ &    & \\
+        \hline
+        I   & 1     & 0     & 2     & - 1   & 1     & 0     & 16 & \\
+        II  & 0     & 1     & 2     & - 1   & -2    & -4    & -8 & \\
+        III & 3     & 1     & 4     & 0     & -2    & -1    & 15 & \\
+        \hline
+        IV  & 1     & -1    & 0     & 1     & 0     & 2     & 3  & \\
+        V   & 1     & 2     & 4     & 0     & 1     & 2     & 34 & \\
+        VI  & 0     & 2     & 1     & 3     & 1     & 4     & 18 & \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Lineare Unabhängigkeit}
+
+Eine Nullkombination $\lambda_1b_1+\lambda_2b_2+\dots+\lambda_nb_n=0$ heißt linear unabhängig, wenn diese nur durch die trivial-Lösung $\lambda_1=\lambda_2=\dots=\lambda_n=0$ zu erfüllen ist.
+
+\know{Umformulierung}{Eine Teilmenge $\mathcal{B}$ eines Vektorraumes $V$ ist genau dann linear unabhängig, wenn kein Vektor aus $\mathcal{	B}$ eine Linearkombination der übrigen Vektoren aus $\mathcal{B}$ ist.
+
+    Kein Vektor lässt sich aus den anderen Ausrechnen.}
+
+\subsection{Basis}
+
+Eine Basis $\mathcal{B}$ ist eine Matrix, welche linear unabhängig ist. Somit sind es eindeutige Richtungsvektoren in einem Vektorraum $\mathbb{K}^n$.
+
+Die Einfachste Basis ist die Basis der Kanonischen Basisvektoren:
+
+\begin{equation*}
+    \varepsilon=
+    \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+    \end{bmatrix}
+\end{equation*}
+
+Hier sieht man sehr deutlich, dass sich jeder Vektor $x$ in einer Basis, aus eine linearkombination der Basisvektoren bilden lassen muss:
+
+\begin{equation*}
+    x=t_1b_1+t_2b_2+t_3b_3
+\end{equation*}
+
+Die Koeffizienten lassen sich durch das einsetzten in ein GAUSS-Verfahren ausrechnen.
+
+\subsubsection{Orthogonalbasis (ONB)}
+
+Ist eine Basis, wo alle Vektoren $b_1, b_2, \dots, b_n$ zusätzlich senkrecht aufeinander stehen und auf die Länge 1 normiert sind.
+
+Eine ONB im $\mathbb{R}^3$ lässt sich aus einem $n$ und $b$ wie folgt bilden:
+
+\begin{equation}
+    \mathcal{B}=\{n, \|n\|^2b-\langle n\mid b\rangle n, n\times b\}
+\end{equation}
+
+Zusätzlich müssen die einzelnen Terme noch normiert werden.
+
+\subsubsection{Darstellung eines Vektors in der Basis}
+
+Um nun einen Vektor $x$ in einer ONB darzustellen gilt:
+
+\begin{equation*}
+    x=\langle b_1\mid x\rangle + \langle b_2\mid x\rangle + \langle b_3\mid x\rangle
+\end{equation*}
+
+Wir nutzen aus, dass das Skalarprodukt mit $\|b_1\|=1$ den Anteil an $b_1$ Richtung zurückgibt.
+
+\subsection{Matrizen als lineare Abbildung}
+
+Mit Matrizen können wir Vektoren unterschiedlich Linear Abbilden. Ein einfaches Beispiel ist die Rotation im $\mathbb{R}^2$
+
+\begin{equation*}
+    D(\alpha)=
+    \begin{bmatrix}
+        \cos(\alpha) & -\sin(\alpha) \\
+        \sin(\alpha) & \cos(\alpha)
+    \end{bmatrix}
+\end{equation*}
+
+Diese Formel lässt sich aus einer Rotation der Basisvektoren
+$\begin{bmatrix}
+        0 \\1
+    \end{bmatrix}$ und
+$\begin{bmatrix}
+        1 \\0
+    \end{bmatrix}$ des $\mathbb{R}^2$ herleiten.
+
+Wir können auch mehrere Abbildungen hintereinander Ausführen. Typischerweise $BA$. Hier müssen nur die Anzahl der Spalten von $B$ mit der Anzahl von Zeilen von $A$ übereinstimmen.
+
+\begin{equation*}
+    BA=\begin{bmatrix}
+        1 & 2 \\
+        2 & 1 \\
+        0 & 2
+    \end{bmatrix}*
+    \begin{bmatrix}
+        -1 & 3 & 4 & 1  \\
+        2  & 3 & 3 & -1
+    \end{bmatrix}=
+    \begin{bmatrix}
+        3 & 9 & 10 & -1 \\
+        0 & 9 & 11 & 1  \\
+        4 & 6 & 6  & -2
+    \end{bmatrix}
+\end{equation*}
+
+\subsubsection{Ausführung mehrere Drehungen}
+
+Wir wissen intuitiv, das eine Drehung um $\alpha$ und danach um $\beta$, dass gleiche ist wie eine Drehung um $\alpha+\beta$.
+
+\begin{equation*}
+    D(\alpha)D(\beta)=D(\alpha + \beta)
+\end{equation*}
+
+Wenn man dies mal durchgerechnet hat treten diese Trigonometrische Gleichungen auf:
+
+\begin{center}
+    $\sin(\alpha + \beta)=\sin(\alpha)\cos(\beta)+\cos(\alpha)\sin(\beta)$
+
+    $\cos(\alpha + \beta)=\cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)$
+\end{center}
+
+\subsubsection{Wichtige Abbildungen}
+
+Die Nullabbildung, welche alles auf 0 Abbildet und die Einsabbildung, welche alles auf sich selbst Abbildet.
+
+\subsection{Direkte Zerlegung eines Vektorraum}
+
+\subsection{Die Dimensionsformel}
+
+Für eine Lineare Abbildung $A:V\to W$ gibt es den Kern $ker A$ und das Bild $im A$.
+
+\begin{enumerate}
+    \item $ker A := \{x\in V\mid Ax=0\}$. Alle Vektoren, welche auf den Nullvektor abgebildet werden.
+    \item $im A := \{y\in W\mid \exists x\in V (y=Ax)\}$. Alle Vektoren, auf Welche die Abbildung abbildet.
+\end{enumerate}
+
+Beides sind ein Teilraum von $V$ bzw. $W$.
+
+\know{Dimensionsformel}{
+    \begin{center}
+        $dim V$ = $dim$ $ker A$ + $dim$ $im A$
+    \end{center}}
+
+\subsection{Die inverse Matrix}
+
+Eine Abbildung kann nur invertiert werden, wenn es nur eine Abbildung aud die 0 gibt ($ker A=\{0\}$ und $dim$ $ker A = 0$). Somit muss $dim V = dim$ $ker A$ gelten.
+
+Die inverse Matrix behandelt ab hier $n\times n$-Matrizen.
+
+Hierfür können wir das GAUSS-Verfahren wieder nutzen um die Gleichung $AB=1$ oder $BA=1$ zu lösen.
+
+\begin{center}
+    \begin{tabular}{|l|ccc|ccc|l|}
+        \hline
+        I   & 1   & 2   & 3   & 1   & 0   & 0  &             \\
+        II  & 4   & 1   & 2   & 0   & 1   & 0  & II-4*I      \\
+        III & 3   & 4   & 1   & 0   & 0   & 1  & III-3*I     \\
+        \hline
+        I   & 1   & 2   & 3   & 1   & 0   & 0  & I*7         \\
+        II  & 0   & -7  & -10 & -4  & 1   & 0  & II*(-1)     \\
+        III & 0   & -2  & -8  & -3  & 0   & 1  & III*(-7)    \\
+        \hline
+        I   & 7   & 14  & 21  & 7   & 0   & 0  & I-2*II      \\
+        II  & 0   & 7   & 10  & 4   & -1  & 0  &             \\
+        III & 0   & 14  & 56  & 21  & 0   & -7 & III-2*II    \\
+        \hline
+        I   & 7   & 0   & 1   & -1  & 2   & 0  & 36*I-III    \\
+        II  & 0   & 7   & 10  & 4   & -1  & 0  & 18*II-5*III \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+        I   & 252 & 0   & 0   & -49 & 70  & 7  & I/7         \\
+        II  & 0   & 126 & 0   & 7   & -28 & 35 & II/7*2      \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+        I   & 36  & 0   & 0   & -7  & 10  & 1  &             \\
+        II  & 0   & 36  & 0   & 2   & -8  & 10 &             \\
+        III & 0   & 0   & 36  & 13  & 2   & -7 &             \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\begin{equation*}
+    A^{-1}=\frac{1}{36}
+    \begin{bmatrix}
+        -7 & 10 & 1  \\
+        2  & -8 & 10 \\
+        13 & 2  & -7
+    \end{bmatrix}
+\end{equation*}
+
+\subsection{Die adjungierte Matrix}
+
+Die adjungierte Matrix eine Abwandlung der transponierten Matrix. Im $\mathbb{K}=\mathbb{C}$ müssen alle Werte mit ihrem konjugiert komplexen Wert getauscht werden.
+
+\begin{equation*}
+    A^*=\overline{A^t}
+\end{equation*}
+
+Ein nicht Quadratische $n\times m$-Matrix $A$ wird durch das adjungieren zu einer $m\times n$-Matrix.
+
+Für Passende Vektoren gilt:
+
+\begin{equation*}
+    \langle x\mid Ay\rangle = \langle A^*x\mid y\rangle
+\end{equation*}
+
+Und es gilt: $(AB)^*=B^*A^*$
+
+\subsection{Koordinatentransformation}
+
+Die Koordinatentransformation ist ein Tool, um Aufgaben in einer einfacheren Darstellung zu lösen und dann wieder zurück zu Transformieren.
+
+Um diese zu bewerkstelligen, wandeln wir unsere Vektoren in eine geeignete Basis $\mathcal{B}$ um. Damit wir nicht durcheinander Kommen schreiben wir:
+
+\begin{equation*}
+    x_\mathcal{B}=
+    \begin{bmatrix}
+        x_1 \\ x_2\\ \vdots\\ x_n
+    \end{bmatrix}_\mathcal{B}
+\end{equation*}
+
+Gelesen: Vektor $x$ zur Basis $\mathcal{B}$
+
+Die Allgemeine Form der Transformation:
+
+\begin{equation}
+    x'=BA_\mathcal{B}B^{-1}x
+\end{equation}
+
+Oder, wenn $\mathcal{B}$ eine ONB ist: $x'=BA_\mathcal{B}B^*x$
+
+\subsection{Determinanten}
+
+Die Determinante kenne wir im $\mathbb{R}^3$ schon als das Spatprodukt, welches auf den $\mathbb{K}^n$ hochskaliert wurde.
+
+\subsubsection{Eigenschaften}
+
+\begin{enumerate}[\quad i.]
+    \item In jeder Komponente Linear: \begin{center}
+              $det(t_1x_1+t_2x_2, y, z)=t_1det(x_1, y, z)+t_2det(x_2, y, z)$
+          \end{center}
+    \item Vorzeichenwechsel: \begin{center}
+              $det(x, y, z)=-det(y, x, z)=det(y, z, x)$
+          \end{center}
+    \item Normiert: $det(e_1, e_2, e_3) = 1$
+\end{enumerate}
+
+\subsubsection{Bestimmer der Determinante}
+
+Hierfür haben wir das Pfadbild kennengelernt. Und die Summe alle Pfade in der Matrix ist die Determinante. Wir wissen auch das durch das GAUSS-Verfahren der Wert der Determinante nur durch Korrekturfaktoren verändert wird.
+
+Das GAUSS-Verfahren mit Korrekturspalte haben wir \hyperref[gauss]{hier} schon bearbeitet.
+
+\begin{equation*}
+    det\begin{bmatrix}
+        a_{11} & .      & \dots  & .      \\
+               & a_{22} & \dots  & .      \\
+               &        & \ddots & \vdots \\
+               &        &        & a_{nn}
+    \end{bmatrix}=a_{11}a_{22}\dots a_{nn}
+\end{equation*}
+
+In dieser Form ist die Determinante das Produkt der Diagonalen mit den Korrekturfaktoren die wir angesammelt haben.
+
+\subsubsection{Determinantenproduktsatz}
+
+\begin{equation*}
+    det(AB)=det(A)det(B)
+\end{equation*}
+
+Dies kann uns Rechenarbeit für die Determinante von speziellen Matrizen sparen:
+
+\begin{equation*}
+    det\begin{bmatrix}
+        A & C \\
+        0 & B
+    \end{bmatrix}=det(A)det(B)
+\end{equation*}
+
+Dies wird klar, wenn wir wieder an das Pfadbild denken. Hier ein Beispiel:
+
+\begin{equation*}
+    det\begin{bmatrix}
+        1 & 2 & 0 & 4 & 3  & 0 & 1  \\
+        3 & 4 & 3 & 4 & -3 & 7 & 9  \\
+          &   & 5 & 0 & 1  & 0 & 7  \\
+          &   & 0 & 2 & 7  & 5 & 9  \\
+          &   & 3 & 3 & 1  & 0 & 1  \\
+          &   &   &   &    & 1 & -1 \\
+          &   &   &   &    &   & 8  \\
+    \end{bmatrix}=det
+    \begin{bmatrix}
+        1 & 2 \\
+        3 & 4
+    \end{bmatrix}*det
+    \begin{bmatrix}
+        5 & 0 & 1 \\
+        0 & 2 & 7 \\
+        3 & 5 & 1
+    \end{bmatrix}*1*8
+\end{equation*}
+
+\subsubsection{Folgerung}
+
+Eine Wichtige Folgerung
+
+\begin{equation*}
+    1=det(1)=det(AA^{-1})=det(A)det(A^{-1})
+\end{equation*}
+
+\know{Existenz von $A^{-1}$}{Wir können schließen, dass wenn $det(A)\neq 0$, so existiert die Inverse von $A$
+
+    \begin{equation*}
+        A^{-1}\text{ existiert } \iff det(A)\neq 0
+    \end{equation*}}
+
+\subsubsection{LAPLACEscher Entwicklungssatz}
+
+Wir suchen uns in einer Matrix entweder Schwache Zeilen oder Spalten. Also welche wo möglichst viele 0 sind.
+
+Denn diese lassen sich vereinfachen:
+
+\begin{align*}
+    det
+    \begin{bmatrix}
+        3^+ & 2^- & 1^+ & 4^- \\
+        3^- & 3^+ & 2^- & 0^+ \\
+        3^+ & 2^- & 0^+ & 0^- \\
+        2^- & 3^+ & 7^- & 4^+ \\
+    \end{bmatrix}
+    = & 3*det
+    \begin{bmatrix}
+        | & 2 & 1 & 4 \\
+        | & 3 & 2 & 0 \\
+        3 & - & - & - \\
+        | & 3 & 7 & 4 \\
+    \end{bmatrix}-2*det
+    \begin{bmatrix}
+        3 & | & 1 & 4 \\
+        3 & | & 2 & 0 \\
+        - & 2 & - & - \\
+        2 & | & 7 & 4 \\
+    \end{bmatrix}                  \\
+      & +0*det[\dots]-0*\det[\dots] \\
+    = & 3*det
+    \begin{bmatrix}
+        2 & 1 & 4 \\
+        3 & 2 & 0 \\
+        3 & 7 & 4
+    \end{bmatrix}-2*det
+    \begin{bmatrix}
+        3 & 1 & 4 \\
+        3 & 2 & 0 \\
+        2 & 7 & 4
+    \end{bmatrix}
+\end{align*}
+
+Die Vorzeichen kommen von einem Schachbrettmuster in der Matrix. Diese beginnt oben links mit einem $+$.
