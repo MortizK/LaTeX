@@ -1,0 +1,317 @@
+\section{Vektorräume}
+
+\subsection{$\mathbb{R}^2$ und $\mathbb{R}^3$ als Vektorraum}
+
+Sind Ursprünglich Definiert als die Produktmenge mehrere Mengen.
+
+\begin{center}
+    $\mathbb{R}^n=\{[x_1, x_2, \dots, x_n]\mid x_1, x_2, \dots, x_n\in \mathbb{R}\}$
+\end{center}
+
+Wir können Vektoren miteinander addieren und sie auch mit einem einfachen Skalar, multiplizieren:
+
+\begin{center}
+    $x+y$ oder halt $t*x$
+\end{center}
+
+Es gibt zudem noch den Nullvektor, welche einfach $0:=[0, 0, \dots, 0]$ definiert wird.
+
+\know{Linearkombination}{Ist im allgemeinsten eine addition von gestreckten Vektoren
+    \begin{center}
+        $t_1x_1+t_2x_2+\dots t_nx_n$
+    \end{center}}
+
+\subsubsection{Geraden und Ebenen}
+
+Im allgemeinsten können wir Geraden und Ebenen als Menge Beschreiben, welche einen Stützvektor $q$ haben und eine Anzahl an Richtungsvektoren. Für Gerade ist es ein Richtungsvektor $u$ und bei der Ebene sind es zwei $u$ und $v$.
+
+\begin{center}
+    $g:=\{q+tu\mid t\in \mathbb{R}\}$
+
+    $e:=\{q+tu+sv\mid t, s\in \mathbb{R}\}$
+\end{center}
+
+\subsubsection{Norm}
+
+Die Norm: Ist die Länge eines Vektors und lässt sich mit dem Satz von Pythagoras bestimmen.
+
+\begin{center}
+    $\|x\|:=\sqrt{x_1^2+x_2^2+\dots+x_n^2}$
+\end{center}
+
+\subsubsection{Skalarprodukt}
+
+Skalarprodukt: Dies ermöglicht den Winkel zwischen zwei Vektoren zu bestimmen.
+
+\begin{center}
+    $\langle x\mid y\rangle:=\|x\|*\|y\|*\cos(\alpha)$
+\end{center}
+
+Mithilfe des Kosinussatzes $c^2=a^2+b^2-2ab\cos(\gamma)$ und etwas umformen erhalten wir die einfache Form vom Skalarprodukt:
+
+\begin{equation}
+    \langle x\mid y\rangle = x_1y_1+x_2+y_2+x_3y_3
+\end{equation}
+
+Eigenschaften des Skalarproduktes:
+
+\begin{enumerate}[\qquad i)]
+    \item $\langle x\mid x\rangle\geq 0, =0\iff x=0$ \qquad\qquad  Definitheit
+    \item $\langle x\mid y\rangle=\langle y\mid x\rangle$ \qquad\qquad\qquad\qquad\qquad Symmetrie
+    \item $\langle tx + sy\mid z\rangle=t*\langle x\mid z\rangle+s*\langle y\mid z\rangle$ \qquad Linearität
+\end{enumerate}
+
+Um nun den Winkel $\alpha$ zu bestimmen, stellen wir nach $\cos(\alpha)$ um:
+
+\begin{equation}
+    \cos(\alpha)=\frac{\langle x\mid y\rangle}{\|x\|*\|y\|}
+\end{equation}
+
+\know{Senkrecht: $\langle x\mid y\rangle=0$}{Wenn das Skalarprodukt gleich $0$ ist, so stehen die beiden Vektoren seknrecht aufeinander. Dies wird auch Orthogonal genannt:
+    \begin{center}
+        $x\bot y:\iff \langle x\mid y\rangle=0$
+    \end{center}}
+
+\subsubsection{Kreuzprodukt}
+
+Das Kreuzprodukt zweier Vektoren $x$ und $y$ resultiert in einem Vektor, welche Senkrecht zur $x$ und $y$ ist.
+
+\begin{equation}
+    x\times y:=
+    \begin{bmatrix}
+        x_2y_3 - x_3y_2 \\
+        x_3y_1 - x_1y_3 \\
+        x_1y_2 - x_2y_1 \\
+    \end{bmatrix}
+\end{equation}
+
+Eigenschaften
+
+\begin{enumerate}[\qquad i)]
+    \item $(tx + sy)\times z=tx\times z+sy\times z$
+    \item $x\times y = -y\times x$
+    \item $x\times y=0\iff x\| y$
+    \item $\|x\times y\|=\|x\|*\|y\|\cos(\alpha)$ Die Länge des Skalarproduktes ist der Flächeninhalt des Parallelogram zwischen $x$ und $y$, da $h=\|y\|\cos(\alpha)$
+\end{enumerate}
+
+\subsubsection{Normalform der Ebene}
+
+Wir so gebaut: Wir haben einen Punkt in der Ebene $p\in E$ und bilden alle Vektoren $x-p$. Diese Vektoren sind nur dann $\in E$, wenn diese Senkrecht zu dem Normalvektor $n$ sind. Dieser Normalvektor ist auch Normiert $n_0=n / \|n\|$. Also:
+
+\begin{center}
+    $E:=\{x\in \mathbb{R}^3\mid \langle x-p\mid n_0\rangle=0\}$
+
+    $E:=\{x\in \mathbb{R}^3\mid \langle x\mid n_0\rangle=\langle p\mid n_0\rangle\}$
+\end{center}
+
+\subsubsection{Koordinatenform}
+
+In der Koordinatenform ist der Normalvektor kodiert.
+
+\begin{center}
+    $E=\{x_1, x_2, x_3\in \mathbb{R}\mid n_1x_1+n_2x_2+n_3x_3=d\}$
+\end{center}
+
+Der Normalvektor setzt sich aus $n=[n_1, n_2, n_3]$ zusammen.
+
+Und unser $d=\langle p\mid n_0\rangle$, wo $p$ unser Punkt in der Ebene ist.
+
+\subsubsection{Abstand: Punkt zur Ebene}
+
+Da das Skalarprodukt eine Projektion von einem Vektor $y$ auf $x$ ist, können wir wenn wir einen Punkt (Vektor) auf den Normalvektor projektieren, den Abstandsvektor bestimmen und dessen Norm (Länge) ist die Lösung:
+
+\begin{equation}
+    d(y, E):=\frac{1}{\|n\|}*|\langle x\mid n_0\rangle-\langle p\mid n_0\rangle|
+\end{equation}
+
+\subsubsection{Abstand: Punkt zur Geraden}
+
+Wir haben einen Punkt $q$ und eine Gerade $g:=\{p+tu\mid t\in \mathbb{R}\}$. Wenn $\|u\|=1$ und somit $u$ die Länge 1 hat, ist die Fläche von dem Parallelograms gleich der Fläche von dem Abstand $d(q, g) * \|u\|$. Da $\|u\|=1$ ist die Fläche gleich dem Wert von $d(q, g)$.
+
+\begin{equation}
+    d(q, g)=\|u\times(q-p)\|
+\end{equation}
+
+Siehe \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=91}{Abbildung 5.9} im Skriptum
+
+\subsubsection{Spatprodukt und Determinante}
+
+Das Spatprodukt kombiniert die geometrischen Interpretationen von dem Kreuzprodukt $x\times y$ und dem Skalarprodukt $\langle x\mid y\rangle$.
+
+So bildet das Kreuzprodukt die Grundfläche des Spats und das Skalarprodukt wird auf den Normalvektor dieser Grundfläche projektiert und ist somit die Höhe.
+
+\begin{center}
+    $\langle x\times y\mid z\rangle$
+\end{center}
+
+Diese Spatprodukt kann positiv und negativ sein. Wenn es negativ ist, benutzen wir zum korrigieren einfach $-z$ statt $z$.
+
+\know{Positives Spatprodukt}{Wenn das Spatprodukt positiv ist, sprechen wir bei den drei Vektoren von einem Rechtssystem oder auch mathematisch positiv orientiert
+    \begin{center}
+        Rechte-Hand-Regel
+    \end{center}}
+
+\subsubsection{Determinante}
+
+Die Determinante ist die Verallgemeinerung des Spatproduktes auch für höhere Dimensionen.
+
+\begin{center}
+    $det(x, y, z)=\langle x\times y\mid z\rangle$
+
+    $det(x, y, z + tx + sy)=det(x, y, z)$
+\end{center}
+
+Die Determinante hat zudem noch die Eigenschaft, dass wenn $det(x, y, z)=0$ gilt, sind die Vektoren linear abhängig. Das heißt sie bilden kein Volumen und einer der Vektoren ist "unnötig".
+
+\subsection{Die komplexen Zahlen}
+
+Immer mal wieder taucht etwas in der Form $x^2=-1$ auf, welche keine Reellen Lösungen hat. Somit entsteht die Idee von $i$:
+
+\begin{center}
+    $i^2=-1$
+\end{center}
+
+Nun bestehen Zahlen in $\mathbb{C}$ aus einem Reellen Part und einem Imaginärem Part. z.B. $5+3i$.
+
+\subsubsection{Rechnregeln}
+
+\begin{align}
+    (z_1+iz_2)\pm(w_1+iw_2) & =z_1\pm w_1 + i(z_2\pm w_2)        \\
+    (z_1+iz_2)(w_1+iw_2)    & =z_1w_1 -z_2w_2 + i(z_1w_2+z_2w_1)
+\end{align}
+
+\subsubsection{Gaussche Zahlenebene}
+
+Da alle Imaginären Zahlen aus genau zwei werte bestehen, wovon einer imaginär ist, können wir diese auch als ein Zahlenpaar im $\mathbb{R}^2$ darstellen.
+
+Somit ganz geschickt in einer Zahlenebene mit den Reellen Zahlen auf der x-Achse und den Imaginären auf der y-Achse. Somit befinden wir uns wieder unter Vektoren mit Zusätzlichen Definitionen:
+
+\begin{center}
+    \begin{tabular}{c c}
+        Betrag                    & Konjugiert Komplex  \\\\
+        $|z|:=\sqrt{z_1^2+z_2^2}$ & $\bar{z}:=z_1-iz_2$ \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Polardastellung}
+
+Wir können Komplexe Zahlen auch in der Polardarstellung darstellen:
+
+\begin{center}
+    $z=|z|*(\cos(\varphi)+i\sin(\varphi))$
+\end{center}
+
+\subsubsection{EULER-Formel}
+
+\begin{center}
+    $e^{i\varphi}=\cos(\varphi)+i\sin(\varphi)$
+
+    $z=|z|e^{i\varphi}$
+\end{center}
+
+Dies gilt und formmal gelten somit auch die Additionssätze der Exponentialfunktionen. Somit ist $e^{i\varphi}e^{i\Psi}=e^{i(\varphi+\Psi)}$ und auch das gegenpaar:
+
+\begin{center}
+    $(\cos(\varphi)+i\sin(\varphi)*\cos(\Psi)+i\sin(\Psi))=\cos(\varphi+\Psi)+i\sin(\varphi+\Psi)$
+\end{center}
+
+Geometrisch ist somit eine Multiplikation/ Division einfach eine Addition/ Subtraktion der Winkel. Und Potenzierung einfach die Multiplikation des Winkels.
+
+Außerhalb des Einheitskreis muss die Normale Operation auf die Länge noch beachtet werden!
+
+\subsubsection{Beispiele}
+
+\begin{enumerate}[\qquad i.]
+    \item $e^{i\frac{\pi}{2}}=i$
+    \item $e^{i\pi}=-1$
+    \item $e^{2\pi i}=1$
+    \item $\bar{e^{i\varphi}}=e^{-i\varphi}$
+\end{enumerate}
+
+\subsubsection{n-ten Wurzeln ziehen}
+
+Wir können uns leicht davon überzeugen, dass es für die n-te Wurzel n Lösungen gibt, denn die Gleichung $e^{p*2\pi i}=1$ ist periodisch und hat mehrere Lösungen für $p\in \mathbb{Z}$.
+
+Für die Einheitswurzeln, also $=1$ lassen sich nach:
+
+\begin{equation}
+    u_p:=e^{ip*\frac{2\pi}{n}}
+\end{equation}
+
+Wenn wir nun $u_p^n$ bilden wird schnell klar, dass alle Lösungen $=1$ sein müssen.
+
+Für den Allgemeinfall der Form: $z=|z|e^{i\varphi}$ gibt es die Grundlösung:
+
+\begin{center}
+    $w_0:=\sqrt[n]{|z|}e^{i\frac{\varphi}{n}}$
+\end{center}
+
+Diese können wir mit den Einheitswurzeln multiplizieren um alle Lösungen zu bekommen.
+
+\know{Ablauf: $n$-ten Wurzel ziehen}{Winkel $\varphi$ durch $n$ teilen und für alle $n$-Lösungen den Winkel der Einheitswurzeln $\frac{\varphi}{n}*n$ dazu-Addieren.
+    \begin{center}
+        $w_p=e^{\frac{1}{n}(\varphi+p*2\pi)}$
+    \end{center}
+    Und nicht vergessen die $n$-te Wurzel von der Länge auszurechnen}
+
+\subsubsection{Kubische Gleichungen/ Kardanische Formeln}
+
+Um die Nullstellen von Kubische Gleichungen zu finden braucht man die Kardanischen Formel. Für Näherungswerte reicht auch Newtons-Methode.
+
+Die Kardanische Formel bestehen aus mehreren Schritten und funktionieren in der Form $x^3+bx^2+cx+d=0$:
+
+\begin{enumerate}
+    \item Gleichung in die Normalform $y^3+py+q=0$ umwandeln, indem man mit $x=y-\frac{b}{3}$ substituiert.
+    \item $p$ und $q$ bestimme mit: $p=c-\frac{1}{3}b^2$ und $q=\frac{2}{27}b^3-\frac{1}{3}bc+d$
+    \item Die Diskriminante bestimme: $\Delta=(\frac{p}{3})^3+(\frac{q}{2})^2$
+    \item Wenn $\Delta>0$ ist, so gibt es eine Reelle Lösung:
+          \begin{equation}
+              x_1:=\sqrt[3]{\sqrt{\Delta}-\frac{q}{2}}-\sqrt[3]{\sqrt{\Delta}+\frac{q}{2}}-\frac{b}{3}
+          \end{equation}
+    \item Die anderen Fallunterscheidungen der Diskriminante sind im \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=100}{Skriptum}
+\end{enumerate}
+
+\subsection{$\mathbb{C}^n$ als Vektorraum}
+
+In dem Komplexen Vektorraum müssen wir unsere Norm und das Skalarprodukt leicht ändern:
+
+\begin{align*}
+    \|x\|                  & :=\sqrt{\sum_{k-1}^{n}|x_k|^2}     \\
+    \langle x\mid y\rangle & := \sum_{k-1}^{n}\overline{x_k}y_k
+\end{align*}
+
+Diese Änderungen behalten die gewünschten Eigenschaften $\langle x\mid x\rangle=\|x\|^2$.
+
+Aber: Durch unsere Änderung in dem Skalarprodukt, ist dies nur noch in der zweiten Komponente $y$ linear, in der ersten ist Sie antilinear, da $\overline{x}$ benutzt wird, selbts wenn $x$ die Eingabe ist.
+
+\begin{center}
+    $\langle \lambda x_1 + \gamma x_2 \mid y\rangle = \overline{\lambda}\langle x_1 \mid y\rangle + \overline{\gamma}\langle x_2 \mid y\rangle$
+\end{center}
+
+\subsection{Der allgemeine Vektorraumbegriff$^*$}
+
+Die Kurzform ist: Ein Vektorraum ist eine Menge $V$, wessen Elemente $x, y, z$ sich in einem Körper $\mathbb{K}$ befinden.
+
+Wir können Vektoren miteinander Addieren und diese mit Skalaren $t, s, r$ strecken, ohne dass diese den Vektorraum verlassen. So sind $x+y\in V$ und $t*x\in V$.
+
+\begin{enumerate}
+    \item Es gibt immer einen Nullvektor, $x+0=x$
+    \item Es gibt immer eine Inverse, $x+(-x)=0$
+    \item Es gibt das Einselement $1\in \mathbb{K}$, $1*x=x$
+\end{enumerate}
+
+\subsubsection{Teilmengen des Vektorraums}
+
+Eine Teilraum $W\subset V$ besteht dann, wenn wir durch Addition oder Multiplikation mit Skalaren, diesen Teilraum nicht verlassen.
+
+Dafür kennen wir die Linearkombination:
+
+\begin{center}
+    $s*x+t*y\in W$
+\end{center}
+
+\subsection{Vektorräume mit Norm und Skalarprodukt}
+
+Hier wird im Skript der Zusammenhang zwischen Norm und Skalarprodukt im allgemeinem Vektorraum gezeigt.
+
+Mit vielen Beispielen und Beweisen, welche ich hier nicht übernehmen werde.

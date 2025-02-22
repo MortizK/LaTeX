@@ -1,0 +1,136 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 13, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Prädikatenlogik erster Stufe}
+
+\subsubsection{Grenzen der Aussagenlogik}
+
+Mögliche Schlussfolgerungen:
+
+\begin{enumerate}
+    \item Alle Menschen sind sterblich, Sokrates ist ein Mensch $\to$ Also ist Sokrates sterblich.
+    \item Alle vögel können fliegen, Ein Pinguin ist ein Vogel $\to$ Also kann ein Pinguin fliegen.
+\end{enumerate}
+
+Hier ist der Schluss 2. richtig, aber ein Pinguin kann nicht fliegen.
+
+\begin{center}
+    Somit ust unsere Annahme falsch!
+\end{center}
+
+\subsubsection{Idee}
+
+Atome sind nicht mehr Atomar
+
+Prädikatssymbol repräsentieren Relationen (rot, rund, prim, ist Bruder von, ...)
+
+Funktionssymbole repräsentieren Funktionen (+, Mittelwert von, Vater von, ...)
+
+Es gibt wieder unser Quantoren: $\forall$ und $\exists$
+
+Und Object (Leute, ...)
+
+\begin{center}
+    \begin{tabular}{c}
+        $\forall X(mensch(X)\to sterblich(X))$ \\
+        $mensch(Sokrates)$                     \\
+        \hline
+        $sterblich(Sokrates)$
+    \end{tabular}
+\end{center}
+
+\subsubsection{Definition}
+
+Eine Signatur $\Sigma$ ist ein 3-Tupel (P, F, V), welche paarweise disjunkte Mengen.
+
+\begin{enumerate}
+    \item[P] - Prädikate: $P=\{mensch/1, sterblich/1, lauter/2\}$ sind Tupel welche eine Namen haben und eine Anzahl an Eingaben.
+    \item[F] - Funktionen: $F=\{gruppe/2, mathelehrer/1, sokrates/0 aristoteles/0\}$ sind Tupel, wobei 0-stellige Funktionen, konstanten sind.
+    \item[V] - Variablen: $V=\{x, y, z, u, x_1, x_2, \dots\}$
+\end{enumerate}
+
+\subsubsection{Terme}
+
+Grundsätzlich bestehen Terme $T_{\Sigma}$ aus: Allen Variablen und allen Kombinationen von Funktionen mit Funktionen und Variablen.
+
+Funktionen sind außen und Variablen sind ganz innen.
+
+Mögliche Terme:
+
+\begin{enumerate}
+    \item X
+    \item sokrates
+    \item gruppe(X, sokrates)
+    \item gruppe(lehrer(sokrates), gruppe(sokrates, X))
+\end{enumerate}
+
+\subsubsection{Atome}
+
+Atome sind Außen EIN Prädikat und innen bestehen sie NUR aus Funktionen.
+
+Beispiel:
+
+\begin{enumerate}
+    \item mensch(X)
+    \item lauter(sokrates, X)
+    \item lauter(sokrates, sokrates)
+    \item lauter(sokrates, lehrer(lehrer(lehrer(sokrates))))
+\end{enumerate}
+
+\subsubsection{Syntax}
+
+Ist Identisch, mit Extras. Somit ist die Aussagenlogik eine Teilmenge von der Prädikatenlogik.
+
+Die Zusätze sind:
+
+\begin{enumerate}
+    \item Allquantor: $\forall$
+    \item Existensquantor: $\exists$
+\end{enumerate}
+
+Die Formel werden somit auch um diese erweiter: Wenn A eine Formel ist und x eine Variabel:
+
+\begin{enumerate}
+    \item $\forall xA$
+    \item $\exists xA$
+    \item $\in For_{Sigma}$
+\end{enumerate}
+
+\subsubsection{Beispiel für Formeln}
+
+\begin{enumerate}
+    \item[P] $=\{studiert_in/2, schlau/1, prim/1\}$
+    \item[F] $=\{stuttgart/0. mannheim/0, sum/2\}$
+    \item[V] $=\{x, y\}$
+\end{enumerate}
+
+Alle die in Stuttgart studieren, sind schlaue! Es gibt jemanden, der in Mannheim studiert, der schlaue ist! Die Summe zweier Primzahlen, ist auch eine Primzahl!
+
+\begin{center}
+    $\forall x(studiert_in(x, stuttgart)\to schlau(x))$
+
+    $\exists x(studiert_in(x, mannheim)\land schlau(x))$
+
+    $\forall x\forall y(prim(x)\land prim(y)\to prim(sum(x, y)))$
+\end{center}
+
+\subsubsection{Semantik}
+
+Die Interpretation ist auf Folie 335 im Skriptum!
+
+\subsubsection{Auswertung}
+
+Wir können Stück für Stück von innen nach außen auswerten. Relation enthalten nur die Tupel, wo die Interpretationen wahr ist (1).
+
+\end{document}

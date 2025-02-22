@@ -1,0 +1,170 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 18, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Halbleitertechnik}
+
+\subsection{Aufgabenblatt 8.}
+
+\begin{center}
+    \begin{tabular}{l|l}
+        SRAM                                   & DRAM                       \\
+        \hline
+        Speicherung in Flipflops               & Speicherung im Kondensator \\
+        Kein Refresh                           & Refresh, weil sich der     \\ & Kondensator entlädt \\
+        Zugriffszeit: 5ns                      & Zugriffszeit: 50ns         \\
+        6 Transistoren                         & je Zelle 1 Kondensator     \\ $\implies$ größer als DRAM & + 1 Transistor\\
+        unempfindlich                          & empfindlich gegenüber      \\ & Elektromagn. Strahlung \\
+        Organisation $m\times n$ mit $m\in2^k$ & Organisation $m\times n$   \\
+        1 Speichermatrix                       & n Speichermatrizen         \\
+        Auswahl eine Zeile durch k-Bit Adresse & Adress-Multiplexing,       \\ & $\frac{k}{2}$ Adressleitungen, $\overline{RAS}, \overline{CAS}$
+    \end{tabular}
+\end{center}
+
+\subsubsection{Refreshzeit Rechnung}
+
+\begin{equation}
+    \frac{32ms}{8192} = \frac{32000\mu s}{8192} = 3,9\mu s \implies 3,9\mu s > 3,5\mu s
+\end{equation}
+
+Somit Reicht dieser Refresh von $3,5\mu s$, da dieser Kleiner ist als die maximal erlaubte Refresh Zeit.
+
+\subsubsection{Speicherbandbreite}
+
+Wir bauen aus mehreren 64M-4 Bausteinen einen 128M-8 Baustein. Unser ursprüngliche Baustein hat eine Zykluszeit von 60ns
+
+Da unsere Gebauter Baustein jeden Zyklus nun einen Byte überträgt. So muss nun einfach multipliziert werden:
+
+\begin{equation}
+    \frac{1Byte}{60ns} = 16,67 \frac{MByte}{s}
+\end{equation}
+
+\subsubsection{Adressraum}
+
+Adressen werden in Hexadecimal angegeben.
+
+\know{Ist Klausurrelevant!}{Skizze ist in meinem Heft unter DT 18.02 Adressraum.}
+
+\section{Wandlung Digital $\leftrightarrow$ Analog}
+
+Im Analogen sind wir kontinuierlich, sowohl in der Zeit, als auch in dem Amplituden.
+
+Im Digitalen, können wir nur zu bestimmten Zeiten einen Wert auslesen und diesen auch nur mit einer festen Auflösung. Somit sind beide diskret.
+
+\subsection{Digital-Analog-Umwandlung}
+
+Funktioniert nur bei festen Bit-Wertigkeiten wie $2^n$. Hier entstehen Stufen. Und diese Stufenhöhe ist genau das 1 LSB.
+
+Signale können mit einem Tiefpass geglättet werden. Dieser macht aus jeder Stufe ein Spline/ Kurve.
+
+Die Genauigkeit ist $\pm \frac{1}{2}$LSB
+
+In der Praxis ist die Genauigkeit doch größer bis zu 2LSB
+
+\subsubsection{Gestuftes Widerstandsnetzwerk}
+
+Hier schalten wir unsere Verschieden Bits (A, B, C, D) in Reihe in unterschiedliche Widerstände.
+
+\begin{center}
+    \begin{tabular}{r c c}
+        $R_1$ & $R/1$ & 5000$\Omega$ \\
+        $R_2$ & $R/2$ & 2500$\Omega$ \\
+        $R_3$ & $R/4$ & 1250$\Omega$ \\
+        $R_4$ & $R/8$ & 625$\Omega$  \\
+        $R_x$ &       & 10$\Omega$   \\
+    \end{tabular}
+\end{center}
+
+Somit kommen für $I_A, \dots, I_D$ unterschieldiche Spannungen. Bei $U=5V$
+
+\begin{center}
+    \begin{tabular}{r c}
+        $I_A$ für A=1 & $I_A=1mA$ \\
+        $I_B$ für B=1 & $I_B=1mA$ \\
+        $I_C$ für C=1 & $I_C=1mA$ \\
+        $I_D$ für D=1 & $I_D=1mA$ \\
+    \end{tabular}
+\end{center}
+
+Wir können nun $I_G=I_A+I_B+I_C+I_D$ bilden und kommen zu diesen Ergbenissen:
+
+\begin{center}
+    \begin{tabular}{c c c c|c|c}
+        \multicolumn{4}{c|}{Digital} &   & Analog                           \\
+        D                            & C & B      & A & $I_G$/mA & $U_A$/mV \\
+        \hline
+        0                            & 0 & 0      & 0 & 0        & 0        \\
+        0                            & 0 & 0      & 1 & 1        & 10       \\
+        0                            & 0 & 1      & 0 & 2        & 20       \\
+        0                            & 0 & 1      & 1 & 3        & 30       \\
+        0                            & 1 & 0      & 0 & 4        & 40       \\
+        0                            & 1 & 0      & 1 & 5        & 50       \\
+        0                            & 1 & 1      & 0 & 6        & 60       \\
+        0                            & 1 & 1      & 1 & 7        & 70       \\
+        \vdots                       &   &        &   & \vdots   & \vdots   \\
+        1                            & 1 & 1      & 1 & 15       & 150      \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Bessere Implementierung}
+
+WIr können diese Schaltung verbessern, indem wir die Eingaben (A, B, C, D) in einen Transistor als Schaltsignal verwenden. Diese Transistoren würden daraufhin ein konstantes (z.B. 2V) durchschalten.
+
+Diese Signal kommt in einen Operationsverstärker, welcher das Signal verstärkt.
+
+\begin{equation}
+    U_A=-\frac{R_N}{R_V}*U_E
+\end{equation}
+
+Wir wählen $R_0 = 20k\Omega$ und verringern den in zweierpotenzen. Nun ergeben sich Spannungen:
+
+\begin{center}
+    \begin{tabular}{r c l}
+        für D,C,B,A & = 0000 & $U_A = 0V$                                   \\
+        für D,C,B,A & = 0001 & $U_A = -RN *(0V + 0V + 0V + 0,1mV)$          \\
+        für D,C,B,A & = 1111 & $U_A = -RN *(0,8mV + 0,4mV + 0,2mV + 0,1mV)$ \\
+                    &        & $U_A = -RN * 1,5mV$
+    \end{tabular}
+\end{center}
+
+Wenn die maximale Spannung = 5V sein soll, so wählen wir $R_N=3,3k\Omega$
+
+\subsection{Analog-Digital-Umwandlung}
+
+Wir bestimmen das Zeitliche Intervall der Abtastungen, sowie die Diskretisierung der Amplitudenwerte in $2^n$ Stufen.
+
+Genannte auch: Diskretisierung in der Zeit und Quantisierung.
+
+Bei der Quantisierung entstehen Fehlen, dieser wird Auch Quantisierungsfehler genannt:
+
+\begin{center}
+    Fehler $e_Q=\pm \frac{\Delta}{2}$, mit $\Delta$ Höhe der Amplitude
+\end{center}
+
+\subsubsection{Nyquist-Shannan-Abtasttheorem}
+
+Besagt, dass die die Abtatsfrequenz mindestens doppelt so hoch sein, wie die höchste Freuqnz des Eingangsignals.
+
+Beispiel: Hifi hat 20kHz, somit müssten wir 40kHz Abtasten. Hier ist unser zeitintervall: $t=0,025ms$
+
+\subsubsection{Sägezahnverfahren}
+
+Wir haben einen Zähler, welche startet, wenn wir 0V überschreiten und, stoppen diesen Zähler, nach dem Überschreiten des Signals und geht weiter bis 10V.
+
+Anhand des Zähler $\Delta t$ und den Winkel der Steigung, können wir $U=\tan(\alpha) *  \Delta t$ bestimmen.
+
+Dieses Verfahren ist Langsam, da $U_E$ muss längere Zeit konstant anliegen.
+
+Die Genauigkeit ist abhängig von dem Impulsgenerator und Sägezahngenerator.
+
+Dafür ist dieses Verfahren sehr einfach umzusetzen, da alle Bausteine standardbausteine sind.
+
+\end{document}

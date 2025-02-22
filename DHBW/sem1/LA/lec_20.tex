@@ -1,0 +1,129 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 19, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Exkurs: Hamming Code}
+
+Ist in meinem Heft unter LA 19.02 Hamming Code.
+
+Grundlegend Codieren wir unseren Binären Vektor $w$ und multiplizieren diesen mit dem Generator $G$. Dieser ist die 1-Matrix verlängert mit Redundanz, sodas $H*G=0$, mit $H$ die Kontrollmatrix Binär Hochzählt.
+
+Wenn $HGw\neq 0$, so ist ein Fehler aufgetreten, welche an der Binär zu lesenden Stelle der Multiplikation.
+
+\section{Matrizen}
+
+\subsection{Selbstadjungierte Abbildungen}
+
+Satz: Jede selbstadjungierte lineare Abbildung hat eine ONB aus Eigenvektoren.
+
+Beweis: Induktion nach der Dimension $n$ des Raumes.
+
+$n=1$: trivial
+
+$n\to n+1$: $dim V = n: \langle x\mid Ay\rangle = \langle Ax\mid y\rangle$ f.a. $x, y\in V$
+
+$\implies \exists$ ONB aus EVen $\{b_1, \dots, b_2\} (IV)$ $(Ab_1=\lambda_1b_1, Ab_2=\lambda_2b_2, \dots)$
+
+\begin{equation}
+    \begin{split}
+         & dim V = n+1: \langle x\mid Ay\rangle = \langle Ax\mid y\rangle\dots \\
+         & \text{Es gibt wenigsten einen EV } b_0\quad (\neq 0)                \\
+         & \text{Bilde } V_1:= b_0^{\bot}:=\{x\in V\mid x\bot b_0\}            \\
+         & \text{Teilraum von } V \text{, der Dimension }n.
+    \end{split}
+\end{equation}
+
+Zeige: $AV_1\subseteq V_1$, d.h. zu zeigen: $x\in b_0^{\bot}\implies Ax\in b_0^{\bot}$
+
+Also: $\langle Ax\mid b_0\rangle=\langle x\mid Ab_0\rangle=\lambda \langle x\mid b_0\rangle=0$
+
+Nach (IV) folgt: $\exists$ ONB aus EVen für $V_1:\{b_1, b_2, \dots, b_n\}$. Dann ist $B=\{b_0, b_1, b_2, \dots, b_n\}$ eine ONB aus EVen für $V$.
+
+\subsubsection{Umgangsprachlich}
+
+Wir haben gezeigt, dass wir den neuen Vektor, welche zu allen anderen Eigenvektoren Orthogonal ist, nicht diese Eigenschaft durch Matrizenmultiplikation verliert.
+
+Oder. Dieser neue Eigenvektor wird nicht aus dem Raum, wo dieser Orthogonal zu allen anderen Eigenvektoren ist, herausgebogen wird.
+
+\subsection{Unitäre Abbildungen}
+
+Wenn diese Reell sind, so sind diese Orthogonal.
+
+Eigenschaft: $U^*U=1$ (d.h. $U^{-1}=U^*$) $\implies UU^*=1$
+
+hat ebenfalls eine ONB aus Eigenvektoren; die Eigenwerte $\lambda_k$ haben den Betrag $|\lambda_k|=1$ (daher der Name)
+
+Zur Hilfe: $Ux=\lambda x$
+\begin{equation}
+    \begin{split}
+        \|Ux\|^2                 & =\|\lambda x\|^2=|\lambda|^2\|x\|^2                        \\
+        \langle Ux\mid Ux\rangle & =\langle x\mid U^*Ux\rangle=\langle x\mid x\rangle=\|x\|^2
+    \end{split}
+\end{equation}
+
+Beispiel in meinem Heft LA 19.02 Unitär.
+
+\subsection{Was können wir mit den selbstadjungierten machen?}
+
+$A=A*, \mathfrak{B}=\{b_1, \dots, b_n\}\implies B=[b_1, \dots, b_n]\implies B^*=B^{-1}$
+
+Koordinatentransformation von A
+
+\begin{equation}
+    \begin{split}
+        A=B
+        \begin{bmatrix}
+            \lambda_1 &        &           \\
+                      & \ddots &           \\
+                      &        & \lambda_n
+        \end{bmatrix}B^*\implies B^*AB=
+        \begin{bmatrix}
+            \lambda_1 &        &           \\
+                      & \ddots &           \\
+                      &        & \lambda_n
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            b_1^* \\b_2^*\\\vdots\\b_n^*
+        \end{bmatrix}[Ab_1, Ab_2, \dots, Ab_n]=
+        \begin{bmatrix}
+            \langle b_1\mid \lambda_1b_1\rangle &                                     \\
+            \langle b_2\mid \lambda_2b_1\rangle & \langle b_2\mid \lambda_2b_2\rangle
+        \end{bmatrix} =
+        \begin{bmatrix}
+            \lambda_1 & 0         \\
+            0         & \lambda_2
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\subsubsection{Quatriken}
+
+Kegelschnitte: Ellipse $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ und Hyperbel $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$.
+
+Dazwischen liegen die Parabeln.
+
+Allgemein können wir dies auch als Matrizen und Vektoren schreiben:
+
+\begin{equation}
+    \{x\in \mathbb{R}^2\mid \langle x\mid Ax\rangle+\langle b\mid x\rangle + c = 0\}=Q
+\end{equation}
+
+Diese kann umgewandelt werden unter der Annahme, dass $A=A^*$ gilt, zu: $a_1x^2+2a_2xy+a_4y^2+b_1x+b_2y+c=0$
+
+Zahlenbeispiel im Heft LA 19.02 Quatriken
+
+Mit der Eigenwerttheorie können wir in der neuen Basis $\mathfrak{B}$ und den Eigenwerten $\lambda$ die Gleichung entkoppeln.
+
+\begin{equation}
+    \lambda_1\tilde{x}^2+\lambda_2\tilde{y}^2+b1_B\tilde{x}+b2_b\tilde{y}+c
+\end{equation}
+
+\end{document}

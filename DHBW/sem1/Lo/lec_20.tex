@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 20, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Prädikatenlogik}
+
+\subsection{Klauselnormalform}
+
+Es werden sich die $\forall$-Quantoren gedacht und Die Formel besteht nur aus Klauseln.
+
+\subsubsection{Herbrand Universum und Satz}
+
+Satz: Eine Formel in Klauselnormalform ist genau dann erfüllbar, wenn es ein Modell $\langle U, I\rangle$ gibt, wobei $U$ das Herbrand-Universum ist und $I$ die Funktionssymbole als Konstruktoren interpretiert.
+
+Dies nennen wir: Herbrand-Interpretation
+
+\subsubsection{Substitution}
+
+Substitution machen wir mit der Funktion $\sigma$ oder $\tau$.
+
+Beispiel in dem Script mit Rechnung in meinem Heft Lo 20.02 Klauselnormalform
+
+Was fällt auf: Mehrere Klauselmenge, können auf das gleicher Ergebnis kommen. Zudem können Manche Klauselmengen ewig weiter Substituiert werden. Es gibt auch noch manche Klauselmengen, die kleiner werden können, da duplizierende Literale weggelassen werden können.
+
+\subsubsection{Instanzen}
+
+Wenn wir $\sigma$ auf Term $t$ anwenden, so ist die die Instanz.
+
+\subsubsection{Resolution}
+
+Da die Klauseln Allquantifiziert sind, können wir für die Variablen ein Gegenbeispiel einfügen, sodass die Klauselmenge unerfüllbar ist.
+
+So ist $C_1=p(X, a), C_2=\neg p(f(b), Y)$ unerfüllbar, wenn wir betrachten:
+
+\begin{center}
+    $\sigma=\{X\leftarrow f(b), Y\leftarrow a\}$
+\end{center}
+
+Dann ist die Klauselmenge $\{C_1, C_2\}$ unerfüllbar.
+
+\subsubsection{Unifiakoren}
+
+\know{Transformationssysteme}{Ist sinvoll im Skript zu markieren: auf S. 390}
+
+\end{document}

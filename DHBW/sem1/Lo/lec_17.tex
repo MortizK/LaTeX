@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Aussagenlogik}
+
+\subsection{Resolution}
+
+Ein Verfahren zum Nachweis der Unerfüllbarkeit einer Klauselmenge.
+
+Eine Klausel ist somit eine Menge $C_1=\{\neg c, \neg s\}$, wir aber dennoch Geschrieben als:
+
+\begin{center}
+    $C_1=\neg c \lor \neg s$
+\end{center}
+
+\subsubsection{Interpretationen}
+
+Eine Interpretation ist die Menge der Literalen, wo entweder $\neg p$ oder $p$ existiert für alle $p\in\Sigma$
+
+Eine Klausel ist wahr unter $I$, falls eines ihrer Literale in $I$ vorkommt.
+
+\subsubsection{Erfülbarkeit von Klauselmenge}
+
+Eine Klauselmenge ist erfüllbar, wenn die Interpretation für jede Klausel wahr ist.
+
+Der Umkehrschluss ist: Wenn eine der Klauseln die Leere Klausel ist, so ist die Klauselmenge unerfüllbar.
+
+\subsubsection{Resolutionsregel}
+
+\begin{center}
+    \begin{tabular}{c c}
+        $C\lor p$ \quad & \quad$D\lor \neg p$ \\
+        \hline
+        \multicolumn{2}{c}{$C\lor D$}         \\
+    \end{tabular}
+\end{center}
+
+Wir haben zwei Klauseln, welche eine gegenteilige Variable $p$ und $\neg p$ haben, wenn das der Fall ist, können wir einen neue Klausel bilden aus den beiden vorherigen ver-odert.
+
+\subsection{Spickzettel}
+
+Gefunden auf S.312 im \href{https://wwwlehre.dhbw-stuttgart.de/~sschulz/TEACHING/LGLI2024/Logic.pdf#page=549}{Script}
+
+\end{document}

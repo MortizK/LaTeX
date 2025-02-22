@@ -1,0 +1,106 @@
+\section{Relationen und Funktionen}
+
+\subsection{Allgemeine Eigenschaften von Relationen}
+
+\know{Relation}{Eine zweistellige Relation $R$ von $A\times B$:
+    \begin{center}
+        $R\subseteq A\times B$
+    \end{center}
+    Man sagt jedes $a\in A$ steht somit in Relation zu jedem $b\in B$}
+
+Ich kann mir Relationen also so verstehen, wie man sich das vorstellt. Somit den gleichen Ansatz wie Relationen in einer Datenbank.
+
+\subsection{Klassifikation von Relationen}
+
+\begin{tabular}{r l}
+    homogen         & $A=B$, alle hier müssen homogen sein!            \\
+    reflexiv        & Für alle $a\in A$ ist $[a, a]\in R$              \\
+    symmetrisch     & $[a, b]\in R$, gibt es auch $[b, a]\in R$        \\
+    antisymmetrisch & $[a, b]\in R \land [b, a]\in R$ folgt $a=b$      \\
+    transitiv       & $[a, b]\in R$, $[b, c]\in R$ folgt $[a, c]\in R$
+\end{tabular}
+
+Die weiteren müssen nicht unbedingt homogen sein:
+
+\begin{tabular}{r l}
+    linkstotal  & Für alle $a\in A$ gibt es ein $b\in B$, so dass $[a, b]\in R$       \\
+    rechtstotal & Für alle $b\in B$ gibt es ein $a\in A$, so dass $[a, b]\in R$       \\
+    funktional  & aus $[a, b]\in R$ und $[a, c]\in R$ folgt $b=c$                     \\
+    injektiv    & aus $[a, b]\in R$ und $[c, b]\in R$ folt $a=c$                      \\
+    bijektiv    & für alle $b\in B$ gibt es genau ein $a\in A$, so dass $[a, b]\in R$
+\end{tabular}
+
+Visualisieren kann man diese in Tabellen:
+
+\begin{center}
+    \begin{tabular}{c c c}
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 & 1 &   &   &   \\
+            2 &   & 1 &   &   \\
+            3 &   &   & 1 &   \\
+            4 &   &   &   & 1 \\
+        \end{tabular} &
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 &   & 1 &   &   \\
+            2 & 1 &   & 1 &   \\
+            3 &   & 1 &   & 1 \\
+            4 &   &   & 1 &   \\
+        \end{tabular} &
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 &   &   &   &   \\
+            2 & 1 &   &   &   \\
+            3 & 1 & 1 &   &   \\
+            4 &   &   &   &   \\
+        \end{tabular}    \\
+        reflexiv                   &
+        symmetrisch                &
+        transitiv                    \\
+        Diagonalen                 &
+        Spiegelbild                &
+        ZUgnetz                      \\\\
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 &   & 1 & 1 & 1 \\
+            2 & 1 &   &   &   \\
+            3 & 1 &   &   &   \\
+            4 &   &   & 1 &   \\
+        \end{tabular} &
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 &   &   &   & 1 \\
+            2 &   & 1 &   &   \\
+            3 & 1 &   & 1 &   \\
+            4 &   &   &   &   \\
+        \end{tabular} &
+        \begin{tabular}{c|c c c c}
+              & 1 & 2 & 3 & 4 \\
+            \hline
+            1 &   &   &   & 1 \\
+            2 &   & 1 &   &   \\
+            3 & 1 &   &   &   \\
+            4 &   &   &   & 1 \\
+        \end{tabular}    \\
+        linkstotal                 &
+        funktional                 &
+        injektiv                     \\
+        Jedes a                    &
+        Zeilen                     &
+        Spalten
+    \end{tabular}
+\end{center}
+
+\subsection{Äquivalenzrelationen}
+
+Eine Äquivalenzrelationen ist eine Relation, welche Reflexiv, Transitiv und Symmetrisch ist.
+
+\subsection{Verkettung von Relation und die inverse Relation}
+
+\subsection{Funktionen}

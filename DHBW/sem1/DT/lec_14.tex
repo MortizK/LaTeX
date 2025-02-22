@@ -1,0 +1,67 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 11, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Halbleitertechnik}
+
+\subsection{Speicherhierarchie}
+
+Es gibt verschieden Speicher welche je schnelle sie sind, sind sie auch kleiner und näher an der CPU. So din Register nur einzelne Bytes groß haben dafür eine Zugriffszeit von 1ns.
+
+Die Caches sind auch unterschiedlich groß und sorgen dafür, dass die geschwindigkeitsdifferenz zwischen RAM (Hauptspeicher) und CPU "überbrückt".
+
+\subsection{Begriffe}
+
+Umwandlungen und Größen.
+
+Es gibt die bekannten: kB, MB, GB. Diese sind aber in den 10er Potenzen.
+
+Es gibt aber auch die Kibi Bytes: KiB, MiB, GiB, welche auf basis der 2er Potenzen sind.
+
+\begin{center}
+    \begin{tabular}{c c|c c}
+        kB & $10^3$ & KiB & $2^{10}$ \\
+        MB & $10^6$ & MiB & $2^{20}$ \\
+        GB & $10^9$ & GiB & $2^{20}$ \\
+    \end{tabular}
+\end{center}
+
+\subsubsection{Zugriffszeit}
+
+\href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/834358/mod_resource/content/1/DT5mem.pdf#page=8}{Zugriffszeit}
+
+\subsubsection{Flüchtiger Speicher}
+
+Statischer Speicher: Speicherung durch Transistoren, mit SRAM, Dual-ported SRAM
+
+Dynamische Speicher: Speicherung durch einen Transistor und einem Kondensator, welcher immer wieder aufgefrischt werden muss. Bausteine: DRAM, SDRAM, DDR-SDRAM
+
+\subsection{SRAM}
+
+Eine \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/834358/mod_resource/content/1/DT5mem.pdf#page=10}{Typische SRAM-Zelle} besteht aus FET-Transistor. Dieser hat drei Eingänge: Gate, Source, Drain. Wenn Gate gesetzt ist, so gilt Source = Drain. Bei Gate=0 sind diese beiden getrennt.
+
+\subsubsection{Architektur}
+
+Diese Speicherzellen werden in Worten mit Wortlänge $n$ Organisiert. Jedes Wort ist dann eine Zeile in einer Speichermatrix $m\times n$. Die Zielen lassen sich über einen Adressdecoder auslesen lassen.
+
+Es gibt dann verschieden Eingaben, um auf diesen Speicher zuzugreifen: Lesen und Schreiben geht nur getrennt/ nacheinander.
+
+\subsubsection{Tristate-Treiber}
+
+\href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/834358/mod_resource/content/1/DT5mem.pdf#page=17}{Tristate-Treiber} haben drei Zustände:
+
+\begin{enumerate}
+    \item G=0, Treiber nicht aktiv und Y ist offen (hochohmig)
+    \item G=1, Treiber ist aktiv und Y=X mit X=1
+    \item G=1, Treiber ist aktiv und Y=X mit X=0
+\end{enumerate}
+
+\end{document}

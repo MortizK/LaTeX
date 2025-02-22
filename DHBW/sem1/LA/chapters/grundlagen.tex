@@ -1,0 +1,204 @@
+\section{Grundlagen}
+
+\subsection{Aussagenlogik}
+
+\know{Aussagen}{Wir können Aussagen als Sprachliches Konstrukt bauen. Und diese dan durch Nachdenken als entweder wahr oder falsch bestimmen. Wichtig: Manche Aussagen sind bis heute nicht bewiesen worden und es gibt keinen wiederspruch.}
+
+\begin{center}
+    \begin{tabular}{c c|c|c|c|c|c}
+        $A$ & $B$ & $\neg A$ & $A\land B$ & $A\lor B$ & $A\implies B$ & $A\iff B$ \\
+        \hline
+        0   & 0   & 1        & 0          & 0         & 1             & 1         \\
+        0   & 1   & 1        & 0          & 1         & 1             & 0         \\
+        1   & 0   & 0        & 0          & 1         & 0             & 0         \\
+        1   & 1   & 0        & 1          & 1         & 1             & 1         \\
+    \end{tabular}
+\end{center}
+
+\know{Tautologie}{Sind Aussagen, die immer wahr sind. Es gibt auch das Gegenstück.}
+
+\subsubsection{De Morgansche Regeln}
+
+\begin{enumerate}[i.]
+    \item $\overline{A\land B}\iff\overline{A}\lor\overline{B}$
+    \item $\overline{A\lor B}\iff\overline{A}\land\overline{B}$
+    \item $A\land(B\lor C)\iff(A\land B)\lor(A\land C)$
+    \item $A\lor(B\land C)\iff(A\lor B)\land(A\lor C)$
+\end{enumerate}
+
+\subsubsection{Aussageformen}
+
+\begin{center}
+    \begin{tabular}{r l}
+        $\exists_{x\in X}{P(x)}$ & Es existiert ein $x$ aus $X$, für das $P(x)$ gilt. \\
+        $\forall_{x\in X}{P(x)}$ & Für alle $x$ aus $X$ gilt $P(x)$.
+    \end{tabular}
+\end{center}
+
+Somit können wir Mathematische Aussagen treffen, wie:
+
+\begin{equation}
+    A:= \forall_{n\in \mathbb{N}}{D(n)}= \forall_{n\in \mathbb{N}}{1+2+3\dots n = \frac{1}{2}n*(n+1)}
+\end{equation}
+
+Quantoren lassen sich auch negieren. Hierzu muss nur der Quantor umgetauscht werden und die Aussage negiert werden.
+
+\subsection{Mengen}
+
+Mengen lassen sich durch das Angeben ihrer Elemente Darstellen:
+
+\begin{center}
+    $M_1=\{1, 2, 3, 4, 5, 6\}$
+\end{center}
+
+\begin{center}
+    \begin{tabular}{c l}
+        $m\in M$       & Das Element $m$ gehört zur Menge $M$         \\
+        $\in$          & gehört zu                                    \\
+        $\notin$       & gehört nicht zu                              \\
+        $A\subseteq B$ & $A$ ist eine Teilmenge von $B$               \\
+        $A\subset B$   & $A$ ist eine Teilmenge von $B$ und kleiner   \\
+        $A=B$          & dann gilt: $A\subseteq B$ und $B\subseteq A$ \\
+    \end{tabular}
+\end{center}
+
+\know{Abhängige Menge}{Wir können Menge auch beschreiben, indem wir von bekannten Mengen aussgehen, wie z.B. von der Menge der Natürlcihen Zahlen $\mathbb{N}$
+    \begin{center}
+        $A=\{a\in \mathbb{N}\mid P(a)\}$
+    \end{center}}
+
+Mit diesem Wissen lassen sich alle Geraden Zahlen darstellen:
+
+\begin{center}
+    $G:=\{n\in \mathbb{N}\mid \exists_{k\in \mathbb{N}}{n=2k}\}$
+\end{center}
+
+\subsubsection{Intervalle}
+
+Intervalle sind eine Bestimmte Art von Mengen.
+
+\begin{center}
+    $I:=\{x\in \mathbb{R}\mid a\leq x\leq b\}$
+\end{center}
+
+\begin{equation}
+    \begin{split}
+        [a, b]       & := \{x\in \mathbb{R}\mid a\leq x\leq b\} \\
+        [a, b)       & := \{x\in \mathbb{R}\mid a\leq x < b\}   \\
+        (-\infty, b] & := \{x\in \mathbb{R}\mid x\leq b\}       \\
+        (-\infty, b) & := \{x\in \mathbb{R}\mid x < b\}
+    \end{split}
+    \quad
+    \begin{split}
+        (a, b)      & := \{x\in \mathbb{R}\mid a < x < b\}   \\
+        (a, b]      & := \{x\in \mathbb{R}\mid a < x\leq b\} \\
+        [a, \infty) & := \{x\in \mathbb{R}\mid a\leq x\}     \\
+        (a, \infty) & := \{x\in \mathbb{R}\mid a < x\}
+    \end{split}
+\end{equation}
+
+Abgeschlossene Intervalle haben Grenzen $[a, b]$, offene nicht. Zudem sind diese beschränkt, anders als $[a, \infty)$, welches unbeschränkt ist.
+
+\know{Konstruktionsvorschrift}{Bei Aufwändigeren Menge, wie die Mersenne Zahlen: $M:=\{x\in \mathbb{R}\mid \exists_{k\in \mathbb{R}{n=2^k-1}}\}$. Diesen Schreibaufwand können wir uns nun sparen:
+    \begin{center}
+        $M:=\{2^k-1\mid k\in \mathbb{R}\}$
+    \end{center}}
+
+\subsubsection{Produktmenge}
+
+Die Produktmenge beschreibt eine Menge, $A\times B$ wo alle Kombinationen von $a\in A$ und $b\in B$ gelten. Wir schreiben:
+
+\begin{center}
+    $A\times B:={[a, b]\mid a\in A\land b\in B}$
+\end{center}
+
+Zur Vorstellung hilft es sich zwei Intervalle vorzustellen und diese im Koordinatensystem zu markieren:
+
+\begin{figure}[ht]
+    \centering
+    \incfig{produktmenge}
+    \caption{produktmenge}
+    \label{fig:Prdouktmenge}
+\end{figure}
+
+\subsubsection{Mengenlogik}
+
+\begin{center}
+    \begin{tabular}{r l l l}
+        $A\cap B$ & $:=\{x\in X\mid x\in A \lor x\in B\}$     & Durchschnitt    \\
+        $A\cup B$ & $:=\{x\in X\mid x\in A \land x\in B\}$    & Vereinigung     \\
+        $A^c$     & $:=\{x\in X\mid \neg x\in A\}$            & Komplement      \\
+        $A/ B$    & $:=\{x\in X\mid x\in A \land x\notin B\}$ & Mengendifferenz \\
+    \end{tabular}
+\end{center}
+
+Der Durchschnitt sind die Gemeinsamkeiten der beiden Mengen. Die Vereinigung sind alle Elemente aus $A$ und $B$. Das Komplement sind alle Elemente außer in der Menge. Die Mengendifferenz sind alle Elemente aus $A$, ohne die gemeinsamen Elemente mit $B$.
+
+\know{De Morgansche Regeln}{Es gelten die Gleichen Rechenregeln wie in der Aussagenlogik, so zeigt sich, dass das Komplement $A^c$ gleichwertig ist mit dem $\overline{A}$.
+    \begin{center}
+        $(A\cup B)^c=A^c\cap B^c$
+    \end{center}}
+
+\subsubsection{Die Natürlichen Zahlen $\mathbb{N}$}
+
+Die Natürlichen Zahlen bauen vollständig auf der leeren Menge auf. So ist die $0:=\emptyset$ und die $1:=\{\emptyset\}$ und die $2:=\{\emptyset, \{\emptyset\}\}$ usw. Das allgemeine Verfahren:
+
+\begin{center}
+    $n'=n\cup \{n\}$
+\end{center}
+
+\subsubsection{Vollständige Induktion}
+
+Wir können mit zwei Eigenschaften einer Menge zeigen, dass diese eine Teilmenge von $\mathbb{N}$ ist.
+
+\begin{enumerate}[I]
+    \item $1\in M$
+    \item $n\in M \implies n + 1 \in M$
+\end{enumerate}
+
+Aus diesen Beiden Eigenschaften können wir folgern, dass $M=\mathbb{N}$ gilt. Nun gibt es für jedes $n\in \mathbb{N}$ eine Aussage $A_n$. Dies können wir beweisen, indem wir die beiden Eigenschaften $I$ und $II$ beweisen.
+
+\textbf{Beweis:} $1+2+\dots+n=\frac{1}{2}n(n+1)$
+
+\begin{center}
+    \begin{tabular}{r l}
+        $n=1$:      & $1=\frac{1}{2}*1(1+1)$ was off. wahr ist       \\
+        $n\to n+1$: & z.z. $1+2+\dots+n+(n+1)=\frac{1}{2}(n+1)(n+2)$ \\
+    \end{tabular}
+\end{center}
+
+\begin{equation}
+    \begin{split}
+        1+2+\dots+n+(n+1) & _{=}^{IV} \frac{1}{2}n(n+1)+(n+1)       \\
+                          & = \frac{1}{2}n(n+1)+1*(n+1)             \\
+                          & = \frac{1}{2}n(n+1)+2*\frac{1}{2}*(n+1) \\
+                          & = \frac{1}{2}(n+1)(n+2)
+    \end{split}
+\end{equation}
+
+\subsubsection{Binomischer Lehrsatz}
+
+\begin{center}
+    $\binom{n}{k}:=\frac{n!}{k!(n-k)!}$
+\end{center}
+
+Hierbei muss beachtet werden, dass $n!$ für $0!=1$ definiert ist. Für $1\leq k\leq n$ gilt zusätzlich die Konstruktionsvorschrift.
+
+\begin{center}
+    $\binom{n+1}{k}=\binom{n}{k-1}+\binom{n}{k}$
+\end{center}
+
+Diese lässt sich visuell am Pascalschem Dreieck erkennen. Denn dort entsteht Jede folgende Zahl aus den beiden diagonal darüberlegenden Zahlen.
+
+\begin{center}
+    \begin{tabular}{c c c c c c c c c c c}
+          &   &   &   &    & 1 &    &   &   &   &   \\
+          &   &   &   & 1  &   & 1  &   &   &   &   \\
+          &   &   & 1 &    & 2 &    & 1 &   &   &   \\
+          &   & 1 &   & 3  &   & 3  &   & 1 &   &   \\
+          & 1 &   & 4 &    & 6 &    & 4 &   & 1 &   \\
+        1 &   & 5 &   & 10 &   & 10 &   & 5 &   & 1 \\
+    \end{tabular}
+\end{center}
+
+Es wird auch deutlich, dass die Summe alle Binomialkoeffizienten $2^n$ sein muss, da sich mit jeder Ebene der Gesamtwert verdoppelt.

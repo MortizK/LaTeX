@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Digitaltechnik}
+\author{Moritz}
+\date{February 19, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Wandlung Digital $\Leftrightarrow$ Analog}
+
+\subsection{Analog-Digital-Umwandlung}
+
+\subsubsection{Kompensationsverfahren}
+
+Ist ein näherungsverfahren, welches das aktuelle Digitale Signal in das Analoge umwandelt ($U_K$). Dieses $U_K$ wird mit dem Eingangssignal $U_E$ verglichen. Der Spannungsunterschied steuert die Geschwindigkeit des Zählers. Sollte $U_K>U_E$ sein, so zählt der Zähler Rückwerts.
+
+Die Schaltung braucht einen DA-Wandler um einen AD-Wandel zu bauen, ist dafür aber schnell und hat für ein Vergrößerung der Wortbreite einen geringen Aufwand.
+
+\section{Schaltkreistechnik}
+
+\subsection{Diode}
+
+Haben Drei Bereiche:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        p-dotiert        & Raumladungszone & n-dotiert  \\
+        Elektronenlöcher &                 & Elektronen \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Je-nachdem, wie rum wir Strom an eine Diode anschließen, sperren wir diese oder Strom fließt.
+
+Bei Silizium ist der Widerstand von der Diode $U_S=0,7V$, somit fließt Strom, wenn wir eine Spannung $>0,7V$ schalten.
+
+\subsubsection{Gatter bauen mit Dioden}
+
+Wir können ODER und UND-Gatter mit Dioden bauen. Ein ODER Gatter ist Erstmal einfacher zu verstehen:
+
+Hier schaltet eine der Beiden Dioden die 5V durch, und wenn keine Durchschaltet, so gibt es einen PullDown wiederstand, der mit GND verbunden ist.
+
+\subsubsection{Bipolar-Transistor}
+
+Sperren, wenn die Eingangsspannung <= Emitterspannung und schaltet durch, wenn nicht.
+
+Mit diesen lassen sich auch Schaltungen bauen. Diese nennt man TTL Schaltungen.
+
+\subsection{Transistor-Transistor-Logik (TTL)}
+
+Verbrauchen relativ viel Strom, da beim durchschalten von Transistoren viel Strom fließt.
+
+\subsubsection{Familien}
+
+Es gibt verschiedenen Familien: 74xx, 74LSxx, 74ALSxx, 74Fxx, 74ASxx
+
+Die Abkürzungen stehen für: Standard, Low Power Schottky, Advanced LS, Fast, Advanced Schottky
+
+Diese haben zwischen Geschwindigkeiten, Stromverbrauch und einiges mehr abwägen, welche Familie benutzt wird.
+
+\subsection{Feldeffekttransistor}
+
+\subsubsection{MOS-FET}
+
+Es geht ums sperren und leiten. Es gibt aber den Unterschied zwischen selbstsperrenden MOS-FETs als p-Kanal (-) oder n-Kanal (+).
+
+\subsubsection{CMOS}
+
+Hier werden beide Arten von MOS-FETs benutzt. Also sowohl p-Kanal als auch n-Kanal.
+
+Vorteil: Braucht nur Strom um den Zustand zu ändern.
+
+\subsubsection{Familien}
+
+Wieder mit ihren verschiedenen Vor-und Nachteile, von Geschwindigkeit und Spannung.
+
+\end{document}
