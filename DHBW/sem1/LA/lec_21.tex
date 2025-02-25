@@ -1,0 +1,89 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Lineare Algebra}
+\author{Moritz}
+\date{February 25, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Matrizen/ Spektrum}
+
+\subsection{Normale Matrix}
+
+Def.: $A$ heißt normal, falls: $A^*A=AA^*$
+
+Beispiel: Unitäre Abbildungen: $U^*=U^{-1}\iff U^*U=1 (=UU^{-1}=UU^*)$
+
+\begin{equation*}
+    f(A):=B
+    \begin{bmatrix}
+        f(\lambda_1) &              &        &              \\
+                     & f(\lambda_2) &        &              \\
+                     &              & \ddots &              \\
+                     &              &        & f(\lambda_n)
+    \end{bmatrix}B^*
+\end{equation*}
+
+\subsubsection{Theorem}
+
+Jede normale Lineare Abbildung hat eine ONB aus Eigenvektoren.
+
+Lemma: $A=A^* \land B=B^* \land AB=BA \implies \exists $ gemeinsame ONB aus Eigenvektoren. Für zwei selbstadjungierte lin. Abbildungen $A$ und $B$, die miteinander vertauschen gibt es einen Gemeinsame ONB aus Eigenvektoren.
+
+\subsubsection{Idee}
+
+spezielle Situation: $A\times x = \lambda x$, somit $x$ ist einfacher EV zu $\lambda$
+
+Was ist mit $Bx$?
+
+\begin{equation*}
+    ABx=BAx=B\lambda x=\lambda Bx\implies Bx=\gamma x
+\end{equation*}
+
+Was ist, wenn wir nicht nur einen Eigenvektor haben? Wir müssen unsere Folgerung ändern: $\implies Bx $ ist EV con $A$ zu $\lambda$
+
+\subsubsection{Eigenraum}
+
+$H_\lambda:=\{x\in V \mid Ax=\lambda x\}$ Teilraum von $H$ $(A: H \to H)$ mit typischerweise $\mathbb{C}^n$
+
+Dann: $\lambda\neq\gamma\implies H_\lambda \bot H_\gamma$
+
+$sp(A)=\{\lambda_1, \dots, \lambda_k\}$ $H=H_{\lambda_1}\oplus H_{\lambda_2}\oplus \dots\oplus H_{\lambda_k}$
+
+\begin{equation*}
+    x\in H_{\lambda_1}\implies Bx\in H_{\lambda_1}
+\end{equation*}
+
+Das heißt $B:H_{\lambda_1}\to H_{\lambda_1}\implies$ es gibt ONB $\mathcal{B}_1$ aus EVen von $B$ für $H_{\lambda_1}$
+
+Es gibt ONB aus EVen von $B$ für $H_{\lambda_k}: \mathcal{B}_k$
+
+\subsubsection{Beweis von Theorem}
+
+Rechnung auf Heft II LA 25.02. unter Theorem.
+
+$A_1A_2=A_2A_1\implies$ es gibt gemeinsame Basis aus EVen $\mathcal{B}=\{b_1, ..., b_n\}$
+
+\begin{equation*}
+    A_1b_1=\lambda_1b_1, A_2b_1=\gamma_1b_1\implies Ab_1 = A_1b_1+iA_2b_1=\lambda_1b_1+i\gamma_1b_1=(\lambda_1+i\gamma_1)b_1
+\end{equation*}
+
+Dies gilt für alle Indexe und wir schließen: $\implies \mathcal{B}$ ist ONB aus EVen von A.
+
+\subsubsection{Wichtigstes Beispiel}
+
+Unitäre Abbildung: $U^*U=1\implies U^*=U^{-1}\implies U^*U=1=UU^{-1}=UU^*$. Es existiert ONB aus EVen
+
+Eigenwerte haben den Betrag 1:
+
+\begin{align*}
+    Ux= \lambda x:
+     & \|Ux\|^2=\|\lambda x\|^2=|\lambda|^2\|x\|^2                                        \\
+     & \langle Ux\mid Ux\rangle=\langle U^*Ux\mid x\rangle=\langle x\mid x\rangle=\|x\|^2
+\end{align*}
+
+\end{document}
