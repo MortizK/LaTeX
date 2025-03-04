@@ -49,9 +49,9 @@ Skalarprodukt: Dies ermöglicht den Winkel zwischen zwei Vektoren zu bestimmen.
 
 Mithilfe des Kosinussatzes $c^2=a^2+b^2-2ab\cos(\gamma)$ und etwas umformen erhalten wir die einfache Form vom Skalarprodukt:
 
-\begin{equation}
+\begin{equation*}
     \langle x\mid y\rangle = x_1y_1+x_2+y_2+x_3y_3
-\end{equation}
+\end{equation*}
 
 Eigenschaften des Skalarproduktes:
 
@@ -63,9 +63,9 @@ Eigenschaften des Skalarproduktes:
 
 Um nun den Winkel $\alpha$ zu bestimmen, stellen wir nach $\cos(\alpha)$ um:
 
-\begin{equation}
+\begin{equation*}
     \cos(\alpha)=\frac{\langle x\mid y\rangle}{\|x\|*\|y\|}
-\end{equation}
+\end{equation*}
 
 \know{Senkrecht: $\langle x\mid y\rangle=0$}{Wenn das Skalarprodukt gleich $0$ ist, so stehen die beiden Vektoren seknrecht aufeinander. Dies wird auch Orthogonal genannt:
     \begin{center}
@@ -76,14 +76,14 @@ Um nun den Winkel $\alpha$ zu bestimmen, stellen wir nach $\cos(\alpha)$ um:
 
 Das Kreuzprodukt zweier Vektoren $x$ und $y$ resultiert in einem Vektor, welche Senkrecht zur $x$ und $y$ ist.
 
-\begin{equation}
+\begin{equation*}
     x\times y:=
     \begin{bmatrix}
         x_2y_3 - x_3y_2 \\
         x_3y_1 - x_1y_3 \\
         x_1y_2 - x_2y_1 \\
     \end{bmatrix}
-\end{equation}
+\end{equation*}
 
 Eigenschaften
 
@@ -120,17 +120,17 @@ Und unser $d=\langle p\mid n_0\rangle$, wo $p$ unser Punkt in der Ebene ist.
 
 Da das Skalarprodukt eine Projektion von einem Vektor $y$ auf $x$ ist, können wir wenn wir einen Punkt (Vektor) auf den Normalvektor projektieren, den Abstandsvektor bestimmen und dessen Norm (Länge) ist die Lösung:
 
-\begin{equation}
+\begin{equation*}
     d(y, E):=\frac{1}{\|n\|}*|\langle x\mid n_0\rangle-\langle p\mid n_0\rangle|
-\end{equation}
+\end{equation*}
 
 \subsubsection{Abstand: Punkt zur Geraden}
 
 Wir haben einen Punkt $q$ und eine Gerade $g:=\{p+tu\mid t\in \mathbb{R}\}$. Wenn $\|u\|=1$ und somit $u$ die Länge 1 hat, ist die Fläche von dem Parallelograms gleich der Fläche von dem Abstand $d(q, g) * \|u\|$. Da $\|u\|=1$ ist die Fläche gleich dem Wert von $d(q, g)$.
 
-\begin{equation}
+\begin{equation*}
     d(q, g)=\|u\times(q-p)\|
-\end{equation}
+\end{equation*}
 
 Siehe \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=91}{Abbildung 5.9} im Skriptum
 
@@ -175,10 +175,10 @@ Nun bestehen Zahlen in $\mathbb{C}$ aus einem Reellen Part und einem Imaginärem
 
 \subsubsection{Rechnregeln}
 
-\begin{align}
+\begin{align*}
     (z_1+iz_2)\pm(w_1+iw_2) & =z_1\pm w_1 + i(z_2\pm w_2)        \\
     (z_1+iz_2)(w_1+iw_2)    & =z_1w_1 -z_2w_2 + i(z_1w_2+z_2w_1)
-\end{align}
+\end{align*}
 
 \subsubsection{Gaussche Zahlenebene}
 
@@ -234,9 +234,9 @@ Wir können uns leicht davon überzeugen, dass es für die n-te Wurzel n Lösung
 
 Für die Einheitswurzeln, also $=1$ lassen sich nach:
 
-\begin{equation}
+\begin{equation*}
     u_p:=e^{ip*\frac{2\pi}{n}}
-\end{equation}
+\end{equation*}
 
 Wenn wir nun $u_p^n$ bilden wird schnell klar, dass alle Lösungen $=1$ sein müssen.
 
@@ -265,9 +265,9 @@ Die Kardanische Formel bestehen aus mehreren Schritten und funktionieren in der 
     \item $p$ und $q$ bestimme mit: $p=c-\frac{1}{3}b^2$ und $q=\frac{2}{27}b^3-\frac{1}{3}bc+d$
     \item Die Diskriminante bestimme: $\Delta=(\frac{p}{3})^3+(\frac{q}{2})^2$
     \item Wenn $\Delta>0$ ist, so gibt es eine Reelle Lösung:
-          \begin{equation}
+          \begin{equation*}
               x_1:=\sqrt[3]{\sqrt{\Delta}-\frac{q}{2}}-\sqrt[3]{\sqrt{\Delta}+\frac{q}{2}}-\frac{b}{3}
-          \end{equation}
+          \end{equation*}
     \item Die anderen Fallunterscheidungen der Diskriminante sind im \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=100}{Skriptum}
 \end{enumerate}
 

@@ -53,14 +53,108 @@ Vorgerechnete Aufgaben in dem Korrekten Klausuraufschrieb.
 
 \section{Eigenwerttheorie}
 
-% Hier wird weitergearbeitet !
-
 \subsection{Spektrum und Eigenvektoren}
 
+Im allgemeinem Suchen wir einen Vektor, welche durch unsere Abbildung $A$ nur gestreckt wird:
+
+\begin{equation*}
+    \exists x\neq 0(Ax=\lambda x)
+\end{equation*}
+
+So ein Vektor $x$ heißt \textbf{Eigenvektor} von $A$ und das $\lambda$ heißt \textbf{Eigenwert}.
+
+\know{Rechenansatz}{Wir können überprüfen, ob es welche gibt:
+    \begin{center}
+        $det(A-\lambda 1)=0$
+    \end{center}
+    heißt auch \textbf{charakteristische Polynom} von $A$}
+
+Die Nullstellen dieses Polynoms sind die Eigenwerte. Mit diesen lassen sich die Eigenvektoren so berechnen:
+
+\begin{equation*}
+    (A-\lambda 1)x=0
+\end{equation*}
+
+\subsubsection{Charakteristische Polynom}
+
+Für die Matrix $A=\begin{bmatrix}
+        11 & -2 \\
+        3  & 4
+    \end{bmatrix}$:
+
+\begin{align*}
+    det\begin{bmatrix}
+           11 - \lambda & -2         \\
+           3            & 4 -\lambda
+       \end{bmatrix}
+     & =(11-\lambda)(4-\lambda)+6    \\
+     & = \lambda^2-15\lambda+50      \\
+     & = (\lambda-5)(\lambda-10) = 0
+\end{align*}
+
+Somit sind die Eigenwerte $5$ und $10$. Hier für $5$: $\begin{bmatrix}
+        6 & -2 \\
+        3 & -1
+    \end{bmatrix}$.
+
+Hierfür Rechnen wir eine Lösung aus $6x_1-2x_2=0$ und wählen ein beliebiges $x_2$ hier $x_2=3$. Somit ist ein Eigenvektor $[1, 3]^t$.
+
+Eigenvektoren zu verschieden Eigenwerte sind Linear Unabhängig. Beweis im \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=194}{Skriptum}.
+
 \subsection{Selbtsadjungierte lineare Abbildungen}
+
+Eine Selbtsadjungierte Matrix $A$ ist eine Matrix, welche seine eigen Adjungierte ist. So gilt für Quadratische Matrizen:
+
+\begin{center}
+    $A=A^*$
+\end{center}
+
+Hier müssen die Diagonal-Elemente Reell sein. Wenn sie Imaginär wären, so würde diese zu ihrem Konjugiert Komplex beim adjungieren wechseln.
+
+\begin{equation*}
+    \begin{bmatrix}
+        a_{11}            & a_{12}            & \dots  & a_{1n} \\
+        \overline{a_{12}} & a_{22}            & \dots  & a_{2n} \\
+        \vdots            & \vdots            & \ddots & \vdots \\
+        \overline{a_{1n}} & \overline{a_{2n}} & \dots  & a_{nn}
+    \end{bmatrix}
+\end{equation*}
+
+Eigenvektoren zu Verschieden Eigenwerten $\lambda, \gamma$ sind Orthogonal zueinander.
+
+\begin{align*}
+    \langle Ax\mid y\rangle = \langle x\mid Ay\rangle              \\
+    \langle \lambda x\mid y\rangle = \langle x\mid \gamma y\rangle \\
+    \lambda\langle x\mid y\rangle = \gamma\langle x\mid y\rangle   \\
+    \implies (\lambda - \gamma)\langle x\mid y\rangle = 0
+\end{align*}
+
+Da $\lambda - \gamma \neq 0$, so müssen $x, y$ orthogonal zueinander sein.
+
+\subsubsection{ONB}
+
+Für jede Selbtsadjungierte Lineare Abbildung $A$ gibt es eine ONB aus dessen Eigenvektoren von $A$.
+
+Beweis mithilfe von Induktion über die Dimension des Vektorraums im \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/stgt-math_20250130.pdf#page=196}{Skriptum}.
+
+\subsubsection{Projektionen}
+
+Wir haben nicht über Projektionen geredet.
 
 \subsection{Funktionalkalkül}
 
 \subsection{Normale Abbildungen}
+
+Eine Abbildung ist Normal, falls $AA^*=A^*A$ gilt. So lassen sich $A$ und $A^*$ tauschen.
+
+Ist der Stoff vom 25.02.2025 mit dem Theorem. Nutzen ist mir noch Unklar.
+
+\section{Hauptachsentransformation}
+
+\subsection{Kegelschnitte}
+
+\subsection{Quadratische Formen}
+
+\subsection{Quadriken}
 
 \end{document}
