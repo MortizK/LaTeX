@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Logik}
+\author{Moritz}
+\date{February 26, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Prädikatenlogik}
+
+\subsection{Resolutionskalkül}
+
+Fast nur Übungen Gemacht, sind in Heft 2 unter Lo 26.02 Resolution.
+
+Beispiel aus seinem \href{https://wwwlehre.dhbw-stuttgart.de/~sschulz/TEACHING/LGLI2024/Logic.pdf#page=813}{Skriptum}
+
+Resolution:
+
+\begin{tabular}{l c l}
+    $\neg hat(john, Y)\lor\neg k(Y)\lor\neg m(maus)$ & 2+6  & $\{X\leftarrow john, Z\leftarrow maus\}$ \\
+    $\neg hat(john, Y)\lor\neg k(Y)$                 & 9+8  & $\{\}$                                   \\
+    $\neg k(tier)$                                   & 10+4 & $\{Y\leftarrow tier\}$                   \\
+    $h(tier)$                                        & 11+7 & $\{\}$                                   \\
+    $l(tier)$                                        & 12+1 & $\{X\leftarrow tier\}$                   \\
+    $\neg e(X)\lor\neg hat(X, tier)$                 & 13+3 & $\{Y\leftarrow tier\}$                   \\
+    $\neg e(john)$                                   & 14+4 & $\{X\leftarrow john\}$                   \\
+    $\Box$                                           & 15+5 & $\{\}$                                   \\
+\end{tabular}
+
+\subsubsection{Resolution und Induktion}
+
+\begin{equation*}
+    p(0)\land\forall X(p(X)\to p(s(X))) \models p(s(s(0)))
+\end{equation*}
+
+Mit der Negiertem Erwartung $\neg p(s(s(0)))$ und den Klauseln aus dem vorderem Teil lässt sich Resolution durchführen.
+
+Diese s-Türme lassen sich weiterführen und wir beweisen Induktion.
+
+\section{Abschluss}
+
+Die Zusammenfassung an Themen sind im Skriptum ab S. 562
+
+\begin{enumerate}
+    \item Mengenlehre
+    \item Scheme: Unterschied cons und append
+    \item Aussagenlogik
+    \item Prädikatenlogik: Unifikation und Resolution
+\end{enumerate}
+
+\end{document}
