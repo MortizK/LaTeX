@@ -1,0 +1,90 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 6, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+\begin{align*}
+    (x_n)_n\in \mathbb{N} & : x_1, x_2, x_3, \dots                                            \\
+    \sqrt{2}              & = 1.4142315\dots < 1.5                                            \\
+    x_1 = 1, x_2          & = 1.4, x_3 = 1.41, x_4 = 1.414, \dots                             \\
+    a_1 = 1, a_2          & = 0.4, a_3 = 0.01, a_4 = 0.004, \dots                             \\
+    x_1 = a_1, x_2        & = x_1 + a_2, x_3 = x_2 + a_3, x_n=\sum_{k=1}^{n}a_k \text{ Reihe}
+\end{align*}
+
+Es gibt 2 Wege $\mathbb{Q}\to \mathbb{R}$:
+
+\begin{enumerate}
+    \item DEDEKINDsche Schnitte:
+          Wir bilden Menge welche den obersten Wert haben welcher z.B. $\sqrt{2}$ darstellt. $\{x\in \mathbb{Q}\mid x^2\leq 2\}$
+    \item Vervollständigung:
+          $\sqrt{2}= (1.41, 1.414, \dots)$
+    \item Vollständigkeitsaxiom:
+          Wenn wir eine Menge haben, brauchen wir nur eine obere Schranke, diese muss nicht besonders gut sein.
+          Axiom besagt, wenn es eine obere Schranke gibt, wird es eine kleinste obere Schranke geben
+\end{enumerate}
+
+\textbf{Vorstellung konvergenter Folgen}
+
+$x: \mathbb{N}\to \mathbb{R}, n\to x_n$ Kann ich mir auch so vorstellen, wie eine Punkte Plot welche für $\sqrt{2}$ wie eine logarithmisches Wachstum nur halt nicht ins unendliche.
+
+\subsection{Grenzwertbegriff}
+
+\know{Fast alle ...}{Bedeutet es gibt nur endlich viele und somit auch ein letztes Element, welches die Bedingung nicht erfüllt und alle danach weren die Bedingung erfüllen}
+
+Reelle Folge: fast alle $x_n$ liegen in $(x-\epsilon, x+\epsilon)$
+
+d.h. alle, bis auf endliche viele
+
+d.h. es gibt ein $n_\epsilon$, sodass $x_n\in (x-\epsilon, x+\epsilon)$ für alle $n\geq n_\epsilon$
+
+d.h. f.a. $n\geq n_\epsilon$ $\mid x-x_n\mid <\epsilon$
+
+d.h. es gibt ein $n_\epsilon\in \mathbb{N}$, sodass für alle $n\geq n_\epsilon$ $\mid x-x_n\mid <\epsilon$. Für welche?
+
+\subsubsection{Definition}
+
+Für alle $\epsilon > 0$ gibt es ein $n_\epsilon\in \mathbb{N}$, sodass für alle $n\geq n_\epsilon$ gilt
+
+\begin{center}
+    $\mid x-x_n\mid <\epsilon$
+\end{center}
+
+Dann heißt die Folge $(x_n)_{n\in \mathbb{N}}$ gegen x konvergent. Notation:
+
+\begin{align*}
+    \lim_{x\to\infty} x_n = x       \\
+    x_n \xrightarrow{n\to \infty} x \\
+    \forall_{\epsilon>0}\exists_{n_\epsilon\in \mathbb{N}}\forall_{n\geq n_\epsilon} \mid x-x_n\mid<\epsilon
+\end{align*}
+
+\textbf{Eindeutigkeit des Grenzwertes (Idee)}
+
+Annahme, es gibt zwei vermutete Grenzwerte. Somit müssten in zwei Umgebungen fast alle Punkte liegen. Da wir zwei Umgebungen annehmen, müssten in beiden "fast alle" Punkte liegen. Dies ist ein Wiederspruch.
+
+\subsubsection{Rechenregeln}
+
+Wir können konvergente Folgen miteinander addieren, subtrahieren, multiplizieren, dividieren, usw. Hierbei können wir auf die Grenzwerte die Gleichen Operatoren anwenden und bekommen den richtigen Grenzwert.
+
+\textbf{Satz (Rechenregeln konvergenter Folgen)}
+
+gegeben $x_n\xrightarrow{n\to\infty}x, y_n\xrightarrow{n\to\infty}y$. Dann gilt:
+
+\begin{enumerate}[i.]
+    \item $x_n\pm y_n \xrightarrow{n\to\infty}x\pm y$
+    \item $x_n * y_n \xrightarrow{n\to\infty}x * y$
+    \item $y\neq 0$: $x_n / y_n \xrightarrow{n\to\infty}x / y$
+    \item $y\geq 0$: $\sqrt{x_n} \xrightarrow{n\to\infty} \sqrt{x}$
+\end{enumerate}
+
+\subsection{Reihen}
+
+\end{document}
