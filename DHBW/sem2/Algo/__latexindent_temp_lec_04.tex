@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Algorithmen}
+\author{Moritz}
+\date{May 14, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Komplexität}
+
+\subsection{Rechenregeln}
+
+Grenzwert. g(n) liegt unter f(n), also $g(n)<f(n)$
+
+\begin{equation*}
+    \lim_{n\to\infty}\frac{g(n)}{f(n)}\in \mathbb{R}\implies g\in \mathcal{O}(f)
+\end{equation*}
+
+Beispiel $f(n)=5n, g(n)=3n+2$
+
+\begin{equation*}
+    \lim_{n\to\infty}\frac{3n+2}{5n}~\lim_{n\to\infty}\frac{3n}{5n}=\frac{3}{5}\in \mathbb{R}
+\end{equation*}
+
+\subsection{Regel von l'Hôpital}
+
+\begin{equation*}
+    \lim_{x\to\infty}\frac{f(x)}{g(x)}=
+    \lim_{x\to\infty}\frac{f'(x)}{g'(x)}
+\end{equation*}
+
+Das Verhältnis der Steigungen ist identisch mit dem Eigentlichem Verhältnis der Funktionswerten.
+
+Somit lassen sich Funktionen die entweder $0$ oder $\infty$ sind lösen.
+
+\end{document}

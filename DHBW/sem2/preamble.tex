@@ -1,0 +1,49 @@
+%\usepackage{url}
+
+%% Math
+\usepackage{mathtools}
+%% For Mengen like natural numbers
+\usepackage{amsfonts}
+%% Für spezielle Symbole
+\usepackage{amssymb}
+
+%% Images
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+%\usepackage{transparent}
+
+%%% Command for simpler images
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./fig/}{#1.pdf_tex}
+}
+
+%% Links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=cyan
+}
+
+%% Formatting
+\usepackage{parskip}
+
+%% Custom Enumerations
+\usepackage{enumerate}
+
+%%% Command for box with heading
+\fboxsep2mm
+\newcommand{\know}[2]{
+    \noindent\fbox{
+        \parbox{\textwidth-21pt}{
+
+            \textbf{#1:}
+            \vspace{0.125cm}
+
+            #2
+        }
+    }
+}

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="240mm"
+   height="120mm"
+   viewBox="0 0 240 120"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="monotone_konvergenz.svg"
+   inkscape:export-filename="monotone_konvergenz.pdf"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70312851"
+     inkscape:cx="568.88605"
+     inkscape:cy="194.84347"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g9"
+     showgrid="false"
+     showborder="true"
+     width="200mm"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1368"
+     inkscape:window-height="842"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815"
+       units="mm"
+       spacingx="10"
+       spacingy="10"
+       empspacing="4"
+       dotted="false"
+       originx="0"
+       originy="0"
+       visible="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-177)">
+    <g
+       id="g9"
+       transform="matrix(1.3529616,0,0,1.3529616,-66.486704,-51.613721)">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle);paint-order:fill markers stroke"
+         d="M 66.520083,241.12536 H 205.41401"
+         id="path1" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+         d="M 77.163297,249.63993 V 177"
+         id="path2" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.2, 1.2;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="m 77.163297,241.12536 c 0.177387,-0.53216 0.354772,-1.06432 0.532159,-1.59648 0.204187,-0.61257 0.292354,-1.26305 0.532162,-1.86257 0.36912,-0.9228 0.112135,0.15395 0.532159,-0.26607 0.08827,-0.0883 0.453607,-0.90722 0.532161,-1.06433 0.352193,-0.70438 1.255403,-1.1804 1.596483,-1.86256 0.210886,-0.42177 0.855221,-0.48459 1.064321,-0.79824 0.0984,-0.14759 -0.07933,-0.3735 0,-0.53216 0.03966,-0.0793 0.186751,0.0397 0.266081,0 0.571,-0.2855 0.01225,-0.29057 0.266081,-0.79824 0.01611,-0.0323 0.755157,-0.223 0.798239,-0.26608 0.354775,-0.35478 -0.443468,-0.26608 0.266081,-0.26608 0.917926,-0.32592 1.53664,-1.16744 2.394724,-1.59648 0.22361,-0.11181 0.909682,-0.11144 1.064321,-0.26608 0.06272,-0.0627 -0.07605,-0.22045 0,-0.26608 0.409563,-0.24574 0.903197,-0.31856 1.330402,-0.53216 0.286027,-0.14302 0.504308,-0.40619 0.798241,-0.53217 0.415683,-0.17815 0.925897,-0.0638 1.330401,-0.26608 0.30995,-0.15497 0.488292,-0.37718 0.798241,-0.53216 0.382173,-0.19108 1.685015,-0.15517 2.128643,-0.26608 0.384806,-0.0962 0.679515,-0.43596 1.064321,-0.53216 0.344181,-0.086 0.727754,0.11219 1.064322,0 0.118994,-0.0397 0.153891,-0.20998 0.26608,-0.26608 0.15866,-0.0793 0.373501,0.0793 0.532161,0 0.552765,-0.27638 0.94878,-0.58234 1.596482,-0.79824 0.373795,-0.1246 4.558607,-0.11542 4.789447,0 0.82778,0.41389 1.34682,0.005 2.12864,0.26608 0.23799,0.0793 0.30778,0.41997 0.53216,0.53216 0.45181,0.22591 4.87418,0 5.58769,0 0.99239,0 3.10559,0.29521 3.9912,0 0.51933,-0.17311 2.89922,-1.9541 3.19297,-2.39472 0.0492,-0.0738 -0.0627,-0.20337 0,-0.26608 0.19832,-0.19833 0.59991,-0.0678 0.79824,-0.26608 0.64626,-0.64626 -0.0791,-0.39072 0.53216,-0.79824 0.17173,-0.11449 0.94909,-0.41693 1.06432,-0.53216 0.64626,-0.64626 -0.0791,-0.39072 0.53216,-0.79824 0.134,-0.58622 0.54738,-0.14065 0.79824,-0.26608 1.10737,-0.55369 -0.28445,0.0184 0.26608,-0.53217 0.0627,-0.0627 0.19003,0.0456 0.26608,0 1.40961,-0.84576 2.23207,-1.64819 3.72513,-2.39472 0.56216,0.0693 0.10106,-0.42215 0.26608,-0.53216 0.37468,-0.24978 2.92682,-1.46342 3.45904,-1.59648 0.17209,-0.043 0.36388,0.0561 0.53216,0 1.50844,-0.50281 2.96847,-1.25095 4.52337,-1.59648 0.34632,-0.077 0.71644,0.0696 1.06432,0 1.37513,-0.27503 2.63071,-0.99028 3.99121,-1.3304 0.25813,-0.0645 0.53483,0.0376 0.79824,0 1.59947,-0.2285 3.18944,-0.88655 4.78944,-1.06433 0.44076,-0.049 0.88914,0.0441 1.3304,0 1.2636,-0.12636 2.47251,-0.58947 3.72513,-0.79824 1.84029,-0.30671 3.71179,-0.53216 5.58769,-0.53216"
+         id="path3" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="M 77.163297,199.35075 H 205.41401"
+         id="path4" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#2526a7;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="m 77.163297,211.05828 128.250713,0.13305"
+         id="path5" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#2526a7;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="m 77.163297,213.31997 128.250713,0.13305"
+         id="path5-3" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#2526a7;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="M 77.163298,208.43625 205.41401,208.5693"
+         id="path5-3-0" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="51.731632"
+         y="212.72647"
+         id="text5"><tspan
+           sodipodi:role="line"
+           id="tspan5"
+           style="stroke-width:0.264583"
+           x="51.731632"
+           y="212.72647">$a=sup$ $a_n$</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="51.731632"
+         y="217.24594"
+         id="text6"><tspan
+           sodipodi:role="line"
+           id="tspan6"
+           style="stroke-width:0.264583"
+           x="51.731632"
+           y="217.24594">$n\in\mathbb{N}$</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="205.12032"
+         y="246.60056"
+         id="text7"><tspan
+           sodipodi:role="line"
+           id="tspan7"
+           style="stroke-width:0.264583"
+           x="205.12032"
+           y="246.60056">$\mathbb{N}$</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="143.81642"
+         y="219.7059"
+         id="text8"><tspan
+           sodipodi:role="line"
+           id="tspan8"
+           style="stroke-width:0.264583"
+           x="143.81642"
+           y="219.7059">fast alle $a_n$ liegen in $U_\epsilon(a)$</tspan></text>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#03030f;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke"
+         d="m 139.95826,213.45301 v 27.67235"
+         id="path8" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="138.36177"
+         y="246.60056"
+         id="text9"><tspan
+           sodipodi:role="line"
+           id="tspan9"
+           style="stroke-width:0.264583"
+           x="138.36177"
+           y="246.60056">$a_\epsilon$</tspan></text>
+    </g>
+  </g>
+</svg>

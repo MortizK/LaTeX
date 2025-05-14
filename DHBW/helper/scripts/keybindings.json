@@ -1,4 +1,5 @@
 // Place your key bindings in this file to override the defaults
+// Strg + Shift + P
 [
     {
         "key": "alt+f",
@@ -80,7 +81,7 @@
                 {
                     "command": "editor.action.insertSnippet",
                     "args": {
-                        "snippet": "\\documentclass[a4paper]{article}\n\n\\input{../preamble.tex}\n\n\\title{${1}}\n\\author{Moritz}\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n$0\n\n\\end{document}"
+                        "snippet": "\\documentclass[a4paper]{article}\n\n\\input{../preamble.tex}\n\n\\title{${1}}\n\\author{Moritz}\n\\date{}\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n$0\n\n\\end{document}"
                     }
                 }
             ]
