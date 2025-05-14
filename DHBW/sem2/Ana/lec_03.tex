@@ -1,0 +1,197 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 14, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+\subsection{Spezielle Folgen}
+
+Beispiel
+
+\begin{align*}
+      & \sqrt[n]{5*3^n+n^7+1}
+    = \sqrt[n]{3^n*(5+\frac{n^7}{3^n}+\frac{1}{3^n})}          \\
+    = & \sqrt[n]{3^n}\sqrt[n]{5+\frac{n^7}{3^n}+\frac{1}{3^n}}
+    \xrightarrow{n\to\infty}3,
+\end{align*}
+
+Nach Lemma Vorlesung ist $\sqrt[n]{a_n}\xrightarrow{n\to\infty} 1$
+
+Lemma: Für eine Folge $(a_n)_{n\in \mathbb{N}}$ mit der Eigenschaft:
+
+\begin{center}
+    $0<m\leq a_n\leq N$, für fast alle $n\in \mathbb{N}$
+
+    $M$ und $N$ sind quasi unsere Grenzen $a-\epsilon$ und $a+\epsilon$
+\end{center}
+
+Dann gilt $\sqrt[n]{a_n}\xrightarrow{n\to\infty}1$
+
+Insbesondere, falls $a_n\xrightarrow{n\to\infty}a>0$
+
+Beweis:
+
+Da $\sqrt[n]{M}\xrightarrow{n\to\infty}1$ und $\sqrt[n]{N}\xrightarrow{n\to\infty}1$ gilt nach Sandwich-Prinzip $\sqrt[n]{a_n}\xrightarrow{n\to\infty}1$.
+
+\subsection{Folgen die wir noch nicht behandeln können}
+
+Noch nicht mit unseren Rechenregeln.
+
+\begin{enumerate}
+    \item $\sqrt{2}$ \quad HERON-Verfahren: im Heft Ana 14.5
+    \item $e_n:=(1+\frac{1}{n})^n\xrightarrow{n\to\infty}e$ ?
+\end{enumerate}
+
+\subsection{Reihen}
+
+Sei $(a_n)_{n\in \mathbb{N}}$ eine Nullfolge. Dann ist die zugehörige Folge
+
+\begin{equation*}
+    S_n:=\sum_{k=1}^{n}a_k
+\end{equation*}
+
+Falls $\lim_{n\to\infty}\sum_{k=1}^{n}a_k$ existiert, bezeichnet man den GRenzwert mit:
+
+\begin{equation*}
+    \sum_{k=1}^{\infty}a_k:=\lim_{n\to\infty}\sum_{k=1}^{n}a_k
+\end{equation*}
+
+Beispiel $(\sum_{k=1}^{n}\frac{1}{k^2})_{n\in \mathbb{N}}$ ist die Reihe, meist einfach durch die Summe $\sum_{k=1}^{n}\frac{1}{k^2}$
+
+\begin{equation*}
+    \sum_{k=1}^{\infty}\frac{1}{k^2}:=\lim_{n\to\infty}\sum_{k=1}^{n}\frac{1}{k^2}
+\end{equation*}
+
+\subsubsection{Definitionen}
+
+$A\subseteq \mathbb{R}$ heißt nach oben beschränkt, wenn es eine obere Schranke $M\in \mathbb{R}$ gibt, d.h. $\forall_{x\in A}x\leq M$
+
+$A\subseteq \mathbb{R}$ heißt nach unten beschränkt, wenn es eine untere Schranke $M\in \mathbb{R}$ gibt, d.h. $\forall_{x\in A}x\geq M$
+
+Falls es eine kleinste obere Schranke von $A$ gibt heißt sie \textit{Supremum} von $A$ $sup A$
+
+Falls es eine größte untere Schranke von $A$ gibt heißt sie \textit{Infimum} von $A$ $inf A$
+
+Falls $sup A\in A$, hat $A$ ein Maximum $sup A = max A$.
+
+Falls $inf A\in A$, hat $A$ ein Minimum $inf A = min A$.
+
+Für reelle Folgen $(a_n)_{n\in \mathbb{N}}: sup$ $a_n{_{n\in \mathbb{N}}}:= sup\{a_n\mid n\in \mathbb{N}\}$
+
+\know{Vollständigkeitsaxiom von $\mathbb{R}$}{Jede nach oben beschränkte Teilmenge von $A$ hat ein Supremum.
+
+    Also: Wenn es eine obere Schranke gibt, so gibt es eine beste obere Schranke}
+
+\textbf{Satz}: von der monotonen Konvergenz
+
+Eine monoton wachsende und nach oben beschränkte Folge ist konvergent (mit dem Supremum als Grenzwert)
+
+Eine monoton fallend und nach unter beschränkte Folge ist konvergent (mit dem Infimum als Grenzwert)
+
+\newpage
+
+Beweis:
+
+\begin{figure}[ht]
+    \centering
+    \incfig{monotone_konvergenz}
+    \caption{Monotone Konvergenz}
+    \label{fig:monotone_konvergenz}
+\end{figure}
+
+Da die Reihe monoton steigen ist und ein Supremum hat, gibt es ein ${a_n}_\epsilon\in U$
+
+\subsubsection{Beispiel}
+
+\begin{equation*}
+    S_n=\sum_{k=1}^{n}\frac{1}{k^2}\text{ ist als Summe positiver Zahlen automatisch monoton wachsend.}
+\end{equation*}
+
+Zur Konvergenz fehlt nur noch eine obere Schranke, d.h. ein $M>0$ mit:
+
+\begin{equation*}
+    \sum_{k=1}^{n}\frac{1}{k^2}\leq M\quad\text{f.a. } n\in \mathbb{N}
+\end{equation*}
+
+Obere Schranke durch Abschätzung nach oben:
+
+\begin{align*}
+    \sum_{k=2}^{n}\frac{1}{k^2}
+     & \leq \sum_{k=2}^{n}\frac{1}{k(k-1)}                                                                   \\
+    \sum_{k=2}^{n}\left(\frac{1}{k-1}-\frac{1}{k}\right)
+     & = 1 - \frac{1}{2} + \frac{1}{2} - \frac{1}{3} \dots - \frac{1}{n - 1} + \frac{1}{n - 1} - \frac{1}{n} \\
+    \sum_{k=2}^{n}\frac{1}{k(k-1)}
+     & = 1 - \frac{1}{n} < 1
+\end{align*}
+
+Somit gibt es eine obere Schranke und diese ist $\sum_{k=1}^{\infty}\frac{1}{k^2}=\frac{\pi^2}{6}$
+
+\subsubsection{Allgemeines Konvergenzkriterium}
+
+Wie könnte ein allgemeines grenzwertunabhängiges Konvergenzkriterium aussehen?
+
+Angenommen: $a_n\xrightarrow{n\to\infty}a$:
+
+\begin{align*}
+    \forall_{\epsilon > 0}\exists_{n_\epsilon}\forall_{n\geq n_\epsilon}|a-a_n|<\epsilon                     \\
+    \forall_{\epsilon > 0}\exists_{n_\epsilon}\forall_{n\geq n_\epsilon, m\geq n_\epsilon}|a_n-a_m|<\epsilon \\
+    \text{CAUCHY-Kriterium}
+\end{align*}
+
+\know{CHAUCHY-Kriterium}{besagt, dass sich der Abstand von Punkten immer kleiner wird. Somit brauchen wir nicht mehr den Grenzwert.}
+
+Ziel: Zeigen, dass das CAUCHY-Kriterium für Konvergenz hinreichend ist.
+
+Weg:
+
+\begin{enumerate}
+    \item CK $\to$ Beschränkung
+    \item Satz von BOLZANO-WEIERSTRASS: jede beschränkte Menge hat mindestens einen Häufungspunkt
+
+          $\implies\{a_n\mid n\in \mathbb{N}\}$ hat einen Häufungspunkt
+    \item CK + BOLZ.WEI $\implies$ nur ein Häufungspunkt (HP)
+    \item $\implies$ HP = Grenzwert
+\end{enumerate}
+
+\subsubsection{Bolz. WEIERST. Idee}
+
+Intervallhalbierungsverfahren. Wir nehmen ein Intervall (unsere beschränkte Menge) und halbieren diese. Dies wiederholen wir in der Menge, wo $\infty$-Viele Folgeglieder sind.
+
+Diese Verfahren schrumpft auf einen einziegen Punkt, welche ein Häufungspunkt sein muss. Wenn nach einer Halbierung beide $\infty$-Viele Folgeglieder haben, so befinden sich in beide mindestens ein Häufungspunkt.
+
+\textbf{Satz}: Intervallschachtelung
+
+Immer kleiner werdende Intervalle welche sich gegenseitig enthalten.
+
+\begin{equation*}
+    I_1=[a_1, b_1]\subseteq I_2=[a_2, b_2]\subseteq I_3=[a_3, b_3] \dots
+\end{equation*}
+
+Intervalle $(I_n)_{n\in \mathbb{N}}$ mit der Eigenschaft
+
+\begin{enumerate}[i.]
+    \item $I_{n+1}=[a_{n+1}, b_{n+1}]\subseteq I_n=[a_n, b_n]$
+    \item $|I_n|:=b_n-a_n\xrightarrow{n\to\infty}0$
+\end{enumerate}
+
+Dann gibt es genau ein $x\in \mathbb{R}$ mit: $x\in I_n\quad f.a. n\in \mathbb{N}$
+
+Alle $a_n$ sind monoton steigend und durch $b_1$ beschränkt. $\to \lim_{n\to\infty}a_n=x_1\leq b_n$.
+
+Alle $b_n$ sind monoton fallend und durch $a_1$ beschränkt. $\to \lim_{n\to\infty}b_n=x_2$.
+
+\begin{center}
+    $\implies x_1\leq x_2$
+\end{center}
+
+Diese beiden können keinen echten Abstand voneinander haben, da dies ein Wiederspruch mit $b_n-a_n\xrightarrow{n\to\infty}0$ (Abstand der Grenzen geht gegen 0)
+
+\end{document}

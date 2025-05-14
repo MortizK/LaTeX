@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 13, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+\subsection{Konvergenz}
+
+\begin{equation*}
+    x=\lim_{n\to\infty}x_n
+\end{equation*}
+
+\begin{equation*}
+    \forall_{\epsilon > 0}\exists_{n_{\epsilon}\in \mathbb{N}}\forall_{n\geq n_{\epsilon}}|x-x_n|<\epsilon
+\end{equation*}
+
+Für alle $\epsilon < 0$ (Für jede Genauigkeit) gibt es ein $n_{\epsilon}$ (ein Grenzindex), sodass für alle $n\geq n_{\epsilon}$ (ab $n_{\epsilon}$) gilt $|x-x_n|<\epsilon$ (ist die Genauigkeit $\epsilon$ erreicht)
+
+Bildlich kann man sich in 2D (Intervall) als das eintreten in einen Kreis vorstellen. In 3D ($\epsilon$-Umgebung von $x=: U_{\epsilon}(x)$) eine Kugel, usw.
+
+\begin{center}
+    fast alle folgenglieder liegen in $U_{\epsilon}(x)$
+\end{center}
+
+Wir können das abstraktere der $x_n \in \mathbb{C}$ auch auf den $\epsilon$-Schlauch zurückführen, indem wir $x_n=a_n+ib_n$ bilden und die Summen-regel anwenden, so ist $x_n$ konvergent, wenn $a_n$ und $b_n$ konvergent sind.
+
+\subsection{Sandwich-Prinzip}
+
+$x_n$ und $y_n$ mit $n\in \mathbb{N}$ reeler Folgen mit demselben Grenzwert $z$.
+
+$z_n$ sei sodass
+
+\begin{equation*}
+    x_n\leq z_n \leq y_n
+\end{equation*}
+
+für alle $n\in \mathbb{N}$ gilt. Dann folgt
+
+\begin{equation*}
+    z=\lim_{n\to\infty}z_n
+\end{equation*}
+
+\begin{figure}[ht]
+    \centering
+    \incfig{sandwich-prinzip}
+    \caption{sandwich-prinzip}
+    \label{fig:sandwich-prinzip}
+\end{figure}
+
+Beweis:
+
+\begin{align*}
+    x_n \xrightarrow{n\to\infty} z
+     & \land y_n \xrightarrow{n\to\infty} z\text{, d.h.} \\
+    \forall_{\epsilon > 0}\exists_{n_{\epsilon}\in \mathbb{N}}\forall_{n\geq n_{\epsilon}}|z-x_n|<\epsilon/3
+     & \land
+    \forall_{\epsilon > 0}\exists_{\tilde{n}_{\epsilon}\in \mathbb{N}}\forall_{n\geq \tilde{n}_{\epsilon}}|z-y_n|<\epsilon/3
+\end{align*}
+
+wähle $\hat{n}_{\epsilon}:=max(n_{\epsilon}, \tilde{n}_{\epsilon})$, dann gilt (i) und (ii) für ein gemeinsames $\hat{n}_{\epsilon}$ (o.B.d.A). Zu zeigen:
+
+\begin{equation*}
+    \forall_{\epsilon >0}\exists_{\hat{n}_{\epsilon}}\forall_{n\geq \hat{n}_{\epsilon}}|z-z_n|<\epsilon
+\end{equation*}
+
+\begin{align*}
+     & |z-z_n|=|z-x_n+x_n-z_n|                                                      \\
+     & \leq |z-x_n|+|x_n-z_n|                                                       \\
+     & < \frac{\epsilon}{3} + z_n - x_n \text{weil x > z}                           \\
+     & \leq \frac{\epsilon}{3} + y_n - x_n = \frac{\epsilon}{3} + y_n - z + z - x_n \\
+     & \leq \frac{\epsilon}{3} + |y_n - z| + |z - x_n|                              \\
+     & = 3*\frac{\epsilon}{3} = \epsilon
+\end{align*}
+
+subsection{Beispiel}
+
+$z_n=\frac{1}{n^2}$ Zeige $\frac{1}{n^2}\xrightarrow{n\to\infty}0$.
+
+Wähle $x_n:=0$ und $y_n:=\frac{1}{n}$. d.h. $0<\frac{1}{n^2}\leq \frac{1}{n}$. Da $\lim_{n\to\infty}\frac{1}{n}=0$ bekannt ist, folgt aus dem Sandwich-Prinzip $\lim_{n\to\infty}\frac{1}{n^2}=0$
+
+Weitere in meinem Heft unter Ana 13.05
+
+\subsection{Rechenregeln konvergenter Folgen}
+
+gegeben $x_n\xrightarrow{n\to\infty}x, y_n\xrightarrow{n\to\infty}y$. Dann gilt:
+
+\begin{enumerate}[i.]
+    \item $x_n\pm y_n \xrightarrow{n\to\infty}x\pm y$ (Summenregel)
+    \item $x_n * y_n \xrightarrow{n\to\infty}x * y$ (Produktregel)
+    \item $y\neq 0$: $x_n / y_n \xrightarrow{n\to\infty}x / y$ (Quotientenregel)
+    \item $x_n\geq 0$: $\sqrt{x_n} \xrightarrow{n\to\infty} \sqrt{x}$
+\end{enumerate}
+
+Die Beweise sind ergänzen mit einer +1-1=0 und Dreiecksungleichung von Beträgen.
+
+Konvergenter Folgen sind Beschränkt. Somit gibt es einen Maximalen Wert.
+
+Für iv. brauchen wir eine Fallunterscheifung. Einmal für konvergiert gegen x > 0 und einmal für $x_n\xrightarrow{n\to\infty}0$. Für das Zweite brauchen wir einen Wiederspruchbeweis.
+
+\subsection{Spezielle Folgen}
+
+\begin{enumerate}[i.]
+    \item $\frac{n^k}{a^n}\xrightarrow{n\to\infty}0$ für festes $k\in \mathbb{N}$ und $a\in \mathbb{C}$ mit $|a|>1$ ("expon. Wachstum schlägt polynomiales Wachstum")
+    \item $\sqrt[n]{a}\xrightarrow{n\to\infty}1, a > 0$
+    \item $\sqrt[n]{n^k}\xrightarrow{n\to\infty}1, k\in \mathbb{N}$ fest
+    \item $\frac{a^n}{n!}\xrightarrow{n\to\infty}0, a\in \mathbb{C}$ fest ("Fakultät wächst noch stärker als expn. Wachstum")
+\end{enumerate}
+
+Beweise in meinem Heft Ana 13.05 Spezielle Folgen
+
+\end{document}
