@@ -47,8 +47,6 @@
 (remove (all_pos 4) 1 0)
 
 (newLine)
-"Lösungen für 4 bis 6"
-(solve (all_pos 4) '())
-(solve (all_pos 5) '())
-(solve (all_pos 6) '())
+"Lösungen für n*n"
+
 (length (solve (all_pos 12) '()))
