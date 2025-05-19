@@ -1,8 +1,0 @@
-(define (scalar-mult lst fak)
-(if (null? lst)
-    '()
-    (append (list (* (car lst) fak)) (scalar-mult cdr(lst) fak))
-    )
-  )
-
-(display (scalar-mult '(1 2 3) 5))

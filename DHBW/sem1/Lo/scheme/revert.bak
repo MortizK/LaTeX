@@ -1,8 +1,0 @@
-(define (revert l)
-  (if (null? l)
-      '()
-      (append (revert (cdr l)) (list (car l)))
-  )
-)
-
-(display (revert (list 1 2 3)))
