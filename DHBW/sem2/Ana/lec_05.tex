@@ -1,0 +1,98 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+Eine Reihe $\sum_{k=1}^{n}a_k$ heißt \textit{absolut konvergent}, falls $\sum_{k=1}^{n}|a_k|$ konvergiert.
+
+\begin{equation*}
+    \implies \sum_{k=1}^{n} \text{ ist konvergent}
+\end{equation*}
+
+\subsection{Majorantenkriterium}
+
+gegeben $\sum_{k=1}^{n}a_k$. Falls es eine konvergente Reihe $\sum_{k=1}^{n}b_k$ mit $b_k\geq 0$ gibt, sodass:
+
+\begin{center}
+    $|a_k|\leq b_k$
+\end{center}
+
+gilt, dann $\sum_{k=1}^{n}b_k$ \textit{Majorante} von $\sum_{k=1}^{n}a_k$. Dann ist $\sum_{k=1}^{n}a_k$ \textit{absolut konvergent}. Denn:
+
+\begin{equation*}
+    \sum_{k=1}^{n}|a_k|\leq \sum_{k=1}^{n}b_k\leq \sum_{k=1}^{\infty}a_k=M\qquad\text{obere Schranke}
+\end{equation*}
+
+\begin{enumerate}
+    \item Idee (immer): Versuche die Geometrische Reihe: $|a_k|\leq q^k$ mit $0<q<1$
+
+          \begin{center}
+              $\implies \sqrt[k]{|a_k|}\leq q < 1$
+          \end{center}
+
+          Idee: Berechne $\lim_{k\to\infty}\sqrt[k]{|a_k|}<1$
+
+          Hoffnung: Dann ist die Reihe \textit{absolut konvergent}:
+
+          Also: Annahme $\lim_{k\to\infty}\sqrt[k]{|a_k|}=:\tilde{q}<1$ gibt es.
+
+          D.h. für fast alle $k\in \mathbb{N}$ gilt $\sqrt[k]{|a_k|}\leq q (=\tilde{q} + \epsilon)<1$
+
+          \begin{center}
+              $\implies |a_k| \leq q^k$ für fast alle k
+          \end{center}
+\end{enumerate}
+
+\subsection{Satz (Wurzel/ Quotientenkriterium)}
+
+Gegeben eine Reihe $\sum_{k=1}^{n}a_k$.
+
+Falls
+
+\begin{enumerate}[i.]
+    \item $\lim_{k\to\infty}\sqrt[k]{|a_k|}=q$ oder
+    \item $\lim_{k\to\infty}|\frac{a_{k+1}}{a_k}|=q$ existiert
+\end{enumerate}
+
+und $q<1$ ist, dann ist die Reihe \textit{absolut konvergent}.
+
+Falls $q=1$ ist, haben wir keine Aussage.
+
+Falls $q>1$ ist, dann ist die Reihe sicher \textit{divergent} (normalerweise wenig informativ)
+
+Diesen Satz finde ich im \href{https://elearning.dhbw-stuttgart.de/moodle/pluginfile.php/812513/mod_folder/content/0/Vorlesungsskript/Analysis_kurz.pdf#page=21}{Skriptum} unter \textbf{1.2.8 Satz}. Den Beweis für ii. (Quotientenkriterium) habe ich nicht, hat aber Rosalie.
+
+Beobachtung: Damit eine Reihe $\sum_{k=1}^{n}a_k$ konvergieren kann, muss $a_k\xrightarrow{k\to\infty}0$ gelten.
+
+Denn: Falls $\sum_{k=1}^{n}a_k$ konvergiert, muss CAUCHY-Kriterium erfüllt sein:
+
+\begin{equation*}
+    \forall_{\epsilon>0}\exists_{n_\epsilon}\forall_{n, m\geq n_\epsilon}
+    |\sum_{k=1}^{m}(a_n)-\sum_{k=1}^{n}(a_n)|<\epsilon
+\end{equation*}
+
+insbesondere für $m=n+1$ und $n\geq n_\epsilon$:
+
+\begin{equation*}
+    \forall_{\epsilon>0}\exists_{n_\epsilon}\forall_{n\geq n_\epsilon}
+    |\sum_{k=1}^{n+1}(a_n)-\sum_{k=1}^{n}(a_n)|=|a_{n+1}|<\epsilon
+\end{equation*}
+
+$\implies (a_n)_{n\in \mathbb{N}}$ ist eine Nullfolge.
+
+\subsection{Satz (LEIBNIZ-Reihen)}
+
+Reihen der Form $\sum_{k=0}^{n}(-1)^k*a_k$ heißt LEIBNIZ-Reihe, wenn die $(a_k)_{k\in \mathbb{N}}$ eine monoton fallende Nullfolge bildet.
+
+Alle LEIBNIZ-Reihen sind konvergent.
+
+\end{document}

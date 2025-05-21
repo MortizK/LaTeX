@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 20, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+\subsection{Monotones Wachstum}
+
+\begin{align*}
+    b_{n+1}-b_n\geq 0 \\
+    \frac{b_{n+1}}{b_n}\geq 1
+\end{align*}
+
+Mit diesen beiden Formeln können wir monotones Wachstum nachweisen.
+
+\subsection{Vollständigkeitsaxiom von $\mathbb{R}$}
+
+Existenz vom Supremum (einer oberen Grenze). Davon konnten wir den Satz der monotonen konvergenz.
+
+\begin{center}
+    ${a_n}n\in \mathbb{N}$ monoton wachsend/ fallend und
+    nach oben/ unten beschränkt $\implies$ konvergent.
+\end{center}
+
+grenzwert-unabhängiges Konvergenzkriterium (ich muss den Grenzwert nicht kennen, um zu zeigen das es ihn gibt)
+
+\subsection{CAUCHY-Kriterium}
+
+\begin{equation*}
+    \forall_{\epsilon>0}\exists_{n_\epsilon}\forall_{n,m\geq n_\epsilon}\quad |a_n-a_m|<\epsilon
+\end{equation*}
+
+Heißt: 2 Punkte in einer $\epsilon$-Umgebung haben höchsten den Abstand $\epsilon$ und dies muss für fast alle Punkte gelten.
+
+Somit haben wir: Konvergent $\implies$ CAUCHY-Kriterium
+
+\subsubsection{Umgekehrt: CK $\implies$ Kgz.}
+
+\begin{enumerate}
+    \item CL $\implies$ beschränkt
+    \item Beschränkte Folgen haben mindestens einen Häufungspunkt (HP) (Satz von BOLZANO-WEIERSTRASS)
+    \item Beobachtung: Beschränkte Folge \& nur ein HP $\implies$ HP = Grenzwert
+    \item Beschränkt \& CK $\implies$ nur ein HP $\implies$ Kgz.
+\end{enumerate}
+
+\subsubsection{Satz von BOLZANO-WEIERSTRASS}
+
+Jede beschränkte Folge in $\mathbb{R}(\mathbb{C})$ hat wenigstens einen Häufungspunkt.
+
+Ich habe den visuellen Beweis verpasst und nicht aufgeschrieben.
+
+Im Groben war ein Teil, rekursiv ein Intervall so halbieren, das in einer Hälfte noch $\infty$ viele Folgenglieder beinhalten. Bis wir einen Punkt haben, welcher in allen dieser Teilintervalle ist.
+
+Annahme: Es gibt zwei HP $a$ und $b$, dennoch müssten sich zwei Punkte $a_n$ und $a_m$ beliebig nahe kommen. Dies geht visuell nicht, da $a$ und $b$ einen Abstand von $>\epsilon$ haben, was ein wiederspruch zum CAUCHY-Kriterium ist.
+
+\subsection{Geometrische Reihe}
+
+\begin{align*}
+    S_n:= \sum_{k=0}^{n}q^k
+     & =1+q+q^2+q^3+\dots+q^n                   \\
+    q*S_n
+     & =\qquad q+q^2+q^3+\dots+q^n+q^{n+1}      \\
+    (1-q)S_n
+     & = S_n-qS_n = 1-q^{n+1}                   \\
+    S_n
+     & =\sum_{k=0}^{n}q^k=\frac{1-q^{n+1}}{1-q}
+    \xrightarrow[|q|<1]{n\to\infty}\frac{1}{1-q}
+\end{align*}
+
+\subsubsection{Dezimalentwicklung}
+
+\begin{align*}
+    \sqrt{2}
+     & =1.414213\dots                                                \\
+     & =\sum_{k=0}^{\infty}\frac{a_k}{10^k}\quad,a_0=1, a_1=4, \dots \\
+     & =a_0,a_1a_2a_3\dots                                           \\
+    a_i
+     & \in\{0,1, \dots, 9\}, i\geq 1
+\end{align*}
+
+$\sum_{k=1}^{n}\frac{a_k}{10^k}$ Diese folge ist monoton wachsend. Wir brauchen einer obere Schranke. Und die ist 1:
+
+\begin{align*}
+    \sum_{k=1}^{n}\frac{a_k}{10^k}
+    \leq\sum_{k=1}^{n}\frac{9}{10^k}
+    =9*\sum_{k=1}^{n}\left(\frac{1}{10}\right)^k
+    <9*\sum_{k=1}^{\infty}\left(\frac{1}{10}\right)^k
+    =9*\frac{\frac{1}{10}}{1-\frac{1}{10}}=1
+\end{align*}
+
+\subsubsection{Absolut Konvergente Reihen}
+
+Gegeben eine Folge $(a_n)_n\in \mathbb{N}$. Die zugehörige Reihe ist die Folge der \textit{Partialsummen}:
+
+\begin{equation*}
+    \left(\sum_{k=1}^{n}a_k\right)_{n\in \mathbb{N}}, \qquad \sum_{k=1}^{n}a_k
+\end{equation*}
+
+meist nur durch die Summe angegeben.
+
+Eine Reihe heißt \textit{absolut konvergent}, falls die Reihe $\sum_{k=1}^{n}|a_k|$ der Beträge konvergiert, andernfalls \textit{bedingt konvergent}.
+
+\textbf{Satz}: Für eine Reihe gilt: absolut konvergent $\implies$ konvergent
+
+$\textbf{Beweis}$: absolut Konvergent $\implies$ CK für $\sum_{k=1}^{n}|a_k|$ gilt. Zu zeigen: dann CK für $\sum a_k$ gilt.
+
+d.h. mit $m > n$
+
+\begin{align*}
+    \forall_{\epsilon>0}\exists_{n_\epsilon}\forall{n, m\geq n_\epsilon}
+     & |\sum_{k=1}^{m}|a_k|-\sum_{k=1}^{n}|a_k|| = \sum_{k=n+1}^{m}|a_k| < \epsilon                                              \\
+    \forall_{\epsilon>0}\exists_{n_\epsilon}\forall{n, m\geq n_\epsilon}
+     & |\sum_{k=1}^{m}a_k-\sum_{k=1}^{n}a_k| = |\sum_{k=n+1}^{m}a_k| \leq \sum_{k=n+1}^{m}|a_k| < \epsilon \implies \text{ kgz.}
+\end{align*}
+
+\end{document}
