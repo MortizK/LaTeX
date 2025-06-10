@@ -1,0 +1,143 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 4, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Reelle Funktionen}
+
+\subsection{Satz von BOLZANO WEIERSTRASS I \& II}
+
+\begin{enumerate}[a)]
+    \item Jede beschränkte Folge hat mindestens einen Häufungspunkt
+    \item Jede beschränkte Folge hat wenigstens eine konvergente Teilfolge
+\end{enumerate}
+
+\subsubsection{Beweisidee}
+
+\textbf{i)}
+
+Wir haben eine Intervall $x\in[a, b]$ wo jedes $x$ einen Funktionswert $f(x)$ hat. Somit kann es keine Asymptote geben, da diese an der Grenze nicht definiert ist. Und falls sie dort definiert ist, so ist die Funktion nicht mehr Stetig.
+
+Nun gehen wir aus, das es immer einen Höheren Funktionswert geben wird. Mit diesem Wissen bauen wir eine Indexfolge $x_{n_k}\xrightarrow{k\to\infty}x\in[a, b]$ die auf dieses "Unendliche" konvergiert.
+
+\begin{equation*}
+    n_k < f(x_{n_k})\xrightarrow{k\to\infty}f(x)
+\end{equation*}
+
+und $f$ ist stetig.
+
+d.h. $(f(x_{n_k}))_{k\in \mathbb{N}}$ ist einerseits unbeschränkt und anderseits konvergent: W! $\implies f$ ist $[a, b]$ nach oben/unten beschränkt.
+
+\textbf{Iii)}
+
+Wir wissen jetzt, dass die Funktionswerte $f(x)$ für $x\in[a, b]$ nach oben beschränkt sind.
+
+Somit gibt es ein Supremum (beste obere Schranke)
+
+\begin{figure}[ht]
+    \centering
+    \incfig{supremum}
+    \caption{Supremum}
+    \label{fig:supremum}
+\end{figure}
+
+\begin{align*}
+    0\leq M_0 - f(x_n) < \frac{1}{n} \\
+    \implies \lim_{h\to\infty}f(x_n)=M_0
+\end{align*}
+
+Nun konvergiert jede Teilfolge eine konvergenten Folge auch mit demselben Grenzwert.
+
+Falls mir was fehlt hat Rosalie mehr aufgeschrieben!
+
+\subsubsection{NEWTON-Verfahren}
+
+Als Näherungsverfahren für Nullstellen.
+
+\begin{enumerate}
+    \item Punkt als Startwert raten
+    \item Steigung der Tangent an diesem Punkt bestimmen (Ableitung).
+    \item Nullstelle der Tangete als nächsten Startpunkt wählen.
+\end{enumerate}
+
+Dies nähert sich sehr schnell einer Nullstelle (Stellenverdoppelung).
+
+\textbf{Tangenten}
+
+\begin{equation*}
+    t(x)=f(x_0)+f'(x_0)*(x-x_0)
+\end{equation*}
+
+Verschiebung der Paraellen an die Stelle $x_0$ und dann noch $f(x_0)$ nach oben.
+
+\begin{equation*}
+    x_q=x_0-\frac{f(x_0)}{f'(x_0)}
+\end{equation*}
+
+\textbf{Normale}
+
+\begin{equation*}
+    t(x)=f(x_0)-\frac{1}{f'(x_0)}*(x-x_0)
+\end{equation*}
+
+\subsection{Zwischenwertsatz}
+
+Für eine stetige Funktion $f$ sind alle Werte $y$ zwischen $f(a)$ und $f(b)$ Funktionswerte, also:
+
+\begin{center}
+    $f(a)<y<f(b)\implies \exists_{x\in(a, b)} f(x)=y$
+\end{center}
+
+\textbf{Beweis:} Zunächst nur für $f(a)<0, f(b)>0, y=0$
+
+Wir benutzen auf das Intervall $(a, b)$ ein \textit{"Divide and Conquer"} (Intervallhalbierungverfahren) und haben dadurch eine Intervallschachtelung (von dieser Wissen wir, dass dieser auf einem Wert konvergiert)
+
+\begin{equation*}
+    \implies \exists!x\in [a_n, b_n]
+    \quad\text{und}\quad
+    \lim_{n\to\infty}a_n=x=\lim_{n\to\infty}b_n
+\end{equation*}
+
+Da $0>f(a_n)\xrightarrow{n\to\infty}f(x)\leq0$\\
+und $0<f(b_n)\xrightarrow{n\to\infty}f(x)\geq0$. Somit muss $f(x)=0$ sein.
+
+Hilfsfunktion $g(x):=f(x)-y$
+
+$g(a)=f(a)-y<0$\\
+$g(b)=f(b)-y>0$\\
+$\implies x\in(a, b): g(x)=0=f(x)-y \implies f(x)=y$
+
+$f(a)<y<f(b)$\\
+$y=f(x)$
+
+\subsection{Linksseitige/ Rechtsseitige Stetigkeit}
+
+\textbf{Beispiel:} Funktion mit Sprungstelle. Hier kann eine der beiden Seiten Stetig sein.
+
+$f$ ist in $x_0$ linksseitig stetig, falls für alle zulässigen Folgen $x_n < x_0$ mit Grenzwert $x_0$ gilt:
+
+\begin{equation*}
+    \lim_{n\to\infty}f(x_n)=f(x_0)
+\end{equation*}
+
+Notation für linksseitige und rechtsseitige Stetigkeit:
+
+\begin{equation}
+    \lim_{x\to x_0^-}f(x)=f(x_0)\qquad
+    \lim_{x\to x_0^+}f(x)=f(x_0)
+\end{equation}
+
+\textbf{Satz:} $f$ ist in $x_0$ stetig $\iff$
+
+\begin{equation*}
+    \lim_{x\to x_0^-}f(x)=\lim_{x\to x_0^+}f(x)=f(x_0)
+\end{equation*}
+
+\end{document}
