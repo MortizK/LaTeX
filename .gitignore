@@ -6,6 +6,7 @@
 *.out
 *.toc
 *.bak
+*.pyc
 
 # ignore Files which latex creates when compiling
 *.synctex.gz
