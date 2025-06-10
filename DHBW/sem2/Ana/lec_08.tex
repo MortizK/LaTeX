@@ -1,0 +1,189 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 3, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Reelle Funktionen}
+
+\subsection{Stetigkeit}
+
+\textbf{Unstetigkeit} können Sprungstellen haben oder eine Funktion, die immer häufiger schwingen.
+
+Beispiele für Unstetige Funktionen:
+
+\begin{align*}
+    f(x) & =
+    \begin{cases}
+        0 & , \quad x < 0   \\
+        1 & , \quad x\geq 0
+    \end{cases} \\
+    f(x) & =
+    \begin{cases}
+        \sin(\frac{1}{x}) & , \quad x \neq 0 \\
+        0                 & , \quad x = 0
+    \end{cases}
+\end{align*}
+
+
+\begin{center}
+    Eine Funktion ist stetig, wenn alle ihrer Punkte stetig sind.
+\end{center}
+
+Somit ist auch die Funktion $f(x)=\frac{1}{x}$, trotz ihrer Polstelle, stetig. Da der Punkt bei $x=0$ nicht definiert ist, interessiert er uns nicht.
+
+Stetig an der Stelle $x_0$:
+
+\begin{equation*}
+    x\to x_0\implies f(x)\to f(x_0)
+\end{equation*}
+
+Und dies müssen wir für alle Folgen machen:
+
+\begin{equation}
+    \forall x_n\xrightarrow{n\to\infty}x_0: f(x_0)\xrightarrow{n\to\infty}f(x_0)
+\end{equation}
+
+\subsection{Definition}
+
+Eine Funktion $f:D_f\to \mathbb{R}$ heißt an der Stelle $x_0\in D_f$ stetig, falls für jede zulässige Folge $(x_n)_{n\in \mathbb{N}}$, die gegen $x_0$ konvergiert gilt:
+
+\begin{center}
+    $f(x_n)\xrightarrow{n\to\infty}f(x_0)$
+\end{center}
+
+(\textit{zulässig} meint: $x_n\in D_f$)
+
+Dafür schreiben wir
+
+\begin{equation*}
+    \lim_{x\to x_0}f(x)=f(x_0):\iff \forall_{x_n\to x_0}: \lim_{n\to\infty}f(x_n)=f(x_0)
+\end{equation*}
+
+"$x\to x_0$": $\forall x_n\to x_0$
+
+$f$ heißt (global) stetig, falls $f$ an jeder Stelle $x_0\in D_f$ stetig ist im obigen Sinn.
+
+\subsubsection{Beispiel}
+
+$f(x)=\frac{1}{x}; D_f= \mathbb{R}\setminus \{0\}$ ist stetig.
+
+$0\neq x_n \xrightarrow{n\to\infty}x_0$ muss $f(x_n)=\frac{1}{x_n}\xrightarrow{n\to\infty}\frac{1}{x_0}=f(x_0)$ gezeigt werden.
+
+Nun sieht man, das $x_n$ schon zu $x_0$ konvergiert und nach der Quotientenregel somit auch $\frac{1}{x_n}$ zu $\frac{1}{x_0}$.
+
+$\implies f$ ist stetig.
+
+\subsubsection{Satz: Rechenregeln stetiger Funktionen}
+
+$f, g$ stetig (auf denselben Def. bereich)
+
+\begin{enumerate}[i)]
+    \item $f\pm g$
+    \item $f*g$
+    \item $\frac{f}{g}$
+    \item $f\circ g$
+\end{enumerate}
+
+sind wieder stetige Funktionen.
+
+\textbf{Beweis:} Nur für ii) und iv). Also sei $x_0\in D_f=D_g$ und $x_n\xrightarrow{n\to\infty}x_0$ zulässig.
+
+\begin{equation*}
+    (f*g)_{(x_n)}=f(x_n)*g(x_n)\xrightarrow{n\to\infty}f(x_0)*g(x_0)=(f*g)_{(x_0)}
+\end{equation*}
+
+Für iv). Also sei $x_0\in D_g$ und $g(x_0)\in D_f$
+
+\begin{align*}
+    f\circ g(x_n)
+     & =f(g(x_n))
+    \xrightarrow{n\to\infty} f(g(x_0))=f\circ g(x_0) \\
+    g(x_n)
+     & \xrightarrow{n\to\infty}g(x_0)
+    \qquad\text{g stetig}                            \\
+    f(g(x_n))
+     & \xrightarrow{n\to\infty}f(g(x_0))
+    \quad\text{da f stetig ist}                      \\
+\end{align*}
+
+\subsection{Grenzfunktion}
+
+\begin{align*}
+    f(x) & =\sum_{k=0}^{\infty}a_kx^k \quad\text{Potenzreihe} \\
+         & =\lim_{n\to\infty}\sum_{k=0}^{\infty}a_kx^k        \\
+         & = p_n(x) \quad\text{Polynom n-ten Grades}
+\end{align*}
+
+$f(x)=\lim_{n\to\infty}p_n(x)$, d.h. $f$ ist die Grenzfunktion der Funktionsfolge $(p_n)_{n\in \mathbb{N}}$
+
+$f$ ist wieder Stetig d.h. Potenzreihen sind steige Funktionen (als Grenz(wert/funktion) stetiger Funktionen)
+
+Das ist nicht selbstverständlich, d.h. der Grenzwert stetiger Funktionen muss nicht wieder stetig sein - wie das folgende Beispiel zeigt:
+
+\begin{equation}
+    p_n(x):=x^n
+\end{equation}
+
+\begin{align*}
+    p_n(x)=x^n\xrightarrow{n\to\infty}0
+    \quad f.a. 0\leq x<1                \\
+    p_n(1)=1^n\xrightarrow{n\to\infty}1 \\
+    p_n(x)\to
+    \begin{cases}
+        0, \quad 0\leq x < 1 \\
+        1, \quad x = 1
+    \end{cases}
+\end{align*}
+
+Hier ist die Grenzfunktion nicht stetig.
+
+\subsubsection{Satz vom Maximum}
+
+Eine steige Funktion auf einem \textit{kompaktem Intervall} (meint ein Intervall $[a, b]$, abgeschlossen und beschränkt) nimmt dort sein Maximum und sein Minimum an.
+
+Es gibt ein $x_1$ (Maximum) und ein $x_2$ (Minimum)
+
+\subsubsection{Definition: Teilfolge}
+
+Für eine Teilfolge bilden wir erst eine Indexfolge $n_1, n_2, n_3, \dots$ und setzen diese in unsere Ursprungsfolge ein.
+
+Wir bilden also: $(x_{n_k})_{k\in \mathbb{N}}$ Teilfolge (zur Indexfolge $(n_k)_{k\in \mathbb{N}}$)
+
+Wir lassen somit einfach nur unendlich viele Folgeelemente weg. \textit{Bildlich:} einfach streichen von Elementen in einer Tabelle.
+
+\textbf{Beispiel:}
+
+\begin{align*}
+    (x_n)_{n\in \mathbb{N}}
+     & : (x_1, x_2, x_3, \dots)      \\
+    n_k
+     & := 2k                         \\
+    (x_{n_k})=(x_{2k})
+     & : (x_2, x_4, x_6, x_8, \dots)
+\end{align*}
+
+\textbf{Definition: Indexfolge/ Teilfolge}
+
+Eine Indexfolge $(n_k)_{k\in \mathbb{N}}$ ist eine streng monoton wachsende Folge natürlicher Zahlen.
+
+Die zugehörige Teilfolge von $(x_n)_{n\in \mathbb{N}}$ ist $(x_{n_k})_{k\in \mathbb{N}}$
+
+\subsection{Satz von BOLZANO WEIERSTRASS I \& II}
+
+\begin{enumerate}[a)]
+    \item Jede beschränkte Folge hat mindestens einen Häufungspunkt
+    \item Jede beschränkte Folge hat wenigstens eine konvergente Teilfolge
+\end{enumerate}
+
+\textbf{Beweisidee:}
+
+Wir haben eine beschränkte Folge und ich kann in jeder $\epsilon$-Umgebung ein $x_{n_k}$ finden, sodass bei kleiner werdenden $\epsilon$ ich immer einen größeren Index $n_k$ finde. Dies ist eine konvergente Folge die auf den Häufungspunkt konvergiert.
+
+\end{document}

@@ -1,0 +1,161 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 28, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+\subsection{Potenzreihen: Allgemeine Situation}
+
+\begin{align*}
+    \sum_{k=0}^{\infty}a_k*x^{pk+q} \\
+    R=\frac{1}{\sqrt[p]{\lim_{k\to\infty}\sqrt[k]{|a_k|}}}
+\end{align*}
+
+\subsection{Beispiele}
+
+\begin{align*}
+     & \sum_{k=0}^{\infty}\frac{x^k}{k!}
+    , \quad a_k=\frac{1}{k!}                 \\
+     & \frac{a_{k+1}}{a_k}=\frac{k!}{(k+1)!}
+    =\frac{1}{k+1}\xrightarrow{k\to\infty}0  \\
+     & \implies R=\infty
+\end{align*}
+
+\section{Reelle Funktionen}
+
+Dies ist die e-Funktion:
+
+\begin{equation*}
+    \sum_{k=0}^{\infty}\frac{x^k}{k!}=:exp(x)
+\end{equation*}
+
+\subsection{e-Funktion}
+
+$exp(x)$ stimmt mit $e^x$ für alle $x\in \mathbb{Q}$ überein.
+
+\begin{equation*}
+    exp(n)=exp(1+1+\dots+1)=exp(1)*exp(1)*\dots*exp(1)=e*e*\dots*e=e^n
+\end{equation*}
+
+Was ist mit $exp(-n)$ Wir gehen über eine Gleichung die wir lösen können.
+
+\begin{align*}
+     & exp(-n)*exp(n)=exp(-n+n)=exp(0)=1                      \\
+     & \implies exp(-n)=\frac{1}{exp(n)}=\frac{1}{e^n}=e^{-n}
+\end{align*}
+
+Was ist mit $exp(\frac{1}{n})$?
+
+\begin{align*}
+     & (exp(\frac{1}{n}))^n
+    = exp(\frac{1}{n})*exp(\frac{1}{n})*\dots*exp(\frac{1}{n}) \\
+     & = exp(       \frac{1}{n}+frac{1}{n}+\dots+\frac{1}{n})
+    = exp(1) = e                                               \\
+     & \implies exp(\frac{1}{n})=\sqrt[n]{e}=e^{\frac{1}{n}}
+\end{align*}
+
+Und nun der allgemeine Fall $exp(\frac{m}{n})$
+
+\begin{align*}
+     & exp(\frac{m}{n})
+    = exp(\frac{1}{n}_1+\frac{1}{n}_2+\dots+\frac{1}{n}_m)              \\
+     & = exp(\frac{1}{n}_1)*exp(\frac{1}{n}_2)*\dots*exp(\frac{1}{n}_m)
+    = (e^{\frac{1}{n}})^m = e^{\frac{m}{n}}                             \\
+     & \implies exp(x)=e^x
+\end{align*}
+
+für alle $x\in \mathbb{Q}$ nachgewiesen. Definiere also:
+
+\begin{equation}
+    e^x:=exp(x), \quad\text{für alle }x\in \mathbb{C}
+\end{equation}
+
+\subsection{Ableitung}
+
+\begin{align*}
+    e^x=\sum_{k=0}^{\infty}\frac{x^k}{k!}
+     & =1 + x + \frac{x^2}{2} + \frac{x^3}{3!} + \frac{x^4}{4!} + \frac{x^5}{5!} + \dots \\
+    \frac{d}{dx}e^x
+     & = 0 + 1 + x + \frac{3x^2}{3*2!} + \frac{4x^3}{4*3!} + \frac{5x^4}{5*4!} + \dots   \\
+     & = \sum_{k=0}^{\infty}\frac{x^k}{k!} = e^x
+\end{align*}
+
+Diese Reihe darf man nicht abbrechen, da diese sich erst im unendlichem reproduziert.
+
+\subsection{Definition}
+
+Reelle Funktionen sind Abbildungen $f$ die eine Menge $D_f\subseteq \mathbb{R}$ nach $\mathbb{R}$ abbildet:
+
+\begin{center}
+    $f: D_f \to \mathbb{R}, x \mapsto f(x)$
+\end{center}
+
+Dabei heißt $D_f$ \textit{Definitionsbereich} von $f$.
+
+\textbf{Beispiel} $f:\mathbb{R}\to \mathbb{R}, x\mapsto x^2 (=f(x))$
+
+Wenn wir die Funktion $f$ in einem Graph Darstellen, heißt das:
+
+\begin{center}
+    "Graph von $f$: $G_f$"
+
+    $G_f:=\left\{[x, f(x)]\in \mathbb{R}^2|x\in D_f\right\}\subseteq \mathbb{R}^2$
+\end{center}
+
+\textbf{Beispiel} $g:\mathbb{R}_0^+\to \mathbb{R}, x\mapsto x^2$
+
+Wir können die Funktion auch einschränken! Wie hier bei $g$
+
+\subsubsection{Umkehrfunktion}
+
+Die Umkehrfunktion $g^{-1}$ von $g$ ausrechnen heißt, die Gleichung:
+
+\begin{center}
+    $g(x)=y$
+\end{center}
+
+nach $x$ auflösen: $x = g^{-1}(y)$
+
+Am Beispiel: $g(x)=x^2=y \implies x=\sqrt{y}$ hier nur positiv, da der Uhrbereich von $g$ nur die positiven Zahlen beinhaltet.
+
+\know{Umkehren vom Sinus}{Es gibt keine Umkehrfunktion vom normalem Sinus, da es für jeden y-Wert von $[-1, 1]$, $\infty$-viele x-Werte gibt. Lösung:
+    \begin{center}
+        Wir schränken Sinus auf $[-\frac{\pi}{2}, \frac{\pi}{2}]$ ein.
+    \end{center}}
+
+\subsubsection{Verketten}
+
+\textbf{Beispiel} $f\circ g = f(g(x))$
+
+\textbf{Beispiel} $g^{-1}\circ g = g^{-1}(g(x)) = x = id(x)$
+
+\subsection{Rechenoperationen für Funktionen}
+
+Für Operationen sollte die Definitionsbereich $(D_f)$ gleich sein.
+
+$f: D_f\to \mathbb{R}, x\mapsto f(x)$, und $g:D_f\to \mathbb{R}, x\mapsto g(x)$
+
+\begin{enumerate}
+    \item $(f \pm g)_{(x)} := f(x) \pm g(x)$
+    \item $(f * g)_{(x)} := f(x) * g(x)$
+    \item $\left(\frac{f}{g}\right)_{(x)} := \frac{f(x)}{g(x)}$ OHNE $D_f$, wo $g(x)=0$
+    \item $f: D_f\to \mathbb{R}; g: D_g\to D_f\subseteq \mathbb{R}$
+
+          $f\circ g(x):=f(g(x)); f\circ g: D_g\to \mathbb{R}$
+\end{enumerate}
+
+\textbf{Beispiel von 4.}: $f(x)= \sqrt{x}, g(x)=x^2-9$. Somit ist $f\circ g(x)=\sqrt{x^2-9}$
+
+\know{Ableitung}{Hierfür ist die Kettenregel für verkettete Funktionen wichtig.}
+
+
+
+\end{document}

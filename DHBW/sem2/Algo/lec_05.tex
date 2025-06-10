@@ -4,7 +4,7 @@
 
 \title{Algorithmen}
 \author{Moritz}
-\date{May 19, 2025}
+\date{May 28, 2025}
 
 \begin{document}
 \maketitle
@@ -12,6 +12,41 @@
 
 \section{Komplexität}
 
+\subsection{Master Theorem}
 
+Wurde behandelt und ist für \href{https://de.wikipedia.org/wiki/Karazuba-Algorithmus}{Karazuba Multi.} in meinem Heft.
+
+\href{https://de.wikipedia.org/wiki/Master-Theorem}{Wikipedia zu Master Theorem} kommt in die Klausur
+
+\subsubsection{Vorlage}
+
+\begin{align*}
+    a < b^d & \implies O(n^d)           \\
+    a = b^d & \implies O(\log_b(n)*n^d) \\
+    a > b^d & \implies O(n^{\log_b(a)})
+\end{align*}
+
+\subsubsection{Beispiele}
+
+\begin{align*}
+    f(n)    & = 4 * f(\frac{n}{2}) + n                    \\
+    a       & = 4, \quad b = 2, \quad d = 1               \\
+    4 > 2^1 & \implies f(n) \in O(n^{\log_2(4)}) = O(n^2) \\\\
+    f(n)    & = 4 * f(\frac{n}{2}) + n^2                  \\
+    a       & = 4, \quad b = 2, \quad d = 2               \\
+    4 = 2^2 & \implies f(n) \in O(n^2\log_2(n))
+\end{align*}
+
+\subsection{Limitierung}
+
+\begin{equation*}
+    T(n) = a * T\left(\frac{n}{b}\right) + n^d
+\end{equation*}
+
+\begin{enumerate}
+    \item $b$ oder $a$ sind keine Konstanten
+    \item $T(n)$ ist kein Polynom
+    \item $T(n)$ is periodisch, wie $\cos()$ oder $\sin()$
+\end{enumerate}
 
 \end{document}

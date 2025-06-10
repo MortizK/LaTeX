@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{May 27, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Folgen und Reihen}
+
+Euler Folge mit zeigen der monoton wachsenden Folge is im Heft Ana 27.05 Euler Folge.
+
+\begin{equation*}
+    e_n:=\left(1+\frac{1}{n}\right)^{n+1}=\left(\frac{n+1}{n}\right)^{n+1}
+\end{equation*}
+
+\subsection{Majoranten}
+
+Eine Reihe $\sum_{k=1}^{n}a_k$ heißt \textit{absolut konvergent}, falls $\sum_{k=1}^{n}|a_k|$ konvergiert.
+
+$\sum_{k=1}^{n}|a_k|$ wird mit Hilfe on Majoranten untersucht, d.h. mit Reihen $\sum_{k=1}^{n}b_k$, sodass $|a_k|\leq b_k$ für fast alle $k\in \mathbb{N}$ und $\sum_{k=1}^{\infty}b_k$ ex. Dann ist nämlich $\sum_{k=1}^{\infty}b_k$ eine obere Schranke von $\sum_{k=1}^{n}|a_k|$: denn:
+
+\begin{equation*}
+    \sum_{k=1}^{n}|a_k|
+    \leq \sum_{k=1}^{n}b_k
+    \leq \sum_{k=1}^{\infty}b_k
+\end{equation*}
+
+Mögliche (da uns bekannte) Majoranten sind:
+
+\begin{align*}
+     & \sum_{k=1}^{n}\frac{1}{k^2}    \\
+     & \sum_{k=1}^{n}q^k\quad (0<q<1)
+\end{align*}
+
+Wir möchten Nachweisen:
+
+\begin{align*}
+    |a_k|           & \leq q^k \\
+    \sqrt[k]{|a_k|} & \leq q
+\end{align*}
+
+Und dies wandeln wir um:
+
+\begin{equation*}
+    \lim_{k\to\infty}\sqrt[k]{|a_k|}=\tilde{q}<1
+\end{equation*}
+
+Wenn wir dies Ungleichung nachweisen, ist die Reihe $\sum_{k=1}^{n}a_k$ absolut konvergent
+
+\subsection{Potenzreihen}
+
+Polynome: $p(x)=a_0+a_1x+a_2+x^2+a_3x^3+\dots+a_nx^n=\sum_{k=0}^{n}a_kx^k$ n-ten Grades
+
+Potenzreihen sind "Polynome $\infty$-Grades" $\sum_{k=0}^{\infty}a_kx^k$ ist eine Funktion von $x\in \mathbb{C}$
+
+Das ist alles für jedes $x$ ein Grenzwert. Wie sieht also die Menge aller $x\in \mathbb{C}$ aus, für die die Reihe konvergiert?
+
+Antwort: Potenzreihen konvergieren in Kreisscheiben. D.h. nur der Radius ist zu bestimmen. In der Kreisscheibe gilt \textit{absolute Konvergenz} und außerhalb \textit{Divergenz}.
+
+\subsubsection{Beipsiele}
+
+\begin{equation*}
+    \sum_{k=1}^{\infty}\frac{1}{k^2}*x^k,\quad
+    \sum_{k=1}^{\infty}k^2x^k,\quad
+    \sum_{k=0}^{\infty}2^kx^k
+    = \sum_{k=0}^{\infty}(2x)^k,\quad
+    \sum_{k=0}^{\infty}\frac{x^k}{k!}
+\end{equation*}
+
+Konvergenzradien: $R_1=1, R_2=1, R_3=\frac{1}{2}, R_4=\infty$
+
+\subsubsection{Satz}
+
+Eine Potenzreihe $\sum_{k=0}^{\infty}a_kx^k$ konvergiert im Innern einer Kreisscheibe mit Radius $R$ absolut und ist außerhalb divergent. Auf dem Rand haben wir keine Aussage.
+
+$R$ heißt Konvergenzradius der Potenzreihe und berechnet sich (fast immer)
+
+\begin{equation*}
+    R=\frac{1}{\lim_{k\to\infty} \sqrt[k]{|a_k|}}, \quad
+    R=\frac{1}{\lim_{k\to\infty}\frac{|a_{k+1}|}{|a_k|}}
+\end{equation*}
+
+Den Fall $\lim_{k\to\infty} \sqrt[k]{|a_k|}=0$ oder $\lim_{k\to\infty}\frac{|a_{k+1}|}{|a_k|}$ bezeichnet man durch "$R=\infty$" und sagt: Der Konvergenzradius ist unendlich (meint: jedes $x\in \mathbb{C}$ liefert ein absolut konvergent Reihe)
+
+\subsubsection{Beweis}
+
+$\sum_{k=0}^{\infty}a_kx^k$ Idee: Wir wandeln das Wurzelkriterium (Quotientenk.) auf $a_kx^k$ an.
+
+Konvergenzbedingung ist also:
+
+\begin{equation*}
+    \lim_{k\to\infty}\sqrt[k]{|a_kx^k|}
+    =\lim_{k\to\infty}\sqrt[k]{|a_k||x^k|}
+    =\lim_{k\to\infty}|x|*\sqrt[k]{|a_k|}
+    =|x|*\lim_{k\to\infty}\sqrt[k]{|a_k|}<1
+\end{equation*}
+
+\begin{equation*}
+    \implies |x| < \frac{1}{\lim_{k\to\infty}\sqrt[k]{|a_k|}} =: R
+    \quad\text{konvergent}
+\end{equation*}
+
+Die Wahl des Quotientenkriterium:
+
+\begin{equation*}
+    \lim_{k\to\infty}\frac{|a_{k+1}x^{k+1}|}{|a_kx^k|}
+    =\lim_{k\to\infty}\frac{|a_{k+1}x|}{|a_k|}
+    =|x|*\lim_{k\to\infty}\frac{|a_{k+1}|}{|a_k|}<1
+\end{equation*}
+
+\begin{equation*}
+    \implies |x|=\frac{1}{\lim_{k\to\infty}\frac{|a_{k+1}|}{|a_k|}}=:R
+\end{equation*}
+
+\subsection{Funktionen}
+
+$g(x):=f(x-1)$ Wir setzen bei $g(1)$, den wert $f(0)$ ein. Dies verschiebt die Funktion $g(x)$ nach rechts, beziehungsweise die \textbf{Y-Achse} von der Funktion $f(x)$ nach links.
+
+\end{document}
