@@ -10,6 +10,158 @@
 \maketitle
 \tableofcontents
 
+\section{Reelle Funktionen}
 
+\subsection{Stetigkeit}
+
+Erinnerung: Stetigkeit von Funktionen
+
+\begin{equation*}
+    x_n\in D_f \xrightarrow{n\to\infty}x\in D_f 
+    \implies f(x_n)\xrightarrow{x\to\infty} f(x)
+\end{equation*}
+
+kurz: 
+
+\begin{equation}
+    \lim_{n\to\infty} f(x_n)
+    = f(\lim_{n\to\infty}x_n) 
+\end{equation}
+
+\subsubsection{Satz}
+
+Stetigkeit $\iff$
+
+\begin{equation}
+    \lim_{x\to x_0^-}f(x)=\lim_{x\to x_0^+}f(x)=f(x_0)
+\end{equation}
+
+Der Linksseitige Grenzwert gleich dem Rechtsseitige Grenzwert ist. Nach Sandwichkriterium ist dies der Grenzwert der Funktion.
+
+\subsubsection{Verkettung}
+
+Stetige Funktionen sind: $\sqrt{x}, \frac{1}{x}, x^n, e^x$
+
+Somit ist auch diese stetig:
+
+\begin{equation*}
+    \sqrt{\frac{e^x+1}{x^2+5x-2}}
+\end{equation*}
+
+\subsubsection{Wichtige Sätze}
+
+\begin{enumerate}
+    \item Satz vom Maximum: Wenn eine Funktion stetig ist, gibt es in jedem Intervall $f: [a, b]$ ein Maximum
+    \item Zwischenwertsatz: $f:[a, b]\to \mathbb{R}$ stetig. Alle Werte zwischen $f(a)$ und $f(b)$ in diesem Intervall sind Funktionswerte.
+\end{enumerate}
+
+\subsection{Differentialrechnung}
+
+Es geht um Steigungen, d.h. wir suchen  eine  Möglichkeit für eine Funktion $f$ an einer Stelle $x$ zu sagen, wie steil ist $f$ in $x$, d.h. im Punkt $[, f(x)]$
+
+Die Steigung der Tangente an der Stelle $x_0$ (genauer $[x_0, f(x_0)]$)
+
+\textbf{Ergebnis}: Die Steilheit von $f$ im Punkt $[x_0, f(x_0)]$, kurz die Steigung von $f$ an der Stelle $x_0$ ist die Steigung der Tangenet an dieser Stelle.
+
+\subsubsection{Tangente}
+
+Damit is der Begriff der Steigung einer Funktion in $x_0$ auf den schon bekannten Begriff "Steigung einer Geraden, nämlich der Tangent in $x_0$ zurückgeführt"
+
+Wir schreiben für Geraden:
+
+\begin{align*}
+    g(x) &= 2x - 1\\
+    h(x) &= \frac{1}{2}x+5\\
+    t(x) &= -x+2
+\end{align*}
+
+Nun zum Steigungsbegriff bei Funktionen. Anders als bei Geraden wird es batürlich nicht eine Steigung für die ganze Funktion geben können - die Funktion ist ein verschiedenen Stellen verschieden Steil. Als MAß für Steilheit wählen wir die Steigung ihrere Tangente an der betreffenden Stelle. Nur was ist die Tangente?
+
+\textbf{Tangente} ist diejenige Gerade, die den Fehler $f(x)-t(x)$ minimiert in einer kleinen umgebung von $x_0$.
+
+$t$ ist die bestapproximierende Gerade ub $[x_0, f(x_0)]$.
+
+\textbf{Konsequenzen}: Es gibt Punkte einer Funktion, wo es keine Tangente gibt. An Knicken gibt es keine Tangent. Das is auc hrichtig so, weil der Begriff Steigung an so einer Stelle sinnlos ist.
+
+\textbf{Sekante}: Da wir die Tangente nicht berechnen können, machen wir mit der Sekante eine Fehle, und schauen ob wir diesen klein bekommen.
+
+Sekantensteigung:
+
+\begin{equation*}
+    m_s=\frac{\Delta f(x_0)}{\Delta x_0}
+    =\frac{f(x_0+h)-f(x_0)}{h}
+\end{equation*}
+
+Ist ein Bruch (Quotient) aus zwei Differenzen, nämlcih $\Delta f(x_0)$ und $\Delta x_0$. Daher der Name:
+
+\begin{center}
+    Differenzenquotient
+\end{center}
+
+Den Fehler, den wir durch den zweiten Punkt $[x_0+h, f(x_0+h)]$ machen, können wir minimieren, indem wir $h\to 0$ gehen lassen und dabei den Differenzenquotienten berechnen. D.h. wir versuchen den Grenzwert:
+
+\begin{equation*}
+    \lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h}
+\end{equation*}
+
+auszurechnen. Diese Steigung nennen wir nicht einfach $m$, sondern $f'(x_0)$...
+
+\subsubsection{Notation}
+
+\begin{align*}
+    &\lim_{\Delta x_0\to 0} \frac{\Delta f(x_0)}{\Delta x_0} \\
+    = &\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h} \\
+    =: &\frac{df(x_0)}{dx_0}
+\end{align*}
+
+gelesen: $df$ nach $dx_0$ (ableiten)
+
+\begin{equation}
+    \frac{df(x)}{dx}=\frac{d}{dx}f(x)
+\end{equation}
+
+heißt "Differentialquotient"
+
+\subsubsection{Ableiten Beispiele}
+
+\begin{align*}
+    \frac{dx^2}{dx}
+    &=2x\\
+    \frac{d}{dx}(3x^4-\frac{1}{x})
+    &=12x^3+\frac{1}{x^2}
+\end{align*}
+
+\begin{align*}
+    f(x) 
+    &= x^2:\\
+    \frac{f(x+h)-f(x)}{h}
+    &= \frac{(x+h)^2-x^2}{h}
+    = \frac{x^2+2xh+h^2-x^2}{h}\\
+    &= \frac{h(2x+h)}{h}
+    = 2x+h \xrightarrow{h\to0} 2x = f'(x) = \frac{dx^2}{dx}
+\end{align*}
+
+\begin{equation*}
+    nx^{n-1}=\frac{dx^n}{dx}\qquad\text{Potenzregel}
+\end{equation*}
+
+\subsubsection{Ableitungsregeln}
+
+sind aus dem Differentialquotient hergeleitet:
+
+\begin{enumerate}[i)]
+    \item $(f\pm g)' = f' \pm g'$ (Summenregel)
+    \item $(f*g)' = f'*g + f*g'$ (Produktregel)
+    \item $(\frac{f}{g})' = \frac{f'*g - f*g'}{g^2}$ (Quotientenregel)
+    \item $(f\circ g)' = (f'\circ g)*g'$ (Kettenregel)
+\end{enumerate}
+
+\textbf{Kettenregel}
+
+\begin{align*}
+    \frac{d}{dx}f(g(x)) = f'(g(x))*g'(x)
+\end{align*}
+
+Knapp: "Äußere Abbleitung mal Innere Ableitung"
 
 \end{document}
