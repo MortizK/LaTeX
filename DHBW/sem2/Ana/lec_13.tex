@@ -1,0 +1,167 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 18, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{Umkehrfunktionen \& ihre Ableitung}
+
+Bedingung: Funktion muss \textit{injektiv} sein, also jedem x nur ein y und nicht mehrere x das gleiche y.
+
+\begin{align*}
+    f(x)=f(\bar{x}) & \implies x=\bar{x}           \\
+    x\neq \bar{x}   & \implies f(x)\neq f(\bar{x})
+\end{align*}
+
+Und: Umkehrbar nur im Wertebereich (Alle Werte die y annehmen kann)
+
+\begin{equation*}
+    W_f=\{y\in Y\mid \exists_{x\in X}y=f(x)\}
+\end{equation*}
+
+\begin{align}
+    f:      & D_f\to W_f \\
+    f^{-1}: & W_f\to D_f
+\end{align}
+
+\subsubsection{Beispiele}
+
+\begin{enumerate}
+    \item $f(x)=x^2=y\geq 0$ nach $x$ auflösen:
+          \begin{equation*}
+              x=\pm\sqrt{y}
+          \end{equation*}
+    \item $g(x)=x^2, D_f\mathbb{R}^+_0, W_f=\mathbb{R}^+_0$
+          \begin{equation*}
+              y=g(x)=x^2\implies x = \sqrt{y}
+          \end{equation*}
+          Da der wir uns durch den Definitionsbereich nur im Oberen Rechtem Quadranten befinden.
+    \item $sin(x), D_{sin}=[-1, 1], W_{sind}=[-\frac{\pi}{2}, \frac{\pi}{2}]$
+\end{enumerate}
+
+\textbf{Satz}: $f$ auf $[a, b]$ stetig und injektiv. Dann ist $f^{-1}$ ebenfalls stetig.
+
+\begin{center}
+    Falls $f$ auch diffbar ist, dann auch $f^{-1}$
+\end{center}
+
+\textbf{Satz}: $f$ auf $[a, b]$ stetig. Dann ist äquivalent:
+
+\begin{center}
+    $f$ umkehrbar und $f$ \textit{entweder} streng monoton wachsend\\
+    \textit{oder} streng monoton fallend.
+\end{center}
+
+Hinreichend: entweder $f'(x)\geq 0$ oder $f'(x)\leq 0$ f.a. $x\in(a, b)$
+
+\subsubsection{e-Funktion}
+
+$exp(x)=e^x$. Nun um den Wertebereich zu bestimmen, leiten wir die Funktion ab. $exp'(x)=e^x>0$. Somit:
+
+\begin{align*}
+    W_{exp} & =\mathbb{R}^+ \\
+    D_{exp} & =\mathbb{R}
+\end{align*}
+
+Die Umkehrfunktion von $e^x$ ist $\ln(x)$
+
+\begin{align*}
+    exp(x)=e^x & =f(x)      \\
+    ln(x)      & =f^{-1}(x)
+\end{align*}
+
+\begin{align*}
+    f^{-1}(y)    & =x \\
+    f^{-1}(f(x)) & =x \\
+    f(x)         & =y \\
+    f(f^{-1}(y)) & =y \\
+\end{align*}
+
+\subsubsection{Ableitungen}
+
+\begin{align*}
+    y & =e^{ln(y)}\quad\mid \frac{d}{dy} \\
+    1 & =e^{ln(y)}*ln'(y)                \\
+    \frac{1}{y}=\frac{1}{e^{ln(y)}}
+      & =ln(y)
+\end{align*}
+
+\begin{center}
+    \begin{tabular}{c|c}
+        $f$                       & $f'$              \\
+        \hline
+        $\ln(x)$                  & $\frac{1}{x}$     \\
+        $e^{ax+b}$                & $ae^{ax+b}$       \\
+        $\frac{1}{\sqrt{1-y^2}}$  & $\sin^{-1'}(y)$   \\
+        $\frac{-1}{\sqrt{1-y^2}}$ & $\cos^{-1'}(y)$   \\
+        $arctan(y)$               & $\frac{1}{1+y^2}$
+    \end{tabular}
+    \qquad
+    \begin{tabular}{c|c}
+        $f$               & $F$                       \\
+        \hline
+        $\frac{1}{x}$     & $\ln(|x|)$                \\
+        $e^{ax+b}$        & $\frac{1}{a}e^{ax+b}$     \\
+        $\sin^{-1'}(y)$   & $\frac{1}{\sqrt{1-y^2}}$  \\
+        $\cos^{-1'}(y)$   & $\frac{-1}{\sqrt{1-y^2}}$ \\
+        $\frac{1}{1+y^2}$ & $arctan(y)$
+    \end{tabular}
+\end{center}
+
+\subsubsection{ln-Rechengesetze}
+
+\begin{equation}
+    e^{\ln(x*y)}=x*y=e^{\ln(x)}*e^{\ln(y)}=e^{\ln(x)+\ln(y)}
+\end{equation}
+
+\begin{enumerate}
+    \item $\ln(x*y)=\ln(x)+\ln(y)$
+    \item $\ln(\frac{x}{y})=\ln(x)-\ln(y)$
+    \item $\ln(x^y)=y*\ln(x)$
+    \item $\ln(e)=1$
+\end{enumerate}
+
+Herleitung von $\ln$ im Intervall $(-1,1)$ mithilfe der Leibnitz Reihen.
+
+\begin{align*}
+    \frac{d}{dx}\ln(1+x)
+    =\frac{1}{1+x}
+    =\frac{1}{1-(-x)}
+     & =\sum_{k=0}^{\infty}(-1)^k x^k
+    \qquad\mid\text{Aufl.}                             \\
+    \ln(1+x)
+     & =\sum_{k=0}^{\infty}(-1)^k\frac{x^{k+1}}{k+1}+c
+\end{align*}
+
+\begin{align*}
+    x=1\quad
+     & \ln(2)=\sum_{k=0}^{\infty}(-1)^k\frac{1}{k+1}            \\
+    x=-\frac{1}{2}\quad
+     & \ln(2)=\sum_{k=0}^{\infty}\frac{1}{2^{k+1}}\frac{1}{k+1}
+\end{align*}
+
+\subsection{Ableitungen von Umkehrfunktion}
+
+\begin{equation}
+    f^{-1'}(y)=\frac{1}{f'(f^{-1}(y))}
+\end{equation}
+
+Am Beispiel von $\sin^{-1}(x)$
+
+\begin{align*}
+    \sin^{-1'}(y)
+     & =\frac{1}{\cos(\sin^{-1}(y))}              \\
+     & =\frac{1}{\sqrt{1-\sin^2(\sin^{-1}(y))}}   \\
+     & =\frac{1}{\sqrt{1-(\sin(\sin^{-1}(y)))^2}} \\
+     & =\frac{1}{\sqrt{1-y^2}}                    \\
+\end{align*}
+
+\end{document}
