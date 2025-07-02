@@ -1,0 +1,151 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{July 2, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Integralrechnung}
+
+\begin{equation*}
+    \frac{F(x+h)-F(x)}{h}\approx \frac{f(x)*h}{h}=f(x)
+\end{equation*}
+
+KÖnnen wir mit der Stetigkeit der Funktion (und dem Satz des Maximums) handfest nachgewiesen:
+
+\begin{equation*}
+    \frac{f(x_1)*h}{h}\leq \frac{F(x+h)-F(x)}{h}\leq \frac{f(x_2)*h}{h}
+\end{equation*}
+
+Wenn also $h\to0$, so wandern $x_1$ (minimum) und $x_2$ (maximum) gegen $x_1\to x$ und $x_2\to x$.
+
+\know{Beobachtung}{Jede Stammfunktion $G$ von $f$ ($G'(x)=f(x)$) unterscheidet sich von $F$ nur durch eine additive Konstante:
+    \begin{center}
+        $F(x)=G(x)+k$
+    \end{center}
+    D.h.
+    \begin{align*}
+        \int_{a}^{b}f(x)dx & =F(b)-F(a)      \\
+                           & = G(b)+k-G(a)-k \\
+                           & = G(b) - G(a)
+    \end{align*}
+    D.h. das Flächenproblem wird von jeder Stammfunktion gelöst. Also besteht die Aufgabe bei der Flächenberechnungen nur noch darin Stammfunktionen zu finden.
+}
+
+
+\subsection{Stammfunktionen ("Aufleitung")}
+
+Beispiele:
+
+\begin{equation*}
+    \int_{1}^{5}x^3dx=\frac{624}{4}=156, \qquad \frac{x^4}{4}
+\end{equation*}
+
+Das ist unangenehm, da dies unübersichtlich ist. So ist richtig:
+
+\begin{equation}
+    \int_{1}^{5}x^3dx=\left[\frac{1}{4}x^4\right]_1^5=\frac{1}{4}5^4-\frac{1}{4}=\frac{624}{4}=156
+\end{equation}
+
+\begin{equation*}
+    \int f(x)dx = F(x),\qquad\text{unbestimmtes Integral}
+\end{equation*}
+
+\subsubsection{Tabelle}
+
+\begin{align*}
+    \int e^x dx
+     & =e^x                            \\
+    \int e^{ax+b} dx
+     & =\frac{1}{a}e^{ax+b}            \\
+    \int \sin(x) dx
+     & = -\cos(x)                      \\
+    \int \sin(ax+b) dx
+     & = -\frac{1}{a}\cos(ax+b)        \\
+    \int \cos(x)
+     & = \sin(x)                       \\
+    \int \sinh(x) dx
+     & = \cosh(x)                      \\
+    \int \cosh(x) dx
+     & = \sinh(x)                      \\
+    \int \tan(x) dx
+     & = -ln(|\cos(x)|)                \\
+    \int \cot(x) dx
+     & = ln(|\sin(x)|)                 \\
+    \int \frac{1}{\sqrt{1-x^2}} dx
+     & = \arcsin(x) = \sin^{-1}(x)     \\
+    \int \frac{1}{1+x^2} dx
+     & = \arctan(x) = \tan^{-1}(x)     \\
+    \int \frac{1}{\sqrt{1+x^2}} dx
+     & = \sinh^{-1}(x)                 \\
+    \int \frac{1}{\sqrt{x^2 - 1}} dx
+     & = \cosh^{-1}(x)                 \\
+    \int f(ax+b) dx
+     & = \frac{1}{a}F(ax+b)            \\
+    \int \frac{f'(x)}{f(x)} dx
+     & = ln(|f(x)|)                    \\
+    \int x^n dx
+     & = \frac{x^{n+1}}{n+1}, n\neq -1 \\
+    \int x^{-1} dx
+     & = ln(|x|)                       \\
+\end{align*}
+
+Regel um $\int \tan(x) dx$ zu bestimmen:
+
+\begin{align*}
+    \frac{d}{dx} ln(|f(x)|) = \frac{f'(x)}{f(x)} \\
+    \frac{1}{2}\frac{d}{dx}ln(f^2(x)) = \frac{1}{2}\frac{2f(x)f'(x)}{f^2(x)}= \frac{f'(x)}{f(x)}
+\end{align*}
+
+\begin{align*}
+    \int \tan(x) dx
+     & = -\int \frac{-\sin(x)}{\cos(x)} dx \\
+     & = -ln(|\cos(x)|)                    \\
+     & = -\frac{1}{2}ln(\cos^2(x))
+\end{align*}
+
+\subsubsection{Produktintegration (partielle Integration)}
+
+\begin{equation*}
+    \int f(x)*g(x) dx = ?
+\end{equation*}
+
+\begin{align*}
+    (f*g)'(x)
+     & = f'(x)g(x) + f(x)g'(x), \quad |\int    \\
+    f(x)g(x) = \int (f*g)'(x) dx
+     & = \int f'(x)g(x) dx + \int f(x)g'(x) dx \\
+    \implies \int f'(x)g(x) dx
+     & = f(x)g(x) - \int f(x)g'(x) dx          \\
+    \int u'v
+     & = uv - \int uv'
+\end{align*}
+
+Beispiel:
+
+\begin{align*}
+    \int x e^x dx & = x e^x - \int e^x dx \\
+    \int v u' dx  & = vu - \int u dx      \\
+                  & = x e^x - e^x
+\end{align*}
+
+Weitere Beispiel sind in meinem Heft unter Ana 2.7 Stammfunktionen.
+
+Es gibt Tricks, wie $\int$ Integral mit anderem Vorzeichen zu replizieren und es als Gleichung zu betrachten.
+
+Und der Emergency Regel:
+
+\begin{equation*}
+    \int \frac{f'(x)}{f(x)} dx = ln(|f(x)|)
+\end{equation*}
+
+\subsubsection{Substitution}
+
+nächste Woche
+
+\end{document}
