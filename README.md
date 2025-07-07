@@ -14,15 +14,16 @@ Damit ich in jedem .tex file die gleichen imports für z.B. Mathe Formeln und Sy
 
 ```
 ├── .vscode
-├── current
-├── helper
-│   ├── inkscape
+├── /current
+├── /helper
+│   ├── /inkscape
 │   │   └── template.svg
-│   └── scripts
-├── sem1
+│   └── /scripts
+├── /sem1
 │   ├── preamble.tex
-│   ├── module_01
-│   │   ├── fig
+│   ├── /module_01
+│   │   ├── /doc
+│   │   ├── /fig
 │   │   │   ├── figure_name.svg
 │   │   │   ├── figure_name.pdf
 │   │   │   ├── figure_name.tex
@@ -30,9 +31,9 @@ Damit ich in jedem .tex file die gleichen imports für z.B. Mathe Formeln und Sy
 │   │   ├── lec_01.tex
 │   │   ├── lec_02.tex
 │   │   ├── ...
-│   ├── module_02
+│   ├── /module_02
 │   ├── ...
-└── sem2
+└── /sem2
 ```
 
 ## Zusätze in Modulen
@@ -48,6 +49,14 @@ Für Scheme Programme in der Sprache Racket im Standard R5RS.
 Für Programme in der Sprache C.
 
 Dies sind nur ein Paar Übungen, da der Großteil der Aufgaben in einem Anderen Repo sind.
+
+### Ordner /python
+
+Für Programme in der Sprache python. Diese sind für schnelle teilweise Mathematische Rechnungen.
+
+### Ordner /jupiter
+
+Für Jupyter Notebooks im Modul Scientific Programming Lab, welche python als Grundlage benutzen
 
 ### Ordner /pap
 
