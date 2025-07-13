@@ -1,0 +1,76 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 25, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{TAYLOR-Entwicklung}
+
+Beispiel
+
+\begin{align*}
+    e^x-\sum_{k=0}^{n}\frac{1}{k!}
+    = \frac{e^\xi}{(n+1)!}x^{n+1}\leq e^x\frac{x^{n+1}}{(n+1)!}
+    \xrightarrow{n\to\infty}0 \\
+    \implies e^x=\lim_{n\to\infty}\sum_{k=0}^{n}\frac{1}{k!}
+\end{align*}
+
+\subsubsection{Euler Formel}
+
+\begin{align*}
+    e^{ix}=\sum_{k=0}^{\infty}\frac{(ix)^k}{k!}
+     & =1+ix+\frac{i^2x^2}{2}+\frac{i^3x^3}{3!}+\frac{i^4x^4}{4!}+... \\
+     & = 1 -\frac{x^2}{2!} + \frac{x^4}{4!} -\frac{x^6}{6!} + \dots +
+    i(x-\frac{x^3}{3!}+\frac{x^5}{5!} - \dots)                        \\
+     & = \sum_{k=0}^{\infty}\frac{(-1)^kx^{2k}}{(2k!)}
+    +i\sum_{k=0}^{\infty} \frac{(-1)kx^{2k+1}}{(2k+1)!}               \\
+     & =\cos(x) + i \sin(x)
+\end{align*}
+
+\subsubsection{Gausche Glockenkurve}
+
+Ist wichtig in der Statistik, da dies die Normalverteilung ist.
+
+\begin{align*}
+    f(x) = e^{-x^2} \\
+    f(0)=1          \\
+    f'(0)=0         \\
+    \vdots
+\end{align*}
+
+Alternative:
+
+\begin{align*}
+    e^{-x^2}=e^z
+    =\sum_{k=0}^{\infty}\frac{z^k}{k!}
+    =\sum_{k=0}^{\infty}\frac{(-x^2)^k}{k!}
+    =\sum_{k=0}^{\infty}\frac{(-1)^kx^{2k}}{k!}
+\end{align*}
+
+Insgesamt heute viele Übungen in meine Heft unter: Ana 25.06 gemacht.
+
+\begin{align*}
+    arcsin'(x)   & = \frac{1}{\sqrt{1-x^2}}                 \\
+    (1+x)^\alpha & =\sum_{k=0}^{\infty}\binom{\alpha}{k}x^k
+\end{align*}
+
+\begin{align*}
+    f(x)   & =(1+x)^\alpha,
+    \quad f(0)=1                                \\
+    f'(x)  & =\alpha(1+x)^{\alpha-1},
+    \quad f'(0)=\alpha                          \\
+    f''(x) & =\alpha(\alpha-1)(1+x)^{\alpha-2},
+    \quad f'(0)=\alpha(\alpha-1)                \\
+           & ,
+    \quad f^{(n)}(0)=\alpha(\alpha-1)(\alpha-2)\dots(\alpha-(n-1))
+\end{align*}
+
+\end{document}

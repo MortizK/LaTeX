@@ -1,0 +1,166 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 17, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{Stetige Funktionen Argumentation}
+
+\begin{align*}
+    f(x)=\begin{cases}
+             exp(-\frac{1}{x^2} & \quad, x\neq 0) \\
+             a                  & \quad, x=0
+         \end{cases}
+\end{align*}
+
+$x\mapsto f(x)$ ist für $x\neq 0$ stetig, denn $x\mapsto -\frac{1}{x^2}$ ist stetig, die Exponentialfunktion ist stetig, also ist auch $x\mapsto exp(-\frac{1}{x^2})$ als Verkettung stetiger Funktionen stetig.
+
+$x\to\infty$: $-\frac{1}{x^2}\xrightarrow{x\to\infty}0$, da exp stetig ist, $exp(-\frac{1}{x^2})\xrightarrow{x\to\infty}exp(0)=1$
+
+$x\to0$: $-\frac{1}{x^2}\xrightarrow{x\to0}-\infty$ und daher $exp(-\frac{1}{x^2})\xrightarrow{x\to0}0$
+
+Wir wählen $a=0$ damit die Funktion stetig ist. HIER: SKIZZE kann helfen.
+
+\subsection{Mittelwertsatz}
+
+$f$ auf $[a, b]$ stetig und in $(a, b)$ diffbar. Dann gibt es eine Stelle $\xi\in(a, v)$, sodass:
+
+\begin{equation}
+    \frac{f(b)-f(a)}{b-a}=f'(\xi)
+\end{equation}
+
+Skizzen sind in meinem Heft unter: Ana 17.06 Mittelwertsatz.
+
+\textbf{Beweis}: Zunächst nur für $f(a)=f(b)$
+
+\begin{enumerate}
+    \item Max. und Min liegen beide auf dem Rand. $\implies f(a)=f(x)=$konst.
+          \begin{center}
+              Jedes $\xi\in(a, b)$ liefert $f(\xi)=0$
+          \end{center}
+    \item Max. oder Min liegt bei $\xi\in(a,b)$
+          \begin{center}
+              $\implies f'(\xi)=0$
+          \end{center}
+\end{enumerate}
+
+\textbf{Hilfsfunktion}: Jetzt der allgemeine Fall, welche wir auf diesen Spezial zurück.
+
+\begin{align*}
+    h(x) := & f(x)-\frac{f(b)-f(a)}{b-a}(x-a)                      \\
+    h(a) =  & f(a),\quad h(b)=f(b)-\frac{f(b)-f(a)}{b-a}(b-a)=f(a)
+\end{align*}
+
+\begin{align*}
+    \implies \exists\xi\in(a,b): h'(\xi)=0=f'(\xi)-\frac{f(b)-f(a)}{b-a}
+\end{align*}
+
+\textbf{Abstaubersatz}
+
+\begin{align*}
+    h(x) := & f(x)-\frac{f(b)-f(a)}{g(b)-g(a)}(g(x)-g(a))                      \\
+    h(a) =  & f(a),\quad h(b)=f(b)-\frac{f(b)-f(a)}{g(b)-g(a)}(g(b)-g(a))=f(a)
+\end{align*}
+
+\begin{equation*}
+    \implies \exists\xi\in(a,b): h'(\xi)=0=f'(\xi)-\frac{f(b)-f(a)}{g(b)-g(a)}*g'(\xi)
+\end{equation*}
+
+$g$ auf $[a,b]$ stetig und in $(a,b)$ diffbar und $g'(x)\neq 0$ in $(a,b)$ (monoton wachsend/ fallend).
+
+$f$ auf $[a, b]$ stetig und in $(a, b)$ diffbar. Dann gibt es eine Stelle $\xi\in(a, v)$, sodass:
+
+\begin{equation}
+    \frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(\xi)}{g'(\xi)}
+\end{equation}
+
+\subsection{L'Hôpital}
+
+\begin{align*}
+    f(x)\xrightarrow{x\to 0}0=f(0)              \\
+    g(x)\xrightarrow{x\to 0}0=g(0)              \\
+    \frac{f(x)}{g(x)}\xrightarrow{?}
+    "\frac{0}{0}" \text{ unbestimmter Ausdruck} \\
+    \frac{f(x)}{g(x)}=\frac{f(x)-f(0)}{g(x)-f(0)}
+    =\frac{f'(\xi)}{g'(\xi)}
+\end{align*}
+
+Falls:
+
+\begin{equation*}
+    \lim_{\xi\to0}\frac{f'(\xi)}{g'(\xi)}=c
+\end{equation*}
+
+\textbf{Beispiel}
+
+\begin{equation*}
+    \lim_{x\to0}\frac{\sin(x)}{x}
+    =\lim_{x\to0}\frac{\cos(x)}{1}
+    =\cos(0)=1
+\end{equation*}
+
+\subsection{Kurvendiskussion}
+
+\subsubsection{Symmetrien}
+
+Achsensymmetrie: $f(-x)=f(x)$
+
+Punktsymmetrie: $f(-x)=-f(x)$
+
+\textbf{Rechenregeln}
+
+\begin{enumerate}
+    \item $f*g:$ $p*p=a;p*a=p;a*p=p;a*a=a$
+    \item $\frac{f}{g}:$ $\frac{p}{p}=a;\frac{p}{a}=\frac{a}{p}=p;\frac{a}{a}=a;$
+\end{enumerate}
+
+Um dies zu erkennen muss man genau hingucken. Bei manchen Polynomen lässt es sich erkennen.
+
+\begin{equation*}
+    x\mapsto \frac{3x^3-7x}{x^4-2x^2+5} = \frac{p}{a} = p
+\end{equation*}
+
+\subsubsection{Untersuchung}
+
+Phantasyfunktion hierzu ist im Heft: Ana 17.06 Kurvendiskussion, sowie Beispiele zur Vorzeichenmethode.
+
+\begin{enumerate}
+    \item Symmetrie, Asymptoten
+    \item Nullstellen: $f(x)=0$ , $x_1$
+    \item Extrema: $f'(x)=0$ , $ \tilde{x}_1 (\tilde{y}_1=f(\tilde{x}_1))$
+
+          Identifikation: (Hinreichend:)
+          \begin{align*}
+              f''(\tilde{x}_1)<0 &
+              \implies H=[\tilde{x}_1, \tilde{y}_1] \\
+              f''(\tilde{x}_2)>0 &
+              \implies T=[\tilde{x}_2, \tilde{y}_2] \\
+              f''(\tilde{x}_3)=0 & :
+              \text{ keine Info} \to \text{Vorzeichenmethode}
+          \end{align*}
+          Alternativ: Vorzeichenmethode (VZM) (Notwendig und hinreichend)
+    \item Wendepunkte: $f''(x)=0$ , $\hat{x}_1 (\hat{y}_1=f(\hat{x}_1))$
+
+          Identifikation:
+          \begin{align*}
+              f'''(\hat{x}_1)\neq 0 &
+              \implies W_1=[\hat{x}_1, \hat{y}_1] \\
+              f'''(\hat{x}_4)=0     &
+              \implies\text{?}\to\text{VZM für } f''
+          \end{align*}
+          Alternativ: VZM für $f''$ (Notwendig und hinreichend)
+\end{enumerate}
+
+\textbf{Vorzeichenmethode}
+
+Wir untersuchen einfach die Ableitung auf das Vorzeichen $x+\nu$ und $x-\nu$ sodass: $f'(x-\nu)\neq0\neq f'(x+\nu)$. Falls die Vorzeichen gleich sind, so haben wir einen Sattelpunkt, wenn nicht ist es ein Hochpunkt $(+\to-)$ oder Tiefpunkt $(-\to+)$.
+
+\end{document}

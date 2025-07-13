@@ -1,0 +1,94 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{July 1, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{Übungen}
+
+\begin{align*}
+      & \lim_{x\to0^+}x\ln(1-e^{-x})                                 \\
+    = & \lim_{x\to0^+} \frac{\ln(1-e^{-x})}{\frac{1}{x}}             \\
+    = & \lim_{x\to0^+}\frac{\frac{e^{-x}}{1-e^{-x}}}{-\frac{1}{x^2}} \\
+    = & \lim_{x\to0^+} e^{-x}\frac{-x^2}{1-e^{-x}}                   \\
+    = & \lim_{x\to0^+} e^{-x} \lim_{x\to0^+} \frac{-x^2}{1-e^{-x}}   \\
+    = & \lim_{x\to0^+} \frac{-2x}{e^{-x}} = 0
+\end{align*}
+
+Wegen der Stetigkeit der $e$-Funktion und der Rechenregeln Konvergenten Folgen konvergiert diese Folge. WICHTIG für einen Punkt!
+
+Berechnung der TAYLOR-Reihe
+
+\begin{align*}
+    x\mapsto \frac{1}{1-x^2}+\frac{1}{1+x^2}
+     & = \sum_{k=0}^{\infty}x^{2k} + \sum_{k=0}^{\infty}(-x^2)^k       \\
+     & = \sum_{k=0}^{\infty} x^{2k} + \sum_{k=0}^{\infty}(-1)^k x^{2k}
+    = 2\sum_{k=0}^{\infty}x^{4k}                                       \\
+    \frac{1}{1-q}
+     & =\sum_{k=0}^{\infty}q^k,\quad\text{Wissen wir}
+\end{align*}
+
+Weitere in meinem Heft unter Ana 1.7. Übungen
+
+\subsection{TAYLOR-Entwicklung}
+
+Tabelle mehrere Entwicklungen im Heft unter Ana 1.7 Übungen
+
+\section{Integralrechnung}
+
+Obersummer ermitteln:
+
+\begin{equation*}
+    (x_{k-1}-x_k)*f(x_k)=f(x_k)*\Delta x_k
+\end{equation*}
+
+Dieser Flächeninhalt $\approx$
+
+\begin{equation*}
+    \sum_{k=0}^{n}f(k)*\Delta x_k
+\end{equation*}
+
+\begin{equation*}
+    \xrightarrow{"n\to\infty"}\int_{(x=)a}^{(x=)b}f(x)*dx
+\end{equation*}
+
+Wir können Integrale auch benutzen, um die Länge einer Funktion zu ermitteln.
+
+\begin{align*}
+        & \sum_{k=0}^{n} \sqrt{\Delta f^2(x_k) \Delta x^2_k}                                 \\
+        & \sum_{k=0}^{n} \sqrt{\left(\frac{\Delta f(x_k)}{\Delta x_k}\right)^2+1}*\Delta x_k \\
+        & \sum_{k=0}^{n} \sqrt{f'^{2}(x_k)+1}*\Delta x_k                                     \\
+    \to & \int_{a}^{b} \sqrt{f'^{2}(x_k)+1} dx
+\end{align*}
+
+\subsection{Alternative zur Methode der RIEMANN-Summen}
+
+Idee: Flächenfunktion (Eine festes $c$ und eine variable $x$, welche die Fläche zwischen $c$ und $x$ zurückgibt)
+
+Falls wir $F(x)$ kennen, ist das Flächenproblem gelöst:
+
+\begin{equation*}
+    \int_{a}^{b}f(x)dx = F(b)-F(a) =: [F(x)]^b_a
+\end{equation*}
+
+Ich möchte die Funktion $F(x)$ kennenlernen. Idee: $F'(x)$
+
+\begin{equation*}
+    \frac{F(x+h)-F(x)}{h}\approx \frac{f(x)*h}{h}=f(x)
+\end{equation*}
+
+Über eine Grafik mit ausrechnen des Flächeninhaltes des Streifens zwischen $x+h$ und $x$, welcher $F(x+h)-F(x)=h*f(x)$
+
+\begin{equation*}
+    \implies F'(x)=f(x)
+\end{equation*}
+
+\end{document}

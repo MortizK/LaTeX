@@ -1,0 +1,187 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 24, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{Ableitung von Umkehrfunktionen}
+
+\begin{equation}
+    f^{-1'}(y)=\frac{1}{f'(f^{-1}(y))}
+\end{equation}
+
+Am Beispiel von $\sin$ mithilfe $\sin^2+\cos^2=1$ als $\cos=\pm\sqrt{1-\sin^2}$, welches im Bereich, den wir umkehren wollen nur die positive wurzel infrage kommt.
+
+\begin{align*}
+    sin^{-1'}(y)
+     & =\frac{1}{\cos(\sin^{-1}(y))}            \\
+     & =\frac{1}{\sqrt{1-\sin^2(\sin^{-1}(y))}} \\
+     & =\frac{1}{\sqrt{1-y^2}}                  \\
+    tan^{-1'}(y)
+     & = \frac{1}{1+y^2}=arctan'(y)             \\
+    ln'(y)
+     & = \frac{1}{y}                            \\
+    sinh^{-1'}
+     & = \frac{1}{\sqrt{1+y^2}}                 \\
+    cosh^{-1'}
+     & = \frac{1}{\sqrt{y^2-1}}
+\end{align*}
+
+\begin{align*}
+    sinh(x)=\frac{1}{2}(e^x)-e^{-x}                               \\
+    cosh(x)=\frac{1}{2}(e^x+e^{-x})                               \\
+    tanh(x)=\frac{sinh(x)}{cosh(x)}=\frac{e^x-e^{-x}}{e^x+e^{-x}} \\
+    cosh^2-sinh^2=1
+    sinh'=cosh; cosh'=sinh
+\end{align*}
+
+$sinh^{-1}(y)$ lässt sich ausrechnen: Es ist $sinh(x)=y$ nach $x$ auflösen.
+
+\begin{align*}
+    e^-e^{-x}        & =2y\quad\mid *e^x       \\
+    e^{2x}-1         & =2ye^x                  \\
+    e^{2x}-2ye^x-1   & =0\qquad u = e^x        \\
+    u^2-2yu-1        & =0                      \\
+    u_{1/2}          & =y\pm\sqrt{y^2+1} = e^x \\
+    u                & =y+\sqrt{y^2+1} = e^x   \\
+    sinh^{-1}(y) = x & =ln(y+\sqrt{1+y^2})
+\end{align*}
+
+Wenn $f$ diffbar in $x_0$
+
+\begin{align*}
+    f(x)-f(x_0)
+     & =\Theta(x)(x-x_0)                          \\
+    \Theta(x_0)
+     & =f'(x_0) \neq 0                            \\
+    y-y_0
+     & = \Theta(f^{-1}(y))(f^{-1}(y)-f^{-1}(y_0)) \\
+    f^{-1}(y)-f^{-1}(y_0)
+     & = \frac{1}{\Theta(f^{-1}(y))}(y-y_0)       \\
+    f^{-1'}
+     & =\frac{1}{\Theta(f^{-1}(y_0))}             \\
+     & =\frac{1}{\Theta(x_0)}                     \\
+     & =\frac{1}{f'(x_0)}                         \\
+     & =\frac{1}{f'(f^{-1}(y_0))}                 \\
+\end{align*}
+
+\subsection{Die Regeln von del'Hospital}
+
+\subsubsection{Erweiterete Mittelwertsatz}
+
+$f, g: [a,b] \to \mathbb{R}$ stetig in $(a,b)$ diffbar.
+
+$g'(x)\neq 0$ f.a. $x\in (a, b)$
+
+\begin{equation}
+    \exists_{\xi\in (a,b)} \frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(\xi)}{g'(\xi)}
+\end{equation}
+
+\subsubsection{Die Regeln}
+
+\begin{align*}
+    f(x)\xrightarrow{x\to a^+}0 \\
+    g(x)\xrightarrow{x\to a^+}0
+\end{align*}
+
+Frage: $\frac{f(x)}{g(x)}\xrightarrow{x\to a^+}"\frac{0}{0}"$ unbestimmter Ausdruck
+
+Erw. MWS:
+
+\begin{equation*}
+    \frac{f(x)}{g(x)}
+    =\frac{f(x)-f(a)}{g(x)-g(a)}
+    =\frac{f'(\xi)}{g'(\xi)}
+    \xrightarrow[(\xi\to a^+)]{x\to a^+} c
+\end{equation*}
+
+Nach dem SWP gilt: $x\to a^+\implies \xi\to a^+$. Annahme:
+
+\begin{equation*}
+    \lim_{x\to a^+}\frac{f'(x)}{g'(x)} = c \text{ existiert}
+\end{equation*}
+
+\subsection{Die Regeln}
+
+1.
+
+\begin{align*}
+    f(x)\xrightarrow{x\to a^{+(-)}}0,\pm\infty \\
+    g(x)\xrightarrow{x\to a^{+(-)}}0,\pm\infty \\
+\end{align*}
+
+Falls:
+
+\begin{equation*}
+    \lim_{x\to a^{+(-)}}\frac{f'(x)}{g'(x)}=c
+\end{equation*}
+
+existiert, dann auch:
+
+\begin{equation*}
+    \lim_{x\to a^{+(-)}}\frac{f(x)}{g(x)}=c
+\end{equation*}
+
+2.
+
+\begin{align*}
+    f(x)\xrightarrow{x\to \infty (-\infty)}0,\pm\infty \\
+    g(x)\xrightarrow{x\to \infty (-\infty)}0,\pm\infty \\
+\end{align*}
+
+Kurz:
+
+\begin{equation}
+    \lim_{x\to \infty}\frac{f'(x)}{g'(x)}=c
+    \implies
+    \lim_{x\to \infty}\frac{f(x)}{g(x)}=c
+\end{equation}
+
+Beispiel
+
+\begin{align*}
+    \lim_{x\to \infty}\frac{x^2}{e^x}
+    =\lim_{x\to\infty}\frac{2x}{e^x}
+    =\lim_{x\to\infty}\frac{2}{e^x}
+    =0
+\end{align*}
+
+weitere Beispiele in meinem Heft unter Ana 24.06. l'Hospital.
+
+\subsection{TAYLOR-Entwicklung einer Funktion}
+
+Ziel: Eine Funktion $f$ durch eine Potenzreihe berechenbar zu machen.
+
+\begin{equation*}
+    f(x)=\sum_{k=0}^{\infty}a_k x^k
+    = a_0+a_1x+a_2x^2+a_3x^3+\dots+a_nx^n+\dots
+\end{equation*}
+
+Wie müssen die $a_k$ aussehen?
+
+\begin{align*}
+    f(0)=a_0;
+     & \quad f'(x) = a_1 + 2a_2x + 3a_3x^2+4a_4x^3\dots \\
+    a_1=f'(0);
+     & \quad f''(x) = 2a_2 + 3*2a_3x+ 4*3a_4x^2+\dots   \\
+    a_2=\frac{f''(0)}{2};
+     & \quad f''(x) = 3*2a_3+ 4*3*2a_4x+\dots           \\
+    a_3=\frac{f'''(0)}{3!}                              \\
+    a_4=\frac{f''''(0)}{4!}
+\end{align*}
+
+Notwendig
+
+\begin{equation}
+    f(x)-\sum_{k=0}^{N}\frac{f^{(k)}(0)}{k!}x^k=R_N(\xi)
+\end{equation}
+
+\end{document}

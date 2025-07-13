@@ -1,0 +1,112 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{June 11, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung}
+
+\subsection{Mehrdimensionale Funktionen}
+
+\begin{align*}
+    f: \mathbb{R}^2\to \mathbb{R}     \\
+    \frac{\partial}{\partial x}f(x,y) \\
+    \frac{\partial}{\partial y}f(x,y) \\
+\end{align*}
+
+Partial Ableitung: Wir suchen eine equivalent Gleichung zum Differentialquotienten ohne Brüche.
+
+\begin{align*}
+    \frac{f(x)-f(x_0)}{x_0-x}\xrightarrow{x\to x_0}f'(x_0) \\
+    \Theta(x)\xrightarrow{x\to x_0}f'(x_0)=\Theta(x_0)
+\end{align*}
+
+\begin{equation}
+    \Theta(x):=
+    \begin{cases}
+        \frac{f(x)-f(x_0)}{x-x_0} & \quad x\neq x_0 \\
+        f'(x_0                    & \quad x=x_0)
+    \end{cases}
+\end{equation}
+
+Falls $f'(x_0)$ existiert, ist die Funktion $\Theta$ an der Stelle $x_0$ stetig. Es gilt für $x\neq x_0$:
+
+\begin{align*}
+    \Theta(x)=\frac{f(x)-f(x_0)}{x-x_0}\quad\text{, d.h.} \\
+    f(x)-f(x_0)=\Theta(x)(x-x_0)
+\end{align*}
+
+$\Theta$ ist an der Stelle $x_0$ stetig und $\Theta(x_0)=f'(x_0)$. Umgekehrt: Falls $\Theta$ an der Stelle $x_0$ stetig ist, dass
+
+\begin{equation}
+    \frac{f(x)-f(x_0)}{x-x_0}=\Theta(x)\xrightarrow{x\to x_0}\Theta(x_0)\implies f'(x_0) \text{ ex.}
+\end{equation}
+
+und es gilt: $\Theta(x_0)=f'(x_0)$
+
+\subsection{Kettenregeln Herleitung}
+
+\begin{align*}
+    f(y)-f(y_0)=\Theta(y)(y-y_0) \\
+    f(x)-f(x_0)=\Gamma(x)(x-x_0)
+\end{align*}
+
+Gamma ist einfach nur ein andere Griechischer Buchstabe.
+
+\begin{align*}
+           & f(g(x))-f(g(x_0))             \\
+    =\quad & f(y)-f(y_0)                   \\
+    =\quad & \Theta(y)(y-y_0)              \\
+    =\quad & \Theta(g(x))(g(x)-g(x_0))     \\
+    =\quad & \Theta(g(x))*\Gamma(x)(x-x_0)
+\end{align*}
+
+$\implies f(g(x))$ ist ableitbar und die Ableitung ist:
+
+\begin{equation}
+    f'(g(x_0))*g'(x_0)
+\end{equation}
+
+\subsubsection{Lemma}
+
+$f$ in $x_0$ differenzierbar (diffbar/ Ableitbar) $\implies f$ in $x_0$ stetig.
+
+\subsubsection{Satz}
+
+$f:[a, b]\to \mathbb{R}$ stetig und in $(a, b)$ differenzierbar.
+
+\know{Für Kurvendiskussion}{
+    Falls ein lokales Maximum/ Minimum an einer Stelle $x_0\in(a,b)$ existiert, dann muss
+    \begin{center}
+        $f'(x_0)=0$
+    \end{center} sein.
+}
+
+\textbf{Beweis}: Annahme: $f'(x_0)\neq 0$, oBdA $f'(x_0)>0$ und $x>x_0$:
+
+\begin{align*}
+    f(x)-f(x_0)=\Theta(x)(x-x_0) = (>0)*(>0) >0
+\end{align*}
+
+$\implies f(x)>f(x_0)$: W! zu "$f(x_0) lokales Maxima$" Also $f'(x_0)=0$
+
+\subsection{Ableitungen}
+
+\begin{align*}
+    \frac{d}{dx}x^n=nx^{n-1}\quad                               & ,n\in \mathbb{Z} \\
+    \frac{d}{dx}x^\frac{1}{n}=\frac{1}{n}x^{\frac{1}{n}-1}\quad & ,n\in \mathbb{Q} \\
+\end{align*}
+
+Stetigkeit und Ableitungen von Sinus und Kosinus haben Rosalie und Nicklas.
+
+\subsection{Mittelwertsatz}
+
+nächste Woche
+
+\end{document}
