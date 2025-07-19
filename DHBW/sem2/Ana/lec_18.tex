@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{July 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Integralrechnung}
+
+\subsection{Substitutionsregel}
+
+\begin{align*}
+    \frac{d}{dx}F(u(x))
+     & = F'(u(x))*u'(x)                       \\
+     & = f(u(x))*u'(x),\quad\mid \int_{a}^{b} \\
+    \int_{a}^{b}\frac{d}{dx}F(u(x))dx
+     & = \int_{a}^{b} f(u(x))*u'(x) dx        \\
+    \left[F(u(x))\right]_a^b = F(u(b)-F(u(a)))
+     & = \int_{u(a)}^{u(b)}f(u)du
+\end{align*}
+
+Formel:
+
+\begin{equation*}
+    \int_{a}^{b}f(u(x))u'(x) dx = \int_{u(a)}^{u(b)}f(u)du
+\end{equation*}
+
+Beispiel:
+
+\begin{align*}
+    \int \sqrt{u} du = \frac{2}{3}u^{\frac{3}{2}}=\frac{2}{3}u\sqrt{u}
+\end{align*}
+
+Rechenverfahren (formal, aber alle machen es so):
+
+\begin{align*}
+    \int x\sqrt{1+x^2}dx
+       & = \frac{1}{2} \int\sqrt{u} du     \\
+       & = \frac{1}{2}\frac{2}{3}u\sqrt{u}
+    = \frac{1}{3}\sqrt{u}^3                \\
+       & = \frac{1}{3}\sqrt{1+x^2}^3       \\
+    u  & := 1+x^2                          \\
+    u' & = \frac{du}{dx}=2x                \\
+       & \implies du = 2xdx
+\end{align*}
+
+Weiter Beispiele sind in meinem Heft unter 08.07 Substitution.
+
+\end{document}

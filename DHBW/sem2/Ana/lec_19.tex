@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Analysis}
+\author{Moritz}
+\date{July 9, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Integralrechnung}
+
+\subsection{Integrale in anderen Bereichen}
+
+\begin{enumerate}
+    \item Länge einer Kurve
+          \begin{equation*}
+              \int_{a}^{b} \sqrt{1+f'^2(x)} dx
+          \end{equation*}
+    \item Volumen (von Rotationskörpern)
+          \begin{align*}
+              V & =\pi \sum_{k=0}^{n}f^2(x_k)*\Delta x_k            \\
+                & \xrightarrow{n\to\infty} \pi\int_{a}^{b}f^2(x) dx
+          \end{align*}
+    \item Oberfläche (von Rotationskörpern)
+          \begin{equation*}
+              O = \int_{a}^{b} 2\pi f(x)\sqrt{1+f'^2(x)} dx
+          \end{equation*}
+\end{enumerate}
+
+Diese Integrale sind für den Kreis und Kugel in meinem Heft unter Ana 7.8.
+
+\subsection{Satz von TAYLOR}
+
+\begin{align*}
+    \int_{0}^{x}f'(t) dt
+     & = [f(t)]_0^x = f(x) -f(0)                                                                              \\
+    \implies f(x)
+     & = f(0) + \int_{0}^{x}f'(t) dt                                                                          \\
+     & = f(0) + [(t-x)f'(t)]_0^x - \int_{0}^{x}(t-x)f''(x) dt                                                 \\
+     & = f(0) + f'(0)x - \left[\frac{1}{2}(t-x)^2f''(t)\right]_0^x + \int_{0}^{x}\frac{1}{2}(t-x)^2f'''(x) dt \\
+     & = \dots
+\end{align*}
+
+\begin{equation*}
+    f(x)=\sum_{k=0}^{n}\frac{f_{(0)}^{(k)}}{k!}x^k + (-1)^n\int_{0}^{x}\frac{(t-x)^n}{n!}f_{(t)}^{(n+1)} dt
+\end{equation*}
+
+Das Restglied nach der Reihe $\xrightarrow{n\to\infty}0$ geht gegen null.
+
+\end{document}
