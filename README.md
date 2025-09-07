@@ -1,6 +1,6 @@
 # Dokumentation
 
-Dies ist meine Dokumentation von der DHBW-Stuttgart. Meine Fachrichtung ist Informatik.
+Dies ist meine Dokumentation von der DHBW-Stuttgart. Meine Fachrichtung ist Informatik. Für manche Fächer, wie Lineare Algebra, gibt es noch eine zusammenfassung in Vorbereitung auf die Klausur.
 
 ## Latex
 
