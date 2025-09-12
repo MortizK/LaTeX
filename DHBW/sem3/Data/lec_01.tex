@@ -1,0 +1,150 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{September 10, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Einführung und Grundlagen}
+
+Was ist für mich in kurz der Begriff "Datenbanken":
+
+\begin{enumerate}
+    \item SQL (z.B. SELECT * from items)
+    \item SQLight, PostgreSQL
+    \item Relationale Datenbanken
+    \item Keys (Primary und Foreign Keys)
+    \item Geschwindigkeit
+    \item ERM (Modelle)/ UML Modelle
+    \item Skalierbarkeit
+    \item Big Data
+    \item Tabellen
+    \item Datentypen
+\end{enumerate}
+
+\subsection{Definition}
+
+Eine Datenbank ist ein logisch zusammengehörender
+strukturierter Datenbestand.
+
+Eine Datenbank ist eine Sammlung von Daten, die von einem
+Datenbankmanagementsystem verwaltet wird.
+
+Eigene: Somit ist eine Datenbank einfach eine Sammlung von Daten, welche von einem Datenbankmanagementsystem (DBMS) verwaltet werden. Ein Datenbanksystem beinhaltet DBMS und die Datenbanken. Siehe Slide S. 9
+
+Ein Datenbankmanagementsystem (DBMS) ist die Systemsoftware eines Datenbanksystem (DBS) und dient zur Verwaltung der Daten (Konsistenz, Abfrage der Daten, Datenschutz, Zugriffsrechte….). 
+
+\subsection{Literatur}
+
+Die Vorlesung lehnt sich an Kemper an. Ist ein 900S Buch.
+
+\begin{enumerate}
+    \item Kemper, A./Eickler, A.: Datenbanksysteme: Eine Einführung, Oldenbourg Verlag
+    \item Elmasri, R.A./Navathe, S.B.: Grundlagen von Datenbanksystemen, Pearson Studium
+    \item Fraeskorn-Woyke, H./Bertelsmeier, B./Riemer, P./Bauer, E.: Datenbanksysteme, Pearson Studium
+    \item Preiß, N.: Entwurf und Verarbeitung relationaler Datenbanken, Oldenbourg Verlag
+    \item Saake, G./Sattler, K.-U./Heuer, A.: Datenbanken - Konzepte und Sprachen, mitp
+\end{enumerate}
+
+\subsection{Prüfungsleistung}
+
+50\% Klausur am Ende des 4tem Semester über alle Themen
+
+50\% Projekt über alle Themen bis SQL-Teil2 über beide Semester
+
+\subsection{Grundlagen}
+
+Daten bestehen aus Zeichen (Bits, Buchstaben, \dots). Informationen bestehen aus Daten und Informationen im Kontext sind Wissen.
+
+Daten sind der Syntax
+
+Informationen sind der Kontext (Struktur, Semantik)
+
+Die Schrift ist also auch schon ein Datenbanksystem, so können Papyrus Rollen in einem Lage gespeichert werden und auch zugegriffen werden.
+
+\know{Bonus Programm}{Zu jeder Stunde gibt es eine Fragenkatalog, ein Teil der Klausur besteht aus diesen Fragen (25\%)}
+
+\subsubsection{Basisfunktionen nach Codd}
+
+Die Codd'schen Regeln
+
+\begin{enumerate}
+    \item \textbf{Integration} - 
+    Eine Informationen wird nur an einer Stelle gespeichert. (nicht redundant) 
+    \newline- 
+    Daten einheitlich, redundanzfrei ablegen
+    \item \textbf{Operationen}
+    CRUD Operationen müssen unterstützt sein - Erstellen, Ändern, Löschen, Lesen, diese machen was mit den Daten. \newline- 
+    Abfragesprache zum Speichern, Suchen, Ändern
+    \item \textbf{Katalog}
+    Die Metadaten oder Datenbeschreibung von Daten. Somit "int" und "Produkt ID" .
+    \newline- 
+    Meta-Daten-Zugriff auf die Datenbeschreibungen "Data Dictionary"
+    \item \textbf{Benutzersichten} - 
+    Besser Benutzeransichten - Somit soll für unterschiedlichen Nutzungen unterschiedliche Ansichten dargestellt werden können. 
+    \newline- 
+    Verschiedene Rollen haben verschieden Sichten Auswahl relevanter Daten
+    \item \textbf{Konsistenzüberwachung} - 
+    Es soll nicht auf Daten verwiesen werden, die es nicht gibt.
+    \newline- 
+    logisch korrekter Zustand der Daten
+    \item \textbf{Zugriffskontrolle} - 
+    Es muss geprüft werden, ob ein einzelner Nutzer Zugriff auf die angefragte Daten hat. 
+    \newline- 
+    Datenschutz, Verhinderung unautorisierte Zugriffe
+    \item \textbf{Transaktionen} - 
+    Ein Transaktion sind mehrere Operationen die nur zusammen oder gar nicht ausgeführt werden.
+    \newline- 
+    Zusammenfassung von DB-Änderungen zu Funktionseinheiten die als Ganzes ausgeführt werden.
+    \item \textbf{Synchronisation} - 
+    Wenn mehrere Nutzer auf einen Datensatz zugreifen dürfen keine Konflikte entstehen.
+    \newline-
+    Überwachung paralleler Zugriffe vieler Nutzer u.a. Auflösen von Schreibkonflikten
+    \item \textbf{Datensicherung} - 
+    Dass die Daten müssen gesichert sein, selbst wenn das System nicht mehr existiert oder die Daten verloren gehen.
+    \newline- 
+    Wiederherstellung von Daten nach Systemfehlern
+\end{enumerate}
+
+Eine Gute Quelle um die obigen Ideen von mir zu Ergänzen ist \href{https://www.mirko-hans.de/info/gk_12/coddsche_regeln.htm}{hier}.
+
+\subsubsection{Weitere Begriffe}
+
+\textbf{Datenbankmodell}: Bei einem Datenbankmodell handelt es sich um die logische Struktur eines DBMS, welches beschreibt in welcher Form Daten strukturiert, modelliert und abgespeichert werden.
+
+\textbf{Datenbankschema}: Das Datenbankschema beschreibt die Struktur des Datenbestandes, also die Metadaten. Wie beispielsweise hängen die Tabellen zusammen, welche Integritätsbedingungen bestehen usw.
+
+\textbf{Datenbanksprache}: Für ein RDBMS ist die Datenbanksprache SQL (structured Query Language).
+
+\begin{enumerate}
+    \item DDL = Data Definition Language (Anlegen von Tabelle und der zugehörigen Struktur)
+    \item DML = Data Manipulation Language (Einfügen und Löschen von Datensätzen)
+    \item DQL = Data Query Language (Abfragen auf den Datenbestand)
+\end{enumerate}
+
+\subsection{Die 3-Ebenen Architektur}
+
+Nach ANSI/SPARC auf Slide S.18:
+
+\begin{enumerate}
+    \item \textbf{externe} Ebene - Benutzeroberfläche, Benutzersichten, Schnittstellen
+    \item \textbf{konzeptionelle} Ebene - Tabellen und Beziehungen
+    \item \textbf{interne} Ebene - Dateiorganisation und Zugriffspfade
+\end{enumerate}
+
+Ablage der Daten ist immer noch die Aufgabe des Betriebssystem.
+
+\section{Der konzeptionelle Datenbankentwurf}
+
+\section{Der relationale Entwurf}
+
+\section{Der relationale Entwurfstheorie}
+
+\section{Einführung zum Datenbankentwurf}
+
+\end{document}

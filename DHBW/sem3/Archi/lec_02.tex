@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 9, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Historie und Zahlendarstellung}
+
+\subsection{Von-Neumann Architektur}
+
+Die Grundlegende Architektur eines modernen Computers. Slide S. 30 ist ne gute Grafik.
+
+\subsection{Technologische Grundlagen: Entwicklung}
+
+Transistoren sind echt geil. Sehr schnell und zuverlässig. Das Problem, was moor's law aufhält ist die Kühlung.
+
+Denn: Mehr Transistoren produzieren mehr Hitze, welche gekühlt werden muss (Power Wall)
+
+\subsection{Komponenten heutiger Rechner}
+
+Die 5 Hauptkomponenten:
+
+\begin{enumerate}
+    \item Daten Eingang (input)
+    \item Daten Ausgang (output)
+    \item Datenpfad (datapath)
+    \item Steuerwerk (control)
+    \item Speicher (memory)
+\end{enumerate}
+
+Die Eigentliche CPU ist nur der Datenpfad und das Steuerwerk.
+
+\subsection{Zahlendarstellung im Rechner}
+
+2-er Komplement. So sollt die Addition von 1 und -1 (Binäraddition) gleich 0 sein.
+
+So ist $1_{10}=0001_{2}$ und welche Zahl addiert ergibt $0000_{2}$. Das ist $-1_{10}=1111_{2}$
+
+Daraus ergibt sich das Muster: Die negative Zahl $z$ addiert mit dem Komplement $\bar{z}$ und $1$ ergibt $0$
+
+\begin{equation}
+    -z=\bar{z}+1
+\end{equation}
+
+\know{2er-Komplement}{Zur Umrechnung IMMER invertieren und 1 addieren. NIEMALS 1 subtrahieren!}
+
+
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen und Automaten}
+\author{Moritz}
+\date{September 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vorweg}
+
+\subsection{Unix/Linux}
+
+Wir brauchen eine Linux Umgebung. Dies kann in WSL gemacht werden und wir brauchen mindestens: flex, bison, gcc, make
+
+\subsection{Klausur}
+
+Wir dürfen 2 Handbeschriebene Zettel mitnehmen.
+
+\section{Überblick}
+
+\subsection{Formale Sprachen}
+
+Eine Formale Sprache besteht aus einem Alphabet (0-9 oder a-z oder Unicode).
+
+Es gibt kontextfreien und kontextsensitiven Sprachen S.12f.
+
+\subsection{Automaten}
+
+Bestehen aus: states, transitions, letters or characters und memory.
+
+Ein Beispiel gibt es auf S. 16
+
+\subsection{Turing Machine}
+
+Ist im Prinzip eine State-Machine, diese kann alles machen was unsere moderne Computer auch machen können. Es ist ein Theoretisches Modell.
+
+"Wenn es berechenbar ist, kann eine Turing Machine dies auch berechnen"
+
+\subsection{Formale Grammatiken}
+
+Sind Grammatiken zur Erstellung von Wörtern, die aus einen Alphabet entstehen.
+
+Somit gibt es terminal Symbole, welche im Ergebnis Wort vorkommen und non-terminal Symbole die als temporäre Symbole vorkommen um ein Wort zu generieren.
+
+\know{Konvention}{non-terminal Symbole werden Groß geschrieben. Ein Beispiel zur erläuterung gibt es auf S.24}
+
+\section{Definitionen}
+
+Definitionen sind ab S.30
+
+\know{Alphabet}{Ein Alphabet $\Sigma$ ist ein endliches, nicht leere Menge von Charakteren (Symbole oder Buchstaben)
+\begin{equation*}
+    \Sigma = \{c_1, \dots, c_n\}
+\end{equation*}}
+
+\know{Wort}{Ein Wort über ein Alphabet ist eine endliche Folge an Charakteren:
+\begin{equation*}
+    w=c_1\dots c_n \text{ mit } c_1\dots c_n\in \Sigma
+\end{equation*}
+
+Das Leere Wort hat keine Charaktere: $\epsilon$
+
+Das gesamte set aller Wörter in einem Alphabet $\Sigma$ wird als $\Sigma *$ gekennzeichnet}
+
+\subsection{Operatoren}
+
+Länge: Die Länge eines Wortes lässt sich mit $|w|$ bestimmen. Die Anzahl eines Charakters eines Wortes lässt sich mit $|w|_c$ bestimmen.
+
+Einzelnen Charaktere eines Wortes werden mit $w[i]$ mit $i\in\{1, 2, \dots, |w|\}$
+
+Concat: $w_1*w_2$ ist auch $w_1$ gefolgt von $w_2$:
+
+\begin{equation*}
+    w_1 = 01, w_2 = 10, w_1w_2 = 0110
+\end{equation*}
+
+Power: $w^0=\epsilon$ und $w^n$ ist das wort w, n-mal wiederholt aneinandergehängt.
+
+\subsection{Formale Sprache}
+
+Für ein Alphabet $\Sigma$, ist eine formale Sprache über $\Sigma$ eine Teilmenge $L\subseteq \Sigma *$
+
+Ein gutes Beispiel gibt es auf S.38 mit den Binären Zahlen ohne leading 0.
+
+Bekommen die Zahl aus dem Binärem Wort.
+
+\begin{equation*}
+    n: L_\mathbb{N}\to \mathbb{N}
+\end{equation*}
+
+Produkt: Ein Produkt zweier Sprachen ist die Concat von allen Wörtern der unterschiedlichen Sprachen.
+
+\begin{equation*}
+    L_1*L_2 = \{w_1*w_2\mid w_1\in L_1, w_2\in L_2\}
+\end{equation*}
+
+Es gibt noch einen \textbf{Kleene Start} Operator, welche auf S.47 beschrieben wird. Dieser beinhaltet alle Potenzen einer Sprache.
+
+\subsection{Potenzreihe}
+
+Sind alle Subsets von $\Sigma$
+
+\begin{equation*}
+    2^{\Sigma_{bin}}=2^{\{0,1\}} = \{\{\}, \{0\}, \{1\}, \{0, 1\}\}
+\end{equation*}
+
+\section{Reguläre Sprachen}
+
+Diese Ergänzen das Alphabet durch zusätzliche Charaktere. Diese sind: $\{\emptyset, \epsilon, +, \cdot, *, (, )\}$
+
+Definitionen von Operatoren mit regulären ausdrücken auf S. 56
+
+Aufgabe von S.59: Um die Aufgabe 5. zu Lösen kann man die Problemfälle bezeichnen. So lassen sich die strings die nicht 110 beinhaltet durch $(0+10)^*1^*$
+
+\subsection{Rechengesetze}
+
+Sind ab Seite 60
+
+Es muss auf die Unterschiede von $\epsilon$ (dem leerem Wort) und $\emptyset$ (der leerem Menge)
+
+\end{document}

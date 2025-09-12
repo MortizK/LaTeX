@@ -1,0 +1,112 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{September 9, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Überblick}
+
+\subsection{Inhalte der Vorlesung, Literatur}
+
+\begin{enumerate}
+    \item Tanenbaum Andrew S.: Moderne Betriebssysteme, Pearson Studium
+    \item Mandl P.: Grundkurs Betriebssysteme, Springer Vieweg
+    \item Glatz E.: Betriebssysteme: Grundlagen, Konzepte, Systemprogrammierung, dpunkt
+    \item Stallings W.: Operating System: Internals and Design Prinzipels, Prentice Hall
+\end{enumerate}
+
+\subsection{Organisatorisches}
+
+Es gibt Übungen und Übungszettel. Diese sind Teil der Vorlesung und muss zu 75\% gelöst sein. Mit an der Tafel erklären. Wie bei Rechnerarchitekturen.
+
+Die Klausurwoche ist 24.11. - 29.11
+
+\section{Einführung in Betriebssysteme}
+
+\subsection{Definition eines Betriebssystems}
+
+Definition ist unter DIN 44300: 
+
+Oder: Ein Betriebssystem ist die Gesamtheit der Anwendungsunabhängigen Programmteile, die die Benutzung von Betriebsmittel steuern und die zugehörigen Hardware-Ressourcen verwalten.
+
+\subsection{Abstraktion}
+
+Ziel: Beim Anlegen einer Datei, soll der Benutzer sich nicht um die physikalischen Details der Hardware (Festplatte und Controller) kümmern.
+
+Betriebssystem übernimmt Zerteilung der Datei in Blöcke, Auswahl von Spur und Sektor für jeden Block, \dots
+
+Abstraktion der CPU: Modelle von 4 Ringe:
+
+\begin{enumerate}
+    \item[0. ] ist der Kernel Moduls (privilegierte Befehle)
+    \item[1-2. ] Gerätetreiber (meist vom Hersteller versteckt)
+    \item[3. ] Benutzermodus
+\end{enumerate}
+
+\subsection{API}
+
+Eine API implementiert verschieden Systemaufrufe, welche geräteunabhängig funktionieren.
+
+Systemaufrufe sind die Befehle, die bei z.B. Linux in der Konsole aufzurufen sind
+
+\subsection{Arten von Betriebssysteme}
+
+Wichtige Arten:
+
+\begin{enumerate}
+    \item Mainframe Betriebssysteme
+    \item Server Betriebssysteme
+    \item Prentice Betriebssysteme
+    \item Betriebssysteme für Eingebettete System
+    \item Echtzeit Betriebssysteme
+\end{enumerate}
+
+\subsubsection{Prozess}
+
+Ein Prozess ist ide Abstraktion eines ausgeführten Programms. 
+
+Ein Prozess ist ein Behälter mit allen notwendigen Informationen zur Ausführung eines Programmes.
+
+\subsubsection{Speicherverwaltung}
+
+Der Speicherbereich von mehreren Prozessen befindet sich gleichzeitig im Arbeitsspeicher. Dieser wird vom Betriebssystem verwaltet und aufgeräumt.
+
+es gibt virtuellen Speicher, welcher das Betriebssystem dem Prozess zur verfügen stellt. Dieser ist dann für den Prozess einfacher zu verstehen, anstatt, sich gedanken machen zu müssen, wo einzelne Speicherblöcke tatsächlich sind. Dies übernimmt das Betriebssystem
+
+\subsubsection{Dateisystem}
+
+es gibt Dateien (Bytes auf der Festplatte) und Verzeichnisse, welche aus Dateien und Verzeichnissen bestehen.
+
+Verzeichnisse sind letztendes auch nur Datei mit besonderen Eigenschaften
+
+\subsubsection{Benutzershell}
+
+Nutzt viele Features des Betriebssystems und unterstützt Skripte.
+
+ls -l listet alle Dateien mit -l, dies steht für long/ ausführlich.
+
+grep pdf steht für grapschen und filtert alles was pdf beinhaltet.
+
+\subsubsection{Architekturen}
+
+Typische Architekturen: (Grafik auf S.61 der Slides)
+
+\begin{enumerate}
+    \item Monolithische Architektur
+    \item Mikrokern Architektur (Symbian OS, QNX)
+    \item Hybrid Architektur
+\end{enumerate}
+
+\subsubsection{Unix Architektur}
+
+Benutzerprogramme werden von der Shell gestartet und Dateien und I/O Geräte werden logisch einheitlich behandelt.
+
+weitere Architekturen von Betriebssysteme (Linux und Windows NT) gibt es ab Slide S.62
+
+\end{document}
