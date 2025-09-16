@@ -1,0 +1,77 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Software Engineering}
+\author{Moritz}
+\date{September 15, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Grundlagen}
+
+\subsection{Wasserfallmodel}
+
+Einzelnen Prozesse des Wasserfallmodells
+
+\begin{enumerate}
+    \item Analyse
+    \item Spezifikation
+    \item Grobentwurf
+    \item Feinentwurf
+    \item Implementierung und Modultests
+    \item Integrationstest
+    \item Abnahme, Betrieb und Wartung
+\end{enumerate}
+
+\subsection{SCRUM}
+
+Die agile Entwicklung mit SCRUM. Grafik auf S. 16.
+
+So gibt es eine Planungsphase für alles und kleiner Planungsphasen für die einzelnen sprints.
+
+Ein Sprint bearbeitet dann mehrere Aufgaben und bespricht diese am Ende eines jeden sprints. Am Ende des sprints, sollte eine funktionierende Software als Ergebnis sein.
+
+Der Burndownchart, zeigt ungefähr an, an welchem Datum alle Backlog Items fertig sind.
+
+Wo wird der Kunde eingebunden. Hierfür gibt es einen \textbf{Product Owner}. Dieser entscheidet die Prioritäten der Items und entscheidet, ob die Anforderungen erreicht worden sind.
+
+Idealgröße: 10 bis 12 Personen.
+
+\section{Versionsverwaltung}
+
+Hat das Ziel die Versionen und Varianten einer Software zu Organisieren und zu sichern.
+
+Eine Variante ist eine parallelentwicklung (z.B. IOS App und Android App)
+
+Eine Version ist das Ergebnis und löst die vorgehende Version ab.
+
+Eine Konfiguration ist eine Zusammenstellung aus Versionen und Varianten. (z.B. Baukasten aus mehreren Features)
+
+\subsection{Dateischutz}
+
+Schema um zu verhindern, dass mehrere Developer gegenseitig Ihre Version überschreiben:
+
+\begin{center}
+    lock - modify - unlock
+\end{center}
+
+Dies hat das Problem, das nur ein Developer zur Zeit arbeiten kann. Eine Alternative ist folgendes:
+
+Jeder Developer kopiert zentrale Dateien an einen Lokalen Ort (check-out). Diese Lokale Änderungen werden dann zurück an den zentralen Ort kopiert (commit).
+
+\begin{center}
+    copy - modify - merge
+\end{center}
+
+\subsection{git}
+
+git ist die Grundlage für GitHub und ist das weitverbreiteste Versionsverwaltungstool.
+
+\know{Löschen}{In git kann man auch alte commits ändern. z.B. wenn Secrets oder große Dateien entfernt werden soll.}
+
+\section{Analyse und Spezifikation}
+
+\end{document}

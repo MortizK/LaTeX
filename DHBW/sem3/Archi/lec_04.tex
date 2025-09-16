@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 16, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+\subsection{Flip-Flops}
+
+Wiederholung von RS-Flip-Flop.
+
+Dann machen wir den D-Flip-Flop. Dieser hat einen Takt und einen Data Input. Das was an Data anliegt, soll bei Clk gespeichert werden. Wir brauchen den Takt (Clk) um überhaupt die Speicherfunktion zu haben, sonst würden wir D einfach durchschalten.
+
+Eine weitere Ergänzung ist die Flankengesteuertes D-Flip-Flop. Ein ">" ist ein steigende Flanke.
+
+\subsection{Register}
+
+Aus diesen Flip-Flops lassen sich \textbf{Register} bauen. Diese liegen in der CPU.
+
+Oder man baut ein \textbf{Schieberegister}, welches eine Binärfolge verschiebt.
+
+\subsection{Addierwerke}
+
+\subsubsection{Serielles binäres Addierwerk}
+
+Mit einem Volladdierer, einem D-Flip-Flop und drei Schieberegister lässt sich ein n-Bit Addierer gebaut werden.
+
+Jeden Takt verschiebt sich das Schieberegister und das Carry-Bit des Volladdierer wird in dem D-Flip-Flop zwischengespeichert.
+
+Die Grafik ist auf Slide S. 84. Für eine n-Bit Zahl braucht dieser $n*5\tau$  Zeit.
+
+\subsubsection{Ripple-Carry Adder}
+
+Hier brauchen wir n Volladdierer, die in Reihe geschaltet werden. Dieser braucht $n*2\tau$ Zeit.
+
+Ein 4-Bit braucht im Worst-Case $4*2\tau=8\tau$ Zeit.
+
+\subsubsection{Carry Look-Ahead Addierwerk}
+
+Ziel: Vorhersage, wo ein Carry entstehen wird.
+
+Konzepte:
+
+\begin{enumerate}
+    \item Generate: Generiere ein Carry: $G_i=a_i b_i$
+    \item Propagate: Gebe ein Carry weiter: $P_i=a_i\oplus b_i$
+\end{enumerate}
+
+Wir lösen die Formel für $c_i$ einfach auf:
+
+\begin{align*}
+    c_i &= G_i+P_ic_{i-1}\\
+    c_0 &= a_0b_0 = G_0\\
+    c_1 &= G_1+P_1*G_0\\
+    c_2 &= G_2+P_2G_1+P_2P_1G_0\\
+    c_3 &= \dots
+\end{align*}
+
+Für diese Formel hilft die Visualisierung auf S. 88. So kann man von unten nach oben die Wasserleitung durchgehen und aufdrehen, bis unten Wasser ankommt (ein Carry entsteht)
+
+Die Ps und Gs brauchen $2\tau$
+
+Die Carry Logik (siehe Formeln für $c_i$) braucht auch nur $2\tau$
+
+Die Summe zu berechnen braucht auch nur $2\tau$
+
+\know{Probleme}{Wir haben immer größere Gatter (n Eingänge), diese werden Teuer und brauchen dann auch mehr Zeit. (fan-in)
+
+Das weitere Problem ist, dass $P_0$ in n Carry Logiken rein muss, somit wird das Signal immer schwächer und ist nicht mehr sicher. (fan-out)}
+
+Dieser Funktioniert nur bis $n=16$. Alles darüber leidet unter den oben genannten Problemen.
+
+Nun bauen wir ein Ripple-Carry addiere aus diesen 16-Bit Carry Look-Ahead Adder.
+
+\know{Aufgabe}{Wie groß ist die Verzögerung dieser Addierers bei der Addition von zwei n-Bit-Zahlen.
+
+Speziel für n=64 und m=16 (mit Skizze als CLA)
+
+Allgemein für beliebige Werte von n und m}
+
+\subsection{Subtraktion}
+
+\subsection{Multiplikation}
+
+\subsection{Festkommanzahlen}
+
+\subsection{Fließkommazahlen}
+
+\end{document}

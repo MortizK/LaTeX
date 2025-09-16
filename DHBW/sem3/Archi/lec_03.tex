@@ -1,0 +1,89 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 15, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+Wir bauen eine ALU, welche die verschiedenen Operatoren ausführen kann.
+
+\subsection{Grundlagen: Boolsche Gatter}
+
+Siehe Digitaltechnik. Wir sprechen von Spannungen. Erinnerung:
+
+\begin{center}
+    \begin{tabular}{c|c|c|c}
+        Operator & Symbol & Beispiel & Zeit\\
+        \hline
+        AND & \& & $A\cdot B$ & $\tau$\\
+        OR & $\geq 1$ & $A+B$ & $\tau$\\
+        NOT & $\circ$ & $\bar{A}$ & $\tau$\\
+        XOR & $=1$ & $A\oplus B$ & $2\tau$\\
+    \end{tabular}
+\end{center}
+
+Ein NICHT Gatter kann aus einem Transistor gebaut werden.
+
+Ein UND Gatter kann aus zwei Transistoren gebaut werden, welche in Reihe geschaltet werden.
+
+Ein ODER Gatter brauche ich zwei Transistoren, welche parallel geschaltet sind.
+
+Ein Gatter braucht eine Zeit von $\tau=1ns$. Mit diesem lässt sich ein Kritischer Pfad einzeichnen, welcher die längste Zeit braucht. Es können auch Konflikte entstehen (Siehe Digitaltechnik)
+
+\subsection{Addition}
+
+\subsubsection{Halbaddierer}
+
+Ein Halbaddierer nimmt $a$ und $b$ als inputs und gibt $s_0$ und $c_0$ als output. Er addiert also zwei Bits zu einer zwei Bit Output Zahl und nur das LSB einer Zahl.
+
+\begin{center}
+    \begin{tabular}{cc|cc}
+        $a_0$ & $b_0$ & $c_0$ & $s_0$\\
+        \hline
+        0 & 0 & 0 & 0\\
+        0 & 1 & 0 & 1\\
+        1 & 0 & 0 & 1\\
+        1 & 1 & 1 & 0
+    \end{tabular}
+\end{center}
+
+Aus dieser Wahrheitstabelle ergibt sich ein Halbaddierer, wo $c_0=a_0\cdot b_0$ ein UND ist und $s_0=a_0\oplus b_0$ ein XOR.
+
+Daraus ergibt sich eine Laufzeit von $2\tau$, da das XOR $2\tau$ braucht.
+
+\subsubsection{Volladdierer}
+
+\begin{center}
+    \begin{tabular}{ccc|cc}
+        $a_i$ & $b_i$ & $c_{i-1}$ & $c_i$ & $s_0$\\
+        \hline
+        0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0 & 1\\
+        0 & 1 & 0 & 0 & 1\\
+        0 & 1 & 1 & 1 & 0\\
+        1 & 0 & 0 & 0 & 1\\
+        1 & 0 & 1 & 1 & 0\\
+        1 & 1 & 0 & 1 & 0\\
+        1 & 1 & 1 & 1 & 1\\
+    \end{tabular}
+\end{center}
+
+Somit hängen wir einen zweiten Halbaddierer hintenran, um drei Zahlen miteinander zu addieren.
+
+Die Carry's der beiden Halbaddierer kommen in ein ODER. Und die Summe des erstens Halbaddierer kommt in den zweiten und dessen Summe ist die Ergebnis Summe.
+
+% \begin{figure}[ht]
+% \centering
+% \incfig{Volladdierer}
+% \caption{Volladdierer}
+% \label{fig:Volladdierer}
+% \end{figure}
+
+\end{document}
