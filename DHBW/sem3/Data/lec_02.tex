@@ -1,0 +1,227 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{September 17, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Einführung und Grundlagen}
+
+\subsection{Systemarchitekur eines DBMS}
+
+Schichten wie Slide S. 21
+
+\begin{enumerate}
+    \item E/A-Prozessor
+    \item Autorisierungskontrolle, Integrität, Optimierung
+    \item Anfragebearbeitung
+    \item Transaktions-Management
+    \item Dateiverwaltung
+    \item Pufferverwaltung
+    \item Dateien
+\end{enumerate}
+
+Alle Schichten haben Zugriff auf das Data Dictionary.
+
+Zusätzlich gibt es noch den Recovery-Management, welche die Operation loggt.
+
+Die Optimierung verbessert den Query um die kürzeste Zeit für die Anfrage zu haben.
+
+\subsection{Datenbank-Entwurfsprozess}
+
+Das ist der Prozess, den wir gerne anwenden sollen, wenn wir Datenbanken planen und erstellen.
+
+\begin{enumerate}
+    \item Anforderungsanalyse (Lasten-/Pflichtenheft)
+    \item Konzeptioneller Entwurf (ER-Modell)
+    \item Logische Entwurf (Relationales Datenebankmodell)
+    \item Datenbank-Definition (DDL)
+    \item Physikalischer Entwurf (Puffergröße, Indizes, ...)
+\end{enumerate}
+
+Oben viel mühe geben, das später nichts vergessen wird.
+
+\subsubsection{Übung}
+
+In einer Universität soll ein DBMS eingesetzt werden.
+
+\begin{enumerate}
+    \item Welche Daten fallen an?
+    \item Welcher Benutzergruppen es gibt?
+    \item Welche Anwendungsprogramme sinnvoll wären?
+    \item Wie würde die erforderliche Funktionalität ohne DBMS realisiert werden? Welcher Auswirkungen hätte dies für die Daten?
+\end{enumerate}
+
+\begin{multicols}{2}
+
+Die Daten:
+
+\begin{enumerate}
+    \item Studenten
+    \item Dozenten
+    \item Räume
+    \item Module
+    \item Vorlesung
+    \item Noten
+    \item Kurse
+\end{enumerate}
+
+Die Benutzergruppen:
+
+\begin{enumerate}
+    \item Dozenten
+    \item Studenten
+    \item Administratoren
+    \item Verwaltung (Sekretariat)
+\end{enumerate}
+
+\columnbreak
+
+Anwendungsprogramme:
+
+\begin{enumerate}
+    \item Personalverwaltung
+    \item Vorlesungsverwaltung
+    \item Kursverwaltung
+    \item Noteneinsicht der Studierenden
+    \item Noteneintragen
+    \item Planungsansicht (Raumplanung der Vorlesungen)
+    \item Stundenplanung (Dozentenansicht und Kursansicht)
+    \item erstellen einer Vorlesung
+    \item Studienportal
+\end{enumerate}
+
+\end{multicols}
+
+Konsequenzen, wenn dies nicht als DBMS realisiert wird:
+
+\begin{enumerate}
+    \item Die Daten sind nicht mehr konsistent, da sie an mehren Stellen liegen und einzeln Verwaltet werden müssen. Menschlicher Fehler werden eintreten.
+    \item Die Integration wird nicht mehr gewährleistet, da Daten an mehreren Orten abgelegt werden. So bekommen Dozenten und Studenten unterschiedlicher Ansichten die unabhängig voneinander sind, obwohl diese auf die gleichen Daten zeigen
+\end{enumerate}
+
+\section{Der konzeptionelle Datenbankentwurf}
+
+Die ersten Beiden Punkte aus dem Datenbank-Entwurfsprozess oben.
+
+\subsection{Anforderungsanalyse}
+
+Bei der Anforderungsanalyse werden die Zielvorgaben, die Anforderungen, das Verbesserungspotential und die Entwicklungsmöglichkeiten untersucht. Das Ergebnis ist ein detaillierte Anforderungskatalog (auch als Lastenheft bezeichnet)
+
+Die Anforderungsanalyse oder Requirements Engineering ist ein BEgriff des Systemsoftware Engineering. Es umfasst das Sammeln, Dokumentieren, Analysieren und Verfolgen von Kundenanforderungen für ein zu erstellendes Softwareprodukt
+
+Dies ist die Aufgabe von Projektmanagement. Wir machen dies halt dann mit Daten.
+
+\subsection{Dokumentationstechniken}
+
+Wir benutzen Daten-orientierte Techniken. Uns interessiert nur die Daten (attribute) und deren Zusammenhänge. Die Datenstruktur modellieren wir mit dem Entity-Relationship-Modell, kurz ERM.
+
+Das ER-Modell nach P. Chen von 1976 funktioniert und ist einfach genug um es mit Entwicklern und Kunden zu besprechen. Es kann aber auch einfach in andere Modelle übertragen werden (Relational, Dokumenten Model, Graphenmodel)
+
+\subsection{Softwarehaus}
+
+Beispiel auf Slides durchlesen.
+
+\subsection{Das ER-Modell}
+
+Es besteht aus drei Komponenten
+
+\begin{enumerate}
+    \item Entity (Mitarbeiter, Projekte, Kurs)
+    \item Relationship (Mitarbeiter besucht Kurs)
+    \item Attribute (Name, Geb.-Datum)
+\end{enumerate}
+
+\subsection{Attribute und Werte}
+
+Attribute definieren Eigenschaften von Entitäten. Die einzelnen Ausprägungen nennt man Attributwerte. Die Festlegung der Attribute sollte sorgfältig durchgeführt werden. Die Notation für ein ER-Modell ist ein Kreis. Die Wertebereiche der Attribute sollten bereits im ER-Modell grob festgelegt werden (Tabelle)
+
+\subsection{Schlüsselattribute}
+
+An diesen sind Bedingungen geknüpft. Er darf nicht NULL sein und darf sich mit der Zeit nicht ändern.
+
+\subsection{Weiter Attribute}
+
+es kann Probleme geben, mit Attributen wie: Adresse, Alter, Telefonnummer.
+
+Zusammengesetzte Attribute wie Adresse müssen zerlegt werden.
+
+Abgeleitete Attribute wie das Alter können berechnet werden.
+
+Mengenattribute müssen in einen neuen Entitätstyp überführt werden. Eine Person kann mehrere Telefonnummern haben, diese sollen dan ausgelagert werden, wo die Person auf die Telefonnummer verwiesen wird.
+
+\subsection{Kardinalitäten (Beziehungen)}
+
+1:1 Beziehungen - Ein Mitarbeiter leitet eine Abteilung
+
+1:N Beziehungen - Ein Kunde erteilt N Aufträge
+
+M:N Beziehungen - M Mitarbeiter arbeiten in N Projekten
+
+Siehe Mengen-Visualisierung auf den Slide S.17f
+
+\section{Das Projekt}
+
+Wir dürfen uns selber ein Thema für unsere Datenbank aussuchen. Beispiele sind im Aufgabenblatt.
+
+Das ausgesuchte Thema muss im Vorhinein genehmigt werden.
+
+Die Arbeit setzt sich aus folgendem zusammen:
+
+\begin{enumerate}
+    \item Anforderungsanalyse (10\%)
+    \item ERM (10\% oder 30\%)
+    \item Relationale Modell (30\% oder 10\%)
+    \item Datenschema in SQL (10\% oder 30\%)
+    \item Entwurf der logisch unabhängigen Sicht (View) (30\% oder 10\%)
+\end{enumerate}
+
+\subsection{Vorgaben}
+
+\begin{enumerate}
+    \item Ein Gesamtdokument mit allen Punkten der Arbeit
+    \item Abgabetermin in Moodle
+    \item Name des Dokuments mit Name "Projektname\_Moritz"
+    \item Auch im Dokument soll der Ersteller-Name sichtbar sein.
+    \item Korrektur und Feedback findet nach jeder Abgabe der Teilprojekte statt.
+\end{enumerate}
+
+\subsection{Bewertungsschema}
+
+Komplexität (Schwierigkeitsgrad) ist ein wichtigste Bewertungskriterium für das gesamte Projekt.
+
+Anforderungsanalyse
+
+\begin{enumerate}
+    \item Kreativität
+    \item Verständlichkeit
+    \item Beschreibung klar nachvollziehbar
+    \item Definieren Sie verschiedene Sichten/Rollen für die Anforderungen
+\end{enumerate}
+
+\subsection{Was neu ist}
+
+Anforderungsanalyse im Doppelteam (Zusammen)
+
+Die Anderen 4 Themen müssen Aufgeteilt werden. (2. und 4.) oder (3. und 5.)
+
+Benotung: Für die Themen die in Eigenleistung bearbeitet werden gibt es 30\% und für das Andere wird ein Feedback (1 DIN 4 Blatt) an den Partner geschrieben, welches 10\% gibt.
+
+Es fehlen noch 10\%, dafür gibt es noch eine Gruppenaufgabe
+
+\subsection{Das Dokument}
+
+Beide Studierenden habe das Vollständige Dokument und ergänzen dies mit dem Feedback was dem anderem gegeben wurde.
+
+\section{Der relationale Entwurf}
+
+\section{Der relationale Entwurfstheorie}
+
+\section{Einführung zum Datenbankentwurf}
+
+\end{document}
