@@ -1,0 +1,150 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{September 17, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Konvergenz im $\mathbb{R}^n$}
+
+Wir behandeln eine Folge $\{x^k\}$ von Vektoren $x^k=\left(\begin{smallmatrix}x_1^k\\ x_2^k\\ \dots\end{smallmatrix}\right)\in \mathbb{R}$ und einem Vektor $x=\left(\begin{smallmatrix}x_1\\ x_2\\ \dots\end{smallmatrix}\right)\in \mathbb{R}$ Damit definieren wir den Grenzwert der Folge:
+
+% Definition
+\begin{equation*}
+    \lim_{k\to\infty}x^k=x \iff 
+    ||x^k-x||=\sqrt{\sum_{i=1}^{n}(x^k_i-x_i)^2}\xrightarrow{k\to\infty}0
+\end{equation*}
+
+Wir verwenden hier meist die euklidische Norm, aber jede Norm in $\mathbb{R}^n$ wäre verwendbar.
+
+Beispiel
+
+\begin{equation*}
+    x^k=\left(\begin{array}{r}
+        1/k\cos(\frac{k\pi}{10})\\
+        1/k\sin(\frac{k\pi}{10})
+    \end{array}\right), k=1,2, \dots
+\end{equation*}
+
+Vermutung:
+
+\begin{equation*}
+    \lim_{k\to\infty}x^k=\left(\begin{array}{r}
+        0\\
+        0
+    \end{array}\right)
+\end{equation*}
+
+Nachweis: Frage Rosalie für den Nachweis.
+
+Wie in $\mathbb{R}^1$ gilt: 
+
+\satz{Der Grenzwert einer Folge ist eindeutig. Beweis im Aufgabenblatt (Häufungspunkt)!}
+
+\satz{
+\begin{equation*}
+    \lim_{x\to\infty} x^k=x \iff \forall i=1, \dots, n: \lim_{k\to\infty} x_i^k=x_i
+\end{equation*}
+
+Konvergent im $\mathbb{R}^n$ "$\iff$" Koordinatenweise Konvergenz}
+
+Beweis: Es sei
+
+\begin{align*}
+    &\lim_{k\to\infty} x^k=x; d.h. \lim_{k\to\infty}\sqrt{\sum_{i=1}^{n}(x^k_i-x_i)^2}=0\\
+    \iff &\lim_{k\to\infty}\sum_{i=1}^{n}(x_i^k-x_i)^2=0 \\
+    \iff &\forall i=1, \dots, n: \lim_{k\to\infty} \sqrt{(x_i^k=x_i)^2}=\lim_{k\to\infty}|x_i^k-x_i|=0\\
+    \iff &\forall i=1, \dots, n: \lim_{x\to\infty} x_i^k = x_i
+\end{align*}
+
+%Definition
+Def.: $\epsilon$-Umgebung eines Punktes $x^0\in \mathbb{R}^n$:
+
+\begin{equation*}
+    U_\epsilon(x_0)=\{x\in \mathbb{R}^n\mid ||x-x^0||<\epsilon\} = B[Mittelpunkt, Radius]
+\end{equation*}
+
+n-dimensionale offene Kugel um $x^0$ in $\mathbb{R}^n$
+
+\subsection{Mehrstelliger Funktionen}
+
+Wir betrachte die Abbildung $f: \mathbb{R}^n\to \mathbb{R}$ oder allgemeiner $f: \mathbb{R}^n\to \mathbb{R}^n$.
+
+Mitunter wird beispielsweise unterschieden: $f: \mathbb{R}^3\to \mathbb{R}$ ist ein "Skalarfeld", Temperaturfeld $T=T(x, y, z)$
+
+$f: \mathbb{R}^3\to \mathbb{R}^3$ ist ein "Vektorfeld", z.B. Gravitationsfeld.
+
+Mögliche Schreibweisen: $f(x, y, z), f(x_1, x_2, x_3), f(\vec{x})$ mit $\vec{x}=\left(\begin{smallmatrix}
+    x_1\\x_2\\x_3
+\end{smallmatrix}\right)$
+
+\subsubsection{Visualisierung von Funktionen mehrerer Veränderlichen}
+
+Funktionen mit 2 Veränderlichen (Variablen) lassen sich grafisch darstellen, bei Funktionen von mehre Variablen ist das nur eingeschränkt möglich.
+
+Darstellung als "Fläche": $z=(f(y, x), (x, y)\in D_f)$ (definitionsbereich) 
+
+% Visualisierung in 3D, mit der Fläche als das Ergebnis der Funktionswerte in dem Definitionsbereich.
+
+"Fläche" im herkömmlichen Sinne falls $f$ stetig ist.
+
+Erinnerung an Funktion in $\mathbb{R}$
+
+\begin{equation*}
+    f(x)=\begin{cases}
+        1, \quad\text{falls x rational}\\
+        0, \quad\text{falls x irrational} (\pi, e, ...)
+    \end{cases}
+\end{equation*}
+
+Im einfachstem Fall ist der Definitionsbereich ein Achsen paralleles Rechteck. Möglich sind aber auch allgemeinere und komplexere $D_f$, z.B.
+
+% Skizzen vgl. Rosalie
+\begin{enumerate}
+    \item einfach Zusammenhängend (Eine Form)
+    \item Zusammenhängend (Eine Form mit "Löchern")
+    \item nicht Zusammenhängend (Mehrere Formen auch mit Löchern)
+\end{enumerate}
+
+Graph: Entspricht der Menge der Punkte $(x, y, f(x, y))\in \mathbb{R}^3$
+
+\subsubsection{Höhenlinien}
+
+Beispiel: Höhenlinien in Topographischen Karten. Isobare auf Wetterkarten (Kurve gleichen Luftdrucks)
+
+Höhenlinie von $f$ zur gleichen Höhe  $c=\{(x,y)\in \mathbb{R}^2\mid (x, y)\in D_f\and f(x,y)=c\}$
+
+Schnitte des Graphen der Funktion mit Ebenen parallel zur x-y-Ebene in der Höhe c:
+
+% Skizze mit Höhenlinien eines Berges. Dichtere Linien sind eine Höhere Steigung.
+
+Die Berechnung ist unter Umständen nicht einfach, da $f(x,y)=c$ eine implizierte Gleichung ist.
+
+\subsubsection{Schnittdiagramme}
+
+Schnitte des dreidimensionalen Graphen mit Ebenen parallel zur x-z-, und y-z-Ebene.
+
+\begin{equation*}
+    z=f(x, y=c)=\tilde{f}(x)\quad || \text{ zu x-z-Ebene}
+\end{equation*}
+
+Beispiel: Ideales Gas $pV=n*R*T$, $R$-universelle Gaskonstante.
+
+Ein Schnitt wäre: $p=f(T, V)=\frac{n*R*T}{V}$ für konkrete Temperature folgt Kurve gleicher Temperatur folgt Isotherme
+
+\begin{equation*}
+    p=n*R*\frac{T_{const}}{V}=\frac{C}{V} \implies p\sim \frac{1}{V}
+\end{equation*}
+
+\subsection{Stetigkeit}
+
+\section{Integralrechnung mehrstelliger Funktionen}
+
+\end{document}

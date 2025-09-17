@@ -19,6 +19,16 @@
     \import{./fig/}{#1.pdf_tex}
 }
 
+%%% Command for A Satz for math
+\newcommand{\satz}[1]{
+    \noindent\fbox{
+        \parbox{\textwidth-21pt}{
+            \underline{Satz:}
+            #1
+        }
+    }
+}
+
 %% Links
 \usepackage{hyperref}
 \hypersetup{
@@ -47,3 +57,6 @@
         }
     }
 }
+
+%% Multiple Columns
+\usepackage{multicol}
