@@ -1,0 +1,71 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Software Engineering}
+\author{Moritz}
+\date{September 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Analyse und Spezifikation}
+
+Es muss bekannt sein, was entwickelt werden kann und soll. Es werden die Anforderungen einer Software gesammelt.
+
+In der Spezifikationsphase werden die Anforderungen verbindlich dokumentiert.
+
+\subsection{Spezifikation}
+
+Die Spezifikation ist Grundlage für \dots
+
+\begin{enumerate}
+    \item die Abstimmung mit dem Kunden/dem Marketing
+    \item den Entwurf und die Implementierung
+    \item das Benutzerhandbuch
+    \item die Testvorbereitung (Was ist das korrekte Verhalten)
+    \item die Abnahme
+    \item die Wiederverwendung
+    \item die Klärung späterer Einwände, Regressansprüche
+    \item eine spätere Neu-Implementierung
+\end{enumerate}
+
+Die Anforderungen sind unter IEEE 610.12 (1990) definiert.
+
+Arten von Anforderungen:
+
+\begin{enumerate}
+    \item \textbf{Offene Anforderungen} müssen nur dokumentiert werden, da sie offen geäußert werden.
+    \item \textbf{Latente Anforderungen} bestehen, werden dem Auftraggeber aber erst bewusst, wenn man ihn darauf hinweist.
+    \item \textbf{Entwickler-Optionen} sind Anforderungen, die dem Kunden egal sind und deshalb vom Entwickler entschieden werden können.
+    \item \textbf{Harte Anforderungen} sind exakt beschrieben, ihre korrekte Implementierung kann mit Ja oder Nein entschieden werden.
+    \item Die korrekte Implementierung \textbf{weicher Anforderungen} kann nicht durch Ja oder Nein entschieden werden, zum Beispiel die Forderung nach Wartbarkeit.
+    \item \textbf{Vage Anforderungen} sind nicht exakt bestimmt, sondern durch einen Übergang, zum Beispiel die Forderung nach einer schnellen Arbeitsweise.
+\end{enumerate}
+
+Nicht-Funktionale Anforderungen. Diese beziehen sich auf Zuverlässigkeit, Komfort, Benutzbarkeit und Wartbarkeit. Diese lassen sich nicht in einer Funktion wiederspiegeln.
+
+Um mit diesen umzugehen, sollte die objektiv und prüfbar umformuliert werden, damit man dieser erfüllen kann. Für manche kann es Normen geben, wie die barrierefreiheit einer Webanwendung.
+
+\subsection{Dokumente}
+
+Im Verlauf der ersten beiden Phasen entstehen also mehre Dokumente.
+
+Das Anforderungsdokument: Dokumentiert die Ergebnisse der Analyse, auch Lastenheft genannt.
+
+Das Begriffslexikon: verzeichnet und erklärt die Begriffe dem Kunden.
+
+Die Spezifikation: Dokumentiert alle verbindlichen zu realisierenden Funktionen, auch Pflichtenheft genannt.
+
+\subsection{Analysen}
+
+Die Ist- und Soll-Analysen sind wichtig. Hierzu sollte sich die aktuelle Lage angeguckt werden. Verwendete Software und deren Daten.
+
+Nach dem Ist-Zustand soll der Soll-Zustand festgestellt werden. Neue Funktionen oder Verbesserungen.
+
+\section{Projekt}
+
+Das Projekt stellt sich aus den Unterschiedlichen Aufgaben des SWE zusammen, diese sind alle unter project.tex zusammengefasst.
+
+\end{document}

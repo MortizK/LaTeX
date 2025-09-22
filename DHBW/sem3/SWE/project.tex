@@ -1,0 +1,127 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Software Engineering \\ \large Prüfungsleistung: Projekt}
+\author{Moritz Köhler}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Vorbereitung/ Interview}
+
+Situation: Ich bin Software-Entwickler und soll ein Tool zur Erstellung von Klausuren aus Prüfungsaufgaben.
+
+\begin{enumerate}
+    \item Wie liegen die einzelnen Prüfungsaufgaben vor? Pdf, Word, \LaTeX oder andere. Soll eine eigene Datenstruktur für Prüfungsaufgaben erstellt werden?
+    \subitem Aktuell Libra Office mit allen Aufgaben
+    \subitem Der Datensatz soll neue Teilaufgaben erstellen können mit Text (keine Grafiken) kein Import Nötig.
+    \subitem Grafik Import Wäre Supper (v.2 erst mal nicht implementieren)
+    \item Sind Teilaufgaben/Unteraufgaben in einer Prüfungsaufgabe enthalten oder liegen diese Einzeln for.
+    \subitem Ja siehe unten.
+    \item Wie sollen die Klausuren aus den Prüfungsaufgaben generiert werden? Per Zufall, Händisch oder anders?
+    \subitem Wird vom Nutzer angegeben.
+    \item In welcher Reihenfolge sollen die Aufgaben erscheinen? Soll die Reihenfolge manuell bearbeitbar sein?
+    \subitem Die Kapitel werden angegeben.
+    \item Welches Ausgabemedium soll entstehen: Pdf, Digital oder Druck.
+    \subitem als PDF.
+    \item Sollen nach Aufgaben White Space für Lösungen sein? Wenn Ja: Blanko, Liniert, Kariert, Gepunktet? Oder sind diese Schon in den Daten der Aufgaben hinterlegt?
+    \subitem Als Kasten mit der Größe abhängig von der Punktzahl. Aber noch anpassbar.
+    \item Bestehen die Daten auch aus Grafiken oder nur Text?
+    \subitem nur Text, Grafiken für v.2
+    \item Soll die Benotung in dem Tool möglich sein?
+    \subitem 
+    \item Wie soll die Punkteverteilung der Aufgaben geregelt werden.
+    \subitem Sind in den Teilaufgaben. Das Kapitel hat eine Zielpunktzahl.
+    \item Soll es ein Inhaltsverzeichnis der Klausur geben?
+    \subitem Ja im Deckblatt, nicht teil der Anforderung.
+    \item Wie ist das mit einem Deckblatt.
+    \subitem Wird manuell vom Nutzer außerhalb vom Tool hinzugefügt.
+    \item Sollen die Fertigen Klausuren verschlüsselt werden? Wenn Ja wie und mit welchem Standard?
+    \subitem 
+    \item Sollen Korrekturen von z.B. Rechtschreibung in den Prüfungsaufgaben innerhalb des Tools möglich sein. (Aufwendig, da Textbearbeitung implementiert werden muss)
+    \subitem In der Datenerstellung.
+    \item Soll die Software eigenständig sein, oder z.B. Word ergänzen, z.B. als neuen Reiter.
+    \subitem Eigenständig, Lokal
+    \item Geht es bei Klausuren auch um anderer Prüfungsleistung wie Projekte.
+    \subitem 
+    \item Gibt es für die Prüfungsaufgaben irgendwelche Rechte? Dürfen manche nur ihre Eigenen Aufgaben sehen?
+    \subitem Es gibt nur einen Lokalen Nutzer
+    \item Wer darf die Software Nutzen? Brauchen wir eine Benutzerverwaltung oder kann die bisherige Login Funktion der Hochschule genutzt werden?
+    \subitem Open Source, Lokal
+\end{enumerate}
+
+\subsection{Kunde erzählt:}
+
+Eine Software als einzelperson lokal auf dem Rechner. Mit Zufallsgenerator (Eine Klausur keine Varianten). Klausuraufgaben und Teilaufgaben in einer Datensammlung.
+
+Verschieden Betriebssystem als Java Anwendung. Soll Open Source sein mit Java FX.
+
+Zwei generieren Buttons: Klausur und Probeklausur.
+
+Es gibt eine Probeklausur, die als Leitlinie gilt.
+
+
+\subsection{Weitere Punkte aus dem Interview:}
+
+
+Eine Aufgabe (mit Titel als \textbf{Kapitel}) besteht aus: Nummeriert (automatisch), \textbf{Teilaufgabe} (Buchstabe). Eine Teilaufgabe ist die Aufgabe mit Textfeld, Punktezahl, Musterlösung, Größe des White-Space (als Kasten) generieren durch Punktzahl. Teilaufgaben gehören zu einem Themengebiet. Musterlösung soll zusätlich als Zweit PDF gedruckt werden.
+
+Jede Teilaufgabe hat Kategorie (Schwer, Mittel, Einfach), Wie viele Aufgaben mit Welche Kapitel es gibt. Eine Teilaufgabe kann gekennzeichnet werden, das es nur für Probeklausur.
+
+Variante an Teilaufgaben. Es soll nur eine Variante in der Generierung vorkommen. \textbf{Variante} die Teilaufgaben haben hier die gleicher Punktzahl. Ist aber Egal.
+
+Eine Aufgabe soll aus Teilaufgaben eines Kapitels mit einer Zielpunktzahl. Die Schwierigkeit soll in dritteln erfolgen. Wenn das Dritteln nicht möglich ist, soll der Druck verhindert werden.
+
+Wenn die Zielpunktzahl nicht möglich ist: Es sollen nur mögliche Zielpunkte zur Auswahl sein.
+
+Versionierung der Teilaufgabe ist nicht notwendig.
+
+Randplatz: 2cm
+
+Kopf und Fußzeilen. Fußzeile mit Seitenzahl 1/x, beginnend mit 1.
+
+Jedes Kapitel ist eine Aufgabe. 1 zu 1
+
+Die Sprache ist auf English. Es soll aber möglich sein in Zukunft weitere Sprache der Benutzeroberfläche hinzuzufügen.
+
+Probeklausur: Ist identisch 
+
+Code soll gut Dokumentiert sein (English)
+
+Die Daten sollen als xml gespeichert werden. Einlesen und Laden für unterschiedliche Module.
+
+Evtl. eine Vorschau des PDF.
+
+Gesamtpunktzahl ist nicht relevant. Wird indirekt durch die Kapitel gesteuert.
+
+In V.2 html fähiger Text
+
+Reihenfolge der Teilaufgaben ist egal. Einfach nach Schwer
+
+Benutzeroberfläche: einfach und übersichtlich mit Buttons, + hinzufügen, - löschen, exit, laden und speicher von xml (speichern unter). Jede Interaktion braucht einen Hover Text.
+
+User Freie Software
+
+
+\subsection{Begriffe für das Begriffslexikon:}
+
+\begin{enumerate}
+    \item Kapitel (eine Aufgabe)
+    \item Aufgabe (Teilaufgaben)
+    \item Teilaufgabe (Name, Punkte, Schwierigkeit, Varianten)
+    \item Varianten (Frage, Lösung)
+\end{enumerate}
+
+\section{Anforderungsanalyse}
+
+\know{Aufgabe}{Ordnen der Oberen Notizen.}
+
+\subsection{Anforderungsdokument/ Lastenheft}
+
+\subsection{Begriffslexikon}
+
+\subsection{Spezifikation/ Pflichtenheft}
+
+\end{document}

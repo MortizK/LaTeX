@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+\subsection{Addierwerk}
+
+Vergleich der Addierwerke an der Addition einer 64-Bit Zahl:
+
+\begin{enumerate}
+    \item Serielles Addierwerk \begin{equation*}
+        t_{ges} = (t_{FA} + t_{FF}) * n = 5\tau * n = 32ns
+    \end{equation*}
+    \item RCA: Ripple Carry Adder \begin{equation*}
+        t_{ges} = t_{FA} * n = 2\tau * n = 2 * 0,1ns * 64 = 12,8ns
+    \end{equation*}
+    \item CLA: Carry Look Ahead Adder \begin{equation*}
+        t_{ges} = t_{g,p} + t_{carry} + t_{s} = 6\tau
+    \end{equation*}
+    Nur praktikabel für kleine $n (< 16)$
+    \item RCA aus CLAs (m-bit) \begin{equation*}
+        t_{ges} = \left\lceil\frac{n}{m}\right\rceil * 2\tau + 4\tau
+    \end{equation*}
+    für $m=16$ ist $t_{ges} = 12\tau = 1,2ns$
+\end{enumerate}
+
+Wir müssen von allen die Formel der Zeit können und einen Kritischen Pfad einzeichnen können.
+
+\subsection{Subtraktion}
+
+Die Subtraktion funktioniert indem wir $a + (-b)$ rechnen. Das Funktioniert im 2er Komplement.
+
+Die Beispielrechnungen sind im Script S.96.
+
+Wenn die Beiden Zahl unterschiedliche Vorzeichen haben (Also $a, -b$), so hat die Summe dieser ($a + (-b)$) immer das Richtige Ergebnis.
+
+Realisierung. Wir ergänzen eine Steuerleitung, welche in das $c_{in}$ kommt. Dies ist die plus 0 oder 1.
+
+Die $b$-Eingänge werden mit der Steuerleitung $S$ XOR, quasi negiert.
+
+\begin{center}
+    \begin{tabular}{cc|c}
+        b & S & \\
+        \hline
+        0 & 0 & 0 \\
+        1 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 1 & 0 \\
+    \end{tabular}
+    \quad
+    \begin{tabular}{cc|c}
+        b & S & \\
+        \hline
+        $b$ & 0 & $b$ \\
+        $b$ & 1 & $\bar{b}$ \\
+    \end{tabular} 
+\end{center}
+
+Dieser braucht dann für das XOR, $2\tau$ mehr Zeit, als der Verbauter Addierer. 
+
+\subsubsection{Overflow Prüfen}
+
+Nun muss nur noch geprüft werden, ob das Ergebnis korrekt ist. Dies kann mit den letzten beiden Carry-Bits gemacht werden.
+
+An den Beispielen auf Slide S.98 wird deutlich, dass hierfür ein XOR geeignet ist.
+
+\subsubsection{Condition-Code-Register CCR}
+
+Dieser hat für jede Arithmetische Funktion eine Reihe an Flags, die bestimmt werden:
+
+\begin{center}
+    N(Negativ) - C (Carry) - Z (Zero) - V (Overflow)
+\end{center}
+
+\subsection{Multiplikation}
+
+Hierfür gucken wir uns erst die Schriftliche Multiplikation an. Diese besteht aus einer einfachen Multiplikation und einem Shiften für jede Stelle von $b$ in $a*b$.
+
+Statt nun aber immer eine $2n$-bit Zahl und eine $n$-bit Zahl zu addieren, schieben wir statt den zu addierenden Zahlen, das Ergebnis $p$. Slide S.104
+
+\know{Aufgabe}{Wie lange benötig die erste Addition von a, b nach p? Und die Folgenden? Slide S. 105}
+
+\subsection{Festkommanzahlen}
+
+\subsection{Fließkommazahlen}
+
+\end{document}

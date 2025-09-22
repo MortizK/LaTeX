@@ -1,0 +1,191 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{September 19, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Reguläre Sprachen und endliche Automaten}
+
+\subsection{Endliche Automaten}
+
+Automaten akzeptieren einen Input, genau dann wenn der gesamte Input abgearbeitet wurde und wir in einen validen endzustand enden.
+
+So können Junk-States eingebaut werden die als ungültiges Dead-End funktionieren.
+
+\subsection{Demterministische endliche Automat}
+
+Ein DFA (Deterministic finit automaton) was ein quintuple ist. Siehe S. 71. Es besteht aus:
+
+\begin{enumerate}
+    \item $Q$ states
+    \item $\Sigma$ input Alphabet
+    \item $\delta: Q \times \Sigma$ sind alle Übergänge
+    \item $q_0\in Q$ ist der Startpunkt
+    \item $F\subset Q$ sind die validen Endpunkte
+\end{enumerate}
+
+Die Funktion $\delta'(0, aba)$ geht von Zustand $0$ die einzelnen Schritte $aba$ und gibt den Zustand zurück, wo diese Reihe an Inputs endet.
+
+Diese Funktion wird rekursiv definiert:
+
+\begin{enumerate}
+    \item $\delta': Q \times \Sigma^*\to Q$
+    \item $\delta'(q, \epsilon)=q$ für jedes $q\in Q$
+    \item $\delta'(q, wc)=\delta(\delta'(q, w), c)$ mit $c\in\Sigma; w\in\Sigma^*$
+\end{enumerate}
+
+Die Sprache die ein Automat erstellt sind aller Wörter, die vom Startzustand in einem Endzustand enden. Beispiel auf S. 74
+
+Der Lauf eines DFA erstellt sich aus aus dem Startzustand und den input wort und jede einzelnen Verarbeitung entfernt einen Buchstabe und ändert den Zustand, wie es der Automat machen würde.
+
+Ein Lauf wird akzeptiert, wenn der Letzte Zustand im Lauf bei $(q_n, \epsilon)$ mit $q_n\in F$ erfüllt ist.
+
+Die Sprache des Automaten kann auch über die akzeptierenden Läufe definiert werden.
+
+\subsubsection{Aufgabe S.77}
+
+Wir bauen einen Automaten, welcher den Substring $ab$ an unterschiedlichen Stellen akzeptiert.
+
+\begin{enumerate}
+    \item Am Anfang $ab(a+b)^*$
+    \item An eine beliebigen Stellen
+    \item Am Ende
+\end{enumerate}
+
+Bauen einen Regex und den Automaten (Habe ich auf Papier gemacht)
+
+\begin{enumerate}
+    \item Ist einfach zu implementieren
+    \item Hierfür brauchen wir eine äquivalenten Regex: $b^*aa^*b(a+b)^*$. Diesen können wir als Deterministischen Automaten bauen.
+    \item Vom Ziel $ab$ bauen hilft. So lässt sich ein äquivalenter Automat bauen. So benutzen wir den Zuständen nützliche Namen geben, um Beispielsweise die Hilfreichen Information zu speichern.
+\end{enumerate}
+
+\subsubsection{$\delta$-Funktion darstellung}
+
+Wir dürfen Abkürzen: $\delta(XY, a)=YA$ und $\delta(XY, B)=YB$.
+
+Oder aber als Tabelle:
+
+\begin{center}
+    \begin{tabular}{lc|cc}
+        & $\delta$ & 0 & 1 \\
+        \hline
+        $\to$ & $q_0$ & $q_1$ & $q_4$ \\
+        & $q_1$ & $q_2$ & $q_4$ \\
+        & $q_2$ & $q_4$ & $q_3$ \\
+        * & $q_3$ & $q_3$ & $q_3$ \\
+        & $q_4$ & $q_4$ & $q_4$ \\
+    \end{tabular}
+\end{center}
+
+Der Pfeil markiert den Start und das Sternchen akzeptierte Endzustände.
+
+Auf Slide 80 wird noch ein Programm erwähnt, was diese Form einlesen kann. Dieses gibt es auf der Website von Herrn Schulz.
+
+Übung zu Slide 81, wo das DFA von einer even-odd Tabelle dargestellt wurde. Hierzu die Sprache $L$:
+
+\begin{equation*}
+    L=\{w\in\Sigma^*_{bin}\mid |w|_1=1+2n, n\in \mathbb{N}\}
+\end{equation*}
+
+\know{Enden mit String}{Den Automaten so bauen, indem alle Zustände aufzulisten, welche die Informationen enthalten, die Relevant sind. Siehe Matrix von Aufgabe auf S.82. Ist auch auf Blatt Automaten vom 19.09}
+
+\subsection{Nicht Deterministische endlicher Automaten}
+
+Non-deterministic finite automaton (NFA), es können somit beliebig viele Pfeile von einem Zustand abgehen.
+
+Durch diese Fallunterscheidung kann es mehrere Läufe por Wort geben, wovon beliebig viele akzeptiert werden.
+
+\subsubsection{$\Delta$-Relation}
+
+Dies ersetzt quasi die $\delta$-Funktion eines DFA.
+
+Es gibt auch noch $\epsilon$-Transitions, welche keinen Buchstaben des Wortes verbrauchen.
+
+Und es können mehrere Relationen pro Zustand geben.
+
+\begin{center}
+    $\delta$ ist eine Relation mit: $Q\times (\Sigma\cup \{\epsilon\})\times Q$
+\end{center}
+
+\know{Akzeptierende Wörter}{Ein Automat akzeptiert ein Wort, wenn es einen Lauf mit diesem Wort gibt, der in einem akzeptierendem Zustand im Automaten endet.}
+
+So gibt sich folgende Tabelle für einen Automaten, der $aba$ als subtring erlaubt:
+
+\begin{center}
+    \begin{tabular}{lc|ccc}
+         & $\Delta$ & a & b & $\epsilon$ \\
+        \hline
+       $\to$ & x & \{x, a\} & \{x\} & \{\} \\
+        & a & \{\} & \{ab\} & \{\} \\
+        & ab & \{aba\} & \{\} & \{\} \\
+       * & aba & \{aba\} & \{aba\} & \{\} \\
+    \end{tabular}
+\end{center}
+
+\subsection{Umwandlung DFA und NFA}
+
+Die Richtung von DFA zu NFA ist trivial, die andere ist nicht trivial.
+
+Um aus NFA einen DFA zu machen, denken wir in Mengen. So ist ein Zustand ein Mengenzustand aus den Zuständen aus dem NFA. Wenn also aus 1 nach 2 und 1 gegangen wird so wird im DFA von 1 nur nach \{1, 2\} gegangen.
+
+Besprochenen Aufgaben: 
+\begin{enumerate}
+    \item $\epsilon$-Abschluss machen. Somit ergibt ein $\epsilon$-Abschluss: $ec(q)=\{\dots\}$ alle durch ein $\epsilon$ Erreichbaren Zustände.
+    \item Nachfolger Bestimmung. Ein Nachfolger sind die direkten Nachfolger durch einen Buchstaben und deren $\epsilon$-Abschlüsse: $\delta^*(q, c)=\{\dots\}$
+    \item Vollständige Nachfolger: $\hat{\delta}(\{q_0, q_1, \dots\}, c)=\{\dots\}$ sind alle Nachfolger von den genannten $q_0, q_1, \dots$.
+\end{enumerate}
+
+Vorgehensweise:
+
+\begin{enumerate}
+    \item Wir startet mit der Menge des $\epsilon$-Abschluss vom start: $S_0=ec(q_0)$
+    \item Für alle $c\in \Sigma$ wird dann die Menge bestimmt$\hat{\delta}(S_0, c)=S_1$
+    \item Dies wird für alle Mengen $S_n$ bestimmt.
+\end{enumerate}
+
+Für die Aufgabe von S.108 lässt sich folgende Tabelle mit $S_0=\{q_0, q_1, q_2\}$ für $det(A)$ bilden:
+
+\begin{center}
+    \begin{tabular}{c|ll}
+        $det(A)$ & a & b\\
+        \hline
+        $S_0$ & $S_1=\{q_4\}$ & $S_2=\{q_3\}$\\
+        $S_1$ & $\{\}$ Junk-state & $S_3=\{q_6,q_7,q_0,q_1,q_2\}$\\
+        $S_2$ & $S_4=\{q_5,q_7,q_0,q_1,q_2\}$ & $\{\}$ Junk-state\\
+        $S_3$ & $\{q_4\}=S_1$ & $\{q_3\}=S_2$\\
+        $S_4$ & $\{q_4\}=S_1$ & $\{q_3\}=S_2$\\
+    \end{tabular}
+\end{center}
+
+Diese Menge können als Zustände in ein DFA umgewandelt werden. Zu beachten ist der Startwert und die akzeptierten Zustände. Ein zustand ist nach Aufgabe bei $q_7$ akzeptiert. Somit sind muss $q_7\in S_n$ liegen. Also sind $S_3$ und $S_4$ akzeptierte Zustände.
+
+Wir schreiben also: $\hat{F}=\{S_3, S_4\}$
+
+\subsection{Aus Regulären Ausdrücken einen NFA bauen}
+
+Wir haben schon gezeigt, dass aus einem NFA ein DFA gebaut werden kann. Nun wollen wir auch Zeigen das aus einem Regulärem Ausdruck (RE: Regular Expression) einen NFA bauen.
+
+Wir wollen also die Grundbausteine einer RE umsetzen, um zwei Automaten miteinander zu verbinden. Also: $+, \cdot, ^*$.
+
+Dafür setzten wir Anforderungen an den Automaten:
+
+\begin{enumerate}
+    \item Aus dem Startzustand gehen nur Transitions raus und NICHT rein.
+    \item Es gibt nur einen akzeptierenden Zustand.
+    \item Ein akzeptierende Zustand hat nur Transition rein und NICHT raus.
+\end{enumerate}
+
+Dies kann durch $\epsilon$-Transitions gelöst werden. 
+
+Für die Bausteine, die die RE als Automaten umsetzt sind auf S.111ff.
+
+Somit kann jede Sprache die RE beschreiben kann, auch von einem NFA umgesetzt werden.
+
+\end{document}
