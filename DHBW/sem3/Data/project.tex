@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken \\ \large Bäckerei}
+\author{Moritz und Niklas}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Idee}
+
+Umsetzten einer Bäckerei:
+
+Personal, Zutaten, Rezepte, Produkte/ Backwaren, Zuliefere, Filialen, 
+
+Wir wollen eine Bäckerei-kette verwalten. Diese hat verschiedene Filialen und mehrere Mitarbeiter, die den Filialen zugeordnet sind. Jede Filiale verkauft beliebige Backwaren (Produkte), welche aus den vorhandenen Rezepten produziert werden.
+
+Um eine Backware zu produzieren, werden Zutaten benötigt, diese werden in den verschiedenen Filialen gelagert und müssen von Zuliefern bestellt und an die Filiale geliefert werden.
+
+\subsection{Views}
+
+\begin{enumerate}[\quad*]
+    \item (Kunden)
+    \item Mitarbeiter
+    \item Filialleitung
+    \item Besitzer
+\end{enumerate}
+
+\subsection{Zusatz}
+
+Datenhistorie
+
+Die Datenhistorie, soll darstellen, wie viele Produkte welche Filiale an welchen Tagen verkauft hat und wie groß der Lagerbestand der Zutaten ist.
+
+Finanzen
+
+Was wurde verkauft? wie viel? wann? Welche und wie viele Zutaten wurden von welchem Zuliefere gekauft?
+
+Regionale Unterschiede
+
+Manche Rezepte haben Varianten für die verschiedenen Filialen, welche regional angepasst wurden.
+
+\section{Anforderungsanalyse}
+
+Um den Überblick über die genutzten Zutaten einer Bäckerei-kette zu behalten, soll jeder Filiale der Kette die noch vorhandenen Menge der verschiedenen Zutaten verwalten. Diese Zutaten werden für verschieden Rezepte verwendet und verbraucht. Die Rezepte repräsentieren eine Backware (Produkt), welche zu einem Preis verkauft werden kann.
+
+\section{ER-Modell}
+
+\section{Relationale Modell}
+
+\section{Datenschema in SQL}
+
+\section{Entwurf}
+
+
+\newpage
+\section{Feedback}
+
+\subsection{Feedback: ER-Modell oder Relationale Modell}
+
+
+
+\newpage
+\subsection{Feedback: Datenschema oder Entwurf}
+
+\end{document}
