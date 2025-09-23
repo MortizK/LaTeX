@@ -10,6 +10,10 @@
 \tableofcontents
 \newpage
 
+% Arbeitszeiten
+% 23.09 14:00-16:00
+% 
+
 \section{Idee}
 
 Umsetzten einer Bäckerei:
@@ -22,12 +26,11 @@ Um eine Backware zu produzieren, werden Zutaten benötigt, diese werden in den v
 
 \subsection{Views}
 
-\begin{enumerate}[\quad*]
-    \item (Kunden)
+\begin{itemize}
     \item Mitarbeiter
     \item Filialleitung
     \item Besitzer
-\end{enumerate}
+\end{itemize}
 
 \subsection{Zusatz}
 
@@ -45,7 +48,26 @@ Manche Rezepte haben Varianten für die verschiedenen Filialen, welche regional 
 
 \section{Anforderungsanalyse}
 
-Um den Überblick über die genutzten Zutaten einer Bäckerei-kette zu behalten, soll jeder Filiale der Kette die noch vorhandenen Menge der verschiedenen Zutaten verwalten. Diese Zutaten werden für verschieden Rezepte verwendet und verbraucht. Die Rezepte repräsentieren eine Backware (Produkt), welche zu einem Preis verkauft werden kann.
+% \subsection{Draft 0}
+% Um den Überblick über die genutzten Zutaten einer Bäckerei-kette zu behalten, soll jeder Filiale der Kette die noch vorhandenen Menge der verschiedenen Zutaten verwalten. Diese Zutaten werden für verschieden Rezepte verwendet und verbraucht. Die Rezepte repräsentieren eine Backware (Produkt), welche zu einem Preis verkauft werden kann.
+
+\subsection{Draft 1 von Moritz}
+
+Eine Bäckerei-kette hat mehrere Filialen, welche eine Adresse haben und eine Kostenstelle haben. In einer Filiale arbeiten mehrere Mitarbeiter, welche in Schichten eingeteilt sind und ein Gehalt bekommen. Um die gearbeiteten Stunden im Überblick zu haben sollen diese pro Filiale und Mitarbeiter gespeichert werden.
+
+Die Bäckerei-kette hat Rezepte, aus denen ein Produkt (mit Preis) produziert werden kann. Ein Rezept kann regionale Unterschiede haben, sogenannte Varianten, welche alternativen für die jeweilige Filiale sind.
+
+Um aus den Rezepten Produkte zu backen, werden die Zutaten benötigt. Dafür hat jede Filiale ein Lager, welche die Zutaten (wie Mehl, Zucker, Hefe, \dots) lagert. Um diesen Lagerbestand zu erhalten, hat die Bäckerei-kette eine Liste an Zuliefern, welche zu einem Festpreis und Menge verschiedene Zutaten ausliefern. Hierbei ist die Lieferzeit zu beachten.
+
+\subsection{Draft 2 von Niklas}
+
+Um den Überblick über den Verkauf von zahlreichen Produkten einer Bäckerei-Kette zu behalten, müssen diese mit ihrem Produktname, dem zugehörigen Rezept, sowie dem Preis verwaltet werden. Hierbei soll ebenfalls hinterlegt werden, welche Produkte die verschiedenen Filialen der Bäckerei-Kette anbieten und welchen Zutatenbestand diese besitzen. Da nicht immer in jeder Filiale alle Zutaten des Rezepts zur Produktherstellung vorhanden sind, muss ein Status hinterlegt werden (z.B. “verfügbar” oder “nicht verfügbar”). Außerdem können die Rezepte eines Produkts je nach Filiale unterschiedlich sein, weshalb es zu den Standard-Rezepten bestimmte Rezept-Varianten gibt. Für spezifischere Abweichungen des Standard-Rezepts soll für die Filialen das Hinzufügen eines Kommentars möglich sein. 
+
+Außerdem müssen verschiedene Benutzer verwaltet werden, welche alle unterschiedliche Informationen einsehen und verwalten können. Zum einen gibt es die Mitarbeiter einer Filiale, welche ausschließlich Informationen zu den Produkten und Zutatenbeständen der jeweiligen Filiale einsehen und verwalten können. Zum anderen gibt es den Filialleiter, welcher alle Informationen zur Filiale einsehen und verwalten kann. Diese belaufen sich hierbei nicht nur auf Produktinformationen, sondern auch auf Informationen zu den Mitarbeitern und der Verkaufshistorie. Zu guter Letzt gibt es den Eigentümer der Bäckerei-Kette, welcher die Rolle des Administrators einnimmt. Diese können jegliche Informationen über alle Filialen einsehen und verwalten.
+
+\subsection{Final Draft}
+
+
 
 \section{ER-Modell}
 
