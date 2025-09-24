@@ -3,22 +3,26 @@
 \input{../preamble.tex}
 
 \title{Datenbanken \\ \large Bäckerei}
-\author{Moritz und Niklas}
+\author{Moritz Köhler und Niklas Reusch}
 
 \begin{document}
 \maketitle
 \tableofcontents
 \newpage
 
+% Name der PDF Datei: Bäckereiprojekt_Köhler.pdf
+
 % Arbeitszeiten
 % 23.09 14:00-16:30
-% 
+% 24.09 15:15-16:15
 
 \section{Anforderungsanalyse}
 
-Um den Überblick über den Verkauf von zahlreichen Produkten einer Bäckerei-Kette zu behalten, müssen diese mit ihrem Produktname, dem zugehörigen Rezept, sowie dem Preis verwaltet werden. Hierbei soll ebenfalls hinterlegt werden, welche Produkte die verschiedenen Filialen der Bäckerei-Kette anbieten und welchen Zutatenbestand diese besitzen. Jede Filiale hat eine eigene Adresse und eine definierte Liste an Zulieferern, welche die Zutaten zu einem Festpreis in einer bestimmten Menge bereitstellen.  Da nicht immer in jeder Filiale alle Zutaten des Rezepts zur Produktherstellung vorhanden sind, muss ein Status hinterlegt werden (z.B. “herstellbar” oder “nicht herstellbar”). Außerdem können die Rezepte eines Produkts je nach Filiale unterschiedlich sein, weshalb es zu den Standard-Rezepten bestimmte Rezept-Varianten gibt. Für spezifischere Abweichungen des Standard-Rezepts soll für die Filialen das Hinzufügen eines Kommentars möglich sein. Zudem sind die Mitarbeiter einer Filiale in bestimmte Schichten eingeteilt, wodurch diese ihre Arbeitszeit für ein bestimmtes Gehalt abarbeiten können.
+Um den Überblick über den Verkauf von zahlreichen Produkten einer Bäckerei-Kette zu behalten, müssen diese mit ihrem Produktname, dem zugehörigen Rezept, sowie dem Preis verwaltet werden. Hierbei soll ebenfalls hinterlegt werden, welche Produkte die verschiedenen Filialen der Bäckerei-Kette anbieten und welchen Zutatenbestand diese besitzen. Jede Filiale hat eine eigene Adresse und eine definierte Liste an Zulieferern, von welchen die Zutaten zu einem Festpreis in einer bestimmten Menge gekauft werden.  Da nicht immer in jeder Filiale alle Zutaten des Rezepts zur Produktherstellung vorhanden sind, wird ein Status hinterlegt (z.B. “herstellbar” oder “nicht herstellbar”). Außerdem können die Rezepte eines Produkts je nach Filiale unterschiedlich sein, weshalb es zu den Standard-Rezepten bestimmte Rezept-Varianten gibt. Für spezifischere Abweichungen des Standard-Rezepts soll für die Filialen das Hinzufügen eines Kommentars möglich sein. Zusätzlich hat jede Filiale eigene Mitarbeiter, welche mit ihrem Vornamen, Nachnamen, Adresse, Gehalt sowie dem Geburtsdatum verwaltet werden. Diese sind in bestimmte Schichten eingeteilt, welche zu einem bestimmten Datum und Uhrzeit starten und eine gewisse Dauer haben. Zusätzlich soll ein Überblick über die Verkaufszahlen gewährleistet sein. Hierzu wird eine Verkaufshistorie benötigt, welche zeigt, zu welchem Datum und Menge ein bestimmtes Produkt in einer Filiale verkauft wurde.
 
-Außerdem müssen verschiedene Benutzer verwaltet werden, welche alle unterschiedliche Informationen einsehen und verwalten können. Zum einen gibt es die Mitarbeiter einer Filiale, welche ausschließlich Informationen zu den Produkten und Zutatenbeständen der jeweiligen Filiale einsehen und verwalten können. Zum anderen gibt es den Filialleiter, welcher alle Informationen zur Filiale einsehen und verwalten kann. Diese belaufen sich hierbei nicht nur auf Produktinformationen, sondern auch auf Informationen zu den Mitarbeitern und der Verkaufshistorie. Zu guter Letzt gibt es den Eigentümer der Bäckerei-Kette, welcher die Rolle des Administrators einnimmt. Diese können jegliche Informationen über alle Filialen einsehen und verwalten.
+\begin{sloppypar}
+Außerdem müssen verschiedene Benutzer verwaltet werden, welche unterschiedliche Informationen einsehen und verwalten. Zum einen gibt es die Mitarbeiter einer Filiale, welche ausschließlich Informationen zu den Produkten und Zutatenbeständen der jeweiligen Filiale einsehen und verwalten. Zum anderen gibt es den Filialleiter, welcher alle Informationen zur Filiale einsieht und verwaltet. Diese umfassen nicht nur Produktinformationen, sondern auch Informationen zu den Mitarbeitern, der Kauf- und Verkaufshistorie. Zu guter Letzt gibt es den Eigentümer der Bäckerei-Kette, welcher die Rolle des Administrators einnimmt. Dieser sieht alle Informationen über alle Filialen ein und verwaltet diese.
+\end{sloppypar}
 
 \section{ER-Modell}
 
