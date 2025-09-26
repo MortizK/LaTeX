@@ -1,0 +1,85 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{September 26, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Reguläre Sprachen und endliche Automaten}
+
+\subsection{Aus Regulären Ausdrücken einen NFA bauen}
+
+Der Lauf des Automaten von S. 117 ist:
+
+\begin{align*}
+    r_{aaaab}=&((0, aaaab), (2, aaaab), (3, aaab), (1, aaab), (6, aaab), (8, aaab), \\
+    & (9, aab), (8, aab), (9, ab), (8, ab), (9, b), (7, b), (10, b), (11, \epsilon))
+\end{align*}
+
+Alternativen um die Automaten nach den Bauregeln von S.111ff zu bauen, um Zustände einzusparen.
+
+So können wir zwei Automaten wie eine Kette miteinander verweben. "Überlappen" der beiden Automaten. Der Formale Aufschrieb dieser Kombination von Automaten wird deutlich komplizierter.
+
+Durch dieses "Überlappen" können Fehler entstehen, wenn wir z.B. $a^*b^*$ darstellen wollen. So entstehen Loops, welche beliebige Wörter akzeptieren, da zwischen b und a gewechselt werden kann.
+
+\subsection{DFA into RE}
+
+Wir wollen aus einem DFA einen RE (Regex) machen.
+
+Um dies umzusetzen brauchen wir nochmal die Rechengesetze von RE auf S. 62
+
+\begin{enumerate}
+    \item[17] $\epsilon \notin L(s)$ and $r=sr+t\to r=s^*t$ (Arden's Lemma)
+\end{enumerate}
+
+Somit wird:
+
+\begin{align*}
+    L_1 &= bL_1 + \epsilon\\
+    &= b^*\epsilon\\
+    &= b^*
+\end{align*}
+
+Die Übung von S.124 habe ich auf Papier.
+
+Somit beschreiben REs, NFAs und DFAs dieselbe Sprachen.
+
+\subsection{Vereinfachung von DFAs}
+
+Ein DFA ist \textbf{reduziert}, wenn nur erreichbare Zustände in dem Automaten enthalten sind. Ein Zustand ist erreichbar, wenn dieser ein Teil eines akzeptierten Laufes ist.
+
+Eine \textbf{Minimierung}, bedeutet ein Automat hat die minimale Anzahl an Zustände, der dieselbe Sprache akzeptiert. Dieser erweitert den \textbf{reduzierten} Automaten.
+
+Hinreichende Bedingung sind: 
+\begin{enumerate}
+    \item Die zu vereinfachenden Knoten müssen die gleichen akzeptanz-Zustände haben.
+    \item Zustände sind equivalent, wenn ihre Transitionen gleich sind - der gleicher Buchstabe enden im gleichem akzeptanz-Zustände.
+\end{enumerate}
+
+Wir nehmen also einen Buchstaben $c\in\Sigma$ sodass wenn wir aus zwei unterschiedlichen Knoten $\delta(p, c)=p'$ und $\delta(q, c)=q'$ in unterschiedlichen Knoten Enden. S. 132
+
+Dies wird in einer Matrix gemacht. Beispiel ab S. 136 und auf Papier.
+
+\begin{enumerate}
+    \item Kreuze und Gleichheiten von Paaren nach den Hinreichenden Bedingungen in die Matrix eintragen.
+    \item Jede Lücke durchgehen und für jedes Paar alle Buchstaben angucken. Dies resultiert in einem Paar, wenn dies Markiert ist, übernehmen wir dies.
+    \item Für jeden Neuen eintrag müssen alle Lücken neu geprüft werden.
+    \item Wenn mehrere Paare aufeinander zeigen sind diese gleich.
+\end{enumerate}
+
+Auf Papier "Formale Sprache 26.09.25 S.144" wurde der ganze Prozess von RegEx $\to$ NFA $\to$ DFA $\to$ Minimierter DFA.
+
+\know{Theorem}{Minimale DFAs sind eindeutig}
+
+\subsection{Gleichheit von RegEx}
+
+Vollständig auf Papier gemacht. Hierzu können die Rechengesetze verwendet werden, oder die Gleichheit der minimalen Automaten. Hierzu wurde der Weg von RegEx $\to$ NFA $\to$ DFA $\to$ Minimierter DFA durchgeführt.
+
+\subsection{The Pumping Lemma}
+
+\end{document}

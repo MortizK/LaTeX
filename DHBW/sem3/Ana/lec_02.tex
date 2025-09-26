@@ -1,0 +1,288 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{September 25, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Stetigkeit}
+
+Def.: Eine Funktion $f: \mathbb{R}^n\to \mathbb{R}$ heißt stetig im Punkt $x_0\in D_f\subset \mathbb{R}^n$, wenn für \textbf{jede} Folge $\{x^k\}$ mit $\lim_{k\to\infty}x^k=x_0$ gilt:
+
+\begin{equation*}
+    \lim_{k\to\infty} f(x^k)=f(x_0)
+\end{equation*}
+
+Beispiel stetiger Funktion:
+
+\begin{enumerate}
+    \item Polynome $f(x, y)=x^3+x^2+y-3y^3$
+    \item Summen, Differenzen und Produkte stetiger Funktionen.
+    \item Quotienten stetiger Funktionen, falls Nenner $\neq 0$. Hier kann dieser Punkt definiert werden, damit die Funktion stetig ist.
+    \item Verkettung stetiger Funktion
+\end{enumerate}
+
+\begin{align*}
+    f(x, y)&=\sqrt{\frac{(x^3-x^2y)(y^2-x)}{x^2+y^2}}\\
+    g(x, y, z)&=\ln(1+x^2)\sin(xy)+z
+\end{align*}
+
+$f(x, y)$ ist stetig, außer bei $x=y=0$, dort ist es nicht definiert.
+
+$g(x, y, z)$ ist im $\mathbb{R}^3$ stetig.
+
+\subsubsection{Ausführliches Beispiel}
+
+\begin{equation*}
+    f(x_1, x_2)=\begin{cases}
+        \frac{2x_1x_2}{x_1^2+x_2^2}, & \text{f"ur } (x_1, x_2)\neq(0,0)\\
+        0, & \text{f"ur } x_1 = x_2 = 0
+    \end{cases}
+\end{equation*}
+
+Die Funktion ist in $\mathbb{R}^2/\{0,0\}$ stetig, jedoch für $x^0=(0,0)$ unstetig.
+
+Wir betrachten dafür verschiedene Punktfolgen $ \{x^k\}$ die gegen $(0,0)$ (verschieden) konvergieren.
+
+Fall  1 und 2: entweder die $x_1$-Achse oder die $x_2$-Achse:
+
+\begin{align*}
+    x^k &=\begin{pmatrix}
+        \frac{1}{k}\\0
+    \end{pmatrix}, k=1, 2, \dots\\
+    f(x^k)&=\frac{2*\frac{1}{k}*0}{(\frac{1}{k})^2+0^2}
+            =\frac{0}{(\frac{1}{k})^2}=0\\
+    &\implies \lim_{k\to\infty} f(x^k)=0
+\end{align*}
+
+Fall 3: Die Diagonale:
+
+\begin{align*}
+    x^k &=\begin{pmatrix}
+        \frac{1}{k}\\\frac{1}{k}
+    \end{pmatrix}, k=1, 2, \dots\\
+    f(x^k)&=\frac{2*\frac{1}{k}*\frac{1}{k}}{(\frac{1}{k})^2+(\frac{1}{k})^2}
+        =\frac{2*(\frac{1}{k})^2}{2*(\frac{1}{k})^2}=1\\
+    &\implies \lim_{k\to\infty} f(x^k)=1
+\end{align*}
+
+Somit gibt es einen Widerspruch!
+
+\subsubsection{Das Zweiter Beispiel}
+
+\begin{equation*}
+    f(x_1, x_2)=\begin{cases}
+        x_1\sin(\frac{1}{x_1^2x_2^2}), & \text{f"ur } (x_1, x_2)\neq(0,0)\\
+        0, & \text{f"ur } x_1 = x_2 = 0
+    \end{cases}
+\end{equation*}
+
+Die Funktion ist eine Verkettung stetiger Funktionen $\implies$ somit ist diese in $\mathbb{R}^2/\{(0,0)\}$ stetig.
+
+Frage: Stetigkeit in $(0,0)$?
+
+Betrachtung beliebiger Punktfolge: 
+
+\begin{equation*}
+    x^k=\begin{pmatrix}
+        x_1^k\\x_2^k
+    \end{pmatrix}\xrightarrow{k\to\infty}\begin{pmatrix}
+        0\\0
+    \end{pmatrix}\implies\begin{matrix}
+        x_1^k\xrightarrow{x\to\infty}0\\
+        x_2^k\xrightarrow{x\to\infty}0
+    \end{matrix}
+\end{equation*}
+
+\begin{align*}
+    0\leq |f(x_1^k, x_2^k)|
+    &=\left|x_1^k*\sin\left(\frac{1}{(x_1^k)^2+(x_2^k)^2}\right)\right|
+    \\&=|x_1^k|*\left|\sin\left(\frac{1}{(x_1^k)^2+(x_2^k)^2}\right)\right|
+    \leq |x_1^k|*1
+\end{align*}
+
+Für $\xrightarrow{k\to\infty}$ kommen wir auf $0\leq |f(x_1^k, x_2^k)|\leq 0$ somit bleibt nur die Gleichheit.
+
+\begin{equation*}
+    \implies \lim_{k\to\infty}f(x_1^k, x_2^k)=0=f(0,0)
+\end{equation*}
+
+Somit stetig in ganz $\mathbb{R}^2$
+
+\subsection{Partielle Ableitungen}
+
+Rückblick auf $\mathbb{R}: f: \mathbb{R}\to \mathbb{R}$
+
+Wir haben in einer Grafik die Steigung ($f'(x)$) bestimmt. Hierzu sind die Tangente (das Ziel) und die Sekante (die Schätzung) wichtig.
+
+\begin{equation*}
+    f'(x_0):=\lim_{x\to0}\frac{f(x_0+h)-f(x_0)}{h}
+\end{equation*}
+
+\subsubsection{Verallgemeinerung auf $\mathbb{R}^2$}
+
+Verallgemeinerung auf den $\mathbb{R}^2:f:\mathbb{R}^2\to \mathbb{R}$
+
+Hierzu festhalten einer Variablen in $f(x,y)$, z.B $y=y_0$: $f$ kann man dann als Funktion mit nur einer Variablen betrachtet werden.
+
+\begin{equation*}
+    f(x, y_0)=\tilde{f}(x)
+\end{equation*}
+
+Es folgt wieder eine Skizze im $\mathbb{R}^3$, wo dann ein Schnitt gezeigt wird, in welchem wir die Ableitung durchführen können.
+
+Def.: Eine Funktion $f(x, y)$ heißt im Punkt $(x_0, y_0)$ partiell nach $x$ differenzierbar, wenn der Grenzwert $\lim_{h\to0}\frac{f(x_0+h, y_0)-f(x_0, y_0)}{h}$ existiert. Er heißt dann partielle Ableitung von $f$ nach $x$ im Punkt $(x_0, y_0)$:
+
+\begin{align*}
+    \frac{\delta f}{\delta x}(x_0, y_0)\text{ oder } f_x(x_0,y_0)\\
+    \frac{\delta f}{\delta x}(x_0, y_0)=f_y(x_0, y_0)=\lim_{h\to0}\frac{f(x_0, y_0+h)-f(x_0, y_0)}{h}
+\end{align*}
+
+Da man übrige Variablen konstant hält gelten alle Ableitungsregeln wie früher (wie für den "$\mathbb{R}$-Fall") - Analog für Funktionen mit mehr als 2 Variablen:
+
+\begin{equation*}
+    \frac{\delta f}{\delta x}(x, y, z), 
+    f_x(x, y, z), 
+    \frac{\delta f}{\delta x}, 
+    f_x
+\end{equation*}
+
+\subsubsection{"partielle Differentialoperatoren"}
+
+\begin{equation*}
+    \frac{\delta}{\delta x}, 
+    \frac{\delta}{\delta y}, 
+    \dots
+    \frac{d}{dx}, 
+\end{equation*}
+
+Erzeugen aus $f$ die entsprechenden partielle Ableitungen:
+
+\begin{equation*}
+     \frac{\delta}{\delta x}f(x, y ,z)=f_x,\quad
+     \frac{\delta}{\delta y}f(x, y, z)=f_y
+\end{equation*}
+
+\subsubsection{Beispiel: paritelle Ableitung}
+
+\begin{align*}
+    f(x, y, z) &=2x^3+2xy+yz^5\\
+    f_x &= 6x^2+2y\\
+    f_y &= 2x+z^5\\
+    f_z &= 5yz^4
+\end{align*}
+
+\subsubsection{Geometrische Interpretation}
+
+Partielle Ableitungen von $f(x,y)$ sind die Anstiege der Tangentialebene in den Achsenrichtungen (wenn es eine Tangentialebene gibt).
+
+\subsubsection{Weitere Beispiele}
+
+Produktregel: $(uv)'=u'v+uv'$
+
+\begin{align*}
+    f(x,y) &= xy^2*(\sin(x)+\sin(y))\\
+    \frac{\delta f}{\delta x} &= \frac{\delta u}{\delta x}v+u*\frac{\delta v}{\delta x}
+    = y^2(\sin(x)+\sin(y))+xy^2\cos(x)\\
+    \frac{\delta f}{\delta y} &= \frac{\delta u}{\delta y}v+u*\frac{\delta v}{\delta y}
+    = 2xy(\sin(x)+\sin(y))+xy^2\cos(y)
+\end{align*}
+
+Kettenregel: $v(u)'=v'(u)*u'$
+
+\begin{align*}
+    z &= f(x, y)=\ln(x+y^2)\\
+    u &= x+y^2\qquad z=ln(u)\\
+    \frac{\delta z}{\delta x} 
+    &= \frac{d z}{d u} * \frac{\delta u}{\delta x} 
+    = \frac{1}{u}*1=\frac{1}{x+y^2}\\
+    \frac{\delta z}{\delta y} 
+    &= \frac{d z}{d u} * \frac{\delta u}{\delta y} 
+    = \frac{1}{u}*2y=\frac{2y}{x+y^2}
+\end{align*}
+
+4tes Beispiel
+
+\begin{align*}
+    f(x, y, z) &= 2xe^{yz} + \sqrt{x^2+y^2+z^2}\\
+    \frac{\delta f}{\delta y} 
+    &= 2xze^{yz} + \frac{y}{\sqrt{x^2+y^2+z^2}}
+\end{align*}
+
+Quotientenregel: $(\frac{u}{v})'=\frac{u'v-uv'}{v^2}$
+
+\begin{align*}
+    z &= f(x, y)=\frac{x}{x^2+y^2}\\
+    \frac{\delta f}{\delta x} 
+    &= \frac{(x^2+y^2)-x2x}{(x^2+y^2)^2}
+    = \frac{x^2+y^2-2x^2}{(x^2+y^2)^2}
+    = \frac{y^2-x^2}{(x^2+y^2)^2}\\
+    \frac{\delta f}{\delta y} 
+    &= -\frac{x2y}{(x^2+y^2)^2}
+    = -\frac{2xy}{(x^2+y^2)^2}
+\end{align*}
+
+6tes Beispiel
+
+\begin{align*}
+    f(x,y) &= x^y = e^{y*\ln(x)} (x>0)\\
+    \frac{\delta f}{\delta x} 
+    &= y*x^{y-1}\\
+    \frac{\delta f}{\delta y} 
+    &= \frac{\delta}{\delta y} e^{y*\ln(x)}
+    = x^y*\ln(x)
+\end{align*}
+
+\subsection{Höhere Ableitungen und der Satz von Schwarz}
+
+Können partielle Ableitungen einer mehrstelligen Funktion noch einmal partielle differenziert werden, so erhält man "partielle Ableitungen höherer Ordnung".
+
+Bezeichnung:
+
+\begin{align*}
+    f(x, y, z)\xrightarrow{\frac{\delta}{\delta x}}
+    \frac{\delta f}{\delta x}\xrightarrow{\frac{\delta}{\delta z}}
+    \frac{\delta }{\delta z}\left(\frac{\delta f}{\delta x}\right)
+    = \frac{\delta^2 f}{\delta x \delta z}\\
+    f \qquad f_x \qquad f_{xy}
+\end{align*}
+
+Ableitungen nach mehreren unterschiedlichen Variablen heißen "gemischte Ableitungen"
+
+\know{Höhere Ableitung}{Im Allgemeinen ist die Reihenfolge beim Differenzieren von Bedeutung}
+
+Beispiel: Ableitung bis zur Ordnung 3 von $f(x, y) = x^3y+y$
+
+Dieser kann ganz gut als Baum gezeichnet werden:
+
+\begin{align*}
+    f_x = 3x^2y\\
+    f_{xx} = 6xy\\
+    f_{xxx} = 6y\\
+    f_{xxy} = 6x\\
+    f_{xy} = 3x^2\\
+    f_{xyx} = 6x\\
+    f_{xyy} = 0\\
+    f_y = x^3+1\\
+    f_{yx} = 3x^2\\
+    f_{yxx} = 6x\\
+    f_{yxy} = 0\\
+    f_{yy} = 0\\
+    f_{yyx} = 0\\
+    f_{yyy} = 0\\
+\end{align*}
+
+Der Satz von Schwarz besagt, dass bei Polynomen die Reihenfolge der gemischten Ableitungen das Ergebnis nicht ändert. So sind $f_{xxy}=f_{xyx}=f_{yxx}=6x$
+
+\know{Satz von Schwarz}{Sind alle partiellen Ableitungen einer Funktion bis zur Ordnung $k$ stetig, so kommt es bei der Berechnung der gemischten Ableitungen bis zur Ordnung $k$ nicht auf die Reihenfolge des Differenzierens an.}
+
+\section{Integralrechnung mehrstelliger Funktionen}
+
+\end{document}
