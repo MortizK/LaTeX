@@ -2,6 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "venus",
+      "request": "launch",
+      "name": "RISC-V",
+      "program": "${file}",
+      "stopOnEntry": true,
+      "stopAtBreakpoints": true,
+      "openViews": [
+        "Memory"
+      ],
+      "ledMatrixSize": {
+        "x": 10,
+        "y": 10
+      }
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
