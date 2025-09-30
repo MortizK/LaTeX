@@ -1,6 +1,23 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\usepackage{tabularx}
+
+% Custom Element for a "Begriff" Table
+\newcommand{\begriff}[5]{
+    \begin{table}[!htbp]
+    \centering
+        \begin{tabularx}{\textwidth}{|lX|lX|}
+        \hline
+        Begriff & #1\\\hline
+        Beschreibung & #2\\
+        Bezeichnung & #3\\
+        Unklarheiten & #4\\
+        Querverweise & #5\\
+        \hline
+        \end{tabularx}
+    \end{table}
+}
 
 \title{Software Engineering \\ \large Prüfungsleistung: Projekt}
 \author{Moritz Köhler}
@@ -8,6 +25,7 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\pagebreak
 
 \section{Vorbereitung/ Interview}
 
@@ -72,7 +90,7 @@ Jede Teilaufgabe hat Kategorie (Schwer, Mittel, Einfach), Wie viele Aufgaben mit
 
 Variante an Teilaufgaben. Es soll nur eine Variante in der Generierung vorkommen. \textbf{Variante} die Teilaufgaben haben hier die gleicher Punktzahl. Ist aber Egal.
 
-Eine Aufgabe soll aus Teilaufgaben eines Kapitels mit einer Zielpunktzahl. Die Schwierigkeit soll in dritteln erfolgen. Wenn das Dritteln nicht möglich ist, soll der Druck verhindert werden.
+Eine Aufgabe soll aus Teilaufgaben eines Kapitels mit einer Zielpunktzahl. Die Schwierigkeit soll in dritteln erfolgen (aber mindestens eine Pro Schwierigkeit). Wenn das Dritteln nicht möglich ist, soll der Druck verhindert werden.
 
 Wenn die Zielpunktzahl nicht möglich ist: Es sollen nur mögliche Zielpunkte zur Auswahl sein.
 
@@ -108,19 +126,120 @@ User Freie Software
 \subsection{Begriffe für das Begriffslexikon:}
 
 \begin{enumerate}
+    \item Klausur
     \item Kapitel (eine Aufgabe)
     \item Aufgabe (Teilaufgaben)
+    \item Punktzahl (Wertebereich und Inkrement)
     \item Teilaufgabe (Name, Punkte, Schwierigkeit, Varianten)
     \item Varianten (Frage, Lösung)
+    \item Schwierigkeitsgrad (Datentyp)
+    \item Zufallsgenerator
+    \item Probeklausur
+    \item Lösung
 \end{enumerate}
 
-\section{Anforderungsanalyse}
+\section{Geordnetes Interview}
 
-\know{Aufgabe}{Ordnen der Oberen Notizen.}
+\subsection{Ist-Zustand}
+
+Es gibt Altklausuren und Probeklausuren von zwei verschiedene Modulen in dem gewünschtem Format.
+
+Hier gibt es Eine Aufgabe pro Kapitel und nur eine Auswahl an Kapitel der Vorlesung kommt in der Klausur vor. Diese sind Nummeriert von $1\dots n$
+
+Jede Aufgabe besteht aus mehreren Teilaufgaben, welche eine Punktzahl haben. Diese sind von $a\dots z$ Nummeriert und haben eine Antwortbox, welche nach der Punktzahl skaliert ist. Große Teilaufgaben haben auf den folgenden Seiten eine Ganzseitigen Antwortbox mit Zuordnung zu der Aufgabe.
+
+Zu manchen Teilaufgaben gibt es noch Grafiken. Bei manchen Teilaufgaben gibt es vorgefertigten Text in der Antwortbox.
+
+Das Deckblatt beinhaltet einen Überblick über die Bepunktung der Aufgaben und Teilaufgaben. 
+
+\subsection{Soll-Zustand}
+
+Es soll eine Open Source Java FX Anwendung entstehen, welche eine zufallsgenerierte Klausur oder Probeklausur als pdf genieren kann. Gleichzeitig soll mit der Endung "lsg" eine Lösung geniert werden, wo in den Antwortboxen die Musterlösung sichtbar ist.
+
+Jeder Text in der Klausur ist reiner Fließtext.
+
+Das Deckblatt, sowie Bilder und Formeln müssen noch nicht implementiert werden.
+
+Die Formatierung soll so nahe wie möglich an den gegebenen Alt- und Probeklausuren sein. Randplatz 2cm, Kopf- und Fußzeilen und Seitenumerierung.
+
+Die Daten für die Klausuraufgaben sollen pro Modul als xml gespeichert werden.
+
+Die Sprache der Anwendung soll Englisch sein. Jedoch soll die Sprache der UI in Zukunft ergänzt werden. Hierzu sollen die Notwendigen Strukturen geschaffen werden.
+
+Für jede Interaktion in der Software soll ein Hover-Text erscheinen. Dieser soll auch von der Sprachauswahl verändert werden.
+
+Der Quelltext soll auch auf Englisch erfolgen. Somit sind Kommentare und Namensgebung auf Englisch.
+
+\subsection{Datenstruktur}
+
+Eine \textbf{Klausur} besteht aus einer Liste an Kapitel. Es soll ausgewählt werden
+
+\begin{itemize}
+    \item Liste an Kapitel
+\end{itemize}
+
+Ein \textbf{Kapitel} hat eine Überschrift und beinhaltet eine Aufgabe.
+
+\begin{itemize}
+    \item Überschrift
+    \item Überschrift Kürzel
+    \item genau eine Aufgabe (oder mehrere. Muss geklärt werden!)
+\end{itemize}
+
+\know{Fragen zu Kapiteln}{Es gibt einen Wiederspruch zu der Anzahl an Aufgaben pro Kapitel. Aus dem Interview ging eine 1 zu 1 mapping heraus und in den Probeklausuren hat ein Kapitel mehrere Aufgaben. Wechesl soll implementiert werden?}
+
+Eine \textbf{Aufgabe} hat entweder eine Teilaufgabe, welche keine weitere Nummerierung hat, oder mindestens 2 Teilaufgaben. Diese haben dann eine Nummerierung von $a)$ bis $z)$.
+
+\begin{itemize}
+    \item Überschrift
+    \item Liste an Teilaufgaben
+    \item Gesamtpunktzahl
+\end{itemize}
+
+Eine \textbf{Teilaufgabe} besteht aus mindestens einer Variante, welche eine Fragestellung und evtl. eine Musterlösung jeweils als Fließtext hat. 
+
+Die Teilaufgabe lassen sich Zusätzlich in Schwierigkeitsgrade einteilen: Leicht, Mittel, Schwer. Das Verhältnis der Schwierigkeitsgrade von Teilaufgaben soll innerhalb einer Aufgabe $33\%$ betragen.
+
+Jede Teilaufgabe ist einem Scope zugeordnet. So kann es nur zu Generierung von Klausuren oder Probeklausuren verwendet werden. Bei bedarf kann eine Teilaufgabe auch für beides verwendet werden.
+
+Die Teilaufgabe hat eine Punktzahl und eine Überschrift, welche in der UI und zur Generierung der Klausur angezeigt werden kann. Die Überschrift der Teilaufgabe taucht in dem generiertem pdf nicht mehr auf. Abhängig von der Punktzahl wird eine Größe der Antwortbox eingetragen.
+
+\begin{itemize}
+    \item Überschrift
+    \item Schwierigkeit (Leicht, Mittel, Schwer)
+    \item Scope (Klausur, Probeklausur, Beides)
+    \item Punktzahl
+    \item Höhe der Antwortbox
+    \item Liste an Varianten
+\end{itemize}
+
+\textbf{Variante}
+
+\begin{itemize}
+    \item Fragestellung (Fließtext)
+    \item Musterlösung (Fließtext)
+\end{itemize}
+
+\subsection{Für V.2}
+
+Grafik Import für die Teilaufgaben oder Varianten.
+
+Optional: Generierung des Deckblattes anhand der ausgewählten Kapitel und deren Aufgaben.
+
+\pagebreak
+\section{Anforderungsanalyse}
 
 \subsection{Anforderungsdokument/ Lastenheft}
 
 \subsection{Begriffslexikon}
+
+\begriff{Exam}{An Exam is composed of multiple Chapters and exported as an pdf-document}{The Data which generates the pdf, are not saved in the tool}{}{Chapters, Operating System}
+
+\begriff{Chapter}{A Chapter is composed of a Heading and multiple Chapters are used to create an Exam. One Chapter represents a Task in the Exam.}{A unique positive integer Number}{}{Exam, Task}
+
+\begriff{Task}{A Task is composed of multiple Subtasks and has a heading. This Heading is the Chapter Heading. One Task should have a goal score}{Is Numbered from 1 to n.}{}{Chapter, Subtask, Score}
+
+\begriff{Subtask}{A Subtask is a text based task. It has a written question of plain text and a plain text answer which can be empty. It has a score of points. Each subtask also has a difficulty raiting. A Subtask may consist of multiple Variants, but always has at least one variant. In a Task, each Subtask is numbered alphabetically from a to z.}{}{}{Score, Difficulty, Variant, Task}
 
 \subsection{Spezifikation/ Pflichtenheft}
 
