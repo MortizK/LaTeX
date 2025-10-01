@@ -1,0 +1,159 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{October 1, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Totale Differenzierbarkeit}
+
+\subsubsection{Allgemeines}
+
+$f: \mathbb{R} \to \mathbb{R}$, f differenzierbar $\to$ f ist stetig
+
+$f: \mathbb{R}^n \to \mathbb{R}$, f partiell differenzierbar $\to$ f ist nicht zwingend stetig - f total differenzierbar $\to$ f ist stetig
+
+Hierzu gibt es ein PDF, welches unter doc zu finden ist.
+
+\subsubsection{Fehlerfortpflanzung}
+
+Beispiel 1: geg: $z=x^2\sqrt{y}$
+
+\begin{align*}
+    \tilde{x}=1, \quad \Delta x = 0.1 (\Delta x = \pm 0.1)\\
+    \tilde{y}=4, \quad \Delta y = 0.2 (\Delta y = \pm 0.2)
+\end{align*}
+
+Lösung:
+
+\begin{align*}
+    \Delta z &= |f_x| \Delta x + |f_y| \Delta y\\
+    f_x &= 2x \sqrt{y}, \qquad f_x(\tilde{x}, \tilde{y})=4\\
+    f_y &= \frac{x^2}{2\sqrt{y}}, \qquad f_y(\tilde{x}, \tilde{y})=\frac{1}{4}\\
+    \Delta z &= 4 * 0.1 + \frac{1}{4} * 0.2 = 0.4 + 0.05 = 0.45\\
+    & \implies \tilde{z} = f(\tilde{x}, \tilde{y}) = 1 * 2 = 2\\
+    & \implies z = \tilde{z} \pm \Delta z = 2 \pm 0.45\\
+    & \implies 1.55 \geq z \geq 2.45
+\end{align*}
+
+Beispiel 2: geg: $z = \frac{x}{y} + 2 \frac{y}{x}$
+
+\begin{align*}
+    \tilde{x} = 5, \quad \Delta x = 0.1\\
+    \tilde{y} = 2, \quad \Delta y = 0.1\\
+\end{align*}
+
+Lösung:
+
+\begin{align*}
+    \tilde{z} &= f(\tilde{x}, \tilde{y}) = \frac{5}{2} + 2 \frac{2}{5} = \frac{33}{10} = 3.3\\
+    f_x &= \frac{1}{y} - 2 \frac{y}{x^2}, \qquad f_x(\tilde{x}, \tilde{y}) = \frac{1}{2} - 2 \frac{2}{5^2} = \frac{25-8}{50} = \frac{17}{50} = 0.34\\
+    f_< &= -\frac{x}{y^2} + \frac{2}{x}, \qquad f_x(\tilde{x}, \tilde{y}) = - \frac{5}{2^2} + \frac{2}{5} = \frac{-25 + 8}{20} = -\frac{17}{20} = - 0.85\\
+    \Delta z &= |f_x| \Delta x + |f_y| \Delta y\\
+     &= 0.34 * 0.1 + |-0.85| * 0.1 = 0.034 + 0.085 = 0.119\\
+    & \implies z = \tilde{z} \pm \Delta z = 3.3 \pm 0.119 \\
+    & \implies 3.181 \geq z \geq 3.419
+\end{align*}
+
+\subsection{Gradient und Richtungsableitung}
+
+$f: \mathbb{R}^n\to \mathbb{R}$
+
+\begin{equation*}
+    grad f = \begin{pmatrix}
+        \frac{\delta f}{\delta x_1} \\
+        \frac{\delta f}{\delta x_2} \\
+        \vdots \\
+        \frac{\delta f}{\delta x_n} \\
+    \end{pmatrix}
+\end{equation*}
+
+Die vereinfachte Darstellung erfolgt mit dem Nabla-Operator $\nabla$
+
+\begin{equation*}
+    \nabla = \begin{pmatrix}
+        \frac{\delta}{\delta x_1} \\
+        \frac{\delta}{\delta x_2} \\
+        \vdots \\
+        \frac{\delta}{\delta x_n} \\
+    \end{pmatrix}: \nabla f = grad f
+\end{equation*}
+
+\noindent\fbox{
+    \parbox{\textwidth-21pt}{
+        Der Gradient von $f(\nabla f)$ ist ein Vektor in $\mathbb{R}^n$. Er steht senkrecht auf den Höhenlinien $f=const$ von $f$.
+
+        Er liegt aber dennoch in der Tangentialebene des Punktes auf dieser Höhenlinien.
+    }
+}
+
+$f: \mathbb{R}^2\to \mathbb{R}$, $f(x, y)$
+
+totales Differential von $f$:
+
+\begin{equation*}
+    df = \frac{\delta f}{\delta x}dx + \frac{\delta f}{\delta } dy = grad f \circ \begin{pmatrix}
+        dx \\ dy
+    \end{pmatrix} = \nabla f \circ \begin{pmatrix}
+        dx \\ dy
+    \end{pmatrix}
+\end{equation*}
+
+Auf einer Höhenlinie $f=const$ ist $df=0$, da $f$ sich dort nicht ändert! $\implies$ Eigenschaft des Skalarprodukts $\implies \nabla f \perp\begin{pmatrix}
+    dx \\ dy
+\end{pmatrix}$ wobei $\begin{pmatrix}
+    dx \\ dy
+\end{pmatrix}$ in Tangentialrichtung der Höhenlinien zeigt.
+
+Wir hatten eine Definition, diese habe ich verpasst. Muss Niklas oder Rosalie fragen.
+
+Beispiel: geg: $f(x, y) = \frac{1 + \sin(x)}{1 + y}$
+
+ges.: $f_{\vec{a}}(\vec{v_0})$
+
+\begin{equation*}
+    \vec{r_0}=\begin{pmatrix}
+        0\\0
+    \end{pmatrix}, \vec{a_0} = \begin{pmatrix}
+        1\\2
+    \end{pmatrix}
+\end{equation*}
+
+Lösung:
+
+\begin{align*}
+    f_{\vec{a}} = \frac{\vec{a}\circ \nabla f}{||\vec{a}||}\\
+    f_x = \frac{wx}{1+y}, \qquad f_y = \frac{1 + \sin(x)}{(1+y)^2}
+\end{align*}
+
+\begin{align*}
+    \nabla f |_{\vec{r_0}} = \begin{pmatrix}
+        f_x|_{\vec{r_0}} \\
+        f_y|_{\vec{r_0}}
+    \end{pmatrix} = \begin{pmatrix}
+        f_x|_{\begin{pmatrix}
+        0\\0
+    \end{pmatrix}} \\
+        f_y|_{\begin{pmatrix}
+        0\\0
+    \end{pmatrix}}
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ -1
+    \end{pmatrix}\\
+    f_{\vec{a}} = \frac{\begin{pmatrix}
+        1\\2
+    \end{pmatrix} \circ \begin{pmatrix}
+        1\\-1
+    \end{pmatrix}}{\left|\left|\begin{pmatrix}
+        1\\2
+    \end{pmatrix}\right|\right|} = \frac{1 - 2}{\sqrt{1^2+2^2}}=-\frac{1}{\sqrt{5}}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Der konzeptionelle Datenbankentwurf}
+
+\subsection{Kardinalitäten (Beziehungen)}
+
+Bei einer Beziehung ist die Leserichtung wichtig. Sollte diese nicht ausreichen um den Kontext deutlich darzustellen, können Rollen zusätzlich hinzugefügt werden.
+
+So: Ein Kunde (Räuber) raubt eine Bank (Beraubte) oder: Ein Kunde (Beraubter) wird von einer Bank (Räuber) beraubt.
+
+\subsubsection{Notationen}
+
+Es gibt verschiedene Notationen um Beziehungen zu beschriften. So gibt es die Chen-Notation (1:1, 1:n, n:n) und die Krähenfuß-notation:
+
+\begin{itemize}
+    \item $-|---|-$
+    \item $-|---|<$
+    \item $>|---|<$
+\end{itemize}
+
+\subsubsection{Min., Max. Notation}
+
+So wird statt M und N einfach Klammern mit min und max verwendet. Somit: $(0,^*)$ und $(5,20)$
+
+Die ließt sich wie folgt. Ein Mitarbeiter besucht $(0,^*)$ Kurse. Ein Kurs wird von $(5,20)$ Mitarbeiter besucht. wird für die min., max. Notation die Richtung vertauscht. 
+
+Dies ist die gewünschte Notation, wenn die Konkreten Zahlen gibt.
+
+\subsubsection{Aufgabe}
+
+Es gab eine Aufgabe zu der Übersetzung der Chen-Notation zur Min., Max. Notation.
+
+\textbf{Konsistenzbindungen} sind z.B.:
+
+\begin{itemize}
+    \item Ein Projektleiter betreut mehrere Kunden und Projekte und ein Projekt muss von mindestens einem Projektleiter betreut werden.
+    \item weitere \dots
+    \item Ein Kunde mit seinem Projekt hat genau einen Projektleiter.
+\end{itemize}
+
+\subsubsection{merhstellige Beziehungen}
+
+Die dritte Bedingung lässt sich durch durch mehrstellige Beziehungen darstellen.
+
+Um Dies Umzusetzen muss man in Schlüssel Denken. So bilden Ein Kunde und ein Projekt einen Schlüssel für die Projektleitung.
+
+\subsubsection{Rekursive Beziehungen}
+
+Ein mitarbeiter hat einen Chef, Ein Chef hat mehrere Mitarbeiter.
+
+\subsubsection{Spezialisierung}
+
+Ein Projektmitarbeiter ist ein Spezieller Mitarbeiter. Diese Beziehung wird durch ein Sechseck/ Hexagon gekennzeichnet. Die Allgemeinere Entität ist Oben und die Spezialisierten Mitarbeiter sind unten.
+
+\subsubsection{Aggregation}
+
+Ein Auto besteht aus einem Motor, 4 Rädern, usw. Diese sind vom Auto abhängig. Sollte das Auto 500km fahren, so ist auch der Motor 500km gefahren.
+
+Ist eine Raute mit der Beschriftung: "ist Teil von"
+
+\subsubsection{Schwache Entitäts-Typen}
+
+Diese sind existenzabhängig. Hierzu werden die Linien einer Raute, Verbindung oder Entität werden doppelt gezeichnet: "=="
+
+\end{document}

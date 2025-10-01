@@ -1,0 +1,110 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 30, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+\subsection{Fließkommazahlen}
+
+Nach IEEE 754. Dies erstellt Zahlen nach der Scientific Notation.
+
+\begin{equation*}
+    x = a * r^e
+\end{equation*}
+
+Mit der Mantisse: $a$, dem Exponenten $e$ für einen Radix $r=10$
+
+Für die Fließkommazahlen im Binärem ist der Radix $r=2$.
+
+\begin{equation*}
+    x = (-1)^s * a * 2^{e-b}
+\end{equation*}
+
+Hierbei ist $a$ die Festkommazahl zwischen $1\geq a \geq 2$, $e$ ein unsigned int und das Bias $b = 2^{p-1}-1$.
+
+Somit ist die range der Exponenten:
+
+\begin{equation*}
+    -b \geq E = e - b \geq 2^{p-1} = b + 1
+\end{equation*}
+
+Aufgrund von Reservierten Slots gibt es noch eine Weitere Einschränkungen, da $e = 0\dots0$ und $e=1\dots1$ für None und Inf reserviert sind:
+
+\begin{equation*}
+    -b + 1 \geq E \geq b
+\end{equation*}
+
+Da die Binärzahlen von $a$ immer die Form $1,xxxxx$ haben, können wir die $1$ einfach impliziert weglassen und nur die Nachkommastellen $f$ speichern.
+
+\begin{equation*}
+    a = 1,f
+\end{equation*}
+
+\subsubsection{Beispiel}
+
+Einmal Durchrechnen von $10,5_{10}$ als Fließkommazahlen. mit $p=4$ und $m=5$:
+
+\begin{enumerate}
+    \item Bias 
+    \begin{equation*}
+        b=2^{p}-1 = 7
+    \end{equation*}
+    \item Festkommazahl 
+    \begin{equation*}
+        10,5_{10} = 1010,1_2
+    \end{equation*}
+    \item Normieren/ Kommaverschiebung
+    \begin{equation*}
+        1010,1 = 1,0101 * 2^3
+    \end{equation*}
+    \item $f$ ablesen und auf $m$-bit runden
+    \begin{equation*}
+        f = 01010
+    \end{equation*}
+    \item $e$ bestimmen
+    \begin{align*}
+        e &= E + b = 3 + b = 3 + 7 = 10\\
+        10_{10} &= 1010_2
+    \end{align*}
+    \item Zusammenfügen
+    \begin{center}    
+        \begin{tabular}{c|c|c}
+            $s$ & $e$ & $f$ \\\hline
+            $0$ & $1010$ & $01010$
+        \end{tabular}
+    \end{center}
+\end{enumerate}
+
+Andere Richtung Umformen durch die Formel:
+
+\begin{equation*}
+    (-1)^s * 1,f * 2^{e - b}
+\end{equation*}
+
+\subsubsection{Wertebereich von IEEE 754}
+
+Die positiven Zahlen lassen sich von:
+
+\begin{equation*}
+    1,0 * 2^{-b+1} \dots (1 + 1 - \frac{1}{2^m}) * 2^{b}
+\end{equation*}
+
+Somit gibt es noch keine Null, da wir in der Mantisse die $1,f$ implizieren.
+
+Für einen Festen Exponenten gibt es insgesamt $2^{m}$ verschiedene Zahlen.
+
+Der Abstand zwischen zwei benachbarten Zahlen ist somit:
+
+\begin{equation*}
+    \Delta x=\frac{1}{2^m}*2^{E} = 2^{E-m}
+\end{equation*}
+
+\end{document}

@@ -1,0 +1,144 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{September 30, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Prozesse und Threads}
+
+\subsection{Prozessmodell}
+
+EIn Prozess ist die Instanziierung eines Programms auf einem Prozessor einschließlich seiner Umgebung
+
+Alternative wird auch "Task" für einen Prozess verwendet. Ein Job ist eine Sequenz aus mehreren nacheinander ausgeführten Prozessen.
+
+Ein Prozess kann andere Prozesse erzeugen: Elternprozess und Kindprozess.
+
+Es gibt drei Kontexte, alle drei bilden den Prozesskontext:
+
+\begin{enumerate}
+    \item Speicher - Kontext
+    
+    Daten (Heap). Programm (Code), Stack
+    \item Hardware - Kontext
+    
+    Stackzeiger, Programmzähler, Register (CPU und MMU)
+    \item System - Kontext
+    
+    Prozess ID, Prozesskontrollblock, Zugriffsrechte (UserID, GroupID), Dateideskriptoren, Prozesszustand
+\end{enumerate}
+
+Ein Prozess hat vier Zustände, zwischen denen gewechselt wird:
+
+\begin{enumerate}
+    \item Bereit (ready) - Prozessor ist belegt, Prozess aber ausführbar
+    \item Aktiv (running) - wird ausgeführt
+    \item Blockiert (blocked) - wartet auf externes Ereignis
+    \item Inaktiv (Idle) - wurde gerade erzeugt oder ist terminiert
+\end{enumerate}
+
+Ein Scheduler steuert diese Übergänge und die Priorität der Prozesse.
+
+Prozessverwaltung verwaltet die Zuteilung von Betriebsmittel von wartenden Prozessen. Die Prozesstabelle ist die Datenstruktur im Kernel.
+
+Jeder Prozess in der Prozesstabelle hat einen Prozesskontrollblock (PCB). Dieser speichert:
+
+\begin{itemize}
+    \item Speicherplatz für Programmzähler
+    \item Prozesszustand
+    \item Erwartetes Ereignis für Zustand blocked
+    \item Statische und dynamische Priorität
+    \item Bislang verbrauchte CPU-Zeit und Systemzeit
+    \item PID und PPID (Parent Prozess ID)
+    \item Aktuell zugeordnete Betriebsmittel (Dateien, Netzwerkverb,)
+    \item Speicherplatz für aktuelle Registerinhalte
+    \item Speicherreferenzen zu COde, Daten, Stack, \dots
+\end{itemize}
+
+Für einen Prozesswechsel müssen die Zustände von Prozess $P_0$ in dem PCB gespeichert werden und die Neuen Zustände von Prozess $P_1$ werden aus dem PCB geladen und $P_1$ wird aktiv.
+
+\subsection{Threadmodell}
+
+Ein Thread sind quasi mehrere Aufgaben eines Prozesses quasi-parallel zu bearbeiten. Diese müssen denselben Skope haben/ denselben Prozesskontext haben.
+
+Umsetzung: Wir haben einen Dispatcher Thread, welche auf eine Request Wartet und für jede Request einen WorkerThread erstellt. Dieser kann dann im gleichem Kontext quasi parallel die Request abarbeiten.
+
+quasi-parallel bedeutet wir sparen uns den Kontextwechsel den ein Prozess hat, da wir ja nur in dem gleichem Prozess bleiben.
+
+Threadkontext:
+
+\begin{enumerate}
+    \item lokaler Programmzähler
+    \item lokaler Registersatz
+    \item lokaler Stack
+    \item erbt offene Dateien und Netzwerkverbindungen des Prozesses
+    \item eigener Stackbereich für lokale Variabel
+    \item eigener Hardwarekontext, nur aus PC und Registersatz
+\end{enumerate}
+
+Bei Threadwechsel muss nur der Threadkontext von Punkt 5. und 6. gewechselt werden.
+
+Die Zustände werden durch den Zustand "tot" ergänzt. Zustände aller Threads werden intern durch verkettete Listen organisiert für die Zustände.
+
+Thread Control Block (TCB):
+
+\begin{itemize}
+    \item Eindeutiger Identifikator
+    \item Speicherplatz zur Sicherung von Hardwarekontexts
+    \item GGf. Wartegrund bei blockiertem Thread
+    \item Zeiger auf PCB des Prozesses
+    \item Sonstige Zustandsinformationen und Statistiken für Scheduling
+\end{itemize}
+
+In der Implementierung bei den Betriebssysteme gibt es Benutzer-Threads und Kernel-Threads. Diese laufen auf der jeweiligen Ebene und haben unterschiedliche Vor- und Nachteile.
+
+\subsection{Prozesse und Threads in Unix}
+
+Baumartige Organisation mit dem init als Elternprozess. Dieser hat die PID von 1.
+
+Systemaufrufe zur Prozessverwaltung:
+
+\begin{itemize}
+    \item pid-t fork(): erzeugt ein Kindprozess als Kopie des Elternprozess mit neuer PID. Gibt an das Kind einer 0 und an den Elternprozess die PID des Kindes.
+    \item pid-t wait(): Ein Elternprozess wartet auf die Rückgabe eines Kindes
+    \item \dots
+\end{itemize}
+
+Um als Benutzer Threads zu erstellen wird die pThread-Bibliothek verwendet. Diese verwendet die native POSIX Thread Library (NPTL).
+
+\subsection{Prozesse und Threads in Windows}
+
+Es wird zwischen Threads, Prozesse und Jobs unterschieden. Jobs sind eine Gruppe mehrere Prozesse, die zwecks Resourcenvergabe einheitlich angesprochen werden kann.
+
+Es gibt auch noch System-Threads, z.B. den Idle-Thread.
+
+Ein Prozess hat zusätzlich noch einen Object-Handle mit PID.
+
+Ne Menge C-Code für die Prozesserzeugung in Windows: Slide S. 42
+
+Threadzustände in Windows:
+
+\begin{itemize}
+    \item init
+    \item ready
+    \item running
+    \item standby
+    \item terminate
+    \item waiting
+    \item transition
+    \item deferred
+\end{itemize}
+
+\subsection{POSIX Threads}
+
+Ist eine ANSI/IEEE Standard für Betriebssystem-unabhängige Thread-Programmierung. S. 49ff muss ich mir nochmal angucken!
+
+
+
+\end{document}

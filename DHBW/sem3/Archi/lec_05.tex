@@ -87,10 +87,24 @@ Hierfür gucken wir uns erst die Schriftliche Multiplikation an. Diese besteht a
 
 Statt nun aber immer eine $2n$-bit Zahl und eine $n$-bit Zahl zu addieren, schieben wir statt den zu addierenden Zahlen, das Ergebnis $p$. Slide S.104
 
-\know{Aufgabe}{Wie lange benötig die erste Addition von a, b nach p? Und die Folgenden? Slide S. 105}
+\know{Aufgabe}{Wie lange benötig die erste Addition von a, b nach p? Und die Folgenden? Slide S. 105: $t_p$ ist eine Schiebregister, was auch beschrieben werden kann.
 
-\subsection{Festkommanzahlen}
+erste Addition:
+\begin{equation*}
+    t = 1\tau + t_{CLA} + t_p = 1\tau + 6\tau + 5\tau = 12\tau
+\end{equation*}
 
-\subsection{Fließkommazahlen}
+weitere Additionen:
+\begin{equation*}
+    t = t_{ALU} + 2 * t_p = 16\tau
+\end{equation*}}
+
+\begin{align*}
+    t_{mux}&=2\tau\\
+    t_{schiebe}&=3\tau\\
+    t_{schiebe.schreiben}=t_{mux}+t_{schiebe}&=5\tau
+\end{align*}
+
+Das $t_{schiebe.schreiben}$ braucht jeweils für schreiben oder schieben $5\tau$.
 
 \end{document}

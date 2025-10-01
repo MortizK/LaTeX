@@ -1,0 +1,34 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{September 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+\subsection{Festkommanzahlen}
+
+Wir Teilen unsere Wertigkeit einer 8-Bit Zahl einfach in einen Bereich mit Exponenten $0$ bis $n-k$ und $-1$ bis $-k$.
+
+\begin{equation*}
+    \sum_{i=-k}^{n-k-1}z_i*2^i
+\end{equation*}
+
+Dies hat zwei Nachteile:
+
+\begin{enumerate}
+    \item Der Wertebereich halbiert sich mit jedem weiterem $k$
+    \item Ganz kleine Zahlen lassen sich mit festem $k$ teilweise nicht darstellen.
+\end{enumerate}
+
+Bei der Umrechnung muss gerundet werden. Im allgemeinem wird gerundet, wenn die zu rundende $\geq$ die Hälfte ist. Im 2er System ist das exakt die nächste Stelle.
+
+So muss für $k=4$ bei der Umrechnung von $0,2_{10}$ genau $k+1=5$ Nachkommastellen ausgerechnet werden und dann korrekt Runden.
+
+\end{document}
