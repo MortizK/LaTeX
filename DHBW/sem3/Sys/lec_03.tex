@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Synchronisation}
+
+\subsection{Problem}
+
+Der Name des Problems heißt \textbf{Race Conditions}. Die sorgt dafür das mehrere Prozesse auf den selben Speicherplatz zugreifen und durch die CPU davon temporär getrennt. In der Zeit kann ein weiterer Prozess auf diese Zugreifen.
+
+Ein kritischer Abschnitt ist ein gemeinsam genutzter Speicher. Auf diesen darf dann nur ein Prozess zur Zeit zugreifen.
+
+\subsection{Konzept}
+
+Wir können die Unterbrechungen maskieren, wodurch Prozess/ Thread wechseln nicht möglich werden.
+
+Leider hat dies den Nachteil, das die CPU nicht mehr die Kontrolle über die Unterbrechungen hat. Und wir sind vom Programmiere der Software abhängig. Zudem gilt die Maskierung nur für einen Prozessor, bei mehrkernigen können diese trotzdem auf den kritischen Abschnitt zugreifen.
+
+Andere Lösung: eine globale Variable "wer-darf-rein", die Prozesse auslesen und entscheiden, ob sie in den kritischen Bereich dürfen. So können mehrere Prozesse den kritischen Bereich ohne Race Conditions arbeiten. Gleichzeit lässt sich ein Prozess auch gleichzeitig im nicht kritischem Bereich arbeiten, wenn er diesen nicht mehr braucht.
+
+\begin{lstlisting}
+while (true) {
+  while(wer-darf-rein != 0);
+  kritischerBereich();
+  wer-darf-rein = 1;
+  nichtKritischerBereich();
+}
+\end{lstlisting}
+
+Dies hat die Probleme, das wir ein Busy Waiting der CPU haben. Zudem wird nach jedem Zugriff auf den kritischen Bereich der eigenen Prozess blockiert, selbst wenn der andere Prozess den kritischen Bereich gerade nicht braucht.
+
+Andere Option: Sperren des kritischen Bereichs mit LOCK durch Assembler. Mit LOCK = 0 ist der Bereich frei, bei LOCK = 1 ist der Bereich gesperrt.
+
+Somit wird jeder Prozess am Anfang mit krit-bereich-sperren und am ende mit krit-bereich-freigeben ergänzt.
+
+Dies hat immernoch das Problem des Busy Waiting. Es kann aber auch zum Prioritätsumkehrproblem kommen. So kann ein Prozess niedrigerer Priorität den krit-bereich gesperrt haben, bekommt aber keine CPU Zeit, da ein Prozess mit höherer Priorität CPU Zeit bekommt, aber auf die Freigabe wartet.
+
+Ander Option: Erzeuger und Verbraucher, wir haben einen Erzeuger, welche Items in den Speicher schreibt und einen Verbraucher der diese entnimmt und bearbeitet. Hierbei kann es passieren, dass beide gleichzeitig Schlafen gehen, dann passiert nichts mehr.
+
+\subsection{Semaphoren}
+
+Wurde von Dijkstra erfunden.
+
+Auf Folie 24 gibt es wieder Quelltext mit den Beschreibungen vom Verbraucher- und Erzeuger Prozess.
+
+Hier legen sich Prozesse in eine Warteliste und diese machen sleep() während diese Warten und werden nur geweckt, wenn sie in der Warteliste dran sind.
+
+Dieser ist der Wichtigste und MUSS verstanden werden.
+
+Die Reihenfolge der Funktionen P() und V() ist wichtig und muss in Kombination mit den Variablen free und mutex richtig implementiert werden. Sonst bleiben die Probleme der Deadlocks und Verklemmungen
+
+\subsection{Monitor}
+
+Wurde von B. Hansen erfunden. So ist ein Monitor eine Klasse, die die Synchronisation auf einer Höheren Ebene für den Entwickler übernimmt. So macht der Compiler die Semaphor-Operatoren.  
+
+Dieser lässt einen Prozess solange schlafen, bis der Buffer nicht mehr voll ist, dann kann ein Neues Item in den Buffer geschrieben werden. Dann wird used inkrementiert und in zeigt auf die nächste Freie stelle in dem Buffer. Darauf folgt das signal(notEmpty) für jeden den das interessiert (weckt einen Prozess der auf notEmpty wartet)
+
+Als Programmiere muss ich nur buffer.put(d) und buffer.get() ausführen. Den Rest macht der Monitor im hintergrund.
+
+\end{document}

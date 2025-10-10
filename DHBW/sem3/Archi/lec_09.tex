@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 7, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Instruktionen}
+
+\subsection{Einleitung}
+
+Es gab einen Kurzen Überblick S.130 bis S. 135
+
+\subsection{Wir bauen eine CPU}
+
+Wir bauen die Intel 8-Bit Architektur. Unser Baukasten besteht aus wichtigen Bauteilen wie das ALU, Register und RAM.
+
+Das Register sind einfach flankengesteuerte D-Flip-Flops die in $3\tau$ beschrieben werden können. Diese liegen in der CPU.
+
+Im RAM liegt an jeder Adresse genau ein Byte (8-Bit)
+
+Somit haben wir innerhalb der CPU die Register und das ALU. Außerhalb gibt es noch den RAM.
+
+\subsubsection{Die Sprache}
+
+Die ISA (Instruktionssatz Architektur) besteht aus einem opcode (Operation Code). Der opcode ist sind 4 Bit aus dem Byte. Die anderen 4 Bit sind die RAM Adresse.
+
+Somit ist eine Instruktion: 4-Bit Opcode | 4-Bit-Adresse
+
+\subsubsection{Aufbau}
+
+S. 140ff werden noch zwei Register ergänzt. Den Befehlszähler, welcher weis \textbf{WO} was passiert und den Befehlsspeicher der dann weis, \textbf{WAS} passiert.
+
+\subsubsection{Decode}
+
+Um nun einen Opcode aus dem Befehlsspeicher auszuführen, wird dieser mithilfe von ANDs rausgefunden.
+
+Diese ANDs sind das \textbf{Steuerwerk}. Diese Steuern dann, was passiert. In den Visualisierungen S. 144 sind alle Steuerleitungen Blau.
+
+Die Adressbits werden direkt an den RAM gegeben. Dieser macht dann nur etwas damit, wenn MemRead = true kommt.
+
+Register haben auch noch ein RegWrite und nur wenn das true ist, wird in dem Register was geladen.
+
+Die Phasen:
+
+\begin{enumerate}
+    \item Fetch Phase
+    \item Decode Phase
+    \item Execute Phase
+\end{enumerate}
+
+\subsubsection{Steuerwerk}
+
+Dies besteht aus dem Befehlsspeicher, dem Befehlszähler und allen ANDs, die die einzelnen Check if \dots Instruktionen beinhalten.
+
+Neben dem Steuerwerk ist die ALU. Diese gibt den Outputs und die Ergebnis Flags zurück und nimmt den ALU-Opcode und zwei Inputs.
+
+\subsection{ISA am Beispiel RISC-V}
+
+\subsection{RISC-V-Instruktionswörter}
+
+\subsection{Zusammenfassung}
+
+\end{document}

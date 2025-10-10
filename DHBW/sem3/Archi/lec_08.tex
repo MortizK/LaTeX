@@ -1,0 +1,64 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 6, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Arithmetik}
+
+\subsection{Fließkommazahlen}
+
+Die Aufgabe 1 von Aufgabenblatt 3 ist eine Klausuraufgabe. Diese sollte verstanden sein.
+
+Der Zahlenbereich von Fließkommazahlen nach IEEE754 und hat per definition nur die Zahlen nach $1.f$. In dem Beispiel von S.120 ist $1.f = \{1.0, 1.25, 1.5, .75\}$ mit $m=2$ und mit $b=2$ haben wir $E=\{-1, 0, 1, 2\}$
+
+\subsubsection{Denormalisierte Zahlen}
+
+Wir haben uns für den Exponenten die werte $0\dots0$ und $1\dots1$ rausgenommen um Sonderfälle von 0 und inf zu berücksichtigen.
+
+Um nun die Zahlen zwischen 0 und 1 darzustellen werden \textbf{denormalisierte} Zahlen verwendet. Dies passiert, wenn $e = 0\dots0$ ist. Dann werden die Zahlen ohne hidden Bit kodiert. Also $\{0.0, 0.25, 0.5, 0.75\} * 2^{-1}$. Die $-1$ ist der minimalwert von $E$
+
+Das ist das was ich in matplotlib mit symlog gemacht habe. Zwischen -1 und 1 wird Linear skaliert und sonst exponential.
+
+\subsubsection{Zusammenfassung}
+
+Auf S. 121 gibt es eine schöne Tabelle für single, double und quad precision.
+
+Kleinste Zahl $>0$ bei single Precision ist:
+
+\begin{align*}
+    x_{min}^{Norm} = 2^{-126} = 10^{-38}
+\end{align*}
+
+\begin{align*}
+    x_{min}^{DeNorm} &= a_{min} * 2^{E_{min}}\\
+     & = 2^{-m} * 2^{-b+1}\\
+     & = 2^{-23} * 2^{-126}\\
+     & = 2^{-149} = 1,4 * 10^{-45}
+\end{align*}
+
+\subsubsection{Sonderfälle}
+
+Alle Sonderfälle von IEEE754 sind auf S.123 zu sehen.
+
+\subsubsection{Beispielumrechnung}
+
+Ist auf S.125:
+
+IEEE 754 single precision Darstellung von folgender Dezimalzahl: $-2.5_{10}$
+
+Lösung:
+
+\begin{enumerate}
+    \item Darstellung als Binäre Festkommazahl: $2.5_{10}=1*2^1+1*2^{-1}=10,1_2$
+    \item Normalisierung
+    \item Berechnung von $e$: $E=e-b$ mit $b=127$
+\end{enumerate}
+
+\end{document}
