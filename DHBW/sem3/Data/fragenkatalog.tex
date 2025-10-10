@@ -7,7 +7,6 @@
 
 \begin{document}
 \maketitle
-\tableofcontents
 
 Fragen sind auf moodle
 
@@ -37,6 +36,14 @@ Fragen sind auf moodle
     \item Schlüsselattribute sind eindeutige Indentifikator für das Tupel (Eine Zeile, eine Entität).
     \item Ein Mengenattribut wird als neuer Entitätstyp implementiert.
     \item Eine Beziehung wird als Handlung von rechts nach links gelesen und sollte ein Satz ein.
+    \item Rollen hinzufügen um klar zu machen wer handelt.
+    \item Chen-Notation vs. (min, max). Die Grenzen sind unterschiedlich und die leserichtung ändert sich. Chen von der Entität weg und bei (min, max) steht es bei der ausgehenden Entität.
+    \item Terniär-Beziehung zwischen drei Entitäten. Einsatz, wenn binäre Beziehungen nicht konsistent dies darstellen können.
+    \item Wenn eine Entität mit sich selber in Beziehung steht. Hier muss es Rollen geben, da sonst die Beziehung nicht eindeutig ist.
+    \item Spezialisierung als Prüfungsfrage: Sie haben Spezialisierungen verwendet und der Kunde fragt wofür wir diese brauchen. Antwort: Ich habe Entität die nur bestimmte Ausprägungen habe und allgemeiner Ausprägungen von oberen Entitäten besitzen. Dient zur Verhinderung von leeren Feldern in der Datenbank. Also Generalisierung (unten nach oben) oder Spezialisierung (oben nach unten)
+    \item Attribute und Beziehungen werden vererbt.
+    \item Partionierung ist die Einteilung in verschieden Teile (Parts). Eine Aggregation ist \dots
+    \item existenzabhängige Entitäten werden mit der oberen Entität gemeinsam gekillt. In dem ERM wird dies mit einer doppelte Linie gezeichnet. Erkennen kann ich das, wenn es Abhängigkeiten gibt.
 \end{enumerate}
 
 \end{document}

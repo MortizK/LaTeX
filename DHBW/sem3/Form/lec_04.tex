@@ -1,0 +1,111 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Reguläre Sprachen und endliche Automaten}
+
+\subsection{The Pumping Lemma}
+
+Wenn ein Sprache eine reguläre Sprache, bedeutet wir finden einen endlichen Automaten oder regulären Ausdruck endlicher Länge.
+
+Wenn dann ein Wort entsteht, was länger ist as der endliche Ausdruck oder Automat, muss ein loop beinhaltet sein, welcher dann aufgepumpt werden kann.
+
+Wir müssen in der Klausur das Pumping Lemma auf eine Sprache anwenden. Auf S.158 gibt es das Beispiel für die Sprache $a^nb^n$
+
+% Ich sollte die Einzelnen Schritte nochmal aufschreiben für das Beispiel
+
+
+\know{Was muss getan werden:}{
+\begin{enumerate}
+    \item Finde ein Wort $s$ was von der Länge $k$ abhängig ist, welches $s\in L$ erfüllt. Es kann ein beliebiges Wort gewählt werden. Jedes wort müsste nach Pumping Lemma aufgepumpt werden.
+    \item Finde ein $h$ zu der Segmentierung: $u*v*w$
+    \item Beweise dass $u*v^h*w\notin L$
+\end{enumerate}
+}
+
+Sei $k\in \mathbb{N}$ Wähle $s=a^{\lceil\frac{k}{2}\rceil}b^{\lceil\frac{k}{2}\rceil}$
+
+Sei $s=u*v*w, |u*v|\leq k, v\neq \epsilon$
+
+\begin{align*}
+    \implies Fall 1.\qquad &
+    u=a^i, v=a^j, w=a^lb^{\lceil\frac{k}{2}\rceil}\\
+    Fall 2.\qquad &
+    u=a^{\lceil\frac{k}{2}\rceil}b^i, v=b^j, w=b^l\\
+    Fall 3.\qquad &
+    u=a^i, v=a^jb^l, w=b^m\\
+\end{align*}
+
+Für Fall 3, da dieser anders ist als die anderen beiden:
+
+Wähle $h=2$
+
+\begin{align*}
+    \implies uv^hw=a^ia^jb^la^jb^lb^m\notin L
+\end{align*}
+
+Dies gilt für Fall 3, da für alle $h$ soll $uv^hw\in L$ gelten muss.
+
+\subsection{Practical relevance of irregularity}
+
+Wir können keinen endlichen Automaten bauen, welche beliebig hoch zählen kann.
+
+\subsection{Properties of Regular Languages}
+
+Was können wir mit Regulären Sprachen machen und erwarten, dass das Ergebnis auch eine Reguläre Sprache ist. S.167
+
+Die Vereinigung $R_1+R_2$, die Anhängung $R_1*R_2$ und Kleenstar $R_1^*$ lassen sich einfach aus den Regulären Ausdrücken bilden.
+
+Für das Komplement erstellen wir einen DFA und tauschen die akzeptierenden Zustände.
+
+Der Schnitt ist auch regulär, wird über DFA bewiesen.
+
+Jede endliche Sprache (eine Sprachen mit endlich vielen Wörter) ist automatisch regulär.
+
+\subsection{Decision Problems}
+
+\begin{itemize}
+    \item emptiness problem
+    \item word problem
+    \item equivalence problem
+    \item finiteness problem
+\end{itemize}
+
+Für das emptiness problem wird einfach durch den Automaten gegangen, bis alle möglichen transitionen durchgegangene sind. Alle erreichbaren Zustände werden als solches markiert, ist unter den erreichbaren Zuständen ein akzeptierender, so gilt $L\neq \{\}$
+
+Für das word problem, müssen wir in einem DFA einfach die transitionen der einzelnen Buchstaben $c_i$ durchgehen, wenn am Ende der Zustand $q_n\in F$ ist (Akzeptiert), so ist das Wort in der Sprache.
+
+Für das equivalence problem wird gezeigt, dass entweder die Minimierung der DFAs gezeigt wird oder Zeigen:
+
+\begin{equation*}
+    L_1 = L_2 \iff 
+    (L_1\cap \ L_2) \cup (\not L_1 \cap L_2)
+\end{equation*}
+
+Für finiteness erfolgt die Lösung in drei Schritten
+
+\begin{enumerate}
+    \item Entfernen aller Zustände die vom Start nicht erreichbar sind.
+    \item Entfernen aller Zustände, die keinen Lauf haben. Also alle Zustände, die keinen akzeptierenden mehr erreichen können.
+    \item Dann gilt \begin{center}
+        $L$ is infinite $\iff A_f$ contains a loop
+    \end{center}
+\end{enumerate}
+
+\section{Formale Grammatiken \& Kontext freie Sprachen}
+
+\subsection{Formale Grammatik}
+
+Die Wichtige Folie ist S.132. Es gibt wieder ein Alphabet $\Sigma$, nicht terminierende Symbole $N$ und Produktionsregeln $P$. Diese Mappen $N$ auf andere Ausdrücke mit dem Alphabet $\Sigma$ und anderen $N$. Dadurch erzeugen wir verschiedene Wörter.
+
+Die Beispiele zeigen das damit auch nicht reguläre Sprachen dargestellt werden.
+
+\end{document}

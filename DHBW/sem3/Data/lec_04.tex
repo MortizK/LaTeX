@@ -1,0 +1,89 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{October 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Der konzeptionelle Datenbankentwurf}
+
+\subsection{Kardinalitäten (Beziehungen)}
+
+\subsubsection{Aggregationen}
+
+Entweder "Teil von" oder "ist ein". So ist ein Motherboard ein Teil von einem Computer und ein RAM ist ein Speichermedium.
+
+\subsubsection{Sichtenkonsolidiertung}
+
+Wir sind ein Softwarehaus und sammeln von verschiedenen Stellen meines Kundens verschiedene Sichten auf deren Modell. Diese sind alle an sich richtig, müssen aber zusammengefügt werden.
+
+Achtung: Es muss geprüft werden ob gleichgenannte Entitäten auch gleich sind. 
+
+Achtung: Treten Widersprüche auf, was zwangsläufig der Fall sein wird, so müssen diese zusammen mit den Anwendern ausgeräumt werden.
+
+Ziele: Es muss Redundanzfrei und Wiederspruchsfrei sein, sowie von Synonyme und Homonyme bereinigt sein.
+
+\section{Prüfungsleistung}
+
+90\% kommen von dem Projekt, die anderen 10\% kommen von der Klassifizierung von DBMs, welche als Kurs zu erledigen ist. Das Dokument ist auf moodle.
+
+Hinweis zum Projekt. Einer soll das Dokument hochladen und es muss gekennzeichnet werden, wer was gemacht hat.
+
+Einteilung: Niklas, Lars, Eric machen zusammen Graforientierte DBS
+
+\section{Der logische Datenbankentwurf}
+
+\subsection{Definitionen}
+
+Das relationale Modell
+
+Definition sind ab Kapitel 3 der Folien.
+
+Eine n-stellige Relation R ist eine Teilmenge des kartesichen Produkts
+
+\begin{equation*}
+    R\subseteq \{M_1 \times M_2 \times \dots \times M_n\}
+\end{equation*}
+
+Der Wertebereiche $M_i$ heißen Domänen. Domänen sind atomar, d.h. keine zusammengesetzten und oder mengenwerigen Datentypen
+
+\begin{align*}
+    R &\subseteq D_1 \times D_2 \times \dots \times D_n\\
+    Mitarbeiter &\subseteq string \times string \times int
+\end{align*}
+
+Ein Element r aus R mit $r=(a_1, a_2, a_3, ..., a_n)$ mit $a_i\in M_i$ für $i=1, \dots n$ heißt n-Tupel.
+
+Das Relationenschemata.
+
+Die Menge aller Attribute einer Relation (von n Domänen) ist das Schema([R]) der Relation.
+
+Man unterscheidet:
+
+\begin{itemize}
+    \item Einer Instanz R (Entspricht dem aktuellen Zustand einer Tabelle. Bei dem Kurs ist die Instanz, die Anwesenheit)
+    \item Einem Schema [R]
+\end{itemize}
+
+Ein Relationenschema wird folgendermaßen Definiert:
+
+\begin{align*}
+    [R]:& \{[A_1:D_1, \dots, A_n:D_n]\}\\
+    [Mitarbeiter]:& \{[Nachname:string, Vorname:string, Gehalt:int]\}
+\end{align*}
+
+Der Primärschlüssel wird dem $Schema([Mitarbeiter])$ als erstes hinzugefügt
+
+
+\subsection{Kartesichen Produkt}
+
+Für das Beispiel von Folie S. 7 muss aufgepasst werden, denn eine Menge enthält jedes Produkt nur einmal. Somit müssen aus den Mengen $M_1, M_2, \dots, M_n$ die Doppelungen rausgenommen werden um die Gesamtanzahl des Produktes zu bestimmen.
+
+Es dürfen somit keine Doppelten Tupel existieren.
+
+\end{document}

@@ -1,0 +1,203 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{October 8, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Ableitung nach Parametern (Kettenregel)}
+
+\begin{equation*}
+    z=f(x, y)
+\end{equation*}
+
+wobei gilt:
+
+\begin{equation*}
+    \begin{cases}
+        x=x(t)\\
+        y=y(t)
+    \end{cases}
+\end{equation*}
+
+mit $t\in [t_1, t_2]$ o.B.d.A.
+
+\begin{equation*}
+    \implies z=f(x(t), y(t)) = F(t)
+\end{equation*}
+
+\begin{equation*}
+    z'=\frac{dF}{dt}
+    =\frac{\delta z}{\delta x}*\frac{dx}{dt} 
+    +\frac{\delta z}{\delta y}*\frac{dy}{dt}
+    =z_x*x' + z_y*y'
+\end{equation*}
+
+Ein Beispiel mit der Lösung hat Niklas mitgeschrieben. Kann ich noch von Ihm übernehmen.
+
+weiteres Beispiel: Kraft ist die zeitliche Änderung des Impulses
+
+\begin{equation*}
+    \vec{F}=\frac{d}{\delta t}\vec{p}
+    = \frac{d}{dt}\vec{p}(m, \vec{v})
+    = \frac{d}{dt}m\vec{v}
+\end{equation*}
+
+\begin{enumerate}
+    \item $m=const \to \vec{F}=\frac{d}{dt}(m*\vec{v}) = m \frac{d\vec{v}}{dt} = m * \vec{a}$
+    \item $m\neq const$, z.B. Rakete $F=\frac{d}{dt}p = \frac{\delta p}{\delta m}*\frac{dm}{dt} + \frac{\delta p}{\delta v}*\frac{dv}{dt} = m'*v+m*v'$
+\end{enumerate}
+
+z.B. für Rakete ohne Äußere Einwirkung: $V_a =$ Ausstoß-geschwindigkeit.
+
+\begin{align*}
+    0 &= \frac{dm}{dt} V_a + m \frac{dv}{dt}\\
+    m\frac{dv}{dt} &= -V_a \frac{dm}{dt} \mid * dt, :m\\
+    dv &= -V_a \frac{dm}{m}
+\end{align*}
+
+Lösung der differentialgleichung:
+
+\begin{align*}
+    \int_{v(m_0)}^{v(m^*)}dv 
+    &= -V_a \int_{m_0}^{m^*}\frac{dm}{m}\\
+    [v]_{v(m_0)}^{v(m^*)}
+    &= -V_a[\ln(m)]_{m_0}^{m^*}\\
+    v(m^*)-v(m_0)
+    &= V_a(\ln(m_0)-\ln(m^*))\\
+    v(m^*)
+    &= V_a*\ln\left(\frac{m_0}{m^*}\right) + v(m_0)
+\end{align*}
+
+Analog für Funktionen mehrerer Variablen: $z=f(x_1, x_2, \dots, x_n)$; $x_i=x_i(t)$
+
+\begin{equation*}
+    \frac{dz}{dt} = \sum_{i=1}^{n}\frac{\delta z}{\delta x_i}*\frac{dx_i}{dt}
+\end{equation*}
+
+Statt einem Parameter $t$ jetzt mehrere: $u, v$. Sei $z=f(x, y)$ und $x=x(u, v)$, $y=y(u, v)$. Dann ist:
+
+\begin{equation*}
+    z=f(x, y) = f(x(u, v), y(u, v)) = F(u, v)
+\end{equation*}
+
+\begin{align*}
+    \frac{\delta z}{\delta u} = \frac{\delta z}{\delta x} * \frac{\delta x}{\delta u} + \frac{\delta z}{\delta y} * \frac{\delta y}{\delta u} \hat{=} z_u = z_x*x_u + z_y*y_u\\
+    \frac{\delta z}{\delta v} = \frac{\delta z}{\delta x} * \frac{\delta x}{\delta v} + \frac{\delta z}{\delta y} * \frac{\delta y}{\delta v} \hat{=} z_v = z_x*x_v + z_y*y_v
+\end{align*}
+
+Übergang von kartesischen im Polarkoordinaten:
+
+\begin{align*}
+    x(r, \varphi) = r*\cos(\varphi)\\
+    y(r, \varphi) = r*\sin(\varphi)\\
+\end{align*}
+
+\begin{align*}
+    \frac{\delta z}{\delta r} = \frac{\delta z}{\delta x} * \frac{\delta x}{\delta r} + \frac{\delta z}{\delta y} * \frac{\delta y}{\delta r} = f_x\cos(\varphi) + f_y\sin(\varphi)\\
+    \frac{\delta z}{\delta \varphi} = \frac{\delta z}{\delta x} * \frac{\delta x}{\delta \varphi} + \frac{\delta z}{\delta y} * \frac{\delta y}{\delta \varphi} = f_x(-r\sin(\varphi)) + f_yr\cos(\varphi) = r(f_y\cos(\varphi) - f_x\sin(\varphi))
+\end{align*}
+
+\subsection{Implizierte Differentiation}
+
+ist eine Anwendung der Kettenregel. $F(x, y) = 0$ beschreibt eine Kurve.
+
+\begin{align*}
+    y &= f(x)\\
+    0 &= f(x) - y\\
+      &= F(x, y)\\
+\end{align*}
+
+Es soll der Anstieg der Kurve im Punkt $P$ bestimmt werden
+
+Beispiel: $x^2+y^2-4=0$
+
+Durch auflösen der Gleichung nach $y$ kann eine explizierte Former der Kurve gefunden werden:
+
+\begin{equation*}
+    y = f(x) = y(x) = \pm\sqrt{4-x^2}
+\end{equation*}
+
+Das $\pm$ ist hier wichtig, da wir sonst nur eine halbkugel haben.
+
+Manchmal ist die Auflösung aber aufwändig oder unmöglich.
+
+Vorgehen: $F(x, y(x))=0$
+
+\begin{equation*}
+    F_x*1+F_y*\frac{dy}{dx} = 0
+\end{equation*}
+
+Falls $F_y\neq 0$: 
+
+\begin{align*}
+    \frac{dy}{dx} = y' = -\frac{F_x}{F_y}\\
+    y'(x_0, y_0) = - \frac{F_x(x_0, y_0)}{F_y(x_0, y_0)}
+\end{align*}
+
+Beispiel: geg.: Ellipse $x^2/32 + y^2/16 = 1$ und $x_0<3, y_0=0$, ges.: Steigung der Tangente im Punkt $P(x_0, y_0)$
+
+Von dieser Ellipse haben wir die Tangenten bestimmt. Das Ergebnis: 
+
+\begin{equation*}
+    y = 0.588 x + \frac{16}{3}
+\end{equation*}
+
+weitere Beispiel: geg.: $(x^2+y^2)^2-2x(x^2+y^2)-y^2=0$ und $P=(0, 1)$, ges.: Steigung in $P$
+
+Lösung
+
+\begin{align*}
+    F(x, y) &= (x^2+y^2)^2-2x(x^2+y^2)-y^2\\
+     &= x^4+y^4+2x^2y^2 - 2x^3 - 2xy^2 - y^2\\
+    F_x &= 4x^3 + 4xy^2 - 6x^2 - 2y^2\\
+    F_y &= 4y^3 + 4x^2y - 4xy - 2y\\
+    y' &=-\frac{F_x}{F_y}\\
+     &= -\frac{4x^3 + 4xy^2 - 6x^2 - 2y^2}{4y^3 + 4x^2y - 4xy - 2y}\\
+    y'(0,1) &= -\frac{4*0 + 4*0*1^2 - 6*0^2 - 2*1^2}{4*1^3 + 4*0^2*1 - 4*0*1 - 2*1}\\
+     &= \frac{2}{2} = 1
+\end{align*}
+
+Das erste Beispiel hatte zusätzlich noch die Tangente bestimmt, wir haben hier nur die Steigung..
+
+\subsection{Lokale Extremwerte}
+
+$z=F(x_=, x_1, \dots, x_n)$. $f$ hat in $x^0=(x^0_1, x^0_2, \dots x^0_n)$ ein relatives/ lokales Maximum falls für alle $x=(x_1, x_2, \dots, x_n)$ aus einer Umgebung von $x^0, x\neq x^0$ gilt:
+
+\begin{equation*}
+    f(x) < f(x^0)
+\end{equation*}
+
+Mitunter auch: $f(x) \leq f(x^0)$ "uneigentliches Maximum".
+
+Dies gibt es auch analog für das Minimum.
+
+Wir betrachten jetzt $f$ als Funktion nur von $x_1$ und halten $x_2=x_2^0, x_3=x_3^0, \dots, x_n=x_n^0$ fest:
+
+\begin{equation*}
+    f(x_1, x_2^0, x_3^0, \dots, x_n^0)
+\end{equation*}
+
+hat dann als Funktion einer Variablen für $x_1 = x_1^0$ ein lokales Maximum $\implies$ Ableitung = 0, d.h. die partielle Ableitung von $f_{x_1}(x_1^0, x_2^0, \dots, x_n^0) = 0 \implies$ analog für alle $x_2, \dots, x_n$
+
+\satz{$f(x_1, x_2, \dots, x_n)$ möge im Punkt $P=(x_1^0, x_2^0, \dots, x_n^0)$ partielle Ableitungen bestitzen. Hat $f$ in $P$ ein lokales Extremum, so gilt:\begin{equation*}
+    grad f\mid_P = \nabla f\mid_P = 0
+\end{equation*}
+Das ist die notwendige Bedingung für lokales Extremum. Wenn wir einen Extrempunkt haben, so gilt dies.}
+
+Falls $f$ total differenzierbar ist, bedeutet das: Die tangentialebene verläuft parallel zur $x_1$-$x_2$-$x_3$-$\dots$-$x_n$-Ebene
+
+Im 3D lässt sich das gut vorstellen, so ist die Tangentialebene bei einem Extrema parallel zur x-y-Ebene.
+
+Die Punkte in denen die notwendige Bedingung erfüllt ist, werden "stationäre" Punkte oder auch "kritische Punkte" genannt.
+
+Die Bedingung ist nicht hinreichend, für ein Extremum!
+
+\end{document}
