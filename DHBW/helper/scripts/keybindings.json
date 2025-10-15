@@ -2,6 +2,11 @@
 // Strg + Shift + P
 [
     {
+        "key": "ctrl+f5",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run RISC-V Assembly with RARS",
+    },
+    {
         "key": "alt+f",
         "command": "runCommands",
         "args": {
