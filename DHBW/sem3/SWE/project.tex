@@ -257,4 +257,98 @@ Optional: Generierung des Deckblattes anhand der ausgewählten Kapitel und deren
 
 \subsection{Spezifikation/ Pflichtenheft}
 
+\pagebreak
+\section{Design}
+
+\subsection{XML}
+
+Wir haben verschiedene Views die alle von dem Tab XML erreichbar sind.
+
+Diese Tab ist vertikal in zwei Hälften geteilt. Die Kleinere auf der Linken Seite ist ein TreeView, welcher die Struktur der .xml-Datei wiederspiegel:
+
+\begin{enumerate}
+    \item exam
+    \item chapter
+    \item task
+    \item (variants) is not show, because it would be to cluttered.
+\end{enumerate}
+
+Wenn es keine .xml Datei gibt, so ist in diesem TreeView nur das Exam, mit dem Name "Exam" und es gibt noch keine weiteren chapters oder tasks.
+
+\subsubsection{TreeView}
+
+Dieser ist eine Strukturierte Navigation und wird mit einer Textsucher ergänzt. Diese zeigt alle Elemente an die den suchtext beinhalten. Wenn ein Blattelement den suchtext enthält, sollen alle Elternteile angezeigt werden. Die Suchfunktion fungiert also als ein Filter.
+
+\subsubsection{View Exam}
+
+In diesem View lässt sich der Name des Exam ändern. So kann z.B. der Modulname verwendet werden. Dieser wird dann auch anstatt von "Exam" in dem TreeView angezeigt.
+
+Als darzustellenden Informationen sind die Anzahl der Kapitel und wie viele (Diese Liste ist Alphabetisch sortiert):
+
+\begin{itemize}
+    \item tasks and variants are in each chapter
+    \item how many points these have in total
+    \item and the distribution of points per difficulty
+\end{itemize}
+
+Aus dieser Ansicht soll es nicht möglich sein ein chapter zu löschen um Fehler zu vermeiden. Wenn auf ein bestimmtes chapter hier geklickt wird, so wird dies zum aktuellem View.
+
+Es soll möglich sein ein neues chapter zu erstellen. Dies besteht einfach nur aus einem Namen und hat standardmäßig keine Aufgabe. (Ergänzend kann evtl. noch ein Kürzel ergänzt werden) Nach dem erstellen soll das neue chapter ausgewählt sein.
+
+\subsubsection{View Chapter}
+
+In diesem View lässt sich der Name des Chapter ändern.  Dieser wird dann auch anstatt von "Chapter" in dem TreeView angezeigt.
+
+Als darzustellenden Informationen sind die Anzahl der Kapitel und wie viele:
+
+\begin{itemize}
+    \item name of the chapter
+    \item tasks and variants this chapter has
+    \item how many points these have in total
+    \item and the distribution of points per difficulty
+    \item symbol: edit
+\end{itemize}
+
+Es soll möglich das gesamte chapter mit allen tasks unwiderruflich zu löschen.
+
+Es soll möglich sein neue Tasks zu erstellen. Ein Neuer Task wird immer mit einer Variant erstellt. Weitere Varianten können dann im Task selber erstellt werden. Nach dem erstellen einer Task bleibt der View des Chapters erhalten.
+
+Unter den Edit und Create wird dann noch eine Liste an Task angezeigt. Diese haben als Name die abgekürzten question als Name und zeigt:
+
+\begin{itemize}
+    \item sportend question of the first variant with \dots
+    \item amount of variants
+    \item points for this task
+    \item what difficulty it has
+    \item and the visibility for the print as pdf (mock exam, exam of both)
+    \item symbols: edit, delete
+\end{itemize}
+
+Aus dieser Liste soll es möglich sein die einzelnen tasks unwiderruflich zu löschen. Wenn man diese bearbeiten möchte wird auf den task geklickt oder auf das bearbeiten Symbol.
+
+\subsubsection{View Task}
+
+Es lassen sich die Notwendigen Attribute einer Task ändern:
+
+\begin{itemize}
+    \item difficulty, choose between easy, medium and hard (one of three)
+    \item scope (for printing): mock exam, exam (one or both)
+    \item points (integer)
+\end{itemize}
+
+Darunter kommt eine Liste an allen Varianten der Frage. Diese haben folgende Felder:
+
+\begin{itemize}
+    \item question (text)
+    \item answer (text)
+    \item symbol: edit, delete
+    \item button: save changes
+\end{itemize}
+
+Jede Variante kann einzeln gelöscht werden und wenn die letzte Variante gelöscht wird, wird auch des Task gelöscht.
+
+Die einzelnen Felder (question, answer) sollen auch bearbeitet werden können.
+
+\subsection{PDF}
+
 \end{document}
