@@ -1,0 +1,32 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 14, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{RISC-V}
+
+\subsection{Hello World}
+
+Wir haben mit Hello World angefangen.
+
+\lstinputlisting{assembly/test.s}
+
+Das sind wir im detail durchgegangen. Bei dem Assembeln wurde schon "Hello World" in den Speicher geladen.
+
+\subsection{Little- vs. Big-Endian}
+
+Die Byte-order spielt bei der Umwandlung von n-Bit-Zahl auf m-Bit-Zahl eine Rolle.
+
+Dies resultiert darin, dass "Hello World" in umgedrehte 4 Byte abschnitte im Arbeitsspeicher liegt. Also: "lleH" "W wo" "dlro" "000!"
+
+\know{Aufgabe}{Wir bekommen add-in.s und sollen dies verstehen und erweitern}
+
+\end{document}

@@ -1,0 +1,295 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{October 15, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Lokale Extremwerte}
+
+Die Bedingung ist nicht hinreichend für ein Extremum. Gegenbeispiel:
+
+\begin{align*}
+    f(x, y) &= x*y\\
+    f_x &= y\\
+    f_y &= x\\
+\end{align*}
+
+Diese sollen Null sein, somit: $f_x=0, f_y=0 \implies y=0, x=0$. Daraus folgt: stationäre Punkt: $(0,0)$ mit $f(0,0)=0$
+
+Diese Funktion hat in pos pos und neg neg eine nach oben geöffnete Parabel und in neg pos und pos neg eine nach unten geöffnete. Somit ist der Punkt ein Minimum und Maximum gleichzeitig.
+
+Jedoch: In jede noch so kleinen Umgebung von $(0,0)$ nimmt $f$ sowohl positive, als auch negative Werte an $\implies$ also \textbf{kein} Extremum!!!
+
+Somit ist $(0,0)$ ein \textbf{Sattelpunkt}. (siehe Beiblatt)
+
+Wie kann man entschieden, ob tatsächlich ein lokales Extremum vorliegt.
+
+Auf ein hinreichendes Kriterium??
+
+\subsection{Taylor-Reihenentwicklung}
+
+\begin{align*}
+    f&: \mathbb{R}\to \mathbb{R}\\
+    Tf(x)_{x_0} &= \sum_{i=1}^{\infty} \frac{f^{(i)}(x_0)}{n!}(x-x_0)^i\\
+    &= f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2}(x-x_0)^2+\dots
+\end{align*}
+
+Extremum bei $x_0$, somit $f'(x_0)=0$:
+
+\begin{align*}
+    f(x) &= f(x_0) + 0(x-x_0) + \frac{1}{2}f''(x_0)(x-x_0)^2 + Restglied\\
+    &= f(x_0) + \frac{1}{2} f''(x_0)(x-x_0)^2
+\end{align*}
+
+Das was über Extrema entscheidet ist hier die zweiter Ableitung $f''(x_0)$, da $(x-x_0)^2$ immer positiv ist.
+
+Aus dem Folgt: 
+
+\begin{itemize}
+    \item $f''(x_0)<0$ Umgebung von $x_0$ ist immer kleiner als $f(x_0)\implies$ lokales Maximum.
+    \item $f''(x_0)>0$ Umgebung von $x_0$ ist immer größer als $f(x_0)\implies$ lokales Minimum.
+\end{itemize}
+
+Dies wenden wir auf mehrstellige Funktionen an: $f:\mathbb{R}^n\to \mathbb{R}$: Taylor-Reihenentwicklung für mehrstellige Funktionen.
+
+\satz{Hinreichende Bedingung für ein lokales Extremum: $f$ sei zweimal differenzierbar, es gelte der Satz von Schwarz, dann hat $f(x, y)$ an der Stelle $(x_0, y_0)$ ein lokales Extremum, falls: 
+
+\begin{itemize}
+    \item $f_x(x_0, y_0)=f_y(x_0, y_0)=0$ und
+    \item $\Delta= f_{xx}(x_0, y_0)f_{yy}(x_0, y_0)-f_{xy}^2(x_0, y_0)>0$ (*)
+\end{itemize}
+
+Ist $f_{xx}(x_0,y_0)<0$, so liegt ein relatives Maximum vor.
+
+Ist $f_{xx}(x_0,y_0)>0$, so liegt ein relatives Minimum vor.}
+
+Diesen Satz ibt es auch als Dokument auf Moodle.
+
+Anmerkungen:
+
+\begin{enumerate}
+    \item unter der Bedingung (*) ist $f_{xx}=0$ nicht möglich.
+    \item Ist $\Delta<0$, so liegt ein Sattelpunkt vor.
+    \item Ist $\Delta=0$, so erlaubt das Kriterium keine Entscheidung.
+    \item Definiert man die sogenannte Hesse-matrix zu $f$ mit $H(f)=\begin{pmatrix}
+        f_{xx} & f_{xy}\\
+        f_{yx} & f_{yy}
+    \end{pmatrix}$, so ist $\Delta=Det(H(f)\mid_{(x_0, y_0)})$\\
+    $det(H)<0\implies$ Sattelpunkt\\
+    $det(H)=0\implies$ keine Entscheidung\\
+    $det(H)>0\implies$ Extrema
+\end{enumerate}
+
+\subsection{Beispiele}
+
+Beispiele: geg: $f(x,y)=(x^2+y^2)^2-2(x^2-y^2)$ ges: Extrema
+
+Lösung: a) Stationäre Punkte $\Delta f=0$
+
+\begin{align*}
+    f_x&=4x(x^2+y^2)-4x = 4x(x^2+y^2-1) = 0\\
+    f_y&=4y(x^2+y^2)+4y = 4y(x^2+y^2+1) = 0\\
+    f_y&=0 \implies y=0\\
+    f_x&=0\mid_{(x, 0)} = 0 \implies 4x(x^2+0^2-1) = 4x(x^2-1)=0\\
+    x_1 &= 0 \implies (0, 0)\\
+    x^2-1 &= 0 \implies x = \pm\sqrt{1}\\
+    x_2 &= 1 \implies (1, 0)\\
+    x_3 &= -1 \implies (-1, 0)
+\end{align*}
+
+Stationäre Punkte: $(0,0), (1, 0), (-1, 0)$
+
+b) Determinate der Hesse-Matrix
+
+\begin{align*}
+    f_{xx} &= 4(x^2+y^2-1) + 8x^2 = 12x^2 + 4y^2 - 4\\
+    f_{yy} &= 4(x^2+y^2+1) + 8y^2 = 4x^2 + 12y^2 + 4\\
+    f_{xy} &= 8xy\\
+    H(f) &= \begin{pmatrix}
+        12x^2 + 4y^2 - 4 & 8xy\\
+        8xy & 4x^2 + 12y^2 + 4
+    \end{pmatrix}\\
+    \Delta(0, 0) &= (-4)(+4) - 0*0 = -16 < 0 \implies \text{Sattelpunkt}\\
+    \Delta(-1, 0) &= 8*8 - 0*0 = 64 > 0 \implies \text{lokales Extremum}\\
+    f_{xx}(-1, 0) &= 8 > 0 \implies \text{lokales Minimum}\\
+    \Delta(1, 0) &= 8*8 + 0*0 = 64 >0 \implies \text{lokales Extremum}\\
+    f_{xx}(1, 0) &= 8 > 0 \implies \text{lokales Minimum}
+\end{align*}
+
+\pagebreak
+Zweites Beispiel: geg: $z = x^2y + xy^2 + 3yx = xy(x + y + 3)$ ges: Extremwerte
+
+Lösung: a) Stationäre Punkte
+
+\begin{align*}
+    \nabla f = \begin{pmatrix}
+        \frac{\delta z}{\Delta x}\\
+        \frac{\delta z}{\Delta y}
+    \end{pmatrix} = \begin{pmatrix}
+        2xy + y^2 + 3y\\
+        x^2 + 2xy + 3x
+    \end{pmatrix} &= \begin{pmatrix}
+        y(2x+y+3)\\
+        x(x+2y+3)
+    \end{pmatrix} = \begin{pmatrix}
+        0\\0
+    \end{pmatrix}\\
+    1)\quad y(2x+y+3) &= 0 \implies y=0\\
+    2x+y+3 &= 0 \implies y = -2x - 3\\
+    2)\quad x(x+2y+3) &= 0 \implies x=0\\
+    x+2y+3 &= 0 \implies x = -2y -3\\
+    y = 0: \to 2)\quad x(x+3)=0 &\implies x=0 \implies (0,0)\\
+    x= -2y -3 &\implies x=-3 \implies (-3, 0)\\
+    y = -2x -3: x(x+2(-2x-3)+3)=0 &\implies x(-3x-3)=0\\
+    \implies x=0 &\implies (0, -3)\\
+    -3x-3=0 \implies x = -1 &\implies (-1, -1)
+\end{align*}
+
+Stationäre Punkte: $(0,0), (-3, 0), (0, -3), (-1, -1)$
+
+b) Determinate der Hesse-Matrix
+
+\begin{align*}
+    f_{xx} &= 2y\\
+    f_{yy} &= 2x \\
+    f_{xy} &= 2x + 2y + 3 \\
+    H(f) &= \begin{pmatrix}
+        2y & 2x + 2y + 3\\
+        2x + 2y + 3 & 2x
+    \end{pmatrix}\\
+    (0, 0): \begin{pmatrix}
+        0 & 3\\
+        3 & 0
+    \end{pmatrix} &\implies  Det(H) = -9 < 0 \implies \text{Sattelpunkt}\\
+    (-3, 0): \begin{pmatrix}
+        0 & -3\\
+        -3 & -6
+    \end{pmatrix} &\implies  Det(H) = -9 < 0 \implies \text{Sattelpunkt}\\
+    (0, -3): \begin{pmatrix}
+        -6 & -3\\
+        -3 & 0
+    \end{pmatrix} &\implies  Det(H) = -9 < 0 \implies \text{Sattelpunkt}\\
+    (-1, -1): \begin{pmatrix}
+        -2 & -1\\
+        -1 & -2
+    \end{pmatrix} &\implies  Det(H) = 3 > 0 \implies \text{lokales Extremum}\\
+    f_{xx} = -2 < 0 &\implies \text{lokales Maximum}
+\end{align*}
+
+\subsection{Rückgriff: Taylor-Reihenentwicklung}
+
+Rückgriff auf die Taylor-Reihenentwicklung für mehrstellige Funktionen: $f: \mathbb{R}^n\to \mathbb{R}$
+
+Das zweite Taylorpolynom für $f\to$ "Schmiegequadrik"
+
+\begin{equation*}
+    T_2f(x)_{x_0} = f(x_0) + \nabla f(x_0)^T (x-x_0) + \frac{1}{2}(x-x_0)^T H_f(x_0)(x-x_0)
+\end{equation*}
+
+Beispiel: geg: $f(x, y, z) = e^{-(x^2+y^2+z^2)}$ ges: lokale Extrema
+
+Zu erwarten wäre genau ein Maximum bei $(0, 0, 0)$. Dies ist ein 4D Glocke.
+
+Lösung: a) Stationäre Punkte:
+
+\begin{align*}
+    f_x &= -2xe^{-(x^2+y^2+z^2)} = 0\\
+    f_y &= -2ye^{-(x^2+y^2+z^2)} = 0\\
+    f_z &= -2ze^{-(x^2+y^2+z^2)} = 0\\
+    &\implies (0, 0, 0)
+\end{align*}
+
+b) Hesse-Matrix
+
+Ableitungen:
+
+\begin{align*}
+    f_{xx} &= -2e^{-(x^2+y^2+z^2)} + -4x^2e^{-(x^2+y^2+z^2)} = (4x^2-2)e^{-(x^2+y^2+z^2)}\\
+    f_{yy} &= (4y^2-2)e^{-(x^2+y^2+z^2)}\\
+    f_{zz} &= (4z^2-2)e^{-(x^2+y^2+z^2)}\\
+    f_{xy} &= 4xye^{-(x^2+y^2+z^2)}\\
+    f_{xz} &= 4xze^{-(x^2+y^2+z^2)}\\
+    f_{yz} &= 4yze^{-(x^2+y^2+z^2)}\\
+\end{align*}
+
+Hesse-Matrix:
+
+\begin{align*}
+    H(f) &= \begin{pmatrix}
+        4x^2-2 & 4xy & 4xz \\
+        4xy & 4y^2-2 & 4yz \\
+        4xz & 4yz & 4z^2-2
+    \end{pmatrix}*e^{-(x^2+y^2+z^2)}\\
+    H(f)\mid_{(0,0,0)} &= \begin{pmatrix}
+        -2 & 0 & 0\\
+        0 & -2 & 0\\
+        0 & 0 & -2
+    \end{pmatrix} * 1
+\end{align*}
+
+Alle Eigenwerte sind negativ $\implies $ negativ definit $\implies$ lokales Maximum bei $(0, 0, 0)$
+
+\subsubsection{Eigenwerte}
+
+Definitheit der Matrix $A$:
+
+\begin{enumerate}
+    \item Eigenwerte: \begin{align*}
+        A\vec{x}=\lambda\vec{x}\\
+        A\vec{x}-\lambda\vec{x}=\vec{0}\\
+        (A-\lambda E)\vec{x} = \vec{0}
+    \end{align*}
+    Eigenwerte sind Lösung von $det(A-\lambda E)=P_n(\lambda)$
+    
+    $P_n(\lambda)$ charakteristische Polynom. hier:
+    
+    \begin{align*}
+        H(f)\mid_{(0, 0, 0)} &= \begin{pmatrix}
+            -2 & 0 & 0\\
+            0 & -2 & 0\\
+            0 & 0 & -2
+        \end{pmatrix} \\
+        \implies \left|\begin{matrix}
+            -2-\lambda & 0 & 0\\
+            0 & -2-\lambda & 0\\
+            0 & 0 & -2-\lambda
+        \end{matrix}\right| &= (-2-\lambda)^3 = -1 * (2+\lambda)^3 = 0\\
+        \lambda &= -2
+    \end{align*}
+    
+    Somit ist $\lambda$ ein dreifacher Eigenwert -2 $\implies$ negativ Definit.
+    
+    Eigenwertkriterium gilt immer, ist aber mitunter schwierig zu bestimmen. Eigenwerte:  
+    
+    \begin{itemize}
+        \item $\forall \lambda > 0\implies$ positiv definit
+        \item $\forall \lambda < 0\implies$ negativ definit
+    \end{itemize}
+    \item Hauptminorenkriterium:
+    \begin{itemize}
+        \item liefert nicht immer eine Aussage, ist aber oft einfacher zu bestimmen $\implies $ Erst damit beginnen und das auf kein Ergebnis führt, dann das Eigenwertkriterium anwenden.
+    \end{itemize}
+    Definition: Eine $n\times n$-Matrix $H$ hat $n$ Hauptminoren die wie folgt definiert sind:
+
+    \begin{align*}
+        |H_i| &= \left|\begin{matrix}
+            a_{11} & \dots & a_{1i}\\
+            \vdots & \ddots & \vdots\\
+            a_{i1} & \dots & a_{ii}
+        \end{matrix}\right| \forall i=1, \dots, n\\
+        d.h. |H_1| = a_{11}; |H_2|&=\left|\begin{matrix}
+            a_{11} & a_{12}\\
+            a_{21} & a_{22}
+        \end{matrix}\right|; \dots bis |H_n|=det(H)
+    \end{align*}
+\end{enumerate}
+
+\end{document}

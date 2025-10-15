@@ -1,0 +1,59 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{October 14, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Synchronisation}
+
+Aufgabenblatt 3 hat eine Alternative zu den Semaphoren um Race Conditions zu verhindern.
+
+\section{Kommunikation zwischen Prozessen}
+
+Nutzung von Betriebssystem angeforderten gemeinsamen Speicherbereich.
+
+Kommunikation über Dateien im Dateisystem.
+
+Kommunikation übe "Pipes"
+
+Explizierte Austausch von Signalen
+
+Explizierter Austausch von Nachrichten - auch an Prozesse auf anderen Rechnern
+
+\subsection{Pipes}
+
+z.B. in der shell von Linux ls .l $|$ grep "VfB"
+
+Es gibt Unnamed oder anonymous Pipe, Welche nur von Kindern des selben Elternprozesses funktioniert. Siehe $|$ der Linux Shell.
+
+Kann mit "int pipe(int df[2])" initialisiert werden. fd[0] verweist auf den Ausgang und fd[1] auf den Eingang der Pipe.
+
+durch close(fd[1]) bei dem parent und close(fd[0]) beim child kann eine Pipe eingerichtet werden. Beispiel auf S.17
+
+Named Pipes überstehen sogar den Neustart des Betriebssystems.
+
+\subsection{Signale}
+
+Ein Signal ist eine kleine Zahl im Bereich von 1 und STGRTMAX (typisch 64).
+
+Dies sind einzelnen Codes, die bestimmte Bedeutung haben. So ist SIGINT der Interrupt durch Strg + C
+
+Signale sind für Prozesse, wenn es um Threads geht wird es schwierig umzusetzen.
+
+\subsection{Nachrichten}
+
+Nachrichtenaustausch über Sockets - auch zwischen verschiedenen Rechner:
+
+\begin{itemize}
+    \item TCP-Sockets (verbindungsorientierte)
+    \item UDP-Sockets (verbindungslose)
+    \item UNIX-Sockets
+\end{itemize}
+
+\end{document}

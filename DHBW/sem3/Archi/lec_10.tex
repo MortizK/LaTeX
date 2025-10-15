@@ -1,0 +1,151 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 13, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Instruktion}
+
+\subsection{ISA am Beispiel RISC-V}
+
+Eine ISA ist der Bauplan und die Instruktionen um eine CPU bauen zu können.
+
+x86 und ARM sind von intel und amd lizenziert und nicht jeder darf diese Benutzen.
+
+Wir behandeln die 32-Bit Wortbreite für RISC-V und die genaue Bezeichnung ist: RISC-V ISA eine (0, 3)-Register/Register-ISA (0 Operanden aus dem Speicher und immer 3 Operanden für arithmetische Operationen aus dem Register)
+
+Dadurch, dass alles in Register gespeichert wir, hat RISC-V mehr Register (32 bei 32-Bit) als z.B. x86 (hat nur 8).
+
+Es gibt ein Nullregister und 31 Universalregister.
+
+\subsection{RISC-V-Instruktionswörter}
+
+Folie S. 158
+
+Die sehen immer gleich aus: operator, ziel, register1, register2
+
+\begin{center}
+    sub s0, s1, s2 \# Differenz s1-s2 nach s0
+\end{center}
+
+Wir haben unsere Register x0 bis x31, diese haben aber auch andere Name, die je nach Verwendung anders heißen S.159.
+
+\begin{itemize}
+    \item s0-s11 zur Speicherung von Variablen
+    \item t0-t6 zur Speicherung temporärer Werte
+    \item \dots
+\end{itemize}
+
+Die t-Register können von Funktionen überschrieben werden. s-Register müssen zwischengespeichert, wenn Funktionen diese ändern.
+
+\subsubsection{Lesen und Schreiben}
+
+Beide Operatoren bearbeiten Wörter, somit werden 32-Bit bearbeitet, was hinter vier Adressen liegt.
+
+Load Word lw rd, rs1
+
+\begin{center}
+    lw t1, s1 \# Fülle t1 mit Daten hinter Adresse in s1
+\end{center}
+
+Store Word sw rs2, rs1
+
+\begin{center}
+    sw t1, s1 \# Inhalte von t1 nach Adresse in s1
+\end{center}
+
+Bei rw und sw ist das zweite Argument immer die Arbeitsspeicher-Adresse!
+
+\subsubsection{Displacement}
+
+Wenn wir Arrays im Speicher haben, zeigt der Pointer nur zum Start des Arrays. Um dann auf die anderen Stellen zuzugreifen wir ein Displacement verwendet. S. 163
+
+lw rd, disp(rs1)
+
+\begin{center}
+    lw t0, 32(s1) \# t0$<=$Daten hinter Adresse A[0+8]=s1+32/4
+\end{center}
+
+Wie division durch 4 kommt von der Wortlänge, da ein Wort 32-Bit hat und hinter jeder Adresse 1-Byte = 8-Bit gespeichert wird.
+
+\subsubsection{Register und Speicher}
+
+Häufig Verwendete Variablen lässt der Compiler im Register, da diese schnelle und Stromeffizienz sind.
+
+Design Prinzipien für RISC-V:
+
+\begin{enumerate}
+    \item Kleiner ist schneller
+    \item Der häufigste Fall muss schnell sein
+    \item Einfach und regelmäßig ist besser
+    \item Ein gutes Design erfordert Kompromisse
+\end{enumerate}
+
+\subsubsection{Konstanten}
+
+Hierzu wird dem operator ein "i" hinzugefügt:
+
+\begin{center}
+    addi s1, s2, 100 \# S. 166
+\end{center}
+
+Sollte wir Konstanten addieren, welche über das 2er Komplement hinaus gehen. Bei 12-Bit: -2048 bis 2047. Dann werden einfach mehrere addi ausgeführt.
+
+\subsubsection{Bedingte Sprünge}
+
+\begin{center}
+    loop: addi t1, t1, 1
+    bn t1, s1, loop
+\end{center}
+
+Der Assembler macht aus dem string "loop" ein Integer, der den Sprung des Befehlszähler repräsentiert.
+
+\begin{equation*}
+    loop = Befehlszaehler + 4 + const * 2
+\end{equation*}
+
+Die $const$ ist wodurch der loop ersetzt wird. 
+
+\subsubsection{Unbedingte Sprünge}
+
+sind im \textbf{J (jump)-Format}.
+
+\begin{center}
+    jal x1, 16 \# Rücksprungadresse: rd=PC+4 in x1 und PC+16*2
+\end{center}
+
+\subsection{Umwandlung Assembly $\to$ Binär}
+
+Hierzu gibt es verschiedene Formate. Das \textbf{R (register)-Format} hat drei Register.
+
+\begin{center}
+    func7 | rs2 (5-Bit) | rs1 (5-Bit) | func3 | rd (5-Bit) | opcode (7-Bit)
+\end{center}
+
+Diese werden von recht nach links gelesen.
+
+Das \textbf{I (immediate)-Format}:
+
+\begin{center}
+    constant (12-Bit) | rs1 (5-Bit) | func3 | rd (5-Bit) | opcode (7-Bit)
+\end{center}
+
+Die anderen Typen sind auf S.171 und bekommen wir mit in die Klausur.
+
+Zwischen den Formaten wird mit dem Opcode entschieden.
+
+Das \textbf{J (jump)-Formate} wird für unbedingte Sprünge verwendet.
+
+\subsection{Klausuraufgabe}
+
+S. 176
+
+\subsection{Zusammenfassung}
+
+\end{document}
