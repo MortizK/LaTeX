@@ -1,0 +1,34 @@
+.data
+#.align 2
+#v: .space 80	# Reserviert 80 Byte im RAM um 20 int zu speicher.
+n: .word 4	# n for the loop
+
+.globl main
+.text
+
+main:
+	li s0, 0	 # sum
+	li s1, 0	 # i
+	la t0, n	 # load address of n into t0
+	lw s2, 0(t0) # load value of n into s2
+	
+for:
+	bge s1, s2, endFor
+	
+	# Calculations
+	mul t1, s1, s1	# i^2
+	add s0, s0, t1	# Sum of i^2
+	
+	# Inkrement i
+	addi s1, s1, 1
+	
+	j for
+endFor:
+	# print result
+	mv a0, s0	# copy s0 into the print space
+	li a7, 1		# set ecall to print_int
+	ecall
+	
+	# exit
+	li a7, 10
+	ecall
