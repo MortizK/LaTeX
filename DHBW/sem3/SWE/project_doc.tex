@@ -1,0 +1,165 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Software Engineering \\ 
+\large Prüfungsleistung: Projekt \\
+\small Version: 1.0}
+\author{Moritz Köhler}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\pagebreak
+\section{Einleitung}
+
+\subsection{Zweck des Dokumentes}
+
+Diese Spezifikation beschreibt die Software \textbf{genExam}. Diese Software ist ein Werkzeug zur Erstellung von Aufgabenpools und automatische Generierung von Klausuren.
+
+Das Dokument richtet sich an: 
+
+\begin{itemize}
+    \item Entwickler, die für die technische Umsetzung und Erweiterung verantwortlich sind.
+    \item Tester, die anhand der Spezifikation das Korrekte Verhalten der Software ableiten können.
+    \item Lehrende, die die Funktionsweise der Software nachvollziehen möchten.
+\end{itemize}
+
+\subsection{Überblick über das System}
+
+\textbf{genExam} ist eine JavaFx-Applikation zur Verwaltung von Aufgabenpools, aus denen Klausuren generiert werden können.
+
+Das Aufgabenpool soll als \textbf{XML-Datei} gespeichert werden und besteht aus mehreren Aufgaben, welche als Kapitel der Klausur dienen. Jedes Kapitel kann in mehrere Teilaufgabe gegliedert werden, welche wiederrum aus mehreren Varianten bestehen können.
+
+Aus dieser Struktur soll ein PDF generiert werden, welche random aus eine Auswahl an Kapitel eine Klausur als \textbf{PDF-Datei} exportiert.
+
+Hauptmerkmale der Software:
+
+\begin{itemize}
+    \item Import und Export des Aufgabenpools als XML-Datei.
+    \item Verwaltung der Aufgaben (Tasks).
+    \item Verwaltung der Teilaufgaben (Subtasks) mit Punktzahl, Schwierigkeitsgrad und Sichtbarkeitsstufen.
+    \item Verwaltung von Varianten mit unterschiedlichen Lösungen.
+    \item Automatische Klausurgenerierung mit und ohne Musterlösung.
+\end{itemize}
+
+Die Software Arbeitet Lokal ohne eine Netzwerkverbindung, wodurch die Verwaltung der XML-Dateien und PDF-Dateien in der Verantwortung des Nutzer liegt.
+
+\subsection{Systemumgebung}
+
+\textbf{genExam} ist eine JavaFx-basierte Desktop Anwendung und somit auf mehreren System lauffähig:
+
+\begin{itemize}
+    \item Windows 11 oder neuer
+    \item macOS Montery oder neuer
+    \item Linux-Distribution mit installiertem OpenJDK 17+
+\end{itemize}
+
+Die Software wird als JAR-Paket veröffentlicht und kann nach dem Entpacken durch Doppelklick oder über die Konsole ausgeführt werden.
+
+\subsection{Nicht-Funktionale Anforderungen}
+
+\subsubsection{Leistungsanforderungen}
+
+Die Anzahl der gespeicherten Aufgaben ist nur durch den verfügbaren Systemspeicher begrenzt.
+
+Die Benutzeroberfläche reagiert innerhalb von 500ms nach Benutzereingaben.
+
+Das Laden einer typische XML-Datei (< 1Mb, ~500 Teilaufgaben) darf maximal 2s dauern.
+
+Das generieren einer PDF-Datei erfolgt in weniger als 5s.
+
+\subsubsection{Wartbarkeit}
+
+Alle Module folgen der MVC-Architektur (Model - View - Controller)
+
+Es gibt für die öffentlichen Klassen und den genutzten Algorithmen eine Dokumentation mit JavaDoc.
+
+Durch diese Schritte ist die Erweiterung der Software durch Funktionalität oder Optimierung der vorhanden Funktionalitäten einfacher möglich.
+
+%% \section{Mengengerüst}
+%% Habe ich schon unter Leistungsanforderungen beschrieben
+
+\pagebreak
+\section{Begriffslexikon}
+
+\subsection{Klausur (Exam)}
+
+Wenn keine XML-Datei geladen ist startet die Software mit eine Beispiel Struktur, welche von dem Nutzer zur Erstellung der ersten oder weiteren XML-Dateien verwendet werden kann.
+
+\begin{tabular}{ll}
+    Name: & New Exam
+\end{tabular}
+
+Diese enthält zum Start noch keine Kapitel/ Aufgaben.
+
+\subsection{Kapitel/ Aufgabe (Task)}
+
+Ein Kapitel/ Aufgabe ist die übergeordnete Struktur um Teilaufgabe einem Thema zuzuordnen. Der Vergebene Name wird bei der Erstellung der PDF-Datei als Titel der Aufgabe verwendet.
+
+\begin{tabular}{ll}
+    Name: & New Chapter
+\end{tabular}
+
+\subsection{Teilaufgabe (Subtask)}
+
+Eine Teilaufgabe ist eine Konkrete Aufgabenarchitektur und kann mehrere Varianten haben. 
+
+Die Teilaufgabe verwaltet zudem die zu erreichende Maximalpunktzahl, den Schwierigkeitsgrad und die Sichtbarkeit.
+
+Der Schwierigkeitsgrad kann folgende Werte annehmen: "easy", "medium", "hard".
+
+Die Sichtbarkeit kann folgende Werte annehmen: "exam", "mock-exam".
+
+\begin{tabular}{ll}
+    Name: & New Subtask\\
+    Punktzahl: & 5\\
+    Schwierigkeitsgrad: & "easy"\\
+    Sichtbarkeit: & "exam"\\
+    Variante: & Startet mit einer Variante (Siehe Variante)
+\end{tabular}
+
+\subsection{Variante (Variant)}
+
+Eine Variante verwaltet die konkrete Aufgabenstellung mit eine möglichen Musterlösung. Diese werden direkt für das erstellen der PDF-Datei verwendet.
+
+\begin{tabular}{ll}
+    Frage: New Question\\
+    Answer: New Answer
+\end{tabular}
+
+\pagebreak
+\section{Anwenderfälle}
+
+\subsection{Aktoren}
+
+Dozenten oder anderes Lehrende Personal von primär Hochschulen und Universitäten. 
+
+Diese Person sollte minimales Technisches und Computerkenntnisse haben, um die Software vollständig bedienen zu können.
+
+\subsection{Übersicht}
+
+\begin{tabular}{ll}
+    Dateiverwaltung &  XML-Dateien anlegen, speichern und laden\\
+    Aufgabenverwaltung &  Task und Subtasks erzeugen, bearbeiten und löschen\\
+    Variantenverwaltung &  Varianten erzeugen, bearbeiten und löschen\\
+    Exam-Erstellung &  Eine Klausur konfigurieren und exportieren\\
+\end{tabular}
+
+%% Die Verschiedene Anwenderfälle (Use-Cases)
+
+\subsection{Dateiverwaltung}
+
+\subsection{Aufgabenverwaltung}
+
+\subsection{Variantenverwaltung}
+
+\subsection{Exam-Erstellung}
+
+\pagebreak
+\section{Benutzeroberfläche}
+
+%% Darstellung und Beschreibung der einzelnen Komponenten der Benutzeroberfläche
+
+\end{document}
