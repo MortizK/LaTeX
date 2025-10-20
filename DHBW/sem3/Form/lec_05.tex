@@ -1,0 +1,207 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{October 17, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Formale Grammatiken \& Kontext freie Sprachen}
+
+\subsection{The Chomsky Hierarchy for Grammars}
+
+Diese muss ich mir nochmal angucken, habe das letzte Vorlesung nicht verstanden/ aufgeschrieben.
+
+\begin{enumerate}
+    \item Type 3: \textbf{right-linear or regular}: hat auf der Linken Seite genau ein Nicht Terminal Symbol (NTS) und auf der Rechten Seite genau ein Terminal Symbol (TS) gefolgt von entweder keinem oder einem NTS.
+    \item Type 2: \textbf{context-free}: Auf der Linken Seite muss genau ein NTS sein. Die Rechte Seite kann aus eine beliebigen Menge von NTS und TS bestehen.
+    \item Type 1: \textbf{context-sensitive}: heißt es baut nur längere Wörter. Die erlaubte Ausnahme ist $S\to\epsilon$. So werden $\alpha\to\beta$ mit $|\alpha|\leq|\beta|$ und beide sind eine beliebigen Menge von NTS und TS. Es baut keine kleineren Wörter.
+    \item Type 0: Jede Grammatik ist \textbf{unrestricted}.
+\end{enumerate}
+
+Aufgabe von S.253: Der Höchste Type von G ist Typ 1, da wir ein P: $At\to ta$ haben. Dies schließt Typ 2 oder höher aus.
+
+Die Formale Definition ist: 
+
+\begin{equation*}
+    \{wtw\mid w\in\{a, b\}^*\}
+\end{equation*}
+
+Somit haben wir eine Grammatik, welche zweimal das Gleicher Wort erstellt und ein $t$ genau in der Mitte hat.
+
+\subsection{DFA $to$ right-linear Grammar}
+
+Wie konvertieren wieder von einem DFA in eine Grammatik und eine Grammatik in einen NFA. Somit können wir auch Grammatik - NFA - DFA - RE schließen.
+
+Um P zu bestimmen:
+
+\begin{equation*}
+    P = \{p\to aq \mid ((p,a), q) \in \delta\} \cup \{p\to\epsilon \mid p\in F\}
+\end{equation*}
+
+Die Übersetzung erfolgt von $((0, a), 1)$ nach $0\to a 1$ und die Finalen zustände nicht vergessen: z.B. $2\in F\implies  2\to \epsilon$ 
+
+Ein Lauf eines DFA und eine Ableitung einer Grammatik
+
+Ableitung von $w$ in $G$:
+
+\begin{equation*}
+    0 =>_G a1 =>_G aa1 =>_G aab2 =>_G aab
+\end{equation*}
+
+Lauf von $w$ in $A$:
+
+\begin{equation*}
+    ((0, aab), (1, ab), (1, b), (2, \epsilon))
+\end{equation*}
+
+\subsection{right-linear Grammar $to$ NFA}
+
+S. 259.
+
+\begin{align*}
+    \Delta = & \{(A,c,B) \mid A \to cB\in P\} \cup\\
+    & \{(A,c,q_f) \mid A \to c\in P\} \cup\\
+    & \{(A,\epsilon,B) \mid A \to B\in P\} \cup\\
+    & \{(A,\epsilon,q_f) \mid A \to \epsilon\in P\}
+\end{align*}
+
+Kurzgefasst lassen sich aus Zustand (NTS) mit dem einsammeln von Buchstaben (TS) zu einem anderen (NTS). Wenn kein Endzustand angegeben ist, so wird hierzu der Finale Zustand dazugenommen.
+
+\subsection{Context Freien Sprachen}
+
+Es sind alle Verbindungen der Form $A\to\beta$ erlaubt mit $A\in N$ und $\beta\in (\Sigma \cup N)^*$
+
+Zwei Grammatiken sin equivalent, wenn diese die gleicher Sprache generieren.
+
+Ein Symbol ist terminierend, genau dann wenn es ein wort ohne Symbol generiert. Auch über mehrere Ketten.
+
+Ein Symbol ist erreichbar, genau dann wenn es von dem Start aus generiert wird. Auch über mehrere Ketten.
+
+Eine Grammatik ist reduziert, genau dann wenn alles Symbole terminierend und erreichbar sind.
+
+Dieser Prozess passiert immer in der Reihenfolge:
+
+\begin{enumerate}
+    \item Terminierende Symbole
+    \item Erreichbaren Symbole
+\end{enumerate}
+
+\subsection{Chomsky Normal Form (CNF)}
+
+Regeln:
+
+\begin{itemize}
+    \item $N \to a$ mit $a\in \Sigma$
+    \item $N \to AB$ mit $A, B\in N$ (Genau zwei auf der Rechten Seite)
+    \item $S \to \epsilon$, wenn $S$ nicht auf der Rechten Seite vorkommt.
+\end{itemize}
+
+Umsetzung:
+
+\begin{enumerate}
+    \item Entfernen von $\epsilon$ produktionen.
+    \item Entfernen der Kettenregel $(A\to B)$
+    \item HInzufügen von Zusätlichen Symbolen.
+\end{enumerate}
+
+Der Sinn hinter CNF ist es, dass wir wissen, Wie lang die Kette ist für ein Wort der Länge $n$. Dafür brauchen wir $2n+1$ Transitionen.
+
+\pagebreak
+\subsubsection{Cocke-Younger-Kasami Algorithmus}
+
+Dieser dient um alle Wege alle Wörter einer Grammatik der Länge $n$ zu bestimmen. Daraus lassen sich dann auch die Wahrscheinlichkeiten der einzelnen Wörter bestimmen.
+
+Dieser Algorithmus wird in einer Tabelle durchgeführt. So steht das Wort unten wir wir versuchen in der oberen Dreiecksform alle möglichen Teilwörter zu bestimmen. Dazu fangen wir mit der Diagonalen an.
+
+Aufgabe:
+
+\begin{align*}
+    G &= (N, \Sigma, P, S)\\
+    \Sigma &= \{a, b\}\\
+    P: S &\to SB|BD|YB|XY\\
+       B &\to BD|YB|XY\\
+       D &\to XB\\
+       X &\to a\\
+       Y &\to b\\
+\end{align*}
+
+\begin{center}
+    \begin{tabular}{c|cccc}
+        i/j & 1 & 2 & 3 & 4\\
+        \hline
+        1 & X & S, B & $\{\}$ & $\{\}$ \\
+        2 &   & Y    & $\{\}$ & $\{\}$ \\
+        3 &   &      & Y      & $\{\}$ \\
+        4 &   &      &        & X \\
+        \hline
+        w= & a & b & b & a\\
+    \end{tabular}
+\end{center}
+
+Bei diesem Beispiel ist das Wort abba nicht in der Grammatik enthalten..
+
+\begin{center}
+    \begin{tabular}{c|cccccc}
+        i/j & 1 & 2 & 3 & 4 & 5 & 6\\
+        \hline
+        1 & Y & $\{\}$ & S, B & $\{\}$ & $\{\}$ & S, B \\
+        2 &   & X      & S, B & $\{\}$ & $\{\}$ & S, B \\
+        3 &   &        & Y    & $\{\}$ & $\{\}$ & $\{\}$ \\
+        4 &   &        &      & X      & $\{\}$ & D \\
+        5 &   &        &      &        & X      & S, B \\
+        6 &   &        &      &        &         & Y\\
+        \hline
+        w= & b & a & b & a & a & b\\
+    \end{tabular}
+\end{center}
+
+Somit ist das Wort babaab in der Grammatik enthalten. Das Wort kann mit S oder B beginnen und da S der Startpunkt der Grammatik ist, gibt es das Wort.
+
+\know{Tipp}{Wenn wir uns die Leeren Mengen agucken, haben wir spalten mit Leeren Menge. Das ist so, weil wir auf der Rechten Seite kein X generieren können.
+
+Somit kann ein Spalte schon mit Leeren Mengen gefüllt werden, wenn das Symbol auf der Rechten Seite nicht generiert werden kann.}
+
+\subsection{Kellerautomat}
+
+Der Kellerautomat hat einen unendlichen Stack, wo wir Daten Auflegen können.
+
+Der Automat ist beendet, wenn der Stack Leer ist und das eingelesene Wort Leer ist.
+
+Eine Transition ist also: Von Zustand $p$ wir das Symbol $c$ gelesen, $A$ vom Stack genommen und daraus wird dann ein Wort $BC$ auf den Stack geschrieben und landen in Zustand $q$.
+
+\begin{equation*}
+    (q, c, A, BC, q)
+\end{equation*}
+
+Eine Konfiguration ist der aktuelle Zustand $q$, das noch ungelesene Wort $w$ und der Inhalt des Stacks $\gamma$
+
+\begin{equation*}
+    (q, w, \gamma)
+\end{equation*}
+
+Die Akzeptierende Konfiguration ist:
+
+\begin{equation*}
+    (q, \epsilon, \epsilon)
+\end{equation*}
+
+\section{Flex und Scanners}
+
+\subsection{Compiler}
+
+\begin{enumerate}
+    \item Source handler: Bekommt eine Sequenz von Charakteren.
+    \item Lexical analysis: Sequenz von token (id, "int")
+    \item Syntax analysis: Baumstruktur der Tokens
+    \item Semantic analysis: Abstract Syntax Tree + Symbole table
+    \item Code generation
+\end{enumerate}
+
+Weiter Nächste Woche.
+
+\end{document}

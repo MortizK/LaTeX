@@ -14,6 +14,27 @@
 
 \subsection{Beziehungen}
 
+Um die verschiedene Beziehungen (1-1), (1-n) und (n-m) umzusetzen müssen passend die Primär und Fremdschlüssel eingesetz/ gewählt werden.
+
+Regeln von S.28
+
+\begin{enumerate}
+    \item Alle Entitäten werden Relationen
+    \item Alle Beziehungen werden Relationen
+    \item Bei 1:N und N:1 Beziehungen-Relation können deren Attribute mit der N-Relation zusammengezogen werden. Der Primärschlüssel (der 1-Relation) wird dann zum Fremdschlüssel
+    \item Bei 1:1 Relationen erfolgt die Zusammenfassung so, dass möglichst wenig NULL-Werte entstehen.
+    \item Aus M:N Beziehungen werden eigenständige (Beziehungs-) Relationen erstellt.
+\end{enumerate}
+
+Übung zur Umwandlung von ER zu Relationen wurde anhand einer Tertiären Beziehung durchgeführt.
+
+Können eine Tertiären Beziehung von mehreren Binären Beziehungen dargestellt werden können? Wir können aus der Tertiären Beziehung eine neue Entität machen und haben dadurch drei einzelne Beziehungen zu dieser Neuen Entität. Es hat aber keine Auswirkung auf die resultierenden Relationen.
+
+\subsection{Daten- und Referentielle Integrität}
+
+Alle Daten im DBMS müssen konsistent abgespeichert werden. S.29
+
+So solle es nicht möglich sein, dass ein Fremdschlüssel in die leere Zeigt.
 
 
 \end{document}

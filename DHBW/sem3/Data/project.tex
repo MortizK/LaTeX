@@ -31,7 +31,7 @@ Außerdem müssen verschiedene Benutzer verwaltet werden, welche unterschiedlich
 \section{ER-Modell}
 
 \begin{flushright}
-Moritz Köhler oder Niklas Reusch
+Niklas Reusch
 \end{flushright}
 
 % Wir müssen unsere Anforderungen für das ER Modell so erweitern, dass wir alle möglichen Beziehungen 
@@ -40,19 +40,19 @@ Moritz Köhler oder Niklas Reusch
 \section{Relationale Modell}
 
 \begin{flushright}
-Moritz Köhler oder Niklas Reusch
+Moritz Köhler
 \end{flushright}
 
 \section{Datenschema in SQL}
 
 \begin{flushright}
-Moritz Köhler oder Niklas Reusch
+Niklas Reusch
 \end{flushright}
 
 \section{Entwurf}
 
 \begin{flushright}
-Moritz Köhler oder Niklas Reusch
+Moritz Köhler
 \end{flushright}
 
 
@@ -62,10 +62,22 @@ Moritz Köhler oder Niklas Reusch
 \subsection{Feedback: ER-Modell}
 
 \begin{flushright}
-von Moritz Köhler für Niklas Reusch
+von Moritz Köhler für Niklas Reusch am 16.10.2025
 \end{flushright}
 
+Das ERM umfasst schon zum großteil die Anforderungen. Ergänzen kann man noch eine Spezifikation eines Mitarbeiter, den Filialleiter. Dieser leitet dann eine Filiale. Weitere Spezifikationen des Mitarbeiter können sein: Azubi, Besitzer.
 
+Zum Azubi könnte man leicht eine Ternäre Beziehung hinzufügen, die auf der Spezialisierung aufbaut. Ein Mitarbeiter bringt einem Azubi ein Rezept bei.
+
+Des weiteren lassen sich die Beziehungen Filiale führt einen Verkauf durch, Mitarbeiter führt einen Verkauf durch und Ein Verkauf enthält Produkte zu einer Ternäre Beziehung zusammenfassen. Die Attribute von der Entität Verkauf kannst du dann einfach an die Beziehung selbst schreiben.
+
+Da Varianten eines Rezeptes selbst ein Rezept sind würde ich dort eine Rekursive Beziehung verwenden. Damit hätten wir dann auch eine Rekursive Beziehung in unserem ERM.
+
+Ich bin mir bei der Rezept besteht aus Zutaten Beziehung etwas unsicher ob das tatsächlich eine "besteht aus" Beziehung ist.
+
+Allgemein zum Format in yEd. Die Telefonnummer von Mitarbeiter und Zulieferer kann gerne mit nach oben, da diese unten mit den sehr Langen Verbindungen komisch aussieht. Es wäre auch schön, wenn die Abstände und Größen der Entitäten und Beziehungen gleich bleiben.
+
+Bitte benutze für die Attribute auch das Attribut Feld unter dem Tab Entity Relationship statt dem Gelben aus Shapes. Für die Spezifikation kann man ein Sechseck aus BPMN benutzen und die Farben aus einer Entität kopieren. Dann sieht alles Einheitlich aus.
 
 \subsection{Feedback: Relationale Modell}
 
