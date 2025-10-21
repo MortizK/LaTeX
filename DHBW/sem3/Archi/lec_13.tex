@@ -1,0 +1,31 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{RISC-V}
+
+\subsection{Funktionen}
+
+Wir können auch zwischen call by value und call by reference unterscheiden.
+
+Rückgabe von Funktionen/ Programmen erfolgt über a0.
+
+Call by Reference ist notwendig, da call by value nur register Inhalte a0 bis a7 als Inputs hat. Um größere Datenmengen, z.B. Arrays und Strings, verarbeiten zu können.
+
+Ein Beispiel Programm liegt auf Teams oder Moodle.
+
+\subsection{Gleitkommazahlen}
+
+Ist Separat als Floating Point Unit (FPU) implementiert. Dies sind eigene 32 Register.
+
+Der Code für ecall ist die 2 für printFloat und 6 für readFloat. Gibt den Wert aus fa0 aus. der Code muss trozdem auf a7 liegen.
+
+\end{document}

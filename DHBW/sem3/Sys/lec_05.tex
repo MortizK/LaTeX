@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{October 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Scheduler}
+
+Dieser entscheidet, wie lange welcher Prozess Zeit auf der CPU bekommt.
+
+Batch-Prozesse: Viele Aufgaben mit bekannter Zeit.
+
+Interaktive: Bediene meinen Nutzer
+
+Echtzeit-System: Muss rechtzeitig beendet werden.
+
+Anforderungen ans Scheduling:
+
+\begin{itemize}
+    \item Faire Behandlung
+    \item Policy Enforcement
+    \item Balance: möglichst viele Teile des Systems auslasten.
+\end{itemize}
+
+Man unterscheidet zwei arten von Scheduling
+
+\begin{itemize}
+    \item Nicht-präemptive/kooperative (nicht verdrängende) Strategie
+    \item Präemptive (verdrängende) Strategie. Dies ist die aktuelle Strategie
+\end{itemize}
+
+\subsection{Präemptives Scheduling}
+
+Grundlage ist eine Hardware-Uhr, welche die Zeit auf nano Sekunden genau misst. So lässt sich die CPU Zeit eines Prozesses bestimmen.
+
+Die Zeitspanne heißt Quantum $t_{slice}$ und ist zwischen 10 und 15 Millisekunden lang.
+
+Bei dem Linux Kernel 2.6.22 kann das Quantum dynamisch festgelegt werden.
+
+Der Prozesswechsel wird von dem \textbf{Dispatcher} durchgeführt.
+
+\subsection{Batch Scheduling}
+
+\subsection{kooperatives Multitasking}
+
+First In First out (FIFO) und Shortest Job First (SJF)
+
+\begin{equation*}
+    t_{p1}= 30ms, \quad t_{p2}= 20ms, \quad t_{p3}= 18ms, \quad t_{p4}= 10ms, \quad t_{p5}= 26ms
+\end{equation*}
+
+In den folgenden Rechnungen geht es um die kleinste Zeit im Speicher.
+
+FIFO:
+
+\begin{equation*}
+    30*5 + 20*4 + 18*3 + 10*2 + 26 = 330
+\end{equation*}
+
+Somit hat FIFO eine Durchschnittszeit von 66ms.
+
+SJF:
+
+\begin{equation*}
+    10*5 + 18*4 + 20*3 + 26*2 + 30 = 264
+\end{equation*}
+
+Somit hat FIFO eine Durchschnittszeit von 52,8ms.
+
+\subsection{Präemptives Multitasking}
+
+Highest Priority First (HPF) und Priority Scheduling (PS)
+
+Es gibt auch noch:
+
+Shortest Remaining Time Next (SRTN)
+
+Und:
+
+Guaranteed Scheduling (GS). Jeder bekommt die gleicher Zeit zur verfügung. Wenn mehr Zeit verwendet wird, wird er rausgeschmissen.
+
+Oder:
+
+Lotterie Scheduling. Dieser vergibt Losnummern und kann mit Priorität einfach mehr Losnummer gewährleisten. Wenn nun ein Client auf den Server Wartet, so kann dieser seine Lose einfach an den Server geben, um so dem Server eine Prio zu geben, da der Client auf den Server eh warten muss.
+
+\subsection{Warteschlangen}
+
+Mit mehrere Warteschlagen die unterschiedliche Strategien haben. So lassen sich Prioritäten vergeben und Gleichzeitig für weniger wichtige Prozesse einen schnellen Abarbeitung mit z.B. FIFO durchführen.
+
+\subsection{Echtzeit Scheduling}
+
+Es wird zwischen einem Weichem und Hartem Echtzeitsystem unterschieden. So ist bei dem weichen ein überschreiten einer Deadline unerwünscht, aber toleriert. 
+
+Earliest Deadline First (EDF). Ist ein Präemptives Verfahren.
+
+\subsection{Scheduling in Unix und Linux}
+
+Je länger einer Wartet, je höher wird die Priorität. So wird das verhungern vermeidet.
+
+Die kleinste Scheduling-Einheit ist der Prozess.
+
+Prozesse im kernel mode sind ununterbrechbar. 
+
+Seit 2007 wird der Completly Fair Scheduler (CFS) verwendet. hier ist die kleinste Scheduling Einheit der Thread.
+
+Dann gibt es noch das Scheduling mit dem Rot-Schwarz Baum. Dieser arbeitet mit virtueller Runtime. Durch diese kann auch die Priorität vergeben werden in dem die Zeit dort langsamer/ schneller vergeht. Dies ist der aktuelle Scheduler.
+
+\subsection{Scheduling in Windows}
+
+Wieder ein Multilevel Scheduling mit Prioritäten. In jeder stufe gibt es Round Robin (RR)
+
+kleinste Scheduling Einheit ist der Thread.
+
+Hier ist die höchste Stufe (31) die höchste Priorität.
+
+Wenn möglich werden die Threads immer dem gleichem CPU-Kern zugeordnet.
+
+\end{document}
