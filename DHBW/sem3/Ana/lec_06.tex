@@ -1,0 +1,284 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{October 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\know{Für die Klausur}{Wir sollen immer angeben, was gegeben ist und was gesucht ist.}
+
+\subsection{Eigenwerte}
+
+Die Eigenwerte lassen sich in einer Matrix bestimmen, indem wir die Determinanten bestimmen von den kleineren Quadratmatrizen, von ober links.
+
+Wenn die Eigenwerte positiv sind, so ist die Matrix positiv definit und somit der Punkt ein lokales Minimum.
+
+Wenn die Eigenwerte negativ sind, so ist die Matrix negativ definit und somit der Punkt ein lokales Maximum.
+
+Wenn die Eigenwerte sowohl positiv und negativ sind, so ist die Matrix semi definit und wir haben keine Aussage.
+
+(Bei zwei positiven und ein negativer Eigenwert $\implies$ Matrix indefinit)
+
+\subsection{Lokale Extrema mit Nebenbedingungen}
+
+Im Anwendungen heben häufig Nebenbedingungen auf: Bestimmte Extrema von $z=f(x, y)$ unter der Nebenbedingung $\varphi(x, y)=0$
+
+Manchmal: NB nach einer Variablen auflösen und in $f$ einsetzen.
+
+\subsubsection{Methode des Lagrange'schen - Multiplikator}
+
+Höhenlinien von $f$. und die Höhenlinie von $\varphi$ zur Höhe Null. Nun Zeichnen wir von beiden den Gradienten in dem Berührpunkt $E$ beider Höhenlinien.
+
+Im Punkt $E$ berühren sich die Höhenlinien tangential. Dort ist das Maximum  unter der NB: 
+
+Entlang $\varphi$ geht es bis dahin auf $f$ bergauf und danach wieder abwärts.
+
+$\implies$ dort liegt $\nabla f \perp$ Tangenten von $\varphi$ in $E\perp \nabla \varphi \implies \nabla f \parallel \nabla \varphi$
+
+\begin{align*}
+    \nabla f &= -\lambda \nabla \varphi\\
+    \implies \nabla f + \lambda \nabla \varphi &= 0 \quad\text{(notwendige Bedingung)}
+\end{align*}
+
+\subsubsection{Methode (notwendige Bedingung für kritische Punkte)}
+
+1) Bilde Hilfspunkte:
+
+\begin{align*}
+    F(x, y, \lambda) = f(x, y) + \lambda*\varphi(x, y)
+\end{align*}
+
+2) Gradient der Funktion
+
+\begin{align*}
+    \nabla F &= \begin{pmatrix}
+        0\\0\\0
+    \end{pmatrix} = \nabla (f + \lambda*\varphi)\\
+    F_x &= f_x + \lambda * \varphi_x = 0\\
+    F_y &= f_y + \lambda * \varphi_y = 0\\
+    F_{\lambda} &= \varphi = 0\\
+\end{align*}
+
+Das Gleichungssystem für $x, y, \lambda$ liefert die kritischen Punkte.
+
+3) Außerdem können in "singulären" Punkte, die das System
+
+\begin{align*}
+    \nabla\varphi(x, y)&=\vec{0}\\
+    \varphi(x, y)&=0
+\end{align*}
+
+erfüllen Extrema vorliegen $\implies$ Extrema untersuchen.
+
+Hier versagt der Mechanismus von Lagrange, $\nabla \varphi = \vec{0}$
+
+\begin{align*}
+    \nabla f = -\lambda\nabla \varphi \implies \nabla f = -\lambda *\vec{0}
+\end{align*}
+
+Anmerkung: $\lambda$ ist eine Hilfsgröße
+
+\subsubsection{Beispiele}
+
+geg.: $f(X, y) = xy$, ges.: Extrema?
+
+unter NB: $x+y=1 \implies x + y - 1 = 0$
+
+Lösung: 1) $F(x, y, \lambda) = xy + \lambda (x+y-1)$
+
+2)
+
+\begin{align*}
+    \nabla F = \begin{pmatrix}
+        F_x\\F_y\\F_{\lambda}
+    \end{pmatrix} &= \begin{pmatrix}
+        y + \lambda\\ x + \lambda\\ x+y-1
+    \end{pmatrix} = \begin{pmatrix}
+        0\\0\\0
+    \end{pmatrix}\\
+    y &= -\lambda\\
+    x &= -\lambda\\
+    x+y &= 1\\
+    x &= \frac{1}{2}\\
+    \implies \lambda &= -\frac{1}{2}
+\end{align*}
+
+3) "Singuläre Punkte überprüfen
+
+\begin{align*}
+    \nabla \varphi = \begin{pmatrix}
+        \varphi_x\\ \varphi_y
+    \end{pmatrix} = \begin{pmatrix}
+        1\\1
+    \end{pmatrix} \neg \begin{pmatrix}
+        0\\0
+    \end{pmatrix}
+\end{align*}
+
+$\implies$ Es kann keine weiteren kritischen Punkte geben!
+
+Andere Ansatz: Auflösung \& Einsetzen
+
+NB: $y=y(x)=1-x$
+
+\begin{align*}
+    f(x, y) &= f(x, y(x)) = \tilde{f}(x) = x(1-x) = x- x^2\\
+    \tilde{f}'(x) &= 1-2x = 0 \implies x= \frac{1}{2}\\
+    \tilde{f}''(x) &= -2 < 0 \implies \text{lokales Maximum bie } (\frac{1}{2},\frac{1}{2})
+\end{align*}
+
+Anmerkung: Hinreichend ist die gerenderte Hesse Matrix.
+
+\begin{align*}
+    H_F(x, y, \lambda) = \begin{pmatrix}
+        F_{\lambda\lambda} & F_{\lambda x} & F_{\lambda y}\\
+        F_{x\lambda} & F_{x x} & F_{x y}\\
+        F_{y\lambda} & F_{y x} & F_{y y}
+    \end{pmatrix} = \begin{pmatrix}
+        0 & \varphi_{x} & \varphi_{y}\\
+        \varphi_{x} & F{xx} & F{yy}\\
+        \varphi_{y} & F{yx} & F{yy}\\
+    \end{pmatrix}
+\end{align*}
+
+Umsetzung $i$ führender Hauptminoren $i>2*m$ bei $m$ Nebenbedingungen $\implies$ d.h. für zweidimensionale Funktionen unter einer Nebenbedingung ($m=1$)
+
+Hauptminoren $H_i$ mit $i<2*1$
+
+\begin{align*}
+    H_3 = det(H_f(x^0, y^0, \lambda^0)) < 0 \implies (x^0, y^0) \text{ Minimum}\\
+    H_3 = det(H_f(x^0, y^0, \lambda^0)) > 0 \implies (x^0, y^0) \text{ Maximum}\\
+\end{align*}
+
+im Beispiel: $\varphi_x=1, \varphi_y=1, F_{xx}=0, F_{yy}=0, F_{xy}=1$
+
+\begin{align*}
+    H_3 = det\left(\begin{pmatrix}
+        0 & 1 & 1\\
+        1 & 0 & 1\\
+        1 & 1 & 0
+    \end{pmatrix}\right) = 2 > 0 \implies \text{lokales Maximum}
+\end{align*}
+
+Allgemein: 
+
+\begin{align*}
+    y = f(x_1, \dots, x_n)\\
+    NB: \varphi_i(x_1, \dots, x_n) = 0, i =1, \dots, m\\
+\end{align*}
+
+1) Hilfsfunktionen:
+
+\begin{equation*}
+    F(x_1, \dots, x_n, \lambda_1, \dots, \lambda_m)
+    = f(x_1, \dots, x_n) + \sum_{i=1}^{m} \varphi_i(x_1, \dots, x_n)
+\end{equation*}
+
+2) $\nabla F = \vec{0}$: Gleichungssystem
+
+\begin{align*}
+    \frac{\delta F}{\delta x_k} = 0, k=1,  ..., n\\
+    \frac{\delta F}{\delta \lambda_i} = 0, i = 1, ..., m
+\end{align*}
+
+$n+m$ Gleichungen für $n+m$ Unbekannte
+
+3) Zusätzliche mögliche Extrema an Stellen wo $\nabla \varphi_i$ lineare abhängig sind und die Nebenbedingungen unerfüllt sind!
+
+Beispiel: geg.: Kreis $x^2+y^2-5=0$, Gerade $y=3x+30$, ges.: Minimaler Abstand zwischen Kreis und Gerade.
+
+Lösung: 
+
+\begin{figure}[ht]
+    \centering
+    \incfig{KreisGerade}
+    \caption{KreisGerade}
+    \label{fig:KreisGerade}
+\end{figure}
+
+Der Punkte $A=(a, b)$ und der Punkte $B=(c, d)$
+
+1) Hilfsfunktionen:
+
+\begin{equation*}
+    F(a, b, c, d, \lambda, \mu) = (a-c)^2 + (b-d)^2 + \lambda(a^2+b^2-5) + \mu(2c-d+30) 
+\end{equation*}
+
+2) $\nabla F = 0$
+
+\begin{align*}
+    F_a &= 2(a-c) + 2\lambda a = 0\\
+    F_b &= 2(b-d) + 2\lambda b = 0\\
+    F_c &= -2(a-c) + 2\mu = 0\\
+    F_d &= -2(b-d) - 2\mu = 0\\
+    F_\lambda &= a^2 + b^2 - 5 = 0\\
+    F_\mu &= 2c-d+30 = 0
+\end{align*}
+
+\begin{align*}
+    \nabla \varphi_1 = \begin{pmatrix}
+        2a\\2b\\0\\0
+    \end{pmatrix}\\
+    \nabla \varphi_2 = \begin{pmatrix}
+        0\\0\\2\\-1
+    \end{pmatrix}\\
+\end{align*}
+
+linear abhängig wenn $a = b = 0$, was aber nicht geht, da der Punkte $(a, b)$ auf dem Kreis mit Radius $\sqrt{5}$ liegt.
+
+3) Lösen des Gleichungssystem
+
+\begin{align*}
+    (1.)+(3.): & 2\lambda a + 2\mu = 0 |*1\\
+    (2.)+(4.): & 2\lambda b - \mu = 0 |*2\\
+    \implies  & 2\lambda(a+2b) = 0
+\end{align*}
+
+Annahme $\lambda = 0$:
+
+\begin{align*}
+    (1.) & 2(a-c) = 0 \implies a=c\\
+    (2.) & 2(b-d) = 0 \implies b=d\\
+    \implies & (a, b)=(c, d) \text{ kann nicht sein}
+\end{align*}
+
+Der Kreis und die Gerade haben keine gemeinsame Punkte.
+
+$a+2b=0$: $a=-2b$
+
+\begin{align*}
+    (5.): & (-2b)^2 + b^2 = 5 \implies 4b^2+b^2 = 5\\
+    \implies & 5b^2 = 5\\
+    \implies & b_{1/2} = \pm 1
+\end{align*}
+
+Aus der Skizze $b=+1$ und daraus folgt $b=-2$
+
+\begin{align*}
+    b*(1.)-a*(2.): 2(a-c)b + 2\lambda ab - 2(b-d)a - 2\lambda ba &=0\\
+    2(a-c)b - 2(b-d)a &=0\\
+    (a-c)b &= (b-d)a \text{ einsetzen}\\
+    (-2-c)*1 &= (1-d)*(-2)\\
+    c &= -2d\\
+    (6.): d &= 2c+30\\
+    c &= -2(2c+30)\\
+    c &= 6
+\end{align*}
+
+\begin{align*}
+    \lambda = \frac{-2(a-c)}{2a}=\frac{10}{2} = 5\\
+    \mu = -2(b-d) = 10\\
+\end{align*}
+
+$\implies a=-2, b=1, c=-12, d=6, \lambda=5, \mu=10$
+
+Abstand $l=\sqrt{(a-c)^2 + (b-d)^2} = \sqrt{125}$
+
+\end{document}

@@ -1,0 +1,130 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{October 22, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Der logische Datenbankentwurf}
+
+Schritte für ERM zu Relationen
+
+\begin{enumerate}
+    \item Alle Entitäten bilden
+    \item Alle Beziehung bilden
+    \item Alle Relationen mit dem gleichem Primärschlüssel zusammenfügen (außer bei Spezifikation)
+    \item \dots
+\end{enumerate}
+
+Das logische Model ist jetzt abgeschlossen.
+
+\section{Normalisierung}
+
+Anomalien:
+
+\begin{itemize}
+    \item Einfügeanomalie
+    \item Löschanomalie
+    \item Änderungsanomalie
+\end{itemize}
+
+Durch dämliche Struktur der Schemas, ist es gut möglich das Fehler passieren. z.B. die Anomalien.
+
+\subsection{Projektion $(\Pi)$}
+
+Funktioniert wie das select * oder select Vorname, Nachname
+
+Formal (mit R als Schema):
+
+\begin{equation*}
+    R' := \Pi_{[R']}(R), [R'] \subseteq [R]
+\end{equation*}
+
+Die Funktionale Abhängigkeit (FA; oder English Functional dependency (FD)) ist die Grundlage der Normalisierung.
+
+Für $X, Y\subseteq [R], X\to Y$ ist funktional abhängig, wenn $f(X) = Y$ gilt.
+
+Eine Triviale FA ist Trivial, wie $X\to X$, wie auch obermengen von $X$: $Y, X\to X$ mit $X$ dem Primärschlüssel und $Y$ anderen Attributen.
+
+Wir müssen die FAs für eine bestimmte Instanz prüfen:
+
+\begin{center}
+    \begin{tabular}{ccc|c}
+        A & B & C & R\\
+        \hline
+        1 & 10 & 100 & 1\\
+        2 & 20 & 200 & 1\\
+        1 & 10 & 500 & 1\\
+        \hline
+        2 & 20 & 100 & 2\\
+        \hline
+        3 & 20 & 600 & 3\\
+    \end{tabular}
+\end{center}
+
+\begin{align*}
+    R_1 &= A\to B, B\to A, C\to A, C\to B\\
+    R_2 &= A\to B, B\to A\\
+    R_3 &= A\to B
+\end{align*}
+
+\subsection{Armstrong-Axiome}
+
+Die Regeln sind auf S. 13 Abgebildet.
+
+\begin{enumerate}
+    \item Reflexivität: $Y\in X \implies X\to Y$
+    \item Verstärkung: $X\to Y \implies XZ\to YZ$
+    \item Transitivität: $X\to Y, Y\to Z\implies X\to Z$
+    \item Zerlegung: $X\to YZ \implies X\to Y, X\to Z$
+    \item Vereinigung: Gegenteil von 4.
+    \item Pseudotransitivität: $X\to Y, WY\to Z \implies WX \to Z$
+\end{enumerate}
+
+\subsection{Schlüssel}
+
+Formale gesprochene Schlüssel. So gibt es einen \textbf{Superschlüssel} (aus dem Englischen Subset). Mit dem Superschlüssel lässt sich auf die gesamte Relation abbilden.
+
+Dieser muss nicht minimal sein. So kann folgendes Gelten:
+
+\begin{equation*}
+    \exists a\in s_i: s_i/\{a\}\to [R]
+\end{equation*}
+
+Es kann mehrere \textbf{Schlüsselkandidaten} $\subseteq$ Superschlüssel
+
+\begin{align*}
+    \nexists a\in s_i:s_i/\{a\}\to [R]
+    \forall a\in s_i: \not(s_i/\{a\} \to [R])
+\end{align*}
+
+Ein \textbf{Primärschlüssel} ist ein (willkürlich) ausgewählter Schlüsselkandidat.
+
+\begin{itemize}
+    \item Ein Superschlüssel ist Reduzierbar und identifiziert ein Tupel
+    \item Ein Schlüsselkandidat kann nicht weiter Reduziert werden
+    \item Ein Primärschlüssel ist ein willkürlich gewählter Schlüsselkandidat
+\end{itemize}
+
+Ein Attribut wird als \textbf{Primattribut} oder prim bezeichnet, wenn das Attribut in einem Schlüsselkandidaten vorkommt.
+
+\subsection{Normalformen}
+
+\subsubsection{1. Normalform}
+
+Eine Relation erfüllt die erste Normalform, wenn jede Entität für jedes Attribut der Relation nur einen Datenwert besitzt.
+
+Ist durch die Definition von Relation schon erfüllt.
+
+Wenn wir z.B. bei Abschlüssen mehrere Wirtschaftsinformatiker, welche weitere Abschlüsse haben die als Klartext drin stehen, können Rechtschreibfehler zu Anomalien führen. Dies würde die erste Normalform nicht erfüllen.
+
+\subsubsection{2. Normalform}
+
+Eine Relation erfüllt die zweiter Normalform (2NF), wenn diese sich in der ersten Normalform befindet und alle Nichtschlüsselattribute nur durch den gesamten Primärschlüssel festgelegt werden.
+
+\end{document}
