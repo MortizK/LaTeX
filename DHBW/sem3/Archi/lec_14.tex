@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 27, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{RISC-V}
+
+\subsection{Gleitkommazahlen}
+
+Adressen können nicht in ein float register geladen werden, da diese von der CPU hart mit lw und sw verbunden sind.
+
+\lstinputlisting{assembly/fahrenheit.s}
+
+Um Verzweigungen zu machen wird der Wahrheitswert zwischen gespeichert.
+
+\begin{lstlisting}
+feq.s <reg>, <freg1>, freg2>    # req = (freq==freg2) ? 1:0
+flt.s <reg>, <freg1>, freg2>    # req = (freq < freg2) ? 1:0
+fle.s <reg>, <freg1>, freg2>    # req = (freq<=freg2) ? 1:0
+\end{lstlisting}
+
+Und für den Sprung:
+
+\begin{lstlisting}
+bne <reg>, zero, <label>        # Sprung, wenn reg = true
+beq <reg>, zero, <label>        # Sprung, wenn reg = true
+\end{lstlisting}
+
+\know{Klausurübung}{Die Übungsklausur wirklich auf Papier ohne Lösungen durcharbeiten.}
+
+\subsection{Assembler, Linker und Lader}
+
+Der Linker kopiert alle verwendete Funktionen die außerhalb sind, einfach als Assembler Code unter das eigentliche Programm.
+
+Wir können dazu auch inline Compilieren. Diese Funktionen werden dann nicht über jal und jalr hin und her springen. Für kleine Funktionen kann dies den Speicherplatz reduzieren. Es ist ein tradeoff von Speicherverbrauch der executable und der laufzeit.
+
+Lader (Teil des Betriebssystem), lädt und führt das Programm aus. Wie viel RAM wird gebraucht und den Program-counter auf die erste Instruktion setzten.
+
+\subsection{x86 ISA}
+
+\begin{itemize}
+    \item RISC - Reduced Instruction Set Computer
+    \item CISC - Complex Instruction Set Computer
+\end{itemize}
+
+Vor- und Nachteile sind auf S. 75
+
+\know{i7 und i9}{Alle CPUs sind gleich Hergestellt die schlechteren CPUs i5, i7 sind einfach i9 CPUs, wo nicht alles Funktioniert. Das sind fertigungsfehler, da der Prozess einfach sehr komplex ist und Sachen Kaputt gehen.}
+
+\end{document}

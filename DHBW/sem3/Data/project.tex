@@ -1,6 +1,7 @@
 \documentclass[a4paper]{article}
 
 \input{../preamble.tex}
+\usepackage{pdflscape}
 
 \title{Datenbanken \\ \large Bäckerei}
 \author{Moritz Köhler und Niklas Reusch}
@@ -36,6 +37,23 @@ Niklas Reusch
 
 % Wir müssen unsere Anforderungen für das ER Modell so erweitern, dass wir alle möglichen Beziehungen 
 % Und wir brauchen ca. 10 Entitäten.
+
+\pagebreak
+\begin{landscape}
+    %\begin{figure}[ht]
+    %    \centering
+    %    \def\svgwidth{\columnwidth}
+    %    \import{./fig/}{ERM.pdf_tex}    % Text Scaling done within the .pdf_tex file
+    %    \caption{ERM}
+    %    \label{fig:ERM}
+    %\end{figure}
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[width=2\textwidth]{./fig/ERM.png}
+        \caption{ERM von Niklas Reusch}
+        \label{fig:erm_from_niklas_reusch}
+\end{figure}
+\end{landscape}
 
 \section{Relationale Modell}
 

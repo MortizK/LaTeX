@@ -1,0 +1,196 @@
+%% Creator: Inkscape 1.4.2 (f4327f4, 2025-05-13), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'ERM.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{1}{4}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1089bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.45110193)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{ERM.pdf}}%
+    \put(0.30377004,0.2391281){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Datum\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{ERM.pdf}}%
+    \put(0.57927349,0.34282362){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Adresse\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{ERM.pdf}}%
+    \put(0.38565467,0.2391281){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Menge\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{ERM.pdf}}%
+    \put(0.308679,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Name\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{ERM.pdf}}%
+    \put(0.32064592,0.34006956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Dauer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{ERM.pdf}}%
+    \put(0.61814767,0.34282362){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Geburtsdatum\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{ERM.pdf}}%
+    \put(0.54378575,0.34282362){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gehalt\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{ERM.pdf}}%
+    \put(0.5735271,0.31479614){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Nachname\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{ERM.pdf}}%
+    \put(0.08504261,0.29556956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Filiale\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{ERM.pdf}}%
+    \put(0.26531217,0.1988115){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Verkauf\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{ERM.pdf}}%
+    \put(0.37187384,0.29463513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}durchführt von\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{ERM.pdf}}%
+    \put(0.26917622,0.29463513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Schicht\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{ERM.pdf}}%
+    \put(0.38404859,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Produkt\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{ERM.pdf}}%
+    \put(0.5340239,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Rezept\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{ERM.pdf}}%
+    \put(0.74207863,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Zutat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{ERM.pdf}}%
+    \put(0.73404217,0.22899298){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Zulieferer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{ERM.pdf}}%
+    \put(0.74223265,0.17196239){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}liefert\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{ERM.pdf}}%
+    \put(0.01883473,0.32401308){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Name\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{ERM.pdf}}%
+    \put(0.62756423,0.31349711){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Vorname\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{ERM.pdf}}%
+    \put(0.74047255,0.26227376){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Name\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{ERM.pdf}}%
+    \put(0.77482971,0.26227376){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Adresse\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{ERM.pdf}}%
+    \put(0.51657147,0.15264331){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Name\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{ERM.pdf}}%
+    \put(0.27160493,0.0549978){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Herstellungsstatus\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{ERM.pdf}}%
+    \put(0.92926774,0.22899298){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Telefonnummer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{ERM.pdf}}%
+    \put(0.74575083,0.29103857){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}hat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{ERM.pdf}}%
+    \put(0.37968432,0.1988115){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}durchführt\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{ERM.pdf}}%
+    \put(0.49433273,0.29463513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Mitarbeiter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{ERM.pdf}}%
+    \put(0.18353679,0.29463513){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}hat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{ERM.pdf}}%
+    \put(0.39885205,0.4244073){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Filialleiter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{ERM.pdf}}%
+    \put(0.40778975,0.37505751){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ist ein\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{ERM.pdf}}%
+    \put(0.70471561,0.06260847){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Name\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{ERM.pdf}}%
+    \put(0.73633224,0.06260847){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Bestand\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{ERM.pdf}}%
+    \put(0.46615701,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}hat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{ERM.pdf}}%
+    \put(0.48826763,0.4244073){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Azubi\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{ERM.pdf}}%
+    \put(0.85831992,0.22899298){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}hat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{ERM.pdf}}%
+    \put(0.51863497,0.03088223){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ist Variante von\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{ERM.pdf}}%
+    \put(0.48780961,0.37505751){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ist ein\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{ERM.pdf}}%
+    \put(0.70452553,0.26227376){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{ERM.pdf}}%
+    \put(0.78585639,0.06260847){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{ERM.pdf}}%
+    \put(0.56481244,0.15264331){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{ERM.pdf}}%
+    \put(0.51857671,0.34282362){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{ERM.pdf}}%
+    \put(0.27542081,0.2391281){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{ERM.pdf}}%
+    \put(0.31556941,0.14772589){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{ERM.pdf}}%
+    \put(0.01273802,0.27326054){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{Adresse}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{ERM.pdf}}%
+    \put(0.3102871,0.08344036){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Preis\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{ERM.pdf}}%
+    \put(0.2120471,0.2391281){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gesamtbetrag\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{ERM.pdf}}%
+    \put(0.29250678,0.0214064){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Lagermenge\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{ERM.pdf}}%
+    \put(0.63218651,0.11390867){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}beinhaltet\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{ERM.pdf}}%
+    \put(0.23557464,0.34006956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{ID}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{ERM.pdf}}%
+    \put(0.26757014,0.34006956){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Startzeit\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{ERM.pdf}}%
+    \put(0.31274263,0.30038175){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{ERM.pdf}}%
+    \put(0.75083171,0.2117363){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} (1,*)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{ERM.pdf}}%
+    \put(0.75395442,0.13444263){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(1,*)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{ERM.pdf}}%
+    \put(0.95309322,0.24965613){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{ERM.pdf}}%
+    \put(0.31141398,0.19393306){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{ERM.pdf}}%
+    \put(0.38809364,0.13332699){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{ERM.pdf}}%
+    \put(0.54268123,0.29851295){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{ERM.pdf}}%
+    \put(0.48023579,0.29927982){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{ERM.pdf}}%
+    \put(0.50562885,0.27192893){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{ERM.pdf}}%
+    \put(0.2438721,0.29983079){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{ERM.pdf}}%
+    \put(0.12713098,0.30274353){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{ERM.pdf}}%
+    \put(0.42940301,0.12192203){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{ERM.pdf}}%
+    \put(0.5091826,0.12148127){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=64]{ERM.pdf}}%
+    \put(0.78287248,0.23620399){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=65]{ERM.pdf}}%
+    \put(0.91660454,0.23444091){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}m\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=66]{ERM.pdf}}%
+    \put(0.58036228,0.07200717){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n Rezeptvariante\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=67]{ERM.pdf}}%
+    \put(0.46667691,0.07200717){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1 Basisrezept\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=68]{ERM.pdf}}%
+    \put(0.57831534,0.1200137){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=69]{ERM.pdf}}%
+    \put(0.71618863,0.12248203){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}n\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=70]{ERM.pdf}}%
+  \end{picture}%
+\endgroup%
