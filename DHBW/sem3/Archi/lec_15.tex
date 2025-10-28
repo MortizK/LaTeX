@@ -1,0 +1,49 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{October 28, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{CPU - Central Processing Unit}
+
+Wir wollen uns das Steuerwerk genauer anschauen und nun für 32Bit RISC-V CPU.
+
+In einem Takt wollen wir: Fetch, Decode, Execute ausführen.
+
+Dies wollen wir nur für die integer Operatoren machen.
+
+Unser Registersatz wird als ein Block dargestellt. Dieser hat die Register IDs für rs1, rs2, rd (register destination) und Daten Leitungen für schreiben und lesen von rs1 und rs2. Steuerleitung: RegWrite.
+
+Immideat Generierung von 12Bit auf 32Bit. Es schreibt das MSB auf die 20 Höheren Stellen (um positiv und negative Zahlen zu konvertieren)
+
+Der RAM besteht aus Adresse, Schreibe Daten, Lese Daten und den Steuerleitungen: MemWrite, MemRead
+
+\subsection{Befehlszähler/ -speicher}
+
+Diese werden vor die Register geschaltet. 
+
+Um die branch Befehle umzusetzen wird das Immideat left shift 1 (mal 2) und dann auf den Programm Counter addiert.
+
+Un das Inkrement um 4 auf den Programm Counter wird auch implementiert.
+
+Alles auf S. 199
+
+Aufgabe S.201:
+
+Wie müssen alle Steuerbefehle gesetzt werden für:
+
+\begin{center}
+    beq rs1, rs2, <offset>
+\end{center}
+
+Das Steuerwerk besteht nur aus dem Program Counter und Program Speicher, wie auch den Main Control Unit wie alles ander um den PC zu bearbeiten.
+
+Alles andere (Register, ALU, Imm, DataMem und ALU-Control) ist der Datapfad.
+
+\end{document}

@@ -1,0 +1,83 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{October 28, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Speicherverwaltung}
+
+Speicherhierarchie:
+
+\begin{itemize}
+    \item Die Register haben einen Zugriff von ~0,1ns
+    \item Die Taktrate einer 3,5Ghz CPU ist alle ~0,3ns
+    \item Danach kommen die L1-L4 Chache bei 1ns-40ns
+    \item Arbeitsspeicher bei 30ns-100ns
+    \item SSD bei ~30$\mu$s-100$\mu$s
+\end{itemize}
+
+Lokalität: Eine Zeitliche Lokalität ist die Wahrscheinlichkeit, dass auf diese Speicheradresse in naher Zukunft nochmal zugegriffen wird.
+
+Die Räumliche Lokalität beschreibt das gleicher für benachbarten Speicheradressen.
+
+\subsection{Direkt adressierter Speicher}
+
+\dots
+
+Wir können den belegten pages (4kByte) eine Bitmap zuordnen, welche angibt, welche pages belegt sind und welche nicht.
+
+Ein Programm besteht aus benachbarten pages im RAM.
+
+\subsubsection{Verwaltungstechniken}
+
+Monoprogramming
+
+Multiprogramming mit festen Partitionen
+
+Multiprogramming mit variablen Partitionen und Swapping
+
+Multiprogramming mit virtuellem Speicher und Paging
+
+Statt einer Bitmap zur Bestimmung von freien Speicheradressen wird eine verkettete Liste Benutzt (mit start, size, next)
+
+Hierzu gibt es verschiedene Methoden um einen neuen Prozess in den RAM zu laden:
+
+\begin{itemize}
+    \item first fit (erster platz wo der Prozess rein kann)
+    \item best fit (platz der die kleinste Lücke generiert)
+    \item (buddy system)
+\end{itemize}
+
+\subsubsection{Swapping}
+
+Swapping passiert, wenn im RAM nicht genügent Platz für weitere Prozesse ist. So wird ein Prozess vollständig auf die Festplatte geschrieben.
+
+\subsubsection{Virtueller Speicher}
+
+Wir haben einen Virtuellen Speicher, welcher dann eine Zuweisung auf den Physikalischen Speicher hat.
+
+Im Virtuellem Speiche ist die Einheit eine \textbf{Seite} und im Physikalischem ist es eine \textbf{Kachel/Seitenrahmen}.
+
+Diese Verwaltung braucht auch Speicher und CPU zeit (ein overhead)
+
+Durch den virtuellen Speicher lassen sich auch Prozesse laufen lassen, die größer sind als der Physikalische Speicher, da nur die notwendigen Teile in dem RAM sein müssen.
+
+Und wir können nun auch nicht zusammenhängende Seitenrahmen auf dem RAm haben, da vom Virtuellen auf den RAM übersetzt wird.
+
+Ein Seitenfehler (page fault):
+
+\begin{itemize}
+    \item Minor Page fault: Seite im RAM, aber nicht in der aktueller Seitentabelle (kann passieren, wenn mehrere Prozesse dieselbe Bibliothek benutzten)
+    \item Major Page fault: Seite nicht im RAM
+    \item invalide Adresse: Segmentation Fault
+\end{itemize}
+
+
+
+\end{document}
