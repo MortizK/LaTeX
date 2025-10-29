@@ -1,0 +1,284 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{October 29, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Differentialrechnung mehrstelliger Funktionen}
+
+\subsection{Globale Extrema}
+
+\begin{itemize}
+    \item lokales Extrema $\to$ "Innerem"
+    \item "Rand" untersuchen $\to$ "Grenze"
+\end{itemize}
+
+Am Beispiel: geg.: $f(x, y) = x^3 - 3x - y^2$, ges.: Globale Extrema
+
+In den Grenzen $-3\leq x \leq 3$ und $-3\leq y\leq 3$
+
+Lösung: 1.) Lokale Extrema: a) Stationäre Punkte
+
+\begin{align*}
+    \nabla f = \begin{pmatrix}
+        f_x \\f_y
+    \end{pmatrix} = \begin{pmatrix}
+        3x^2-3 \\ -2y
+    \end{pmatrix} = \begin{pmatrix}
+        0\\0
+    \end{pmatrix}\\
+    \implies x^2 = 1 \implies x_{1/2} = \pm 1\\
+    \implies y = 0
+\end{align*}
+
+Daraus folgen die folgenden stationären Punkte: $(-1, 0), (1, 0)$
+
+b) Hesse Matrix
+
+\begin{align*}
+    H(f) = \begin{pmatrix}
+        6x & 0\\
+        0 & -2
+    \end{pmatrix}\\
+    det(H(f)\mid_{(-1, 0)}=\begin{vmatrix}
+        -6 & 0\\
+        0 & -2
+    \end{vmatrix}) = 12 > 0\implies \text{ lokales Extremum}\\
+    f_{xx}(-1, 0) = -6 < 0 \implies \text{ lokales Maximum bei } f(-1, 0) = 2\\
+    det(H(f)\mid_{(1, 0)}=\begin{vmatrix}
+        6 & 0\\
+        0 & -2
+    \end{vmatrix}) = -12 < 0\implies \text{ Sattelpunkt}
+\end{align*}
+
+2) Rand: I.)
+
+\begin{align*}
+    y=-3, y=+3\\
+    f(x,-3)=x^3-3x-9=f(x, 3)\\
+    \tilde{f}(x) = x^3-3x-9\\
+    \tilde{f}'(x) = 3x^2-3 = 0\\
+    \implies x_{1/2} = \pm 1\\
+    \tilde{f}''(x) = 6x\\
+    \tilde{f}''(1) = 6 > 0\text{ lokales Minimum bei } x=1\\
+    \tilde{f}''(-1) = -6 < 0\text{ lokales Maximum bei } x=-1\\
+\end{align*}
+
+Ausrechnen:
+
+\begin{align*}
+    f(-1, \pm3) = -7\\
+    f(1, \pm3) = -11
+\end{align*}
+
+Randecken:
+
+\begin{align*}
+    f(-3, \pm3) = -27\\
+    f(3, \pm3) = 9
+\end{align*}
+
+Rand: II.)
+
+\begin{align*}
+    x = -3, x = +3\\
+    f(-3, y) = \tilde{f}(y) = -18 - y^2\\
+    \tilde{f}'(y) = -2y = 0 \implies y = 0\\
+    \tilde{f}''(y) = -2 < 0 \implies \text{ lokales Maximum bei } (-3, 0)\\
+    f(-3, 0) = -18 \text{ und Randecken: } f(-3, \pm3)=-27\\
+\end{align*}
+
+Rand: III.)
+
+\begin{align*}
+    x = -3, x = +3\\
+    f(3, y) = \tilde{f}(y) = 18 - y^2\\
+    \tilde{f}'(y) = -2y = 0 \implies y = 0\\
+    \tilde{f}''(y) = -2 < 0 \implies \text{ lokales Maximum bei } (3, 0)\\
+    f(3, 0) = 18 \text{ und Randecken: } f(3, \pm3)=9\\
+\end{align*}
+
+Ergebnis anhand einer Skizze bestimmen: Einfach in der Ebene alle lokalen Extrema einzeichnen und dann bestimmen welche Globale Minima und Maxima sind.
+
+So haben wir bei $(3, 0)$ ein Globales Maximum und bei $(-3, 3)$ und $(-3, -3)$ zwei Globale Minima
+
+\subsection{Ausgleichsrechnung}
+
+Methode der kleinsten Quadrate
+
+Hier geht es um Messwerte, welche um Ihren Wert ein Rechteck gezeichnet haben um die Messunsicherheit darzustellen. Die Rechtecke sind so, dass in Ihrem Inhalt zu einer Wahrscheinlichkeit der Echte Wert liegt.
+
+Die Erste Vereinfachung ist: Das wir in x-Achse keinen Fehler haben und haben somit nur einen Box in y-Richtung (Fehlerbalken)
+
+Es geht um die Optimierung von Funktionen anhand von Messwerten. Wir gehen somit von einer Familie von Funktionen mit Parametern für mehrere $a_i$. Für diese $a_i$ können mehrere Funktionen gegen eine Abweichfunktion antreten.
+
+Die Funktion der Familien mit der kleinsten Abweichung ist dann das Ergebnis.
+
+Die Formel um die Abweichung zu bestimmen kommt von GAUSS:
+
+\begin{equation*}
+    \varrho(f) = \sum_{i=1}^{n}(f(x_i)-y_i)^2
+\end{equation*}
+
+\textbf{Wichtigster Fall}: F ist eine lineare Familie
+
+Seien $g_0(x), g_1(x), \dots, g_n(x)$ fest vorgegeben
+
+\begin{equation*}
+    F=\{f(x, a_0, a_1, \dots, a_n) = a_0g_0(x) + a_1g_1(x) + \dots + a_ng_n(x)\}
+\end{equation*}
+
+Am Beispiel mit $g_i(x) = x^i$. Somit $g_0(x)=1; g_1(x)=x; g_2(x)=x^2$
+
+\begin{equation*}
+    f(x, a_0, a_1, \dots, a_m)=a_0+a_1x+a_2x^2+\dots+a_mx^m
+\end{equation*}
+
+Minimum Berechnen:
+
+\begin{align*}
+    \varrho(f) &= \sum_{i=1}^{n}(f(x_i)-y_i)^2\\
+    &= \sum_{i=1}^{n}\left(\sum_{j=0}^{m}a_jg_j(x_i)-y_i\right)^2 \to\text{Minimum}
+\end{align*}
+
+Notwendige Bedingung: $\frac{\delta\varrho}{\delta a_k}=0, k=0,..., m$
+
+\begin{align*}
+    \frac{\delta\varrho}{\delta a_k}
+    &=\sum_{i=1}^{n}2\left(\sum_{j=0}^{m}a_jg_j(x_i)-y_i\right)*g_k(x_i)\\
+    &=2\sum_{i=1}^{n}\sum_{j=0}^{m}a_jg_j(x_i)g_k(x_i) - 2\sum_{i=1}^{n}y_ig_k(x_i)\\
+    &= 2\sum_{j=0}^{m}a_j\sum_{i=1}^{n}g_j(x_i)g_k(x_i) - 2\sum_{i=1}^{n}y_ig_k(x_i) = 0
+\end{align*}
+
+\satz{Gauss'sche Normalgleichungssystem:
+
+\begin{equation*}
+    \sum_{j=0}^{m}a_j \sum_{i=1}^{n}g_j(x_i)*g_k(x_i) = \sum_{i=1}^{n}y_i*g_k(x_i)
+    \qquad (k=0 \dots m)
+\end{equation*}}
+
+Spezialfall: Polynomansatz: $g_l(x)=x^l$
+
+\begin{equation*}
+    \sum_{j=0}^{m}a_j\sum_{i=1}^{n}x_i^{j+k} = \sum_{i=1}^{n}x_i^k*y_i
+    \qquad (k=0 \dots m)
+\end{equation*}
+
+Spezialfall Ausgleichsgerade: $f(x, a_0, a_1) = a_0 + a_1*x$
+
+\begin{align*}
+    a_0\sum_{i=1}^{n}1+a_1\sum_{i=1}^{n}x_i = \sum_{i=1}^{n}y_i\\
+    a_0\sum_{i=1}^{n}x_1+a_1\sum_{i=1}^{n}x_i^2 = \sum_{i=1}^{n}x_i*y_i\\
+\end{align*}
+
+Spezialfall Ausgleichsparabel: $f(x, a_0, a_1, a_2)=a_0+a_1x+a_2x^2$
+
+\begin{align*}
+    a_0\sum_{i=1}^{n}1+a_1\sum_{i=1}^{n}x_i+a_2\sum_{i=1}^{n}x_i^2
+    &=\sum_{i=1}^{n}y_i\\
+    a_0\sum_{i=1}^{n}x_i+a_1\sum_{i=1}^{n}x_i^2+a_2\sum_{i=1}^{n}x_i^3
+    &=\sum_{i=1}^{n}x_i*y_i\\
+    a_0\sum_{i=1}^{n}x_i^2+a_1\sum_{i=1}^{n}x_i^3+a_2\sum_{i=1}^{n}x_i^4
+    &=\sum_{i=1}^{n}x_i^2*y_i\\
+\end{align*}
+
+\subsubsection{Nichtlineare Ausgleichsprobleme}
+
+Bei der Linearisierung reicht es, wenn in der transformierten Gleichung die Parameter $a_0, ..., a_m$ Linear vorkommen. $\to$ Dann ergibt sich daraus ein lineares Normalgleichungssystem, das aber noch immer für jeden speziellen Fall durch Differenzieren abzuleiten ist.
+
+Hat man hingegen sogar zwischen $X$ und $Y$ einen linearen Zusammenhang, kann man auf das (bekannte) Normalgleichungssystem für Ausgleichsgerade und Ausgleichsparabel oder ähnliches zurückgreifen.
+
+\subsubsection{Aufgabe von 1.13}
+
+Lineares Problem Beispiel:
+
+\begin{align*}
+    \left(\begin{tabular}{cc|c}
+        5 & 25 & 17,9\\
+        25 & 151 & 98,4
+    \end{tabular}\right)\\
+    \left(\begin{tabular}{cc|c}
+        5 & 25 & 17,9\\
+        0 & 26 & 8,9
+    \end{tabular}\right)\\
+\end{align*}
+
+Das Ergebnis: $a_1 = \frac{89}{260} = 0.3423$ und $a_0=\frac{2429}{1300} = 1.8585$
+
+Nicht Lineares Problem
+
+\begin{align*}
+    y = \frac{1}{a_0 + a_1x}\\
+    Y = \frac{1}{y}\\
+    X = x\\
+    \implies Y = a_0+a_1X
+\end{align*}
+
+\begin{align*}
+    y = a_0 * e^{a_1x}\\
+    Y = \ln(y) = \ln(a_0) + a_1X\\
+    X = x\\
+    \implies Y = \ln(a_0) + a_1X\\
+    \implies a_0 = e^{\ln(a_0)}
+\end{align*}
+
+\begin{align*}
+    y = \sqrt{a_0 + \frac{a_1}{x}}\\
+    Y = y^2\\
+    X = \frac{1}{x}\\
+    \implies Y = a_0 + \frac{a_1}{x} = a_0 + a_1X
+\end{align*}
+
+Beispiel:
+
+Wir müssen die Werte für $X$ und $Y$ bestimmen. am Beispiel heißt das $Y = \ln(y)$
+
+\begin{align*}
+    \left(\begin{tabular}{cc|c}
+        % \ln(a_0) & a_1 & \ln(y)\\
+        7 & 104 & 10,47\\
+        104 & 1968 & 126,47
+    \end{tabular}\right)\\
+\end{align*}
+
+Die Ergebnisse sind $\ln(a_0)=2,518 \implies a_0=e^{2,518}=12,429$ und $a_1=-0,069$. Somit kommen wir auf die Gleichung $y=12,429 * e^{-0,069x}$
+
+\pagebreak
+\section{Integralrechnung}
+
+\subsection{Gebietsintegral/ Doppelintegral/ Flächenintegral}
+
+Bekannt:
+
+\begin{align*}
+    A &= \int_{a}^{b} f(x) dx\\
+    \int_{a}^{b} f(x) dx &= \lim_{n\to\infty, \Delta x_i\to0}\sum_{i=1}^{n}f(x_1)\Delta x_i
+\end{align*}
+
+\subsection{Verallgemeinerung auf $\mathbb{R}^2$}
+
+Skizze eines Zylinders
+
+\begin{equation*}
+    z = f(x, y) \text{ für } (x, y) \in G
+\end{equation*}
+
+Gebiet $G \in \mathbb{R}^2$ - einfach zusammenhängendes Gebiet mit "glattem Rand"
+
+Idee: Zerlegung des Gebietes $G$ in Teile $G_i$: 
+
+Dafür Zerteilen wir die Ebene in Kleine Rechtecke mit einer Fläche $\Delta G_i$.
+
+Damit lässt sich das Volumen bestimmen $V_i = f(x_i, y_i) * \Delta G_i$
+
+Grenzübergänge $n\to\infty$, dabei soll der "Durchmesser" jedes $G_i\to 0$ gehen.
+
+% Definitionskasten kommt nächste Woche
+
+\end{document}

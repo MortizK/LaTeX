@@ -1,0 +1,88 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{October 29, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Normalisierung}
+
+\subsection{Normalformen}
+
+\subsubsection{2. Normalform}
+
+Eine Relation erfüllt die zweiter Normalform (2NF), wenn diese sich in der ersten Normalform befindet und alle Nichtschlüsselattribute nur durch den gesamten Primärschlüssel festgelegt werden.
+
+Alle Nichtschlüsselattribute müssen vollständig nur vom gesamten Primärschlüssel abhängig sein.
+
+Wenn dies nicht der Fall ist, müssen die Attribtue die von "kleineren" Primär-schlüssel abhängig sind, kommen in Ihre eigene Relation.
+
+\know{Hinweis}{Alle Relationen, bei denen der Primärschlüssel nur aus einem Attribut besteht, sind automatisch in der 2.NF.}
+
+\subsubsection{3. Normalform}
+
+Eine Relation ist in der 3.NF, wenn diese die 2.NF erfüllt und keine transitive Abhängigkeiten zwischen einem Nichtschlüsselattribute und einem Schlüssel-kandidaten besteht.
+
+Formal: Ist in 3.NF, wenn alle FA die volgende Form haben:
+
+\begin{equation*}
+    X\to \alpha, \qquad X\subseteq [R] \text{ und } \alpha \in [R]
+\end{equation*}
+
+und mindestens ein der drei Bedingungen gilt:
+
+\begin{enumerate}
+    \item $\alpha \in X$ (Dann Triviale FA)
+    \item $X$ ist ein Superschlüssel
+    \item $\alpha$ ist in einem Superschlüssel enthalten ($\implies \alpha$ ist prim)
+\end{enumerate}
+
+Anleitung zur Prüfung auf 3.NF:
+
+\begin{enumerate}
+    \item Prüfen, ob eine Relation in 1NF und 2NF ist
+    \item FA's aufstellen
+    \item Schlüsselkandidaten definieren
+    \item Auf Definition 3NF prüfen
+    \item Wenn nicht in 3NF, dann zerlegen
+\end{enumerate}
+
+Tabelle um Definition 3NF zu prüfen:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        $X\to\alpha$ & Super Schl. & prim\\
+        \hline
+        Pro.Nr $\to$ Bez & true &  \\
+        Pro.Nr $\to$ Begin & true &  \\
+        Pers.Nr $\to$ VN & x & x \\
+        Pers.Nr $\to$ NN & x & x \\
+        Pro.Nr $\to$ Pers.Nr & true &  \\
+        Pro.Nr $\to$ VN & true &  \\
+        Pro.Nr $\to$ NN & true &  \\
+    \end{tabular}
+\end{center}
+
+Somit ist diese Relation so noch nicht in der 3.NF. Dafür muss die Pers.Nr $\to\alpha$ noch in eine Neue Relation überführt werden.
+
+\subsubsection{Boyce-Codd Normalform}
+
+Eine Relation ist in Boyce-Codd Normalform, wenn jede Determinante ein Superschlüssel ist.
+
+Identisch mit 3NF mit nur zwei, statt drei, Bedingungen:
+
+\begin{enumerate}
+    \item $\alpha \in X$ (Dann Triviale FA)
+    \item $X$ ist ein Superschlüssel
+\end{enumerate}
+
+\subsection{Zerlegungen}
+
+% Hier habe ich nicht aufgepasst
+
+\end{document}
