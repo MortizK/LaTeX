@@ -1,0 +1,112 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{October 31, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Flex und Scanners}
+
+\subsection{Compiler}
+
+\begin{enumerate}
+    \item Source handler: Bekommt eine Sequenz von Charakteren.
+    \item Lexical analysis: Sequenz von token (id, "int")
+    \item Syntax analysis: Baumstruktur der Tokens
+    \item Semantic analysis: Abstract Syntax Tree + Symbole table
+    \item Code generation
+\end{enumerate}
+
+\subsection{Generating a scanner}
+
+\begin{lstlisting}
+    flex -t numbers.l > numbers.c
+    gcc -c -o numbers.o numbers.c
+    gcc numbers.o -o scan_numbers
+    ./scan_numbers Numbers.txt
+\end{lstlisting}
+
+\subsection{Regular Expressions}
+
+Sind Teil des ASCII Buchstabensets und wird unterteil in Operatoren und Buchstaben.
+
+\begin{center}
+     O = \{., *, +, ?, -, ~, |, (, ), [, ], \{,\}, <, >, /, \, \^, \$, \"\}
+\end{center}
+
+Als Definition in .l files:
+
+\begin{lstlisting}
+    DIGIT  [0-9]
+    INTEGER {DIGIT}+
+    PAIR    \({INTEGER}, {INTEGER}\)
+\end{lstlisting}
+
+Aufgabe S.214
+
+\begin{enumerate}
+    \item [a-z] wird zu (a+b+c+\dots+y+z)
+    \item [\^0-9] wird zu \{ASCII\}$\backslash$ \{0,1,2,\dots,9\} verodert
+    \item (r)+ wird zu (r)(r)$^*$
+    \item (r)\{3\} wird zu (rrr)
+    \item (r)\{3, 7\} wird zu (rrr + rrrrr+ rrrrr + rrrrrr + rrrrrrr)
+    \item (r)? wird zu ($\epsilon$+r)
+\end{enumerate}
+
+\subsection{User code section}
+
+Muss eine main() function haben, welche den yyin pointer aufsetzt und die function yylex() aufruft.
+
+\begin{lstlisting}
+    %%
+    int main( int argc, char **argv )
+    {
+        ++argv, --argc; /* skip over program name */
+        if ( argc > 0 )
+            yyin = fopen( argv[0], "r" );
+        else
+            yyin = stdin;
+        yylex();
+        printf("Final %d : %f\n", intval, floatval);
+    }
+\end{lstlisting}
+
+\subsection{Parser and Bison}
+
+Es geht darum die Sprache einer Programmiersprache zu erkennen. Somit muss ein Programm der Grammatik entsprechen.
+
+Ein Lexer teilt das Program in tokens ein. Dies sind die kleinste Einheit:
+
+\begin{itemize}
+    \item 1, 2, 53 - Integers
+    \item i, handle, stream - Identifiers
+    \item >, >=, * - Operatoren
+\end{itemize}
+
+Aus diesen Tokens wird ein Baum generiert.
+
+\subsubsection{Bison}
+
+Ist ein "1 token Look-Ahead Left-to-right Rightmost-derivation" Parser
+
+Wenn wir etwas auf dem Stack haben und es reduzieren wollen, müssen wir gucken ob jede mögliche reduktion konsistent ist mit dem nächstem Symbol was auf den Stack kommt.
+
+Es gab noch eine Übung mit einem Wissenschaftlichem Taschenrechner. Hierzu mussten wir einen Lexer und einen Parser erstellen und ausführen.
+
+Kann ich mir von Simon schicken lassen.
+
+\subsection{Produktionen und Ableitungen}
+
+Hier habe ich Snake Binary als Prototyp fertig gemacht. Muss ich noch nachholen.
+
+\section{2 Band Turing Machine}
+
+Ab S. 422 im Skript.
+
+\end{document}

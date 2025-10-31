@@ -1,0 +1,184 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{October 30, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Formale Grammatiken \& Kontext freie Sprachen}
+
+\subsection{Kellerautomat}
+
+Aus einer Grammatik ein PDA (Kellerautomat) machen.
+
+Für eine Grammatik $G=(N, \Sigma, P, S)$
+
+\begin{align*}
+    A_G = &(\{g\}, \Sigma, \Sigma \cup N, \Delta, q, S)\\
+    \Delta = &\{(q, \epsilon, A, \gamma, q) \mid A\to \gamma\in P\} \cup\\
+    &\{(q, a, a, \epsilon, q) \mid a\in \Sigma\}
+\end{align*}
+
+Für die Umwandlung kann ein PDA einfach die Entiwcklungsregeln befolgen um den Stack aufzubauen.
+
+Wenn in dem Zusammenhang ein nicht Terminalsysbol auftaucht kann dies mit einem Buchstaben des Wortes konsumiert werden.
+
+\begin{align*}
+    S\to AA\\
+    A\to a\mid AA\\
+    (S, aaa, S)\to(S, aaa, AA)\to(S, aaa, aA)\\
+    \to(S, aa, A)\to(S, aa, AA)\to(S, aa, aA)\\
+    \to(S, a, A)\to(S, \epsilon, \epsilon)
+\end{align*}
+
+Das ist genau was die $\Delta$-Regeln oben beschreiben.
+
+Die andere Richtung ist komplizierter! Die Trivialen, welche den Stack verbrauchen:
+
+\begin{itemize}
+    \item $0 \epsilon Z \to \epsilon 0$ wird zu $[0Z0] \to \epsilon$
+    \item $0 b A \to \epsilon 1$ wird zu $[0A1] \to \epsilon$
+
+\end{itemize}
+
+Und die komplexeren, z.B. $0 a Z \to AZ 0$:
+
+\begin{itemize}
+    \item $[0Z0] \to a[0A0][0Z0]$
+    \item $[0Z0] \to a[0A1][1Z0]$
+    \item $[0Z1] \to a[0A0][0Z1]$
+    \item $[0Z1] \to a[0A1][1Z1]$
+\end{itemize}
+
+Wenn wir dies für alle gemacht haben müssen wir nun:
+
+\begin{enumerate}
+    \item Die Terminal Symbole bestimmen
+    \item Die Erreichbaren Symbole bestimmen
+\end{enumerate}
+
+Ein Sinnvoller Aufschriebt ist auf einem Zettel.
+
+\subsection{Eigenschaften von Kontext Freien Sprachen}
+
+% Fehlt mir, weil ich snake replay gemacht habe.
+
+\subsubsection{Pumping Lemma II}
+
+Diese kann für Kontext Freie Sprachen ein Wort aufpumpen.
+
+Es besagt, dass in beliebig langen Wörter es ein Nicht Terminierendes Symbol (NTS) gibt, welches aufgepumpt werden kann. Diese produziert dann mehrere Terminierende Symbole (TS) in Parallel. 
+
+Das Theorem ist auf S. 307.
+
+Es gibt somit wieder eine einteilung in mit $s\in L$ und $|s|>k$:
+
+\begin{equation*}
+    u*v*w*x*y = s
+\end{equation*}
+
+Sodass folgendes gilt:
+
+\begin{enumerate}
+    \item $vx \neq \epsilon$, somit $|vx|>0$
+    \item $|vwx| \leq k$
+    \item $u*v^h*w*x^h*y \in L$ für alle $h\in \mathbb{N}$
+\end{enumerate}
+
+\subsubsection{Closure properties}
+
+Kontext freie Sprachen sind geschlossen unter Vereinigung, concatenation und Kleene star $(\cup, ., ^*)$
+
+Sie sind nicht geschlossen unter Gemeinsamkeiten (intersection $\cap$)
+
+Übung S.311. Übersetzen der Sprachen in die Grammatiken
+
+\begin{align*}
+    G_1 = & (\{S, A\}, (a, b, c), P, S)\\
+    P: & S \to Sc \mid A\\
+    & A \to aAb \mid \epsilon\\
+    G_2 = & (\{S, B\}, (a, b, c), P, S)\\
+    P: & S \to Sa \mid B\\
+    & B \to bBc \mid \epsilon\\
+\end{align*}
+
+Danach die Geschlossenheit über Komplement wiederlegen:
+
+\begin{align*}
+    L = L_1 \cap L_2 \mid ^c\\
+    L^c = L_1^c \cup L_2^c \mid ^c\\
+    L = (L_1^c \cup L_2^c)^c
+\end{align*}
+
+Dies zeigt: Das es nicht abgeschlossen ist!
+
+\subsubsection{Decision problems}
+
+\pagebreak
+\section{Turing Machine}
+
+Hat ein Tape was in beide Richtungen unendlich Viele Speicherplätze hat. Diese kann gelesen und beschrieben werden.
+
+Um auf diesem Tape zu bewegen gibt es Movement Instructions (l, r, n)
+
+Eine Turing Machine ist ein Automat, der mit dem Tape interagieren kann. Eine Transition sieht somit wie folgt aus:
+
+\begin{center}
+    p a $\to$ b d q
+\end{center}
+
+\begin{center}
+    \begin{tabular}{c|l}
+        p & aktueller Zustand\\
+        a & einlesen von Tape\\
+        \hline
+        b & überschreiben auf Tape\\
+        d & Zeiger bewegen [l, n, r]\\
+        q & neue Zustand\\
+    \end{tabular}
+\end{center}
+
+Die Turing Machine hört auf, wenn diese keine Transition mehr gehen kann. Danach schaut diese ob Sie in einem Akzeptierenden Zustand ist.
+
+Ein Konfiguration stellt sich zusammen aus den schon eingelesenen Buchstaben, gefolgt von dem aktuellem Zustand und den noch folgenden Buchstaben.
+
+Also: $c2ape$ oder $4tape$
+
+Formaler Aufschrieb:
+
+\begin{equation*}
+    TM = (Q, \Sigma, \Gamma, \Delta, q_0, F)
+\end{equation*}
+
+\begin{center}
+    \begin{tabular}{c|l}
+        $Q$ & Menge der Zustände\\
+        $\Sigma$ & Unsere Alphabet\\
+        $\Gamma$ & Alphabet des Tapes\\
+        $\Delta$ & Menge der Transitionen\\
+        $q_0$ & Startzustand\\
+        $F$ & Menge der Akzeptierenden Zustände\\
+    \end{tabular}
+\end{center}
+
+Aufgabe S. 370
+
+\begin{align*}
+    TM = &(Q, \Sigma, \Gamma, \Delta, q_0, F)\\
+    Q = &\{0, 1\}\\
+    \Sigma = &\{a, b\}\\
+    \Gamma = &\{a, b, \#\}\\
+    q_0 = &0\\
+    F = &\{0\}\\
+    \Delta: &\{(0,a,a,r,1)\\
+    &(0,b,b,r,0)\\
+    &(1,a,a,r,0)\\
+    &(1,b,b,r,1)\}\\
+\end{align*}
+
+\end{document}
