@@ -1,0 +1,33 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{November 3, 2025}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Berechnung der Leistung}
+
+Wir können die Leistung einer CPU berechnen. Hierzu müssen wir die Arbeit pro Zeiteinheit berechnen.
+
+Die Zeit lässt sich verschieden Messen. So kann extern mit einer Stoppuhr gestoppt werden, Die Zeit in der CPU oder deren Takte.
+
+Da verschieden Instruktionen verschieden viele Zyklen der CPU brauchen, lässt sich die gesamtanzahl der Zyklen durch die Anzahl der Instruktionen und deren Taktverbrauch berechnen.
+
+Aus dieser Information lässt sich die Durchschnittliche Taktanzahl eines Programmes ermitteln. Dies wird auch als CPI bezeichnet.
+
+Aus dieser Information lässt sich die genaue Zeit ermitteln:
+
+\begin{equation*}
+    Time = \frac{Seconds}{Program} 
+    = \frac{Instructions}{Program} * \frac{Clock cycles}{Instructions} * \frac{Seconds}{Clock cycle}
+\end{equation*}
+
+Die Leistung kann dann in MIPS (million instructions per second) ausgedrückt werden.
+
+\end{document}
