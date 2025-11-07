@@ -1,0 +1,68 @@
+// 2 Tape TM
+// accepts: ww
+// https://turingmachinesimulator.com/
+
+name: Double Word
+init: start
+accept: f
+
+////
+start,_,_
+f,_,_,-,-
+
+start,a,_
+copy,a,a,>,>
+
+start,b,_
+copy,b,b,>,>
+//// Copy into second Tape
+copy,a,_
+copy,a,a,>,>
+
+copy,b,_
+copy,b,b,>,>
+
+copy,_,_
+ll,_,_,<,<
+//// Move into even
+ll,a,a
+nl,a,a,<,<
+
+ll,a,b
+nl,a,b,<,<
+
+ll,b,a
+nl,b,a,<,<
+
+ll,b,b
+nl,b,b,<,<
+//// Move into odd
+nl,a,a
+ll,a,a,-,<
+
+nl,a,b
+ll,a,b,-,<
+
+nl,b,a
+ll,b,a,-,<
+
+nl,b,b
+ll,b,b,-,<
+//// Compare first word with second word
+ll,a,_
+comp,a,_,>,>
+
+ll,b,_
+comp,b,_,>,>
+
+comp,a,a
+comp,a,a,>,>
+
+comp,b,b
+comp,b,b,>,>
+
+comp,_,a
+f,_,a,-,-
+
+comp,_,b
+f,_,b,-,-

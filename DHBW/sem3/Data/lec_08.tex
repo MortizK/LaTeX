@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{November 5, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Normalisierung}
+
+\subsection{Zerlegungen}
+
+% Habe erneut nicht richtig aufgepasst
+
+\subsection{Hüllen}
+
+\begin{align*}
+    a\to ed\\
+    b\to ed\\
+    ab\to c\\
+    a\to b
+\end{align*}
+
+Die Hülle von b ist: b, e, d, denn die Hülle sind nur die direkten und sich selbst.
+
+In den Kommentaren ist eine Funktion, um Hülle zu berechnen.
+
+\begin{lstlisting}
+Funktion(F, a):
+    Erg:= a
+    while (Aenderungen an Erg) do
+        Foreach FD X \to Y in F do
+            if X\subset Erg then Erg := Erg \cup Y
+    Ausgabe a^+ = Erg
+\end{lstlisting}
+
+\subsection{Synthesealgorithmus}
+
+Es gibt diesen wohl als Programm von der TUM.
+
+\end{document}

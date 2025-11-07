@@ -1,0 +1,219 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{graphicx}
+\usepackage{float}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{November 5, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Integralrechnung}
+
+\begin{align*}
+    \lim_{n\to\infty; \Delta G\to 0} \sum_{i=1}^{n} v_i
+    = \lim_{n\to\infty; \Delta G\to 0} \sum_{i=1}^{n} f(x_i, y_i) \Delta G_i
+    = \int\int_{G}f(x, y) dG
+\end{align*}
+
+falls der Grenzwert existiert
+
+Anmerkung: a) Gelegentlich auch als $\int_{G}f(x, y), dG$ geschrieben
+
+b) Ist $f(x, y)$ in abgeschlossene Gebiet, so existiert der Grenzwert und damit das Doppelintegral.
+
+\subsection{Berechnung des Doppelintegrals in kartesischen Koordinaten}
+
+Zurückführen des Doppelintegrals auf zwei nacheinander auszuführende gewöhnliche Integration.
+
+Wir betrachten zunächst einen "normalen" (links nach rechts) Integrationsbereich:
+
+\begin{align*}
+    G = \{(x, y)\in \mathbb{R}^2\}\\
+    a \leq x \leq b\\
+    \varphi_1(x) \leq Y \leq \varphi_2(x)
+\end{align*}
+
+aber wenn die andere Richtung (unten nach oben):
+
+
+\begin{align*}
+    G = \{(x, y)\in \mathbb{R}^2\}\\
+    a \leq y \leq b\\
+    \varphi_1(x) \leq x \leq \varphi_2(x)
+\end{align*}
+
+Nun werden beide Achsen kombiniert: Zuerst Summation in y-Richtung:
+
+\begin{align*}
+    dG = dx * dy\\
+    V_i = f(x_i, y_i) dx dy\\
+    \left(\int_{\varphi_1(x)}^{\varphi_2(x)}f(x, y)dy\right)dx
+\end{align*}
+
+Damit haben wir nun eine Fläche. Danach Summation in x-Richtung.
+
+\begin{align*}
+    \int\int_{G}f(x, y) dG =
+    \int_{x=a}^{b}\left(\int_{y=\varphi_1(x)}^{\varphi_2(x)}f(x, y) dy\right)dx =
+    \int_{x=a}^{b}\int_{y=\varphi_1(x)}^{\varphi_2(x)}f(x, y) dy dx
+\end{align*}
+
+\begin{itemize}
+    \item Reihenfolge ist im Allgemeinen nicht ohne weiteres vertauschbar
+    \item Falls G rechteckig ist (also alle Grenzen konstant), ist die Reihenfolge vertauschbar.
+    \item Es gibt auch Gebiete, bei denen man in andere Reihenfolge integrieren muss. (Siehe linke rechts oder oben unten)
+\end{itemize}
+
+\subsection{Beispiele}
+
+geg.: $\varphi_2: y=\sqrt{x}; \varphi_1: y=x; f(x, y)=xy$ ges.: $\int\int_{G}f(x, y) dG$
+
+Wir suchen also das Volumen der Funktion $f(x, y)$ in der xy-Ebene in den Grenzen, die von $\varphi_{1,2}$ bestimmt werden.
+
+Lösung:
+
+\begin{align*}
+    0 \leq x \leq 1\\
+    x \leq y \leq \sqrt{x}
+\end{align*}
+
+\begin{align*}
+    \int\int_{G}f(x, y) dG &=
+    \int_{x=0}^{1}\int_{y=x}^{\sqrt{x}} xy dy dx = 
+    \int_{x=0}^{1} \left[\frac{1}{2}xy^2\right]_{x}^{\sqrt{x}}dx\\
+    &= \int_{0}^{1}\left(\frac{x^2}{2}-\frac{x^3}{2}\right)dx =
+    \frac{1}{2}\left[\frac{1}{3}x^3-\frac{x^4}{4}\right]_0^1 =
+    \frac{1}{2}\left(\frac{1}{3}-\frac{1}{4}\right) =
+    \frac{1}{24}
+\end{align*}
+
+Ist G kein Normalbereich, so versucht man eine Zerlegung in mehrere Normalbereiche. Vorstellung Mathe-stein.
+
+geg.: $G = $ Gebiet wird von $y=x^2$ und $x=y^2$ mit $f(x, y)=x^2+y^2$
+
+ges.: $\int\int_{G}f(x, y) dG$
+
+Skizze: Eingeschlossener Bereich von $x=\sqrt{x}$ und $y=x^2$
+
+\begin{align*}
+    0 \leq x \leq 1\\
+    x^2 \leq y \leq \sqrt{x}
+\end{align*}
+
+\begin{align*}
+    \int\int_{G}(x^2+y^2) dG &= 
+    \int_{x=0}^{1}\int_{y=x^2}^{\sqrt{x}} (x^2+y^2)dy dx = 
+    \int_{0}^{1}\left[x^2y + \frac{1}{3}y^3\right]_{x^2}^{\sqrt{x}} dx\\
+    &= \int_{0}^{1}\left(x^\frac{5}{2}+\frac{1}{3}x^\frac{3}{2}-x^4-\frac{1}{3}x^6\right)dx = \dots
+\end{align*}
+
+geg.: Parallelogramm mit den Eckpunkten (0,0); (0, 1); (2, 3); (1, 2) und $f(x, y) = x$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{fig/VolumenVonParallelogram.png}
+    \caption{Volumen eines Parallelogramms}
+    \label{fig:volumen-parallelogram}
+\end{figure}
+
+\subsection{Berechnung des Doppelintegrals in Polarkoordinaten}
+
+\begin{align*}
+    x = r*\cos(\varphi)\\
+    y = r*\sin(\varphi)
+\end{align*}
+
+Wir integrieren also zwischen der äußeren und inneren Kurve. Somit gilt:
+
+\begin{align*}
+    \varphi_1 \leq \varphi \leq \varphi_2\\
+    r_i(\varphi) \leq r \leq r_a(\varphi)
+\end{align*}
+
+Somit bildet sich:
+
+\begin{align*}
+    dG = r * dr d\varphi
+\end{align*}
+
+Integriere im Polarkoordinaten:
+
+\begin{enumerate}
+    \item Funktion umrechnen.
+    \item Flächenelement umschreiben.
+\end{enumerate}
+
+Beispiel geg.: und ges.: fehlen mir.
+
+\begin{align*}
+    f(x, y) &= xy = 
+    (r*\cos(\varphi))(r*\sin(\varphi)) =
+    r^2\cos(\varphi)\sin(\varphi)\\
+    \int\int_{G}xy dG &= 
+    \int_{\varphi=0}^{\frac{\pi}{4}}\int_{r=0}^{2} r^2\cos(\varphi)\sin(\varphi) =
+    \int_{\varphi=0}^{\frac{\pi}{4}}\cos(\varphi)\sin(\varphi)\int_{r=0}^{2}r^3 dr d\varphi\\
+    &= \int_{\varphi=0}^{\frac{\pi}{4}}\cos(\varphi)\sin(\varphi)\left[\frac{1}{4}r^4\right]_0^2 d\varphi =
+    \int_{0}^{\frac{\pi}{4}}\cos(\varphi)\sin(\varphi) * 4 d\varphi\\
+    &= 4 \left[\frac{1}{2}\sin^2(\varphi)\right]_0^{\frac{\pi}{4}} = 2\left(\frac{\sqrt{2}}{2}\right)^2 = \frac{2*2}{4} = 1
+\end{align*}
+
+$\mathbb{R}^3$: Drehung der Parabel $z=4-x^2$ um die z-Achse $\implies$ Paraboloid schneiden mit der xy-Ebene (z=0)
+
+Daraus ergibt sich die Funktion $z=4 -(x^2+y^2)=f(x, y)$. $x^2+y^2$ ist der Radius des Rotationskörpers.
+
+Somit ist unser Gebiet G:
+
+\begin{align*}
+    0 \leq \varphi \leq 2\pi\\
+    0 \leq r \leq 2
+\end{align*}
+
+Somit:
+
+\begin{align*}
+    V = \int\int_{G} (4-r^2) dG &= 
+    \int_{\varphi=0}^{2\pi}\int_{r=0}^{2} (4-r^2) r dr d\varphi =
+    \int_{0}^{2\pi} \left[2r^2-\frac{1}{4}r^4\right]_0^2 d\varphi\\
+    &= \int_{0}^{2\pi}(8-4)d\varphi = \left[\varphi\right]_0^{2\pi} =
+    4 * 2\pi = 8\pi 
+\end{align*}
+
+\subsection{Anwendung}
+
+%% Kasten start
+
+Flächeninhalte von G: Setze $f=1$
+
+\begin{align*}
+    |g| = \int\int_{G} dG &= \int_{x=a}^{b}\int_{y=\lambda_1(x)}^{\lambda_2(x)} 1 dy dx\\
+    &= \int_{\varphi=\varphi_1}^{\varphi_2}\int_{r=r_1(\varphi)}^{r_2(\varphi)} 1*r dr d\varphi
+\end{align*}
+
+%% Kasten Ende
+
+Beispiel. geg.: Archimedische Spirale $r-r(\varphi)=a*\varphi, (a>0)$ ges.: umschlossene Fläche für $0\leq \varphi \leq 2\pi$
+
+Unser G:
+
+\begin{align*}
+    0 \leq \varphi \leq 2\pi\\
+    0 \leq r \leq a*\varphi
+\end{align*}
+
+Ergebnis: $\frac{4}{3}a^2\pi^3$
+
+\subsection{Schwerpunkt einer homogenen Fläche}
+
+\begin{align*}
+    x_S = \frac{1}{|y|} = \int\int_{y} x dG\\
+    y_S = \frac{1}{|y|} = \int\int_{y} y dG\\
+\end{align*}
+
+Schwerpunkt $(x_S, y_S)$
+
+\end{document}
