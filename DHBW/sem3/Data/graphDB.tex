@@ -14,7 +14,6 @@
 \lstset{basicstyle=\ttfamily, frame=single, breaklines=true}
 
 %%% Define languages for
-\usepackage{listings}
 \lstdefinelanguage{Cypher}{
   keywords={MATCH, RETURN, WHERE, CREATE, MERGE, DELETE, SET},
   sensitive=true,
@@ -34,13 +33,14 @@
 \begin{document}
 \maketitle
 \tableofcontents
-\newpage
 
 \section{Einleitung}
 
-In der heutigen Datenwelt steigen sowohl das Volumen als auch die Komplexität der gespeicherten Informationen stetig an. Während relationale Datenbanksysteme über Jahrzehnte den Standard in der Datenverwaltung bildeten, stoßen sie zunehmend an ihre Grenzen, wenn es um hochgradig vernetzte Datenstrukturen geht - etwa soziale Netzwerke, Wissensgraphen oder Betrugserkennungssysteme.
+In der heutigen Datenwelt steigen sowohl das Volumen als auch die Komplexität der gespeicherten Informationen stetig an. Während relationale Datenbanksysteme über Jahrzehnte den Standard in der Datenverwaltung bildeten, stoßen bei stark vernetzten Daten zunehmend an ihre Grenzen, da JOIN-Abfragen sehr ineffizient werden - wie etwa bei soziale Netzwerke, Wissensgraphen oder Betrugserkennungssysteme.
 
 Um diesen Anforderungen gerecht zu werden, haben sich neben den klassischen relationalen Systemen verschiedene alternative Datenbankmodelle entwickelt. Eines der bedeutendsten darunter ist das graphenorientierte Datenbanksystem (Graph DBMS). Ziel dieser Ausarbeitung ist es, diese Klassifizierung näher zu beschreiben, ihre Merkmale und Einsatzgebiete darzustellen sowie führende Produkte zu analysieren und zu vergleichen, um Anwendern eine fundierte Entscheidungsgrundlage zu bieten.
+
+\pagebreak
 
 \section{Klassifizierung von Datenbankensystemen}
 
@@ -78,7 +78,11 @@ Es existieren zwei dominante Graphmodelle:
 
 \begin{itemize}
     \item \textbf{Property-Graph-Modell} (z.\,B. Neo4j, TigerGraph): Knoten und Kanten besitzen beliebige Eigenschaften, z.\,B. \texttt{Name: Alice}, \texttt{Gewicht: 10kg}, \texttt{Farbe: Rot}.
+    
+    Diese sind besonders für Traversierungen geeignet.
     \item \textbf{RDF-Modell} (Resource Description Framework) (z.\,B. Blazegraph, Amazon Neptune): Daten werden als Tripel "Subjekt-Prädikat-Objekt" dargestellt, z.\,B. \texttt{Alice --kennt-> Bob}.
+    
+    Diese sind für Reasoning und semantische Abfragen geeignet.
 \end{itemize}
 
 Ein wesentliches Merkmal ist die \textbf{Graphtraversierung} - das gezielte Durchlaufen von Kanten zur Analyse komplexer Beziehungsnetzwerke. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
@@ -110,6 +114,9 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
       (p2)-[:KAUFT]->(prod)
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
+    GQL befindet sich derzeit im Standardisierungsprozess und noch nicht vollständig.
+
+\pagebreak
 
     \item \textbf{SPARQL} (GraphDB) - Standard für RDF-basierte Graphen:
     \begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\small]
@@ -124,11 +131,12 @@ WHERE {
   ?p2 ex:kauft ?prod .
 }
     \end{lstlisting}
+    Die Prefixe dienen dazu um URIs in kurzform anzugeben. foaf steht für Friend of a Friend und ex ist hier selbst gewählt um ein Schema zu repräsentierten.
 \end{itemize}
 
 Alle Abfragen geben das Gleiche zurück.
 
-Graphdatenbanken sind somit ideal geeignet, wenn Beziehungen selbst einen hohen Informationswert besitzen und nicht nur als Verknüpfung verstanden werden.
+Graphdatenbanken sind somit ideal geeignet, wenn Beziehungen selbst einen hohen Informationswert besitzen und nicht nur als Verknüpfung verstanden werden. Wie etwas bei Transaktionspfaden, wo die Transaktion selber viele Informationen speicher.
 
 \section{Merkmale und Einsatzgebiete}
 
@@ -147,7 +155,7 @@ Typische Einsatzgebiete sind:
 \begin{itemize}
     \item Soziale Netzwerke (z. B. Verbindungen, Interessen, Gruppen)
     \item Empfehlungssysteme (z. B. "Nutzer, die X mögen, mögen auch Y")
-    \item Betrugserkennung (z. B. auffällige Transaktionsmuster)
+    \item Betrugserkennung (z. B. Anomalieerkennung in Transaktionsnetzwerken)
     \item Wissensgraphen und Ontologien
     \item Netzwerkanalyse (z. B. Telekommunikation, IT-Systeme)
 \end{itemize}
