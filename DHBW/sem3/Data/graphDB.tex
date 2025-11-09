@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+%% For Big Tables
+\usepackage{tabulary}
+\usepackage{booktabs}
+
+%% For Horizontal Page
+\usepackage{pdflscape}
+
+\title{Graphenorientierte Datenbanken}
+\author{Lars Tröster, Eric Kusterer, Möritz Köhler, Niklas Reusch }
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Einleitung}
+
+In der heutigen Datenwelt steigen sowohl das Volumen als auch die Komplexität der gespeicherten Informationen stetig an. Während relationale Datenbanksysteme über Jahrzehnte den Standard in der Datenverwaltung bildeten, stoßen sie zunehmend an ihre Grenzen, wenn es um hochgradig vernetzte Datenstrukturen geht - etwa soziale Netzwerke, Wissensgraphen oder Betrugserkennungssysteme.
+
+Um diesen Anforderungen gerecht zu werden, haben sich neben den klassischen relationalen Systemen verschiedene alternative Datenbankmodelle entwickelt. Eines der bedeutendsten darunter ist das graphenorientierte Datenbanksystem (Graph DBMS). Ziel dieser Ausarbeitung ist es, diese Klassifizierung näher zu beschreiben, ihre Merkmale und Einsatzgebiete darzustellen sowie führende Produkte zu analysieren und zu vergleichen, um Anwendern eine fundierte Entscheidungsgrundlage zu bieten.
+
+\section{Klassifizierung von Datenbankensystemen}
+
+Datenbanksysteme lassen sich grundsätzlich danach klassifizieren, wie sie Daten speichern, organisieren und abfragen. Die wichtigsten Klassen sind:
+
+\begin{itemize}
+    \item \textbf{Relationale DBMS} (z. B. MySQL, PostgreSQL): Daten werden in Tabellen mit festen Schemata gespeichert. Beziehungen zwischen Entitäten werden über Fremdschlüssel definiert.
+    \item \textbf{Dokumentenorientierte DBMS} (z. B. MongoDB, Couchbase): Speicherung semi-strukturierter Daten (z. B. JSON-Dokumente) mit hoher Flexibilität.
+    \item \textbf{Key-Value-Stores} (z. B. Redis, DynamoDB): Daten werden als Schlüssel-Wert-Paare ohne feste Struktur abgelegt, sehr performant für einfache Zugriffe.
+    \item \textbf{Spaltenorientierte DBMS}(z. B. Cassandra, HBase): Optimiert für analytische Abfragen über große Datenmengen.
+    \item \textbf{Graphenorientierte DBMS} (z. B. Neo4j, TigerGraph): Daten werden als Knoten (Entities) und Kanten (Beziehungen) modelliert und gespeichert.
+
+\end{itemize}
+
+Graphenorientierte Systeme bilden also eine eigene Klasse von NoSQL-Datenbanken. Ihr zentrales Merkmal ist, dass sie Beziehungen als erstklassige Objekte behandeln und dadurch komplexe Netzwerke effizient darstellen können.
+
+\section{Grundlagen graphenorientierte DBMS}
+
+Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden nicht in Tabellen, sondern in Graphenstrukturen abgelegt, die aus Knoten (Nodes), Kanten (Edges) und optionalen Eigenschaften (Properties) bestehen.
+
+\pagebreak
+
+\begin{itemize}
+    \item Knoten repräsentieren Entitäten (z. B. Personen, Orte, Produkte).
+    \item Kanten stellen Beziehungen zwischen diesen Entitäten dar (z. B. kennt, kauft, arbeitet für).
+    \item Eigenschaften sind Schlüssel-Wert-Paare, die zusätzliche Informationen speichern (z. B. Alter, Datum, Gewichtung).
+\end{itemize}
+
+Es existieren zwei dominante Graphmodelle:
+
+\begin{itemize}
+    \item Property Graph Model (z. B. Neo4j, TigerGraph): Knoten und Kanten besitzen beliebige Eigenschaften.
+    \item RDF-Model (Resource Description Framework) (z. B. Blazegraph): Daten werden als Tripel "Subjekt-Prädikat-Objekt" dargestellt, häufig im semantischen Web verwendet.
+\end{itemize}
+
+Ein wesentliches Merkmal ist die Graphtraversierung - das gezielte Durchlaufen von Kanten, um komplexe Beziehungsnetzwerke zu analysieren. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
+
+\begin{itemize}
+    \item Cypher (Neo4j) - deklarativ, an SQL angelehnt
+    \item Gremlin (Apache TinkerPop) - prozedural, plattformunabhängig
+    \item GQL (Graph Query Language) - internationaler Standard in Entwicklung
+\end{itemize}
+
+Graphdatenbanken sind somit ideal geeignet, wenn Beziehungen selbst einen hohen Informationswert besitzen und nicht nur als Verknüpfung verstanden werden.
+
+\section{Merkmale und Einsatzgebiete}
+
+Graphdatenbanken zeichnen sich durch folgende Hauptmerkmale aus:
+
+\begin{itemize}
+    \item Hohe Performance bei Beziehungsabfragen: Abfragen über viele Beziehungen (z. B. "Freunde von Freunden") lassen sich effizient ausführen, da Beziehungen direkt gespeichert werden.
+    \item Flexibles Schema: Neue Knotentypen oder Eigenschaften können ohne Schemaänderungen hinzugefügt werden.
+    \item Intuitive Modellierung: Beziehungen entsprechen der realen Denkweise über Netzwerke.
+    \item Skalierbarkeit: Moderne Systeme unterstützen horizontale Skalierung über Cluster.
+    \item Visuelle Darstellbarkeit: Graphstrukturen lassen sich leicht visualisieren und analysieren.
+\end{itemize}
+
+Typische Einsatzgebiete sind:
+
+\begin{itemize}
+    \item Soziale Netzwerke (z. B. Verbindungen, Interessen, Gruppen)
+    \item Empfehlungssysteme (z. B. "Nutzer, die X mögen, mögen auch Y")
+    \item Betrugserkennung (z. B. auffällige Transaktionsmuster)
+    \item Wissensgraphen und Ontologien
+    \item Netzwerkanalyse (z. B. Telekommunikation, IT-Systeme)
+\end{itemize}
+
+
+\begin{landscape}
+
+\section{Vergleich ausgewählter Graph DBMS}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{5pt}
+
+\begin{tabulary}{\linewidth}{|L|L|L|L|L|L|}
+\hline
+\textbf{Produkt} & \textbf{Lizenzmodell} & \textbf{Abfragesprache} & \textbf{Marktanteil / Nutzung} & \textbf{Stärken} & \textbf{Schwächen} \\ \hline
+\textbf{Neo4j} & Open Source / Enterprise & Cypher, GQL & Marktführer & Reife Technologie, große Community, GQL-Unterstützung & Kommerzielles Lizenzmodell für Skalierung \\ \hline
+\textbf{ArangoDB} & Open Source & AQL (SQL-ähnlich), unterstützt Graphen & Mittel & Multi-Modell (Graph, Dokument, Key-Value), flexibel & Nicht reine Graph-DB, Performance geringer bei großen Graphen \\ \hline
+\textbf{Amazon Neptune} & Kommerziell (AWS) & SPARQL, Gremlin & Hoch & Cloud-integriert, skalierbar, RDF+Property Graph & Nur AWS, geschlossenes System \\ \hline
+\textbf{TigerGraph} & Kommerziell / Cloud & GSQL & Wächst stark im Enterprise-Bereich & Sehr hohe Performance bei großen Graphen, Echtzeitanalysen & Proprietär, geringe Community \\ \hline
+\textbf{JanusGraph} & Open Source & Gremlin & Mittel & Hochgradig skalierbar (Cassandra, HBase Backend) & Komplexe Einrichtung, weniger benutzerfreundlich \\ \hline
+\textbf{OrientDB} & Open Source / Enterprise & SQL-ähnlich, Gremlin & Rückläufig & Multi-Modell, flexibel & Entwicklungsaktivität rückläufig \\ \hline
+\textbf{RedisGraph} & Open Source & Cypher & Hoch durch Redis-Verbreitung & Sehr schnell, leichtgewichtig & Kein vollständiges DBMS, eingeschränkte Funktionalität \\ \hline
+\end{tabulary}
+\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Lizenz, Sprache, Marktanteil, Stärken und Schwächen.}
+\end{table}
+\end{landscape}
+
+\section{Bewertung und Gegenüberstellung}
+
+Graphdatenbanken unterscheiden sich vor allem in Leistung, Skalierbarkeit und Integrationsgrad.
+
+\begin{itemize}
+    \item Neo4j bietet den besten Funktionsumfang und eine sehr aktive Community. Es ist ideal für Forschung, Entwicklung und viele produktive Anwendungen.
+    \item TigerGraph überzeugt durch Performance und Skalierbarkeit bei großen Enterprise-Projekten.
+    \item Amazon Neptune eignet sich für Organisationen, die bereits in der AWS-Cloud arbeiten.
+    \item ArangoDB und OrientDB sind interessant für Projekte, die ein Multi-Modell-Konzept bevorzugen.
+    \item JanusGraph spielt seine Stärken in verteilten Umgebungen aus, während RedisGraph besonders leichtgewichtig und schnell ist.
+\end{itemize}
+
+Die Wahl hängt somit stark vom Einsatzkontext ab:
+
+\begin{itemize}
+    \item Für schnelle Entwicklung und prototypische Projekte: Neo4j oder ArangoDB
+    \item Für Cloud-native Anwendungen: Amazon Neptune
+    \item Für leistungsintensive Unternehmensanalysen: TigerGraph
+    \item Für Open-Source-Clusterlösungen: JanusGraph
+\end{itemize}
+
+\section{Zusammenfassung und Empfehlung}
+
+Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da sie Beziehungen als erstklassige Entitäten behandeln.
+
+Für viele moderne Anwendungsfälle – insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit – sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder JanusGraph gut beraten.
+
+Insgesamt bieten Graphdatenbanken einen klaren Mehrwert für Szenarien mit stark vernetzten Datenstrukturen und sind ein wichtiger Bestandteil moderner Datenarchitekturen.
+
+\end{document}
