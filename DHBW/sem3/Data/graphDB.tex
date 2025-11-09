@@ -92,7 +92,7 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
 
-    \item \textbf{Gremlin} (Apache TinkerPop) - prozedural:
+    \item \textbf{Gremlin} (Microsoft Azure Cosmos DB) - prozedural:
     \begin{lstlisting}[language=Gremlin,basicstyle=\ttfamily\small]
 g.V().has('person','name','Alice')
   .as('p1')
@@ -111,7 +111,7 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
 
-    \item \textbf{SPARQL} - Standard für RDF-basierte Graphen:
+    \item \textbf{SPARQL} (GraphDB) - Standard für RDF-basierte Graphen:
     \begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\small]
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX ex: <http://example.com/schema#>
@@ -135,11 +135,11 @@ Graphdatenbanken sind somit ideal geeignet, wenn Beziehungen selbst einen hohen 
 Graphdatenbanken zeichnen sich durch folgende Hauptmerkmale aus:
 
 \begin{itemize}
-    \item Hohe Performance bei Beziehungsabfragen: Abfragen über viele Beziehungen (z. B. "Freunde von Freunden") lassen sich effizient ausführen, da Beziehungen direkt gespeichert werden.
-    \item Flexibles Schema: Neue Knotentypen oder Eigenschaften können ohne Schemaänderungen hinzugefügt werden.
-    \item Intuitive Modellierung: Beziehungen entsprechen der realen Denkweise über Netzwerke.
-    \item Skalierbarkeit: Moderne Systeme unterstützen horizontale Skalierung über Cluster.
-    \item Visuelle Darstellbarkeit: Graphstrukturen lassen sich leicht visualisieren und analysieren.
+    \item \textbf{Hohe Performance bei Beziehungsabfragen:} Abfragen über viele Beziehungen (z. B. "Freunde von Freunden") lassen sich effizient ausführen, da Beziehungen direkt gespeichert werden.
+    \item \textbf{Flexibles Schema:} Neue Knotentypen oder Eigenschaften können ohne Schemaänderungen hinzugefügt werden.
+    \item \textbf{Intuitive Modellierung:} Beziehungen entsprechen der realen Denkweise über Netzwerke.
+    \item \textbf{Skalierbarkeit:} Moderne Systeme unterstützen horizontale Skalierung über Cluster.
+    \item \textbf{Visuelle Darstellbarkeit:} Graphstrukturen lassen sich leicht visualisieren und analysieren.
 \end{itemize}
 
 Typische Einsatzgebiete sind:
@@ -164,46 +164,54 @@ Typische Einsatzgebiete sind:
 
 \begin{tabulary}{\linewidth}{|L|L|L|L|L|L|}
 \hline
-\textbf{Produkt} & \textbf{Lizenzmodell} & \textbf{Abfragesprache} & \textbf{Marktanteil / Nutzung} & \textbf{Stärken} & \textbf{Schwächen} \\ \hline
-\textbf{Neo4j} & Open Source / Enterprise & Cypher, GQL & Marktführer & Reife Technologie, große Community, GQL-Unterstützung & Kommerzielles Lizenzmodell für Skalierung \\ \hline
-\textbf{ArangoDB} & Open Source & AQL (SQL-ähnlich), unterstützt Graphen & Mittel & Multi-Modell (Graph, Dokument, Key-Value), flexibel & Nicht reine Graph-DB, Performance geringer bei großen Graphen \\ \hline
-\textbf{Amazon Neptune} & Kommerziell (AWS) & SPARQL, Gremlin & Hoch & Cloud-integriert, skalierbar, RDF+Property Graph & Nur AWS, geschlossenes System \\ \hline
-\textbf{TigerGraph} & Kommerziell / Cloud & GSQL & Wächst stark im Enterprise-Bereich & Sehr hohe Performance bei großen Graphen, Echtzeitanalysen & Proprietär, geringe Community \\ \hline
-\textbf{JanusGraph} & Open Source & Gremlin & Mittel & Hochgradig skalierbar (Cassandra, HBase Backend) & Komplexe Einrichtung, weniger benutzerfreundlich \\ \hline
-\textbf{OrientDB} & Open Source / Enterprise & SQL-ähnlich, Gremlin & Rückläufig & Multi-Modell, flexibel & Entwicklungsaktivität rückläufig \\ \hline
-\textbf{RedisGraph} & Open Source & Cypher & Hoch durch Redis-Verbreitung & Sehr schnell, leichtgewichtig & Kein vollständiges DBMS, eingeschränkte Funktionalität \\ \hline
+\textbf{Produkt} & \textbf{Hersteller} & \textbf{Erscheinungsjahr} & \textbf{Abfragesprache} & \textbf{Marktverbreitung} & \textbf{Stärken / Schwächen} \\ \hline
+\textbf{Neo4j} & Neo4j & 2007 & Cypher & 45-50\% & \textbf{Stärken:} ACID-konform, intuitive Modellierung. \textbf{Schwächen:} Hohe Kosten bei Enterprise, nicht für RDF geeignet \\ \hline
+\textbf{Microsoft Azure Cosmos DB} & Microsoft & 2017 & Gremlin & 12\% & \textbf{Stärken:} Cloud-Dienst, automatische Skalierung und Replikation. \textbf{Schwächen:} Nur in Azure, begrenzte Graph-Funktionalität \\ \hline
+\textbf{OrientDB} & SAP SE & 2011 & SQL-ähnlich & 9\% & \textbf{Stärken:} ACID-konform, Multi-Modell (Dokument, Objekt, Graph). \textbf{Schwächen:} Schlechte Performance bei großen Graphen \\ \hline
+\textbf{ArangoDB} & ArangoDB & 2011 & AQL & 7\% & \textbf{Stärken:} Multi-Modell (Dokument, Key-Value, Graph), skalierbar über Cluster. \textbf{Schwächen:} Komplexe Abfragesprache \\ \hline
+\textbf{Amazon Neptune} & Amazon Web Services & 2017 & Gremlin (LPG), SPARQL 1.1 (RDF) & 6\% & \textbf{Stärken:} Skalierbarer Cloud-Dienst, unterstützt RDF und LPG. \textbf{Schwächen:} Nur AWS, Kosten steigen bei großen Datenmengen \\ \hline
+\textbf{GraphDB} & Ontotext AD & 2004 & SPARQL 1.1 & 3-4\% & \textbf{Stärken:} W3C-konformes RDF-Modell, automatisches Reasoning. \textbf{Schwächen:} Komplexe Modellierung, begrenzte Performance bei großen Datenmengen \\ \hline
 \end{tabulary}
-\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Lizenz, Sprache, Marktanteil, Stärken und Schwächen.}
+
+\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Hersteller, Erscheinungsjahr, Abfragesprache, Marktverbreitung sowie Stärken und Schwächen.}
 \end{table}
 \end{landscape}
 
 \section{Bewertung und Gegenüberstellung}
 
-Graphdatenbanken unterscheiden sich vor allem in Leistung, Skalierbarkeit und Integrationsgrad.
+Die vorgestellten Graphdatenbanken unterscheiden sich vor allem in Funktionsumfang, Skalierbarkeit, Marktverbreitung und Integrationsmöglichkeiten. Eine Bewertung zeigt:
 
 \begin{itemize}
-    \item Neo4j bietet den besten Funktionsumfang und eine sehr aktive Community. Es ist ideal für Forschung, Entwicklung und viele produktive Anwendungen.
-    \item TigerGraph überzeugt durch Performance und Skalierbarkeit bei großen Enterprise-Projekten.
-    \item Amazon Neptune eignet sich für Organisationen, die bereits in der AWS-Cloud arbeiten.
-    \item ArangoDB und OrientDB sind interessant für Projekte, die ein Multi-Modell-Konzept bevorzugen.
-    \item JanusGraph spielt seine Stärken in verteilten Umgebungen aus, während RedisGraph besonders leichtgewichtig und schnell ist.
-\end{itemize}
-
-Die Wahl hängt somit stark vom Einsatzkontext ab:
-
-\begin{itemize}
-    \item Für schnelle Entwicklung und prototypische Projekte: Neo4j oder ArangoDB
-    \item Für Cloud-native Anwendungen: Amazon Neptune
-    \item Für leistungsintensive Unternehmensanalysen: TigerGraph
-    \item Für Open-Source-Clusterlösungen: JanusGraph
+    \item \textbf{Neo4j} ist nach wie vor der Marktführer (45-50\%) und überzeugt durch ACID-Konformität und intuitive Netzwerkmodellierung. Ideal für Forschung, Prototypen und produktive Anwendungen. Einschränkung: Hohe Kosten bei der Enterprise Edition und keine native RDF-Unterstützung.
+    
+    \item \textbf{Microsoft Azure Cosmos DB} bietet als Cloud-Dienst automatische Skalierung und Replikation, jedoch ist die Nutzung auf Microsoft Azure beschränkt und die Graph-Funktionalität begrenzt. Marktanteil: ca. 12\%.
+    
+    \item \textbf{OrientDB} kombiniert Dokument-, Objekt- und Graphmodelle (Multi-Modell) und ist ACID-konform. Nachteile sind die eingeschränkte Performance bei großen Graphen. Marktanteil: 9\%.
+    
+    \item \textbf{ArangoDB} überzeugt durch Multi-Modell-Funktionalität (Dokument, Key-Value, Graph) und Skalierbarkeit über Cluster und Sharding. Die komplexe Abfragesprache erschwert jedoch den Einstieg. Marktanteil: 7\%.
+    
+    \item \textbf{Amazon Neptune} unterstützt sowohl RDF- als auch Property-Graphen (Gremlin, SPARQL 1.1) und ist stark cloud-integriert. Einschränkungen: Nutzung nur in AWS und steigende Kosten bei großen Datenmengen. Marktanteil: 6\%.
+    
+    \item \textbf{GraphDB} ist ein RDF-orientiertes System mit W3C-konformem Modell und automatischem Reasoning. Nachteile sind die komplexe Modellierung und begrenzte Performance bei großen Datenmengen. Marktanteil: 3-4\%.
 \end{itemize}
 
 \section{Zusammenfassung und Empfehlung}
 
-Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da sie Beziehungen als erstklassige Entitäten behandeln.
+Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da Beziehungen als erstklassige Entitäten behandelt werden.
 
-Für viele moderne Anwendungsfälle - insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit - sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder JanusGraph gut beraten.
+Für viele moderne Anwendungsfälle – insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit – sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB, OrientDB oder JanusGraph gut beraten. GraphDB eignet sich besonders für RDF-basierte Wissensgraphen.
 
-Insgesamt bieten Graphdatenbanken einen klaren Mehrwert für Szenarien mit stark vernetzten Datenstrukturen und sind ein wichtiger Bestandteil moderner Datenarchitekturen.
+Fazit zur Wahl der Graphdatenbank:
+
+\begin{itemize}
+    \item \textbf{Für schnelle Entwicklung und Prototypen:} Neo4j oder ArangoDB
+    \item \textbf{Für Cloud-native Anwendungen:} Amazon Neptune oder Azure Cosmos DB
+    \item \textbf{Für große, verteilte Unternehmensprojekte:} Neo4j Enterprise oder ArangoDB Cluster
+    \item \textbf{Für RDF-basierte Wissensgraphen:} GraphDB
+    \item \textbf{Für Multi-Modell-Ansätze:} ArangoDB oder OrientDB
+\end{itemize}
+
+Insgesamt bieten Graphdatenbanken einen klaren Mehrwert für Szenarien mit stark vernetzten Datenstrukturen und sind ein wichtiger Bestandteil moderner Datenarchitekturen. Die Wahl des richtigen Systems hängt vom Einsatzzweck, der vorhandenen Infrastruktur und den Anforderungen an Performance, Skalierbarkeit und Datenmodell ab. Marktführer wie Neo4j bieten eine breite Unterstützung und Community, während spezialisierte Systeme für spezifische Anwendungsfälle die bessere Wahl sein können.
+
 
 \end{document}
