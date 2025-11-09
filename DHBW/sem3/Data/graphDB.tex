@@ -9,6 +9,25 @@
 %% For Horizontal Page
 \usepackage{pdflscape}
 
+%% For code snippets
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily, frame=single, breaklines=true}
+
+%%% Define languages for
+\usepackage{listings}
+\lstdefinelanguage{Cypher}{
+  keywords={MATCH, RETURN, WHERE, CREATE, MERGE, DELETE, SET},
+  sensitive=true,
+  morecomment=[l]{//},
+  morestring=[b]"
+}
+\lstdefinelanguage{Gremlin}{
+  keywords={g, V, out, has, values},
+  sensitive=true,
+  morecomment=[l]{//},
+  morestring=[b]"
+}
+
 \title{Graphenorientierte Datenbanken}
 \author{Lars Tröster, Eric Kusterer, Möritz Köhler, Niklas Reusch }
 
@@ -42,28 +61,72 @@ Graphenorientierte Systeme bilden also eine eigene Klasse von NoSQL-Datenbanken.
 
 Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden nicht in Tabellen, sondern in Graphenstrukturen abgelegt, die aus Knoten (Nodes), Kanten (Edges) und optionalen Eigenschaften (Properties) bestehen.
 
-\pagebreak
-
 \begin{itemize}
-    \item Knoten repräsentieren Entitäten (z. B. Personen, Orte, Produkte).
-    \item Kanten stellen Beziehungen zwischen diesen Entitäten dar (z. B. kennt, kauft, arbeitet für).
-    \item Eigenschaften sind Schlüssel-Wert-Paare, die zusätzliche Informationen speichern (z. B. Alter, Datum, Gewichtung).
+    \item \textbf{Knoten} repräsentieren Entitäten (z.\,B. Personen, Orte, Produkte).
+    \item \textbf{Kanten} stellen Beziehungen zwischen diesen Entitäten dar (z.\,B. kennt, kauft, arbeitet für).
+    \item \textbf{Eigenschaften} sind Schlüssel-Wert-Paare, die zusätzliche Informationen speichern (z.\,B. Alter, Datum, Gewichtung).
 \end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{fig/Soziogramm.png}
+    \caption{Darstellung eines Soziogramms.}
+    \label{fig:soziogramm}
+\end{figure}
 
 Es existieren zwei dominante Graphmodelle:
 
 \begin{itemize}
-    \item Property Graph Model (z. B. Neo4j, TigerGraph): Knoten und Kanten besitzen beliebige Eigenschaften.
-    \item RDF-Model (Resource Description Framework) (z. B. Blazegraph): Daten werden als Tripel "Subjekt-Prädikat-Objekt" dargestellt, häufig im semantischen Web verwendet.
+    \item \textbf{Property-Graph-Modell} (z.\,B. Neo4j, TigerGraph): Knoten und Kanten besitzen beliebige Eigenschaften, z.\,B. \texttt{Name: Alice}, \texttt{Gewicht: 10kg}, \texttt{Farbe: Rot}.
+    \item \textbf{RDF-Modell} (Resource Description Framework) (z.\,B. Blazegraph, Amazon Neptune): Daten werden als Tripel "Subjekt-Prädikat-Objekt" dargestellt, z.\,B. \texttt{Alice --kennt-> Bob}.
 \end{itemize}
 
-Ein wesentliches Merkmal ist die Graphtraversierung - das gezielte Durchlaufen von Kanten, um komplexe Beziehungsnetzwerke zu analysieren. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
+Ein wesentliches Merkmal ist die \textbf{Graphtraversierung} - das gezielte Durchlaufen von Kanten zur Analyse komplexer Beziehungsnetzwerke. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
 
 \begin{itemize}
-    \item Cypher (Neo4j) - deklarativ, an SQL angelehnt
-    \item Gremlin (Apache TinkerPop) - prozedural, plattformunabhängig
-    \item GQL (Graph Query Language) - internationaler Standard in Entwicklung
+    \item \textbf{Cypher} (Neo4j) - deklarativ, SQL-ähnlich:
+    \begin{lstlisting}[language=Cypher,basicstyle=\ttfamily\small]
+MATCH (p1:Person)-[:KENNT]->(p2:Person),
+      (p1)-[:KAUFT]->(prod:Produkt),
+      (p2)-[:KAUFT]->(prod)
+RETURN p1.name, p2.name, prod.name;
+    \end{lstlisting}
+
+    \item \textbf{Gremlin} (Apache TinkerPop) - prozedural:
+    \begin{lstlisting}[language=Gremlin,basicstyle=\ttfamily\small]
+g.V().has('person','name','Alice')
+  .as('p1')
+  .out('kennt').as('p2')
+  .out('kauft').as('prod')
+  .in('kauft').where(eq('p2'))
+  .select('p1','p2','prod').by('name')
+    \end{lstlisting}
+
+    \item \textbf{GQL} - internationaler Standard für Graphabfragen:
+    GQL ist derzeit stark an Cypher angelehnt, weshalb die Syntax in diesem Beispiel identisch ist:
+    \begin{lstlisting}[language=Cypher,basicstyle=\ttfamily\small]
+MATCH (p1:Person)-[:KENNT]->(p2:Person),
+      (p1)-[:KAUFT]->(prod:Produkt),
+      (p2)-[:KAUFT]->(prod)
+RETURN p1.name, p2.name, prod.name;
+    \end{lstlisting}
+
+    \item \textbf{SPARQL} - Standard für RDF-basierte Graphen:
+    \begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\small]
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX ex: <http://example.com/schema#>
+
+SELECT ?p1 ?p2 ?prod
+WHERE {
+  ?p1 foaf:name "Alice" .
+  ?p1 ex:kennt ?p2 .
+  ?p1 ex:kauft ?prod .
+  ?p2 ex:kauft ?prod .
+}
+    \end{lstlisting}
 \end{itemize}
+
+Alle Abfragen geben das Gleiche zurück.
 
 Graphdatenbanken sind somit ideal geeignet, wenn Beziehungen selbst einen hohen Informationswert besitzen und nicht nur als Verknüpfung verstanden werden.
 
@@ -139,7 +202,7 @@ Die Wahl hängt somit stark vom Einsatzkontext ab:
 
 Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da sie Beziehungen als erstklassige Entitäten behandeln.
 
-Für viele moderne Anwendungsfälle – insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit – sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder JanusGraph gut beraten.
+Für viele moderne Anwendungsfälle - insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit - sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder JanusGraph gut beraten.
 
 Insgesamt bieten Graphdatenbanken einen klaren Mehrwert für Szenarien mit stark vernetzten Datenstrukturen und sind ein wichtiger Bestandteil moderner Datenarchitekturen.
 
