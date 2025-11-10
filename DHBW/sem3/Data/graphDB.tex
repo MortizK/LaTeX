@@ -27,6 +27,9 @@
   morestring=[b]"
 }
 
+%% For Margins
+\usepackage[margin=2.5cm]{geometry}
+
 \title{
     \includegraphics[width=0.3\textwidth]{fig/DHBWLogo.pdf}\\[1cm]
     Graphenorientierte Datenbanken}
@@ -36,14 +39,13 @@
 
 \maketitle
 \tableofcontents
+\newpage
 
 \section{Einleitung}
 
 Die Menge und Komplexität von Daten wachsen in nahezu allen Bereichen rasant. Klassische relationale Datenbanksysteme haben über Jahrzehnte die Grundlage der Datenverwaltung gebildet, stoßen jedoch bei stark vernetzten Informationen an ihre Grenzen, insbesondere wenn umfangreiche JOIN-Operationen erforderlich sind - wie dies etwa bei sozialen Netzwerken, Wissensgraphen oder bei der Analyse von Transaktionsnetzwerken zur Betrugserkennung der Fall ist.
 
 Um diese Herausforderungen zu bewältigen, sind alternative Datenbankmodelle entstanden, die speziell für die Verarbeitung hochgradig vernetzter Daten konzipiert sind. Dazu zählen insbesondere graphenorientierte Datenbanksysteme (Graph DBMS), die Beziehungen zwischen Daten als zentrale Elemente betrachten. Ziel dieser Arbeit ist es, die Eigenschaften und Einsatzmöglichkeiten graphenbasierter Systeme darzustellen, führende Produkte zu vergleichen und so eine fundierte Entscheidungsgrundlage für deren Nutzung zu schaffen.
-
-\pagebreak
 
 \section{Klassifizierung von Datenbankensystemen}
 
@@ -72,7 +74,7 @@ Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden ni
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\linewidth]{fig/Soziogramm.png}
+    \includegraphics[width=0.55\linewidth]{fig/Soziogramm.png}
     \caption{Darstellung eines Soziogramms. \cite{sozio}}
     \label{fig:soziogramm}
 \end{figure}
@@ -118,8 +120,6 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
     GQL befindet sich derzeit im Standardisierungsprozess und ist noch nicht vollständig.
-
-\pagebreak
 
     \item \textbf{SPARQL} (GraphDB) - Standard für RDF-basierte Graphen: \cite{sparql2025}
     \begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\small]
@@ -171,22 +171,86 @@ Typische Einsatzgebiete sind:
 \begin{table}[h!]
 \centering
 \renewcommand{\arraystretch}{1.3}
-\setlength{\tabcolsep}{5pt}
+\setlength{\tabcolsep}{4pt}
 
-\begin{tabulary}{\linewidth}{|L|L|L|L|L|L|}
+\begin{tabulary}{\linewidth}{|L|L|l|L|L|L|L|}
 \hline
-\textbf{Produkt} & \textbf{Hersteller} & \textbf{Erscheinungsjahr} & \textbf{Abfragesprache} & \textbf{Marktverbreitung} & \textbf{Stärken / Schwächen} \\ \hline
-\textbf{Neo4j} & Neo4j & 2007 & Cypher & 45-50\% & \textbf{Stärken:} ACID-konform, intuitive Modellierung. \textbf{Schwächen:} Hohe Kosten bei Enterprise, nicht für RDF geeignet \\ \hline
-\textbf{Microsoft Azure Cosmos DB} & Microsoft & 2017 & Gremlin & 12\% & \textbf{Stärken:} Cloud-Dienst, automatische Skalierung und Replikation. \textbf{Schwächen:} Nur in Azure, begrenzte Graph-Funktionalität \\ \hline
-\textbf{OrientDB} & SAP SE & 2011 & SQL-ähnlich & 9\% & \textbf{Stärken:} ACID-konform, Multi-Modell (Dokument, Objekt, Graph). \textbf{Schwächen:} Schlechte Performance bei großen Graphen \\ \hline
-\textbf{ArangoDB} & ArangoDB & 2011 & AQL & 7\% & \textbf{Stärken:} Multi-Modell (Dokument, Key-Value, Graph), skalierbar über Cluster. \textbf{Schwächen:} Komplexe Abfragesprache \\ \hline
-\textbf{Amazon Neptune} & Amazon Web Services & 2017 & Gremlin (LPG), SPARQL 1.1 (RDF) & 6\% & \textbf{Stärken:} Skalierbarer Cloud-Dienst, unterstützt RDF und LPG. \textbf{Schwächen:} Nur AWS, Kosten steigen bei großen Datenmengen \\ \hline
-\textbf{GraphDB} & Ontotext AD & 2004 & SPARQL 1.1 & 3-4\% & \textbf{Stärken:} W3C-konformes RDF-Modell, automatisches Reasoning. \textbf{Schwächen:} Komplexe Modellierung, begrenzte Performance bei großen Datenmengen \\ \hline
+\textbf{Produkt} 
+& \textbf{Hersteller} 
+& \textbf{Jahr} 
+& \textbf{Abfragesprache} 
+& \textbf{Marktanteil} 
+& \textbf{Kosten (Stand 2025)} 
+& \textbf{Stärken / Schwächen} 
+\\ \hline
+
+\textbf{Neo4j} 
+& Neo4j 
+& 2007 
+& Cypher 
+& 45--50\% 
+& Open Source oder Cloud-Dienst \textit{AuraDB Professional} ab 65€/GB/Monat, Business Critical bis ca. 150€/GB/Monat
+& 
+\textbf{Stärken:} ACID-konform, intuitive Modellierung. \textbf{Schwächen:} Hohe Kosten bei Enterprise, nicht für RDF geeignet 
+\\ \hline
+
+\textbf{Microsoft Azure Cosmos DB} 
+& Microsoft 
+& 2017 
+& Gremlin 
+& 12\% 
+& Verbrauchsbasiert mit ca. 0,29€ pro Request
+& 
+\textbf{Stärken:} Cloud-Dienst, automatische Skalierung und Replikation. \textbf{Schwächen:} Nur in Azure, begrenzte Graph-Funktionalität 
+\\ \hline
+
+\textbf{OrientDB} 
+& SAP SE 
+& 2011 
+& SQL-ähnlich 
+& 9\% 
+& Community Edition kostenlos, Enterprise-Lizenz ca. 9.000€, Standard ab 5.500€ 
+& 
+\textbf{Stärken:} ACID-konform, Multi-Modell (Dokument, Objekt, Graph). \textbf{Schwächen:} Schlechte Performance bei großen Graphen 
+\\ \hline
+
+\textbf{ArangoDB} 
+& ArangoDB 
+& 2011 
+& AQL 
+& 7\% 
+& Community Edition kostenlos, Cloud-/Enterprise-Version auf Anfrage mit 2.000-6.000€
+& 
+\textbf{Stärken:} Multi-Modell (Dokument, Key-Value, Graph), skalierbar über Cluster. \textbf{Schwächen:} Komplexe Abfragesprache 
+\\ \hline
+
+\textbf{Amazon Neptune} 
+& Amazon Web Services 
+& 2017 
+& Gremlin (LPG), SPARQL 1.1 (RDF) 
+& 6\% 
+& db.r5.large, ca 320€/Monat + Speicher + Anfragen
+& 
+\textbf{Stärken:} Skalierbarer Cloud-Dienst, unterstützt RDF und LPG. \textbf{Schwächen:} Nur AWS, Kosten steigen bei großen Datenmengen 
+\\ \hline
+
+\textbf{GraphDB} 
+& Ontotext AD 
+& 2004 
+& SPARQL 1.1 
+& 3--4\% 
+& Community Edition kostenlos; Enterprise-Lizenz nur auf Anfrage (1.000-6.000€) 
+& 
+\textbf{Stärken:} W3C-konformes RDF-Modell, automatisches Reasoning. \textbf{Schwächen:} Komplexe Modellierung, begrenzte Performance bei großen Datenmengen 
+\\ \hline
+
 \end{tabulary}
 
-\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Hersteller, Erscheinungsjahr, Abfragesprache, Marktverbreitung sowie Stärken und Schwächen. \cite{neo4j2025,azurecosmosdb2025,orientdb2025,arangodb2025,awsneptune2025,graphdb2025}}
+\caption{Erweiterter Vergleich verschiedener Graphdatenbanken hinsichtlich Hersteller, Erscheinungsjahr, Abfragesprache, Marktverbreitung, Kosten sowie Stärken und Schwächen. \cite{neo4j2025,azurecosmosdb2025,orientdb2025,arangodb2025,awsneptune2025,graphdb2025}}
 \end{table}
+
 \end{landscape}
+
 
 \section{Bewertung und Gegenüberstellung}
 
@@ -211,8 +275,6 @@ Die vorgestellten Graphdatenbanken unterscheiden sich vor allem in Funktionsumfa
 Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da Beziehungen als erstklassige Entitäten behandelt werden.
 
 Für viele moderne Anwendungsfälle - insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit - sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während  Amazon Neptune eine leistungsstarke Alternativ im Enterprise-Umfeld darstellt. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder OrientDB gut beraten. GraphDB eignet sich besonders für RDF-basierte Wissensgraphen.
-
-\pagebreak
 
 Fazit zur Wahl der Graphdatenbank:
 
