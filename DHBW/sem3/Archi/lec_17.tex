@@ -1,0 +1,101 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{November 10, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Berechnungen}
+
+Formeln zum Auswendiglernen:
+
+\begin{align*}
+    Time = \frac{Seconds}{Program} 
+    &= \frac{Instructions}{Program} * \frac{Clock cycles}{Instructions} * \frac{Seconds}{Clock cycle}\\
+    Leistung: P_x &= \frac{f_{clk}}{CPI_x}*10^{-6}[MIPS]\\
+    t_x &= IC_x * CPI_x * t_{clk}
+\end{align*}
+
+Der $CPI_x$ ist ein Durchschnittswert:
+
+\begin{equation*}
+    CPI = \sum_{i} \frac{IC_i}{IC}*CPI_i
+\end{equation*}
+
+\section{Pipelining}
+
+Hierzu müssen die Phasen verstanden werden:
+
+\begin{enumerate}
+    \item Instruktion aus dem Speicher lesen: Instruction fetch
+    \item Register lesen und gleichzeitig Instruktion entschlüsseln: Regster read
+    \item Arithmetische/ logische Operation ausführen oder eine Adresse berechnen: ALU operation
+    \item Einen Operanden aus dem Speicher lesen oder dorthin schreiben: Data access
+    \item Register mit Daten befüllen: Register write
+\end{enumerate}
+
+Das Pipelining erfolgt indem die Clock kleiner Wird und wir in jeder Phase eine Instruktion ausführen.
+
+Somit wird $t_{clk}$ kleiner und der $CPI$ bleibt gleich
+
+\subsection{3 Architekturen}
+
+\begin{enumerate}
+    \item 1 Instruktion pro clock cycle
+    
+    CPI: 1
+    
+    \item 1 Phase pro clock cycle
+    
+    CPI: $3 \leq CPI \leq 5$
+    
+    \item Pipelining
+    
+    CPI: 1
+\end{enumerate}
+
+Wenn das add kein Data access braucht, benutzt es diese Phase einfach nicht. Somit bleibt dies als Blank einfach frei
+
+\begin{center}
+    fetch | read | ALU | \qquad | write
+\end{center}
+
+Bei sw wird nicht in ein Register geschrieben also
+
+\begin{center}
+    fetch | read | ALU | Data | \qquad
+\end{center}
+
+\subsection{Datenpfad für Pipelining}
+
+Aufgabe Seite 234
+
+\begin{equation*}
+    CPI_x = 0,4 * 4 + 0,2 * 3 + 0,4 * 5 = 4,2  
+\end{equation*}
+
+\begin{align*}
+    t_x &= IC_x * CPI_x * t_{clk}\\
+    t_x^s &= IC_x * 4,2 * 200ps\\
+    t_x^p &= IC_x * 1 * (200ps + 40ps)\\
+    S &= \frac{t_x^s}{t_x^p} = \frac{4,2 * 200}{240} = 3,5
+\end{align*}
+
+Bei Pipelining ist der CPI immer 1, wir haben aber durch zusätzliche zwischenregister einen overhead von 40ps pro Takt.
+
+\subsection{Konflikte}
+
+\begin{enumerate}
+    \item Structural: Begrenzte Hardware z.B. ALU
+    \item Data: Ein Instruktion hängt von den Daten einer anderen ab und kann noch nicht beginnen.
+    \item Control: Ausgelöst durch Verzögerungen, bis fest steht welche die nächste Instruktion ist (branches)
+\end{enumerate}
+
+Dat Hazards können gelöst werden, indem die ALU direkte Verbindungen zu den zwischenregister hat (Forwarding)
+
+\end{document}
