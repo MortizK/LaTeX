@@ -47,14 +47,14 @@ Um diese Herausforderungen zu bewältigen, sind alternative Datenbankmodelle ent
 
 \section{Klassifizierung von Datenbankensystemen}
 
-Datenbanksysteme lassen sich grundsätzlich danach klassifizieren, wie sie Daten speichern, organisieren und abfragen. Die wichtigsten Klassen sind:
+Datenbanksysteme lassen sich grundsätzlich danach klassifizieren, wie sie Daten speichern, organisieren und abfragen. Die wichtigsten Klassen sind: \cite{kemper2015datenbanksysteme}
 
 \begin{itemize}
     \item \textbf{Relationale DBMS} (z. B. MySQL, PostgreSQL): Daten werden in Tabellen mit festen Schemata gespeichert. Beziehungen zwischen Entitäten werden über Fremdschlüssel definiert.
     \item \textbf{Dokumentenorientierte DBMS} (z. B. MongoDB, Couchbase): Speicherung semi-strukturierter Daten (z. B. JSON-Dokumente) mit hoher Flexibilität.
     \item \textbf{Key-Value-Stores} (z. B. Redis, DynamoDB): Daten werden als Schlüssel-Wert-Paare ohne feste Struktur abgelegt, sehr performant für einfache Zugriffe.
     \item \textbf{Spaltenorientierte DBMS}(z. B. Cassandra, HBase): Optimiert für analytische Abfragen über große Datenmengen.
-    \item \textbf{Graphenorientierte DBMS} (z. B. Neo4j, TigerGraph): Daten werden als Knoten (Entities) und Kanten (Beziehungen) modelliert und gespeichert.
+    \item \textbf{Graphenorientierte DBMS} (z. B. Neo4j): Daten werden als Knoten (Entities) und Kanten (Beziehungen) modelliert und gespeichert.
 
 \end{itemize}
 
@@ -62,7 +62,7 @@ Graphenorientierte Systeme bilden also eine eigene Klasse von NoSQL-Datenbanken.
 
 \section{Grundlagen graphenorientierte DBMS}
 
-Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden nicht in Tabellen, sondern in Graphenstrukturen abgelegt, die aus Knoten (Nodes), Kanten (Edges) und optionalen Eigenschaften (Properties) bestehen.
+Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden nicht in Tabellen, sondern in Graphenstrukturen abgelegt, die aus Knoten (Nodes), Kanten (Edges) und optionalen Eigenschaften (Properties) bestehen. \cite{robinson2015graphdb,angles2017survey}
 
 \begin{itemize}
     \item \textbf{Knoten} repräsentieren Entitäten (z.\,B. Personen, Orte, Produkte).
@@ -73,25 +73,25 @@ Graphdatenbanken basieren auf der mathematischen Graphentheorie. Daten werden ni
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth]{fig/Soziogramm.png}
-    \caption{Darstellung eines Soziogramms.}
+    \caption{Darstellung eines Soziogramms. \cite{sozio}}
     \label{fig:soziogramm}
 \end{figure}
 
 Es existieren zwei dominante Graphmodelle:
 
 \begin{itemize}
-    \item \textbf{Property-Graph-Modell} (z.\,B. Neo4j, TigerGraph): Knoten und Kanten besitzen beliebige Eigenschaften, z.\,B. \texttt{Name: Alice}, \texttt{Gewicht: 10kg}, \texttt{Farbe: Rot}.
+    \item \textbf{Property-Graph-Modell} (z.\,B. Neo4j): Knoten und Kanten besitzen beliebige Eigenschaften, z.\,B. \texttt{Name: Alice}, \texttt{Gewicht: 10kg}, \texttt{Farbe: Rot}.
     
-    Diese sind besonders für Traversierungen geeignet.
+    Diese sind besonders für Traversierungen geeignet.\cite{angles2020graph}
     \item \textbf{RDF-Modell} (Resource Description Framework) (z.\,B. Blazegraph, Amazon Neptune): Daten werden als Tripel "Subjekt-Prädikat-Objekt" dargestellt, z.\,B. \texttt{Alice --kennt-> Bob}.
     
     Diese sind für Reasoning und semantische Abfragen geeignet.
 \end{itemize}
 
-Ein wesentliches Merkmal ist die \textbf{Graphtraversierung} - das gezielte Durchlaufen von Kanten zur Analyse komplexer Beziehungsnetzwerke. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
+Ein wesentliches Merkmal ist die Graphtraversierung - das gezielte Durchlaufen von Kanten zur Analyse komplexer Beziehungsnetzwerke. Zur Abfrage von Graphdaten existieren spezialisierte Sprachen:
 
 \begin{itemize}
-    \item \textbf{Cypher} (Neo4j) - deklarativ, SQL-ähnlich:
+    \item \textbf{Cypher} (Neo4j) - deklarativ, SQL-ähnlich: \cite{cypher2025}
     \begin{lstlisting}[language=Cypher,basicstyle=\ttfamily\small]
 MATCH (p1:Person)-[:KENNT]->(p2:Person),
       (p1)-[:KAUFT]->(prod:Produkt),
@@ -99,7 +99,7 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
 
-    \item \textbf{Gremlin} (Microsoft Azure Cosmos DB) - prozedural:
+    \item \textbf{Gremlin} (Microsoft Azure Cosmos DB) - prozedural: \cite{gremlin2025}
     \begin{lstlisting}[language=Gremlin,basicstyle=\ttfamily\small]
 g.V().has('person','name','Alice')
   .as('p1')
@@ -109,7 +109,7 @@ g.V().has('person','name','Alice')
   .select('p1','p2','prod').by('name')
     \end{lstlisting}
 
-    \item \textbf{GQL} - internationaler Standard für Graphabfragen:
+    \item \textbf{GQL} - internationaler Standard für Graphabfragen: \cite{gql2025}
     GQL ist derzeit stark an Cypher angelehnt, weshalb die Syntax in diesem Beispiel identisch ist:
     \begin{lstlisting}[language=Cypher,basicstyle=\ttfamily\small]
 MATCH (p1:Person)-[:KENNT]->(p2:Person),
@@ -117,11 +117,11 @@ MATCH (p1:Person)-[:KENNT]->(p2:Person),
       (p2)-[:KAUFT]->(prod)
 RETURN p1.name, p2.name, prod.name;
     \end{lstlisting}
-    GQL befindet sich derzeit im Standardisierungsprozess und noch nicht vollständig.
+    GQL befindet sich derzeit im Standardisierungsprozess und ist noch nicht vollständig.
 
 \pagebreak
 
-    \item \textbf{SPARQL} (GraphDB) - Standard für RDF-basierte Graphen:
+    \item \textbf{SPARQL} (GraphDB) - Standard für RDF-basierte Graphen: \cite{sparql2025}
     \begin{lstlisting}[language=SPARQL,basicstyle=\ttfamily\small]
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX ex: <http://example.com/schema#>
@@ -184,7 +184,7 @@ Typische Einsatzgebiete sind:
 \textbf{GraphDB} & Ontotext AD & 2004 & SPARQL 1.1 & 3-4\% & \textbf{Stärken:} W3C-konformes RDF-Modell, automatisches Reasoning. \textbf{Schwächen:} Komplexe Modellierung, begrenzte Performance bei großen Datenmengen \\ \hline
 \end{tabulary}
 
-\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Hersteller, Erscheinungsjahr, Abfragesprache, Marktverbreitung sowie Stärken und Schwächen.}
+\caption{Vergleich verschiedener Graphdatenbanken hinsichtlich Hersteller, Erscheinungsjahr, Abfragesprache, Marktverbreitung sowie Stärken und Schwächen. \cite{neo4j2025,azurecosmosdb2025,orientdb2025,arangodb2025,awsneptune2025,graphdb2025}}
 \end{table}
 \end{landscape}
 
@@ -210,7 +210,9 @@ Die vorgestellten Graphdatenbanken unterscheiden sich vor allem in Funktionsumfa
 
 Graphenorientierte Datenbanksysteme bieten eine effiziente Möglichkeit, komplexe Beziehungen zwischen Daten abzubilden und zu analysieren. Sie unterscheiden sich grundlegend von relationalen Modellen, da Beziehungen als erstklassige Entitäten behandelt werden.
 
-Für viele moderne Anwendungsfälle – insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit – sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während TigerGraph und Amazon Neptune leistungsstarke Alternativen im Enterprise-Umfeld darstellen. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB, OrientDB oder JanusGraph gut beraten. GraphDB eignet sich besonders für RDF-basierte Wissensgraphen.
+Für viele moderne Anwendungsfälle - insbesondere in der Datenanalyse, im Machine Learning oder in der Netzwerksicherheit - sind Graphdatenbanken heute unverzichtbar. Neo4j ist derzeit der Branchenstandard, während  Amazon Neptune eine leistungsstarke Alternativ im Enterprise-Umfeld darstellt. Wer Open Source und Flexibilität bevorzugt, ist mit ArangoDB oder OrientDB gut beraten. GraphDB eignet sich besonders für RDF-basierte Wissensgraphen.
+
+\pagebreak
 
 Fazit zur Wahl der Graphdatenbank:
 
@@ -224,5 +226,8 @@ Fazit zur Wahl der Graphdatenbank:
 
 Insgesamt bieten Graphdatenbanken einen klaren Mehrwert für Szenarien mit stark vernetzten Datenstrukturen und sind ein wichtiger Bestandteil moderner Datenarchitekturen. Die Wahl des richtigen Systems hängt vom Einsatzzweck, der vorhandenen Infrastruktur und den Anforderungen an Performance, Skalierbarkeit und Datenmodell ab. Marktführer wie Neo4j bieten eine breite Unterstützung und Community, während spezialisierte Systeme für spezifische Anwendungsfälle die bessere Wahl sein können.
 
+\pagebreak
+\bibliographystyle{IEEEtran}
+\bibliography{graphDB}
 
 \end{document}
