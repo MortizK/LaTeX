@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Betriebssysteme}
+\author{Moritz}
+\date{November 11, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Dateisysteme}
+
+Dieses besteht aus Dateien, Verzeichnissen, Verknüpfungen und Spezialdateien.
+
+Es gibt verschieden. Unter WIndows wird FAT oder NTFS benutzt während bei Linux Ext3 oder Ext4 benutzt wird.
+
+\subsection{Implementierung}
+
+Ein Dateisystemlayout besteht aus mehreren Partitionen. Block 0 isz der MBR (Master Boot Record), dieser speichert:
+
+\begin{itemize}
+    \item Partitionstabelle mit anfangs- und End-Adresse jeder Partition
+    \item Von welcher Partition gebooted wird
+\end{itemize}
+
+In jeder Systempartition gibt es zudem noch einen Bootblock, der von dem MBR ausgeführt wird.
+
+\subsection{Dateibelegung}
+
+Es gibt unterschiedliche Strukturen um Dateien auf eine Festplatte zu legen:
+
+\begin{itemize}
+    \item Zusammenhängend (eine Datei in mehrere Blöcke)
+    \item Verkette Listen (eine Datei als Liste von mehreren Blöcken)
+    \item zentrale Indexstruktur (FAT: jeder Block speichert zudem noch die Adresse des folgeblocks)
+    \item verteilte Indexstruktur (jede Datei hat sine eigene Indexliste)
+\end{itemize}
+
+\subsection{Verzeichnisbelegung}
+
+Ein Verzeichnis ist eine Datei mit Dateizeigern.
+
+\subsection{Verwaltung von freien Blöcken}
+
+Es gibt hierzu freilisten und Bitmaps.
+
+Eine Freiliste ist eine Verkettete Liste die nur auf alle Freien Blöcke sequentiell zeigt. Die Freiliste wird durch das Füllen des Speichers kleiner.
+
+Eine Bitmap hat eine Konstante Größe und gibt für jeden Block mit einem Bit an, ob dieser frei ist (1) oder belegt ist (0).
+
+Es gibt noch Verknüpfungen, welche es erlauben von mehren Stellen auf eine Datei/ Verzeichnis zuzugreifen.
+
+\section{Dateisystem Ext3}
+
+Zugriffsrechte:
+
+\begin{itemize}
+    \item Benutzer ID (id -u)
+    \item UID 0 ist für root
+    \item jede Datei hat UID und eine Group ID (id -g)
+    \item jeder Nutzer hat eine UID und kann mehrere GIDs haben
+    \item Nur der Eigentümer darf Rechte einer Datei ändern.
+\end{itemize}
+
+Die Attribute einer Datei werden in einem speziellem Indexblock (Inode) gespeichert.
+
+\subsection{Dateibaum}
+
+Unter dem Wurzelverzeichnis verweisen alle weiteren Verzeichnisse auf sich selbst und auf das Verzeichnis nach oben. Dateien sind genauso, diese haben nur niemanden der auf diese Verweist.
+
+\subsection{Verzeichnis}
+
+%% Ist wieder nur eine Map mit den Codierung
+
+\subsection{Adressierung der Datenblöcke}
+
+Eine Inode besteht aus 12 direkten Blockadressen, sowie jeweils eine einfach, zweifach und dreifach indirekte Blockadresse. Bedeutet das die mehrfach indirekte Blockadressen auf Blöcke zeigen die auf Blöcke zeigen.
+
+Wenn wir somit 2kByte Blöcke haben können auf:
+
+\begin{align*}
+    2^{10}Byte / 4 Byte = 512 [Adressen]\\
+    12 * 2kB = 24kB\\
+    512 * 2kB = 1MB\\
+    512^2 * 2kB = 512MB\\
+    512^3 * 2kB = 256GB\\
+    \Sigma = ca. 257GB
+\end{align*}
+
+\subsection{Layout einer Partition}
+
+%% Weiter habe ich es nicht geschafft
+
+\end{document}

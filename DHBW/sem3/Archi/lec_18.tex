@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{November 11, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Pipelining}
+
+\subsection{Forwarding}
+
+Löst alle Konflikte außer lw. da hierfür in die Vergangenheit gegangen werden müsste.
+
+\subsection{Aufgabe S.242}
+
+Welche Datenkonflikte können hier auftreten und welche lassen sich mit Forwarding lösen:
+
+\begin{lstlisting}
+    lw t1, 0(t0)    # kein
+    lw t2, 4(t0)    # kein
+    add t3, t1, t2  # Data Hazard t2, t1 - 2 Pausen
+    sw t3, 12(t0)   # Data Hazard t3 - 2 Pausen
+    lw t4, 8(t0)    # kein
+    add t5, t1, t4  # Data Hazard t4 - 2 Pausen
+    sw t5, 16(t0)   # Data Hazard t5 - 2 Pausen
+\end{lstlisting}
+
+Mit Forwarding:
+
+\begin{lstlisting}
+    lw t1, 0(t0)    # kein
+    lw t2, 4(t0)    # kein
+    add t3, t1, t2  # Data Hazard t2 - 1 Pause
+    sw t3, 12(t0)   # kein
+    lw t4, 8(t0)    # kein
+    add t5, t1, t4  # Data Hazard t4 - 1 Pause
+    sw t5, 16(t0)   # kein
+\end{lstlisting}
+
+Eine Skizze hilft immens bei dieser Aufgabe
+
+\subsection{Control Hazards}
+
+Bei Branch wird immer einfach dass gemacht, was zuletzt in dieser Zeile gemacht wurde. dies ist zu 90\% Richtig und es muss nicht gewartet werden.
+
+\section{Speicher}
+
+
+
+\end{document}
