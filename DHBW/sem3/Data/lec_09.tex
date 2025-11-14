@@ -1,0 +1,79 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{listings}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{November 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Äquivalenz}
+
+\begin{lstlisting}
+    A -> BC
+    B -> AC
+    C -> B
+\end{lstlisting}
+
+\begin{lstlisting}
+    A -> C
+    C -> ABC
+    B -> C
+    A -> B
+\end{lstlisting}
+
+Sind diese Beiden Äquivalent:
+
+Hierzu müssen wir beide Relation links und rechts reduzieren und die Hülle unverändert bleibt und schauen, ob beide Relation die gleiche Minimierung haben.
+
+Also:
+
+\begin{itemize}
+    \item wir schauen bei A -$>$ BC ob wir einen von beiden oder beide weglassen können.
+    \item Also A -$>$ C (B weg) hat immer noch die Hülle $A^+\{A,C,B\}$
+    \item Noch A -$>$ \{\} (B,C weg) hat $A^+\{A\}$
+    \item Weiter mit B -$>$ AC
+    \item B -$>$ C (A weg) hat $B^+\{B,C\}$
+    \item B -$>$ A (C weg) hat $B^+\{A, B, C\}$
+    \item noch für C -$>$ B
+\end{itemize}
+
+Und bei Relation zwei:
+
+\begin{itemize}
+    \item A -$>$ \{\} (C weg) hat $A^+\{A,B,C\}$, also kann diese weg
+    \item C -$>$ AB (C weg) hat $C^+\{A, B, C\}$
+    \item C -$>$ A (B,C weg) hat $C^+\{A, B, C\}$, dies geht noch
+    \item C -$>$ \{\} (A,B,C weg) hat $C^+\{C\}$, geht nicht mehr
+    \item B -$>$ \{\} (C weg) hat $B^+\{B\}$, geht nicht
+    \item A -$>$ \{\} (B weg) hat $A^+\{A\}$, geht nicht
+\end{itemize}
+
+jetzt haben wir:
+
+\begin{lstlisting}
+    A -> C
+    B -> A
+    C -> B
+\end{lstlisting}
+
+\begin{lstlisting}
+    C -> A
+    B -> C
+    A -> B
+\end{lstlisting}
+
+Jetzt müssen wir für die Äquivalenz beides in beides umformen können.
+
+
+\section{Dekomposition}
+
+Wir können funktionale Abhängigkeiten durch Dekomposition zerlegen.
+
+Dies kommt nicht in der Klausur ran.
+
+\end{document}

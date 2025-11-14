@@ -1,0 +1,241 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Angewandte Mathematik}
+\author{Moritz}
+\date{November 12, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Integralrechnung}
+
+\subsection{Schwerpunkt}
+
+Beispiel: Schwerpunkt der endl. Fläche, die von $y=x+2$ und $y=4-x^2$ begrenzt wird.
+
+geg.: $y=x+2, y=y^2-4$ ges.: Schwerpunkt $S(x_S, y_S)$
+
+Skizze anfertigen!
+
+Die Grenzen lassen sich aus den zwei Schnittpunkten der Funktion ablesen. Der Triviale ist bei $(-2, 0)$ und ein nicht trivialer liegt bei $(1, 3)$
+
+Schnittpunkte:
+
+\begin{align*}
+    4-x^2 = x+2\\
+    x^2+x-2 = 0\\
+    \text{Quadratische Ergänzung}\\
+\end{align*}
+
+Dies bestätigt die Vermutung.
+
+Zunächst Flächeninhalt:
+
+\begin{align*}
+    |G| = \int\int_{G} dG &= \int_{x=-2}^{1}\int_{y=x+2}^{4-x^2} dy dx\\
+    &= \int_{x=-2}^{1} \left[y\right]_{x+2}^{4-x^2} dx\\
+    &= \int_{-2}^{1} (4-x^2-x-2) dx\\
+    &= \left[2x-\frac{1}{3}x^3-\frac{1}{2}x^2\right]_{-2}^1 \\
+    &= 2-\frac{1}{3} -\frac{1}{2} +4 - \frac{8}{3} +2\\
+    &= \frac{9}{2}
+\end{align*}
+
+\begin{align*}
+    x_S = \frac{1}{|G|} \int\int_{G} x dG &= \frac{2}{9} \int_{x=-2}^{1}\int_{y=x+2}^{4-x^2} x dy dx\\
+    &= \frac{2}{9} \int_{x=-2}^{1} [xy]_{x+2}^{4-x^2} dx\\
+    &= \frac{2}{9} \int_{-2}^{1} (4x - x^3) - (x^2 + 2x) dx\\
+    &= \frac{2}{9} \int_{-2}^{1} 2x - x^3 -x^2 dx\\
+    &= \frac{2}{9} \left[x^2 - \frac{1}{4}x^4 - \frac{1}{3}x^3\right]_{-2}^1 = -\frac{1}{2} = -0.5
+\end{align*}
+
+
+\begin{align*}
+    x_S = \frac{1}{|G|} \int\int_{G} y dG &= \frac{2}{9} \int_{x=-2}^{1}\int_{y=x+2}^{4-x^2} y dy dx\\
+    &= \frac{2}{9} \int_{x=-2}^{1} \left[\frac{1}{2}y^2\right]_{x+2}^{4-x^2} dx\\
+    &= \frac{1}{9} \int_{-2}^{1} (4-x^2)^2 - (x+2)^2 dx\\
+    &= \frac{1}{9} \int_{-2}^{1} 12-9x^2 -4x + x^4 dx\\
+    &= \frac{1}{9}\left[12x - 3x^3 - 2x^2 + \frac{1}{5}x^5\right]_{-2}^1 = \frac{12}{5} = 2.4
+\end{align*}
+
+Schwerpunkt $S=(-0.5, 2.4)$
+
+\subsection{Kurvenintegral (1. Art)}
+
+auch Linien oder Wegintegral
+
+Kurven: $\varphi(t)$ sei eine Vektorwertige Funktion
+
+\begin{equation*}
+    \varphi[a, b] \to \mathbb{R}^n \text{ mit } \varphi(t) = \begin{pmatrix}
+         \varphi_1(t) \\ \vdots \\ \varphi_n(t)
+    \end{pmatrix} \text{ mit } t\in[a, b]
+\end{equation*}
+
+Wir setzen voraus: $\varphi(t)$ sind stückweise stetig diffenzierbar.
+
+\begin{align*}
+    ||\dot{\varphi}(t)|| = \sqrt{(\dot{\varphi_1}(t))^2 + \dots +(\dot{\varphi_n}(t))^2} \neq 0 \text{ für } t\in[a, b] 
+\end{align*}
+
+(kann abgeschwächt werden)
+
+$\implies x=\varphi(t)$ können wir als Kurve K im $\mathbb{R}^n$ auffassen.
+
+Skizze mit Parameter $t$ und der Kurve im $\mathbb{R}^3$
+
+Motivation: Ein geborgener Draht/ Leistung (entspricht eine Kurve) dessen Dichte variabel ist und vom Ort abhängt. Wir wollen die Gesamtmasse bestimmen.
+
+$f: \mathbb{R}^n\to \mathbb{R}$ sei eine stetige Funktion die auf der Kurve definiert ist.
+
+\begin{align*}
+    \int_{K} f(x) ds \text{ (ds ist das Bogenelement der Kurve)}
+\end{align*}
+
+Berechnung:
+
+\begin{align*}
+    \int_{K} f(x) ds = \int_{a}^{b} f(\varphi(t))\quad||\dot{\varphi}(t)|| \quad dt
+\end{align*}
+
+Beispiel: geg.:
+
+\begin{align*}
+    K: \varphi(t) = \begin{pmatrix}
+       \cos(t) \\ \sin(t) \\t
+    \end{pmatrix}, t\in (0, 2\pi)\\
+    f(x, y, z) = x^2 + y^2 + z^2
+\end{align*}
+
+ges.: Das Kurvenintegral 1. Art
+
+Lösung:
+
+\begin{align*}
+    I = \int_{K} (x^2 + y^2 + z^2) ds\\
+    \dot{\varphi}(t) = \begin{pmatrix}
+        -\sin(t) \\\cos(t) \\ 1
+    \end{pmatrix}\\
+    ||\dot{\varphi}(t)|| = \sqrt{(-\sin(t))^2 + \cos^2(t) + 1^2} = \sqrt{2}\\
+    I = \int_{0}^{2\pi} (\cos^2(t) + \sin^2(t) + t^2)\sqrt{2} dt\\
+    = \sqrt{2} \int_{0}^{2\pi} 1 + t^2 dt \\
+    = \sqrt{2} \left[t + \frac{1}{3}t^3\right]_0^{2\pi} = 2\sqrt{2}\pi (1+\frac{4}{3}\pi^2)
+\end{align*}
+
+Anwendung: Die Länge einer Kurve bestimmen. $L = \int_{K}1*ds$
+Masse der Kurve bestimmen: $m= \int_{K} \varrho(x) ds$
+Schwerpunkt: z.B. $x_1$-Koordinate: $x_{1s}=\frac{1}{m} \int_{K} x_1 \varrho(x) ds$ 
+
+Beispiele:
+
+geg.: 
+
+\begin{align*}
+    \varphi(t) = \begin{pmatrix}
+        \cos(t) \\\sin(t)\\ t
+    \end{pmatrix}, t\in[0, \pi/2]
+\end{align*}
+
+ges.: $S(x_{1b}, x_{2b}, x_{3b})$
+
+Wir nutzen was wir schon über die Kurve wissen:
+
+\begin{equation*}
+    ||\dot{\varphi}(t)|| = \sqrt{2}
+\end{equation*}
+
+1)
+
+\begin{align*}
+    m = \int_{K} \varrho ds &= \int_{0}^{\pi/2} 1 * ||\dot{\varphi}(t)|| dt\\
+    &= \int_{0}^{\pi/2} \sqrt{2} dt = \sqrt{2}[t]_0^{\pi/2} = \frac{\sqrt{2}}{2}\pi
+\end{align*}
+
+2)
+
+\begin{align*}
+    x_{1b} = \frac{1}{m} \int_{K} x_1 \varphi(x) db\\
+    = \frac{2\pi}{\sqrt{2}} \int_{0}^{\pi/2} \cos(t) * 1 * ||\dot{\varphi}(t)|| dt\\
+    = \frac{2}{\pi} \int_{0}^{\pi/2} \cos(t) dt \\
+    = \frac{2}{\pi} \left[\sin(t)\right]_0^{\pi/2} = \frac{2}{\pi}
+\end{align*}
+
+\begin{align*}
+    x_{2b} = \frac{\sqrt{2}}{\pi} \int_{0}^{\pi/2} \sin(t) * 1 * \sqrt{2} dt\\
+    = \frac{2}{\pi} [-\cos(t)]_0^{\pi/2} = \frac{2}{\pi}
+\end{align*}
+
+\begin{align*}
+    x_{3b} = \frac{\sqrt{2}}{\pi} \int_{0}^{\pi/2} t * 1 * \sqrt{2} dt\\
+    = \frac{2}{\pi} \left[\frac{1}{2}t^2\right]_0^{\pi/2} = \frac{\pi}{4}
+\end{align*}
+
+\subsection{Länge einer Kurve}
+
+K: $y=f(x)$ für $x\in[x_0, x_1] \to$ Parameterdarstellung
+
+\begin{equation*}
+    K: t\xrightarrow{\varphi} \begin{pmatrix}
+        t\\f(t)
+    \end{pmatrix}, x=t, y=f(t)
+\end{equation*}
+
+\begin{align*}
+    L = \int_{K} ||\dot{\varphi}(t)|| dt\\
+    \varphi(t) = \begin{pmatrix}
+        1, f'(t)
+    \end{pmatrix}\\
+    ||\dot{\varphi}(t)|| = \sqrt{1 + (f'(t))^2}\\
+    L =  \int_{x_0}^{x_1} \sqrt{1 + (f'(t))^2} dx
+\end{align*}
+
+\subsection{Kurvenintegral (2. Art)}
+
+Habe den Start verpasst, muss die von Rosalie holen.
+
+\begin{align*}
+    \int_{c} f(x) dx := \int_{a}^{b} \langle f(c(t)), c'(t) \rangle dt 
+    = \int_{a}^{b} f(c(t))^T c'(t) dt
+\end{align*}
+
+zweites Beispiel
+
+geg.: $F: \mathbb{R}^3 \to \mathbb{R}$ mit Schwerkraft an der Erdoberfläche
+
+\begin{align*}
+    F = \begin{pmatrix}
+        0 \\ 0 \\ -mg
+    \end{pmatrix}
+\end{align*}
+
+ges.: Arbeit auf K
+
+\begin{align*}
+    K: \varphi: [0, 1] \to \mathbb{R}^3\\
+    \varphi(t) = \begin{pmatrix}
+        t \\ 0\\ 2(t-1)^2
+    \end{pmatrix} \\
+    \implies \varphi(t) = \begin{pmatrix}
+        1 \\ 0 \\ 4(t-1)
+    \end{pmatrix}
+\end{align*}
+
+Lösung:
+
+\begin{align*}
+    W = \int_{K} \vec{F} \circ \vec{ds} 
+    &= \int_{0}^{1} \begin{pmatrix}
+        0 \\ 0 \\ mg
+    \end{pmatrix} \circ \begin{pmatrix}
+        1\\ 0 \\ 4(t-1)
+    \end{pmatrix} dt \\
+    &= \int_{0}^{1} (-mg)4(t-1) dt\\
+    &= -mg * 4 \int_{0}^{1} (t-1) dt = -mg*4 \left[\frac{1}{2}t^2 - t\right]_0^1\\
+    &= -4mg (\frac{1}{2}-1) = 2mg
+\end{align*}
+
+\know{Klausur}{Hier ist der Klausurstoff zuend. Und Konvergenzbetrachtungen brauchen wir nicht.}
+
+\end{document}
