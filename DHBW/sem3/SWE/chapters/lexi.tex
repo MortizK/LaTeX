@@ -1,19 +1,30 @@
-
 \section{Begriffslexikon}
 
 \subsection{Klausur (Exam)}
 
-Wenn keine XML-Datei geladen ist startet die Software mit eine Beispiel Struktur, welche von dem Nutzer zur Erstellung der ersten oder weiteren XML-Dateien verwendet werden kann.
+Wenn keine XML-Datei geladen ist, startet die Software mit einer Beispielstruktur, die vom Nutzer zur Erstellung der ersten oder weiteren XML-Dateien verwendet werden kann.
 
 \begin{tabular}{ll}
     Name: & New Exam
 \end{tabular}
 
-Diese enthält zum Start noch keine Kapitel/ Aufgaben.
+Diese enthält zum Start noch keine Kapitel/Aufgaben.
 
-\subsection{Kapitel/ Aufgabe (Task)}
+\subsection{Aufgabenpool (Exam Pool)}
 
-Ein Kapitel/ Aufgabe ist die übergeordnete Struktur um Teilaufgabe einem Thema zuzuordnen. Der Vergebene Name wird bei der Erstellung der PDF-Datei als Titel der Aufgabe verwendet.
+Ein Aufgabenpool ist die Gesamtheit aller Kapitel, Teilaufgaben und Varianten in einer XML-Datei.  
+Er dient als Quelle für die automatische Klausur-Generierung.
+
+\begin{itemize}
+    \item Enthält beliebig viele Kapitel (`Task`).
+    \item Kann importiert/exportiert werden.
+    \item Dient als Grundlage für PDF-Export.
+\end{itemize}
+
+\subsection{Kapitel / Aufgabe (Task)}
+
+Ein Kapitel/ Aufgabe ist die übergeordnete Struktur, um Teilaufgaben einem Thema zuzuordnen.  
+Der vergebene Name wird bei der Erstellung der PDF-Datei als Titel der Aufgabe verwendet.
 
 \begin{tabular}{ll}
     Name: & New Chapter
@@ -21,27 +32,91 @@ Ein Kapitel/ Aufgabe ist die übergeordnete Struktur um Teilaufgabe einem Thema 
 
 \subsection{Teilaufgabe (Subtask)}
 
-Eine Teilaufgabe ist eine Konkrete Aufgabenarchitektur und kann mehrere Varianten haben. 
-
-Die Teilaufgabe verwaltet zudem die zu erreichende Maximalpunktzahl, den Schwierigkeitsgrad und die Sichtbarkeit.
-
-Der Schwierigkeitsgrad kann folgende Werte annehmen: "easy", "medium", "hard".
-
-Die Sichtbarkeit kann folgende Werte annehmen: "exam", "mock-exam".
+Eine Teilaufgabe ist eine konkrete Aufgabenarchitektur und kann mehrere Varianten haben.  
+Sie verwaltet zudem die zu erreichende Maximalpunktzahl, den Schwierigkeitsgrad und die Sichtbarkeit.
 
 \begin{tabular}{ll}
     Name: & New Subtask\\
     Punktzahl: & 5\\
     Schwierigkeitsgrad: & "easy"\\
     Sichtbarkeit: & "exam"\\
-    Variante: & Startet mit einer Variante (Siehe Variante)
+    Variante: & Startet mit einer Variante (siehe Variant)
 \end{tabular}
+
+\textbf{Schwierigkeitsgrad:}
+
+\begin{itemize}
+    \item "easy"
+    \item "medium"
+    \item "hard"
+\end{itemize}
+
+\textbf{Sichtbarkeit:}
+
+\begin{itemize}
+    \item "exam" – echte Klausur
+    \item "mock-exam" – Probeklausur
+\end{itemize}
 
 \subsection{Variante (Variant)}
 
-Eine Variante verwaltet die konkrete Aufgabenstellung mit eine möglichen Musterlösung. Diese werden direkt für das erstellen der PDF-Datei verwendet.
+Eine Variante verwaltet die konkrete Aufgabenstellung mit einer möglichen Musterlösung.  
+Diese werden direkt für das Erstellen der PDF-Datei verwendet.
 
 \begin{tabular}{ll}
-    Frage: New Question\\
-    Answer: New Answer
+    Frage: & New Question\\
+    Antwort: & New Answer
 \end{tabular}
+
+\subsection{Punktwert / Scoring}
+
+Jede Teilaufgabe hat eine maximale Punktzahl.  
+- Wird beim PDF-Export angezeigt.  
+- Dient bei der Klausurgenerierung zur Zielpunktsumme.
+
+\subsection{PDF-Datei / Export}
+
+Die Ausgabe der Klausur erfolgt als PDF.  
+
+\begin{itemize}
+    \item Klausur ohne Lösungen
+    \item Musterlösung
+    \item Probeklausur (Mock-Exam)
+\end{itemize}
+
+\subsection{Validierung}
+
+Prüft die Konsistenz des Aufgabenpools:
+
+\begin{itemize}
+    \item Jede Teilaufgabe muss mindestens eine Variante besitzen.
+    \item Punktwerte, Schwierigkeitsgrad und Sichtbarkeit werden geprüft.
+    \item Bei Fehlern wird die PDF-Erstellung blockiert.
+\end{itemize}
+
+\subsection{Standardwerte}
+
+Für neu angelegte Elemente existieren Defaultwerte:
+
+\begin{itemize}
+    \item Kapitelname: "New Chapter"
+    \item Subtask Name: "New Subtask"
+    \item Punkte: 5
+    \item Schwierigkeitsgrad: "easy"
+    \item Sichtbarkeit: "exam"
+    \item Variante Frage/Antwort: "New Question" / "New Answer"
+\end{itemize}
+
+\subsection{Strukturdiagramm (optional)}
+
+\begin{verbatim}
+Exam (XML)
++-- Chapter / Task
+|   +-- Subtask
+|   |   +-- Variant 1
+|   |   +-- Variant 2
+|   |   +-- ...
+|   +-- ...
++-- ...
+\end{verbatim}
+
