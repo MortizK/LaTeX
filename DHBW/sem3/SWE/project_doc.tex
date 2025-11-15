@@ -2,6 +2,59 @@
 
 \input{../preamble.tex}
 
+%% For Margins
+\usepackage[margin=2.5cm]{geometry}
+
+%% For Page Numbers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{} % clear all header/footer fields
+\fancyfoot[C]{Page \thepage{} of \pageref{LastPage}}
+
+\usepackage{changepage}  % vor den Definitionen einbinden
+
+%% Environment für Einrückung / Margin
+\newenvironment{addmargin}[1]{%
+  \begin{adjustwidth}{#1}{0pt}%
+}{%
+  \end{adjustwidth}%
+}
+
+%% Command for Use Cases
+\newcommand{\usecase}[6]{%
+    \subsubsection*{#1}
+    \label{#2}
+    \begin{addmargin}{0.75em}
+
+    \textbf{Kurzbeschreibung:}\\
+    #3
+
+    \textbf{Vorbedingungen:}\\
+    #4
+
+    \ifx&#5&  % Prüft, ob #5 leer ist
+    \else
+    \textbf{Ablauf:}
+        \begin{enumerate}
+            #5
+        \end{enumerate}
+    \fi
+
+    \textbf{Nachbedingungen:}\\
+    #6
+
+    \end{addmargin}
+}
+
+%% Helper: Fehlerliste mit Items
+\newcommand{\fehler}[1]{%
+    \begin{itemize}
+        #1
+    \end{itemize}
+}
+
+
 \title{Software Engineering \\ 
 \large Prüfungsleistung: Projekt \\
 \small Version: 1.0}
@@ -130,36 +183,315 @@ Eine Variante verwaltet die konkrete Aufgabenstellung mit eine möglichen Muster
 \end{tabular}
 
 \pagebreak
+\section{Benutzeroberfläche}
+
+%% Darstellung und Beschreibung der einzelnen Komponenten der Benutzeroberfläche
+
+
+\pagebreak
 \section{Anwenderfälle}
 
 \subsection{Aktoren}
 
-Dozenten oder anderes Lehrende Personal von primär Hochschulen und Universitäten. 
+Die primären Akteure der Software sind Dozierende oder anderes lehrendes Personal,
+welches Aufgabenpools verwalten und daraus Klausuren generieren möchte.
+Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 
-Diese Person sollte minimales Technisches und Computerkenntnisse haben, um die Software vollständig bedienen zu können.
+\begin{multicols}{2}
+\raggedcolumns
 
-\subsection{Übersicht}
+\subsection{Übersicht der Anwenderfälle}
 
 \begin{tabular}{ll}
-    Dateiverwaltung &  XML-Dateien anlegen, speichern und laden\\
-    Aufgabenverwaltung &  Task und Subtasks erzeugen, bearbeiten und löschen\\
-    Variantenverwaltung &  Varianten erzeugen, bearbeiten und löschen\\
-    Exam-Erstellung &  Eine Klausur konfigurieren und exportieren\\
+    UC-01 & \hyperref[uc:01]{XML-Datei neu anlegen} \\
+    UC-02 & \hyperref[uc:02]{XML-Datei laden} \\
+    UC-03 & \hyperref[uc:03]{XML-Datei speichern / Speichern unter} \\
+    UC-04 & \hyperref[uc:04]{Kapitel anlegen} \\
+    UC-05 & \hyperref[uc:05]{Kapitel bearbeiten} \\
+    UC-06 & \hyperref[uc:06]{Kapitel löschen} \\
+    UC-07 & \hyperref[uc:07]{Teilaufgabe anlegen} \\
+    UC-08 & \hyperref[uc:08]{Teilaufgabe bearbeiten} \\
+    UC-09 & \hyperref[uc:09]{Teilaufgabe löschen} \\
+    UC-10 & \hyperref[uc:10]{Variante anlegen} \\
+    UC-11 & \hyperref[uc:11]{Variante bearbeiten} \\
+    UC-12 & \hyperref[uc:12]{Variante löschen} \\
+    UC-13 & \hyperref[uc:13]{Klausurkonfiguration öffnen} \\
+    UC-14 & \hyperref[uc:14]{Klausur generieren (PDF)} \\
+    UC-15 & \hyperref[uc:15]{Musterlösung generieren (PDF)} \\
+    UC-16 & \hyperref[uc:16]{Probeklausur generieren} \\
+    UC-17 & \hyperref[uc:17]{PDF-Vorschau anzeigen} \\
+    UC-18 & \hyperref[uc:18]{Sprache ändern} \\
 \end{tabular}
 
-%% Die Verschiedene Anwenderfälle (Use-Cases)
+\subsection{Anwenderfälle im Detail}
 
-\subsection{Dateiverwaltung}
+% -------------------------------
+% UC-01
+\usecase
+{UC-01: XML-Datei neu anlegen}
+{uc:01}
+{Der Nutzer erstellt einen neuen, leeren Aufgabenpool.}
+{Keine XML-Datei muss geladen sein.}
+{
+    \item Nutzer klickt auf "New Exam".
+    \item genExam erzeugt eine interne Standardstruktur.
+}
+{Eine neue, leere Exam-Struktur ist im Speicher.}
+\textbf{Fehlerbetrachtung:} Nicht relevant (Operation kann nicht fehlschlagen).
 
-\subsection{Aufgabenverwaltung}
+\columnbreak
+% -------------------------------
+% UC-02
+\usecase
+{UC-02: XML-Datei laden}
+{uc:02}
+{Eine bestehende XML-Datei wird geladen.}
+{Datei muss existieren und korrektes Format besitzen.}
+{
+    \item Nutzer wählt mittels Dateidialog eine XML-Datei.
+    \item System lädt und validiert die Struktur.
+}
+{Der Aufgabenpool ist vollständig sichtbar.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Datei korrupt → Fehlermeldung, Abbruch.
+    \item Datei hat falsche Struktur → Fehlermeldung, Abbruch.
+}
 
-\subsection{Variantenverwaltung}
+% -------------------------------
+% UC-03
+\usecase
+{UC-03: XML-Datei speichern / Speichern unter}
+{uc:03}
+{Der aktuelle Aufgabenpool wird gespeichert.}
+{Ein gültiger Aufgabenpool wurde geladen oder erstellt.}
+{
+    \item Nutzer wählt "Save" oder "Save as".
+    \item System schreibt XML-Datei.
+}
+{Alle Daten sind persistent gespeichert.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Schreibfehler (z. B. fehlende Rechte) → Meldung.
+}
 
-\subsection{Exam-Erstellung}
+\columnbreak
+% -------------------------------
+% UC-04
+\usecase
+{UC-04: Kapitel anlegen}
+{uc:04}
+{Ein neues Kapitel wird zum Aufgabenpool hinzugefügt.}
+{Ein Aufgabenpool ist geladen oder neu erstellt.}
+{
+    \item Nutzer klickt auf "Add Chapter".
+    \item Kapitel wird mit Standardname angelegt.
+}
+{Ein neues Kapitel existiert im XML-Modell.}
+\textbf{Fehlerbetrachtung:} Keine - trivialer Vorgang.
 
-\pagebreak
-\section{Benutzeroberfläche}
+% -------------------------------
+% UC-05
+\usecase
+{UC-05: Kapitel bearbeiten}
+{uc:05}
+{Kapitelname oder Metadaten werden geändert.}
+{Kapitel existiert.}
+{
+    \item Nutzer wählt Kapitel aus.
+    \item Nutzer ändert Namen oder Kürzel.
+}
+{Kapitel wurde aktualisiert.}
+\textbf{Fehlerbetrachtung:} Ungültiger Name → Hinweis, Änderung wird nicht übernommen.
 
-%% Darstellung und Beschreibung der einzelnen Komponenten der Benutzeroberfläche
+% -------------------------------
+% UC-06
+\usecase
+{UC-06: Kapitel löschen}
+{uc:06}
+{Ein Kapitel inklusive aller Unterelemente wird gelöscht.}
+{Kapitel existiert.}
+{
+    \item Nutzer klickt auf "Delete".
+    \item Sicherheitsabfrage erscheint.
+}
+{Kapitel ist unwiderruflich entfernt.}
+\textbf{Fehlerbetrachtung:} Keine - außer Nutzer bricht ab.
+
+\columnbreak
+% -------------------------------
+% UC-07
+\usecase
+{UC-07: Teilaufgabe anlegen}
+{uc:07}
+{Innerhalb eines Kapitels wird ein Subtask erstellt.}
+{Mindestens ein Kapitel existiert.}
+{
+    \item Nutzer wählt Kapitel.
+    \item Nutzer klickt "Add Subtask".
+}
+{Neuer Subtask mit Standardvariant existiert.}
+\textbf{Fehlerbetrachtung:} Keine.
+
+% -------------------------------
+% UC-08
+\usecase
+{UC-08: Teilaufgabe bearbeiten}
+{uc:08}
+{Ein Subtask wird editiert.}
+{Subtask existiert.}
+{
+    \item Nutzer öffnet Subtask.
+    \item Nutzer ändert Punktzahl, Difficulty, Scope.
+}
+{Alle Änderungen sind übernommen.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Punktzahl nicht im erlaubten Bereich.
+    \item Difficulty fehlt.
+    \item Scope ungültig.
+}
+
+% -------------------------------
+% UC-09
+\usecase
+{UC-09: Teilaufgabe löschen}
+{uc:09}
+{Ein Subtask wird gelöscht.}
+{Subtask existiert.}
+{}
+{Subtask ist unwiderruflich geloescht.}
+\textbf{Fehlerbetrachtung:} Keine.
+
+\columnbreak
+% -------------------------------
+% UC-10
+\usecase
+{UC-10: Variante anlegen}
+{uc:10}
+{Eine neue Variante wird einem Subtask hinzugefügt.}
+{Subtask existiert.}
+{
+    \item Nutzer klickt "Add Variant".
+}
+{Variante existiert mit Standardwerten.}
+\textbf{Fehlerbetrachtung:} Keine.
+
+% -------------------------------
+% UC-11
+\usecase
+{UC-11: Variante bearbeiten}
+{uc:11}
+{Frage- oder Antworttext einer Variante wird geändert.}
+{Variante existiert.}
+{
+    \item Nutzer öffnet Variante.
+    \item Nutzer bearbeitet Texte.
+}
+{Änderungen sind gespeichert.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Leere Frage → Fehlermeldung.
+}
+
+% -------------------------------
+% UC-12
+\usecase
+{UC-12: Variante löschen}
+{uc:12}
+{Eine Variante wird gelöscht.}
+{Variante existiert.}
+{}
+{Variante gelöscht. Falls letzte Variante gelöscht → Subtask wird ebenfalls gelöscht.}
+\textbf{Fehlerbetrachtung:} Keine.
+
+% -------------------------------
+% UC-13
+\usecase
+{UC-13: Klausurkonfiguration öffnen}
+{uc:13}
+{Der Nutzer öffnet das Menü zur Generierung einer Klausur.}
+{Mindestens ein Kapitel mit gültigen Subtasks existiert.}
+{}
+{Konfigurationsdialog sichtbar.}
+\textbf{Fehlerbetrachtung:} Keine generierbaren Kapitel → Hinweis.
+
+% -------------------------------
+% UC-14
+\usecase
+{UC-14: Klausur generieren (PDF)}
+{uc:14}
+{System erstellt eine PDF-Klausur ohne Musterlösung.}
+{\begin{itemize}
+    \item Klausur ist gültig (Difficulty 33\%-Regel).
+    \item Ausgabeort vom Nutzer gewählt.
+\end{itemize}}
+{}
+{PDF-Datei existiert.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Zielpunktzahl nicht möglich.
+    \item Keine gültigen Aufgaben pro Kapitel.
+}
+
+% -------------------------------
+% UC-15
+\usecase
+{UC-15: Musterlösung generieren}
+{uc:15}
+{Erzeugt eine PDF-Datei mit eingebetteten Musterlösungen.}
+{Mindestens eine Variante hat eine Antwort.}
+{}
+{"exam.lsg.pdf" existiert.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Keine Lösungen vorhanden → Warnung.
+}
+
+% -------------------------------
+% UC-16
+\usecase
+{UC-16: Probeklausur generieren}
+{uc:16}
+{Erzeugt eine rein aus Mock-Subtasks bestehende Klausur.}
+{Mindestens ein Subtask ist als "mock-exam" markiert.}
+{}
+{Mock-Klausur-PDF existiert.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Keine Mock-Aufgaben vorhanden → Fehlermeldung.
+}
+
+\columnbreak
+% -------------------------------
+% UC-17
+\usecase
+{UC-17: PDF-Vorschau anzeigen}
+{uc:17}
+{Vor dem Export wird eine Vorschau gerendert.}
+{PDF muss generierbar sein.}
+{}
+{}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Fehlende PDF-Engine → Meldung.
+}
+
+\columnbreak
+% -------------------------------
+% UC-18
+\usecase
+{UC-18: Sprache ändern}
+{uc:18}
+{Die Benutzeroberfläche kann auf eine alternative Sprache umgestellt werden.}
+{Alternative Sprache installiert.}
+{}
+{UI lädt neue Übersetzungen.}
+\textbf{Fehlerbetrachtung:}
+\fehler{
+    \item Fehlende Übersetzung → Fallback zu Englisch.
+}
+
+\end{multicols}
 
 \end{document}
