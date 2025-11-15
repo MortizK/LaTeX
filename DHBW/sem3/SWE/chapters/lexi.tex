@@ -1,0 +1,47 @@
+
+\section{Begriffslexikon}
+
+\subsection{Klausur (Exam)}
+
+Wenn keine XML-Datei geladen ist startet die Software mit eine Beispiel Struktur, welche von dem Nutzer zur Erstellung der ersten oder weiteren XML-Dateien verwendet werden kann.
+
+\begin{tabular}{ll}
+    Name: & New Exam
+\end{tabular}
+
+Diese enthält zum Start noch keine Kapitel/ Aufgaben.
+
+\subsection{Kapitel/ Aufgabe (Task)}
+
+Ein Kapitel/ Aufgabe ist die übergeordnete Struktur um Teilaufgabe einem Thema zuzuordnen. Der Vergebene Name wird bei der Erstellung der PDF-Datei als Titel der Aufgabe verwendet.
+
+\begin{tabular}{ll}
+    Name: & New Chapter
+\end{tabular}
+
+\subsection{Teilaufgabe (Subtask)}
+
+Eine Teilaufgabe ist eine Konkrete Aufgabenarchitektur und kann mehrere Varianten haben. 
+
+Die Teilaufgabe verwaltet zudem die zu erreichende Maximalpunktzahl, den Schwierigkeitsgrad und die Sichtbarkeit.
+
+Der Schwierigkeitsgrad kann folgende Werte annehmen: "easy", "medium", "hard".
+
+Die Sichtbarkeit kann folgende Werte annehmen: "exam", "mock-exam".
+
+\begin{tabular}{ll}
+    Name: & New Subtask\\
+    Punktzahl: & 5\\
+    Schwierigkeitsgrad: & "easy"\\
+    Sichtbarkeit: & "exam"\\
+    Variante: & Startet mit einer Variante (Siehe Variante)
+\end{tabular}
+
+\subsection{Variante (Variant)}
+
+Eine Variante verwaltet die konkrete Aufgabenstellung mit eine möglichen Musterlösung. Diese werden direkt für das erstellen der PDF-Datei verwendet.
+
+\begin{tabular}{ll}
+    Frage: New Question\\
+    Answer: New Answer
+\end{tabular}

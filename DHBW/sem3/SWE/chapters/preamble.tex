@@ -1,0 +1,52 @@
+
+%% For Margins
+\usepackage[margin=2.5cm]{geometry}
+
+%% For Page Numbers
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{} % clear all header/footer fields
+\fancyfoot[C]{Page \thepage{} of \pageref{LastPage}}
+
+\usepackage{changepage}  % vor den Definitionen einbinden
+
+%% Environment für Einrückung / Margin
+\newenvironment{addmargin}[1]{%
+  \begin{adjustwidth}{#1}{0pt}%
+}{%
+  \end{adjustwidth}%
+}
+
+%% Command for Use Cases
+\newcommand{\usecase}[6]{%
+    \subsubsection*{#1}
+    \label{#2}
+    \begin{addmargin}{0.75em}
+
+    \textbf{Kurzbeschreibung:}\\
+    #3
+
+    \textbf{Vorbedingungen:}\\
+    #4
+
+    \ifx&#5&  % Prüft, ob #5 leer ist
+    \else
+    \textbf{Ablauf:}
+        \begin{enumerate}
+            #5
+        \end{enumerate}
+    \fi
+
+    \textbf{Nachbedingungen:}\\
+    #6
+
+    \end{addmargin}
+}
+
+%% Helper: Fehlerliste mit Items
+\newcommand{\fehler}[1]{%
+    \begin{itemize}
+        #1
+    \end{itemize}
+}
