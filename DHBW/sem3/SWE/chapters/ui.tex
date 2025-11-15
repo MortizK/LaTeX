@@ -1,3 +1,119 @@
 \section{Benutzeroberfläche}
 
-%% Darstellung und Beschreibung der einzelnen Komponenten der Benutzeroberfläche
+\subsection{Allgemeines UI-Konzept}
+
+Die Benutzeroberfläche von \textbf{genExam} ist in zwei Haupt-Tabs gegliedert:
+
+\begin{itemize}
+    \item \textbf{XML-Tab:} Verwaltung der Exam-Struktur.
+    \item \textbf{PDF-Tab:} PDF-Konfiguration und Vorschau.
+\end{itemize}
+
+\textbf{XML-Tab:} Wird als \textbf{Split-Design} umgesetzt:
+
+\begin{itemize}
+    \item Links: TreeView mit Exam-Struktur (Exam $>$ Task $>$ Subtask)
+    \item Rechts: Detail-Pane für das ausgewählte Objekt
+\end{itemize}
+
+% \includegraphics[width=0.7\textwidth]{split_design_overview.png} % Übersicht des XML-Tab Split-Designs
+
+\subsection{Detailansichten für ausgewählte Objekte}
+
+\subsubsection{Exam (Aufgabenpool) ausgewählt}
+
+\begin{itemize}
+    \item Breadcrumb-Leiste zeigt Position im Exam-Hierarchiebaum
+    % \includegraphics[width=0.6\textwidth]{breadcrumb_exam.png}
+    \item Attribute-Form für Exam-Eigenschaften (Name)
+    % \includegraphics[width=0.6\textwidth]{exam_attributes.png}
+    \item ChildObjectTable zeigt alle Tasks
+    % \includegraphics[width=0.7\textwidth]{task_table.png}
+    \item Buttons: \textit{Create New Task}, \textit{Edit Exam}, \textit{Delete Exam}
+    \item PopUps:
+    \begin{itemize}
+        \item ExamEditDialog
+        % \includegraphics[width=0.5\textwidth]{exam_edit_popup.png}
+        \item ExamDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{exam_delete_popup.png}
+        \item TaskCreateDialog
+        % \includegraphics[width=0.5\textwidth]{task_create_popup.png}
+        \item TaskEditDialog
+        % \includegraphics[width=0.5\textwidth]{task_edit_popup.png}
+        \item TaskDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{task_delete_popup.png}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Task ausgewählt}
+
+\begin{itemize}
+    \item Breadcrumb-Leiste aktualisiert sich
+    \item Attribute-Form für Task-Eigenschaften (Name)
+    \item ChildObjectTable zeigt alle Subtasks
+    \item Buttons: \textit{Create New Subtask}, \textit{Edit Task}, \textit{Delete Task}
+    \item PopUps:
+    \begin{itemize}
+        \item TaskEditDialog
+        % \includegraphics[width=0.5\textwidth]{task_edit_popup.png}
+        \item TaskDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{task_delete_popup.png}
+        \item SubtaskCreateDialog
+        % \includegraphics[width=0.5\textwidth]{subtask_create_popup.png}
+        \item SubtaskEditDialog
+        % \includegraphics[width=0.5\textwidth]{subtask_edit_popup.png}
+        \item SubtaskDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{subtask_delete_popup.png}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Subtask ausgewählt}
+
+\begin{itemize}
+    \item Breadcrumb-Leiste aktualisiert sich
+    \item Attribute-Form für Subtask-Eigenschaften (Name, Punkte, Difficulty, Sichtbarkeit)
+    \item ChildObjectTable zeigt alle Varianten
+    % \includegraphics[width=0.7\textwidth]{variant_table.png}
+    \item Buttons: \textit{Create New Variant}, \textit{Edit Subtask}, \textit{Delete Subtask}
+    \item PopUps:
+    \begin{itemize}
+        \item SubtaskEditDialog
+        % \includegraphics[width=0.5\textwidth]{subtask_edit_popup.png}
+        \item SubtaskDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{subtask_delete_popup.png}
+        \item VariantCreateDialog
+        % \includegraphics[width=0.5\textwidth]{variant_create_popup.png}
+        \item VariantEditDialog
+        % \includegraphics[width=0.5\textwidth]{variant_edit_popup.png}
+        \item VariantDeleteConfirmation
+        % \includegraphics[width=0.5\textwidth]{variant_delete_popup.png}
+    \end{itemize}
+\end{itemize}
+
+\subsection{PDF-Tab}
+
+\begin{itemize}
+    \item PDF-Konfiguration: Auswahl der Kapitel, Ausgabeoptionen, Zielpunktzahl, Difficulty-Regeln
+    % \includegraphics[width=0.6\textwidth]{pdf_config.png}
+    \item PDF-Vorschau: Darstellung der generierten PDF-Datei
+    % \includegraphics[width=0.7\textwidth]{pdf_preview.png}
+    \item Buttons: Generate PDF, Generate Solution PDF, Generate Mock Exam
+\end{itemize}
+
+\subsection{Komponentenübersicht}
+
+\begin{itemize}
+    \item \textbf{TreeView-Komponente:} ExamTreeView + TreeNodeContextMenu
+    \item \textbf{Detail-Pane-Komponenten:} BreadcrumbBar, AttributeForm, ChildObjectTable, CreateChildButton
+    \item \textbf{PopUps:} EditDialog, DeleteConfirmationDialog für jede Ebene
+    \item \textbf{PDF-Komponenten:} PDFConfigPane, PDFPreviewPane, PDFActionButtons
+\end{itemize}
+
+\subsection{Interaktionen / Beziehungen}
+
+\begin{itemize}
+    \item TreeView-Auswahl \(\rightarrow\) Detail-Pane aktualisiert
+    \item Buttons in Detail-Pane \(\rightarrow\) öffnen entsprechende PopUps
+    \item PopUps \(\rightarrow\) Änderungen am Model
+    \item PDF-Tab Aktionen \(\rightarrow\) Generierung oder Vorschau der PDF
+\end{itemize}
