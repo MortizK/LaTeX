@@ -39,7 +39,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-01: XML-Datei neu anlegen}
 {uc:01}
-{Der Nutzer erstellt einen neuen, leeren Aufgabenpool.}
+{Der Nutzer erstellt einen neuen, leeren Aufgabenpool (Exam).}
 {Keine XML-Datei muss geladen sein.}
 {
     \item Nutzer klickt auf "New Exam".
@@ -54,7 +54,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-02: XML-Datei laden}
 {uc:02}
-{Eine bestehende XML-Datei wird geladen.}
+{Eine bestehende XML-Datei (Exam) wird geladen.}
 {Datei muss existieren und korrektes Format besitzen.}
 {
     \item Nutzer wählt mittels Dateidialog eine XML-Datei.
@@ -72,7 +72,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-03: XML-Datei speichern / Speichern unter}
 {uc:03}
-{Der aktuelle Aufgabenpool wird gespeichert.}
+{Der aktuelle Aufgabenpool (Exam) wird gespeichert.}
 {Ein gültiger Aufgabenpool wurde geladen oder erstellt.}
 {
     \item Nutzer wählt "Save" oder "Save as".
@@ -81,7 +81,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {Alle Daten sind persistent gespeichert.}
 \textbf{Fehlerbetrachtung:}
 \fehler{
-    \item Schreibfehler (z. B. fehlende Rechte) → Meldung.
+    \item Schreibfehler (z.B. fehlende Rechte) → Meldung.
 }
 
 \columnbreak
@@ -90,7 +90,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-04: Kapitel anlegen}
 {uc:04}
-{Ein neues Kapitel wird zum Aufgabenpool hinzugefügt.}
+{Ein neues Kapitel (Chapter / Task) wird zum Aufgabenpool hinzugefügt.}
 {Ein Aufgabenpool ist geladen oder neu erstellt.}
 {
     \item Nutzer klickt auf "Add Chapter".
@@ -104,7 +104,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-05: Kapitel bearbeiten}
 {uc:05}
-{Kapitelname oder Metadaten werden geändert.}
+{Kapitelname oder Metadaten eines Chapters / Tasks werden geändert.}
 {Kapitel existiert.}
 {
     \item Nutzer wählt Kapitel aus.
@@ -118,7 +118,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-06: Kapitel löschen}
 {uc:06}
-{Ein Kapitel inklusive aller Unterelemente wird gelöscht.}
+{Ein Kapitel (Chapter / Task) inklusive aller Unterelemente wird gelöscht.}
 {Kapitel existiert.}
 {
     \item Nutzer klickt auf "Delete".
@@ -151,14 +151,14 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {Subtask existiert.}
 {
     \item Nutzer öffnet Subtask.
-    \item Nutzer ändert Punktzahl, Difficulty, Scope.
+    \item Nutzer ändert Punktzahl, Schwierigkeitsgrad, Sichtbarkeit.
 }
 {Alle Änderungen sind übernommen.}
 \textbf{Fehlerbetrachtung:}
 \fehler{
     \item Punktzahl nicht im erlaubten Bereich.
-    \item Difficulty fehlt.
-    \item Scope ungültig.
+    \item Schwierigkeitsgrad fehlt.
+    \item Sichtbarkeit ungültig.
 }
 
 % -------------------------------
@@ -169,7 +169,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {Ein Subtask wird gelöscht.}
 {Subtask existiert.}
 {}
-{Subtask ist unwiderruflich geloescht.}
+{Subtask ist unwiderruflich gelöscht.}
 \textbf{Fehlerbetrachtung:} Keine.
 
 \columnbreak
@@ -220,7 +220,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-13: Klausurkonfiguration öffnen}
 {uc:13}
-{Der Nutzer öffnet das Menü zur Generierung einer Klausur.}
+{Der Nutzer öffnet das Menü zur Generierung einer Klausur (Exam).}
 {Mindestens ein Kapitel mit gültigen Subtasks existiert.}
 {}
 {Konfigurationsdialog sichtbar.}
@@ -231,7 +231,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-14: Klausur generieren (PDF)}
 {uc:14}
-{System erstellt eine PDF-Klausur ohne Musterlösung.}
+{System erstellt eine PDF-Klausur ohne Musterlösung aus dem Aufgabenpool (Exam).}
 {\begin{itemize}
     \item Klausur ist gültig (Difficulty 33\%-Regel).
     \item Ausgabeort vom Nutzer gewählt.
@@ -249,7 +249,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-15: Musterlösung generieren}
 {uc:15}
-{Erzeugt eine PDF-Datei mit eingebetteten Musterlösungen.}
+{Erzeugt eine PDF-Datei mit eingebetteten Musterlösungen der Subtasks/Variants.}
 {Mindestens eine Variante hat eine Antwort.}
 {}
 {"exam.lsg.pdf" existiert.}
@@ -278,7 +278,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-17: PDF-Vorschau anzeigen}
 {uc:17}
-{Vor dem Export wird eine Vorschau gerendert.}
+{Vor dem Export wird eine Vorschau der generierbaren Klausur (Exam) gerendert.}
 {PDF muss generierbar sein.}
 {}
 {}

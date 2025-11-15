@@ -10,6 +10,8 @@ Wenn keine XML-Datei geladen ist, startet die Software mit einer Beispielstruktu
 
 Diese enthält zum Start noch keine Kapitel/Aufgaben.
 
+%% Das Aufgabenpool ist das Exam. Muss also raus und in Exam eingesetzt werden
+
 \subsection{Aufgabenpool (Exam Pool)}
 
 Ein Aufgabenpool ist die Gesamtheit aller Kapitel, Teilaufgaben und Varianten in einer XML-Datei.  
@@ -81,10 +83,13 @@ Die Ausgabe der Klausur erfolgt als PDF.
 \begin{itemize}
     \item Klausur ohne Lösungen
     \item Musterlösung
-    \item Probeklausur (Mock-Exam)
+    \item Probeklausur (Mock-Exam) ohne Lösungen
+    \item Probeklausur (Mock-Exam) mit Lösungen
 \end{itemize}
 
 \subsection{Validierung}
+
+%% Wieder aufgabenpool. Siehe oben
 
 Prüft die Konsistenz des Aufgabenpools:
 
@@ -99,6 +104,7 @@ Prüft die Konsistenz des Aufgabenpools:
 Für neu angelegte Elemente existieren Defaultwerte:
 
 \begin{itemize}
+    \item Klausurname: "New Exam"
     \item Kapitelname: "New Chapter"
     \item Subtask Name: "New Subtask"
     \item Punkte: 5
@@ -107,7 +113,7 @@ Für neu angelegte Elemente existieren Defaultwerte:
     \item Variante Frage/Antwort: "New Question" / "New Answer"
 \end{itemize}
 
-\subsection{Strukturdiagramm (optional)}
+\subsection{Strukturdiagramm}
 
 \begin{verbatim}
 Exam (XML)

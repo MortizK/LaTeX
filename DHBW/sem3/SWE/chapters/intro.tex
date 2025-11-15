@@ -1,68 +1,104 @@
 \section{Einleitung}
 
-\subsection{Zweck des Dokumentes}
+\subsection{Zweck des Dokuments}
 
-Diese Spezifikation beschreibt die Software \textbf{genExam}. Diese Software ist ein Werkzeug zur Erstellung von Aufgabenpools und automatische Generierung von Klausuren.
+Dieses Dokument beschreibt die Software \textbf{genExam}, ein Werkzeug zur Verwaltung von Aufgabenpools und zur automatisierten Generierung von Klausuren. 
 
-Das Dokument richtet sich an: 
+Es richtet sich an folgende Zielgruppen:
 
 \begin{itemize}
-    \item Entwickler, die für die technische Umsetzung und Erweiterung verantwortlich sind.
-    \item Tester, die anhand der Spezifikation das Korrekte Verhalten der Software ableiten können.
-    \item Lehrende, die die Funktionsweise der Software nachvollziehen möchten.
+    \item \textbf{Entwickler:} Verantwortlich für Implementierung, Wartung und Erweiterung der Software.
+    \item \textbf{Tester:} Leiten das korrekte Verhalten der Software anhand der Spezifikation ab.
+    \item \textbf{Lehrende:} Möchten die Funktionsweise nachvollziehen und Aufgabenpools erstellen.
 \end{itemize}
+
+Darüber hinaus soll das Dokument die Benutzung, Architektur und nicht-funktionale Anforderungen der Software klar und nachvollziehbar darstellen.
 
 \subsection{Überblick über das System}
 
-\textbf{genExam} ist eine JavaFx-Applikation zur Verwaltung von Aufgabenpools, aus denen Klausuren generiert werden können.
+\textbf{genExam} ist eine JavaFX-basierte Desktop-Anwendung zur Verwaltung von Aufgabenpools, aus denen automatisch Klausuren generiert werden können.  
 
-Das Aufgabenpool soll als \textbf{XML-Datei} gespeichert werden und besteht aus mehreren Aufgaben, welche als Kapitel der Klausur dienen. Jedes Kapitel kann in mehrere Teilaufgabe gegliedert werden, welche wiederrum aus mehreren Varianten bestehen können.
-
-Aus dieser Struktur soll ein PDF generiert werden, welche random aus eine Auswahl an Kapitel eine Klausur als \textbf{PDF-Datei} exportiert.
-
-Hauptmerkmale der Software:
+Die Aufgabenpools werden in \textbf{XML-Dateien} gespeichert und bestehen aus folgenden hierarchischen Elementen:
 
 \begin{itemize}
-    \item Import und Export des Aufgabenpools als XML-Datei.
-    \item Verwaltung der Aufgaben (Tasks).
-    \item Verwaltung der Teilaufgaben (Subtasks) mit Punktzahl, Schwierigkeitsgrad und Sichtbarkeitsstufen.
-    \item Verwaltung von Varianten mit unterschiedlichen Lösungen.
-    \item Automatische Klausurgenerierung mit und ohne Musterlösung.
+    \item \textbf{Kapitel / Tasks}: Oberkategorien für Aufgaben.
+    \item \textbf{Teilaufgaben / Subtasks}: Konkrete Aufgaben mit Punktzahl, Schwierigkeitsgrad und Sichtbarkeit.
+    \item \textbf{Varianten / Variants}: Unterschiedliche Ausprägungen einer Teilaufgabe inklusive Musterlösung.
 \end{itemize}
 
-Die Software Arbeitet Lokal ohne eine Netzwerkverbindung, wodurch die Verwaltung der XML-Dateien und PDF-Dateien in der Verantwortung des Nutzer liegt.
+Beim Laden der XML-Dateien prüft das System die Struktur und Inhalte, um fehlerhafte Daten zu erkennen. Eine PDF-Generierung kann erst nach dieser Validierung und durch einen separaten Nutzerbefehl ausgelöst werden, wodurch sichergestellt wird, dass nur gültige Aufgaben exportiert werden.
+
+\begin{itemize}
+    \item Klausur ohne Musterlösung
+    \item Klausur mit eingebetteten Musterlösungen
+    \item Probeklausuren (nur "mock-exam"-Subtasks)
+\end{itemize}
+
+Das System validiert beim Laden der XML-Dateien die Struktur und Inhalte, um fehlerhafte Daten zu erkennen und die PDF-Generierung zu verhindern, falls ungültige Elemente vorhanden sind.
+
+\subsection{Hauptmerkmale}
+
+\begin{itemize}
+    \item Import und Export von Aufgabenpools als XML-Dateien
+    \item Verwaltung von Kapiteln (Tasks) und Teilaufgaben (Subtasks)
+    \item Verwaltung von Varianten mit unterschiedlichen Aufgabenstellungen und Lösungen
+    \item Automatische PDF-Generierung mit oder ohne Musterlösung
+    \item Unterstützung von Probeklausuren mit spezifisch gekennzeichneten Subtasks
+    \item Mehrsprachige Benutzeroberfläche
+\end{itemize}
 
 \subsection{Systemumgebung}
 
-\textbf{genExam} ist eine JavaFx-basierte Desktop Anwendung und somit auf mehreren System lauffähig:
+\textbf{genExam} ist plattformübergreifend lauffähig auf:
 
 \begin{itemize}
     \item Windows 11 oder neuer
-    \item macOS Montery oder neuer
-    \item Linux-Distribution mit installiertem OpenJDK 17+
+    \item macOS Monterey oder neuer
+    \item Linux-Distributionen mit installiertem OpenJDK 17+
 \end{itemize}
 
-Die Software wird als JAR-Paket veröffentlicht und kann nach dem Entpacken durch Doppelklick oder über die Konsole ausgeführt werden.
+Die Software wird als ausführbares JAR-Paket verteilt und kann durch Doppelklick oder über die Konsole gestartet werden. Es sind Schreibrechte für XML- und PDF-Dateien erforderlich.
 
-\subsection{Nicht-Funktionale Anforderungen}
+\subsection{Nicht-funktionale Anforderungen}
 
 \subsubsection{Leistungsanforderungen}
 
-Die Anzahl der gespeicherten Aufgaben ist nur durch den verfügbaren Systemspeicher begrenzt.
-
-Die Benutzeroberfläche reagiert innerhalb von 500ms nach Benutzereingaben.
-
-Das Laden einer typische XML-Datei (< 1Mb, ~500 Teilaufgaben) darf maximal 2s dauern.
-
-Das generieren einer PDF-Datei erfolgt in weniger als 5s.
+\begin{itemize}
+    \item Die Benutzeroberfläche reagiert innerhalb von 500\,ms auf Eingaben.
+    \item Laden einer typischen XML-Datei ($<$1\,MB, ~500 Subtasks) dauert maximal 2\,s.
+    \item Generierung einer PDF-Datei erfolgt in weniger als 5\,s.
+    \item Skalierbarkeit: Aufgabenpools mit mehreren tausend Subtasks sollten ohne Absturz verarbeitet werden können.
+\end{itemize}
 
 \subsubsection{Wartbarkeit}
 
-Alle Module folgen der MVC-Architektur (Model - View - Controller)
+\begin{itemize}
+    \item Die Software folgt der MVC-Architektur (Model-View-Controller).
+    \item Öffentliche Klassen und Algorithmen sind mit JavaDoc dokumentiert.
+    \item Erweiterungen oder Optimierungen der Software können modular umgesetzt werden.
+    \item Automatisierte Tests (Unit-Tests) unterstützen die Stabilität bei Änderungen.
+\end{itemize}
 
-Es gibt für die öffentlichen Klassen und den genutzten Algorithmen eine Dokumentation mit JavaDoc.
+\subsubsection{Benutzerfreundlichkeit}
 
-Durch diese Schritte ist die Erweiterung der Software durch Funktionalität oder Optimierung der vorhanden Funktionalitäten einfacher möglich.
+\begin{itemize}
+    \item Intuitive Benutzeroberfläche mit Menüs, Dialogen und Übersichtslisten.
+    \item Mehrsprachigkeit: UI kann auf alternative Sprachen umgestellt werden.
+\end{itemize}
 
-%% \section{Mengengerüst}
-%% Habe ich schon unter Leistungsanforderungen beschrieben
+\subsubsection{Sicherheit und Datenintegrität}
+
+\begin{itemize}
+    \item Lokale Speicherung: Alle XML- und PDF-Dateien werden auf dem Rechner des Nutzers verwaltet.
+    \item Validierung der XML-Dateien beim Laden, um fehlerhafte Strukturen zu verhindern.
+    \item Schreibrechte für Speicherverzeichnisse müssen vorhanden sein.
+    \item Keine Netzwerkverbindung erforderlich, wodurch externe Sicherheitsrisiken minimiert werden.
+\end{itemize}
+
+\subsubsection{Abhängigkeiten}
+
+\begin{itemize}
+    \item Java 17 oder höher
+    \item JavaFX für die Benutzeroberfläche
+    \item Externe Bibliotheken für PDF-Erzeugung und XML-Verarbeitung
+\end{itemize}
