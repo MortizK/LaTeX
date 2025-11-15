@@ -6,6 +6,59 @@ Die primären Akteure der Software sind Dozierende oder anderes lehrendes Person
 welches Aufgabenpools verwalten und daraus Klausuren generieren möchte.
 Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 
+\begin{center}
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1cm and 1cm]
+
+% --------------------
+% Actor: Dozent in der Mitte
+\node[actor] (Dozent) at (0,0) {Dozierender};
+
+% --------------------
+% Obere Reihe: Dateiverwaltung, System-Utilities, Klausur-Generierung
+\node[usecase, above=5cm of Dozent, xshift=-7cm] (UC01) {UC-01:\\XML-Datei neu anlegen};
+\node[usecase, below=0.5cm of UC01] (UC02) {UC-02:\\XML-Datei laden};
+\node[usecase, below=0.5cm of UC02] (UC03) {UC-03:\\XML-Datei speichern / Speichern unter};
+\node[package, fit=(UC01)(UC02)(UC03), label=above:Dateiverwaltung] (PkgDV) {};
+
+\node[usecase, above=5cm of Dozent, xshift=0cm] (UC18) {UC-18:\\Sprache ändern};
+\node[package, fit=(UC18), label=above:System-Utilities] (PkgSys) {};
+
+\node[usecase, above=5cm of Dozent, xshift=6cm] (UC13) {UC-13:\\Klausurkonfiguration öffnen};
+\node[usecase, below=0.5cm of UC13] (UC14) {UC-14:\\Klausur generieren (PDF)};
+\node[usecase, below=0.5cm of UC14] (UC15) {UC-15:\\Musterlösung generieren (PDF)};
+\node[usecase, below=0.5cm of UC15] (UC16) {UC-16:\\Probeklausur generieren};
+\node[usecase, below=0.5cm of UC16] (UC17) {UC-17:\\PDF-Vorschau anzeigen};
+\node[package, fit=(UC13)(UC17), label=above:Klausur-Generierung] (PkgExam) {};
+
+% --------------------
+% Untere Reihe: Kapitel-Management, Teilaufgaben-Management, Varianten-Management
+\node[usecase, below=5cm of Dozent, xshift=-6cm] (UC04) {UC-04:\\Kapitel anlegen};
+\node[usecase, below=0.5cm of UC04] (UC05) {UC-05:\\Kapitel bearbeiten};
+\node[usecase, below=0.5cm of UC05] (UC06) {UC-06:\\Kapitel löschen};
+\node[package, fit=(UC04)(UC05)(UC06), label=above:Kapitel-Management] (PkgKap) {};
+
+\node[usecase, below=5cm of Dozent] (UC07) {UC-07:\\Teilaufgabe anlegen};
+\node[usecase, below=0.5cm of UC07] (UC08) {UC-08:\\Teilaufgabe bearbeiten};
+\node[usecase, below=0.5cm of UC08] (UC09) {UC-09:\\Teilaufgabe löschen};
+\node[package, fit=(UC07)(UC08)(UC09), label=above:Teilaufgaben-Management] (PkgSub) {};
+
+\node[usecase, below=5cm of Dozent, xshift=6cm] (UC10) {UC-10:\\Variante anlegen};
+\node[usecase, below=0.5cm of UC10] (UC11) {UC-11:\\Variante bearbeiten};
+\node[usecase, below=0.5cm of UC11] (UC12) {UC-12:\\Variante löschen};
+\node[package, fit=(UC10)(UC11)(UC12), label=above:Varianten-Management] (PkgVar) {};
+
+% --------------------
+% Pfeile: Dozent zu Use Cases
+\foreach \uc in {UC01,UC02,UC03,UC18,UC13,UC14,UC15,UC16,UC17,UC04,UC05,UC06,UC07,UC08,UC09,UC10,UC11,UC12}
+    \draw[->] (Dozent.north) -- (\uc.south);
+
+\end{tikzpicture}
+
+}
+\end{center}
+
+\pagebreak
 \begin{multicols}{2}
 \raggedcolumns
 

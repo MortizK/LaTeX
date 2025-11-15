@@ -50,3 +50,15 @@
         #1
     \end{itemize}
 }
+
+%% Tikz for native uml rendering
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes, arrows, fit}
+
+\tikzset{
+    actor/.style={ellipse, draw, minimum width=2.5cm, minimum height=1cm, align=center},
+    usecase/.style={rectangle, draw, rounded corners, align=center, minimum width=4cm, minimum height=1cm},
+    package/.style={draw, rectangle, rounded corners, inner sep=5mm},
+    include/.style={dashed, ->},
+    extend/.style={dashed, ->, bend left=30},
+}
