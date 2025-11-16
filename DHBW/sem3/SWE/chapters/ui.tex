@@ -1,119 +1,351 @@
 \section{Benutzeroberfläche}
 
-\subsection{Allgemeines UI-Konzept}
+Die folgenden Abschnitte beschreiben die Benutzeroberfläche von \textbf{genExam} anhand der bereitgestellten UI-Bilder. Jede Abbildung wird durch einen erklärenden Text ergänzt, der beschreibt, welche Funktion dort ausgeführt wird und in welchem Kontext das Element genutzt wird.
 
-Die Benutzeroberfläche von \textbf{genExam} ist in zwei Haupt-Tabs gegliedert:
+% ============================================================
+\subsection{Navigation}
 
-\begin{itemize}
-    \item \textbf{XML-Tab:} Verwaltung der Exam-Struktur.
-    \item \textbf{PDF-Tab:} PDF-Konfiguration und Vorschau.
-\end{itemize}
+\subsubsection*{Header Navigation}
+Der Header ermöglicht das Umschalten zwischen der XML-Strukturansicht und der PDF-Konfiguration.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/header.pdf}
+    \caption{Navigation zwischen XML- und PDF-Modus.}
+\end{figure}
 
-\textbf{XML-Tab:} Wird als \textbf{Split-Design} umgesetzt:
+\subsubsection*{Breadcrumbs}
+Die Breadcrumb-Leiste dient zur Navigation auf der aktuellen Hierarchieebene. Sie zeigt den Pfad zum aktuell ausgewählten Objekt (Exam → Chapter → Task).
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/breadcrumbs.pdf}
+    \caption{Navigation innerhalb der aktuellen Objektstruktur.}
+\end{figure}
 
-\begin{itemize}
-    \item Links: TreeView mit Exam-Struktur (Exam $>$ Task $>$ Subtask)
-    \item Rechts: Detail-Pane für das ausgewählte Objekt
-\end{itemize}
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
 
-% \includegraphics[width=0.7\textwidth]{split_design_overview.png} % Übersicht des XML-Tab Split-Designs
+    \subsubsection*{TreeView}
 
-\subsection{Detailansichten für ausgewählte Objekte}
+    Der TreeView zeigt die gesamte XML-Struktur (Exam → Chapter → Task). 
 
-\subsubsection{Exam (Aufgabenpool) ausgewählt}
+    Über Dropdowns kann jede Ebene ein- und ausgeklappt werden.  
 
-\begin{itemize}
-    \item Breadcrumb-Leiste zeigt Position im Exam-Hierarchiebaum
-    % \includegraphics[width=0.6\textwidth]{breadcrumb_exam.png}
-    \item Attribute-Form für Exam-Eigenschaften (Name)
-    % \includegraphics[width=0.6\textwidth]{exam_attributes.png}
-    \item ChildObjectTable zeigt alle Tasks
-    % \includegraphics[width=0.7\textwidth]{task_table.png}
-    \item Buttons: \textit{Create New Task}, \textit{Edit Exam}, \textit{Delete Exam}
-    \item PopUps:
-    \begin{itemize}
-        \item ExamEditDialog
-        % \includegraphics[width=0.5\textwidth]{exam_edit_popup.png}
-        \item ExamDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{exam_delete_popup.png}
-        \item TaskCreateDialog
-        % \includegraphics[width=0.5\textwidth]{task_create_popup.png}
-        \item TaskEditDialog
-        % \includegraphics[width=0.5\textwidth]{task_edit_popup.png}
-        \item TaskDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{task_delete_popup.png}
-    \end{itemize}
-\end{itemize}
+    Ist noch kein Exam vorhanden, erscheint ein \textit{Create Exam}-Button, der das entsprechende Popup öffnet.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/treeview.pdf}
+    \caption{Navigation zwischen allen Objekten der XML-Datei.}
+\end{minipage}
+\end{figure}
 
-\subsubsection{Task ausgewählt}
 
-\begin{itemize}
-    \item Breadcrumb-Leiste aktualisiert sich
-    \item Attribute-Form für Task-Eigenschaften (Name)
-    \item ChildObjectTable zeigt alle Subtasks
-    \item Buttons: \textit{Create New Subtask}, \textit{Edit Task}, \textit{Delete Task}
-    \item PopUps:
-    \begin{itemize}
-        \item TaskEditDialog
-        % \includegraphics[width=0.5\textwidth]{task_edit_popup.png}
-        \item TaskDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{task_delete_popup.png}
-        \item SubtaskCreateDialog
-        % \includegraphics[width=0.5\textwidth]{subtask_create_popup.png}
-        \item SubtaskEditDialog
-        % \includegraphics[width=0.5\textwidth]{subtask_edit_popup.png}
-        \item SubtaskDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{subtask_delete_popup.png}
-    \end{itemize}
-\end{itemize}
+% ============================================================
+\subsection{Komponenten}
 
-\subsubsection{Subtask ausgewählt}
+\subsubsection*{Chapter Component}
+Eine Anzeige des Kapitels mit Buttons zum Bearbeiten oder Löschen. Öffnet die entsprechenden Popups.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/chapter_component.pdf}
+    \caption{Chapter Component mit Edit- und Delete-Optionen.}
+\end{figure}
 
-\begin{itemize}
-    \item Breadcrumb-Leiste aktualisiert sich
-    \item Attribute-Form für Subtask-Eigenschaften (Name, Punkte, Difficulty, Sichtbarkeit)
-    \item ChildObjectTable zeigt alle Varianten
-    % \includegraphics[width=0.7\textwidth]{variant_table.png}
-    \item Buttons: \textit{Create New Variant}, \textit{Edit Subtask}, \textit{Delete Subtask}
-    \item PopUps:
-    \begin{itemize}
-        \item SubtaskEditDialog
-        % \includegraphics[width=0.5\textwidth]{subtask_edit_popup.png}
-        \item SubtaskDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{subtask_delete_popup.png}
-        \item VariantCreateDialog
-        % \includegraphics[width=0.5\textwidth]{variant_create_popup.png}
-        \item VariantEditDialog
-        % \includegraphics[width=0.5\textwidth]{variant_edit_popup.png}
-        \item VariantDeleteConfirmation
-        % \includegraphics[width=0.5\textwidth]{variant_delete_popup.png}
-    \end{itemize}
-\end{itemize}
+\subsubsection*{Task Component}
+Ein Task wird mit Punktzahl, Schwierigkeit und Sichtbarkeit dargestellt. Enthält Edit- und Delete-Aktionen.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/task_component.pdf}
+    \caption{Task Component mit Bearbeitungs- und Löschmöglichkeiten.}
+\end{figure}
 
-\subsection{PDF-Tab}
+\subsubsection*{Variant Component}
+Zeigt Frage und Antwort einer Variante an und bietet Edit/Delete-Buttons.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/variant_component.pdf}
+    \caption{Variant Component zur Bearbeitung einzelner Varianten.}
+\end{figure}
 
-\begin{itemize}
-    \item PDF-Konfiguration: Auswahl der Kapitel, Ausgabeoptionen, Zielpunktzahl, Difficulty-Regeln
-    % \includegraphics[width=0.6\textwidth]{pdf_config.png}
-    \item PDF-Vorschau: Darstellung der generierten PDF-Datei
-    % \includegraphics[width=0.7\textwidth]{pdf_preview.png}
-    \item Buttons: Generate PDF, Generate Solution PDF, Generate Mock Exam
-\end{itemize}
+% ============================================================
+\subsection{Exam ausgewählt}
 
-\subsection{Komponentenübersicht}
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0pt}
+    \subsubsection*{Exam Header}
 
-\begin{itemize}
-    \item \textbf{TreeView-Komponente:} ExamTreeView + TreeNodeContextMenu
-    \item \textbf{Detail-Pane-Komponenten:} BreadcrumbBar, AttributeForm, ChildObjectTable, CreateChildButton
-    \item \textbf{PopUps:} EditDialog, DeleteConfirmationDialog für jede Ebene
-    \item \textbf{PDF-Komponenten:} PDFConfigPane, PDFPreviewPane, PDFActionButtons
-\end{itemize}
+    Ermöglicht das Umbenennen des Exams.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/exam_header.pdf}
+    \caption{Exam Header zur Anpassung des Exam-Namens.}
+\end{minipage}
+\end{figure}
 
-\subsection{Interaktionen / Beziehungen}
 
-\begin{itemize}
-    \item TreeView-Auswahl \(\rightarrow\) Detail-Pane aktualisiert
-    \item Buttons in Detail-Pane \(\rightarrow\) öffnen entsprechende PopUps
-    \item PopUps \(\rightarrow\) Änderungen am Model
-    \item PDF-Tab Aktionen \(\rightarrow\) Generierung oder Vorschau der PDF
-\end{itemize}
+\subsubsection*{Chapter Table}
+Zeigt alle bestehenden Chapter Components an.  
+Ein \textit{Create Chapter}-Button öffnet das Kapitel-Erstellungs-Popup.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/chapter_table.pdf}
+    \caption{Tabelle aller Kapitel mit Option zur Neuerstellung.}
+\end{figure}
+
+% ============================================================
+\subsection{Chapter ausgewählt}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}  % Text oben ausgerichtet
+    \vspace{0pt}
+    \subsubsection*{Chapter Header}
+
+    Ermöglicht das Umbenennen sowie das Löschen eines Kapitels.  
+    Der Delete-Button öffnet die Bestätigungsabfrage.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}  % Bild ebenfalls oben ausgerichtet
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/chapter_header.pdf}
+    \caption{Header eines Kapitels mit Edit- und Delete-Funktionen.}
+\end{minipage}
+\end{figure}
+
+
+\subsubsection*{Task Table}
+Die Tabelle zeigt alle Tasks des Kapitels.  
+Mit dem Button \textit{Create Task} wird das Task-Erstellungs-Popup geöffnet.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/task_table.pdf}
+    \caption{Tabelle aller Tasks eines Kapitels.}
+\end{figure}
+
+% ============================================================
+\subsection{Task ausgewählt}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}  % Text oben ausgerichtet
+    \vspace{0pt}
+    \subsubsection*{Task Header}
+
+    Hier können die Eigenschaften des Tasks angepasst werden:  
+    Scope (\texttt{mock/exam}), Difficulty (\texttt{easy/medium/hard}) und Punktzahl.  
+    Der Delete-Button öffnet das Lösch-Popup.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}  % Bild ebenfalls oben ausgerichtet
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/task_header.pdf}
+    \caption{Header eines Tasks mit konfigurierbaren Eigenschaften.}
+\end{minipage}
+\end{figure}
+
+\subsubsection*{Variant List}
+Eine Liste aller Varianten des Tasks.  
+Der \textit{Create Variant}-Button öffnet das entsprechende Popup.
+\begin{figure}[H]
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/variant_list.pdf}
+    \caption{Variantenliste zur Verwaltung aller Varianten eines Tasks.}
+\end{figure}
+
+% ============================================================
+\subsection{Selectors}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Scope Selector}
+
+    Legt fest, ob ein Task in Probeklausuren (\texttt{mock}) oder in echten Klausuren (\texttt{exam}) erscheint.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/scope_select.pdf}
+    \caption{Scope-Auswahl für Tasks.}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Difficulty Selector}
+
+    Auswahl zwischen den Schwierigkeitsgraden: \texttt{easy}, \texttt{medium} und \texttt{hard}.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/difficulty_select.pdf}
+    \caption{Einstellung des Schwierigkeitsgrads.}
+\end{minipage}
+\end{figure}
+
+
+% ============================================================
+\subsection{PopUps}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Exam Create Popup}
+
+    Popup zur Erstellung eines neuen Exams.  
+    Der Nutzer gibt einen Namen ein.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/exam_create_popup.pdf}
+    \caption{Erstellung eines neuen Exams.}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Chapter Create Popup}
+
+    Popup zur Eingabe des Kapitelnamens.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/chapter_create_popup.pdf}
+    \caption{Erstellung eines neuen Kapitels.}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Chapter Delete Popup}
+
+    Bestätigung zum Löschen eines Kapitels.  
+    Fragt explizit, ob alle Tasks und Varianten ebenfalls gelöscht werden sollen.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/chapter_delete_popup.pdf}
+    \caption{Löschen eines Kapitels mit allen untergeordneten Elementen.}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Task Create Popup}
+
+    Popup zum Erstellen eines Tasks.  
+    Hier werden Scope, Difficulty, Punktzahl, sowie Frage und Antwort der ersten Variante eingegeben.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/task_create_popup.pdf}
+    \caption{Erstellung eines Tasks inklusive erster Variante.}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Task Delete Popup}
+
+    Popup zur Bestätigung des Löschens eines Tasks.  
+    Fragt, ob alle Varianten gelöscht werden sollen.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/task_delete_popup.pdf}
+    \caption{Löschbestätigung für Tasks.}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Variant Create Popup}
+
+    Popup zum Erstellen einer neuen Variante (Frage + Antwort).
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/variant_create_popup.pdf}
+    \caption{Erstellung einer neuen Variante.}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.55\linewidth}
+    \vspace{0.5em}
+
+    \subsubsection*{Variant Delete Popup}
+
+    Popup zur Bestätigung des Löschens einer Variante.  
+    Löschen ist nicht möglich, wenn es die letzte Variante des Tasks ist.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.40\linewidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[scale=0.5]{fig/variant_delete_popup.pdf}
+    \caption{Löschbestätigung für Varianten.}
+\end{minipage}
+\end{figure}
+
