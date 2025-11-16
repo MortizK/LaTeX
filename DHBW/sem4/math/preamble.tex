@@ -1,0 +1,58 @@
+\usepackage{datetime2} % for dates
+\usepackage{xcolor}     % for gray color
+\usepackage{marginnote} % for horizontal margin notes
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{datetime2}
+\usepackage{xcolor}
+\usepackage{marginnote}
+\usepackage{everypage}
+\usepackage{fancyhdr}
+
+% =============================================================
+% 1. VERTICAL SIDE NOTE ON EVERY PAGE (BOTTOM LEFT)
+% =============================================================
+
+\newcommand{\verticaldocinfo}{%
+  \rotatebox{90}{\tiny\color{gray}\texttt{\jobname-\DTMtoday}}%
+}
+
+\AddEverypageHook{
+  \put(-40pt,-650pt){\verticaldocinfo}%
+}
+
+\newwrite\metadatafile
+\immediate\openout\metadatafile=metadata.tex
+
+\newcounter{lecturecounter}
+
+% Load existing metadata
+\IfFileExists{metadata.tex}{\input{metadata.tex}}{}
+
+\newcommand{\savelecturedate}[2]{%
+  \immediate\write\metadatafile{\string\lecturedate{#1}{#2}}%
+}
+
+\newcommand{\lecturedate}[2]{%
+  \expandafter\gdef\csname lecturedate#1\endcsname{#2}%
+}
+
+% -----------------------------
+% Main lecture macro (robust)
+% -----------------------------
+\newcommand{\lecture}{%
+  \stepcounter{lecturecounter}%
+  \edef\currentlecture{\thelecturecounter}%
+  %
+  \ifcsname lecturedate\currentlecture\endcsname
+    \edef\thislecturedate{\csname lecturedate\currentlecture\endcsname}%
+  \else
+    \edef\thislecturedate{\DTMtoday}%
+    \savelecturedate{\currentlecture}{\DTMtoday}%
+  \fi
+  %
+  \noindent\textbf{Lecture on \thislecturedate}%
+  \protect\marginnote{\protect\tiny\protect\color{gray}\thislecturedate}%
+  \par\medskip
+}
