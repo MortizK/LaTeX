@@ -1,0 +1,140 @@
+\documentclass[a4paper,12pt]{article}
+
+% ====================== PREAMBLE ============================
+\input{preamble.tex}
+% ============================================================
+
+\title{Mathematische Modellierung eines Empfehlungssystems\\
+\large Ein Demonstrationsdokument für benutzerdefinierte LaTeX-Umgebungen}
+\author{Chat GPT}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Einleitung}
+Dieses Dokument demonstriert alle Befehle und Umgebungen aus der angepassten Präambel.
+Als Beispielthema dient die mathematische Struktur eines \emph{Recommender Systems}, das Benutzer und Produkte in einem hochdimensionalen Vektorraum modelliert.
+
+Wir verwenden Mengen wie $\R$, Normen wie $\norm{\cdot}$, kodierte Elemente wie \code{User}, Pfade wie \filepath{/data/model/} und Buttons wie \button{Generate Model}.
+
+% ============================================================
+\section{Grundlagen der Vektorräume}
+
+\subsection{Definitionen}
+
+\begin{definition}
+Ein \emph{Feature-Vektor} eines Benutzers ist ein Element $u \in \R^n$, das Präferenzen in $n$ Dimensionen beschreibt.
+\end{definition}
+
+\begin{definition}
+Ein \emph{Score-Modell} ist eine Abbildung
+\[
+s : \R^n \times \R^n \to \R,\qquad s(u, p) = u^\top p.
+\]
+\end{definition}
+
+\begin{remark}
+Das Skalarprodukt ist implizit eine Ähnlichkeitsmetrik.
+\end{remark}
+
+% ============================================================
+\section{Zentrale Theoreme}
+
+\begin{theorem}
+Für zwei normierte Vektoren $u,p \in \R^n$ gilt:
+\[
+-1 \le s(u,p) = u^\top p \le 1.
+\]
+\end{theorem}
+
+\begin{proof}
+Direkt aus der Cauchy-Schwarz-Ungleichung:
+\[
+\abs{u^\top p} \le \norm{u}\,\norm{p} = 1.
+\]
+\end{proof}
+
+\begin{corollary}
+Je größer $s(u,p)$ ist, desto ähnlicher sind Benutzer und Produktpräferenzen.
+\end{corollary}
+
+% ============================================================
+\section{Ein Beispielalgorithmus}
+
+Wir definieren einen einfachen Ranking-Algorithmus.
+
+\begin{pseudocode}
+function RankProducts(user u, product-list P):
+    for each product p in P:
+        compute score s = dot(u, p)
+    sort P by score descending
+    return P
+\end{pseudocode}
+
+Dieser Algorithmus könnte als \method{rankProducts} in einer Klasse \classname{RecommenderEngine} implementiert werden.
+
+% ============================================================
+\section{Ein praktisch relevantes Resultat}
+
+\begin{resultbox}
+Ein Empfehlungssystem lässt sich mathematisch vollständig durch die Struktur eines Vektorraums mit Skalarprodukt beschreiben.
+Dies ermöglicht effiziente Ranking-Algorithmen mit Laufzeit $O(n\cdot m)$ für $n$ Features und $m$ Produkten.
+\end{resultbox}
+
+% ============================================================
+\section{Wahrscheinlichkeitsbasierte Modellierung}
+
+Wir modellieren Unsicherheit im Nutzungsverhalten durch Zufallsvariablen.
+
+\begin{example}
+Sei $X$ die Zufallsvariable: \enquote{Gefällt das Produkt?}.  
+Dann gilt:
+\[
+\E[X] = \Prob(X=1), \qquad \Var(X) = \Prob(X=1)\Prob(X=0).
+\]
+\end{example}
+
+Solche Variablen können in probabilistischen Empfehlungssystemen wie z.\,B. Bayesian Personalized Ranking benutzt werden.
+
+% ============================================================
+\section{Tabelle und Abbildung}
+
+\subsection{Beispieltabelle}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Produkt & Feature 1 & Feature 2 \\
+\midrule
+A & 0.2 & 0.9 \\
+B & 0.7 & 0.1 \\
+C & 0.4 & 0.6 \\
+\bottomrule
+\end{tabular}
+\caption{Beispieldaten eines Feature-Raums.}
+\label{tab:example}
+\end{table}
+
+\subsection{Beispielabbildung}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\rule{0pt}{4cm}\rule{6cm}{0pt}} % Dummy image
+    \caption{Platzhalter-Abbildung eines Embedding-Raums.}
+    \label{fig:embedding}
+\end{figure}
+
+Wir können darauf verweisen: siehe \figref{fig:embedding} und \tabref{tab:example}.
+
+% ============================================================
+\section{Fazit}
+
+Dieses Dokument demonstriert alle in der Präambel definierten Werkzeuge:
+mathematische Operatoren, Informatik-Makros, strukturierte Umgebungen, Theoreme und Verweise.
+
+\end{document}

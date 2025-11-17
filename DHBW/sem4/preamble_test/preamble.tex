@@ -1,0 +1,127 @@
+% ======================================================================
+% PREAMBLE FOR MATHEMATICS & COMPUTER SCIENCE PAPERS
+% ======================================================================
+
+% ------------------------------------------------------------
+% Encoding & Language
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+% ------------------------------------------------------------
+% Math Packages
+% ------------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+
+% ------------------------------------------------------------
+% General Layout
+% ------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{float}        % For H placement specifier
+\usepackage{microtype}    % Better text spacing
+\usepackage{enumitem}     % Better lists
+\usepackage{booktabs}     % Better tables
+\usepackage{xcolor}       % Colors (used for TODO)
+\usepackage{csquotes}     % Smart quotes
+
+% ------------------------------------------------------------
+% Hyperlinks
+% ------------------------------------------------------------
+\usepackage[hidelinks]{hyperref}
+
+% ======================================================================
+% MATHEMATICAL SHORTCUTS
+% ======================================================================
+
+% Number sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+% Vectors and matrices
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+% Derivatives
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dpartial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ddt}{\frac{\dd}{\dd t}}
+
+% Norms and absolute values
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+% Probability & Statistics
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% ======================================================================
+% COMPUTER SCIENCE SHORTCUTS
+% ======================================================================
+
+% Code/Names
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\cmd}[1]{\texttt{\textbf{#1}}}
+\newcommand{\button}[1]{\fbox{\textsf{#1}}}
+\newcommand{\classname}[1]{\textsf{#1}}
+\newcommand{\method}[1]{\texttt{#1()}}
+\newcommand{\filepath}[1]{\texttt{#1}}
+
+% ======================================================================
+% CUSTOM REFERENCING
+% ======================================================================
+
+\newcommand{\figref}[1]{Abbildung~\ref{#1}}
+\newcommand{\secref}[1]{Abschnitt~\ref{#1}}
+\newcommand{\tabref}[1]{Tabelle~\ref{#1}}
+\newcommand{\eqnref}[1]{Gleichung~(\ref{#1})}
+
+% ======================================================================
+% THEOREM ENVIRONMENTS
+% ======================================================================
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+% ======================================================================
+% UTILITY ENVIRONMENTS
+% ======================================================================
+
+\usepackage{listings}
+
+% Minimalistische Pseudocode-Umgebung
+\lstnewenvironment{pseudocode}
+{
+    \ttfamily % Monospace
+}
+{}
+
+% Result box (important findings)
+\usepackage{mdframed}
+\newenvironment{resultbox}
+{
+    \begin{mdframed}
+}
+{
+    \end{mdframed}
+}
+
+% TODO notes
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+
+% ======================================================================
+% END PREAMBLE
+% ======================================================================
+
+% Fix for monofont scaling 
+\usepackage{lmodern} % Latin Modern -> vollständig skalierbar
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
