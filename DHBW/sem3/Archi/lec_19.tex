@@ -1,0 +1,43 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Rechnerarchitektur}
+\author{Moritz}
+\date{November 18, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Speicher}
+
+Wir haben die verschieden Speicher durchgesprochen, DRAM, SRAM.
+
+\subsection{DRAM}
+
+\subsection{SRAM}
+
+\subsection{Caches}
+
+Hier gibt es Direkt abbildender Cache. Um die tatsächliche größe des Caches auszurechnen, um 16KiB Daten zu speichern.
+
+Hierzu brauchen wir die Wortlänge $w=32$, die Bytes pro Zeile $4=2^2=2^d$ und die Anzahl der Zeilen $16*10^2 / 4 = 2^12 = 2^k$.
+
+Daraus ergibt sich dann die Tag Länge $t$:
+
+\begin{equation*}
+    t = w - k - d
+\end{equation*}
+
+Eine Zeile besteht somit aus 1 Bit $v$, t Bit $t$ und 4 Byte Daten.
+
+In diesem Fall also:
+
+\begin{align*}
+    (1 + 18 + 48) * 2^{12}\qquad [bits]\\
+    = 26.112 \qquad [Bytes]\\
+    = 25.5 \qquad [KiB]
+\end{align*}
+
+\end{document}
