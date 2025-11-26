@@ -1,0 +1,37 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Formale Sprachen}
+\author{Moritz}
+\date{November 21, 2025}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{While Program}
+
+Wir haben schon die equivalent von Turing Maschinen und while Programmen gezeigt, wie auch die equivalent zwischen While und anderen Programmen.
+
+\subsection{Computability}
+
+Wurde behandelt, habe aber leider nicht ganz aufgepasst.
+
+\section{Komplexität}
+
+Wir kennen bis jetzt nur die Entscheidbarkeit. Für die die Entscheidbar sind, können wir nun noch die Resourcennutzung genauer einteilen. 
+
+NP is für nicht deterministische Polynomiale Zeit!
+
+\subsection{NP Vollständig}
+
+Ist ein teil von NP.
+
+Das SAT Problem ist NP vollständig. SAT ist die Entscheidbarkeit von Logischen Formeln (Solver e).
+
+Wir können die verschiedenen NP vollständige Probleme in einander Reduzieren.
+
+So kann das 3-Sat Problem auf das Clique Problem Reduziert werden, indem aus jeder Klausel eine seite im Graph wird. Jeder Konten der Seiten wird mit allen Knoten der anderen Seiten verbunden, wenn diese sich nicht wiedersprechen.
+
+\end{document}
