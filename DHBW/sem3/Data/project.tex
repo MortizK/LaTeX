@@ -16,6 +16,7 @@
 % Arbeitszeiten
 % 23.09 14:00-16:30
 % 24.09 15:15-16:15
+% 29.11 21:25-
 
 \section{Anforderungsanalyse}
 
@@ -61,12 +62,54 @@ Niklas Reusch
 Moritz Köhler
 \end{flushright}
 
-% Hier ist ein Algo von Cisco um yEd -> Relationales Modell
-% https://github.com/cisco/zepste (will not work) oder
-% https://github.com/chinmaydd/SchemER
-
 % Für Normalisierung
 % https://normalizer.db.in.tum.de/
+
+\subsection{Entitäten}
+
+Filiale: \{[\underline{Adresse: string}, Name: string]\}
+
+Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Dauer: datetime]\}
+
+Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
+
+Filialleiter: \{[\underline{MitarbeiterID: integer}]\}
+
+Azubi: \{[\underline{MitarbeiterID: integer}]\}
+
+Telefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}]\}
+
+Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
+
+Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bestand: integer, Einheit: string]\}
+
+Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
+
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Menge: integer]\}
+
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime]\}
+
+\subsection{Relationen}
+
+braucht: \{[\underline{SchichtID: integer}, FilialeID: integer]\}
+
+durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
+
+besitzt: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
+
+kontaktInfo: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, ZuliefererID: integer]\}
+
+liefert: \{[\underline{ZuliefererID: interge, ZutatID: integer}]\}
+
+beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
+
+angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
+
+durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer, MitarbeiterID: integer}]\}
+
+\subsection{Normalisierung bis 3NF}
+
+%% Muss für die Aufgabe exemplarisch für ein nicht allzu einfaches dargestellt werden
 
 \section{Datenschema in SQL}
 
