@@ -67,13 +67,13 @@ Moritz Köhler
 
 \subsection{Entitäten}
 
-Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, Leitung: MitarbeiterID]\}
+Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, LeiterID: MitarbeiterID]\}
 
 Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Endzeit: datetime, FilialeID: integer]\}
 
 Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
 
-Azubi: \{[\underline{MitarbeiterID: integer}], Start: date, Verantwortlicher: MitarbeiterID\}
+Azubi: \{[\underline{MitarbeiterID: integer}], Start: date, VerantwortlicherID: MitarbeiterID\}
 
 MitarbeiterTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
 
@@ -84,6 +84,7 @@ Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]
 % Zutat ist eine Schwache Entität, kann aber von mehreren Zulieferern geliefert werden.
 Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bestand: integer, Einheit: string]\}
 
+% Rekursiv
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
 
 Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Lagerbestand: integer]\}
@@ -94,15 +95,64 @@ Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integ
 
 durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
 
+% beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer, ZuliefererID: integer}]\}
 beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
 
 angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
-durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
+verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
 
+\pagebreak
 \subsection{Normalisierung bis 3NF}
 
 %% Muss für die Aufgabe exemplarisch für ein nicht allzu einfaches dargestellt werden
+
+Am Beispiel der Beziehung zwischen Mitarbeiter, Verkauf und Produkt. Siehe ERM Figure \ref{fig:erm_from_niklas_reusch}.
+
+So gibt es diese große Relation (zur Übersicht habe ich die Typen weggelassen):
+
+MVP: \{[MitarbeiterID, Gehalt, \dots, Nachname, ProduktID, Produktname, \dots, Lagerbestand, VerkaufID, Datum, Gesamtbetrag, Menge]\}
+
+Mit den Folgenden Funktionalen Abhängigkeiten:
+
+\begin{itemize}
+    \item MitarbeiterID → Gehalt, \dots, Nachname
+    \item ProduktID → Produktname, \dots, Lagerbestand
+    \item VerkaufID → Datum, Gesamtbetrag
+    \item VerkaufID, ProduktID → MitarbeiterID, Gehalt, \dots, Nachname, Produktname, \dots, Lagerbestand, Datum, Gesamtbetrag, Menge
+\end{itemize}
+
+Dies befindet sich in 1NF mit dem Kandidatenschlüssel (VerkaufID, ProduktID). Um diese in die 2NF zu überführen, wird die Kanonische Überdeckung genutzt.
+
+\begin{enumerate}
+    \item Linksreduktion
+    \item Rechtsreduktion
+    \item a → $\emptyset$
+    \item FDs zusammenfassen
+\end{enumerate}
+
+Auf der Rechten Seite können nur die vierte Relation verkleinern:
+
+\begin{itemize}
+    \item VerkaufID, ProduktID → MitarbeiterID, Menge
+\end{itemize}
+
+Nun werde diese Funktionalen Abhängigkeiten in Relationen umgewandelt:
+
+% Woher kommen die Kandidatenschlüssel?
+
+\begin{enumerate}
+    \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
+    \item Produkt: \{[\underline{ProduktID}, Produktname, Preis, Status, Lagerbestand]\}
+    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag]\}
+    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge, MitarbeiterID]\}
+\end{enumerate}
+
+Somit sind nun alle Nichtschlüsselattribute vollfunktional vom gesamten Schlüssel abhängig. Damit ist dies in 2NF.
+
+Die Relationen die aus der Kanonischen Überdeckung entstehen sind die Grundlage für die Umwandlung in 3NF.
+
+% TODO: Synthesealgorithmus muss ich nochmal besser aufschreiben.
 
 \section{Datenschema in SQL}
 
