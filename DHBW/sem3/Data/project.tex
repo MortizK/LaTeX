@@ -67,13 +67,11 @@ Moritz Köhler
 
 \subsection{Entitäten}
 
-Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string]\}
+Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, Leitung: MitarbeiterID]\}
 
-Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Dauer: datetime, FilialeID: integer]\}
+Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Endzeit: datetime, FilialeID: integer]\}
 
 Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
-
-Filialleiter: \{[\underline{MitarbeiterID: integer}, FilialeID: integer]\}
 
 Azubi: \{[\underline{MitarbeiterID: integer}], Start: date, Verantwortlicher: MitarbeiterID\}
 
@@ -83,11 +81,12 @@ ZuliefererTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}
 
 Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
 
+% Zutat ist eine Schwache Entität, kann aber von mehreren Zulieferern geliefert werden.
 Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bestand: integer, Einheit: string]\}
 
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Menge: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Lagerbestand: integer]\}
 
 Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer]\}
 
@@ -95,13 +94,11 @@ Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integ
 
 durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
 
-liefert: \{[\underline{ZuliefererID: interge, ZutatID: integer}]\}
-
 beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
 
 angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
-durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer}, MitarbeiterID: integer]\}
+durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
 
 \subsection{Normalisierung bis 3NF}
 
