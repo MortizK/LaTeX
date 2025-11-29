@@ -67,17 +67,19 @@ Moritz Köhler
 
 \subsection{Entitäten}
 
-Filiale: \{[\underline{Adresse: string}, Name: string]\}
+Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string]\}
 
-Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Dauer: datetime]\}
+Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Dauer: datetime, FilialeID: integer]\}
 
 Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
 
-Filialleiter: \{[\underline{MitarbeiterID: integer}]\}
+Filialleiter: \{[\underline{MitarbeiterID: integer}, FilialeID: integer]\}
 
-Azubi: \{[\underline{MitarbeiterID: integer}]\}
+Azubi: \{[\underline{MitarbeiterID: integer}], Start: date, Verantwortlicher: MitarbeiterID\}
 
-Telefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}]\}
+MitarbeiterTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
+
+ZuliefererTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, ZuliefererID: integer]\}
 
 Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
 
@@ -87,17 +89,11 @@ Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: 
 
 Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Menge: integer]\}
 
-Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime]\}
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer]\}
 
 \subsection{Relationen}
 
-braucht: \{[\underline{SchichtID: integer}, FilialeID: integer]\}
-
 durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
-
-besitzt: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
-
-kontaktInfo: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, ZuliefererID: integer]\}
 
 liefert: \{[\underline{ZuliefererID: interge, ZutatID: integer}]\}
 
@@ -105,7 +101,7 @@ beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
 
 angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
-durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer, MitarbeiterID: integer}]\}
+durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer}, MitarbeiterID: integer]\}
 
 \subsection{Normalisierung bis 3NF}
 
