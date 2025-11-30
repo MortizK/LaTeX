@@ -105,41 +105,32 @@ verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer,
 \newpage
 \subsection{Normalisierung bis 3NF}
 
-%% Muss für die Aufgabe exemplarisch für ein nicht allzu einfaches dargestellt werden
-
-Am Beispiel der Beziehung zwischen Mitarbeiter, Verkauf und Produkt. Siehe ERM Figure \ref{fig:erm_from_niklas_reusch}.
-
-So gibt es diese große Relation (zur Übersicht habe ich die Typen weggelassen):
-
-MVP: \{[MitarbeiterID, Gehalt, \dots, Nachname, ProduktID, Produktname, \dots, Lagerbestand, VerkaufID, Datum, Gesamtbetrag, Menge]\}
-
-Mit den Folgenden Funktionalen Abhängigkeiten:
+Ausgehend von der großen Relation MVP (Mitarbeiter Verkauft Produkte) mit den Attributen
+MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname, 
+ProduktID, Produktname, Preis, Status, Lagerbestand, 
+VerkaufID, Datum, Gesamtbetrag, Menge, werden zunächst die funktionalen Abhängigkeiten bestimmt:
 
 \begin{itemize}
-    \item MitarbeiterID → Gehalt, \dots, Nachname
-    \item ProduktID → Produktname, \dots, Lagerbestand
-    \item VerkaufID → Datum, Gesamtbetrag
-    \item VerkaufID, ProduktID → MitarbeiterID, Gehalt, \dots, Nachname, Produktname, \dots, Lagerbestand, Datum, Gesamtbetrag, Menge
+    \item MitarbeiterID bestimmt die Mitarbeiterattribute: Gehalt, Adresse, Geburtsdatum, Nachname, Vorname.
+    \item ProduktID bestimmt die Produktattribute: Produktname, Preis, Status, Lagerbestand.
+    \item VerkaufID bestimmt die Verkaufsattribute: Datum und Gesamtbetrag.
+    \item VerkaufID zusammen mit ProduktID bestimmt den beteiligten Mitarbeiter sowie die verkaufte Menge.
 \end{itemize}
 
-Dies befindet sich in 1NF mit dem Kandidatenschlüssel (VerkaufID, ProduktID). Um diese in die 2NF zu überführen, wird die Kanonische Überdeckung genutzt.
+\subsubsection*{Kanonische Überdeckung}
+
+Zur Vorbereitung der 3NF-Synthese wird die Menge der funktionalen Abhängigkeiten in eine kanonische Überdeckung überführt:
 
 \begin{enumerate}
-    \item Linksreduktion
-    \item Rechtsreduktion
-    \item a → $\emptyset$
-    \item FDs zusammenfassen
+    \item Linksreduktion: Nur die Abhängigkeit mit VerkaufID und ProduktID hat mehrere Attribute auf der linken Seite. Eine Reduktion zeigt, dass beide Attribute notwendig sind. 
+    \item Rechtsreduktion: Alle rechten Seiten sind minimal, keine Reduktion notwendig.
+    \item Entfernen leerer rechter Seiten: keine vorhanden.
+    \item Zusammenfassen von FDs mit identischer linker Seite: nicht erforderlich.
 \end{enumerate}
 
-Auf der Rechten Seite können nur die vierte Relation verkleinern:
+\subsubsection*{Erzeugung der Relationen nach dem Synthesealgorithmus}
 
-\begin{itemize}
-    \item VerkaufID, ProduktID → MitarbeiterID, Menge
-\end{itemize}
-
-Nun werde diese Funktionalen Abhängigkeiten in Relationen umgewandelt:
-
-% Woher kommen die Kandidatenschlüssel?
+Für jede funktionale Abhängigkeit wird eine eigene Relation gebildet:
 
 \begin{enumerate}
     \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
@@ -148,11 +139,37 @@ Nun werde diese Funktionalen Abhängigkeiten in Relationen umgewandelt:
     \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge, MitarbeiterID]\}
 \end{enumerate}
 
-Somit sind nun alle Nichtschlüsselattribute vollfunktional vom gesamten Schlüssel abhängig. Damit ist dies in 2NF.
+\newpage
+\subsubsection*{Überprüfung der Superschlüsselbedingung}
 
-Die Relationen die aus der Kanonischen Überdeckung entstehen sind die Grundlage für die Umwandlung in 3NF.
+Die Hüllen der Schlüsselattribute werden textuell geprüft:
 
-% TODO: Synthesealgorithmus muss ich nochmal besser aufschreiben.
+\begin{itemize}
+    \item Hülle von MitarbeiterID: umfasst ausschließlich die Mitarbeiterattribute.
+    \item Hülle von ProduktID: umfasst ausschließlich die Produktattribute.
+    \item Hülle von VerkaufID: umfasst ausschließlich die Verkaufsattribute.
+    \item Hülle von VerkaufID und ProduktID: 
+    \begin{itemize}
+        \item VerkaufID ergänzt die Verkaufsattribute.
+        \item ProduktID ergänzt die Produktattribute.
+        \item Kombination ergibt MitarbeiterID und Menge.
+        \item Durch die Abhängigkeit von MitarbeiterID werden alle Mitarbeiterattribute ergänzt.
+        \item Damit umfasst die Hülle alle Attribute der ursprünglichen Relation.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Schlussfolgerung}
+
+Die Kombination aus VerkaufID und ProduktID bildet einen Superschlüssel. 
+Alle erzeugten Relationen erfüllen die Bedingungen der 3NF:  
+
+\begin{itemize}
+    \item Jede Relation enthält einen Primärschlüssel.
+    \item Alle Nichtschlüsselattribute sind vollständig funktional vom Primärschlüssel abhängig.
+    \item Es treten keine transitive Abhängigkeiten innerhalb einer Relation auf.
+\end{itemize}
+
+Das resultierende Schema liegt somit vollständig in der 3NF vor.
 
 \section{Datenschema in SQL}
 
@@ -205,7 +222,7 @@ Außerdem ist der Relation "Verkauf" keine Filiale zugeordnet, wodurch nicht ers
 
 Die Relationen erfüllen die Anforderungen der dritten Normalform, da alle Nicht-Schlüsselattribute voll funktional von ihren Primärschlüsseln abhängen. Insgesamt ist das Modell logisch strukturiert und gut normalisiert
 
-\newpage
+% \newpage
 \subsection{Feedback: Datenschema}
 
 \begin{flushright}
@@ -214,6 +231,7 @@ von Moritz Köhler für Niklas Reusch
 
 
 
+% \newpage
 \subsection{Feedback: Entwurf}
 
 \begin{flushright}
