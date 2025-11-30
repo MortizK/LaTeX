@@ -16,7 +16,7 @@
 % Arbeitszeiten
 % 23.09 14:00-16:30
 % 24.09 15:15-16:15
-% 29.11 21:25-
+% 29.11 21:25-23:15
 
 \section{Anforderungsanalyse}
 
@@ -39,7 +39,7 @@ Niklas Reusch
 % Wir müssen unsere Anforderungen für das ER Modell so erweitern, dass wir alle möglichen Beziehungen 
 % Und wir brauchen ca. 10 Entitäten.
 
-\pagebreak
+\newpage
 \begin{landscape}
     %\begin{figure}[ht]
     %    \centering
@@ -102,7 +102,7 @@ angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
 verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
 
-\pagebreak
+\newpage
 \subsection{Normalisierung bis 3NF}
 
 %% Muss für die Aufgabe exemplarisch für ein nicht allzu einfaches dargestellt werden
@@ -190,13 +190,20 @@ Allgemein zum Format in yEd. Die Telefonnummer von Mitarbeiter und Zulieferer ka
 
 Bitte benutze für die Attribute auch das Attribut Feld unter dem Tab Entity Relationship statt dem Gelben aus Shapes. Für die Spezifikation kann man ein Sechseck aus BPMN benutzen und die Farben aus einer Entität kopieren. Dann sieht alles Einheitlich aus.
 
+\newpage
 \subsection{Feedback: Relationale Modell}
 
 \begin{flushright}
-von Niklas Reusch für Moritz Köhler
+von Niklas Reusch für Moritz Köhler am 30.11.2025
 \end{flushright}
 
+Das relationale Datenbankmodell umfasst im Wesentlichen alle Anforderungen. Die Relationen und Entitäten aus dem ERM werden sinnvoll zusammengefasst und korrekt dargestellt. Positiv hervorzuheben ist die Auslagerung der Telefonnummern von Mitarbeitern und Zulieferern in eigene Relationen, da beide Entitäten mehrere Telefonnummern besitzen können. Dies ermöglicht eine eindeutige und saubere Zuordnung der Fremdschlüssel. 
 
+Die Primärschlüssel sind den richtigen Relationen zugeordnet und korrekt markiert. Die Fremdschlüssel befinden sich ebenfalls in den zugehörigen Relationen, werden jedoch nicht explizit als solche gekennzeichnet. Dies ist nicht kritisch, da sie aus den Attributbezeichnungen klar hervorgehen, könnte aber zur besseren Lesbarkeit ergänzt werden. 
+
+Außerdem ist der Relation "Verkauf" keine Filiale zugeordnet, wodurch nicht ersichtlich wird, in welcher Filiale ein Verkauf stattgefunden hat. Zusätzlich besitzt ein Produkt einen globalen Lagerbestand, der nicht mit einer Filiale zusammenhängt. Eine mögliche Lösung wäre, der Relation "Verkauf" eine FilialeID zuzuordnen und den Lagerbestand als eigene Relation zwischen Produkt und Filiale zu führen. 
+
+Die Relationen erfüllen die Anforderungen der dritten Normalform, da alle Nicht-Schlüsselattribute voll funktional von ihren Primärschlüsseln abhängen. Insgesamt ist das Modell logisch strukturiert und gut normalisiert
 
 \newpage
 \subsection{Feedback: Datenschema}
