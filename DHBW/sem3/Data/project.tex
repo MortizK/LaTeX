@@ -17,6 +17,7 @@
 % 23.09 14:00-16:30
 % 24.09 15:15-16:15
 % 29.11 21:25-23:15
+% 30.11 21:00-22:00
 
 \section{Anforderungsanalyse}
 
@@ -65,6 +66,11 @@ Moritz Köhler
 % Für Normalisierung
 % https://normalizer.db.in.tum.de/
 
+% To Do
+% Fremdschlüssel hervorheben
+% Verkauft fehlt Zuordnung zu Filiale - done
+% Produkt, Lagerbestand soll einer Filiale zugeordnet sein - done
+
 \subsection{Entitäten}
 
 Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, LeiterID: MitarbeiterID]\}
@@ -87,9 +93,9 @@ Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bes
 % Rekursiv
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Lagerbestand: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer]\}
 
-Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer]\}
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, FilialeID: integer]\}
 
 \subsection{Relationen}
 
@@ -101,6 +107,8 @@ beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
 angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
 verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
+
+Lagerbestand: \{[\underline{ProduktID: integer, FilialeID: integer}, Status: integer, Lagerbestand: integer]\}
 
 \newpage
 \subsection{Normalisierung bis 3NF}
