@@ -19,6 +19,7 @@
 % 29.11 21:25-23:15
 % 30.11 21:00-22:00
 % 03.12 11:10-11:50
+% 03.12 13:10-13:30
 
 \section{Anforderungsanalyse}
 
@@ -69,7 +70,7 @@ Moritz Köhler
 
 % To Do
 % Fremdschlüssel hervorheben
-% Verkauft fehlt Zuordnung zu Filiale - done
+% Verkauf fehlt Zuordnung zu Filiale - done
 % Produkt, Lagerbestand soll einer Filiale zugeordnet sein - done
 
 \subsection{Entitäten}
@@ -94,9 +95,9 @@ Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bes
 % Rekursiv
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: string, Lagerbestand: integer]\}
 
-Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, FilialeID: integer]\}
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, FilialeID: integer, MitarbeiterID: integer]\}
 
 \subsection{Relationen}
 
@@ -107,7 +108,7 @@ beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
 
 angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
 
-verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer, MitarbeiterID: integer]\}
+verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer]\}
 
 Lagerbestand: \{[\underline{ProduktID: integer, FilialeID: integer}, Status: integer, Lagerbestand: integer]\}
 
@@ -121,10 +122,10 @@ MVP: \{[MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname, Produkt
 werden zunächst die funktionalen Abhängigkeiten bestimmt:
 
 \begin{itemize}
-    \item MitarbeiterID bestimmt die Mitarbeiterattribute: Gehalt, Adresse, Geburtsdatum, Nachname, Vorname.
-    \item ProduktID bestimmt die Produktattribute: Produktname, Preis, Status, Lagerbestand.
-    \item VerkaufID bestimmt die Verkaufsattribute: Datum und Gesamtbetrag.
-    \item VerkaufID zusammen mit ProduktID bestimmt den beteiligten Mitarbeiter sowie die verkaufte Menge.
+    \item MitarbeiterID $\to$ Gehalt, Adresse, Geburtsdatum, Nachname, Vorname.
+    \item ProduktID $\to$ Produktname, Preis, Status, Lagerbestand.
+    \item VerkaufID $\to$ Datum, Gesamtbetrag.
+    \item (VerkaufID, ProduktID) $\to$ Menge.
 \end{itemize}
 
 \subsubsection*{Kanonische Überdeckung}
@@ -145,8 +146,8 @@ Für jede funktionale Abhängigkeit wird eine eigene Relation gebildet:
 \begin{enumerate}
     \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
     \item Produkt: \{[\underline{ProduktID}, Produktname, Preis, Status, Lagerbestand]\}
-    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag]\}
-    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge, MitarbeiterID]\}
+    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag, FilialeID, MitarbeiterID]\}
+    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge]\}
 \end{enumerate}
 
 \newpage
@@ -205,6 +206,8 @@ Verkauf:
         \hline
         VerkaufID $\to$ Datum & \checkmark & x \\
         VerkaufID $\to$ Gesamtbetrag & \checkmark & x \\
+        VerkaufID $\to$ FilialeID & \checkmark & x \\
+        VerkaufID $\to$ MitarbeiterID & \checkmark & x \\
     \end{tabular}
 \end{center}
 
@@ -225,10 +228,10 @@ verkauft:
 Nach der Zerlegung der ursprünglichen großen Relation in die vier Relationen
 
 \begin{itemize}
-    \item Mitarbeiter(MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname)
-    \item Produkt(ProduktID, Produktname, Preis, Status, Lagerbestand)
-    \item Verkauf(VerkaufID, Datum, Gesamtbetrag)
-    \item verkauft(ProduktID, VerkaufID, Menge, MitarbeiterID)
+    \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
+    \item Produkt: \{[\underline{ProduktID}, Produktname, Preis, Status, Lagerbestand]\}
+    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag]\}
+    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge, MitarbeiterID]\}
 \end{itemize}
 
 konnte für jede Relation durch die 3NF-Prüfung gezeigt werden, dass:
@@ -238,7 +241,7 @@ konnte für jede Relation durch die 3NF-Prüfung gezeigt werden, dass:
     \item Die rechten Seiten der Abhängigkeiten aus Nicht-Primattributen bestehen, was in der 3NF erlaubt ist, da die linke Seite jeweils ein Superschlüssel ist.
 \end{enumerate}
 
-Daraus folgt, dass alle vier Relationen nun die Bedingungen der 3NF erfüllen. Die ursprüngliche große Relation war dagegen noch nicht in 3NF, da einige funktionale Abhängigkeiten weder einen Superschlüssel auf der linken Seite hatten noch ausschließlich Primattribute auf der rechten Seite. Durch die Zerlegung wurden alle transitive Abhängigkeiten und Verstöße gegen die 3NF beseitigt
+Daraus folgt, dass alle vier Relationen nun die Bedingungen der 3NF erfüllen. Die ursprüngliche große Relation war dagegen noch nicht in 3NF, da einige funktionale Abhängigkeiten weder einen Superschlüssel auf der linken Seite hatten noch ausschließlich Primattribute auf der rechten Seite. Durch die Zerlegung wurden alle transitive Abhängigkeiten und Verstöße gegen die 3NF beseitigt.
 
 \section{Datenschema in SQL}
 
