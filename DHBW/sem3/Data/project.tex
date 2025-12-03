@@ -75,42 +75,44 @@ Moritz Köhler
 
 \subsection{Entitäten}
 
-Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, LeiterID: MitarbeiterID]\}
+Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, LeiterID: \textit{MitarbeiterID (FS)}]\}
 
-Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Endzeit: datetime, FilialeID: integer]\}
+Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Endzeit: datetime, \textit{FilialeID (FS)}: integer]\}
 
 Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
 
-Azubi: \{[\underline{MitarbeiterID: integer}], Start: date, VerantwortlicherID: MitarbeiterID\}
+Azubi: \{[\underline{\textit{MitarbeiterID (FS)}: integer}], Start: date, \textit{VerantwortlicherID (FS $\to$ Mitarbeiter)}: integer\}
 
-MitarbeiterTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
+MitarbeiterTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, \textit{MitarbeiterID (FS)}: integer]\}
 
-ZuliefererTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, ZuliefererID: integer]\}
+ZuliefererTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, \textit{ZuliefererID (FS)}: integer]\}
 
 Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
 
 % Zutat ist eine Schwache Entität, kann aber von mehreren Zulieferern geliefert werden.
-Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bestand: integer, Einheit: string]\}
+Zutat: \{[\underline{ZutatID: integer, \textit{ZuliefererID (FS)}: integer}, Name: string, Bestand: integer, Einheit: string]\}
 
 % Rekursiv
-Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
+Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, \textit{Basis (FS $\to$ RezeptID)}: integer]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: string, Lagerbestand: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, \textit{StatusID (FS)}: integer, Lagerbestand: integer]\}
 
-Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, FilialeID: integer, MitarbeiterID: integer]\}
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, \textit{FilialeID (FS)}: integer, \textit{MitarbeiterID (FS)}: integer]\}
 
-\subsection{Relationen}
+Status: \{[\underline{StatusID: integer}, name: string, description: string]\}
 
-durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
+\subsection{Beziehungen}
+
+durchgeführt-von: \{[\underline{\textit{SchichtID (FS)}: integer, \textit{MitarbeiterID (FS)}: integer}]\}
 
 % beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer, ZuliefererID: integer}]\}
-beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
+beinhaltet: \{[\underline{\textit{RezeptID (FS)}: integer, \textit{ZutatID (FS)}: integer}]\}
 
-angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
+angeleitet: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{RezeptID (FS)}: integer}]\}
 
-verkauft: \{[\underline{ProduktID: integer, VerkaufID: integer}, Menge: integer]\}
+verkauft: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{VerkaufID (FS)}: integer}, Menge: integer]\}
 
-Lagerbestand: \{[\underline{ProduktID: integer, FilialeID: integer}, Status: integer, Lagerbestand: integer]\}
+vorhanden: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{FilialeID (FS)}: integer}, \textit{StatusID (FS)}: integer, Lagerbestand: integer]\}
 
 \newpage
 \subsection{Normalisierung bis 3NF}
