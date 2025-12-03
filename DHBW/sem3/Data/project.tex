@@ -11,13 +11,14 @@
 \tableofcontents
 \newpage
 
-% Name der PDF Datei: Bäckereiprojekt_Köhler.pdf
+% Name der PDF Datei: Bäckereiprojekt_Reusch_Köhler.pdf
 
 % Arbeitszeiten
 % 23.09 14:00-16:30
 % 24.09 15:15-16:15
 % 29.11 21:25-23:15
 % 30.11 21:00-22:00
+% 03.12 11:10-11:50
 
 \section{Anforderungsanalyse}
 
@@ -113,10 +114,11 @@ Lagerbestand: \{[\underline{ProduktID: integer, FilialeID: integer}, Status: int
 \newpage
 \subsection{Normalisierung bis 3NF}
 
-Ausgehend von der großen Relation MVP (Mitarbeiter Verkauft Produkte) mit den Attributen
-MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname, 
-ProduktID, Produktname, Preis, Status, Lagerbestand, 
-VerkaufID, Datum, Gesamtbetrag, Menge, werden zunächst die funktionalen Abhängigkeiten bestimmt:
+Ausgehend von der großen Relation MVP (Mitarbeiter Verkauft Produkte):
+
+MVP: \{[MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname, ProduktID, Produktname, Preis, Status, Lagerbestand, VerkaufID, Datum, Gesamtbetrag, Menge]\}
+
+werden zunächst die funktionalen Abhängigkeiten bestimmt:
 
 \begin{itemize}
     \item MitarbeiterID bestimmt die Mitarbeiterattribute: Gehalt, Adresse, Geburtsdatum, Nachname, Vorname.
@@ -166,18 +168,77 @@ Die Hüllen der Schlüsselattribute werden textuell geprüft:
     \end{itemize}
 \end{itemize}
 
+\subsubsection*{3NF-Prüfung der einzelnen Relationen}
+
+Mitarbeiter:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        $X\to\alpha$ & Super Schl. & prim\\
+        \hline
+        MitarbeiterID $\to$ Gehalt & \checkmark & x \\
+        MitarbeiterID $\to$ Adresse & \checkmark & x \\
+        MitarbeiterID $\to$ Geburtsdatum & \checkmark & x \\
+        MitarbeiterID $\to$ Nachname & \checkmark & x \\
+        MitarbeiterID $\to$ Vorname & \checkmark & x \\
+    \end{tabular}
+\end{center}
+
+Produkt:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        $X\to\alpha$ & Super Schl. & prim\\
+        \hline
+        ProduktID $\to$ Produktname & \checkmark & x \\
+        ProduktID $\to$ Preis & \checkmark & x \\
+        ProduktID $\to$ Status & \checkmark & x \\
+        ProduktID $\to$ Lagerbestand & \checkmark & x \\
+    \end{tabular}
+\end{center}
+
+Verkauf:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        $X\to\alpha$ & Super Schl. & prim\\
+        \hline
+        VerkaufID $\to$ Datum & \checkmark & x \\
+        VerkaufID $\to$ Gesamtbetrag & \checkmark & x \\
+    \end{tabular}
+\end{center}
+
+verkauft:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        $X\to\alpha$ & Super Schl. & prim\\
+        \hline
+        (ProduktID, VerkaufID) $\to$ Menge & \checkmark & x \\
+        (ProduktID, VerkaufID) $\to$ MitarbeiterID & \checkmark & x \\
+    \end{tabular}
+\end{center}
+
+\newpage
 \subsubsection*{Schlussfolgerung}
 
-Die Kombination aus VerkaufID und ProduktID bildet einen Superschlüssel. 
-Alle erzeugten Relationen erfüllen die Bedingungen der 3NF:  
+Nach der Zerlegung der ursprünglichen großen Relation in die vier Relationen
 
 \begin{itemize}
-    \item Jede Relation enthält einen Primärschlüssel.
-    \item Alle Nichtschlüsselattribute sind vollständig funktional vom Primärschlüssel abhängig.
-    \item Es treten keine transitive Abhängigkeiten innerhalb einer Relation auf.
+    \item Mitarbeiter(MitarbeiterID, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname)
+    \item Produkt(ProduktID, Produktname, Preis, Status, Lagerbestand)
+    \item Verkauf(VerkaufID, Datum, Gesamtbetrag)
+    \item verkauft(ProduktID, VerkaufID, Menge, MitarbeiterID)
 \end{itemize}
 
-Das resultierende Schema liegt somit vollständig in der 3NF vor.
+konnte für jede Relation durch die 3NF-Prüfung gezeigt werden, dass:
+
+\begin{enumerate}
+    \item Die linken Seiten aller funktionalen Abhängigkeiten Superschlüssel der jeweiligen Relation sind.
+    \item Die rechten Seiten der Abhängigkeiten aus Nicht-Primattributen bestehen, was in der 3NF erlaubt ist, da die linke Seite jeweils ein Superschlüssel ist.
+\end{enumerate}
+
+Daraus folgt, dass alle vier Relationen nun die Bedingungen der 3NF erfüllen. Die ursprüngliche große Relation war dagegen noch nicht in 3NF, da einige funktionale Abhängigkeiten weder einen Superschlüssel auf der linken Seite hatten noch ausschließlich Primattribute auf der rechten Seite. Durch die Zerlegung wurden alle transitive Abhängigkeiten und Verstöße gegen die 3NF beseitigt
 
 \section{Datenschema in SQL}
 
