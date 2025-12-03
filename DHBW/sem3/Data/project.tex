@@ -294,7 +294,9 @@ Die Primärschlüssel sind den richtigen Relationen zugeordnet und korrekt marki
 
 Außerdem ist der Relation "Verkauf" keine Filiale zugeordnet, wodurch nicht ersichtlich wird, in welcher Filiale ein Verkauf stattgefunden hat. Zusätzlich besitzt ein Produkt einen globalen Lagerbestand, der nicht mit einer Filiale zusammenhängt. Eine mögliche Lösung wäre, der Relation "Verkauf" eine FilialeID zuzuordnen und den Lagerbestand als eigene Relation zwischen Produkt und Filiale zu führen. 
 
-Die Relationen erfüllen die Anforderungen der dritten Normalform, da alle Nicht-Schlüsselattribute voll funktional von ihren Primärschlüsseln abhängen. Insgesamt ist das Modell logisch strukturiert und gut normalisiert
+Die Relationen erfüllen die Anforderungen der dritten Normalform, da alle Nicht-Schlüsselattribute voll funktional von ihren Primärschlüsseln abhängen. 
+
+Die Normalisierung in die dritte Normalform mithilfe des Synthesealgorithmus ist logisch nachvollziehbar. Allerdings wäre eine argumentative Überprüfung der ersten und zweiten Normalform einfacher. Zudem wurde die Überprüfung für mehrere Relationen durchgeführt, was aber nicht notwendig wäre. Insgesamt sind der Entwurf in das relationale Schema, sowie die Normalisierung der Relationen gut gelungen.
 
 % \newpage
 \subsection{Feedback: Datenschema}
