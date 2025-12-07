@@ -2,7 +2,7 @@
 
 \subsection{Zweck des Dokuments}
 
-Dieses Dokument beschreibt die Software \textbf{genExam}, ein Werkzeug zur Verwaltung von Aufgabenpools und zur automatisierten Generierung von Klausuren. 
+Dieses Dokument beschreibt die Software \textbf{JExam}, ein Werkzeug zur Verwaltung von Aufgabenpools und zur automatisierten Generierung von Klausuren. 
 
 Es richtet sich an folgende Zielgruppen:
 
@@ -16,40 +16,32 @@ Darüber hinaus soll das Dokument die Benutzung, Architektur und nicht-funktiona
 
 \subsection{Überblick über das System}
 
-\textbf{genExam} ist eine JavaFX-basierte Desktop-Anwendung zur Verwaltung von Aufgabenpools, aus denen automatisch Klausuren generiert werden können.  
+\textbf{JExam} ist eine JavaFX-basierte Desktop-Anwendung zur Verwaltung von Aufgabenpools, aus denen automatisch Klausuren generiert werden können.  
 
 Die Aufgabenpools werden in \textbf{XML-Dateien} gespeichert und bestehen aus folgenden hierarchischen Elementen:
 
 \begin{itemize}
-    \item \textbf{Kapitel / Tasks}: Oberkategorien für Aufgaben.
-    \item \textbf{Teilaufgaben / Subtasks}: Konkrete Aufgaben mit Punktzahl, Schwierigkeitsgrad und Sichtbarkeit.
+    \item \textbf{Kapitel / Chapter}: Oberkategorien für Aufgaben.
+    \item \textbf{Aufgaben / Tasks}: Konkrete Aufgaben mit Punktzahl, Schwierigkeitsgrad und Sichtbarkeit.
     \item \textbf{Varianten / Variants}: Unterschiedliche Ausprägungen einer Teilaufgabe inklusive Musterlösung.
 \end{itemize}
 
 Beim Laden der XML-Dateien prüft das System die Struktur und Inhalte, um fehlerhafte Daten zu erkennen. Eine PDF-Generierung kann erst nach dieser Validierung und durch einen separaten Nutzerbefehl ausgelöst werden, wodurch sichergestellt wird, dass nur gültige Aufgaben exportiert werden.
 
-\begin{itemize}
-    \item Klausur ohne Musterlösung
-    \item Klausur mit eingebetteten Musterlösungen
-    \item Probeklausuren (nur "mock-exam"-Subtasks)
-\end{itemize}
-
-Das System validiert beim Laden der XML-Dateien die Struktur und Inhalte, um fehlerhafte Daten zu erkennen und die PDF-Generierung zu verhindern, falls ungültige Elemente vorhanden sind.
-
 \subsection{Hauptmerkmale}
 
 \begin{itemize}
     \item Import und Export von Aufgabenpools als XML-Dateien
-    \item Verwaltung von Kapiteln (Tasks) und Teilaufgaben (Subtasks)
+    \item Verwaltung von Kapiteln (Chapter) und Aufgaben (Tasks)
     \item Verwaltung von Varianten mit unterschiedlichen Aufgabenstellungen und Lösungen
     \item Automatische PDF-Generierung mit oder ohne Musterlösung
-    \item Unterstützung von Probeklausuren mit spezifisch gekennzeichneten Subtasks
-    \item Mehrsprachige Benutzeroberfläche
+    \item Unterstützung von Probeklausuren mit spezifisch gekennzeichneten tasks
+    \item Mehrsprachige Benutzeroberfläche (ab Version 2)
 \end{itemize}
 
 \subsection{Systemumgebung}
 
-\textbf{genExam} ist plattformübergreifend lauffähig auf:
+\textbf{JExam} ist plattformübergreifend lauffähig auf:
 
 \begin{itemize}
     \item Windows 11 oder neuer
@@ -74,16 +66,16 @@ Die Software wird als ausführbares JAR-Paket verteilt und kann durch Doppelklic
 
 \begin{itemize}
     \item Die Software folgt der MVC-Architektur (Model-View-Controller).
-    \item Öffentliche Klassen und Algorithmen sind mit JavaDoc dokumentiert.
+    \item Öffentliche Klassen und Algorithmen sind mit JavaDoc dokumentiert. %% To Do
     \item Erweiterungen oder Optimierungen der Software können modular umgesetzt werden.
-    \item Automatisierte Tests (Unit-Tests) unterstützen die Stabilität bei Änderungen.
+    \item Automatisierte Tests (Unit-Tests) unterstützen die Stabilität bei Änderungen. %% To Do
 \end{itemize}
 
 \subsubsection{Benutzerfreundlichkeit}
 
 \begin{itemize}
     \item Intuitive Benutzeroberfläche mit Menüs, Dialogen und Übersichtslisten.
-    \item Mehrsprachigkeit: UI kann auf alternative Sprachen umgestellt werden.
+    \item Mehrsprachigkeit: UI kann auf alternative Sprachen umgestellt werden. (ab Version 2)
 \end{itemize}
 
 \subsubsection{Sicherheit und Datenintegrität}

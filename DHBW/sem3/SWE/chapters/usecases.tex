@@ -2,9 +2,7 @@
 
 \subsection{Aktoren}
 
-Die primären Akteure der Software sind Dozierende oder anderes lehrendes Personal,
-welches Aufgabenpools verwalten und daraus Klausuren generieren möchte.
-Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
+Die primären Akteure der Software sind Dozierende oder anderes lehrendes Personal, welches Exams verwalten und daraus Klausuren generieren möchte. Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 
 \begin{center}
 \resizebox{\textwidth}{!}{%
@@ -32,16 +30,16 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \node[package, fit=(UC13)(UC17), label=above:Klausur-Generierung] (PkgExam) {};
 
 % --------------------
-% Untere Reihe: Kapitel-Management, Teilaufgaben-Management, Varianten-Management
+% Untere Reihe: Kapitel-Management, Aufgabe-Management, Varianten-Management
 \node[usecase, below=5cm of Dozent, xshift=-6cm] (UC04) {UC-04:\\Kapitel anlegen};
 \node[usecase, below=0.5cm of UC04] (UC05) {UC-05:\\Kapitel bearbeiten};
 \node[usecase, below=0.5cm of UC05] (UC06) {UC-06:\\Kapitel löschen};
 \node[package, fit=(UC04)(UC05)(UC06), label=above:Kapitel-Management] (PkgKap) {};
 
-\node[usecase, below=5cm of Dozent] (UC07) {UC-07:\\Teilaufgabe anlegen};
-\node[usecase, below=0.5cm of UC07] (UC08) {UC-08:\\Teilaufgabe bearbeiten};
-\node[usecase, below=0.5cm of UC08] (UC09) {UC-09:\\Teilaufgabe löschen};
-\node[package, fit=(UC07)(UC08)(UC09), label=above:Teilaufgaben-Management] (PkgSub) {};
+\node[usecase, below=5cm of Dozent] (UC07) {UC-07:\\Aufgabe anlegen};
+\node[usecase, below=0.5cm of UC07] (UC08) {UC-08:\\Aufgabe bearbeiten};
+\node[usecase, below=0.5cm of UC08] (UC09) {UC-09:\\Aufgabe löschen};
+\node[package, fit=(UC07)(UC08)(UC09), label=above:Aufgabe-Management] (PkgSub) {};
 
 \node[usecase, below=5cm of Dozent, xshift=6cm] (UC10) {UC-10:\\Variante anlegen};
 \node[usecase, below=0.5cm of UC10] (UC11) {UC-11:\\Variante bearbeiten};
@@ -71,18 +69,19 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     UC-04 & \hyperref[uc:04]{Kapitel anlegen} \\
     UC-05 & \hyperref[uc:05]{Kapitel bearbeiten} \\
     UC-06 & \hyperref[uc:06]{Kapitel löschen} \\
-    UC-07 & \hyperref[uc:07]{Teilaufgabe anlegen} \\
-    UC-08 & \hyperref[uc:08]{Teilaufgabe bearbeiten} \\
-    UC-09 & \hyperref[uc:09]{Teilaufgabe löschen} \\
+    UC-07 & \hyperref[uc:07]{Aufgabe anlegen} \\
+    UC-08 & \hyperref[uc:08]{Aufgabe bearbeiten} \\
+    UC-09 & \hyperref[uc:09]{Aufgabe löschen} \\
     UC-10 & \hyperref[uc:10]{Variante anlegen} \\
     UC-11 & \hyperref[uc:11]{Variante bearbeiten} \\
     UC-12 & \hyperref[uc:12]{Variante löschen} \\
     UC-13 & \hyperref[uc:13]{Klausurkonfiguration öffnen} \\
-    UC-14 & \hyperref[uc:14]{Klausur generieren (PDF)} \\
-    UC-15 & \hyperref[uc:15]{Musterlösung generieren (PDF)} \\
-    UC-16 & \hyperref[uc:16]{Probeklausur generieren} \\
-    UC-17 & \hyperref[uc:17]{PDF-Vorschau anzeigen} \\
-    UC-18 & \hyperref[uc:18]{Sprache ändern} \\
+    UC-14 & \hyperref[uc:14]{Reihenfolge der Kapitel ändern} \\
+    UC-15 & \hyperref[uc:15]{Klausur generieren (PDF)} \\
+    UC-16 & \hyperref[uc:16]{Musterlösung generieren (PDF)} \\
+    UC-17 & \hyperref[uc:17]{Probeklausur generieren} \\
+    UC-18 & \hyperref[uc:18]{PDF-Vorschau anzeigen} \\
+    UC-19 & \hyperref[uc:19]{Sprache ändern} \\
 \end{tabular}
 
 \subsection{Anwenderfälle im Detail}
@@ -92,11 +91,10 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-01: XML-Datei neu anlegen}
 {uc:01}
-{Der Nutzer erstellt einen neuen, leeren Aufgabenpool (Exam).}
+{Beim Start wird automatisch ein leeres Exam angelegt.}
 {Keine XML-Datei muss geladen sein.}
 {
-    \item Nutzer klickt auf "New Exam".
-    \item genExam erzeugt eine interne Standardstruktur.
+    \item Nutzer hat das Programm gestartet
 }
 {Eine neue, leere Exam-Struktur ist im Speicher.}
 \textbf{Fehlerbetrachtung:} Nicht relevant (Operation kann nicht fehlschlagen).
@@ -110,6 +108,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {Eine bestehende XML-Datei (Exam) wird geladen.}
 {Datei muss existieren und korrektes Format besitzen.}
 {
+    \item Nutzer wählt unter Menu "File" die Option "Open"
     \item Nutzer wählt mittels Dateidialog eine XML-Datei.
     \item System lädt und validiert die Struktur.
 }
@@ -128,7 +127,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {Der aktuelle Aufgabenpool (Exam) wird gespeichert.}
 {Ein gültiger Aufgabenpool wurde geladen oder erstellt.}
 {
-    \item Nutzer wählt "Save" oder "Save as".
+    \item Nutzer wählt "Save" oder "Save as". Befindet sich unter Menu "File".
     \item System schreibt XML-Datei.
 }
 {Alle Daten sind persistent gespeichert.}
@@ -143,13 +142,13 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-04: Kapitel anlegen}
 {uc:04}
-{Ein neues Kapitel (Chapter / Task) wird zum Aufgabenpool hinzugefügt.}
+{Ein neues Kapitel (Chapter) wird zum Aufgabenpool hinzugefügt.}
 {Ein Aufgabenpool ist geladen oder neu erstellt.}
 {
-    \item Nutzer klickt auf "Add Chapter".
+    \item Nutzer klickt auf "New Chapter".
     \item Kapitel wird mit Standardname angelegt.
 }
-{Ein neues Kapitel existiert im XML-Modell.}
+{Ein neues Kapitel existiert im Arbeitsspeicher}
 \textbf{Fehlerbetrachtung:} Keine - trivialer Vorgang.
 
 % -------------------------------
@@ -157,14 +156,14 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-05: Kapitel bearbeiten}
 {uc:05}
-{Kapitelname oder Metadaten eines Chapters / Tasks werden geändert.}
+{Kapitelname oder Metadaten eines Chapters werden geändert.}
 {Kapitel existiert.}
 {
     \item Nutzer wählt Kapitel aus.
-    \item Nutzer ändert Namen oder Kürzel.
+    \item Nutzer ändert Namen und bestätigt mit "Save".
 }
 {Kapitel wurde aktualisiert.}
-\textbf{Fehlerbetrachtung:} Ungültiger Name → Hinweis, Änderung wird nicht übernommen.
+\textbf{Fehlerbetrachtung:} Keine - trivialer Vorgang.
 
 % -------------------------------
 % UC-06
@@ -176,6 +175,7 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {
     \item Nutzer klickt auf "Delete".
     \item Sicherheitsabfrage erscheint.
+    \item Sicherheitsabfrage bestätigen.
 }
 {Kapitel ist unwiderruflich entfernt.}
 \textbf{Fehlerbetrachtung:} Keine - außer Nutzer bricht ab.
@@ -184,29 +184,29 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 % -------------------------------
 % UC-07
 \usecase
-{UC-07: Teilaufgabe anlegen}
+{UC-07: Aufgabe anlegen}
 {uc:07}
-{Innerhalb eines Kapitels wird ein Subtask erstellt.}
+{Innerhalb eines Kapitels wird ein Task erstellt.}
 {Mindestens ein Kapitel existiert.}
 {
     \item Nutzer wählt Kapitel.
-    \item Nutzer klickt "Add Subtask".
+    \item Nutzer klickt "New Task".
 }
-{Neuer Subtask mit Standardvariant existiert.}
+{Neuer Task mit Standardvariant existiert im Arbeitsspeicher}
 \textbf{Fehlerbetrachtung:} Keine.
 
 % -------------------------------
 % UC-08
 \usecase
-{UC-08: Teilaufgabe bearbeiten}
+{UC-08: Aufgabe bearbeiten}
 {uc:08}
-{Ein Subtask wird editiert.}
-{Subtask existiert.}
+{Ein Task wird editiert.}
+{Task existiert.}
 {
-    \item Nutzer öffnet Subtask.
+    \item Nutzer öffnet Task.
     \item Nutzer ändert Punktzahl, Schwierigkeitsgrad, Sichtbarkeit.
 }
-{Alle Änderungen sind übernommen.}
+{Alle Änderungen sind im Arbeitsspeicher übernommen.}
 \textbf{Fehlerbetrachtung:}
 \fehler{
     \item Punktzahl nicht im erlaubten Bereich.
@@ -217,13 +217,17 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 % -------------------------------
 % UC-09
 \usecase
-{UC-09: Teilaufgabe löschen}
+{UC-09: Aufgabe löschen}
 {uc:09}
-{Ein Subtask wird gelöscht.}
-{Subtask existiert.}
-{}
-{Subtask ist unwiderruflich gelöscht.}
-\textbf{Fehlerbetrachtung:} Keine.
+{Ein Task wird gelöscht.}
+{Task existiert.}
+{
+    \item Nutzer klickt auf "Delete".
+    \item Sicherheitsabfrage erscheint.
+    \item Sicherheitsabfrage bestätigen.
+}
+{Task mit ist unwiderruflich gelöscht.}
+\textbf{Fehlerbetrachtung:} Keine - außer Nutzer bricht ab.
 
 \columnbreak
 % -------------------------------
@@ -231,8 +235,8 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-10: Variante anlegen}
 {uc:10}
-{Eine neue Variante wird einem Subtask hinzugefügt.}
-{Subtask existiert.}
+{Eine neue Variante wird einem Task hinzugefügt.}
+{Task existiert.}
 {
     \item Nutzer klickt "Add Variant".
 }
@@ -250,10 +254,10 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     \item Nutzer öffnet Variante.
     \item Nutzer bearbeitet Texte.
 }
-{Änderungen sind gespeichert.}
+{Änderungen sind im Arbeitsspeicher gespeichert.}
 \textbf{Fehlerbetrachtung:}
 \fehler{
-    \item Leere Frage → Fehlermeldung.
+    \item Leere Frage → Fehlermeldung. %% To Do
 }
 
 % -------------------------------
@@ -262,9 +266,13 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 {UC-12: Variante löschen}
 {uc:12}
 {Eine Variante wird gelöscht.}
-{Variante existiert.}
-{}
-{Variante gelöscht. Falls letzte Variante gelöscht → Subtask wird ebenfalls gelöscht.}
+{Der Task hat mehr als eine Variante.}
+{
+    \item Nutzer klickt auf "Delete".
+    \item Sicherheitsabfrage erscheint.
+    \item Sicherheitsabfrage bestätigen.
+}
+{Variante gelöscht.}
 \textbf{Fehlerbetrachtung:} Keine.
 
 \columnbreak
@@ -273,8 +281,8 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 \usecase
 {UC-13: Klausurkonfiguration öffnen}
 {uc:13}
-{Der Nutzer öffnet das Menü zur Generierung einer Klausur (Exam).}
-{Mindestens ein Kapitel mit gültigen Subtasks existiert.}
+{Der Nutzer navigiert in den Tab zur Generierung einer Klausur (Exam).}
+{Mindestens ein Kapitel mit gültigen Tasks existiert.}
 {}
 {Konfigurationsdialog sichtbar.}
 \textbf{Fehlerbetrachtung:} Keine generierbaren Kapitel → Hinweis.
@@ -282,8 +290,21 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
 % -------------------------------
 % UC-14
 \usecase
-{UC-14: Klausur generieren (PDF)}
+{UC-14: Reihenfolge der Kapitel ändern}
 {uc:14}
+{Der Nutzer ist in dem Tab zur Generierung einer Klausur (Exam)}
+{Mindestens ein Kapitel mit gültigen Tasks existiert.}
+{
+    \item Bewege die Kapitel mit den Buttons "UP" und "DOWN"
+    \item Wenn das Unterste Kapitel nach unten beweget wird, so landet es im vom der Generierung ausgeschlossenem Bereich.
+}
+{Reihenfolge und Ausschließung von Kapitel wird gewährleistet}
+
+% -------------------------------
+% UC-15
+\usecase
+{UC-15: Klausur generieren (PDF)}
+{uc:15}
 {System erstellt eine PDF-Klausur ohne Musterlösung aus dem Aufgabenpool (Exam).}
 {\begin{itemize}
     \item Klausur ist gültig (Difficulty 33\%-Regel).
@@ -297,12 +318,13 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     \item Keine gültigen Aufgaben pro Kapitel.
 }
 
+\columnbreak
 % -------------------------------
-% UC-15
+% UC-16
 \usecase
-{UC-15: Musterlösung generieren}
-{uc:15}
-{Erzeugt eine PDF-Datei mit eingebetteten Musterlösungen der Subtasks/Variants.}
+{UC-16: Musterlösung generieren}
+{uc:16}
+{Erzeugt eine PDF-Datei mit eingebetteten Musterlösungen der Tasks/Variants.}
 {Mindestens eine Variante hat eine Antwort.}
 {}
 {"exam.lsg.pdf" existiert.}
@@ -311,14 +333,13 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     \item Keine Lösungen vorhanden → Warnung.
 }
 
-\columnbreak
 % -------------------------------
-% UC-16
+% UC-17
 \usecase
-{UC-16: Probeklausur generieren}
-{uc:16}
-{Erzeugt eine rein aus Mock-Subtasks bestehende Klausur.}
-{Mindestens ein Subtask ist als "mock-exam" markiert.}
+{UC-17: Probeklausur generieren}
+{uc:17}
+{Erzeugt eine rein aus Mock-Tasks bestehende Klausur.}
+{Mindestens ein Task ist als "mock-exam" markiert.}
 {}
 {Mock-Klausur-PDF existiert.}
 \textbf{Fehlerbetrachtung:}
@@ -326,11 +347,12 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     \item Keine Mock-Aufgaben vorhanden → Fehlermeldung.
 }
 
+\columnbreak
 % -------------------------------
-% UC-17
+% UC-18
 \usecase
-{UC-17: PDF-Vorschau anzeigen}
-{uc:17}
+{UC-18: PDF-Vorschau anzeigen}
+{uc:18}
 {Vor dem Export wird eine Vorschau der generierbaren Klausur (Exam) gerendert.}
 {PDF muss generierbar sein.}
 {}
@@ -340,12 +362,11 @@ Es werden lediglich grundlegende Computerkenntnisse vorausgesetzt.
     \item Fehlende PDF-Engine → Meldung.
 }
 
-\columnbreak
 % -------------------------------
-% UC-18
+% UC-19
 \usecase
-{UC-18: Sprache ändern}
-{uc:18}
+{UC-19: Sprache ändern}
+{uc:19}
 {Die Benutzeroberfläche kann auf eine alternative Sprache umgestellt werden.}
 {Alternative Sprache installiert.}
 {}
