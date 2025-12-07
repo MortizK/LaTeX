@@ -1,6 +1,8 @@
 \section{Benutzeroberfläche}
 
-Die folgenden Abschnitte beschreiben die Benutzeroberfläche von \textbf{genExam} anhand der bereitgestellten UI-Bilder. Jede Abbildung wird durch einen erklärenden Text ergänzt, der beschreibt, welche Funktion dort ausgeführt wird und in welchem Kontext das Element genutzt wird.
+Die folgenden Abschnitte beschreiben die Benutzeroberfläche von \textbf{JExam} anhand der bereitgestellten UI-Bilder. Jede Abbildung wird durch einen erklärenden Text ergänzt, der beschreibt, welche Funktion dort ausgeführt wird und in welchem Kontext das Element genutzt wird.
+
+Hinweis: Die Tatsächliche UI der Anwendung \textbf{JExam} kann leicht von der Hier beschriebenen Benutzeroberfläche abweichen. Die Struktur und wo was ist bleiben Identisch.
 
 % ============================================================
 \subsection{Navigation}
@@ -50,7 +52,7 @@ Die Breadcrumb-Leiste dient zur Navigation auf der aktuellen Hierarchieebene. Si
 \subsection{Komponenten}
 
 \subsubsection*{Chapter Component}
-Eine Anzeige des Kapitels mit Buttons zum Bearbeiten oder Löschen. Öffnet die entsprechenden Popups.
+Eine Anzeige des Kapitels mit Buttons zum Bearbeiten oder Löschen. Löschen öffnet ein Popup und Bearbeiten navigiert in die Chapter Seite.
 \begin{figure}[H]
     \vspace{0pt}
     \centering
@@ -59,7 +61,7 @@ Eine Anzeige des Kapitels mit Buttons zum Bearbeiten oder Löschen. Öffnet die 
 \end{figure}
 
 \subsubsection*{Task Component}
-Ein Task wird mit Punktzahl, Schwierigkeit und Sichtbarkeit dargestellt. Enthält Edit- und Delete-Aktionen.
+Ein Task wird mit Punktzahl, Schwierigkeit und Sichtbarkeit dargestellt. Enthält Edit- und Delete-Aktionen. Löschen öffnet ein Popup und Bearbeiten navigiert in die Chapter Seite.
 \begin{figure}[H]
     \vspace{0pt}
     \centering
@@ -68,7 +70,7 @@ Ein Task wird mit Punktzahl, Schwierigkeit und Sichtbarkeit dargestellt. Enthäl
 \end{figure}
 
 \subsubsection*{Variant Component}
-Zeigt Frage und Antwort einer Variante an und bietet Edit/Delete-Buttons.
+Zeigt Frage und Antwort einer Variante an und bietet Textfelder um die Fragen und Antworten zu bearbeiten und den Delete Button, welcher ein Popup öffnet.
 \begin{figure}[H]
     \vspace{0pt}
     \centering
@@ -172,180 +174,46 @@ Der \textit{Create Variant}-Button öffnet das entsprechende Popup.
 \end{figure}
 
 % ============================================================
-\subsection{Selectors}
+\subsection{PopUp}
 
 \begin{figure}[H]
 \centering
 \begin{minipage}[t]{0.55\linewidth}
     \vspace{0.5em}
 
-    \subsubsection*{Scope Selector}
+    \subsubsection*{Delete Popup}
 
-    Legt fest, ob ein Task in Probeklausuren (\texttt{mock}) oder in echten Klausuren (\texttt{exam}) erscheint.
-\end{minipage}\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/scope_select.pdf}
-    \caption{Scope-Auswahl für Tasks.}
-\end{minipage}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Difficulty Selector}
-
-    Auswahl zwischen den Schwierigkeitsgraden: \texttt{easy}, \texttt{medium} und \texttt{hard}.
+    Popup zur Bestätigung des Löschens eines Class (ersetzen durch Chapter, Task, Variant).
+    Gibt die Bedeutung zurück, dass auch alle Kindelemente unwiderruflich gelöscht werden.
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.40\linewidth}
     \vspace{0pt}
     \centering
-    \includegraphics[scale=0.5]{fig/difficulty_select.pdf}
-    \caption{Einstellung des Schwierigkeitsgrads.}
+    \includegraphics[scale=0.5]{fig/delete_popup.pdf}
+    \caption{Löschbestätigung für Class}
 \end{minipage}
 \end{figure}
 
-
-% ============================================================
-\subsection{PopUps}
+\subsection{Rearrange Chapters}
 
 \begin{figure}[H]
 \centering
-\begin{minipage}[t]{0.55\linewidth}
+\begin{minipage}[t]{0.4\linewidth}
     \vspace{0.5em}
 
-    \subsubsection*{Exam Create Popup}
+    \subsubsection*{Rearrange Chapters \& Create Exam}
 
-    Popup zur Erstellung eines neuen Exams.  
-    Der Nutzer gibt einen Namen ein.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/exam_create_popup.pdf}
-    \caption{Erstellung eines neuen Exams.}
-\end{minipage}
-\end{figure}
+    Ermöglicht die Reihenfolge der Chapter für die Klausurgenerierung zu ändern.
 
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Chapter Create Popup}
-
-    Popup zur Eingabe des Kapitelnamens.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/chapter_create_popup.pdf}
-    \caption{Erstellung eines neuen Kapitels.}
-\end{minipage}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Chapter Delete Popup}
-
-    Bestätigung zum Löschen eines Kapitels.  
-    Fragt explizit, ob alle Tasks und Varianten ebenfalls gelöscht werden sollen.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/chapter_delete_popup.pdf}
-    \caption{Löschen eines Kapitels mit allen untergeordneten Elementen.}
-\end{minipage}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Task Create Popup}
-
-    Popup zum Erstellen eines Tasks.  
-    Hier werden Scope, Difficulty, Punktzahl, sowie Frage und Antwort der ersten Variante eingegeben.
+    Durch Verschieben in den "Excluded from PDF Generation" Bereich werden diese Chapter nicht mehr für die Generierung berücksichtigt und somit ausgeschlossen.
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.55\linewidth}
     \vspace{0pt}
     \centering
-    \includegraphics[scale=0.5]{fig/task_create_popup.pdf}
-    \caption{Erstellung eines Tasks inklusive erster Variante.}
-\end{minipage}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Task Delete Popup}
-
-    Popup zur Bestätigung des Löschens eines Tasks.  
-    Fragt, ob alle Varianten gelöscht werden sollen.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/task_delete_popup.pdf}
-    \caption{Löschbestätigung für Tasks.}
-\end{minipage}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Variant Create Popup}
-
-    Popup zum Erstellen einer neuen Variante (Frage + Antwort).
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/variant_create_popup.pdf}
-    \caption{Erstellung einer neuen Variante.}
-\end{minipage}
-\end{figure}
-
-
-\begin{figure}[H]
-\centering
-\begin{minipage}[t]{0.55\linewidth}
-    \vspace{0.5em}
-
-    \subsubsection*{Variant Delete Popup}
-
-    Popup zur Bestätigung des Löschens einer Variante.  
-    Löschen ist nicht möglich, wenn es die letzte Variante des Tasks ist.
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.40\linewidth}
-    \vspace{0pt}
-    \centering
-    \includegraphics[scale=0.5]{fig/variant_delete_popup.pdf}
-    \caption{Löschbestätigung für Varianten.}
+    \includegraphics[scale=0.5]{fig/pdf_sidebar.pdf}
+    \caption{Umordnen der Chapters}
 \end{minipage}
 \end{figure}
 
