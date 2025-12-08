@@ -64,4 +64,4 @@ Für Dateien im .pap format um Ablaufplane zu kreieren und zu speichern.
 
 ## License
 
-This repo ist licensed under the GNU GPLv3 - see the [LICENSE](https://github.com/MortizK/JExam/blob/main/LICENSE) file for details
+This repo ist licensed under the GNU GPLv3 - see the [LICENSE](https://github.com/MortizK/LaTeX?tab=GPL-3.0-1-ov-file) file for details
