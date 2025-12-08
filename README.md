@@ -61,3 +61,7 @@ Für Jupyter Notebooks im Modul Scientific Programming Lab, welche python als Gr
 ### Ordner /pap
 
 Für Dateien im .pap format um Ablaufplane zu kreieren und zu speichern.
+
+## License
+
+This repo ist licensed under the GNU GPLv3 - see the [LICENSE](https://github.com/MortizK/JExam/blob/main/LICENSE) file for details
