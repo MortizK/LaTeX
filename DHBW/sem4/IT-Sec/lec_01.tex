@@ -10,6 +10,165 @@
 \maketitle
 \tableofcontents
 
+\lecture
+
+\section{Organisatorisch}
+
+Kurs Teilnahme ist Kriterium um an der Klausur teilnehmen zu dürfen.
+
+Es wird Übungen an den letzten paar Dienstagen geben. Keine Note für Übungen.
+
+In der Klausur müssen wir nicht viel Rechnen.
+
+Nicht Teil der Vorlesung: Kein Requirements Engineering und keine Test Engineering.
+
+\subsection{Literatur}
+
+Claudia Eckert, IT-Sicherheit, Oldenbourg Verlag (Hieran orientiert sich die Vorlesung)
+
+Principles of Information Security von Michael E. Whitman and Herbet J. Mattord
+
+Herbet Voß, Kryprographie mit Java
+
+Gilberto Najera-Gutierrez et al, Improving your Penetration Testin Skils
+
+\href{https:\\www.owasp.de\top10}{OWASP Top10}
+
+\subsection{Ziele Modulplan}
+
+\begin{enumerate}
+    \item Verständnis Begriffe
+    \item Kenntnis von Bedrohungen
+    \item Verständnis von Techniken
+    \item Bewertungskriterien von Sicherheitslösungen
+    \item Grenzen von Sicherheitslösung und wie Kritisch sind diese
+\end{enumerate}
+
+\subsection{Plan}
+
+\begin{enumerate}
+    \item Woche 1: Einführung
+    \item Woche 2: Sicherheitsbedrohungen
+    \item Woche 3: Einführung Kryptographie
+    \item Woche 4: Einführung Kryptographie 2
+    \item Woche 5: Schlüsselaustausch und Management
+    \item Woche 6: Identifikation und Authentisierung
+    \item Woche 7: Zugriffs- und Informationskontrolle
+    \item Woche 8: Sicherheitsmaßnamen auf Hardware und Netzwerkebene
+    \item Woche 9: DSGVO und Security Engineering
+    \item Woche 10: Einführung in Datenräume
+    \item Woche 11: (Hands on Pentesting)
+\end{enumerate}
+
+Am 23.03.2026 und dem 24.03.2026 fallen aus und müssen Verschoben werden.
+
+\section{Einführung}
+
+Welche Trends hat das Internet. Überall werden Daten ausgetauscht, wie bei dem bezahlen mit dem Handy. Wie wird sichergestellt das die Daten echt, richtig und von authentischen Gerät kommen.
+
+Überall stecken Herausforderungen der IT-Sicherheit.
+
+\subsection{Was ist Sicherheit}
+
+\textbf{Funktionssicherheit} (safety)
+
+Die ist-Funktionalität entspricht den spezifizierten soll-Funktionalitäten.
+Die Spezifikation muss sauber sein.
+
+\textbf{Informationssicherheit} (security)
+
+Systemzustände annehmen, welche keine unautorisierten Informationsveränderung oder -gewinnung zulässt.
+Die Spezifikation muss sauber sein.
+
+\textbf{Datensicherheit} (protection)
+
+Zugriff auf Systemressourcen oder Daten dürfen nur von autorisierten Systemzuständen genehmigt werden.
+
+Backups gehören auch dazu.
+
+\textbf{Datenschutz} (privacy)
+
+Eine natürliche Person bestimmt, wer Informationen weitergeben darf.
+
+\textbf{ISO} definiert Security als die "Minimierung der Verwundbarkeit von Werten und Ressourcen".
+
+\know{Tipp}{Für eine Bachelor Arbeit muss genau genannt werden, welche Sicherheit gemeint ist.}
+
+\subsection{Verlässlichkeit}
+
+Lieber das System "runterfallen lassen", als es in einen Undefinierten Zustand zurückzulassen.
+
+\subsection{Safety versus Security}
+
+Beides beißt sich immer irgendwie. Sie schrenken sich Gegenseitig ein.
+
+Die Security beantwortet die Fragen: Wer bin ich, Was darf ich?
+
+\subsection{Schutzziele}
+
+Diese müssen wir Kennen. Es ist der Kern, das Grobgerüst, dieser Vorlesung.
+
+\begin{enumerate}
+    \item Vertraulichkeit Confidentiality
+    \item Integrität Integrity
+    \item Verfügbarkeit Availability
+    \item Verbindlichkeit Accountability
+    \item Authentizität Authenticity
+    \item Privatheit Anonymität Nicht-Verfolgbarkeit Privacy
+\end{enumerate}
+
+Die ersten drei sind das minimum. CIA-Dreieck
+
+\subsubsection{Vertraulichkeit}
+
+Schutz vor unautorisierter Informationsgewinnung
+
+Wer darf welche Information sehen. Also Berechtigungen und Verschlüsselungen von Daten.
+
+Idealerweise sollten die Daten auch schon auf dem Server selbst verschlüsselt sein.
+
+Der Mensch ist immer ein mögliche fehlerquelle, da dieser einfach vertrauliche Informationen auch in nicht vertrauliche Dateien reinschreibt. Unabhängig davon, dass es Phishing gibt.
+
+\subsubsection{Integrität}
+
+Schutz vor unautorisierter und unbemerkter Modifikation von Daten. Es dürfen auch keine unzulässige oder undefinierten Zustände erreicht werden. Ein Hacker darf seine log Einträge nicht löschen dürfen.
+
+Manipulationserkennung: Prüfwerte, digitales Watermarking.
+
+\subsubsection{Verfügbarkeit}
+
+Schutz vor unbefugter Beeinträchtigung der Nutzbarkeit und der Funktionalität/ Dienste etc.
+
+Festlegen von Schwellwerten, z.B. Überlast
+
+Angriffstoleranz-Maßnamen: z.B. Redundanz
+
+\subsubsection{Verbindlichkeit/ Zurechenbarkeit}
+
+Schutz vor unzulässigem Abstreiten durchgeführter Handlungen.
+
+Ein Beispiel ist das Abo einer Email Newsletter. So kommt noch eine zweite Bestätigung auf die Email, denn jeder kann diese Email angeben, aber nur der Besitzer kann sie bestätigen.
+
+\subsubsection{Authentizität}
+
+Nachweis der Echtheit und Glaubwürdigkeit der Identität eines Objekts oder Subjekts.
+
+Authentisierung beantwortet Wer ist das?, Autorisierung beantwortet Wer darf was?
+
+\subsubsection{Privatheit}
+
+Schutz der Personenbezogenen Daten, Schutz der Privatsphäre, Gewährleistung des informationellen Selbstbestimmungsrechts.
+
+Nur die Daten zu erfassen, die ich tatsächlich brauchen. Warum brauche ich diese Daten? Anonymisierungs-Verfahren, Pseudonyme.
+
+Unser Internetzugriff ist nur Pseudonymisiert.
+
+\subsection{Widersprüche}
+
+Es gibt mehrere Schutzziele, die sich in manchen Situationen wiedersprechen.
+
+Hacker angriff: Abwägung zwischen Abschalten für die Vertraulichkeit, verhindert aber die Verfügbarkeit.
+
 
 
 \end{document}
