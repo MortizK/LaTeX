@@ -1,0 +1,171 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Datenbanken}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-10}
+
+\section{Organisatorisch}
+
+Die Themen für dieses Semester:
+
+\begin{enumerate}
+    \item Einführung zum Datenbankentwurf
+    \item Die Sprache SQL (Teile DDL und DML)
+    \item Relationale Algebra (eine formale Sprache)
+    \item Die Sprache SQL (Teile DQL und DCL)
+    \item Transaktion und Mehrbenutzersysteme
+    \item Interne Speicherorganisation (Indexstrukturen)
+    \item Weitere Themen (Trigger, Embedded SQl, SQL-Injektion, \dots)
+\end{enumerate}
+
+Wir werden viele Übungen machen.
+
+Klausur: Alles war wir machen wird Klausurrelevant sein. Das heißt die Kapitel die wir nicht machen kommen auch nicht dran.
+
+\subsection{Feedback}
+
+Wir besprechen das Feedback, welches wir letztes Semester gegeben haben.
+
+Über eine "Insistierung" (darauf bestehen) können wir die Noten erfahren. Sonst bekommen wir, wenn der Schnitt schlechter als 3 ist eine Email.
+
+\section{Wiederholung}
+
+Die Themen die wir schon hatten:
+
+\begin{enumerate}
+    \item Grundlagen und Begriffsdefinition
+    \item Der konzeptionelle Datenbankentwurf (ER-Modell)
+    \item Der relationale Entwurf (logischer Entwurf)
+    \item Die relationale Entwurfstheorie (Normalformen)
+\end{enumerate}
+
+\subsection{Die Coddschen Regeln}
+
+Die Basis-Funktionalität nach Codd (1982)
+
+\begin{enumerate}
+    \item Integration - Datum als Datum speichern und nicht als String
+    \item Operationen - Machen wir dieses Semester
+    \item Katalog - Meta-Daten, Data Dictionary (also die Spaltenbezeichnungen und Datentypen)
+    \item Benutzersicht - Die Rollen der Sichten
+    \item Konsistenzüberwachung - Fremdschlüsselbeziehung hätten und den Fremden löschen, zeigt der Schlüssel ins Lehre. Das geht nicht.
+    \item Zugriffskontrolle - Machen wir nicht
+    \item Transaktion - Zusammenfassung von DB-Änderungen als Ganzes
+    \item Synchronisation - Das die Nebenläufigkeit funktioniert (Mehrere Nutzer)
+    \item Datensicherung - Wiederherstellung nach Systemfehlern
+\end{enumerate}
+
+\subsection{Begriffe}
+
+Datenbankmodell: Logische Struktur eines DBMS, welches beschreibt in welcher Form Daten strukturiert, modelliert und abgespeichert werden. Beispiel: Hierarchisch, Relational, NoSQL (Key, Value)
+
+Datenbankschema: beschreibt die Struktur des Datenbestands, also die Metadaten. Wie beispielsweise hängen die Tabelle zusammen, welche Integritäts-bedingungen bestehen usw. Beispiel: Die Definition der Attribute der Tabellen. Ein Mitarbeiter hat Name, Vorname, usw.
+
+Datenbanksprache: 
+
+\begin{enumerate}
+    \item DDL = Data Definition Language - Anlegen von Tabellen
+    \item DML = Data Manipulation Language - Einfügen, Löschen
+    \item DQL = Data Query Language - Abfragen
+\end{enumerate}
+
+\subsection{Die 3-Ebenen Architektur}
+
+\begin{enumerate}
+    \item externe Ebene - Benutzeroberfläche
+    \item konzeptionelle Ebene - Tabellen, Beziehungen
+    \item interne Ebene - Dateiorganisation und Zugriffspfades
+\end{enumerate}
+
+Vorteile dieser Struktur ist die geringere Komplexität der einzelnen Komponenten. 
+
+Wenn eine Änderung vorgenommen wird, muss nur so tief gegangen werden wie das tiefste Element. Zum Beispiel ein neues Tabellenblatt. So muss nur die Benutzeroberfläche und die konzeptionelle Ebene angepasst werden und NICHT die interne Ebene.
+
+\subsection{Systemarchitektur eines DBMS}
+
+Es gibt in irgendeiner Folie eine Grafik.
+
+Wir werden uns intensiv mit der Anfragebearbeitung und dem Transaktions-Manager befassen, wie auch dem Optimizer.
+
+Ein DBMS kommt und fällt mit dem Optimizer und dem Transaktions-Manager. Diese bestimmen mitunter die Geschwindigkeit.
+
+\subsection{Datenbankentwurfsprozess}
+
+Diesen Prozess befolgen wir, um dem Kunden gerecht zu werden, um Miss-verständnisse zu finden, bevor der große Aufwand der eigentlichen Datenbank anfängt.
+
+Deshalb machen wir den ganzen quatsch mit Anforderungsanalyse, Konzeptioneller Entwurf und Logischem Entwurf.
+
+\subsection{Entity-Relationship Modell}
+
+Bestehen aus Entitäten, Beziehungen und Attribute.
+
+Die Kardinalitäten - 1:1, 1:N, M:N - Die Leserichtung ist normalerweise links nach rechts. Hierzu kann man auch Rollen ergänzen, damit nicht "die Bank den Kunden ausraubt", sondern der "Kunde raubt die Bank aus".
+
+Notationen: Min., max-Notation wie auch die Chen-Notation.
+
+% Hier habe ich kurz nicht mitgeschrieben. Es gibt also eine Lücke in der Wiederholung
+% Mir fehlen die Sachen zu den Entitäten und den verschieden Beziehungen.
+
+\subsection{Relationen Schemas}
+
+Dieser stellt die beschreibt die Meta-Daten einer Tabelle, also die "Spaltennamen" und deren Datentypen.
+
+In der Umwandlung wurde in dem Projekt häufig der Fehler gemacht, dass die Aufgabe nicht ordentlich gelesen ("verstanden") wurde.
+
+Aus der Aufgabenstellung:
+
+\begin{enumerate}
+    \item Für jeden Beziehungstyp (z.B. Spezialisierung, 1:N, M:N, schwacher ER-Typ…), welcher in Ihrem ERM aufgeführt ist, müssen die zugehörigen Entitätsrelationen und die jeweilige Beziehungsrelation definiert werden. Erweitern Sie ggf. ihr ERM um weitere Beziehungstypen (ERM muss nicht mehr eingereicht werden.)
+    \item Alle Relationen müssen in der dritten Normalform vorliegen (ein Nachweis muss an einer Relation exemplarisch durchgeführt werden).
+\end{enumerate}
+
+So wurde häufig vergessen, dass zu Anfang einmal alle Beziehungen aus dem ERM aufgeschrieben werden sollten. Dies sollte die Fehler reduzieren, bei der Minimierung.
+
+Die Begründung von 1:1 Beziehungen wurde nie angegeben. Denn es muss ja begründet werden, wer den Fremdschlüssel bekommt. Begründung ist wo sind weniger NULL-Wert (bestimmt durch min., max Notation)
+
+\subsection{Funktionale Abhängigkeit}
+
+Die Werte von X bestimmen die Werte von Y.
+
+Es gibt also eine Funktion $f(x) = y$
+
+\subsection{Armstrong-Axiome}
+
+Mit diesen lässt sich die Hülle bilden. Welche wiederum für die 3 Normal Form (3NF)
+
+\subsection{Normalformen}
+
+Die 1NF darf keine Mengen Attribute haben und Mehrwertige Attribute ($T_1-T_n$)
+
+Die 2NF: Alle Nichtschlüsselattribute dürfen nur durch den gesamten Primär-schlüssel festgelegt werden.
+
+Die 3NF: Wenn es keine transitiven Abhängigkeiten zwischen Nichtschlüssel-attribute und einem Schlüsselkanditaten besteht.
+
+Wir haben eine Formale Prüfung nach 3NF:
+
+\begin{enumerate}
+    \item Zerlegen auf die einzelnen FAs
+    \item Prüfen ob gilt: entweder Superschlüssel oder prim.
+\end{enumerate}
+
+Und es gibt noch die Boyce-Codd Normalform. (Diese gibt es nur in der Theorie)
+
+% Gibt noch die weiteren Themen wie 4NF, die Hüllen und alles um die Funktionalen Abhängigkeiten (FAs). Diese Fehlen mir.
+
+\subsection{Synthesealgorithmus}
+
+Es gibt den Synthesealgorithmus, welche die 3NF produziert.
+
+\section{Übungsaufgabe}
+
+Dies ist in meinem Block.
+
+\end{document} 
