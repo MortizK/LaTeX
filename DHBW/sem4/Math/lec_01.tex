@@ -1,0 +1,332 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+\title{Statistik}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-11}
+
+\section{Einführung}
+
+Daten $\rightarrow$ Modell/ Struktur $\rightarrow$ Wissen
+
+The aim of science is to seek the simplest explanation of complex facts ... Seek simplicity and distrust it. - A. N. Whitehead
+
+\subsection{Vorlesung}
+
+Es gibt ein Lückenscript zum mitschreiben und ausfüllen.
+
+Die Übungsaufgaben sind auch schon alle online. Die Lösungen gibt es am Wochenende.
+
+Es gibt wieder ein \href{https://github.com/jankodie/Statistik-Kurs}{Jupyter Notebook} mit Ergänzungen zur Vorlesung
+
+\subsection{Klausur}
+
+Klausur mit 60min (statt ehemalig 90min)
+
+Zugelassene Hilfsmittel:
+
+\begin{enumerate}
+    \item Maximal zehn einseitig oder 5 beidseitig beschrieben DIN-A4-Seiten beliebigen Inhalts
+    \item (Anerkannte) Formselsammlung (in "verlegter Buchform")
+    \item Anhang A des Vorlesungsskripts (in Papierform)
+    \item Taschenrechner - programmierbare, GTR- oder CAS-Taschenrechner sind vor der Klausur zurückzusetzen.
+\end{enumerate}
+
+\subsection{Qualität der Daten}
+
+Daten lassen sich einteilen:
+
+\begin{enumerate}
+    \item nominal skaliert - z.B. Geschlecht
+    \item ordinal skaliert - z.B. Bewertungen (Sterne) oder Noten
+    \item interval skaliert - hier kommt $+$ und $-$ dazu - z.B. Temperatur in C und F
+    \item verhältnis skaliert - hier noch $*$ und $/$. - z.B. Temperatur in K
+\end{enumerate}
+
+\section{Wahrscheinlichkeitsrechnung und Zufallsvariablen}
+
+Ein Zufallsvorgang ist ein Geschehen mit ungewissen Ausgang z.B. ein Münzwurf oder Würfeln.
+
+Exkurs zum Zufall: Nach Quantenphysik gibt es den "echten" Zufall und nicht nur den Zufall durch fehlendes Wissen.
+
+Das Elementarereignis $w$: Eine Mögliche Aussage ist z.B. Kopf und mehrere Aussagen schließen sich gegenseitig aus: Kopf XOR Zahl.
+
+Die Ergebnismenge von zwei D6 Würfeln ist $\Omega = \{(x_1, x_2) \mid x_1, x_2 \in \{1, \dots, 6\} \}$
+
+Folgeerscheinungen eines Ergebnisses  $A \in Omega$. Ergebnisse schließen sich nicht gegenseitig aus.
+
+Es gibt eine Tabelle im script unter doc.
+
+Das meiste wird in dem Script zum Mitschreiben eingetragen werden.
+
+\subsection{Axiome der Wahrscheinlichkeitsrechnung}
+
+Sei $\Omega$ der Ergebnisraum und $\mathcal{F}$ eine $\sigma$-Algebra von Ereignissen auf $\Omega$.  
+Eine Abbildung $P : \mathcal{F} \rightarrow [0,1]$ heißt Wahrscheinlichkeitsmaß, wenn folgende drei Axiome (Kolmogorov-Axiome) erfüllt sind:
+
+\begin{enumerate}
+    \item \textbf{Nichtnegativität:}
+    \[
+    P(A) \geq 0 \quad \text{für alle } A \in \mathcal{F}
+    \]
+
+    \item \textbf{Normierung:}
+    \[
+    P(\Omega) = 1
+    \]
+
+    \item \textbf{$\sigma$-Additivität:} \\
+    Für eine Folge paarweise disjunkter Ereignisse $A_1, A_2, A_3, \dots \in \mathcal{F}$ gilt
+    \[
+    P\left(\bigcup_{i=1}^{\infty} A_i\right)
+    =
+    \sum_{i=1}^{\infty} P(A_i)
+    \]
+\end{enumerate}
+
+\subsection{Laplace-Wahrscheinlichkeit}
+
+Die Laplace-Wahrscheinlichkeit ist definiert für endliche Ergebnisräume, in denen alle Elementarereignisse gleich wahrscheinlich sind.
+
+\textbf{Voraussetzung:}  
+Alle Ergebnisse $\omega \in \Omega$ sind gleich wahrscheinlich.
+
+\textbf{Definition:}  
+Sei $A \subseteq \Omega$ ein Ereignis. Dann gilt
+
+\[
+P(A) = \frac{|A|}{|\Omega|}
+\]
+
+wobei
+\begin{itemize}
+    \item $|A|$ die Anzahl der für $A$ günstigen Ergebnisse ist,
+    \item $|\Omega|$ die Anzahl aller möglichen Ergebnisse ist.
+\end{itemize}
+
+\subsection{Urnenmodell}
+
+Beim Urnenmodell werden aus einer Urne mit $n$ verschiedenen Kugeln $k$ Kugeln gezogen.  
+Die Anzahl der möglichen Ergebnisse hängt davon ab, ob
+
+\begin{itemize}
+    \item die Reihenfolge der Ziehung berücksichtigt wird und
+    \item eine Zurücklegung erfolgt oder nicht.
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+ & \textbf{ohne Zurücklegen} & \textbf{mit Zurücklegen} \\
+\hline
+\textbf{ohne Reihenfolge} &
+$\binom{n}{k}$ &
+$\binom{n+k-1}{k}$  \\
+\hline
+\textbf{mit Reihenfolge} &
+$\dfrac{n!}{(n-k)!}$ &
+$n^k$ \\
+\end{tabular}
+\end{center}
+
+\textbf{Erklärung der vier Fälle:}
+
+\begin{itemize}
+    \item \textbf{Mit Zurücklegen, mit Reihenfolge:}  
+    Jede der $k$ Ziehungen hat $n$ Möglichkeiten. Daher insgesamt $V(n,k)=n^k$ Möglichkeiten.
+
+    \item \textbf{Ohne Zurücklegen, mit Reihenfolge}  (Variation ohne Wiederholung):
+    \[
+    V(n,k)=\frac{n!}{(n-k)!}
+    \]
+
+    \item \textbf{Mit Zurücklegen, ohne Reihenfolge}  (Kombination mit Wiederholung):
+    \[
+    V(n,k)=\binom{n+k-1}{k}
+    \]
+    Um sich das besser vorzustellen kann das Modell mit den Markern gewählt werden. So setzten wir einfach Marker in ein Array ein. Somit verteilen wir $k$ Marker in ein $n+k-1$ langes Array. Und noch die Reihenfolge der $k$ Marker rausrechnen.
+
+    \item \textbf{Ohne Zurücklegen, ohne Reihenfolge}  (Kombination ohne Wiederholung): 
+    \[
+    V(n,k)=\frac{n!}{(n-k)!*k!}=\binom{n}{k}
+    \]
+\end{itemize}
+
+\subsection{Rechenregeln der Wahrscheinlichkeiten}
+
+\begin{enumerate}
+
+\item \textbf{Monotonie}
+Falls $A \subseteq B$, dann gilt
+\[
+P(A) \leq P(B)
+\]
+
+\item \textbf{Unmögliches Ereignis}
+\[
+P(\emptyset) = 0
+\]
+
+\item \textbf{Komplementregel}
+\[
+P(\overline{A}) = 1 - P(A)
+\]
+
+\item \textbf{Additionssatz}
+\[
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\]
+
+\item \textbf{Differenzregel}
+\[
+P(A \setminus B) = P(A) - P(A \cap B)
+\]
+
+\end{enumerate}
+
+\subsection{Bedingte Wahrscheinlichkeit}
+
+Die Wahrscheinlichkeit $B$ hängt von Ereignis $A$ ab.
+
+Formal:
+\[
+P(B \mid A) = \frac{P(A \cap B)}{P(A)}, \quad \text{für } P(A) > 0
+\]
+
+Ein Baumdiagramm zur Verdeutlichung am Beispiel: Urnenmodell, 5 rote, 2 schwarze Kugeln, 3-mal Ziehen ohne Zurücklegen.
+
+\begin{tikzpicture}[
+grow=right,
+level distance=4cm,
+level 1/.style={sibling distance=35mm},
+level 2/.style={sibling distance=22mm},
+level 3/.style={sibling distance=14mm},
+edge from parent/.style={draw,-latex},
+every node/.style={font=\small}
+]
+
+\node {}
+child { node {R}
+    edge from parent node[midway, above] {$\frac{5}{7}$}
+    child { node {R}
+        edge from parent node[midway, above] {$\frac{4}{6}$}
+        child { node {R}
+            edge from parent node[midway, above] {$\frac{3}{5}$}
+        }
+        child { node {S}
+            edge from parent node[midway, below] {$\frac{2}{5}$}
+        }
+    }
+    child { node {S}
+        edge from parent node[midway, below] {$\frac{2}{6}$}
+        child { node {R}
+            edge from parent node[midway, above] {$\frac{4}{5}$}
+        }
+        child { node {S}
+            edge from parent node[midway, below] {$\frac{1}{5}$}
+        }
+    }
+}
+child { node {S}
+    edge from parent node[midway, below] {$\frac{2}{7}$}
+    child { node {R}
+        edge from parent node[midway, above] {$\frac{5}{6}$}
+        child { node {R}
+            edge from parent node[midway, above] {$\frac{4}{5}$}
+        }
+        child { node {S}
+            edge from parent node[midway, below] {$\frac{1}{5}$}
+        }
+    }
+    child { node {S}
+        edge from parent node[midway, below] {$\frac{1}{6}$}
+        child { node {R}
+            edge from parent node[midway, above] {$\frac{5}{5}$}
+        }
+    }
+};
+
+\end{tikzpicture}
+
+Die Wahrscheinlichkeit, das ein spezifischer Pfad dran kommt lasst sich durch das Produkt der Pfadwahrscheinlichkeiten ausrechnen.
+
+\subsection{Satz der totalen Wahrscheinlichkeit}
+
+Sei $\{B_1, B_2, \dots, B_n\}$ eine Partition des Ergebnisraums $\Omega$, d.h.
+\[
+B_i \cap B_j = \emptyset \text{ für } i \neq j, \quad \bigcup_{i=1}^{n} B_i = \Omega.
+\]
+
+Dann gilt für ein beliebiges Ereignis $A$:
+
+\[
+P(A) = \sum_{i=1}^{n} P(A \mid B_i)\, P(B_i)
+\]
+
+\textbf{Hinweis:}  
+Dies ist der **Satz der totalen Wahrscheinlichkeit** - man zerlegt $A$ in disjunkte Fälle $B_i$ und summiert die bedingten Wahrscheinlichkeiten gewichtet mit $P(B_i)$.
+
+\subsection{Bayes-Formel (einfache Herleitung)}
+
+\textbf{Idee:} Wir wollen wissen, wie wahrscheinlich ein Ereignis $B$ ist, wenn $A$ schon eingetreten ist.  
+
+Wir starten mit der Definition der bedingten Wahrscheinlichkeit:
+
+\[
+P(B \mid A) = \frac{P(A \cap B)}{P(A)}
+\]
+
+Aber wir wissen auch, dass
+
+\[
+P(A \cap B) = P(A \mid B) \cdot P(B)
+\]
+
+Setzt man das in die erste Gleichung ein, erhält man direkt:
+
+\[
+\boxed{
+P(B \mid A) = \frac{P(A \mid B) \cdot P(B)}{P(A)}
+}
+\]
+
+\textbf{Einfach gesagt:}  
+- \(P(A \mid B)\) = Wahrscheinlichkeit, dass $A$ passiert, wenn $B$ passiert ist  
+- \(P(B)\) = Wahrscheinlichkeit, dass $B$ passiert  
+- \(P(A)\) = "Gesamtwahrscheinlichkeit", dass $A$ passiert  
+
+Also: Posterior = Likelihood $*$ Prior geteilt durch Gesamtwahrscheinlichkeit.
+
+\subsection{Zufallsvariablen}
+
+Kumulierte Wahrscheinlichkeit/ Verteilungsfunktion ist $F(x)$
+
+\[
+P(X \leq x) = \sum_{x_i < x} f(x_i)
+\]
+
+Dichtefunktion von $X$ ist $f(x)$.
+
+Die Wahrscheinlichkeit an einem Punkt ist Null. Nur das Integral ist eine Wahrscheinlichkeit. Die Integralgrenzen spielen keine Rolle, den die Wahrscheinlichkeit für einen Punkt $=0$.!
+
+\[
+F'(x) = f(x)
+\]
+
+Somit ist die Ableitung der Verteilungsfunktion, die Dichtefunktion.
+
+\[
+P( X \in [a, b]) = P( X \in (a, b))= F(b) - F(a)
+\]
+
+\marginpar{Hausaufgabe}
+
+\end{document}

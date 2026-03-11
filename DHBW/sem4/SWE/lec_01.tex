@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Software Engineering}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-11}
+
+\section{Wiederholung}
+
+\subsection{Wasserfallmodell}
+
+40\% der Entwicklung passiert vor der Implementierung. 20\% Implementierung und 40\% Qualitätssicherung.
+
+\begin{enumerate}
+    \item Analyse
+    \item Spezifikation
+    \item Grobentwurf
+    \item (Feinentwurf)
+    \item Implementierung, Modultest
+    \item Integrationstest
+    \item Abnahme, Betrieb, Wartung
+\end{enumerate}
+
+\subsection{Agile Software-Entwicklung}
+
+Srum und weitere. Es heißt Agil, weil wir nach jedem Sprint Anpassungen machen können. So lassen sich auch Neue Anforderungen nach jedem Sprint ergänzen.
+
+Hier werden gerne Fragen in der T2000 gefragt.
+
+\subsection{Git}
+
+Wir sollten mit git zurechtkommen. 
+
+\begin{enumerate}
+    \item git add : fügt Dateien zum Staging
+    \item git commit -m "add inital readme" : trägt Änderungen im lokalen Repository ein.
+    \item git push origin:master : überträgt commits in ein anderes Repository
+\end{enumerate}
+
+\subsection{Anforderungen}
+
+Es gibt nicht nur die Dinge die der Kunde gesagt hat. Es gibt auch Anforderungen die aufgeschrieben werden müssen um diese mit dem Kunden abzuklären.
+
+Nicht-Funktionale Anforderungen: Sind Anforderungen, welche nicht durch eine Funktion implementiert werden können. Zo zum Beispiel wie Performant oder Nutzbar eine Anwendung ist. Sie kann halt überall abstürzen oder unklar sein.
+
+\subsection{Lasten und Pflichtenheft}
+
+Das Lastenheft belastet den Entwickler, während das Pflichtenheft den Entwickler verpflichtet dieses auch umzusetzen.
+
+\subsection{Analysetechniken}
+
+Was ist die ist-Analyse und die soll-Analyse.
+
+Es gibt auch noch weitere Techniken neben den Interviews und den Beobachtung.
+
+\subsection{UML}
+
+Hier werden auch gerne Fragen in der T2000 gefragt.
+
+Es gibt Strukturdiagramme (Statisch) und Verhaltensdiagramme (Abläufe). Für beide gibt es mehrere Varianten.
+
+Bei einem Haus ist das Strukturdiagramme der Grundrissskizze und das Verhaltensdiagramme sind die verschiedenen Bauphasen.
+
+Vollständige Spezifikation von \href{https://www.omg.org/spec/UML}{UML}
+
+\subsection{Use Case Diagram}
+
+Hier gibt es Normen. Zudem sollten die Haupt Use Cases ordentlich Dokumentiert werden (Für die Spezifikation). Welche Fehler können auftreten?
+
+\subsection{Architekturentwurf}
+
+Assoziation, Aggregation, Komposition
+
+\begin{enumerate}
+    \item Pfeil mit Dreieck: "ist ein" oder Generalisierung. Ein Kunde "ist eine" Person.
+    \item Pfeil: "hat ein". Eine Adresse "hat eine" Stadt.
+    \item Pfeil mit Leerer Raute: Aggregation. Studieren gehören zu dieser Vorlesung. Die Studierende sind unabhängig. (Fremdverweis)
+    \item Pfeil mit gefüllter Raute: Komposition. Ein Raum stirbt mit seinem Gebäude.
+\end{enumerate}
+
+\subsection{Sequenzdiagramm}
+
+Hieran habe ich keine Erinnerung.
+
+\subsection{Kopplung und Zusammenhalt}
+
+Wir wollen eine geringe Kopplung, sodass die Schnittstellen nicht zu groß und Komplex werden.
+
+Somit kümmert sich die UI Komponente nur um UI stuff und hat nicht noch einen besonderen Algorithmus.
+
+Prüfungsfrage: "Wie kann ich in einer bestehenden Software den Zusammenhalt erhöhen (verbessern)?" Antwort: Wir Teilen die Komponente auf. So wird der Zusammenhalt erhöht, aber auch die Kopplung.
+
+Empfehlung: Lieber etwas zu kleine Komponente wählen (Hohe Kopplung), damit diese in Zukunft wachsen können.
+
+\subsection{Model-View-Controller - MVC}
+
+Ist ein Klassisches Model um kleine bis mittel große Applikationen zu entwickeln. 
+
+\subsection{Codequalität}
+
+Kommentare und Struktur im Code helfen dem Verständnis.
+
+Zudem lassen sich in Java eine package-info.jave (und module-info.java) Java Dokumentationen schreiben.
+
+\section{Testing}
+
+\subsection{Unit Test}
+
+In java mit JUnit. Es ermöglicht edge Cases zu Testen.
+
+\subsection{Black Box Test}
+
+% Nicht Dokumentiert.
+
+\subsection{Glass Box Test}
+
+\textbf{Anweisungsüberdeckung}: Wir können Testen und wie durch eine Glass Box reinschauen, welche Zeilen einer Funktion durch meine Tests nicht abgedeckt sind. So fehlen entweder Testfälle, oder die Funktion ist fehlerhaft implementiert.
+
+Aber ACHTUNG: nur weil jede Zeile ausgeführt wurde, heißt das noch nicht, dass die Funktion mit allen relevanten Fällen getestet wurde.
+
+\textbf{Zweigüberdeckung}: Wir müssen bei mehreren Verzweigungen müssten auch die anderen Ruten (nicht die Kombinatorik) getestet werden.
+
+Dieser Ansatz scheitert aber bei Schleifen und Rekursion.
+
+\textbf{Termüberdeckung}: Wir brauchen bei z.B. Booleschen Termen die mit logisch AND verbunden sind, so müssen hier die Kombinatorik getestet werden. Da bei dem AND quasi ein if ist.
+
+Für diese Tests gibt es automatisierte Tools, die solche Tests vorschlagen.
+
+\textbf{Umgang mit Schleifen}: Es wird empfohlen mindestens 5 Fälle zu haben:
+
+\begin{enumerate}
+    \item Umgehung der Schleifen
+    \item Eine Iteration
+    \item Zwei Iteration
+    \item Typische Anzahl von Iterationen
+    \item Maximale Anzahl Iterationen
+\end{enumerate}
+
+\end{document}
