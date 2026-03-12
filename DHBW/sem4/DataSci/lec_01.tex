@@ -1,0 +1,176 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Data science}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-12}
+
+\section{Einführung}
+
+\subsection{Prüfungsleistung}
+
+Programmabgabe entweder zu zweit oder zu dritt. Es wird wahrscheinlich ein Jupyter Notebook sein mit einer Datenauswertung.
+
+\subsection{KI}
+
+KI und Machine Learning ist ein riesiger Markt und produziert immer mehr künstliche Daten.
+
+Wir haben sehr viel über KI gesprochen, da hier viele Daten nötig sind um diese zu trainieren.
+
+\subsection{CRSIP-DM}
+
+Hinter fast allen Änderungen liegt eine Business Entscheidung. So hat Google ein Interesse, angibt, wie viele Menschen in der Terme sind.
+
+Dies wird über die GPS Daten von maps gemacht. Diese Daten müssen aufbereitet werden, über ein model analysiert werden. Dan die Frage ob es gut ist und seinen Zweck erfüllt (Mehr Traffic für Google = mehr Geld). Wenn das passt, wird es veröffentlicht.
+
+\subsection{Regression (1D)}
+
+Wir wollen ein Model entwickeln, um für die $m^2$ eine Hauses den Preis zu bestimmen.
+
+Hierzu sammeln wir Daten und fitten ein paar Kurven durch den Graph. Nun können wir kontinuierlich einen Preis bestimmen.
+
+\subsection{Classification (1D)}
+
+Am Beisiel von Bohrmaschinen. Lautstärke und Reklamation.
+
+Ist die Entscheidung von einem Parameter zu entweder 'gut' oder 'schlecht'
+
+Lässt sich auch mit mehreren Parameter in mehrdimensionalen Graphen darstellen.
+
+Für eine gute Classification muss man sich die richtigen Parameter / Merkmale wählen.
+
+\subsection{Anomalie Erkennung}
+
+Bis jetzt nur Labeled Data.
+
+\subsection{Clustering}
+
+Wir wollen eine Struktur in non Labeled Data zu finden.
+
+Wie auch Google Ähnliche Bilder zu finden.
+
+\subsection{Summary}
+
+Ich möchte ein Bild, oder Video auf das Wesentliche Reduzieren.
+
+\subsection{Reinforcement Learning}
+
+Am Beispiel eines Computer Gegners für ein Video Spiel.
+
+Hier werden Punkte vergeben für das Verhalten. Gutes Verhalten gibt Pluspunkte, Schlechtes Verhalten gibt Minuspunkte.
+
+\subsection{Lecture Content}
+
+Data Science:
+
+\begin{enumerate}
+    \item Business Model
+    \item Clustering
+    \item Dimensionality Reduction
+    \item First classifiers
+    \item Probability Theory
+    \item Web Mining (sneak peak)
+\end{enumerate}
+
+Machine Learning:
+
+\begin{enumerate}
+    \item Separating Hyperplanes
+    \item Regression Methods
+    \item Neural Network \& Deep Learning
+    \item Reinforcement Learning
+    \item (gen AI)
+\end{enumerate}
+
+\section{Business, Data, Tools}
+
+\subsection{Business Model Canvas}
+
+Es gibt eine Grafik auf den Folien.
+
+\subsection{Data Product Canvas}
+
+Ein Framework um Daten basierte Produkte zu entwickeln.
+
+\subsection{What is Data?}
+
+Die Features lassen sich wie in Statistic in nominal, ordinal, interval und ratio einteilen.
+
+\begin{enumerate}
+    \item nominal - Augenfarbe - nur Gleichheit
+    \item ordinal - Ranking - noch Größer kleiner
+    \item interval - Kalender - plus und minus
+    \item ratio - Alter - mal, geteilt, 0
+\end{enumerate}
+
+Die verschiedenen Arten haben verschiedene Problem, wenn dies modelliert werden soll. Siehe Folio S. 12. Wir wollen halt nicht immer zwischenwerte.
+
+\subsection{Jupyter Notebook}
+
+Das ist die gängige Umgebung um Daten auszuwerten. Es funktioniert mit python und mehreren library's. So sind pandas, numpy für datenmanipulation und seaborn, matplotlib für Visualisierungen.
+
+\subsection{Visualisierungen}
+
+Die verschieden Daten-'Arten' gibt es geeignete Visualisierungen. Die zusammenfassung gibt es auf der Folie ab S.20
+
+\subsection{Data Quality}
+
+Verrauschen, Doppelte Einträge, Fehlende Einträge (NaNs), Mehrere Labels für das gleiche (bike, bicycle)
+
+Wie geht man mit Fehlenden Werten um:
+
+\begin{enumerate}
+    \item Dateneintrag nicht berücksichtigen
+    \item Daten schätzen (gefährlich)
+\end{enumerate}
+
+Wir möchten also vor dem training einen repräsentativen Datensatz wählen und selten Sonderfälle hervorheben, damit diese auch gelernt werden. 
+
+Wir wollen nur die relevanten Features in unserem Klassifikator haben, denn zu viele Features kann ihn auch verschlechtern.
+
+\section{Grundlagen}
+
+\subsection{Mittelwert und Varianz}
+
+Erwartungswert eines Würfels:
+
+\[
+E(X) = \sum_{i} x_i*p_i = 3.5
+\]
+
+Die Varianz ist die stärke der Streuung. Ein Würfel mit nur 2en hat eine Varianz von 0.
+
+Standardabweichung ist die Wurzel der Varianz.
+
+\[
+Var(X) = E((X - E(X))^2)
+\]
+
+Die Covariance misst, wie sich zwei werte zusammen entwickeln. Wenn die Tabak Steuer steigt, gehen die Anzahl der gerauchten Zigaretten zurück.
+
+\[
+Cov(X, Y) = E(X - E(X)) * (Y - E(Y))
+\]
+
+Die Correlation 
+
+\[
+Corr(X, Y) = \frac{Cov(X, Y)}{Std(X)*Std(Y)}
+\]
+
+\subsection{Regression Approach}
+
+Ein erster Ansatz ist eine Annäherung durch eine n-polynom für die Anzahl an Datenpunkten.
+
+Wir wollen also eine kontinuierliche Funktion für unsere Datenpunkte erstellen.
+
+Über \textbf{Fitting}: Minimiert eine Fehlerfunktion, meist Least Square.
+
+\end{document}

@@ -1,0 +1,181 @@
+\documentclass[a4paper]{article}
+
+\input{../preamble.tex}
+
+\title{Semantic Web}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-12}
+
+\section{Einführung}
+
+\subsection{Prüfung}
+
+Es wird ein Referat gehalten ca. 10-15min in 6 Gruppen mit 3-4 pro Gruppe.
+
+Wir werden eine Ontology bauen. Nach Plan habe in den letzten drei Wochen alles zusammen um unser Projekt zu starten.
+
+\subsection{Literatur}
+
+Hitzler, Krötsch, Rudolph, Sure: "Semantic Web - Grundlagen" 2008 in deutsch
+
+Hitzler, Krötsch, Rudolph: "Foundations of Semantic Web technologies" 2009 in english mit OWL 2.0
+
+Baander, Horrocks, Lutz, Sattler: "An Introduciton to Description Logic" 2017
+
+Noy, McGuinnes: "Ontology Development 101: A Guide to Createing Your First Ontology" 
+
+\subsection{Überblick}
+
+\begin{enumerate}
+    \item Beschreibungslogiken
+    \item Sematic Web
+    \item Die Web Ontology Language OWL
+    \item Ontology Engineering
+    \item Schlussfolgerungsverfahren
+    \item Die Anfragesprache SPARQL
+\end{enumerate}
+
+\subsection{Wissensrepräsentation}
+
+Brian C. Smith: 
+
+\begin{enumerate}
+    \item Wissen ist in einer Form gespeichert, die für einen äußeren Bobachter verständlich sein.
+    \item Gespeichertes Wissen spielt wesentliche kausale Rolle im Verhalten des Systems.
+    \item 
+\end{enumerate}
+
+Komponenten für WR-Systeme: Wissensbank (knowledge base, KB) und die Inferenzmaschine (inference engine, IE)
+
+\subsection{Semantische Netze}
+
+Wurden von M. Ross Quillian entwickelt. Es ist ein beschrifteter Graph.
+
+\[
+Semantic Networks \neg Semantic Web
+\]
+
+Es gibt in den Folien ein einfaches Beispiel für ein Semantisches Netz. In dieser Grafik haben Menschen einen Semantischen Abstand von 3 zur Maus (Über die 'is-a' Kanten).
+
+Die Kante 'is-a' hat mehrere Bedeutung. So Jerry ist eine Maus (Instanz), Eine Maus ist ein Tier (Teilmenge)
+
+Der Semantische Abstand kann je nach Größe des Netzwerkes entweder eng verwandt mit Tier sein oder nur entfernt verwand sein.
+
+Tom, Katze, Tier
+
+Tom, Perserkatze, Katze, Katzenartik, Raubtier, Wirbeltier, Tier
+
+\subsection{Semantische Technologien}
+
+\begin{enumerate}
+    \item Syntax: legt fest wie die Struktur von Daten ist
+    \item Semantik: legt die Aussage der Daten fest
+\end{enumerate}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Ausdruck & Ergebnis & Syntax & Semantik \\
+        \hline
+        4+) & -- & falsch & -- \\
+        (3 + 4 = 12) & 12 & richtig & falsch \\
+        3 + 4 = 7 & 7 & richtig & wahr \\
+    \end{tabular}
+    \caption{Syntax und Semantik von Ausdrücken}
+\end{table}
+
+\textbf{Ontologien in der Informatik}
+
+Wissensbank technische Komponente eine WR-Systemes. Ontologie repräsentiertes Wissen; Inhalt der Wissensbank (Plural möglich)
+
+\textit{"An ontology is a formal and explicit representation of a shared conceptualisation."} Tom Gruber, 1993; Willem Borst, 1997
+
+\begin{enumerate}
+    \item conceptualisation: Wir wollen einen kleinen Teil der Welt abstrakt und vereinfacht visualisieren.
+    \item formal: verständlich für Maschinen. Keine natürliche Sprache
+    \item explicit: Alles, was gemeint ist, wird auch gesagt. Kein Wissen wird vorausgesetzt.
+    \item shared: kein persönliches Weltbild. Repräsentiert die Sichtweise der Gemeinschaft.
+\end{enumerate}
+
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\linewidth}{l|X|X}
+        \textbf{Merkmal} & \textbf{Semantische Technologien} & \textbf{Machine Learning} \\ \hline\hline
+        Grundlage & Logik & Statistik \\ \hline
+        Lernmethode & Deduktiv & Induktiv \\ \hline
+        Transparenz & White Box (logisch beweisbar) & Black Box (schwer nachvollziehbar) \\ \hline
+        Datenbedarf & Gering (manuell gepflegt) & Extrem hoch (Big Data) \\ \hline
+        Ressourcenbedarf & Experten & GPU-Cluster \\ \hline
+        Flexibilität & Geringer & Höher \\ \hline
+        Vorteile & Verlässlichkeit, Erweiterbarkeit & Benutzbarkeit \\ \hline
+        Schwächen & Alltagswissen (Defaults), Mehrdeutigkeiten & Verlässlichkeit \\ \hline
+        Risiken & Inkonsistenzen & Halluzinationen, Schlechte Quellen \\ \hline
+    \end{tabularx}
+    \caption{Vergleich von semantischen Technologien und Machine Learning}
+\end{table}
+
+\section{Beschreibungslogiken}
+
+Hierzu schauen wir uns \textit{ALC} an
+
+\subsection{Syntax}
+
+Grundbausteine sind:
+
+\begin{enumerate}
+    \item Konzeptname: Mensch, Universität, Stadt - einstellige Prädikate in PL
+    \item Rollennamen: besucht, arbeitetMit - zweistellige Prädikate in PL
+    \item Individuenname: Moritz, DHBW, Stuttgart - Konstanten in PL
+\end{enumerate}
+
+% Hier muss ich noch was nachtragen
+
+\subsection{Semantik}
+
+% Hier muss ich noch alles nachtragen
+
+Das \textit{ALC-Konzept} $C$. Diese beschreibt wie ich meine Semantik aufbaue. Die Regeln muss ich noch nachtragen (Sind auf der Folio S. 27)
+
+\subsection{Übung}
+
+Konzeptnamen: Mensch, Weiblich, Architekt, Ingenieur
+
+Rollenname: kind
+
+Aufgaben:
+
+\begin{enumerate}
+    \item Menschen, die nicht weiblich sind
+    
+    Mensch $\sqcup \neg$ Weiblich
+    \item Menschen, die nur weibliche Kinder haben
+    
+    Mensch $\sqcup \forall$kind.Weiblich
+    \item Menschen die ein Kind haben, das Architekt oder Ingenieur ist
+    
+    Mensch $\sqcup \exists$ kind.(Architekt $\sqcap$ kind.Ingenieur)
+    \item Großeltern
+    
+    Mensch $\sqcup \exists$ kind.$\exists$ kind.$\top$
+\end{enumerate}
+
+\subsection{Schlussfolgerungsprobleme}
+
+Konsistenz: ISt ein Konzept $C$ widerspruchsfrei?
+
+Subsumtion: Ist jede Instanz von $C$ auch Instanz von $D$?
+
+Der Tableau-Algorithmus für $ALC$ kann die beiden Sache garantieren.
+
+\know{ALC}{
+    Ist ausdrucksstärker als die Aussagenlogik aber schwächer als die Prädikatenlogik. Wir haben keine Funktionen oder Variablen.
+
+    Schlussfolgerungsprobleme sind entscheidbar}
+
+\end{document}
