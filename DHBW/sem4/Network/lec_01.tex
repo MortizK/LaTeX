@@ -1,0 +1,232 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Netztechnik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-13}
+
+\section{Einleitung}
+
+\subsection{Inhalte}
+
+\begin{enumerate}
+    \item Standards
+    \item Begriffe d. Nachrichtentechnik
+    \item Kommunikationstechnik
+    \item Verkabelung / Strukturen
+    \item Serielle Schnittstellen
+    \item Feldbusse
+    \item Datennetze LAN und WAN
+    \item Switching, VLANs \& Routing
+    \item TCP/IP
+\end{enumerate}
+
+Die Vorlesungsunterlagen gibt es per USB Stick
+
+Dozent arbeite im L3 Support als Entwickler um Nachbauten von Problemen zu untersuchen. Macht nebenbei noch Schuhlungen für den L2 Support.
+
+\subsection{Klausur}
+
+Es wird eine 90min Klausur sein ohne Hilfsmittel.
+
+Er wird uns keine altklausur geben. 
+
+Zu Anfang eher ein Satz schreiben und später was ausrechnen.
+
+Das Skript und mitmachen sollte gut ausreichen um die Klausur zu bestehen.
+
+\subsection{Praxisübungen}
+
+Wir sollten einen Laptop mit Ethernet Port haben, um beim Aufbau von Netzen mit unserem Rechner dabei zu sein.
+
+Ein Routing Spiel kommt auch auf uns zu.
+
+\section{Standards}
+
+Frage: Was ist Analog Übertragung, was ist Digitale Übertragung.
+
+\subsection{Kommunikation}
+
+Wir brauchen eine gemeinsame Sprache und medium, wie auch eine Art zu adressieren.
+
+8 bit = 1 octet (Oktett)
+
+1 byte sind meist 8 bit (PDP 8: 6 bit!)
+
+Kleingeschrieben ist es die Einheit (bit) oder großgeschrieben ein bestimmtes (Bit)
+
+kb ist kilo bit und kB ist kilo byte
+
+\subsection{Analoge Übertragung}
+
+Das Signal wird kontinuierlich übertragen. Wird über ein Trägersignal aufmoduliert.
+
+Es hat Schwierigkeiten mit großen Entfernungen und schneller Übertragung
+
+\subsection{Digitale Übertragung}
+
+Das Signal kann nur bestimmte diskrete Pegel annehmen und auch nur zu festen Zeitpunkten.
+
+Der Pegelwechsel stellt ein Bit dar. Wobei zu beachten ist, welche Kante tatsächlich eine 1 ist oder eine 0 ist. Steigende Flanke ist meist die 1 und fallende Flanke ist meist eine 0 (Manchester Code)
+
+\subsection{Übertragung}
+
+\textbf{Synchrone} Übertragung mit Takt. So ist der Wert nur echt, wenn der Takt anliegt. Dies wird gemacht, da der Strom nicht vertikal ansteigen kann. Die Langsamste Komponente bestimmt die Taktrate.
+
+Bei der \textbf{Asynchronen} Übertragung wird über zwei Quarze auf fast die gleiche Frequenz ($\pm3$\%) eingestellt.
+
+Dies Funktioniert in mehren Übertragungsrahmen. Jeder Rahmen enthält:
+
+\begin{enumerate}
+    \item Startbit
+    \item Daten
+    \item (Paritätsbit)
+    \item Stopbit
+\end{enumerate}
+
+Das Stopbit halt das Signal auf 1, damit der Empfänger noch weis, das die Verbindung noch da ist (Kabel kaputt)
+
+\textbf{UART} (Universal Asynchronous Receiver Transmitter). Dieser baut schon eine Verbindung auf, während des Boot processes und wird bei V.24 eingesetzt (USB muss erst geladen werden)
+
+\subsection{Übertragungsmodi}
+
+Duplex:
+
+\begin{enumerate}
+    \item Simplex - nur in eine Richtung
+    \item Halbduplex - wechselseitig nur in eine Richtung
+    
+    Sende und Empfangen ist auf demselben Pfad. Dies gibt es noch bei WLAN mit nur einem Kanal.
+    \item Vollduplex - in beide Richtungen gleichzeitig
+    
+    Beide Pfade sind vollständig getrennt. (Dies ist günstiger als über einen Pfad). Empfehlung: Immer ein drittel mehr Fasern verlegen.
+\end{enumerate}
+
+\subsubsection*{Serielle / Parallel}
+
+Bei Serieller Übertragung werden die bits hintereinander Übertragung.
+
+Bei Paralleler Übertragung werden so viele Bits, wie Leitungen in dem Buss sind. Probleme: In Kurven haben die äußeren Leitungen einen Längeren Weg, so kann es passieren, das die bits nicht mehr in der richtigen Reihenfolge ankommen.
+
+PCI Express macht mehrere Lanes, also mehrere Parallele Serielle Leitungen.
+
+\subsection{Leitermodel}
+
+Signalgeschwindigkeit: ca. $\frac{2}{3} * c_0$ (Lichtgeschwindigkeit im Vakuum)
+
+Tiefpass-Charakteristik: Hohe Frequenzen werden stärker gedämpft. Maximale Frequenz für 100m Kabel sind 30MHz. Realistisch sind aber gedrehte Adern in einem Kabel auch mal 103m lang.
+
+\textbf{Wellenwiderstand}/ Impedanz. Am Ende eines Kabels müssen die Signale abgeschlossen werden. Sonst wird das Signal 'zurückreflektiert". Dies macht das Signal kaputt.
+
+\textbf{Dämpfung}: Reduzierung der Sendeleistung auf dem Übertragungsweg, z.B. durch das Medium oder die Steckverbindung.
+
+\[
+P(dm) = 10*\log(\frac{P}{1 mW})
+\]
+
+und die Berechnung von dB:
+
+\[
+dBm - dBm = dB
+\]
+
+\subsection{Datencodierung}
+
+Für Fast-Ethernet (FDDI) von 100 Mbit/s:
+
+Wir codieren 4Bit auf 5Bit, mit folgenden Eigenschaften:
+
+\begin{enumerate}
+    \item Viele Einsen.
+    \item Nie mehr als 3 Nullen hintereinander.
+\end{enumerate}
+
+In Zusammenhang mit MLT3 (Dort haben wir drei Stufen, statt zwei) und der Umdefinition der 1 auf einen Pegelwechsel. Dadurch entsteht eine Sinuskurve durch die Pegelwechsel der Einsen von 1/4 der Eigentlichen Frequenz. So kommen wir auf 31.25 MHz, was über Koax noch möglich ist.
+
+\subsection{Störungen}
+
+Bitfehlerrate (BER)
+
+\begin{enumerate}
+    \item Definition: Bitfehler pro Anzahl Bits
+    \item Ethernet: BER = $10^{-7}$
+    \item FDDI: BER = $10^{-9}\dots10^{-12}$
+\end{enumerate}
+
+Verfügbarkeit = (Gesamtzeit - Gesamtausfallzeit) / Gesamtzeit
+
+Dies wird meist über ein Jahr angegeben und sollte eine Verfügbarkeit von mehr als 99.999\% garantieren.
+
+Gesamtausfallzeit = Gesamtzeit - Verfügbarkeit * Gesamtzeit
+
+\subsection{Parität}
+
+Querparität, Längsparität, Kreuzsicherung, Block Check Character, BCC
+
+\subsection{Prüfsumme}
+
+Stat Parität ist es schneller zu berechnen.
+
+Es kann nicht zur Korrektur verwendet werden. Diese Entscheidung kommt, daher, dass es fast keine Bitfehler mehr gibt (Weit weniger als Einer am Tag).
+
+\subsection{Mean Time Between Failure}
+
+Gibt an wie Lange ein Gerät braucht bis es nicht mehr Funktioniert. Er wird berechnet aus den Werten seiner Komponenten.
+
+Dieser wert ist in der Statistik basiert.
+
+\know{Jitter}{Maximaler Systemjitter = zeitliche Schwankungen der Impulsflanken}
+
+\know{Skew}{Entsteht durch das verdrehen von Kabeln und Fasern.}
+
+\subsection{Multiplex-Techniken}
+
+\begin{enumerate}
+    \item Zeitmultiplex - TDM (Time Division Multiple)
+    
+    Zeitscheibe
+    \item Wellenlängenmultiplex - WDM (Wavelength Division Multiplex)
+    
+    Jedes Signal wird über eine Wellenlänge übertragen
+    \item Frequenzmultiplex - OFDM (Orthogonal Frequency Division Multiplexing)
+    
+    Einsatz: WLAN nach IEEE 802.11a/h sowie bei .11g
+\end{enumerate}
+
+\newpage
+\subsection{Schichtenmodell}
+
+ISO/OSI-Referenzmodell (7-Schichten-Modell) ist ein Theoretisches Modell für die Kommunikation zwischen Computern.
+
+\begin{enumerate}
+    \item Bitübertragung
+    \item Sicherung
+    \item Vermittlung
+    \item Transport
+    \item Kommunikationssteuerung
+    \item Darstellung
+    \item Verarbeitung
+\end{enumerate}
+
+Repeater, Switches, Router und Gateways
+
+\begin{enumerate}
+    \item Physical Link - Repeater, Hub
+    \item Data Link - Switch
+    \item Network - Router
+    \item Transport
+    \item Session
+    \item Presentation
+    \item Application - Gateway
+\end{enumerate}
+
+\end{document}

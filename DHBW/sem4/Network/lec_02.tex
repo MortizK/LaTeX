@@ -1,0 +1,105 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Netztechnik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-13}
+
+\section{Verkabelung}
+
+\subsection{Medien}
+
+Es gibt verschieden Übertragungsmedien. Kabel und Wireless.
+
+Wireless:
+
+\begin{enumerate}
+    \item Funk - IEEE 802.11
+    \item Infarot - IRDA
+\end{enumerate}
+
+\subsubsection{LWL - Lichtwellenleiter}
+
+Funktioniert mit der totalenreflexion.
+
+Orange meist multi-Mode (bis zu 10GBit)
+
+Gelb meist singel-Mode
+
+Es gibt drei Material-Typen:
+
+\begin{enumerate}
+    \item Glasfaser
+    \item Kunstofffaser
+    \item PCS / HCD, Glaskern, Kunstoffmantel
+\end{enumerate}
+
+Eine Tabelle mit verschieden Lichtwellenleiter gibt es auf Folie 3-7
+
+Es gibt für die verschiedenen Kabel auch verschieden Steckerverbindungen.
+
+Das Bandbreiten-Längenprodukt (BLP) gibt an: \dots % Muss ich noch nachtragen.
+
+\subsubsection{Twisted Pair}
+
+Hier wieder verschiedene Standards von Kabel und Stecker.
+
+Standard TP-Verkabelung EIA 568. Es gibt den T568A und T568B welche intern die Paare 2 und rei tauschen. Somit werden die Revive auf die Transmit gesteckt und anders herum.
+
+\textbf{Qualifizierung}:
+
+\begin{enumerate}
+    \item Kategorie (3, 5e, 6, ...)
+    \item Klasse (D, E, F)
+\end{enumerate}
+
+Das Schlechteste Glied bestimmt die stärke der Kette.
+
+\subsubsection{Koax}
+
+War kurz
+
+\subsection{Übersicht Standard vs. FTTD}
+
+\begin{enumerate}
+    \item ISO - Weltweit- min 2 pairs
+    \item EN 50173 - Eurasien - min 3 pairs
+    \item EIA / TIA - Nordamerika - min 4 pairs
+\end{enumerate}
+
+\subsection{Standard EN 50173}
+
+Auch die Verkabelung ist hier festgelegt. So wird LWL für die Verbindung der Stockwerke verwendet und danach wird nach der Länge entschieden. LWL für mehr als 100m.
+
+\subsection{FTTD}
+
+Auch Fiber to the Desk. Benutzt einen anderen Verteiler pro Stockwerk und benutzt überall LWL. 
+
+Nachteil: Der Gebäudeverteiler ist ein Single Point of Failure.
+
+\know{Vorteile LWL: 3-28}{Wir haben noch einiges über einsatzmöglichkeiten und Vorteile gesprochen.}
+
+\subsection{Multimedia}
+
+Wo wird die Bandbreite gebraucht?
+
+Das höchste was wir brauchen sind Team-Meetings. Kamera an, Bildschirm übertragen. Selbst hier braucht man nicht unbedingt Fast Ethernet.
+
+Welche Anforderung habe ich? Und wie hoch ist die tatsächliche Auslastung auf das System.
+
+\subsection{Erdung}
+
+\subsection{Abnahmemessung}
+
+\subsection{EMV-Test}
+
+\end{document}

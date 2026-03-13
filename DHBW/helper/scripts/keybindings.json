@@ -86,7 +86,7 @@
                 {
                     "command": "editor.action.insertSnippet",
                     "args": {
-                        "snippet": "\\documentclass[a4paper]{article}\n\n\\input{../preamble.tex}\n\n\\title{${1}}\n\\author{Moritz}\n\\date{}\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n$0\n\n\\end{document}"
+                        "snippet": "\\documentclass[a4paper]{article}\n\n\\newcommand{\\docTitle}{$1}\n\n\\input{../preamble.tex}\n\n\\title{\\docTitle}\n\\author{Moritz}\n\\date{\\today}\n\n\\begin{document}\n\\maketitle\n\\tableofcontents\n\n\n\n\n\\end{document}"
                     }
                 }
             ]
