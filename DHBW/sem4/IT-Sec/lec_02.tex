@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{IT Sicherheit}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-16}
+
+\section{Sicherheitsbedrohungen}
+
+\know{Klausurfrage}{Welche Schutzziele gibt es?
+\begin{enumerate}
+    \item Vertraulichkeit Confidentiality
+    \item Integrität Integrity
+    \item Verfügbarkeit Availability
+    \item Verbindlichkeit Accountability
+    \item Authentizität Authenticity
+    \item Privatheit Anonymität Nicht-Verfolgbarkeit Privacy
+\end{enumerate}}
+
+Eine Bedrohung des Systems zielt darauf ab, eine oder mehrere Schwachstellen oder Verwundbarkeiten auszunutzen, um ein Schutzziel zu gefährden.
+
+Es gibt mehrere Klassifikation von Bedrohungen:
+
+\begin{enumerate}
+    \item Höhere Gewalt
+    \item Fahrlässigkeit
+    \item Vorsatz
+    \item technisches Versagen
+    \item Organisatorische Mängel
+\end{enumerate}
+
+\subsection{Angriff}
+
+Unter einem Angriff verstehen wir einen nicht autorisierten Zugriff auf ein Asset.
+
+\subsubsection{Passiver Angriff}
+
+Sniffing-Angriff - ausspähen von z.B. Passwörter und Zugangsdaten - Schutzziel Vertraulichkeit verletzt.
+
+Verhindern nur durch Verwendung von Kryprographie.
+
+\subsubsection{Aktiver Angriff}
+
+Verändern, Erzeugen oder Entfernen von Datenpaketen, wie auch unautorisiertes Schreiben in Dateien.
+
+\begin{enumerate}
+    \item Buffer-Overflows-Exploit
+    \item Universelle Interpretierbarkeit von Daten, Code
+    \item Social Engineering
+\end{enumerate}
+
+\subsubsection{Buffer-Overflows-Exploit}
+
+Funktioniert so, indem wir den Buffer mit Informationen überschreiben, sodass wir zugriff auf ein System bekommen.
+
+Wenn es gelingt einen Rücksprungbefehl/ Adresse auf einen Sinnvollen Bereich zeigen zu lassen, oder sogar auf einen Bereich, wo ich selbst schon Quelltext reingeschrieben habe. So könnt ein Angreifer beliebigen Code ausführen.
+
+Ein Beispiel was ich kenne ist Arbitrary Code Execution von \href{https://tasvideos.org/8991S}{Super Mario Bros}
+
+\subsection{Malware}
+
+Malware = Malicious Software
+
+\subsubsection{Viren}
+
+Selbstproduzierend und benötigt einen Host, wo dieser ausgeführt werden kann.
+
+Zum Beispiel basic scripte in z.B. Word oder Excel.
+
+\subsubsection{Würmer}
+
+Ist eine spezielle Form von Viren. Sie sind eigenständig und aktiv. Sie brauchen keinen Host.
+
+Können z.B. von sich aus Emails an eine Adressliste senden.
+
+Muss ausgeführt werden.
+
+\subsubsection{Trojanische Pferde}
+
+Kommen durch Programme, die im Hintergrund noch was anderes Machen.
+
+Loggen z.B. Passwärter, Tokens, usw.
+
+Funktionen:
+
+\begin{enumerate}
+    \item Exploit - Ziel Rechte zu bekommen
+    \item Backdoor - Über einen anderen Nutzer die Kontrolle zu bekommen
+    \item Keylogger - Logging von Keyboard Nutzung
+    \item Ransom - Blockieren der Nutzung gegen Lösegeld
+    \item Fake Antivirus - Geld erpressen durch Panikmache
+\end{enumerate}
+
+\subsection{Angriffe auf Netzwerkkommunikation}
+
+\subsubsection{Denial of Service (DoS)}
+
+Unterbrechnung der Netzwerkverbindung - Schutzmittel Verfügbarkeit verletzt.
+
+Häufig durch eine Überflutung von Anfragen.
+
+Es kann auch von mehreren Orten gleichzeitig passieren. Dann ist es \textbf{Distributed Denial of Service (DDoS)}
+
+\subsubsection{Sniffing}
+
+Einfaches Abhören - Verletzt Vertraulichkeit
+
+\subsubsection{Man in the Middle (MiM)}
+
+Abfangen und Modifizieren - Schutzziel Integrität verletzt
+
+\subsubsection{Spoofing}
+
+Angreifer X schickt Daten an Knoten B täuscht vor, dass die Daten von Knoten A kommen würden.
+
+Das Spoofing gibt es auf allen Schichten des OSI-Modells.
+
+Varianten:
+
+\begin{enumerate}
+    \item ARP-Spoofing - Es wird versucht das Mapping von MAC auf IP zu manipulieren (über Broadcast)
+    \item IP-Adress-Spoofing - IP-Packet mit gefälschter IP Adresse versenden
+    \item Session-Hijacking
+    \item DNS Spoofing - (Es gab einen großen Teil zu DNS)
+    \item E-Mail-Spoofing
+    \item Web-Spoofing
+\end{enumerate}
+
+\subsection{SQL-Injection}
+
+% Hier muss ich noch was nacharbeiten
+
+\end{document}
