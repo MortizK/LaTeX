@@ -139,4 +139,107 @@ Varianten:
 
 % Hier muss ich noch was nacharbeiten
 
+\lecture{2026-03-17}
+
+\subsection{Cross-Site-Scripting}
+
+\href{https://cwe.mitre.org/data/definitions/79.html}{Cross-Site-Scripting}
+
+Varianten:
+
+\begin{enumerate}
+    \item Reflected XSS / Non-Persistent XSS
+    Empfängt manipulierte Daten und gibt eine Antwort
+    \item Stored XSS / Persistent XSS
+    Speichert manipulierte Daten und gibt eine Antwort auf anfrage
+    \item DOM-based XSS
+\end{enumerate}
+
+\subsubsection{Cross-Site Request Forgery (CSRF)}
+
+Dieser nutzt aus, das ein Nutzer in mehreren Tabs angemeldet ist.
+
+Vor diesen Angriff kann  geschützt werden, indem jede Anfrage mit einem token versendet wird. Nur bei korrektem token wird die Anfrage genehmigt.
+
+\subsection{Common Weakness Enumeration (CWE)}
+
+\href{https://cwe.mitre.org}{CWE} ist eine Aufzählung von Schwachstellentypen. Sind nach ID geordnet.
+
+Die hat auch ein Scoring System \href{https://cwe.mitre.org/cwss}{CWSS} oder auch \href{https://nvd.nist.gov/cvss.cfm}{CWSS Calculator}
+
+Themen:
+
+\begin{enumerate}
+    \item Common Weakness Enumerator (CWE)
+    \item Common Attack Pattern Enumeration and Classification (CAPEC)
+    \item COmmon Weakness Scoring System (CWSS)
+    \item Common Vulnerabilities and Exposures (CVE)
+    \item Common Vulnerabilities Scoring System (CVSS)
+    \item Common Platform Enumeration (CPE)
+    \item Common Configuration Enumeration (CCE)
+\end{enumerate}
+
+\section{Aufgaben}
+
+\subsection{OpenSSH}
+
+Der Bug erlaubte angreife über IoT Geräte einen Port Bounce durchzuführen und diese Geräte so für DDoS Angriffe zu benutzen.
+
+Unteranderem Nutzer Fehler durch Verwendung von Standard Passwörtern.
+
+\begin{enumerate}
+    \item Fahrlässigkeit (Standardpassword), Vorsatz (Missbrauch), Organisatorische Mängel (Unberechtigter Zugriff)
+    \item Verfügbarkeit, Integrität und Privatheit
+    \item \href{https://nvd.nist.gov/vuln/detail/CVE-2004-1653}{VCE-2004-1653} ist die Beschreibung des Bugs
+    \item Information zu Sicherheitslücken: \href{https://cwe.mitre.org}{CWE} oder was wanders "nist?"
+\end{enumerate}
+
+\subsection{Heartbleed}
+
+Heartbleed war eine Extension, welche die Verbindung zwischen Server und Client prüft. Es empfängt eine Nachricht mit Angabe der Länge und gibt alles aus dem Speicher zurück, bis zur Länge.
+
+Der Heartbleed Bug umfasst mehrere Sicherheitslücken gelistet unter CWE. Einer ist der \href{https://cwe.mitre.org/data/definitions/125.html}{Out-of-bounds Read} Prinzipiell werden hierbei Daten aus dem Buffer ausgelesen, welche eigentlich nicht nach außen gezeigt werden sollen, wie z.B. Tokens.
+
+Schutzziele die verletzt wurden:
+
+\begin{enumerate}
+    \item Vertraulichkeit
+    \item (Integrität)
+    \item Privatheit, wenn der private key ausreicht um die Identität zu klauen
+    \item Authentizität
+\end{enumerate}
+
+Er wurde als Katastrophal bezeichnet, da hier tokens aller Art und private Informationen aus dem Buffer gelesen werden konnten. Angreifer bleiben \textbf{unbekannt} und hinterließen \textbf{keine Spuren}. Die Extension war \textbf{überall} in Anwendung.
+
+\subsection{Apple Goto Fail}
+
+\href{https://www.heise.de/hintergrund/Diverse-Personen-arbeiten-daran-diesen-Angriff-in-ihre-Tools-einzubauen-2121951.html?seite=all}{Artikel} zum nachlesen.
+
+Bezieht sich auf den Handshake von SSL-Verbindungen (Diffie-Hellman-Schlüsselaustausch) Um einen Man in the Middle Angriff zu verhindern, wird die Nachricht vom Server signiert. Durch das zusätzliche "goto fail;" wird die Signatur aber nie überprüft. 
+
+Schutzziele die verletzt wurden:
+
+\begin{enumerate}
+    \item Vertraulichkeit
+    \item Integrität
+    \item Privatheit
+    \item Authentizität
+\end{enumerate}
+
+\subsection{Vertrauen in CA}
+
+\href{https://www.heise.de/news/Zertifikats-Klau-Fatale-Sehschwaeche-bei-Comodo-3354229.html}{Artikel} zum nachlesen.
+
+Der verwendete Texterkennungsalgorithmus hatte eine "seeschwäche".
+
+So hatte er Schwierigkeiten, die Ziffer 1 von einem klein geschriebenen L ("l") zu unterscheiden. Das Gleiche galt für für Ziffer 0 und das kleine O ("o"). Bei der Entscheidungsfindung hat der OCR-Algorithmus offenbar die nachfolgenden Zeichen ausgewertet: Folgte auf ein kleines L eine Ziffer, hielt er den Buchstaben für die Zahl 1. Folgte auf eine Null ein Buchstabe, wurde daraus das kleine O. Dadurch wurde etwa aus "@level3.com" die Variante "@leve13.com" und aus "@c0re.sk" wurde "@core.sk".
+
+\href{https://www.heise.de/news/HTML-Injection-Luecke-erlaubte-Zertifikatsklau-bei-Comodo-3282183.html}{Artikel} zum nachlesen.
+
+Hier wurde HTML-Injection in die Bestätigungs-Email umgesetzt. So konnte ein Angreifer einfach für eine Zeilwebseite ein Zertifikat beantragen, welches an den Admin gesendet wurde. Durch die HTML-Injection wurde der Inhalt aber geändert und ein Button "CLick hier to cancel the request" erweitert, welcher beim drücken den Inhalt mit Zertifikat and den Angreifer sendet.
+
+\subsection{DNS SEC}
+
+\href{https://www.cloudflare.com/de-de/learning/dns/dnssec/how-dnssec-works/}{Artikel} zum nachlesen.
+
 \end{document}

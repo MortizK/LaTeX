@@ -170,4 +170,42 @@ Es gibt den Synthesealgorithmus, welche die 3NF produziert.
 
 Dies ist in meinem Block.
 
+\lecture{2026-03-17}
+
+Sowas ist mit Sicherheit eine Klausuraufgabe
+
+FDs:
+
+\begin{enumerate}
+    \item A $\rightarrow$ BC
+    \item EF $\rightarrow$ D
+    \item A $\rightarrow$ DEF
+    \item A $\rightarrow$ G
+    \item G $\rightarrow$ A
+    \item HJ $\rightarrow$ A
+    \item G $\rightarrow$ HIJ
+\end{enumerate}
+
+Dann eine Linksreduktion verändert nichts, da wir keine E oder F alleine Links haben und kein H oder J alleine Links haben.
+
+Eine Rechtsreduktion macht Veränderungen. Zur Umsetzung streichen wir rechts einfach einzeln Buchstaben un Prüfen, ob die Hülle noch unverändert bleibt.
+
+\begin{enumerate}
+    \item A $\rightarrow$ BC
+    \item EF $\rightarrow$ D
+    \item A $\rightarrow$ EF
+    \item A $\rightarrow$ G
+    \item G $\rightarrow$ $\emptyset$
+    \item HJ $\rightarrow$ A
+    \item G $\rightarrow$ HIJ
+\end{enumerate}
+
+\section{Präsentation}
+
+Der Gruppeneindruck zählt auch. Also nicht irgendwie "Rumwandern" oder an der Wand stehen.
+
+Kontakt mit dem Publikum aufnehmen.
+
+\know{Ein Ratschlag}{Einen Präsentation Kurs in der Firma machen.}
+
 \end{document} 
