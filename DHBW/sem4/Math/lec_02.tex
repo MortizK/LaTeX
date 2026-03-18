@@ -1,0 +1,235 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Statistik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-18}
+
+\section{Verteilungen}
+
+\subsection{Verteilungsfunktion}
+
+Eine Verteilungsfunktion $F(x)$ ist monoton wachsend und nimmt nur Werte von $F(x) \in [0, 1]$. Somit gilt:
+
+\[
+x_1 < x_2 \implies F(x_1) \leq F(x_2)
+\]
+
+Wenn ich die Wahrscheinlichkeit von einer Range haben möchte gilt:
+
+\[
+P(a < X \leq b) = F(B) - F(a)
+\]
+
+\subsection{Diskrete Verteilungen}
+
+\subsubsection{Binomialverteilung}
+
+Es ist ein Wiederholter Zufallsvorgang mit entweder $A$ oder $\overline{A}$. Auch ziehen mit Zurücklegen. Also ein Klassischer wiederholter Münzwurf.
+
+Die Wahrscheinlichkeitsfunktion:
+
+\[
+P(x_i = 1) = P(A) = p \\
+P(x_i = 0) = P(\overline{A}) = 1 - p\\
+\sum_{i=1}^{n} x_i = x
+\]
+
+Daraus folgt, dass: $x$ mal $A$ eingetreten ist und $n-x$ mal $\overline{A}$
+
+Wahrscheinlichkeit für $x$ Treffer (gilt nur für $x\in\{0, 1, 2, ..., n\})$:
+
+\[
+f(x) = \binom{n}{x} * p^x * (1-p)^{n-x}
+\]
+
+oder:
+
+\[
+X \propto B(n, p)
+\]
+
+Am Beispiel: 3 mal ziehen aus einem Kartendeck und 2 mal Herz ziehen. Entweder mit $f(2)$ oder $F(2) - F(1)$. Die Verteilungsfunktion lassen sich aus dem Anhang in den Tabellen auslesen.
+
+\[
+P(X=2) = F(2) - F(1) = 0.9844 - 0.8438 = 0.1406
+\]
+
+\subsubsection{Anmerkungen zur Binomialverteilung}
+
+Da die Binomialverteilung symmetrisch ist, werden in der Tabelle nur $p\leq 0.5$ angegeben. Beispiel $X \propto B(20, \frac{3}{4})$
+
+\[
+P(X\leq x) = 1 - F(n-x-1)\\
+P(X\leq 10) = 1 - F(20-10-1) = 1 - F(9) = 1 - 0.9861 = 0.0139
+\]
+
+Stichwort \textbf{Urnenmodell}
+
+\subsubsection{Hypergeometrische Verteilung}
+
+"Ist die Binomialverteilung nur ohne zurücklegen."
+
+\[
+X \propto Hyp(N, M, n)
+\]
+
+$N$ ist die gesamtanzahl, $M$ die Markierten und $n$ wie oft gezogen wird. Hergeleitet durch die Laplace Wahrscheinlichkeit (gilt nur für $x\in\{0, 1, 2, ..., n\})$.
+
+\[
+f(x) = \frac{\binom{M}{x} * \binom{N-M}{n-x}}{\binom{N}{n}}
+\]
+
+Eine \textbf{Näherung}, falls $n < \frac{N}{20}$:
+
+\[
+Hyp(N, M, n) \approx B(n, \frac{M}{N})
+\]
+
+Am Beispiel 32 Kartenblatt wollen wir dreimal ziehen und zwei Herz haben:
+
+\[
+P(X=2) = f(2) = \frac{\binom{8}{2}*\binom{32-8}{3-2}}{\binom{32}{3}} = \frac{\frac{8!}{2!6!}*24}{\frac{32!}{3!29!}} = \frac{8!*24*3!*29!}{2!*6!*32!} = 0.1354
+\]
+
+\subsubsection{Poisson-Verteilung}
+
+Approximation für $B(n,p)$ und $Hyp(N, M, n)$ für $n\to\infty$ und $p\to 0$
+
+Faustregel: geeignet, falls $p\leq 0.1, n > 50$ und $n*p < 10$
+
+\[
+X \propto P(\mu)
+\]
+
+Wahrscheinlichkeitsfunktion (gilt nur für $x\in\{0, 1, 2, ..., n\})$:
+
+\[
+f(x) = \frac{\mu^x}{x!} * e^{-\mu}
+\]
+
+Approximationsmöglichkeiten:
+
+\[
+Hyp(N, M, n) \xRightarrow{p=\frac{M}{N}} B(n, p) \xRightarrow{\mu = np = n\frac{M}{N}} P(\mu)
+\]
+
+\subsection{Stetige Verteilungen}
+
+\subsubsection*{gleichverteilung}
+
+\[
+f(x) = \begin{cases}
+    \frac{1}{b-a}, \qquad a \leq x \leq b\\
+    0
+\end{cases}
+\]
+
+Somit gibt es zwischen $b$ und $a$ eine gleichverteilung, sonst ist sie 0.
+
+Verteilungsfunktion:
+
+\[
+F(x) = \begin{cases}
+    0, \qquad \forall x: x < a\\
+    \frac{x-a}{b-a}, \qquad \forall x: a\leq x \leq b\\
+    1, \qquad \forall x: b < x
+\end{cases}
+\]
+
+Kurzform (Unified):
+
+\[
+X \propto U(a, b)
+\]
+
+\subsubsection*{Exponentialverteilung}
+
+
+Für $x \geq 0$:
+
+\[
+f(x) = \lambda e^{-\lambda x}
+\]
+
+Kurzschreibweise:
+
+\[
+X \propto Exp(\lambda)
+\]
+
+Verteilungsfunktion für $x \geq 0$:
+
+\[
+F(X) = 1-e^{-\lambda x}
+\]
+
+Gedächtnislosigkeit, die Wahrscheinlichkeit ist von der Zeit unabhängig:
+
+\[
+P(X \leq t + s | X \geq t) = P(X \leq s)
+\]
+
+Den Beweis für die Gedächtnislosigkeit haben Kommilitonen.
+
+\subsubsection*{Normalverteilung}
+
+Mir fehlt der Start
+
+Verteilungsfunktion:
+
+\[
+F(X) = \phi(\frac{x-\mu}{\sigma})
+\]
+
+Dichte ist Achsensymmetrisch zu $\mu$: $f(\mu -x) = f(\mu + x)$
+
+Das maximum ist bei $x_{max} = \mu$ und die Wendepunkte bei $x_1 = \mu - \sigma$ und $x_" = \mu + \sigma$
+
+Die Standardnormalverteilung ist $\phi(x)$
+
+\[
+\phi(-x) = 1-\phi(x)
+\]
+
+Die Werte für $\phi(x)$ finde ich in der Tabelle A.1 Diese wird gelesen mit den ersten beiden stellen auf der y-Achse und den weiteren auf der x-Achse
+
+Wahrscheinlichkeit um höchstens $c$ von $\mu$ abzuweichen:
+
+\[
+P(\mu-c \leq X \leq \mu + c) = F(\mu + c) - F(\mu - c) = \phi(\frac{c}{\sigma}) - \phi(\frac{-c}{\sigma}) = 2\phi(\frac{c}{\sigma}) - 1
+\]
+
+Die $k\sigma$ Bereiche
+
+\[
+P(\mu - k\sigma\leq X \leq \mu + k\sigma) = 2\phi(k) - 1 = \begin{cases}
+    0.683, k=1\\
+    0.954, k=2\\
+    0.997, k=3
+\end{cases}
+\]
+
+Wenn $X$ normalverteilt ist, so ist auch:
+
+\begin{enumerate}
+    \item $Y = a + bX$ normalverteilt
+    \item $Z = \sum x_i$ normalverteilt
+\end{enumerate}
+
+\subsection{Unterschiede diskrete vs. stetige Verteilungen}
+
+Tabelle in dem Skript.
+
+\marginpar{Hausaufgabe}
+
+\end{document}

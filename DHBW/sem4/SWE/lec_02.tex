@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Software Engineering}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-18}
+
+\section{Organisatorisches}
+
+Ein Vorschlag für die Abgabe ist der \textbf{13.05.2026} um 18:00. Könnten wir bei Kollision noch verschieben.
+
+Jedoch: Am 20.05.26 gibt es eine Live Demo, welche unbenotet bleibt.
+
+Die App soll entsprechend der Anforderungen zuende Entwickelt werden mit mehreren Testfällen, wie auch \textbf{Sidequests}. Die letzte Sidequest kommt Mitte April (4 Wochen vor Abgabe)
+
+\section{Software-Metriken}
+
+% Holen wir noch aus dem Sem3 nach.
+
+Ein wichtiger Begriff um Vorschritt oder Leistung zu messen ist KPI (Key Performance Indikator). In der Software Entwicklung heißt das Metriken.
+
+\subsection{Definition}
+
+A quantitative measure of the degree to which a system, component, or process possesses a given attribute.
+
+Ziele:
+
+\begin{enumerate}
+    \item Bewertung der Qualität des Produktes oder Prozesses
+    \item Prognosen
+    \item Unterstützung von Entscheidungen oder Begründungen.
+\end{enumerate}
+
+Ich kann anhand von Kennzahlen, Begründet und Objektiv Entscheidungen treffen.
+
+\begin{enumerate}
+    \item Kosten - Kostenmetrik
+    \item Anzahl Fehler - Fehlermetrik
+    \item Volumen und Umfang - Volumen-, Umfangsmetrik
+    \item Qualität - Qualitätsmetrik
+\end{enumerate}
+
+\subsection{Eigenschaften}
+
+Eine Metrik muss die folgenden Eigenschaften aufweisen:
+
+\begin{enumerate}
+    \item differenziert
+    \item vergleichbar
+    \item reproduzierbar
+    \item verfügbar
+    \item relevanten
+    \item rentabel
+    \item plausibel
+\end{enumerate}
+
+Neben diesen gibt es auch noch SMART-Attribute. Diese sind Ähnlich wie die oben.
+
+\subsection{Arten}
+
+Es wird zwischen drei Metriken unterschieden:
+
+\begin{enumerate}
+    \item objektive Metrik
+    \item subjektive Metrik
+    \item Pseudometriken
+\end{enumerate}
+
+\subsection{Komplexitätsmaß nach McCabe}
+
+Der hat für Code eine Objektive Metrik entwickelt. Hierzu gibt es die zyklomatische Zahl aus der Graphentheorie. Es geht darum, die Komplexität eines systems zu reduzieren.
+
+\subsection{Kopplung und Zusammenhalt}
+
+\textbf{coupling}: The manner and degree of interdependence between software modules.
+
+\textbf{cohesion}: The manner and degree to which tasks performed by a single software module are related to one another.
+
+Beides aus IEEE Std. 610.12, 1990
+
+\know{Continues Integritation (CICD)}{Es gibt automatisierte Prozess für statische Code Analyse und ausführen der Tests bei jedem push. Es ist empfehlenswert.
+
+Metrix plugin jenkins - Ist ein Tool für einfache Java Software}
+
+\subsection{Identifikation und Entwicklung von Metriken}
+
+Ein Ansatz ist der Goal-Question-Metric-Ansatz:
+
+\begin{enumerate}
+    \item Definiere relevante Ziele
+    \item Leite aus jedem Ziel Fragen ab, die beantwortet werden müssen, um zu prüfen, od bas Zeil erreicht wurde.
+    \item Lege für jede Frage Metriken fest, die bei der Beantwortung der Frage helfen.
+\end{enumerate}
+
+\subsection{Aufgabe 18 - Metriken}
+
+Diese Metriken sollen exportiert werden und als Teil des Projektes am Ende abgegeben werden.
+
+Wir können (sollten) auch Plugin benutzen. Eclipse hat CodeMR.
+
+\begin{enumerate}
+    \item \href{https://www.jetbrains.com/qodana/}{Quodana} von JetBrains, 60 Day Trial
+    \item \href{https://www.codiga.io/static-code-analysis/jetbrains/}{Codiga} von JetBrains, mit custom ruleset
+    \item \href{https://plugins.jetbrains.com/plugin/1137-pmd}{PMD} für IntelliJ
+    \item \href{https://plugins.jetbrains.com/plugin/12159-codemetrics}{CodeMetrics}
+    \item MetricTrees von der Community. Funktioniert ganz OK, hat nur keinen html export.
+    \item \href{https://www.sonarsource.com/products/sonarqube/}{Sonar Qube} Für statische Code Analyse - hierzu habe ich unter downloads eine lokale Anwendung ("C:\ Users\ usr\ Downloads\ sonarqube-26.3.0.120487\ bin\ windows-x86-64\ StartSonar.bat")
+\end{enumerate}
+
+\end{document}
