@@ -175,4 +175,24 @@ Wir wollen also eine kontinuierliche Funktion für unsere Datenpunkte erstellen.
 
 Über \textbf{Fitting}: Minimiert eine Fehlerfunktion, meist Least Square.
 
+\lecture{2026-03-19}
+
+Um ein "overfitting" zu verhindern, wird das datenset in trainingsdaten und testdaten aufgeteilt. 
+
+Neben Linearen Function zur Approximation:
+
+\[
+f(x, w) = \sum_{j=0}^{D} w_jx_j
+\]
+
+gibt es auch die nicht linearen:
+
+\[
+f(x, w) = w_0 + \sum_{j=1}^{M-1}w_j \psi_j(x)
+\]
+
+mit $\psi_j(x)=x_j$ oder $\psi_j(x)=x^j$
+
+Aufgabe: Selber im Jupyter Notebook ausprobieren. Die Lösungen mit Erklärungen kommen auf moodle.
+
 \end{document}

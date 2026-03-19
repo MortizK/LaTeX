@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Semantic Web}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-19}
+
+\section{Semantic Web}
+
+Das wurde für Menschen gemacht, somit besteht es aus natürlicher Sprache welches mehrere Synonyme hat, wie aber auch Homonyme (gleiche Wörter mit unterschiedlichen Bedeutungen)
+
+Zudem gibt es keine Bedeutung für die Verbindungen von Links, Bilder, usw. 
+
+Das "The Semantic Web" (Breners-Lee, Hendler, Lassila; 2001) war der Grundbaustein. und wurde viel erweitert:
+
+\begin{enumerate}
+    \item WWW durch Semantik
+    \item W3C-Standard
+    \item Technik: zuerst RDF(S), später OWL
+\end{enumerate}
+
+Ursprünglich wurden Triple Store Wissensbank für Ontologien verwendet. (Erinnerung an die Grafendatenbanken Präsentation)
+
+Insgesamt gibt es viele Anwendungen, welche eine Wissensbank aufbauen:
+
+\begin{enumerate}
+    \item Google Knowledge Graph (unterstützend für Websuchen)
+    \item schema.org (Für verschieden Entitäten)
+    \item DBpedia (RDF-Format für Wikipedia)
+    \item GraphRAG (für LLM)
+\end{enumerate}
+
+\subsection{Linked Data}
+
+Linked Data is the Semantic Web done right - Berners-Lee, 2006
+
+\begin{enumerate}
+    \item Use URIS as names for things
+    \item Use HTTP URIs so that people can look up those names.
+    \item When someone looks up a URI, provide useful information, using standards (RDF*, SPARQL, OWL).
+    \item Include links to other URIs so that they can discover more things (Link von Stuttgart zu Baden Württemberg)
+\end{enumerate}
+
+\subsection{URIs}
+
+
+
+\end{document}

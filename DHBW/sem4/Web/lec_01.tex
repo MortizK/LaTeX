@@ -180,4 +180,143 @@ Der Tableau-Algorithmus für $ALC$ kann die beiden Sache garantieren.
 
     Schlussfolgerungsprobleme sind entscheidbar}
 
+\lecture{2026-03-19}
+
+\subsection{Wissensbanken}
+
+Bisher können wir nur Schlussfolgerungsverfahren wie Konsistenz und Subsumtion machen. Jedoch NICHT Begriffsdefinitionen, Aussagen über Konzepte, Aussagen über Individuen oder Aussagen über Rollen.
+
+Jetzt mit Wissensbanken: 
+
+\begin{enumerate}
+    \item TBox: Informationen über Konzepte und ihre taxonomischen Abhängigkeiten
+    \item ABox: Informationen über Individuen, ihre Konzepte und Rollenverbindungen
+    \item RBox: Informationen über Rollen und ihre Abhängigkeiten
+\end{enumerate}
+
+\subsubsection{TBox}
+
+Seien $C$ und $D$ Konzepte:
+
+\[
+C \sqsubseteq D
+\]
+
+Wenn die Konzepte Äquivalent sind also $C \sqsubseteq D$ und $D \sqsubseteq C$ so gilt:
+
+\[
+C \equiv D
+\]
+
+Beispiel: Weiblich $\sqcap \exists$ kind.$\top \sqsubseteq$ Mutter
+
+Modell für TBox: Ist das Konzept Konsistent unter unsere TBox.
+
+Übung 2.8 auf S.42
+
+\know{GCIs in ALC}{
+    Wir brauchen immer die Form:
+
+    \[
+        C \sqsubseteq D
+    \]
+
+    Und Somit auch immer ein $\sqsubseteq$ (Subsumtion)
+}
+
+\begin{enumerate}
+    \item Jeder Junge und jedes Mädchen ist ein Kind. 
+    
+    Junge $\sqcup$ Mädchen $\sqsubseteq$ Kind
+    \item Jedes Kind bekommt ein Auto, eine Puppe oder eine Rute. 
+    
+    Kind $\sqsubseteq \exists$ bekommt.(Auto $\sqcup$ Puppe $\sqcup$ Rute) \\
+    Ein Kind ist etwas, was etwas bekommt, was "Auto, Puppe oder Rute" ist.
+    \item Kein Junge bekommt eine Puppe. 
+    
+    Junge $\sqsubseteq \exists \neg$ bekommt.(Puppe)
+    \item Kein braves Kind bekommt eine Rute. 
+    
+    Kind $\sqcap$ Brav $\sqsubseteq \forall$ bekommt.($\neg$ Rute)
+    \item Kein Kind bekommt ein Auto
+    
+    Kind $\sqsubseteq \neg \exists$ bekommt.Auto
+\end{enumerate}
+
+Das Schlussfolgerungsprobleme gibt es auch für die TBox.
+
+\begin{enumerate}
+    \item Gibt es ein Modell für $T$
+    \item Gibt es ein Modell für $C$ bezüglich $T$
+    \item Gilt $C \sqsubseteq D$ in jedem Modell von $T$
+\end{enumerate}
+
+\subsubsection{ABoxen}
+
+$C$ ist ein Konzept, $a, b$ Individuennamen und $r$ ein Rollennamen. Es gibt zwei Fakten:
+
+\begin{enumerate}
+    \item Konzept Fakt hat die Form $a:C$
+    \item Rollen Fakt hat die Form $(a,b):r$
+\end{enumerate}
+
+Eine ABox ist and eine endliche Menge an solchen Fakten.
+
+Interpretation, Modell gibt es hier auch.
+
+Noch weiter Schlussfolgerungsprobleme S.49:
+
+\begin{enumerate}
+    \item Konsistenz
+    \item Ein Individuum $a$ ist Instanz eines Konzeptes $C$ bzgl. einer Wissensbank $(T, A)$, wenn jedes Modell von $(T, A)$ auch Modell $a:C$ ist.
+    \item Die Extension eines Konzepts $C$ bzgl. einer Wissensbank $(T, A)$ ist die menge aller Individuen, die Instanzen von $C$ bzgl. $(T, A)$ sind.
+\end{enumerate}
+
+\know{ABox Konsitenz Algorithmus}{Dieser Algorithmus reicht um auch alle Problem der TBoxen zu lösen}
+
+Übung 2.14 auf S.51
+
+\begin{enumerate}
+    \item Anna hat nur erfolgreiche Freunde. (ABox: Konzeptfakt)
+    
+    Anna : $\forall$ freund.Erfolgreich
+    \item Bert ist ein Student. (ABox: Konzeptfakt)
+    
+    Bert : Student
+    \item Ein Student, der nicht lernt, besteht nicht. (TBox)
+    
+    Student $\sqcap \neg$ Lernt $\sqsubseteq$ Student $\sqcap \neg$ Besteht  
+    \item Ein Student ist nur (!) dann erfolgreich, wenn er besteht. (TBox)
+    
+    Student $\sqcap$ Erfolgreich $\sqsubseteq$ Besteht
+    \item Bert lernt nicht. (ABox: Konzeptfakt)
+    
+    Bert : $\neg$ Lernt
+\end{enumerate}
+
+\subsubsection{RBoxen}
+
+Auch Rollenaxiom. Seien $r$ und $s$ Rollen gibt es mehrere Axiome (Für uns sind Erstmal nur zwei relevant):
+
+\begin{enumerate}
+    \item Rollen-Inklusions-Axiom (RIA) hat die Form $r \sqsubseteq s$
+    \item Transitivitäts-Axiom hat die From $Trans(r)$
+    
+    Ein Vorfahr eines Vorfahren ist auch ein Vorfahr.
+\end{enumerate}
+
+Eine RBox hat eine endliche menge von solchen Axiomen.
+
+\know{TBox sind "unnötig"}{Wir können eine TBox durch ein RBox ersetzten mit zwei Schritten:
+
+\begin{enumerate}
+    \item Neue Ober Rolle $s$ erstellen
+    \item $s$ ist transitiv: $Trans(s)$
+    \item Erzeugen eines neuen Konzeptes, welches die TBox-GCIs ersetzt
+\end{enumerate}
+
+Siehe S.57 auf den Folien}
+
+Dennoch behalten wir die TBox, da diese die Übersichtlichkeit und performance erhöhen.
+
 \end{document}

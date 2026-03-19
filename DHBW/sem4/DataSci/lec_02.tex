@@ -1,0 +1,136 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Data Science}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-19}
+
+\section{Unsupervised Learning}
+
+Dies dient um versteckte Struktur zu finden. z.B. Labeln von unlabeled data.
+
+Wir wissen nur nicht, ob die Lösung richtig ist oder nicht.
+
+\subsection{Clustering}
+
+Es gibt verschieden Verfahren:
+
+\begin{enumerate}
+    \item Häufungspunkte oder Distanz (k-mean)
+    \item "Hierarchy"
+    \item Dichtefunktion
+\end{enumerate}
+
+Unser Werkzeugkasten an Clustering (Übersicht S. 14)
+
+\subsection{k-Means}
+
+Wir wählen den Parameter $k$
+
+\[
+argmin_S \sum_{j=1}^{k}\sum_{x^[(i)]\in S^{(i)}} \left\|x^{(i)-\mu^{(i)}}\right\|^2
+\]
+
+Schritte:
+
+\begin{enumerate}
+    \item $k$ wählen
+    \item Zufällige Mittelpunkte initialisieren
+    \item Zuordnung der Punkte zu den Mittelpunkten (Voronoi regions)
+    \item Update die Mittelpunkte
+    \item Bis zur convergence durchführen
+\end{enumerate}
+
+Kann in einem lokalem minimum landen. Deshalb wird dies häufig mehrfach ausgeführt auch mit unterschiedlichen $k$s
+
+k-means geht davon aus das die Cluster rund sind und gleich groß. Bei unterschiedlich großen Cluster wird in der Mitte geteilt. Ist eine Hart Zuordnung (crisp)
+
+\subsubsection*{Number of Clusters}
+
+Bayesian Information Criterion (BIC). Ist ein Wert um ein k für das Model zu schätzen.
+
+Es legt ins Verhältnis wie komplex das model ist und wie gut das model ist.
+
+Occam's razor: prefer the simplest model among equally good ones
+
+\subsubsection*{(Multivariate) Normal Distribution}
+
+Die Normalverteilung gibt es auch in mehreren Dimensionen.
+
+\subsection{Gaussian Mixture Models (GMM)}
+
+Die Idee ist es, mehrere Normalverteilungen über das Datenset zu legen. Dies erlaubt mehrere elliptische Cluster.
+
+Das Model wird trainiert mit dem Expectation Maximization (EM) und wird bis zur Konvergenz Trainiert.
+
+\begin{enumerate}
+    \item Die Ursprünglichen Verteilungen werden zufällig gewählt.
+    \item Schritt E:
+    
+    Wir gehen davon aus, dass wir die Verteilungen kennen und berechnen für jeden Punkt die Wahrscheinlichkeit, das diese zu dem jeweiligen Cluster gehört.
+    \item Schritte M:
+    
+    Nun haben wir die Wahrscheinlichkeiten und berechnen daraus die neuen Verteilungen.
+    \item E und M wiederholen bis zu Konvergenz.
+\end{enumerate}
+
+\marginpar{Formeln auf Folien}
+
+Annahme: Die Cluster sind Normalverteilt (Das ist leider nicht immer so) Zudem ist dieser ein Probabilistisch.
+
+\subsection{Hierarchical Clustering}
+
+Visualisierung in einem "dendrogram" (Sieht aus wie ein Binärbaum). Es gibt zwei Varianten:
+
+\begin{enumerate}
+    \item Agglomerative/ Bottom up
+    \item Divisive/ top down
+\end{enumerate}
+
+Wie funktionieren die Merges von zwei Zweigen? Wir können die Cluster anhand ihrer Distanz mergen:
+
+\begin{enumerate}
+    \item Average linkage
+    \item Complete linkage (max und globales Kriterium)
+    \item Single linkage (min und Lokales Kriterium)
+\end{enumerate}
+
+Für min und max müssen wir NxN Entfernungen ausrechnen und speichern. Als Lookup für die nächsten merges wird dann immer das minimum von einem der beiden Linkages genommen.
+
+Single Linkages resultiert tendenziell in langen Clusters, die in keinem balancierte Baum resultiert.
+
+Complete Linkage kann häufiger in einem balancierten Baum.
+
+Frage: Wo wird die trennlinie gezogen um die Anzahl der Cluster zu bestimmen? Evtl. Wo lange die Anzahl der Cluster sich nicht ändert (bezogen auf die Entfernung, wo ein Merge passiert.)
+
+\subsubsection*{Aufgabe S.38}
+
+Wir haben drei Cluster mit Manhatten Distanz und sollen für Single und Complete Linkage bestimmen, wie gemerged wird.
+
+\begin{enumerate}
+    \item Single Linkage
+    
+    Blau-Rot: 4;
+    Rot-Gelb: 3;
+    Gelb-Blau: 4
+
+    Somit wird Rot-Gelb gemerged.
+    \item Complete Linkage
+    
+    Blau-Rot: 7;
+    Rot-Gelb: 9;
+    Gelb-Blau: 10
+
+    Somit wird Blau-Rot gemerged.
+\end{enumerate}
+
+\end{document}
