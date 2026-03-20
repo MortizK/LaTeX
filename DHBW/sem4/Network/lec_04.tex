@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenentze}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-20}
+
+\section{Datennetze}
+
+\subsection{Historie}
+
+In der Geschichte hat sich Ethernet über FDDI durchgesetzt und wurde immer weiter entwickelt (Fast Ethernet, Gigabit Ethernet, ...)
+
+\subsection{Standardisierung}
+
+Es gibt den IEEE Standard für Ethernet, welcher von ISO übernommen wurde.
+
+Für Ethernet gibt es IEEE 802.3 mit mehreren hundert Seiten.
+
+Bei IEEE gab es keine Redundanzen, deshalb gibt es noch IEC (International Electrotechnical Commission)
+
+Ein Switch ist eine Bridge
+
+\subsection{Datennetz: Hubs, Switches, Route}
+
+Hubs wurden abgelöst durch Switches, da Switches mehr können und denselben Preis von Hubs erreicht haben.
+
+In der Vorlesung benutzen wir eigene Symbole (Folie 5-6)
+
+\subsubsection*{Datenübertragung}
+
+Verschieden Daten haben unterschiedliche Geschwindigkeiten und Auftreten verhalten (periodisch, burstartig)
+
+weiter Kriterien sind:
+
+\begin{enumerate}
+    \item maximale Verzögerung
+    \item maximale Fehlerrate
+    \item Determinismus
+\end{enumerate}
+
+\subsubsection*{Hub}
+
+Einer Redet, alle hören zu.
+
+\subsubsection*{Switch}
+
+Synonyme: Brücke, Bridge
+
+Wird in der 2ten Schicht des OSI-Referenzmodell eingesetzt.
+
+Netzzugriff im Halbduplexmodus per CSMA/CD, zwischen Switches aus teilweise im Vollduplexmodus.
+
+Sended Signal dahin, wo der richtige Prot ist.
+
+% Hier fehlt mir was
+
+\subsection{ETHERNET}
+
+% Hier fehlt mir was
+
+Befindet sich in den unteren beiden Schichten des OSI-Modells und ist LAN CSMA/CD (Grafik auf 5-16) mit Bustopologie.
+
+\subsubsection*{Topologie}
+
+Als Bus verbindet ein Server sich mit mehren Computer oder die Baum Topologie, wo mehrere Switches mit mehren anderen und PCs verbunden ist.
+
+\subsubsection*{Zugriffsverfahren CSMA/CD}
+
+\begin{enumerate}
+    \item Station ist sendebereit
+    \item Kanal abhören
+    \item Kanal frei? Nein -> Schritt 2
+    \item Daten senden und Kanal abhören
+    \item Gab es eine Kollision? Ja -> Jam Signal Senden und nach BEB warten -> Schritt 2
+    \item Sonts: Daten korrekt übertragen
+\end{enumerate}
+
+Das BEB (Binary Exponential Backoff Algorithm) wartet ine Zufällige Zeit, bis der Kanal wieder abgehört werden kann. Da alle Teilnehmer dies machen wird durch den Zufall eine erneute Kollision statistisch verhindert.
+
+\subsubsection*{maximale Netzausdehnung}
+
+\know{Klausuraufgabe}{Ohne Taschenrechner. Datenpaket 64 oktett = 512 bit = 51,2 $\mu s \rightarrow$ Maximale Laufzeit 25,6 $\mu s \rightarrow$ s = v*t (v = 0.66 * $c_0$ = 200.000 km/s)
+
+Somit: s = 5120 m}
+
+\subsubsection*{maximale zulässige Netzausdehnung}
+
+Grafik auf Folie 5-24
+
+\subsubsection*{Rahmenhandlung}
+
+\know{Klausuraufgabe}{Wenn wir einen Rahmen zeichnen sollen, so soll es der obere von Folie 5-25 sein:
+
+Präamble, SFD, Ziel-Adresse, Quell-Adresse, Typ, Daten, FCS}
+
+\subsubsection*{Pakete}
+
+Normale Ethernet-V.2.0 und IEEE-802.3 haben wir kurz angerissen.
+
+Und dan gibt es noch Jumbo-Pakete (größer als 1.518 Oktetts) - meist ca. 9.000 Oktetts.
+
+\subsection{Fast-ETHERNET}
+
+\subsubsection*{maximale Netzausdehnung}
+
+In der Theorie 512m, aber in der praxis max 412 (mit Sicherheit)
+
+Wenn aber noch ein Hub rein kommt, kostet die Verzögerung uns Reichweite. Die Ausdehnung (das Zugriffsverfahren) ist hier limitierend. Wenn wir Vollduplex habe ist das kein Problem mehr. - Brauchen wir eigentlich nicht mehr, da es keine Hubs mehr gibt.
+
+\subsubsection*{Autonegotiation}
+
+Dient um Features zu kommunizieren, welche benutzt werden können.
+
+Die Pulse von NLP werden bei autoneg=on als Kamm gesendet. Mindestens die 17 und maximal 33. Ein Feature wird angeboten, wenn die in den Lücken des Kamms ein Puls kommt.
+
+Wenn aber zwei Komponenten unterschiedlich autoneg eingestellt haben, so wird der der autoeg=off hat, Fragment, FCS-Fehler sehen.
+
+\subsection{Gigabit-ETHERNET}
+
+LWL-Steckverbinder (standardisiert): Duplex SC (oder praxis Duplex LC)
+
+
+
+\subsection{Redundanzen}
+
+\subsection{Diagnose}
+
+\subsection{Medien}
+
+\subsection{TSN - TIme Sensitive Networking}
+
+\subsection{ISDN / xDSL}
+
+\subsection{WLAN}
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Netztechnik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-20}
+
+\section{Interfaces}
+
+\subsection{V.24 Schnittstelle}
+
+Können wir 15m Übertragen. Überträgt Seriell.
+
+Mit einem Software Handshake brauchen wir nicht mehr der 25-poligen Stecker. Es Reichen Drei (Sendedaten, Empfangsdaten, Betriebserde)
+
+Es gibt auch noch den 9-poligen Stecker.
+
+\subsubsection*{Begriff DTE und DCE}
+
+DTE = Data Terminal Equipment (Datenendeinrichtung)
+
+DCE = Data COmmunication Equipment (Datenübertragungseinrichtung)
+
+\subsubsection*{Software Handshake}
+
+Das "Protokoll" ist auf Folie 4-9
+
+\subsection{20 mA Stromschnittstelle}
+
+Strom hat den vorteil, dass er über die Strecke nicht abnimmt. Somit konnte 1km Weit übertragen werden.
+
+Wird z.B. noch bei einem Kran benutzt.
+
+\subsubsection{V.11 Schnittstelle}
+
+Ist eine symmetrische Serielle Spannungsschnittstelle.
+
+\subsection{Feldbus}
+
+Hier ging es Hauptsächlich um Master-Slave System und die verschiedenen duplex:
+
+\begin{enumerate}
+    \item Vollduplex (4 Draht Verbindungen)
+    \item Halbduplex (2 Draht Verbindungen)
+\end{enumerate}
+
+Und noch einen Repeater um mehrere Signale in einem Master-Slave zu verlängern.
+
+\subsubsection*{IO-Link}
+
+Dies ist ein Standard: IEC 61131-9 Single drop Digital Communication Interface for small sensors and actuators SDCI.
+
+Für P2P entwickelt (kein Feldbus)
+
+\subsection{USB - Universal Serial Bus}
+
+Ist die Technologie, welche sich gegen FireWire durchgesetzt hat (obwohl USB die schlechtere Technologie ist)
+
+USB hat aber zum erstem mal Hot Plug eingeführt, braucht aber immer einen Host (den PC)
+
+\end{document}
