@@ -1,5 +1,6 @@
 \usepackage{datetime2}  % for dates
 \usepackage{xcolor}     % for gray color
+\usepackage{listings}
 \usepackage{marginnote} % for horizontal margin notes
 \usepackage{parskip}
 \usepackage{amsmath,amssymb,mathtools}
@@ -67,4 +68,25 @@
             #2
         }
     }
+}
+
+% -------------------
+% Listings Languages
+% -------------------
+
+\lstdefinelanguage{SQL}{
+    morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,DELETE,CREATE,TABLE,PRIMARY,KEY,NOT,NULL,AND,OR,JOIN,LEFT,RIGHT,INNER,ON,AS,ORDER,BY,GROUP,HAVING,LIMIT},
+    sensitive=false,
+    morecomment=[l]{--},
+    morestring=[b]'
+}
+\lstset{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    frame=single,
+    breaklines=true
 }

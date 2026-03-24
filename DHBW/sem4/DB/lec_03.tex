@@ -1,0 +1,159 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-24}
+
+\section{SQL (DDL und DML)}
+
+\subsection{DDL}
+
+Wir haben in \href{www.postgres.org}{pgadmin} unsere erste Datenbank erstellt.
+
+\begin{lstlisting}
+CREATE DATABASE "Softwarehaus"
+\end{lstlisting}
+
+SQL hat drei Ebenen:
+
+\begin{enumerate}
+    \item Externen Ebene \lstinline|CREATE VIEW <Sichtname>[<Schemadeklaration>]|
+    \item Konzeptuelle Eben \lstinline|CREATE TABLE <TabellenName>|
+    \item Interne Ebene \lstinline|CREATE INDEX <IndexName> ON <TabellenName>|
+\end{enumerate}
+
+Es gibt mehrere Datentypen, welche angegeben werden müssen. Tabelle im Skript S.10 (Bis auf text, welches bis zu 1GB and Text nicht auffüllend gespeichert wird)
+
+\subsubsection{Tabellen definieren}
+
+\begin{lstlisting}
+CREATE TABLE Mitarbeiter
+(
+    PERS_NR integer NOT NULL,
+    Vorname character varying,
+    Nachname character varying,
+    Geb_Name varchar,
+    Geb_Datum date,
+    Geschlecht char(1),
+    Eintrittsdatum date
+);
+\end{lstlisting}
+
+\subsubsection{Constraints}
+
+Mögliche Constraints:
+
+\begin{enumerate}
+    \item NOT NULL
+    \item UNIQUE
+    \item PRIMARY KEY
+    \item FOREIGN KEY
+    \item CHECK \textit{Bedingung}
+    \item DEFAULT \textit{wert}
+\end{enumerate}
+
+Mitarbeiter mit Constraints:
+
+\begin{lstlisting}
+CREATE TABLE Mitarbeiter
+(
+    Pers_Nr         integer PRIMARY KEY,
+    Vorname         varchar,
+    Nachname        varchar,
+    Geb_Name        varchar,
+    Geb_Datum       date,
+    Geschlecht      char(1),
+    Eintrittsdatum  date,
+        PRIMARY KEY (Pers_Nr),
+		CHECK (Geschlecht IN ('m', 'w', 'd'))
+);
+\end{lstlisting}
+
+Für CHECK gibt es beliebig viele Abfragen und Methoden.
+
+Bei einem PRIMARY KEY wird automatisch noch ein Index erstellt. Dies beschleunigt die Suche nach einem PRIMARY KEY.
+
+Manuell kann auch für jedes Andere Attribute ein Index erstellt.
+
+\begin{lstlisting}
+CREATE TABLE Mitarbeiter
+(
+    Pers_Nr         integer,
+    Vorname         varchar,
+    Nachname        varchar,
+    Geb_Name        varchar,
+    Geb_Datum       date,
+    Geschlecht      char(1),
+    Eintrittsdatum  date,
+	Skill			varchar(5) default 'PR',
+	Gehalt			int,
+        PRIMARY KEY (Pers_Nr),
+		CHECK (Geschlecht IN ('m', 'w', 'd')),
+		CHECK (Gehalt > 20000 and Gehalt < 150000)
+);
+\end{lstlisting}
+
+Lange Übung an dem Softwarehaus. Für mich zum Beachten:
+
+\begin{enumerate}
+    \item \lstinline|IF NOT EXISTS| ist überall sinnvoll
+    \item \lstinline|NOT NULL| nicht vergessen
+    \item nochmal über die möglichen \lstinline|CHECK| Constraints rüberschauen.
+\end{enumerate}
+
+Danach habe wir aus moodle alle eine Einheitliches Skript bekommen und es ausgeführt.
+
+\subsubsection{Fremdschlüssel}
+
+Mit einem Fremdschlüssel können wir auf eine andere Vorhandene Tabelle Zeigen. Es benutzt automatisch den Primär Schlüssel der Fremdtabelle.
+
+\begin{lstlisting}
+DROP TABLE IF EXISTS  Mitarbeiter;
+CREATE TABLE IF EXISTS  Mitarbeiter
+(
+    Pers_Nr         integer,
+    Vorname         varchar,
+    Nachname        varchar,
+    Geb_Name        varchar,
+    Geb_Datum       date,
+    Geschlecht      char(1),
+    Eintrittsdatum  date,
+	Skill			varchar(5) default 'PR',
+	Gehalt			int,
+	arbeitet_in		varchar(8),
+	chef_von		integer,
+PRIMARY KEY (Pers_Nr),
+CHECK (Geschlecht IN ('m', 'w', 'd')),
+CHECK (Gehalt > 20000 and Gehalt < 150000),
+FOREIGN KEY(arbeitet_in) REFERENCES Abteilung,
+FOREIGN KEY(chef_von) REFERENCES Mitarbeiter
+);
+\end{lstlisting}
+
+Um zu verhindern, dass wir endlos immer 'tiefer' eine reference durchgeführt werden. Deshalb:
+
+\know{FOREIGN KEY}{Erst im Nachhinein die Referenzen durchführen und zuerst die Reine Struktur der einzelnen Tabelle.}
+
+Dies kann dann mit dem \lstinline|ALTER TABLE| durchführen
+
+\begin{lstlisting}
+ALTER TABLE Mitarbeiter
+    ADD arbeitet_in     varchar(8),
+    ADD FOREIGN KEY (arbeitet_in) REFERENCES Abteilung;
+\end{lstlisting}
+
+Weitere Beispiele auf S.20
+
+\subsection{DML}
+
+\end{document}
