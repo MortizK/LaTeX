@@ -4,7 +4,6 @@
 \usepackage{marginnote} % for horizontal margin notes
 \usepackage{parskip}
 \usepackage{amsmath,amssymb,mathtools}
-\usepackage{xcolor}
 \usepackage{everypage}
 \usepackage{fancyhdr}
 \usepackage{amsfonts}   % Mengen and natural numbers
@@ -74,19 +73,170 @@
 % Listings Languages
 % -------------------
 
+% Shared defaults for code listings
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+% SQL syntax highlighting
 \lstdefinelanguage{SQL}{
     morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,DELETE,CREATE,TABLE,PRIMARY,KEY,NOT,NULL,AND,OR,JOIN,LEFT,RIGHT,INNER,ON,AS,ORDER,BY,GROUP,HAVING,LIMIT},
     sensitive=false,
     morecomment=[l]{--},
     morestring=[b]'
 }
-\lstset{
+
+% JSON syntax highlighting
+\lstdefinelanguage{json}{
+    morestring=[b]",
+    stringstyle=\color{teal},
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+        morekeywords={true,false,null},
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+            {:}{{{\color{black}:}}}{1}
+            {,}{{{\color{black},}}}{1},
+    showstringspaces=false
+}
+
+% Language specific styles
+\lstdefinestyle{javastyle}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{sqlstyle}{
     language=SQL,
     basicstyle=\ttfamily\small,
     keywordstyle=\color{blue}\bfseries,
     commentstyle=\color{gray},
     stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
     showstringspaces=false,
     frame=single,
-    breaklines=true
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
 }
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{cstyle}{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{jsonstyle}{
+    language=json,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+% Default listing style
+\lstset{language={}}
