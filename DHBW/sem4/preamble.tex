@@ -22,9 +22,9 @@
     urlcolor=cyan
 }
 
-% =============================================================
-% IMAGES
-% =============================================================
+% -------
+% Images
+% -------
 
 \usepackage{import}
 \usepackage{xifthen}
@@ -35,9 +35,9 @@
     \import{./fig/}{#1.pdf_tex}
 }
 
-% =============================================================
-% VERTICAL SIDE NOTE ON EVERY PAGE (BOTTOM LEFT)
-% =============================================================
+% ---------------------------------
+% Vertical Side note (Bottom Left)
+% ---------------------------------
 
 \newcommand{\verticaldocinfo}{%
   \rotatebox{90}{\tiny\color{gray}\texttt{\DTMtoday\_\docTitle\_\jobname}}%
@@ -47,9 +47,50 @@
   \put(-40pt,-650pt){\verticaldocinfo}%
 }
 
-% -----------------------------
-% Main lecture macro (robust)
-% -----------------------------
+% ---------------
+% Math Shortcuts
+% ---------------
+
+% Number sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+% Vectors and matrices
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+% Derivatives
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dpartial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ddt}{\frac{\dd}{\dd t}}
+
+% Norms and absolute values
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+% Probability & Statistics
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% Fields and Algebras
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\F}{\mathbb{F}}
+
+% Set Operations
+\newcommand{\compl}[1]{#1^{\mathrm{c}}}
+
+% Matrix and Vector Operations
+\newcommand{\T}{^{\top}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\conj}[1]{\overline{#1}}
+
+% -------------------
+% Main lecture macro 
+% -------------------
 
 \newcommand{\lecture}[1]{%
   \protect\marginnote{\protect\tiny\protect\color{gray}#1}
