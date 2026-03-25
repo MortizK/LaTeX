@@ -1,0 +1,323 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Statistik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-25}
+
+\section{Verteilungsparamter, Mehrdimensionale Zufallsvariablen}
+
+\subsection{Verteilungsparamter}
+
+\subsubsection{Lageparameter}
+
+Modus oder Modalwert $x_{Mod}$
+
+\[
+f(x_{Mod}) \geq f(x) \qquad \forall x
+\]
+
+Bei der Normalverteilung ist $x_{Mod}=\mu$, da dies das höchste $f(x)$ hat.
+
+Median oder Zentralwert $x_{Med}$
+
+\[
+F(x_{Med}) = \frac{1}{2}
+\]
+
+bzw. kleinste $x$:
+
+\[
+F(x) \geq \frac{1}{2}
+\]
+
+Bei der Normalverteilung ist $x_{Med}=\mu$, da 50\% überhalb und unterhalb liegen.
+
+$\alpha$-Fraktil (Ist das Quantil oder Perzentil)
+
+\[
+P(X \leq x_\alpha) = F(x_\alpha) = \alpha
+\]
+
+Die Fraktile lassen sich aus der Tabelle auslesen. Falls die auflösung der Tabelle nicht reicht, sollen wir linear interpolieren:
+
+\[
+x_\alpha = x_a + \frac{x_b - x_a}{b-a}(\alpha - a)
+\]
+
+Und wen der Wert nicht in der Tabelle ist:
+
+\[
+x_{0.025} = -x_{1-0.025} = -x_{0.975} = -1.96
+\]
+
+\[
+y_\alpha = \delta*x_\alpha + \mu
+\]
+
+Erwartungswert $E(X) = \mu$
+
+\[
+E(X) = \begin{cases}
+    \sum_i x_i f(x_i), \quad \text{x diskret verteilt}\\
+    \int_{-\infty}^{\infty} xf(x) dx, \quad \text{x stetig verteilt}
+\end{cases}
+\]
+
+Rechenregeln für den Erwartungswert
+
+\begin{enumerate}
+    \item (R1) Ist $f$ symmetrisch bezüglich $a$ so gilt: $E(x) = a$
+    \item (R2) Ist $Y = g(X)$, so gilt: $E(Y)=E(g(x))$
+    \[
+    E(Y) = E(g(x)) = \begin{cases}
+        \sum_{i} g(x_i)f(x_i), \quad \text{x diskret verteilt}\\
+        \int_{-\infty}^{\infty} g(x) f(x)fx, \quad \text{x stetig verteilt}
+    \end{cases}
+    \]
+    Am Beispiel von $E(X^2)$
+    \[
+    \int_{1}^{4}x^2 * \frac{1}{4-1} dx = \frac{1}{3} [\frac{x^3}{3}]_1^4=\frac{1}{9}(64-1) = \frac{63}{9} = 7
+    \]
+    \item (R3) Lineare Transformation: Spezialfall von (R2) mit $ g(x) = a + bx$
+    \[
+    E(a+bX) = E(a) + E(bX) = a + b*E(X)
+    \]
+    \item (R4) Summenbildung
+    \[
+    E(\sum_{i=1}^n X_i) = \sum_{i=1}^{n}E(X_i)
+    \]
+    \item (R5) unabhängigkeit: $X, Y$ unabhängig $\implies E(X*Y) = E(X) * E(Y)$
+    \item (R6) Ist stets $X\leq Y$, so gilt: $E(X) \leq E(Y)$
+    \item (R7) Jensensche Ungleichung: In der Situation (R2) gilt:
+    \[
+    E(g(x)) \geq g(E(X)), \quad \text{g konvex ist}
+    \]
+    \[
+    E(g(X)) \leq g(E(X)), \quad \text{g konkav ist}
+    \]
+    Konkav sind rechtskurven, konvex sind linkskurven
+\end{enumerate}
+
+\subsubsection{Streuungsparameter}
+
+Varianz Var(X) oder $\sigma^2$ wird durch die quadratische Abweichung vom Erwartungswert bestimmt.
+
+\[
+Var(X) = E((x-E(x)^2)) = \begin{cases}
+    \sum_{i} (x_i-E(x))^2 f(x_i), \quad \text{x diskret}\\
+    \int_{-\infty}^{\infty} (X-E(x))^2 f(x)dx, \quad \text{x stetig}
+\end{cases}
+\]
+
+Standardabweichung Sta(X) oder $\sigma:Star(X)=\sigma=\sqrt{Var(X)}$
+
+Die Standardabweichung korrigiert die Einheit von Messergebnissen. So sind die Messpunkte in $[m]$, die Varianz dann $[m^2]$ und die Standardabweichung dann wieder $[m]$
+
+Rechenregeln für Varianz:
+
+\begin{enumerate}
+    \item (R1) Verschiebungssatz, kann immer eingesetzt werden $Var(X) = E(X^2) - (E(X))^2$: 
+    \[
+    Var(X) = E(X^2) - (E(X))^2 \text{oder mit } E(X)=\mu \implies Var(X) = E(X^2) - \mu^2
+    \]
+    \[
+    E((X-\mu)^2) = E(X^2-2\mu X + \mu^2) = E(X^2) -2\mu E(X) + E(\mu^2) = E(X^2) -2\mu^2 + \mu^2 = E(X^2) - \mu^2
+    \]
+    \item (R2) Lineare Transformation:
+    \[
+    Var(a + bX) = b^2 Var(X)
+    \]
+    \item (R3) Summenbildung
+    \[
+    Var(\sum_{i=1}^{n} X_i) = \sum_{i=1}^{n} Var(X_i)
+    \]
+    Nur bei Unabhängigkeit der $X_i$
+\end{enumerate}
+
+\subsubsection{Erwartungswert und Varianz wichtiger Verteilungen}
+
+\begin{table}[h]
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{|l|l|l|l|}
+        \hline
+        Verteilung & Schreibweise & $E(X)$ & $\Var(X)$ \\
+        \hline
+        Binomialverteilung & $X \sim \mathrm{Bin}(n,p)$ & $np$ & $np(1-p)$ \\
+        \hline
+        Hypergeometrische Verteilung & $X \sim \mathrm{Hyp}(N,K,n)$ & $n\frac{K}{N}$ & $n\frac{K}{N}\left(1-\frac{K}{N}\right)\frac{N-n}{N-1}$ \\
+        \hline
+        Poisson-Verteilung & $X \sim \mathrm{Poi}(\lambda)$ & $\lambda$ & $\lambda$ \\
+        \hline
+        Gleichverteilung (stetig) & $X \sim \mathcal{U}(a,b)$ & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$ \\
+        \hline
+        Exponentialverteilung & $X \sim \mathrm{Exp}(\lambda)$ & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\
+        \hline
+        Normalverteilung & $X \sim \mathcal{N}(\mu,\sigma^2)$ & $\mu$ & $\sigma^2$ \\
+        \hline
+    \end{tabularx}
+    \caption{Erwartungswert und Varianz wichtiger Verteilungen}
+\end{table}
+
+\subsubsection{Weitere Aussagen über Erwartungswert und Varianz}
+
+\begin{enumerate}
+    \item Ist $X$ beliebig verteilt mit $E(X) = \mu$ und $Var(X) = \sigma^2$, so besitzt
+
+    \[
+    Y = \frac{x - \mu}{\sigma}
+    \]
+
+    den Erwartungswert 0 und die Varianz 1
+    \item Sind $X_1, ..., X_n$ unabhängig mit $E(X_i) = \mu$ und $Var(X_i) = \sigma^2$, so besitzt das Stichprobenmittel
+
+    \[
+    \overline{x}_n = \frac{1}{n} \sum_{i=1}^{n} x_i
+    \]
+
+    den Erwartungswert $\mu$ und die Varianz $\frac{\sigma^2}{n}$
+    \item Ungleichung von Tschebyscheff:
+    
+    \[
+    P(\abs{X-E(X)} \geq c) \leq \frac{Var(X)}{c^2}
+    \]
+
+    wobei X beliebig verteilt sein darf (Beliebige Verteilung/ Histogram). Dies bedeutet, das die Wahrscheinlichkeit, dass wir außerhalb von $c$ zu haben ist $\leq$ die Varianz durch $c^2$
+\end{enumerate}
+
+\subsubsection{Kovarianz und Korrelation}
+
+Kovarianz $Cov(X, Y)$
+
+\[
+Cov(X, Y) = E((X - E(X)) (Y- E(Y))) = E(X * Y) - E(X) * E(Y)
+\]
+
+Die Kovarianz gibt wan wie sich zwei Sachen zusammen bewegen. Gemeinsam Variieren.
+
+Korrelationskoeffizienten $\rho(X, Y)$
+
+\[
+\rho = \frac{Cov(X, Y)}{\sqrt{Var(X) * Var(Y)}} = \frac{Cov(X, Y)}{\sqrt{Var(X)} * \sqrt{Var(Y)}} = \frac{Cov(X, Y)}{\sigma_x * \sigma_y}
+\]
+
+\subsubsection{Weitere Aussagen über Kovarianz und Korrelation}
+
+Sind X, Y unabhängig, so gilt
+
+\[
+E(X*Y) = E(X)*E(Y) \implies Cov(X, Y)=0 \implies \rho(X, Y) = 0
+\]
+
+Rechenregeln für Kovarianz:
+
+\begin{enumerate}
+    \item $Cov(X, X) = Var(X)$
+    \item $Cov(X, Y) = Cov(Y, X)$
+    \item $Cov(a+bX, c+dY) = b*d Cov(X, Y)$
+    \item $Cov(X+Y, Z) = Cov(X, Z) + Cov(Y, Z)$
+\end{enumerate}
+
+Summe zweier Zufallszahlen
+
+\[
+Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X, Y)
+\]
+
+Differenz zweier Zufallszahlen
+
+\[
+Var(X-Y) = Var(X) + Var(Y) - 2 Cov(X, Y)
+\]
+
+\marginpar{Hausaufgabe}
+
+\subsection{Mehrdimensionale Zufallsvariablen}
+
+\subsubsection{Mehrdimensionale diskrete Zufallsvariablen}
+
+Gemeinsame Wahrscheinlichkeitsfunktion:
+
+\[
+f(x_1, x_2, \dots, x_n) = P(X_1=x_1, \dots, X_n=x_n)
+\]
+
+Darstellung als Tabelle, Streuungsdiagramm oder Stabdiagramm. Das Streuungsdiagramm hat auf den Achsen die Zufallsvariablen und dann entweder mit der Größe oder Farbe die Wahrscheinlichkeit.
+
+\subsubsection{Mehrdimensionale stetige Zufallsvariablen}
+
+Wir haben eine Verteilungsfunktion
+
+\[
+F(x_1, \dots, x_n) = \int_{-\infty}^{x_1} \dots \int_{-\infty}^{x_n} f(t_1, \dots, t_n) dt_n \dots dt_1
+\]
+
+Erstmal nur zweidimensional mit (X, Y) oder $(X_1, X_2)$
+
+Randverteilungsfunktion: $F_1(x) = F(x, \infty)$, $F_2(y) = F(\infty, y)$
+
+Rand-Wahrscheinlichkeitsdichtefunktion
+
+\[
+f_1(x) = \int_{-\infty}^{\infty} f(x, y) dy, \quad
+f_2(y) = \int_{-\infty}^{\infty} f(x, y) dx
+\]
+
+Bedingte Wahrscheinlichkeitsdichtefunktion
+
+\[
+f_1(x \mid y) = \frac{f(x, y)}{f_2(y)}, \quad
+f_2(x \mid y) = \frac{f(x, y)}{f_1(x)}
+\]
+
+Sind die $X_1, \dots, X_n$ unabhängig, dann gilt:
+
+\[
+f(x_1, \dots, x_n) = f_1(x_1) * \dots * f_n(x_n)
+\]
+
+\subsubsection{Gesetz der Großen Zahlen}
+
+Gegeben:
+
+\begin{enumerate}
+    \item Zufallsvariablen $X_1, \dots, X_n$
+    \item unabhängig und identisch verteilt - english i.i.d.
+    \item $E(X)_i=\mu$
+    \item $Var(X_i)=\sigma^2$
+\end{enumerate}
+
+gesucht:
+
+\[
+\sum_{i=1}^{n} x_i \rightarrow \overline{x} = \frac{1}{n} \sum_{i=1}^{n}x_i
+\]
+
+Wir wenden $E(\overline{x_n})=\mu$, $Var(\overline{x_n}) = \frac{\sigma^2}{n}$ und die Ungleichung von Tschebyscheff auf das gesuchte an.
+
+\[
+P(\abs{\overline{x}_n - \mu} \geq c) \leq \frac{\sigma^2}{n*c^2}
+\]
+
+für $n \rightarrow \infty$ folgt dann das Gestz der großen Zahlen:
+
+\[
+\lim_{n\to\infty} P(\abs{\overline{x}_n - \mu} \geq c) = 0,
+\lim_{n\to\infty} P(\abs{\overline{x}_n - \mu} < c) = 1,
+\]
+
+Das impliziert stochastisch: $\overline{x}_n$
+
+Am Beispiel von 500 mal Würfeln: Es heißt quasi, je mehr Daten wir haben, desto genauer schwingt es auf das wahre $\mu$ ein. Es konvergiert stochastisch gegen $\mu$
+
+\end{document}

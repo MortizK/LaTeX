@@ -73,4 +73,115 @@ Vielleicht kommt diese Abfrage in 2 Wochen noch mal, um die Verteilung wieder ab
     \item Forward Engineering
 \end{enumerate}
 
+\lecture{2026-03-25}
+
+\subsection{Refactoring}
+
+ES Code Detection Tools, um duplizierten Code zu finden. Es gibt 1 zu 1 matches, wie aber auch Erkennung von der gleichen Funktionalität.
+
+\subsection{Code Smell}
+
+% Hier muss ich was Nachtragen
+
+\subsection{Nach Fowler}
+
+Die Refactoring Struktur nach Fowler:
+
+\begin{enumerate}
+    \item Name
+    \item Summary
+    \item Motivation
+    \item Mechanics
+    \item Example
+\end{enumerate}
+
+Es gibt mehrere Gruppen:
+
+\begin{enumerate}
+    \item Composing Methods
+    \item Moving Features Between Objects
+    \item Organizing Data: Arrays mit Objekten austauschen, außer wir arbeiten Hardwarenahe.
+    \item Simplifying Conditionals: Complex Conditionals in Funktionen umwandeln.
+    \item Making Method Calls Simpler
+    \item Generalization
+\end{enumerate}
+
+\subsubsection{Composing Methods}
+
+Mögliche Refactoringaufgaben unter dieser Gruppe.
+
+\begin{enumerate}
+    \item Aus einen Stück Code eine Funktion erstellten.
+    \item Aus einer Funktion eine Klasse mit Object erstellen.
+    \item TemporäreVariabel ordentliche Namen geben und eine eigene Pro Zweck verwenden.
+\end{enumerate}
+
+\subsubsection{Moving Features Between Objects}
+
+\begin{enumerate}
+    \item Move Method: Methode wird meist von einer anderen Klasse aufgerufen - Also Verschiebung dorthin.
+    \item Move Field: Ein Attribute wird meist von einer anderen Klasse benutzt - Also Verschiebung dorthin.
+    \item Ein Klasse enthält mehrere Funktionsbereiche - Aufteilen in kleinere Klassen.
+\end{enumerate}
+
+\subsubsection{Making Method Calls Simpler}
+
+\begin{enumerate}
+    \item Parameter Object - Statt vielen Parameter, eine Klasse erstellen, welche die Parameter vorgibt.
+    \item Hide Method - Sichtbarkeiten von Methoden benutzen
+    \item Signaturen anpassen, um Code Clones zu verhindern.
+\end{enumerate}
+
+\subsubsection{Generalization}
+
+Hier geht es darum die Vererbungsstruktur zu verbessern. Also Superklassen und Zwischenklassen erstellen/ anpassen. Wobei es auch zu tiefe Vererbungshierarchien gibt.
+
+\begin{enumerate}
+    \item Pull Up Field: Attribute an die Superclass abgeben, wenn das Attribut in allen Unterklassen passend ist. Oder halt eine Zwischenklasse erstellen.
+    \item Pull Up Method: Methode an die Superclass abgeben.
+    \item Extract Superclass
+\end{enumerate}
+
+\subsection{Planung des Refactorings}
+
+To Do:
+
+\begin{enumerate}
+    \item Risikoabschätzung (Wie würde ein Undo aussehen)
+    \item Organisatorische Rahmenbedingungen
+    \item Aufwandsschätzung
+    \item Nutzerschätzung (Wartbarkeitsverbesserung, Fehlerrisiko)
+    \item Nachbedingungen prüfen (Regressionstest)
+\end{enumerate}
+
+\href{https://refactoring.com/catalog/index.html}{Refactoring Catalog} von Fowler.
+
+\subsection{Aufgabe 20 - Refactoring}
+
+Wie sollen aus dem Katalog drei Patters raussuchen und evtl. Beheben. Dies Notizen dazu sollen in "Refactoring Report.pdf" teil der Abgabe sein.
+
+\subsection{HomeController}
+
+In the HomeController I have two functions: \lstinline|private void loadXMLTabContent()| and \lstinline|private void loadPDFTabContent()| which sound similar and are similar. Here I can use \href{https://refactoring.com/catalog/parameterizeFunction.html}{Parameterize Function} To change two functions into one function with appropriate parameters.
+
+In the Tasks Model I have two functions, which do the same formatting of a string. Here I can use \href{https://refactoring.com/catalog/extractFunction.html}{Extract Function} to create \lstinline|toTitleCase| 
+
+\begin{lstlisting}[style=javastyle]
+public String getFormatedDifficulty() {
+    String diff = difficulty.toString();
+    return toTitleCase(diff);
+}
+public String getFormatedScope() {
+    String sc = scope.toString();
+    return toTitleCase(sc);
+}
+private String toTitleCase(String s) {
+    return s.charAt(0) + s.substring(1).toLowerCase();
+}
+\end{lstlisting}
+
+My DataService currently mixes Updating UI and State Handling. This could be refactored with \href{Uhttps://refactoring.com/catalog/extractClass.htmlRL}{Extract Class}. This will may result in two possible Classes: ExamNavigationService and ViewStateService.
+
+In Total I have found some more Places to refactor and I am not satisfied with the code quality. I will to some Refactoring Planning to see if it is worth to rewrite some/ most of my application (Ether only as a learning experience or to improve the code where necessary)
+
 \end{document}

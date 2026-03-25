@@ -1,0 +1,168 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Software Engineering}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-25}
+
+\section{Maintenance}
+
+Es gibt 4 Arten:
+
+\begin{enumerate}
+    \item Adaptive maintenance - z.B. Übersetzung auf eine andere Platform
+    \item Corrective maintenance - Korrektur von Fehlern
+    \item Perfective maintenance - Verbesserung der Performance, Wartbarkeit
+    \item Preventive maintenance - Vorbeugung von Problemen
+\end{enumerate}
+
+\subsection{SPRs - Software Problem Reports}
+
+Ist wie Probleme zu einer Software gemeldet werden. Ist das Problem ein Fehler, so sprechen wir von einem Bug Report.
+
+Ist es ein Änderungswunsch heißt es Change Request.
+
+Wir kennen solche Systeme auch als Tickets oder Issues, welche wir z.B. in Gitlab sehen.
+
+\subsection{Bug Report}
+
+Idealerweise besteht ein Bug Report aus:
+
+\begin{enumerate}
+    \item Ticket-Nummer (id)
+    \item Titel
+    \item Priorität (mindestens 3 Stufen)
+    \item Autor
+    \item Version der Software
+    \item Umgebung (Betriebssystem, Hardware)
+    \item Beschreibung des Fehlers (was ist das Problem?)
+    \item Soll- und ist-Resultat (was verlangt die Spezifikation, wie ist die Realität)
+    \item Reproduktion des Fehlers (Testfall, einzelne Schritte)
+    \item ggf. Screenshots
+\end{enumerate}
+
+\subsection{Aufgabe 21 - Bug Reporting}
+
+Wir sollen zu jeder der vier Arten ein Ticket schreiben. Dies soll als 'Tickets.pdf' wieder abgegeben werden.
+
+Ziel ist es ein realistisches Ticket zu erstellen
+
+\subsection*{Adaptive maintenance}
+
+Ticket-Nummer: 1
+
+Titel: JExam funktioniert unter iOS nicht
+
+Priorität: Low
+
+Autor: Moritz
+
+Version der Software: 1.0.0
+
+Umgebung: iOS 17.4 (Safari), Java 21 auf Server
+
+Beschreibung des Fehlers: JExam ist laut Spezifikation eine JavaFX-Desktop-Anwendung für Windows, macOS und Linux. Auf iOS kann die Anwendung nicht ausgeführt werden, wodurch mobile Nutzung auf iPad/iPhone nicht möglich ist.
+
+Soll- und ist-Resultat: Soll: Produktentscheidung für Adaptive Maintenance: Bereitstellung einer iOS-kompatiblen Nutzung (z.B. Web-Frontend oder Remote-Client), damit Lehrende auch mobil arbeiten können. Ist: Der aktuelle Stand deckt nur Desktop-Plattformen ab; iOS wird nicht unterstützt.
+
+Reproduktion des Fehlers: 
+
+\begin{enumerate}
+    \item JExam-Release auf iPhone/iPad öffnen oder starten.
+    \item Keine native Ausführung möglich, da keine unterstützte Desktop-Laufzeit vorhanden ist.
+    \item Kernfunktionen (XML-Verwaltung, PDF-Generierung) sind auf iOS nicht nutzbar.
+\end{enumerate}
+
+\subsection*{Corrective maintenance}
+
+Ticket-Nummer: 2
+
+Titel: Kapitel Reihenfolge ist nicht Persistent
+
+Priorität: Medium
+
+Autor: Moritz
+
+Version der Software: 1.0.0
+
+Umgebung: Windows 11, Java 21
+
+Beschreibung des Fehlers: Die in der Klausurkonfiguration geänderte Reihenfolge der Kapitel (UC-14) wird nach Speichern und erneutem Laden der XML-Datei nicht korrekt wiederhergestellt. Nach dem Reload erscheint wieder die alte oder eine inkonsistente Reihenfolge.
+
+Soll- und ist-Resultat: Soll: Die durch den Nutzer geänderte Kapitelreihenfolge muss über Speichern/Laden (UC-03, UC-02) persistent bleiben und identisch für die PDF-Generierung verwendet werden. Ist: Reihenfolge geht nach Neustart oder Reload verloren.
+
+Reproduktion des Fehlers: 
+
+\begin{enumerate}
+    \item XML-Datei laden.
+    \item In die Klausurkonfiguration wechseln.
+    \item Kapitel mit UP/DOWN umordnen (UC-14).
+    \item Datei speichern (UC-03).
+    \item Datei schliessen und neu laden (UC-02).
+    \item Reihenfolge prüfen: entspricht nicht der gespeicherten Reihenfolge.
+\end{enumerate}
+
+\subsection*{Perfective maintenance}
+
+Ticket-Nummer: 3
+
+Titel: Generierung von PDFs mit vielen Aufgaben dauert lange
+
+Priorität: Medium
+
+Autor: Moritz
+
+Version der Software: 1.0.0
+
+Umgebung: Ubuntu 24.04 Server, Java 21
+
+Beschreibung des Fehlers: Bei grossen Aufgabenpools (mehrere hundert bis tausend Tasks/Variants) dauert die PDF-Generierung deutlich länger als erwartet. Die UI wirkt währenddessen blockiert und reagiert verzögert.
+
+Soll- und ist-Resultat: Soll: Laut nicht-funktionaler Anforderung soll die PDF-Generierung in weniger als 5 Sekunden erfolgen. Ist: Bei großen Datenmengen (1.000 Tasks) liegt die Laufzeit bei ca. 10 bis 20 Sekunden.
+
+Reproduktion des Fehlers: 
+
+\begin{enumerate}
+    \item Großes XML-Aufgabenpool (1.000 Tasks) mit vielen Chapters/Tasks laden.
+    \item "Klausur generieren (PDF)" starten (UC-15).
+    \item Zeit bis zur fertigen PDF messen.
+    \item Laufzeit liegt regelmässig über 5 Sekunden.
+\end{enumerate}
+
+\subsection*{Preventive maintenance}
+
+Ticket-Nummer: 4
+
+Titel: Regressionen in der Bewertung durch fehlende automatisierte Tests vermeiden
+
+Priorität: Medium
+
+Autor: Moritz
+
+Version der Software: 1.0.0
+
+Umgebung: Java 21, JUnit 5
+
+Beschreibung des Fehlers: Kritische Regeln (z.B. Validierung von Task-Feldern, Difficulty-Verteilung, Export-Pfade) sind nicht ausreichend durch automatisierte Tests abgesichert. Dadurch können Refactorings unerkannt Regressionen verursachen.
+
+Soll- und ist-Resultat: Soll: Zentrale Use Cases und Validierungsregeln sind durch Unit- und Integrations-Tests abgesichert; fehlerhafte Änderungen werden vor Release erkannt. Ist: Mehrere Kernpfade sind nur manuell getestet, Regressionen fallen spät auf.
+
+Reproduktion des Fehlers: 
+
+\begin{enumerate}
+    \item Kleine Änderung an Validierungslogik oder PDF-Filterung vornehmen.
+    \item Build/Testlauf starten.
+    \item Trotz fachlichem Fehler kein Test-Fail.
+    \item Erst manueller Test zeigt Fehlverhalten.
+\end{enumerate}
+
+\end{document}
