@@ -1,4 +1,7 @@
 \usepackage{datetime2}  % for dates
+\usepackage[utf8]{inputenc} % UTF-8 input encoding
+\usepackage[T1]{fontenc} % fixes \textquotedbl with pdflatex/OT1
+\usepackage{textcomp}   % additional text symbols for typewriter/upquote
 \usepackage{xcolor}     % for gray color
 \usepackage{listings}
 \usepackage{marginnote} % for horizontal margin notes
@@ -131,9 +134,10 @@
     frame=single,
     breaklines=true,
     tabsize=4,
-    keepspaces=true,
-    columns=fullflexible,
-    upquote=true
+    keepspaces=false,
+    columns=flexible,
+    upquote=true,
+    extendedchars=false % disable extended char handling to avoid UTF-8 conflicts
 }
 
 % SQL syntax highlighting

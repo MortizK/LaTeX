@@ -52,6 +52,188 @@ Linked Data is the Semantic Web done right - Berners-Lee, 2006
 
 \subsection{URIs}
 
+\lecture{2026-03-26}
 
+Bestehen aus 5 Komponenten:
+
+\begin{enumerate}
+    \item Scheme https, mailto
+    \item Authority example.org
+    \item path /home
+    \item query ?user=moritz
+    \item fragment \#intro
+\end{enumerate}
+
+Es wird noch Unterschieden zwischen URL(octator) - webseiten, Dokumente - und URN(ame) - Menschen, Bücher
+
+\subsection{RDF}
+
+Resource Description Framework
+
+Ein RDF-Graph ist Menge von Tripeln (die Ontologie)
+
+\begin{enumerate}
+    \item URI
+    \item Literal: Zahl, Datum, String, Darstellungen
+    \item Leere Knoten (blank node, Bnode): Für Existenz ohne sie zu benennen.
+\end{enumerate}
+
+Ein RDF-Tripel besteht aus Subjekt (Startknoten) - Prädikat (Kante) - Objekt (Zielknoten)
+
+\begin{enumerate}
+    \item Subjekt: URI oder Bnode
+    \item Prädikat: URI
+    \item Objekt: UIR oder Bnode oder Literal
+\end{enumerate}
+
+\subsubsection{Syntax für RDF: TTL}
+
+Der Syntax wird in TTL/ "Turtle" geschrieben.
+
+\begin{enumerate}
+    \item URIs in spitzen Klammern
+    \item Literale in Anführungszeichen
+    \item Tripel durch Punkt abgeschlossen
+    \item Leerzeichen und Zeilenumbrüche außerhalb von Bezeichnern sind irrelevant.
+\end{enumerate}
+
+\begin{lstlisting}
+<http://example.org/SemanticWeb> <http://example.org/verlegtBei>
+    <http://springer.com/Verlag> .
+<http://example.org/SemanticWeb> <http://example.org/titel>
+    "Semantic Web - Grundlagen" .
+<http://springer.com/Verlag> <http://example.org/name> "Springer Verlag" .
+\end{lstlisting}
+
+Wir können auch abkürzen
+
+\begin{lstlisting}
+@prefix ex: <http://example.org/> .
+@prefix springer: <http://springer.com/> .
+@prefix : <http://jan.org/ontology/> .
+
+ex:SemanticWeb ex:verlegtBei springer:Verlag .
+ex:SemanticWeb ex:titel "Semantic Web - Grundlagen" .
+springer:Verlag ex:name "Springer Verlag" .
+:jan :vorname "Jan".
+\end{lstlisting}
+
+Jetzt gab es eine Übung S.83 Diese sollten wir Zeichnen und als TTL aufschreiben.
+
+Ich benutze hier die Abkürzung der Abkürzung. So kann in Zeile 4 das ex:JanHladik weggelassen werden.
+
+\begin{lstlisting}
+@prefix dhbw: <http://dhbw.de/> .
+@prefix ex: <http://example.org/> .
+
+ex:JanHladik    ex:name     "Jan Hladik" ;
+                ex:haelt    dhbw:SW .
+dhbw:SW         ex:name     "Semantic Web" . 
+\end{lstlisting}
+
+Pitfalls:
+
+\begin{enumerate}
+    \item Das ; vergessen (übernimmt das Subjekt in die nächste Zeile)
+    \item Das / am Ende vom Präfix vergessen
+    \item Das . nach dem Präfix vergessen
+    \item Eigentlich " statt ' % Muss mal gucken wie ich das im Compiler fixe
+\end{enumerate}
+
+\subsubsection{Datentypen}
+
+% Muss ich nachtragen, ist aber offensichtlich
+
+\subsubsection{Leere Knoten / Bnode}
+
+% Muss ich nachtragen
+
+\marginpar{To Do}
+
+\subsubsection{Mehrwertige Beziehungen}
+
+% Hier fehlt was
+
+Tools S.101:
+
+\begin{enumerate}
+    \item \href{https://www.w3.org/RDF/Validator/}{w3.org}
+    \item \href{http://www.ldf.fi/service/rdf-grapher}{ldf.fi}
+    \item \href{https://www.easyrdf.org/converter}{easyrdf.org}
+\end{enumerate}
+
+Aufgabe 1: Reifikation der Kauftransaktion S.102
+
+\begin{lstlisting}
+@prefix ex: <http://example.org/> .
+
+ex:kaufTransaction1
+    ex:buyer ex:John ;
+    ex:item ex:SemanticWeb ;
+    ex:seller ex:Mary .
+\end{lstlisting}
+
+Aufgabe 2: Einkaufszettel + Nährwerte
+
+\begin{lstlisting}
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Einkaufszettel ex:element [ ex:product ex:Magerquark ; ex:menge 250 ; ex:einheit "g" ] ;
+                   ex:element [ ex:product ex:Milch ; ex:menge 500 ; ex:einheit "ml" ] ;
+                   ex:element [ ex:product ex:Orangen ; ex:menge 4 ] .
+
+ex:Magerquark a ex:Lebensmittel ;
+              ex:name "Magerquark" ;
+              ex:eiweiß "12%"^^xsd:string ;
+              ex:fett "0,5%"^^xsd:string ;
+              ex:kalorien "60 kcal/100g"^^xsd:string .
+
+ex:Milch a ex:Lebensmittel ;
+         ex:name "Milch" .
+
+ex:Orangen a ex:Lebensmittel ;
+           ex:name "Orangen" .
+\end{lstlisting}
+
+\subsubsection{Listen}
+
+% Hier fehlt eine Kleinigkeit
+
+\marginpar{Hausaufgabe S.105}
+
+Entscheiden Sie, ob die folgenden Aussagen wahr oder falsch sind:
+
+\begin{enumerate}
+    \item URIs können für beliebige Satzteile (Subjekt/Prädikat/Objekt) eines Tripels stehen.
+
+
+    \item Leere Knoten können für beliebige Satzteile stehen.
+
+
+    \item Literale können für beliebige Satzteile stehen.
+
+
+    \item Zwei leere Knoten mit unterschiedlicher ID können für die gleiche Ressource stehen.
+
+
+    \item Zwei unterschiedliche URIs können für die gleiche Ressource stehen.
+
+
+    \item Kommen in mehreren RDF-Dokumenten leere Knoten mit der selben ID vor, dann müssen
+    sie für dieselbe Ressource stehen.
+
+
+    \item Kommen in mehreren RDF-Dokumenten die gleichen URIs vor, dann müssen sie für
+    dieselbe Ressource stehen.
+
+
+    \item Zwei unterschiedliche Literale können für den gleichen Wert stehen.
+
+
+    \item Zwei Literale unterschiedlichen Datentyps können für den gleichen Wert stehen.
+
+
+\end{enumerate}
 
 \end{document}

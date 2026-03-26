@@ -14,13 +14,11 @@
 
 \lecture{2026-03-19}
 
-\section{Unsupervised Learning}
+\section{Clustering}
 
 Dies dient um versteckte Struktur zu finden. z.B. Labeln von unlabeled data.
 
 Wir wissen nur nicht, ob die Lösung richtig ist oder nicht.
-
-\subsection{Clustering}
 
 Es gibt verschieden Verfahren:
 
@@ -132,5 +130,85 @@ Wir haben drei Cluster mit Manhatten Distanz und sollen für Single und Complete
 
     Somit wird Blau-Rot gemerged.
 \end{enumerate}
+
+\lecture{2026-03-26}
+
+\subsection{DBSCAN}
+
+Density-Based Spatial Clustering of Application with Noise
+
+Zwei Kriterien:
+
+\begin{enumerate}
+    \item Nicht weiter weg als $\epsilon$
+    \item Es muss eine gewisse Anzahl an Punkten (minPts) im Bereich von dem anderem Punkt sein.
+\end{enumerate}
+
+In einem Cluster sind alle Punkte untereinander dichte-erreichbar voneinander.
+
+Es wird unterschieden in:
+
+\begin{enumerate}
+    \item Core Points
+    \item Density-reachable Points (Können von einem Core Point erreicht werden)
+    \item Noise points
+\end{enumerate}
+
+Vorteile: Wir haben beliebig viele Cluster, ein Verständnis von Rauschen, 
+
+Nachteile: Ist abhängig von der Distanccfunktion und bei Daten mit unterschiedlichen Dichten kann $\epsilon$ schwer gewählt werden.
+
+Komplexität von DBSCAN ist unter S.47 Es gibt auch noch OPTICS
+
+\subsection{Mean Shift Segmentation}
+
+Wird häufig für Bilder verwendet. z.B. Kantenerkennung.
+
+Funktioniert über gradient Descent (Vorher Dichte Schätzung). Alles was im gleichem Maximum ended ist im gleichem Cluster.
+
+Die Dichte Funktion wird erstellt durch die Aufsummierung von Normalverteilungen um jeden einzelnen Punkt.
+
+Der Gradient Descent wird über ein Moving Mean umgesetzt. So werden gewichtete Mittelwerte erstellt, statt die tatsächliche Dichte auszurechnen.
+
+Ein gutes $h$ für die breite der Gausfunktion kann nach Scott'r Regel ausprobiert werden:
+
+\[
+h = N^{-\frac{1}{p+4}}
+\]
+
+mit $p$ die Anzahl der Dimensionen  und $N$ die Anzahl der Datenpunkte.
+
+\subsection{Spectral Clustering}
+
+Es geht nicht üm die Nähe, sondern um gleiche Netzwerke (Graph mit starken Kanten) 
+
+Durch den Graphen werden die Datenpunkte in einen neuen Raum angeordnet. In diesem neuen Raum wird dann ein k-Means durchgeführt.
+
+Die Mathematik ist etwas komplizierter aber unter den Folien S. 61-66 
+
+\subsection{Beurteilung von Clustering}
+
+Wenn wir Punkte habe, wo wir das Cluster kennen. Können wir überprüfen ob alle der Punkte die im gleichem Cluster sein sollen auch im gleichem sind.
+
+Daraus lässt sich die Purity berechnen. (=1 Wenn jeder Punkt sein eigenes Cluster ist)
+
+Ohne Daten-Labels gibt es auch:
+
+\begin{enumerate}
+    \item Cluster cohesion: Wie eng sind Punkte in einem Cluster
+    \item Cluster separation: Wie unterschiedlich sind mehrere Cluster
+\end{enumerate}
+
+Bekannt ist der Davies-Boulding Index
+
+\[
+DB = \frac{1}{k} \sum_{i=1}^{k} max_{i\neq j} \left(\frac{d_j + d_j}{d_{ij}}\right)
+\]
+
+oder der Silhouett Score.
+
+\subsection{Aufgabe}
+
+Wir haben an einem Jupyter Notebook gearbeitet. Hierzu gibt es auch noch die Lösungen auf Moodle.
 
 \end{document}

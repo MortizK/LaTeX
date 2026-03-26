@@ -1,0 +1,75 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Data Science}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-26}
+
+\section{Dimensionality Reduction \& Source Separation}
+
+Um einen Raum zu füllen brauchen wir anhand der Dimension des Raumes Exponential mehr Datenpunkte.
+
+Zu Anfang lohnt es sich noch mehr Features zur Analyse zu verwenden, jedoch gibt jedes weitere Feature diminishing return, schadet auch irgendwann.
+
+\subsection{Dimensionality Reduction}
+
+\subsubsection{Feature Selection}
+
+Wenn wir also mehrdimensionale Daten haben, wählen wir nur die Features die informativ sind. z.B. mit Random Forest oder greedy feature removal.
+
+\subsubsection{Feature Extraction}
+
+Kombinieren von vorhandenen Features, um neue Features zu produzieren.
+
+\begin{enumerate}
+    \item PCA
+    \item ICA
+    \item pLSA
+\end{enumerate}
+
+\subsection{Principal Component Analysis (PCA)}
+
+Wir verschieben das Koordinatensystem, sodass der Mittelpunkt im Mittelpunkt der Daten steht. Hierzu wird das Koordinatensystem auch gedreht.
+
+Die Annahme ist, wo viel Varianz ist, gibt es auch einen Klassenunterschied (unterschiedliche Cluster)
+
+Das Beispiel mit Bestehen (Label), Stunden Gelernt (Y) und Anwesenheit (X) auf S. 9 ist gut.
+
+Die Achsen werden durch Lineare Regression oder Mean Squared Distance generiert. Die Zweite Achse ist orthogonal dazu. 
+
+Maximierung der Varianz.
+
+PCA Rezept:
+
+\begin{enumerate}
+    \item Data Standardization
+    \item Sample Variance Computation
+    \item Orthogonal Projection
+    \item Orthonormal Basis
+\end{enumerate}
+
+\subsubsection{Data Standardization}
+
+Wir wollen das jedes Feature einen Median von 0 hat und eine Varianz von 1.
+
+Somit: 
+
+\begin{enumerate}
+    \item In jeder Spalte den Mittelwert berechnen und von jedem Element subtrahieren.
+    \item Die Standardabweichung berechnen und jedes Element durch die Standardabweichung teilen.
+\end{enumerate}
+
+\subsubsection{Sample Variance Computation}
+
+Stichprobenvarianz wird berechnet durch die Formel auf der Folie S. 15. Aufgrund der Standardization wird die Formel einfacher, da Mittelwert $\overline{x} = 0$ ist.
+
+\end{document}
