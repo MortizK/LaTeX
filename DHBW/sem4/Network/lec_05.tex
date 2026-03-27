@@ -1,0 +1,80 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Netztechnik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-27}
+
+\section{Switching \& Routing}
+
+\subsection{Switching}
+
+\begin{enumerate}
+    \item Cut-Through Bridge
+    
+    Paket wird bis zur Zieladresse eingelesen und dann bereits ausgesendet $\rightarrow$ minimale Verzögerung 
+    \item Store-and-Forward Bridge
+    
+    Paket wird komplett eingelesen, auf Fehler geprüft und dann weitergelesen $\rightarrow$ Verzögerung abhängig von Paketgröße
+    \item Link-Aggregation ("Trunking")
+    
+    Gruppierung von physikalischen Ports zu einer logischen Port Verbindung. Standard 802.3 mit Load-balancing
+\end{enumerate}
+
+\subsubsection{MAC-Adresse}
+
+Für einen Broadcast werden alle Adressbits auf 1 gesetzt.
+
+Für einen Multicast werden die niedrigsten Bits im erstem Oktett gesetzt. z.B. 01:80... oder 03:80...
+
+\subsubsection{Adressverwaltung}
+
+% Hier fehlen mir noch mehrere Unterkapitel
+
+\subsubsection{Flusskontrolle - Flow Control}
+
+Kann kein weiteres Paket mehr akzeptiert werden, da Puffer voll ist. Die resultiert in ein "Wandering Backpressure", was alle Switches Stück für Stück blockiert.
+
+Funktioniert bis einer ein längeres Problem hat. Kann im schlimmsten fall den Backbone lahmlegen.
+
+Eingrenzung von Broadcast können bei Switches so implementiert werden:
+
+\begin{enumerate}
+    \item Broadcast-Limiter (pro Sekunde)
+    \item VLANs
+    \item Filter (z.B. bei bestimmten Sendern/ Empfänger blockieren/ erlauben)
+    \item Router (schickt keinen Broadcast weiter)
+\end{enumerate}
+
+\subsection{VLANs}
+
+Verbindung von Endgeräten zu abgeschlossenen, logischen LANs innerhalb einer physikalischen Infrastruktur zum Zweck der Broadcast-Eingrenzung. Somit kann eingrenzt werden, an welche Ports ein Switch Signale Weiterleitet.
+
+Vorteil in Folie 6-17
+
+VLAN gibt es nur mit Store \& Forward, da die VLAN Kennung erst nach der Zieladresse kommt. Es gibt aber verschiedene.
+
+VLAN 1 ist Port-basiert. VLAN 2 ist MAC-Adressen-basiert. VLAN 3 ist IP-Adressen-basiert. Gibt noch auf den weiteren Schichten VLANs. Zusammenfassung Folie 6-19
+
+\subsection{Spanning Tree}
+
+
+
+\subsection{Router}
+
+
+
+\subsection{Quality-of-Service QoS}
+
+
+
+\end{document}

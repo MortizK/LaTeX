@@ -1,6 +1,6 @@
 \documentclass[a4paper]{article}
 
-\newcommand{\docTitle}{Datenentze}
+\newcommand{\docTitle}{Netztechnik}
 
 \input{../preamble.tex}
 
@@ -36,7 +36,7 @@ Hubs wurden abgelöst durch Switches, da Switches mehr können und denselben Pre
 
 In der Vorlesung benutzen wir eigene Symbole (Folie 5-6)
 
-\subsubsection*{Datenübertragung}
+\subsubsection{Datenübertragung}
 
 Verschieden Daten haben unterschiedliche Geschwindigkeiten und Auftreten verhalten (periodisch, burstartig)
 
@@ -48,11 +48,11 @@ weiter Kriterien sind:
     \item Determinismus
 \end{enumerate}
 
-\subsubsection*{Hub}
+\subsubsection{Hub}
 
 Einer Redet, alle hören zu.
 
-\subsubsection*{Switch}
+\subsubsection{Switch}
 
 Synonyme: Brücke, Bridge
 
@@ -70,11 +70,11 @@ Sended Signal dahin, wo der richtige Prot ist.
 
 Befindet sich in den unteren beiden Schichten des OSI-Modells und ist LAN CSMA/CD (Grafik auf 5-16) mit Bustopologie.
 
-\subsubsection*{Topologie}
+\subsubsection{Topologie}
 
 Als Bus verbindet ein Server sich mit mehren Computer oder die Baum Topologie, wo mehrere Switches mit mehren anderen und PCs verbunden ist.
 
-\subsubsection*{Zugriffsverfahren CSMA/CD}
+\subsubsection{Zugriffsverfahren CSMA/CD}
 
 \begin{enumerate}
     \item Station ist sendebereit
@@ -87,23 +87,23 @@ Als Bus verbindet ein Server sich mit mehren Computer oder die Baum Topologie, w
 
 Das BEB (Binary Exponential Backoff Algorithm) wartet ine Zufällige Zeit, bis der Kanal wieder abgehört werden kann. Da alle Teilnehmer dies machen wird durch den Zufall eine erneute Kollision statistisch verhindert.
 
-\subsubsection*{maximale Netzausdehnung}
+\subsubsection{maximale Netzausdehnung}
 
 \know{Klausuraufgabe}{Ohne Taschenrechner. Datenpaket 64 oktett = 512 bit = 51,2 $\mu s \rightarrow$ Maximale Laufzeit 25,6 $\mu s \rightarrow$ s = v*t (v = 0.66 * $c_0$ = 200.000 km/s)
 
 Somit: s = 5120 m}
 
-\subsubsection*{maximale zulässige Netzausdehnung}
+\subsubsection{maximale zulässige Netzausdehnung}
 
 Grafik auf Folie 5-24
 
-\subsubsection*{Rahmenhandlung}
+\subsubsection{Rahmenhandlung}
 
 \know{Klausuraufgabe}{Wenn wir einen Rahmen zeichnen sollen, so soll es der obere von Folie 5-25 sein:
 
 Präamble, SFD, Ziel-Adresse, Quell-Adresse, Typ, Daten, FCS}
 
-\subsubsection*{Pakete}
+\subsubsection{Pakete}
 
 Normale Ethernet-V.2.0 und IEEE-802.3 haben wir kurz angerissen.
 
@@ -111,13 +111,13 @@ Und dan gibt es noch Jumbo-Pakete (größer als 1.518 Oktetts) - meist ca. 9.000
 
 \subsection{Fast-ETHERNET}
 
-\subsubsection*{maximale Netzausdehnung}
+\subsubsection{maximale Netzausdehnung}
 
 In der Theorie 512m, aber in der praxis max 412 (mit Sicherheit)
 
 Wenn aber noch ein Hub rein kommt, kostet die Verzögerung uns Reichweite. Die Ausdehnung (das Zugriffsverfahren) ist hier limitierend. Wenn wir Vollduplex habe ist das kein Problem mehr. - Brauchen wir eigentlich nicht mehr, da es keine Hubs mehr gibt.
 
-\subsubsection*{Autonegotiation}
+\subsubsection{Autonegotiation}
 
 Dient um Features zu kommunizieren, welche benutzt werden können.
 
@@ -129,18 +129,101 @@ Wenn aber zwei Komponenten unterschiedlich autoneg eingestellt haben, so wird de
 
 LWL-Steckverbinder (standardisiert): Duplex SC (oder praxis Duplex LC)
 
+\lecture{2026-03-27}
 
+\subsubsection{MAC - Carrier Extension und Packet Bursting}
+
+Ist ein Frame mit Präambel und Extension. Die Daten haben min 64 Oktett und mit Extension min 512 Oktett.
+
+Gibt es nur im HDX-Modus.
+
+\subsubsection{Buffered Distribution}
+
+Geht mit Multiport-Repeater (oder Switch, welcher sich durchgesetzt hat).
+
+Keine Längenbeschränkung bedingt durch das CSMA/CD Protokoll.
+
+\subsection{Single Pair Ethernet SPE}
+
+Entwickelt für das Auto mit nur einem Ader Paar und Gigabit.
+
+\subsubsection{Ausblick}
+
+Terabit ist bereits in Forschungslaboren aktiv. Zudem gibt es DWDM, welches viel kann ein weiter Strecken.
 
 \subsection{Redundanzen}
 
+% Folie 5.53
+
+Antwort auf die Frage, was kann Kaputt gehen? Alles was sich bewegt (Lüfter, zieht Staub) Lüfterkasette austauschen darf kein Reboot verursachen.
+
+Orientierung der Segmente, gerne vertikal, sodass der Staub nach unten fällt.
+
+Netzzuleitung kann auch ausfallen (z.B. Sicherung springt raus). Also einfach zwei Steckdosen verwenden die auf unterschiedlichen Sicherungen laufen.
+
+Oder auch einfach mehrere Geräte, falls ein ganzes Gerät ausfällt. 
+
+\begin{enumerate}
+    \item Switch (per RSTP)
+    \item Router (per VRRP oder HSRP)
+    \item Server (Spiegelung)
+\end{enumerate}
+
+\subsubsection{Link-Aggregation}
+
+Synonym: Trunking
+
+Verwendet mehrere Links zwischen Switches, welche als einen virtuellen Link zusammengefasst werden.
+
+Welcher Link verwendet wird, wird entschieden durch die MAC-Adresse und/oder die IP-Adresse. Kann auf Hin und Rückweg auf unterschiedlichen Links passieren.
+
+\subsubsection{Hardware-Redundanz}
+
+Nach IEEE wurde Rapid Spanning-Tree mit Umschaltzeit zwischen 0,2s bis zu 1min. (Für die Industrie nicht geeignet, deshalb IEC 62439)
+
+Die Umsetzung der Industrie ist Ring-Redundanz MRP
+
+So werden mehrere Rings mit zwei Verbindungen parallel geschaltet: 1 aktiv, 1 standby, gemanagt von einem Ring Manager. Bei einem Umschalten müssen die Adresstabelle umgeschrieben werden (werden gelöscht).
+
 \subsection{Diagnose}
+
+Über einen Management Agent.
+
+% Hier fehlt mir was
 
 \subsection{Medien}
 
-\subsection{TSN - TIme Sensitive Networking}
+% Hier muss ich nachtragen
+
+\section{TSN - TIme Sensitive Networking}
+
+Hierzu wird es keine Frage in der Klausur geben
+
+% Hier fehlt mir alles
 
 \subsection{ISDN / xDSL}
 
+% Hier fehlt mir alles
+
 \subsection{WLAN}
+
+Dies ist wieder wichtig
+
+man kann mit einem Android Handy gucken, welche WLAN Kanäle in der Umgebung genutzt werden.
+
+Für Performance kann man dann sein Router umstellen, einen weniger benutzten Kanal zu benutzen.
+
+\know{Klausur}{\begin{enumerate}
+    \item Wir müssen uns nicht um Kompatibilität kümmern
+    \item TSN ist irrelevant
+    \item PoE Erkennung und Klassifizierung S.62 ist irrelevant
+    \item Fast ETHERNET Delimiter sind irrelevant.
+\end{enumerate}}
+
+Mit MIMO lässt sich auf mehreren Antennen senden.
+
+Übersicht der WLAN Standards in Folie S. 5-88. Unsere zuhause senden meist mit 802.11ac
+
+WLAN Sicherheit WPA3 (oder WPA2), nichts anderes.
 
 \end{document}
