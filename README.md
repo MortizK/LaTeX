@@ -12,7 +12,7 @@ Damit ich in jedem .tex file die gleichen imports für z.B. Mathe Formeln und Sy
 
 ### Ordnerstruktur DHBW
 
-```
+```text
 ├── .vscode
 ├── /current
 ├── /helper

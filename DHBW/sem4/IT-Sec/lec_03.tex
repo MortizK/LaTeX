@@ -1,0 +1,267 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Kryptologie}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-03-31}
+
+\section{Abgrenzung Steganografie}
+
+Dies machen wir nicht, da dies nur das verschleiern von Nachrichten gehen.
+
+\section{Kryptographie}
+
+\subsection{Ziele}
+
+Wir wollen wieder an unseren Schutzzielen arbeiten:
+
+\begin{enumerate}
+    \item Vertraulichkeit
+    \item Datenintegrität
+    \item Authentizität
+    \item Verbindlichkeit
+\end{enumerate}
+
+\subsection{Verschlüsselung}
+
+Wir wollen mathematisch gesehen eine bijektive Abbildung sein. Somit hin und zurück funktionieren.
+
+Bei Symmetrische Verfahren sind die Schlüssel gleich, wie bei einer Haustür.
+
+Bei Asymmetrische Verfahren sind die Schlüssel nicht gleich, so gibt es einen Schlüssel zum verschlüsseln und einen anderen Schlüssel zum Entschlüsseln.
+
+\subsection{Symmetrische Chiffren}
+
+Da hier der Schlüssel geheim ist, muss dieser Sicher übertragen und gespeichert werden.
+
+Der \textbf{Caesar-Code} ist nicht sicher, da hier der Schlüsselraum nur 26 groß ist. So lassen sich einfach alle Kombinationen ausprobieren.
+
+Das \textbf{Substitutions-Algorithmus} funktioniert indem jeder Buchstabe nur auf einen anderen Abgebildet wird. Das Mapping ist Wahllos. Somit ist unserer Mapping der Schlüssel und somit ist der Schlüsselraum größer $26! = 2^{88}$. Hier lässt sich der Code mit der Häufigkeitsverteilung von Buchstaben in einer Sprache lösen.
+
+Das \textbf{Polyalphabetische Verschlüsselung} wählt ein Schlüsselwort "AKEY" und machen mehrere Caesar-Chiffren. So haben wir mehrere Unbekannte:
+
+\begin{enumerate}
+    \item Schlüssellänge
+    \item Die einzelnen Verschiebungen
+\end{enumerate}
+
+Wir können wieder über Korrelation (Kappa-Test) oder über Häufige Endungen (-tion, -ung - Kasiski-Test) Analysieren, welche Buchstaben mit welchen anderen Zusammenhängen. So lässt sich die Länge des Schlüsselwortes herausfinden.
+
+\subsubsection{Häufigkeits-Analyse}
+
+Dies nutzt aus, das jede Sprache eine gewisse Verteilung von ihren Buchstaben hat.
+
+So ist in der Deutschen Sprache das E der Häufigste Buchstabe.
+
+Evtl. wird hier auch noch die Häufigkeiten von:
+
+\begin{enumerate}
+    \item Buchstabenpaaren
+    \item Buchstabentripel
+    \item Buchstabenquadrupel
+\end{enumerate}
+
+Analysiert um die Zuordnung festzustellen.
+
+\subsubsection{Anfordderungen an kryptographischen Verfahren}
+
+Der Angreifer darf alles über das System wissen. Die Sicherheit darf nur von dem Schlüssel selbst abhängig sein.
+
+Die Gute soll groß sein:
+
+\begin{enumerate}
+    \item Schlüsselraum soll sehr groß sein.
+    \item Brute Force solle nicht mit Praktikablen aufwand möglich sein.
+    \item Ein Analytisches Verfahren soll nicht möglich sein. Somit nur Brute Force möglich.
+\end{enumerate}
+
+\subsubsection{Gute Chiffre}
+
+Um eine Verfahren zu prüfen, sollte es veröffentlicht werden, damit Wissenschaftler Arbeiten darüber schreiben. So kann jeder einlesen und "seinen Senf" dazugeben.
+
+Der \textbf{Zufallsgenerator} für die Erzeugung des Schlüssels ist relevant, wie gut ein Schlüssel ist. Die Normalen PNGs sind deterministisch und linear. Somit lässt sich der nächste Schlüssel vorhersagen. Diese eignen sich nicht für Kryptographie.
+
+\subsubsection{Linear Feedback Shift Register (LSFR)}
+
+Beispiele für Kryptographische Zufallsgeneratoren sind Trivium oder RFID
+
+Der Start des Schieberegisters wird durch die Kopplung von anderen Bits bestimmt. z.B. mit XOR. Die maximale Periodenlänge ist $2^n-1$. Dies muss aber nicht der Fall sein.
+
+Ein einzelnes LSFR ist nicht sicher genug, da einer durch ein Polynom ausgedrückt werden kann. Hier lassen sich mit Gauss die parameter des Polynoms gelöst werden.
+
+Somit werden mehrere LSFR mit unterschiedlicher Länge nicht linear kombiniert und aneinander gekoppelt. (wie in Trivium).
+
+\subsubsection{Strom Chiffre}
+
+Vorwiegend im Mobilfunk eingesetzt, wurden aber Schnell geknackt.
+
+Verschlüsselt jedes Bit einzeln.
+
+Verschlüsselung und Entschlüsselung sind dieselben Funktionen (Addition Modulo 2 bzw. XOR)
+
+In der Praxis wird eine Zufallszahl generiert, welche dann als Seed-Wert für die Zufallsfolge verwendet wird.
+
+\subsubsection{Block Chiffre}
+
+Verschlüsselt Eingabeblöcke mit fester Länge mit demselben Schlüssel.
+
+DES (Data-Encryption-Standard) und AES (Advanced Encryption Standard) sind bekannte Vertreter.
+
+% Es gibt noch einige Andere Verfahren mit unterschiedlichen Probleme
+% Dies kann ich noch nachtragen
+
+DES funktioniert mit mit einem 64 Bit Schlüssel und ist eine Feistel-Chiffre.
+
+Das ziel war es einen Lawinen-Effekt zu haben. So macht eine kleine Änderung im Klartext eine große Änderung in den Darauffolgenden Symbolen des Chiffriertext.
+
+Ein Feistel-Chiffre funktioniert in der unterteilung von Datenblöcke in Links und Rechts, welche $n$ Runden verarbeitet werden. Jeweils mit Schlüssel $k_i$. Die eine Hälfte wird mit einer Funktion bearbeitet und die andere Hälfte kommt im nächstem Schritt vor.
+
+Letztens gibt es die S-Box % Hier muss ich noch was Ergänzen.
+
+\marginpar{S-Box recherche}
+
+% Hier fehlt mir noch der zweite Teil der Vorlesung (Start von Kapitel 4)
+
+% Machen wir beim nächstem Termin
+
+\subsection{Asymmetrische Chiffren}
+
+\subsubsection{Basis: Faktorisierung}
+
+\subsubsection{Basis; Logarithmus}
+
+\subsubsection{Basis: Eliptic Curve}
+
+% Machen wir beim übernächstem Termin
+
+\subsection{Protokolle}
+
+\subsubsection{Schlüsselaustausch}
+
+\subsubsection{Integrität, Authentizität, Signatur}
+
+\section{Übungsaufgaben}
+
+\lecture{2026-03-31}
+
+\subsection{Blockchiffren}
+
+$$E(m) = (m+2) mod 26$$
+
+a) Verschlüsseln von "HALLOWELT" in ECB mit Blockgröße 1 und Schlüssel 2
+
+Somit ergibt sich "JCNNQYGNV"
+
+\begin{lstlisting}
+% A B C D E F G H I J K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+% 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+\end{lstlisting}
+
+Es gibt dreimal das "N", welche ein Indiz sein kann für einen Häufigen Buchstaben. Zudem gibt es einmal "NN", welches die Buchstaben auf "abcdefgiklmnoprstwz" nach \href{https://www.sprachnudel.de/woerterbuch/wortsuche/woerter-mit-doppelbuchstaben}{sprachnudel} einschränkt.
+
+b) Nun im CBC Modus verschlüsseln mit der modularen Addition statt dem XOR
+
+$$c_i = E(m_i + c_{i+1})$$
+
+
+Mit IV = 4 und +-Operator
+
+\begin{lstlisting}
+%      (IV or prev) + 2 = current
+% H =  7 ->  7 +  4 + 2 = 13 -> N
+% A =  0 ->  0 + 13 + 2 = 15 -> P
+% L = 11 -> 11 + 15 + 2 =  2 -> C
+% L = 11 -> 11 +  2 + 2 = 15 -> P
+% O = 14 -> 14 + 15 + 2 =  5 -> F
+% W = 22 -> 22 +  5 + 2 =  3 -> D
+% E =  4 ->  4 +  3 + 2 =  9 -> J
+% L = 11 -> 11 +  9 + 2 = 22 -> W
+% T = 19 -> 19 + 22 + 2 = 17 -> R
+\end{lstlisting}
+
+Somit ergibt sich "NPCPFDJWR"
+
+\subsection{Polyalphabetische Verschlüsselung}
+
+a) Wir haben den Schlüsseltext "VIVLRJJLCMR" mit dem Klartext "Datenschutz" und wollen den Schlüssel ermitteln.
+
+Wir bestimmen zuerst die Verschiebung pro Buchstabe:
+
+% A B C D E F G H I J K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+% 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+
+\begin{lstlisting}
+% D:  3 -> V: 21 -> diff: +18 -> S
+% A:  0 -> I:  8 -> diff: +21 -> I
+% T: 19 -> V: 21 -> diff: + 3 -> C
+% E:  4 -> L: 11 -> diff: + 7 -> H
+% N: 13 -> R: 17 -> diff: + 4 -> E
+% S: 18 -> J:  9 -> diff: +17 -> R
+% C:  2 -> J:  9 -> diff: + 7 -> H
+% H:  7 -> L: 11 -> diff: + 4 -> E
+% U: 20 -> C:  2 -> diff: + 8 -> I
+% T: 19 -> M: 12 -> diff: +19 -> T
+% Z: 25 -> R: 17 -> diff: +18 -> S
+\end{lstlisting}
+
+Ich komme auf den Schlüssel "SICHERHEITS" oder "SICHERHEIT"
+
+Entweder mit den Zahlen wie oben arbeiten oder mit dem Finger aus der Tabelle ablesen (Buchstabe wird zu Buchstabe und dann Link den Schlüssel auslesen)
+
+b) Ermitteln des Klartexts von "WQR FVEN IQI QGYG XBU MIZ" mit Schlüssel "EIP YRNG"
+
+Dies mache ich aus der Tabelle: "SICHERHEITSPLATTFORM"
+
+\subsection{Stromchiffren 1}
+
+Weil XOR hin und Rückwerts dieselbe Funktion ist. Dasselbe gilt auch für addition unter mod 2.
+
+\subsection{Stromchiffren 2}
+
+In einem WLAN wird WEP eingesetzt, um das Netz "abzusichern". Zur Verschlüsselung verwendet WEP die Stromchiffre RC4, die als Eingabe einen Initialisierungsvektor IV und einen symmetrischen Schlüssel K erhält, um einen Schlüsselstrom RC4(IV | K) zu generieren. Da der IV nur eine Länge von 24 Bit hat, kommt es nach einiger Zeit zu Kollisionen.
+
+a) Welche Folgen hat dies für die Verschlüsselung, wenn ein IV doppelt verwendet wird? Begründen Sie ihre Antwort.
+
+b) Skizziere einen Angriff unter folgender Annahmen:
+
+\begin{enumerate}
+    \item $C_1=M_1 RC4(IV \mid K)$
+    \item $C_2=M_2 RC4(IV \mid K)$
+    \item $M_1$ sei bekannt.
+\end{enumerate}
+
+\textbf{Lösung:}
+
+a) Bei gleichem $IV$ und gleichem Schlüssel $K$ entsteht derselbe Schlüsselstrom
+$S = RC4(IV \mid K)$. Damit gilt:
+
+$$C_1 = M_1 \oplus S \quad\text{und}\quad C_2 = M_2 \oplus S$$
+
+XORt man beide Chiffretexte, fällt der Schlüsselstrom weg:
+
+$$C_1 \oplus C_2 = M_1 \oplus M_2$$
+
+Dadurch geht Vertraulichkeit verloren: Zusammenhänge der Klartexte werden sichtbar,
+und mit Zusatzwissen (z.B. bekannte Textteile) lassen sich Nachrichten rekonstruieren.
+
+b) Angriff bei bekanntem $M_1$ (Known-Plaintext-Angriff):
+
+$$S = C_1 \oplus M_1$$
+
+Damit kann der zweite Klartext direkt berechnet werden:
+
+$$M_2 = C_2 \oplus S = C_2 \oplus C_1 \oplus M_1$$
+
+Also reicht ein bekanntes Klartext-Chiffretext-Paar bei wiederverwendetem $IV$ aus,
+um weitere Pakete mit demselben $IV$ zu entschlüsseln.
+
+\end{document}
