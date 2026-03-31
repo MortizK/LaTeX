@@ -1,0 +1,956 @@
+{
+  "deckName": "it-sec_anki",
+  "modulePath": "C:/Users/moritz/Documents/LaTeX/DHBW/sem4/IT-Sec",
+  "cards": [
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Einf\u00fchrung in IT-Sicherheit Lehrbeauftragter: Dr'?",
+        "Back": "Einf\u00fchrung in IT-Sicherheit Lehrbeauftragter: Dr",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 2: Welche Kernaussage nennt die Folie?",
+        "Back": "N\u00e4chste Generation Mobilfunk: 5G \u2013 \u201etaktile\u201c Internet (neue Dimension der mobilen Interaktion) \u2013 Herausforderung: geringe Delays: < 1 ms",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Industrie 4.0: vernetzte Produktionswerkzeuge \u2013 Hersteller\u00fcbergreifende Zusammenarbeit \u2013'",
+        "Back": "Industrie 4.0: vernetzte Produktionswerkzeuge \u2013 Hersteller\u00fcbergreifende Zusammenarbeit \u2013 Absicherung langlebiger Fertigungsanlagen",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "IoT ({{c1::Internet}} of Things) \u2013 Connected Car \u2013 Connected Home \u2013 Connected Bike \u2013 TracoVino (smarter Wein) \u2013 Bezahlen mit Handy",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Dom\u00e4nen\u00fcbergreifende, kontrollierbare Zusammenarbeit (Cloud) \u2013 Identit\u00e4ts- und Rechtemanagement'?",
+        "Back": "Dom\u00e4nen\u00fcbergreifende, kontrollierbare Zusammenarbeit (Cloud) \u2013 Identit\u00e4ts- und Rechtemanagement: Kontrollm\u00f6glichkeiten? \u2013 Transparenz und Attestierbarkeit (siehe NSA Diskussion)?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Vielzahl von eingebetteten Komponenten und Sensoren \u2013 M2M-Kommunikation'?",
+        "Back": "Vielzahl von eingebetteten Komponenten und Sensoren \u2013 M2M-Kommunikation: Komponenten-Identifikation? \u2013 Ressourcenschwache Komponenten: Verschl\u00fcsseln? \u2013 Secure Updates, remote Management?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 7: Welche Kernaussage nennt die Folie?",
+        "Back": "Vernetzte Industrie- und Automatisierungsanlagen \u2013 Langlebige Maschinen und kurzlebige Fertigungen, \u2013 dynamische IT: Business-Security ist nicht \u00fcbertragbar",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '\u00d6ffnen und gleichzeitig H\u00e4rten? Patch-Management?'",
+        "Back": "\u00d6ffnen und gleichzeitig H\u00e4rten? Patch-Management?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "5 {{c1::Begriffsdefinitionen}} Definition: IT-System Ein IT-System ist ein geschlossenes oder offenes, dynamisches technisches System mit der F\u00e4higkeit zur Speicherung und Verarbeitung von Informationen (aus IT-Sicherheit, Claudia Eckert)",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '6 Was ist Sicherheit? Sicherheit umfasst verschiedene Aspekte'?",
+        "Back": "6 Was ist Sicherheit? Sicherheit umfasst verschiedene Aspekte:",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Datenschutz (privacy) (aus IT-Sicherheit, Claudia Eckert)'?",
+        "Back": "Datenschutz (privacy) (aus IT-Sicherheit, Claudia Eckert)",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 12: Welche Kernaussage nennt die Folie?",
+        "Back": "7 Begriffsdefinitionen Definition: Funktionssicherheit (safety) Unter Funktionssicherheit (engl",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 7"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 7
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'safety) eines Systems verstehen wir die Eigenschaft, dass'",
+        "Back": "safety) eines Systems verstehen wir die Eigenschaft, dass die realisierte Ist- Funktionalit\u00e4t der Komponenten mit der spezifizierten Soll- Funktionalit\u00e4t \u00fcbereinstimmt",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 7"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 7
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "8 {{c1::Begriffsdefinitionen}} Definition: Informationssicherheit (security) Die Informationssicherheit (engl",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 8"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 8
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'security) ist die Eigenschaft, nur solche Systemzust\u00e4nde anzunehmen'?",
+        "Back": "security) ist die Eigenschaft, nur solche Systemzust\u00e4nde anzunehmen, die zu keiner unautorisierten Informationsver\u00e4nderung oder \u2013gewinnung f\u00fchren",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 8"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 8
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '9 Begriffsdefinitionen Definition: Datensicherheit (protection) Die Datensicherheit (engl'?",
+        "Back": "9 Begriffsdefinitionen Definition: Datensicherheit (protection) Die Datensicherheit (engl",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 9"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 9
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 17: Welche Kernaussage nennt die Folie?",
+        "Back": "protection) ist die Eigenschaft, nur solche Systemzust\u00e4nde anzunehmen, die zu keinem unautorisierten Zugriff auf Systemressourcen und insbesondere auf Daten f\u00fchren",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 9"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 9
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Sie umfasst insbesondere auch Ma\u00dfnahmen zur Datensicherung (engl'",
+        "Back": "Sie umfasst insbesondere auch Ma\u00dfnahmen zur Datensicherung (engl",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 9"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 9
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::backup}}), also Schutz vor Datenverlusten durch Erstellung von Sicherungskopien (aus IT-Sicherheit, Claudia Eckert)",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 9"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 9
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '10 Begriffsdefinitionen Definition: Datenschutz (privacy) Unter Datenschutz (engl'?",
+        "Back": "10 Begriffsdefinitionen Definition: Datenschutz (privacy) Unter Datenschutz (engl",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 10"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 10
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'privacy) versteht man die F\u00e4higkeit einer nat\u00fcrlichen Person'?",
+        "Back": "privacy) versteht man die F\u00e4higkeit einer nat\u00fcrlichen Person, die Weitergabe von Informationen, die sie pers\u00f6nlich betreffen, zu kontrollieren",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 10"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 10
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 22: Welche Kernaussage nennt die Folie?",
+        "Back": "Hierunter fallen insbesondere Sicherheitsanforderungen, die der deutsche Gesetzgeber durch das informationelle Selbstbestimmungsrecht geregelt hat",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 10"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 10
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '11 Anmerkung zu Definitionen ISO definiert Security als'",
+        "Back": "11 Anmerkung zu Definitionen ISO definiert Security als \u201edie Minimierung der Verwundbarkeit von Werten und Ressourcen\u201c",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 11"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 11
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "Die {{c1::vorherigen}} Definitionen unterscheiden zwischen Systemen, die vordringlich abzielen:",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 11"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 11
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'auf den Schutz der verarbeiteten Informationen (Informationssicherheit)'?",
+        "Back": "auf den Schutz der verarbeiteten Informationen (Informationssicherheit)",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 11"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 11
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'auf den Schutz der Daten als deren Repr\u00e4sentanten'?",
+        "Back": "auf den Schutz der Daten als deren Repr\u00e4sentanten (Datensicherheit) H\u00e4ufig werden die Begriffe IT-Sicherheit, Datensicherheit und Informationssicherheit synonym verwendet.",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 11"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 11
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 27: Welche Kernaussage nennt die Folie?",
+        "Back": "Sicherstellung der Informations- und Datensicherheit eines IT- Systems ist ein Prozess, der einer st\u00e4ndigen \u00dcberpr\u00fcfung und Revision unterliegt, da sich Systemeigenschaften \u00fcber die Zeit dynamisch \u00e4ndern k\u00f6nnen",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 12"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 12
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '\u2022 Funktionssicherheit ist die Grundlage f\u00fcr Informations- bzw'",
+        "Back": "\u2022 Funktionssicherheit ist die Grundlage f\u00fcr Informations- bzw",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 12"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 12
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "13 {{c1::Begriffsdefinitionen}} Definition: Verl\u00e4sslichkeit (dependability) Unter der Verl\u00e4sslichkeit (engl",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 13"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 13
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'dependability) eines Systems verstehen wir die Eigenschaft, keine'?",
+        "Back": "dependability) eines Systems verstehen wir die Eigenschaft, keine unzul\u00e4ssigen Zust\u00e4nde anzunehmen (Funktionssicherheit) und zu gew\u00e4hrleisten, dass die spezifizierte Funktion zuverl\u00e4ssig (engl",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 13"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 13
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Gew\u00e4hrleistung von Funktionssicherheit durch Ma\u00dfnahmen zur Abwehr von'?",
+        "Back": "Gew\u00e4hrleistung von Funktionssicherheit durch Ma\u00dfnahmen zur Abwehr von Bedrohungen, die durch technisches Fehlverhalten des IT-Systems selber (von innen) entstehen",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 14"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 14
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 32: Welche Kernaussage nennt die Folie?",
+        "Back": "Diese entstehen vorwiegend durch Programmierfehler (nicht Gegenstand der Vorlesung) Ziel der Vorlesung:",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 14"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 14
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Konzepte und Ma\u00dfnahmen zur Abwehr von Bedrohungen, die'",
+        "Back": "Konzepte und Ma\u00dfnahmen zur Abwehr von Bedrohungen, die durch unberechtigte Zugriffe auf die zu sch\u00fctzenden G\u00fcter des IT-Systems entstehen und im wesentlichen von au\u00dfen erfolgen.",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 14"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 14
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Funktionssicherheit}} durch Sicherheitsverletzungen gef\u00e4hrdet: Beispiel ?",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 15"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 15
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Funktionssicherheit durch Sicherheitsma\u00dfnahmen gef\u00e4hrdet: Beispiel ?'?",
+        "Back": "Funktionssicherheit durch Sicherheitsma\u00dfnahmen gef\u00e4hrdet: Beispiel ?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 15"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 15
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Verletzung der Funktionssicherheit kann Sicherheit gef\u00e4hrden: Beispiel?'?",
+        "Back": "Verletzung der Funktionssicherheit kann Sicherheit gef\u00e4hrden: Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 15"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 15
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 37: Welche Kernaussage nennt die Folie?",
+        "Back": "Sch\u00fctzenswertes Gut wird als Objekt bezeichnet Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 16"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 16
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Einheiten, die auf Objekte zugreifen k\u00f6nnen, identifizieren solche'",
+        "Back": "Einheiten, die auf Objekte zugreifen k\u00f6nnen, identifizieren solche Einheiten werden als Subjekte bezeichnet Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 16"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 16
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Zugriffe}} auf Objekte/Informationen beschr\u00e4nken",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 17"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 17
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Rechte zur Nutzung von Objekten, Rechte an Informationen'?",
+        "Back": "Rechte zur Nutzung von Objekten, Rechte an Informationen festlegen Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 17"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 17
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Nur autorisierte Zugriffe zulassen und erm\u00f6glichen Regelwerk (Policy)'?",
+        "Back": "Nur autorisierte Zugriffe zulassen und erm\u00f6glichen Regelwerk (Policy) f\u00fcr Berechtigungen/Verbote festlegen Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 17"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 17
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 42: Welche Kernaussage nennt die Folie?",
+        "Back": "Daten vor Verlust sch\u00fctzen (Backup) Backup-Strategien",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 18"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 18
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Beschr\u00e4nkungen kontrollieren (Enforcement) Schutzmechanismen, Sicherheitsdienste und \u2013protokolle festlegen'",
+        "Back": "Beschr\u00e4nkungen kontrollieren (Enforcement) Schutzmechanismen, Sicherheitsdienste und \u2013protokolle festlegen Beispiel?",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 18"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 18
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Sicherheit}} ist immer eine Abw\u00e4gung zwischen Risiken und Aufwand bzw",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 19"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 19
+      }
+    },
+    {
+      "type": "calculation",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Welche quantitative Aussage gilt zu '20 Schutzziele Vertraulichkeit Integrit\u00e4t Verf\u00fcgbarkeit Integrity Confidentiality Availability'?",
+        "Back": "20 Schutzziele Vertraulichkeit Integrit\u00e4t Verf\u00fcgbarkeit Integrity Confidentiality Availability Verbindlichkeit Zurechenbarkeit Accountability Authentizit\u00e4t Authenticity Privatheit Anonymit\u00e4t Nicht-Verfolgbarkeit Privacy CIA-Triangle",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 20"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 20
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '21 Vertraulichkeit (Confidentiality) Schutz vor unauthorisierter Informationsgewinnung'?",
+        "Back": "21 Vertraulichkeit (Confidentiality) Schutz vor unauthorisierter Informationsgewinnung",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 21"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 21
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 47: Welche Kernaussage nennt die Folie?",
+        "Back": "Der Zugriff auf Daten ist so zu sch\u00fctzen, das nur Berechtigte sie einsehen und ver\u00e4ndern k\u00f6nnen",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 21"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 21
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '\u2022 Dies gilt sowohl f\u00fcr gespeicherte Daten, als'",
+        "Back": "\u2022 Dies gilt sowohl f\u00fcr gespeicherte Daten, als auch f\u00fcr Daten w\u00e4hrend der \u00dcbertragung",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 21"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 21
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Zudem}} gilt es auch f\u00fcr Informationen \u00fcber Kommunikationsvorg\u00e4nge",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 21"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 21
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Besonders wichtig bei Systemen, bei denen pers\u00f6nliche Daten'?",
+        "Back": "Besonders wichtig bei Systemen, bei denen pers\u00f6nliche Daten oder interne/geheime Informationen verarbeitet werden",
+        "Text": "",
+        "Extra": "Quelle: Datensicherheit_1.pdf, Seite 21"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "IT-Sec"
+      ],
+      "source": {
+        "file": "Datensicherheit_1.pdf",
+        "page": 21
+      }
+    }
+  ]
+}

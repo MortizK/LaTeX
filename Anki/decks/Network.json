@@ -1,0 +1,956 @@
+{
+  "deckName": "Network",
+  "modulePath": "C:/Users/moritz/Documents/LaTeX/DHBW/sem4/Network",
+  "cards": [
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Nachklausur zur Netztechnik 1 Kurs: STG-TINF21B Dozent: E'?",
+        "Back": "Nachklausur zur Netztechnik 1 Kurs: STG-TINF21B Dozent: E",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 2: Welche Kernaussage nennt die Folie?",
+        "Back": "Schweyer Pr\u00fcfungsfach: T3INF2006.1 Netztechnik 1 Pr\u00fcfungs-Termin: 06.-10.03.2023 Pr\u00fcfungsdauer: 90 Minuten Hilfsmittel: keine Maximale Punkteanzahl: 168",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'T3INF2006.1 Nachklausur Netztechnik 1 (STG-TINF21B) Klausur 06-10.13.2023 Dozent'",
+        "Back": "T3INF2006.1 Nachklausur Netztechnik 1 (STG-TINF21B) Klausur 06-10.13.2023 Dozent: E",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Leitungsmessung}} a (4) Warum sind Reflexionen auf Leitungen zu vermeiden und was kann dagegen gemacht werden",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'b (4) Mit welchen Messungen kann eine einfache'?",
+        "Back": "b (4) Mit welchen Messungen kann eine einfache Qualit\u00e4tsaussage f\u00fcr eine Leitung getroffen werden",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Huffmann-Codierung in graphischer Form (5) Erstellen Sie f\u00fcr'?",
+        "Back": "Huffmann-Codierung in graphischer Form (5) Erstellen Sie f\u00fcr den Text \u201eFREIBIER FUER ALLE\u201c eine vollst\u00e4ndige Codetabelle",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 7: Welche Kernaussage nennt die Folie?",
+        "Back": "Hinweis: Die Anf\u00fchrungszeichen sind nicht im Text enthalten! 4",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Medien-Zugriffs-Verfahren (8) Nennen Sie 4 Topologien bei denen'",
+        "Back": "Medien-Zugriffs-Verfahren (8) Nennen Sie 4 Topologien bei denen ein Medienzugriffsverfahren erforderlich ist und nennen Sie ein Beispiel",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Ethernet}} a (1) Wozu dienen die 7 Pr\u00e4ambel Bytes bei Ethernet? b (8) Erkl\u00e4ren Sie den Unterschied zwischen einem Half-Duplex- und einem Full-Duplex- Betrieb",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Wer kann mit wem kommunizieren? a (12) Im'?",
+        "Back": "Wer kann mit wem kommunizieren? a (12) Im obigen Bild ist nicht alles richtig konfiguriert",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Beide PCs (Sender und Empf\u00e4nger) sollen einmal im'?",
+        "Back": "Beide PCs (Sender und Empf\u00e4nger) sollen einmal im selben IP-Netz und einmal in unterschiedlichen IP-Netzwerken sein.",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 12: Welche Kernaussage nennt die Folie?",
+        "Back": "Netzwerk-Ger\u00e4te (4) Welche Ger\u00e4te begrenzen Kollisionen 8",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Netzplanung Stellen Sie sich vor, Sie seien ein'",
+        "Back": "Netzplanung Stellen Sie sich vor, Sie seien ein Netzwerk-Administrator und haben die Aufgabe \u00fcbernommen das Design f\u00fcr ein neues Netzwerk zu erstellen",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "Zwei {{c1::Standorte}} (Zentrale mit drei Bereichen und eine Filiale), sind \u00fcber das Internet miteinander zu verbinden",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "calculation",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Welche quantitative Aussage gilt zu 'Daf\u00fcr haben Sie die folgenden Vorgaben erhalten: \uf0b7'?",
+        "Back": "Daf\u00fcr haben Sie die folgenden Vorgaben erhalten: \uf0b7 Der gesamte verf\u00fcgbare IP-Adress-Bereich lautet 192.168.15.0/24",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '\uf0b7 Die verf\u00fcgbaren Netzwerk-Ger\u00e4te sind in der Ger\u00e4tetyp-Tabelle'?",
+        "Back": "\uf0b7 Die verf\u00fcgbaren Netzwerk-Ger\u00e4te sind in der Ger\u00e4tetyp-Tabelle aufgelistet",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 17: Welche Kernaussage nennt die Folie?",
+        "Back": "\uf0b7 Gehen Sie davon aus, dass die Ger\u00e4te an den Arbeitspl\u00e4tzen (PCs, Drucker, Maschinen) \u00fcberall gleichm\u00e4\u00dfig \u00fcber die Fl\u00e4chen verteilt und einfach angebunden sind",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '\uf0b7 Die IP-Management-Adressen der erforderlichen Switche (AS und'",
+        "Back": "\uf0b7 Die IP-Management-Adressen der erforderlichen Switche (AS und CS) sind den IP-Subnetzen der Bereiche zuzuschlagen",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "\uf0b7 Die {{c1::Anbindung}} von Filiale und RZ erfolgt in Richtung Internet einfach",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '\uf0b7 Die Routeranbindung im RZ soll redundant \u00fcber'?",
+        "Back": "\uf0b7 Die Routeranbindung im RZ soll redundant \u00fcber die Acess-Layer-Switche im RZ erfolgen",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '\uf0b7 In der Filiale sind keine Redundanzen vorgese'?",
+        "Back": "\uf0b7 In der Filiale sind keine Redundanzen vorgese",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF21B.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF21B.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 22: Welche Kernaussage nennt die Folie?",
+        "Back": "Nachklausur zur Netztechnik 1 Kurs: STG-TINF22E Dozent: E",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Schweyer Pr\u00fcfungsfach: T3INF2006.1 Netztechnik 1 Pr\u00fcfungs-Termin: (bitte eintragen)'",
+        "Back": "Schweyer Pr\u00fcfungsfach: T3INF2006.1 Netztechnik 1 Pr\u00fcfungs-Termin: (bitte eintragen)",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": ".2024 {{c1::Pr\u00fcfungsdauer}}: 60 Minuten Hilfsmittel: Taschenrechner Maximale Punkteanzahl: 144 Matrikel-Nummer: (bitte eintragen)",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Nachklausur Netztechnik 1 (STG-TINF22E) Matrikel-Nummer: Dozent: E'?",
+        "Back": "Nachklausur Netztechnik 1 (STG-TINF22E) Matrikel-Nummer: Dozent: E",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Welche Bedeutung habe die folgenden Zeichenketten? a(4) 00:00:0c:01:02:03'?",
+        "Back": "Welche Bedeutung habe die folgenden Zeichenketten? a(4) 00:00:0c:01:02:03 b (3) 01:00:5E:00:00:02 c (3) 224.0.0.2 d (4) ff05::2 e (2) 255.255.255.255 f (4) 195.180.5.127/25 g (4) 195.180.5.128/25 h (6) 192.168.0.63(24 i (2) ::1 j (5) https:[2001:0dac:1]:8080",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 27: Welche Kernaussage nennt die Folie?",
+        "Back": "Leitungsmessung a (3) Wie wird bei einer Twisted Pair-Leitung die D\u00e4mpfung gemessen? b (5) Nennen Sie den Unterschied zwischen einem Permanent-Link und einem Channel-Link",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Codierung a (1) Hamming-Distanz Gegeben sind zwei Codew\u00f6rter'",
+        "Back": "Codierung a (1) Hamming-Distanz Gegeben sind zwei Codew\u00f6rter (00101 und 11000)",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "Wie gro\u00df ist die {{c1::Hamming}}-Distanz zwischen den Codew\u00f6rtern",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'b (5) Huffmann-Codierung in graphischer Form (5) Erstellen'?",
+        "Back": "b (5) Huffmann-Codierung in graphischer Form (5) Erstellen Sie f\u00fcr den Text \u201eDIE MAUER MUSS WEG\u201c eine vollst\u00e4ndige Codetabelle",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'ISO/OSI 7- Schichten-Modell a (3) Welche Bearbeitung eines'?",
+        "Back": "ISO/OSI 7- Schichten-Modell a (3) Welche Bearbeitung eines Ethernet-Frames erfolgt auf Ebene 2 des OSI-Referenzmodells b (1) Welche Adressen werden z",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 32: Welche Kernaussage nennt die Folie?",
+        "Back": "auf Ebene 3 verwendet c (4) Welche Kommunikationsarten gibt es auf Ebene 4 im ISO/OSI 7-Schichten Modell? Nennen Sie dazu ein Protokollbeispiel",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Medien-Zugriffs-Verfahren (3) Nennen Sie 3 Topologien bei denen'",
+        "Back": "Medien-Zugriffs-Verfahren (3) Nennen Sie 3 Topologien bei denen kein Medienzugriffsverfahren erforderlich ist und nennen Sie ein Beispiel.",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 3"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 3
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::Ethernet}} a (1) Wozu dient der Start Frame Delimiter bei Ethernet? b (8) Erkl\u00e4ren Sie den Unterschied zwischen einem Half-Duplex- und einem Full-Duplex-Betrieb",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 4"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 4
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'IPv4 (5) Im wievielten Subnetz liegt die IP-Adresse'?",
+        "Back": "IPv4 (5) Im wievielten Subnetz liegt die IP-Adresse 192.168.5.50/28 8",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Netzwerk-Ger\u00e4te (2) Welche Ger\u00e4te begrenzen Broadcast -Domains 9'?",
+        "Back": "Netzwerk-Ger\u00e4te (2) Welche Ger\u00e4te begrenzen Broadcast -Domains 9",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 5"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 5
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 37: Welche Kernaussage nennt die Folie?",
+        "Back": "Daf\u00fcr haben Sie die folgenden Vorgaben erhalten:",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Der gesamte verf\u00fcgbare IP-Adress-Bereich lautet 192.168.0.0/24'",
+        "Back": "Der gesamte verf\u00fcgbare IP-Adress-Bereich lautet 192.168.0.0/24",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "\u2022 Sie {{c1::sollen}} IP-Subnetze f\u00fcr folgende Bereiche planen: o Zentrale-Office-Bereich o Zentrale-Produktions-Bereich o Zentrale-Rechenzentrums-Bereich (RZ) mit Anbindung an das Internet o Filiale-Vertriebs-Bereich \u00fcber das Internet angebunden",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Die Fl\u00e4chengr\u00f6\u00dfen und die zu planenden Endger\u00e4te sind'?",
+        "Back": "Die Fl\u00e4chengr\u00f6\u00dfen und die zu planenden Endger\u00e4te sind in der Ausstattungs-Tabelle aufgelistet",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '\u2022 Gehen Sie davon aus, dass die Ger\u00e4te'?",
+        "Back": "\u2022 Gehen Sie davon aus, dass die Ger\u00e4te an den Arbeitspl\u00e4tzen (PCs, Drucker) \u00fcberall gleichm\u00e4\u00dfig \u00fcber die Fl\u00e4chen verteilt und einfach angebunden sind",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 42: Welche Kernaussage nennt die Folie?",
+        "Back": "\u2022 Die Anbindung der Bereiche in der Zentrale erfolgt redundant mit HSRP",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: '\u2022 Das RZ ist redundant an das Internet'",
+        "Back": "\u2022 Das RZ ist redundant an das Internet angebunden",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "\u2022 Die {{c1::Anbindung}} der Filiale erfolgt in Richtung Internet einfach",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu '\u2022 In der Filiale sind keine Redundanzen vorgesehen'?",
+        "Back": "\u2022 In der Filiale sind keine Redundanzen vorgesehen",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 6"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 6
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'd (24) Verwenden Sie zur Ermittlung der IP-Adressbereiche'?",
+        "Back": "d (24) Verwenden Sie zur Ermittlung der IP-Adressbereiche die folgende Tabelle",
+        "Text": "",
+        "Extra": "Quelle: Nachklausur_Netztechnik-I_STG-TINF22E.pdf, Seite 7"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Nachklausur_Netztechnik-I_STG-TINF22E.pdf",
+        "page": 7
+      }
+    },
+    {
+      "type": "qa",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Frage 47: Welche Kernaussage nennt die Folie?",
+        "Back": "L\u00f6sungsblatt-Testklausur zur Netztechnik 1 Kurs: STG-TINFxxx Dozent: E",
+        "Text": "",
+        "Extra": "Quelle: Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "reversed",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Ordne die Aussage dem Thema zu: 'Schweyer Pr\u00fcfungsfach: T3INF2006.1 Netztechnik 1 Pr\u00fcfungs-Termin: Pr\u00fcfungsdauer: 90'",
+        "Back": "Schweyer Pr\u00fcfungsfach: T3INF2006.1 Netztechnik 1 Pr\u00fcfungs-Termin: Pr\u00fcfungsdauer: 90 Minuten Hilfsmittel: keine Maximale Punkteanzahl: 202",
+        "Text": "",
+        "Extra": "Quelle: Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf, Seite 1"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf",
+        "page": 1
+      }
+    },
+    {
+      "type": "cloze",
+      "modelName": "Cloze",
+      "fields": {
+        "Front": "",
+        "Back": "",
+        "Text": "{{c1::L\u00f6sungsblatt}} Testklausur T3INF2006.1 Netztechnik 1 (STG-TINFxxx) Dozent: E",
+        "Extra": "Quelle: Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf",
+        "page": 2
+      }
+    },
+    {
+      "type": "basic",
+      "modelName": "Basic",
+      "fields": {
+        "Front": "Was ist eine zentrale Aussage zu 'Schweyer Seite 2 von 18 Hinweise zum L\u00f6sungsblatt'?",
+        "Back": "Schweyer Seite 2 von 18 Hinweise zum L\u00f6sungsblatt: Die m\u00f6gliche Punktezahl ist in Klammern nach der Nummerierung angezeigt",
+        "Text": "",
+        "Extra": "Quelle: Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf, Seite 2"
+      },
+      "tags": [
+        "DHBW",
+        "basis",
+        "Network"
+      ],
+      "source": {
+        "file": "Test-Klausurfragen-Lo\u0308sungsbogen_STG-TINFxxx-Netztechnik-1 keine Lo\u0308sungen.pdf",
+        "page": 2
+      }
+    }
+  ]
+}
