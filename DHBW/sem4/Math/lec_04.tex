@@ -1,0 +1,195 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Statistik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-01}
+
+\section{Grundlagen der induktiven Statistik}
+
+\subsection{Einleitung}
+
+\subsection{Grundbegriffe}
+
+% Abschreiben aus Dokument
+
+Beispiel:
+
+\[
+G \sim B(1, p) \implies f_i(x_i) = p^{x_i} (1-p)^{1-x_i}
+\]
+
+Stichprobe mit $n=2$ das unbekannte $p$ mit Likelihoodfunktion:
+
+\[
+f(x_1, x_2 \mid p) = p^{x_1} (1-p)^{1-x_1} * p^{x_2} (1-p)^{1-x_2} = p^{x_1 + x_2} (1-p)^{2-x_1-x_2}
+\]
+
+\subsection{Wichtige Stichprobenfunktionen}
+
+Einfache Stichprobe $x_1,... x_2$
+
+Beliebige Verteilung mit $E(X_i) = \mu, Var(X_i) = \sigma^2$
+
+Der Erwartungswert der mittleren quadratischen Abweichung bezüglich $\mu$ ist die Varianz $\sigma^2$ der Stichprobe wegen:
+
+\[
+E(\frac{1}{n} \sum_{i=1}^{n}(x_i-\mu)^2) = \frac{1}{n} \sum_{i=1}^{n}E((x_i-\mu)^2) = \frac{1}{n} \sum_{i=1}^{n} Var(x_i) = Var(x_i) = \sigma^2
+\]
+
+Die Varianz lässt sich schätzen, indem der (theoretische und im allgemeinen unbekannte) Erwartungswert $\mu$ mit Hilfe des Stichprobenmittels $X$ geschätzt wird. Für die mittlere quadratische Abweichung der Stichprobe gilt
+
+\begin{align}
+      & \frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x})^2\\
+    = & \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu + \mu - \overline{x})^2\\
+    = & \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 - 2 \frac{1}{n} \sum_{i=1}^{n} (x_i-\mu)(\overline{x}-\mu) + \frac{1}{n} \sum_{i=1}^{n} (\overline{x}-\mu)^2 \\
+    = & \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 - 2 \frac{1}{n} \sum_{i=1}^{n} (x_i\overline{x}-\mu x_i - \mu\overline{x} + \mu^2) + \frac{1}{n} (\overline{x}-\mu)^2 \\
+    = & \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 - 2 (\overline{x} + \mu)^2 + (\overline{x}-\mu)^2\\
+    = & \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 - (\overline{x}-\mu)^2
+\end{align}
+
+Folglich ist der Erwartungswert
+
+\[
+E(\frac{1}{n} \sum_{i=1}^{n} (x_i - \overline{x})^2) = E(\frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 - (\overline{x}-\mu)^2) = \sigma^2 - \frac{\sigma^2}{n} = \frac{n-1}{n} \sigma^2
+\]
+
+Wenn $n$ sehr groß ist gibt es kaum noch einen unterschied zwischen $n-1$ und $n$.
+
+Die Stichprobenvarianz $S^2$:
+
+\[
+S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \overline{x})^2
+\]
+
+Verschiebungssatz für $S^2$
+
+\[
+S^2 = \frac{1}{n-1} \sum_{i=1}^{n} x_i^2 - \frac{1}{n-1} \sum_{i=1}^{n} \overline{x}^2
+\]
+
+Wegen der Jensenschen Ungleichung gilt
+
+\[
+E(S) = E(\sqrt{S^2}) \leq \sqrt{E(S^2)} = \sqrt{\sigma^2} = \sigma
+\]
+
+Daraus folgt $E(S) \leq \sigma$
+
+\subsection{Tabelle wichtiger Stichprobenfunktionen}
+
+\begin{center}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Stichprobenfunktion} & \textbf{Bezeichnung} & \textbf{Erwartungswert} & \textbf{Varianz} \\
+        \hline
+        $\sum_{i=1}^{n} X_i$ & Merkmalsumme & $n\mu$ & $n\sigma^2$ \\
+        \hline
+        $\overline{X}=\frac{1}{n}\sum_{i=1}^{n} X_i$ & Stichprobenmittel & $\mu$ & $\frac{\sigma^2}{n}$ \\
+        \hline
+        $Z=\frac{\overline{X}-\mu}{\sigma}\sqrt{n}$ & Gau\ss-Statistik & $0$ & $1$ \\
+        \hline
+        $\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2$ & mittlere quadratische Abweichung bezgl. $\mu$ & $\sigma^2$ & $\frac{2\sigma^4}{n}$ (normalvert.) \\
+        \hline
+        $\frac{1}{n}\sum_{i=1}^{n}(X_i-\overline{X})^2$ & mittlere quadratische Abweichung & $\frac{n-1}{n}\sigma^2$ & $\frac{2\sigma^4(n-1)}{n^2}$ (normalvert.) \\
+        \hline
+        $S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\overline{X})^2$ & Stichprobenvarianz & $\sigma^2$ & $\frac{2\sigma^4}{n-1}$ (normalvert.) \\
+        \hline
+        $S=\sqrt{S^2}$ & Stichproben-Standardabweichung & $c_4(n)\,\sigma$ (normalvert.) & $\sigma^2(1-c_4(n)^2)$ (normalvert.) \\
+        \hline
+        $T=\frac{\overline{X}-\mu}{S}\sqrt{n}$ & $t$-Statistik & $0$ (fu"r $n>2$) & $\frac{n-1}{n-3}$ (fu"r $n>3$) \\
+        \hline
+    \end{tabular}
+\end{center}
+
+Dabei ist bei den markierten Einträgen die Normalverteilungsannahme verwendet.
+
+Aufgabe BBK12, 11.5
+% Dies Aufgabe wurde von Copilot gelöst. Sollte noch mit Kommilitonen verglichen werden
+
+Gegeben sei eine dichotome Grundgesamtheit mit unabhängigen Stichprobenvariablen
+$X_i \sim B(1,p)$, also $X_i \in \{0,1\}$ und damit $X_i^2 = X_i$.
+
+\textbf{a) Zu zeigen:}
+\[
+\frac{1}{n} \sum_{i=1}^{n} (X_i-\overline{X})^2 = \overline{X}(1-\overline{X})
+\]
+
+\begin{align*}
+    \frac{1}{n} \sum_{i=1}^{n} (X_i-\overline{X})^2
+    &= \frac{1}{n} \sum_{i=1}^{n} (X_i^2 - 2X_i\overline{X} + \overline{X}^2) \\
+    &= \frac{1}{n} \sum_{i=1}^{n} X_i^2 - 2\overline{X}\frac{1}{n}\sum_{i=1}^{n} X_i + \frac{1}{n}\sum_{i=1}^{n} \overline{X}^2 \\
+    &= \frac{1}{n} \sum_{i=1}^{n} X_i - 2\overline{X}^2 + \overline{X}^2 \\
+    &= \overline{X} - \overline{X}^2 \\
+    &= \overline{X}(1-\overline{X}).
+\end{align*}
+
+\textbf{b) Erwartungswerte von $\overline{X}(1-\overline{X})$ und $S^2$:}
+
+Da $E(\overline{X}) = p$ und $\mathrm{Var}(\overline{X}) = \frac{p(1-p)}{n}$ gilt:
+\begin{align*}
+    E\!\left[\overline{X}(1-\overline{X})\right]
+    &= E(\overline{X}) - E(\overline{X}^2) \\
+    &= p - \left(\mathrm{Var}(\overline{X}) + (E\overline{X})^2\right) \\
+    &= p - \left(\frac{p(1-p)}{n} + p^2\right) \\
+    &= \frac{n-1}{n}p(1-p).
+\end{align*}
+
+Mit
+
+\[
+S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i-\overline{X})^2
+= \frac{n}{n-1}\cdot\frac{1}{n}\sum_{i=1}^{n}(X_i-\overline{X})^2
+= \frac{n}{n-1}\,\overline{X}(1-\overline{X})
+\]
+
+folgt
+
+\[
+E(S^2) = \frac{n}{n-1}E\!\left[\overline{X}(1-\overline{X})\right]
+= \frac{n}{n-1}\cdot\frac{n-1}{n}p(1-p)
+= p(1-p).
+\]
+
+Also:
+
+\[
+E\!\left[\overline{X}(1-\overline{X})\right] = \frac{n-1}{n}p(1-p),
+\qquad
+E(S^2)=p(1-p).
+\]
+
+\subsection{Prüf- und Testverteilungen}
+
+\subsubsection{Chi-Quadrat Verteilung}
+
+ind $x_1, … , x_n \sim N(0, 1)$ i.i.d, so wird die Verteilung von
+
+\[
+Z = \sum_{i=1}^{n} x_i^2
+\]
+
+als Chi-Quadrat-Verteilung mit $n$ Freiheitsgraden bezeichnet.
+
+Kurzschreibweise: $Z \sim x^2(n)$
+
+Die Chi-Quadrat Verteilung gibt es nur auf der positiven Seite.
+
+Es gilt: $E(Z) = n$ und $Var(Z) = 2n$
+
+Es gibt eine Tabelle A.20 wo die Fraktile (Quantile) tabelliert sind. Ab $n > 30$ gibt es eine Näherung:
+
+\[
+x_\alpha = \frac{1}{2} (\tilde{x}_\alpha + \sqrt{2n - 1})
+\]
+
+\end{document}

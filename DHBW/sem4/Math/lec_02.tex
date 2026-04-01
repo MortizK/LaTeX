@@ -55,7 +55,7 @@ f(x) = \binom{n}{x} * p^x * (1-p)^{n-x}
 oder:
 
 \[
-X \propto B(n, p)
+X \sim B(n, p)
 \]
 
 Am Beispiel: 3 mal ziehen aus einem Kartendeck und 2 mal Herz ziehen. Entweder mit $f(2)$ oder $F(2) - F(1)$. Die Verteilungsfunktion lassen sich aus dem Anhang in den Tabellen auslesen.
@@ -66,7 +66,7 @@ P(X=2) = F(2) - F(1) = 0.9844 - 0.8438 = 0.1406
 
 \subsubsection{Anmerkungen zur Binomialverteilung}
 
-Da die Binomialverteilung symmetrisch ist, werden in der Tabelle nur $p\leq 0.5$ angegeben. Beispiel $X \propto B(20, \frac{3}{4})$
+Da die Binomialverteilung symmetrisch ist, werden in der Tabelle nur $p\leq 0.5$ angegeben. Beispiel $X \sim B(20, \frac{3}{4})$
 
 \[
 P(X\leq x) = 1 - F(n-x-1)\\
@@ -80,7 +80,7 @@ Stichwort \textbf{Urnenmodell}
 "Ist die Binomialverteilung nur ohne zurücklegen."
 
 \[
-X \propto Hyp(N, M, n)
+X \sim Hyp(N, M, n)
 \]
 
 $N$ ist die gesamtanzahl, $M$ die Markierten und $n$ wie oft gezogen wird. Hergeleitet durch die Laplace Wahrscheinlichkeit (gilt nur für $x\in\{0, 1, 2, ..., n\})$.
@@ -108,7 +108,7 @@ Approximation für $B(n,p)$ und $Hyp(N, M, n)$ für $n\to\infty$ und $p\to 0$
 Faustregel: geeignet, falls $p\leq 0.1, n > 50$ und $n*p < 10$
 
 \[
-X \propto P(\mu)
+X \sim P(\mu)
 \]
 
 Wahrscheinlichkeitsfunktion (gilt nur für $x\in\{0, 1, 2, ..., n\})$:
@@ -149,7 +149,7 @@ F(x) = \begin{cases}
 Kurzform (Unified):
 
 \[
-X \propto U(a, b)
+X \sim U(a, b)
 \]
 
 \subsubsection*{Exponentialverteilung}
@@ -164,7 +164,7 @@ f(x) = \lambda e^{-\lambda x}
 Kurzschreibweise:
 
 \[
-X \propto Exp(\lambda)
+X \sim Exp(\lambda)
 \]
 
 Verteilungsfunktion für $x \geq 0$:

@@ -309,7 +309,7 @@ Wir wenden $E(\overline{x_n})=\mu$, $Var(\overline{x_n}) = \frac{\sigma^2}{n}$ u
 P(\abs{\overline{x}_n - \mu} \geq c) \leq \frac{\sigma^2}{n*c^2}
 \]
 
-für $n \rightarrow \infty$ folgt dann das Gestz der großen Zahlen:
+für $n \rightarrow \infty$ folgt dann das Gesetz der großen Zahlen:
 
 \[
 \lim_{n\to\infty} P(\abs{\overline{x}_n - \mu} \geq c) = 0,
@@ -319,5 +319,32 @@ für $n \rightarrow \infty$ folgt dann das Gestz der großen Zahlen:
 Das impliziert stochastisch: $\overline{x}_n$
 
 Am Beispiel von 500 mal Würfeln: Es heißt quasi, je mehr Daten wir haben, desto genauer schwingt es auf das wahre $\mu$ ein. Es konvergiert stochastisch gegen $\mu$
+
+\lecture{2026-04-01}
+
+\subsubsection{Zentraler Grenzwertsatz}
+
+Summe von i.i.d Zufallsvariablen sind für große $n$ näherungsweise Normalverteilt.
+
+Zentraler Grenzwertsatz
+
+\[
+\sum_{i=1}^{n} x_i \sim N(n\mu, \sigma, \sqrt{\mu})
+\]
+
+Approximationsvorraussetzung:
+
+\begin{enumerate}
+    \item Im Allgemeinen: n > 30
+    \item Spezialfall Binomialverteilung: $np \geq 5$ und $n(1-p) \geq 5$
+\end{enumerate}
+
+Gaus-Statisitk:
+
+\[
+\frac{\sum_{i=1}^{n}x_i - n\mu}{\sigma \sqrt{\mu}}*\frac{1}{n} = ...
+\]
+
+% Hier fehlt mir ein kleiner Teil
 
 \end{document}
