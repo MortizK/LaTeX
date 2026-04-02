@@ -204,36 +204,179 @@ ex:Orangen a ex:Lebensmittel ;
 
 Entscheiden Sie, ob die folgenden Aussagen wahr oder falsch sind:
 
+\lecture{2026-04-02}
+
 \begin{enumerate}
-    \item URIs können für beliebige Satzteile (Subjekt/Prädikat/Objekt) eines Tripels stehen.
+    \item URIs können für beliebige Satzteile (Subjekt/Prädikat/Objekt) eines Tripels stehen. \textbf{(Wahr)}
+
+    Begründung: URIs sind in RDF als Subjekt, Prädikat und Objekt zulässig.
 
 
-    \item Leere Knoten können für beliebige Satzteile stehen.
+    \item Leere Knoten können für beliebige Satzteile stehen. \textbf{(Falsch)}
+
+    Begründung: Blank Nodes dürfen nur Subjekt oder Objekt sein, aber nie Prädikat.
 
 
-    \item Literale können für beliebige Satzteile stehen.
+    \item Literale können für beliebige Satzteile stehen. \textbf{(Falsch)}
+
+    Begründung: Literale dürfen nur im Objekt stehen, nicht als Subjekt oder Prädikat.
 
 
-    \item Zwei leere Knoten mit unterschiedlicher ID können für die gleiche Ressource stehen.
+    \item Zwei leere Knoten mit unterschiedlicher ID können für die gleiche Ressource stehen. \textbf{(Wahr)}
+
+    Begründung: Die IDs sind nur lokale Kennzeichnungen und müssen keine globale Eindeutigkeit haben.
+
+    Hier währen es Variablen, welche auch den gleichen Wert annehmen dürfen.
 
 
-    \item Zwei unterschiedliche URIs können für die gleiche Ressource stehen.
+    \item Zwei unterschiedliche URIs können für die gleiche Ressource stehen. \textbf{(Wahr)}
+
+    Begründung: Verschiedene URIs können dieselbe reale Entität bezeichnen (z. B. über owl:sameAs).
+
+    Hier Konstanten, welche auch den gleichen Wert annehmen dürfen.
 
 
     \item Kommen in mehreren RDF-Dokumenten leere Knoten mit der selben ID vor, dann müssen
-    sie für dieselbe Ressource stehen.
+    sie für dieselbe Ressource stehen. \textbf{(Falsch)}
+
+    Begründung: Blank-Node-IDs gelten nur im jeweiligen Dokument und sind nicht dokumentübergreifend.
 
 
     \item Kommen in mehreren RDF-Dokumenten die gleichen URIs vor, dann müssen sie für
-    dieselbe Ressource stehen.
+    dieselbe Ressource stehen. \textbf{(Wahr)}
+
+    Begründung: URIs sind globale Bezeichner, derselbe URI meint dieselbe Ressource.
 
 
-    \item Zwei unterschiedliche Literale können für den gleichen Wert stehen.
+    \item Zwei unterschiedliche Literale können für den gleichen Wert stehen. \textbf{(Wahr)}
+
+    Begründung: Unterschiedliche lexikalische Formen können denselben Wert haben (z. B. 01 und 1 als Zahl).
 
 
-    \item Zwei Literale unterschiedlichen Datentyps können für den gleichen Wert stehen.
+    \item Zwei Literale unterschiedlichen Datentyps können für den gleichen Wert stehen. \textbf{(Wahr)}
 
-
+    Begründung: In manchen Fällen liefern verschiedene Datentypen denselben Wertbereich und damit denselben Wert.
 \end{enumerate}
+
+\subsection{RDFS}
+
+Das RDF Schema ist unter W3C Definiert.
+
+% Hier fehlt mir was.
+
+\subsubsection{RDFS-Datenmodell}
+
+Es gibt Klassen und Typen. Etwas kann den typ einer Klasse haben.
+
+\begin{lstlisting}
+ex:Informativ   rdf:type    ex.Class .
+ex:SemanticWeb  rdf:type    ex:Informativ .
+\end{lstlisting}
+
+Neben dem gibt es auch subClassOf
+
+\begin{lstlisting}
+ex:Lehrbuch     rdfs:subClassOf ex:Buch .
+\end{lstlisting}
+
+\subsubsection{Propertyhiarchien}
+
+Wir können mit subPropertyOf angaben von Unter- und Oberproperties machen
+
+\begin{lstlisting}
+ex:mag      rdfs:subPropertyOf  ex:kennt .
+ex:Markus   ex:mag              ex:Anja .
+    impliziert
+ex:Markus   ex:kennt            ex:Anja .
+\end{lstlisting}
+
+\subsubsection{Einschränkungen auf Properties}
+
+rdfs:domain sagt mir etwas über das Subjekt
+
+rdfs:range sagt mir etwas über das Objekt
+
+\begin{lstlisting}
+ex:verlegtBei   rdfs:domain ex:Publikation .
+ex:verlegtBei   rdfs:range  ex:Verlag .
+\end{lstlisting}
+
+Daraus folgt dann:
+
+\begin{lstlisting}
+ex:SemanticWeb  rdf:type    ex:Publikation .
+springer:Verlag rdf:type    ex:Verlag .
+\end{lstlisting}
+
+% Aufgabe 3.32 auf S. 124
+
+Gegeben seien die Ressourcen ex:Pizza, ex:Margherita, ex:Lebensmittel, ex:Tomatensosse, ex:Fleisch und die Property ex:hatBelag.
+
+Entscheiden Sie, ob sich die folgenden Aussagen mittels RDF(S) angemessen modellieren lassen und geben Sie gegebenenfalls entsprechende RDF(S)-Spezifikationen an.
+
+\begin{enumerate}
+    \item Jede Pizza ist ein Lebensmittel.
+    \item Pizzen haben immer mindestens zwei Beläge.
+    \item Die Pizza Margherita ist eine Pizza.
+    \item Jede Pizza hat Tomatensoße als Belag.
+    \item Alles, was mit irgendetwas belegt ist, ist eine Pizza.
+    \item Pizza Margherita hat keinen Belag aus Fleisch.
+\end{enumerate}
+
+\textbf{Lösung:}
+
+\begin{enumerate}
+    \item Jede Pizza ist ein Lebensmittel. \textbf{Ja, in RDFS modellierbar.}
+
+    Begründung: Klassenhierarchien sind direkt mit \texttt{rdfs:subClassOf} ausdrückbar.
+
+    \item Pizzen haben immer mindestens zwei Beläge. \textbf{Nein, nicht in RDFS modellierbar.}
+
+    Begründung: Mindest-Kardinalitäten (\(\ge 2\)) lassen sich in RDFS nicht ausdrücken; dafür braucht man OWL.
+
+    \item Die Pizza Margherita ist eine Pizza. \textbf{Ja, in RDFS modellierbar.}
+
+    Begründung: Instanzzuordnung wird mit \texttt{rdf:type} modelliert.
+
+    \item Jede Pizza hat Tomatensoße als Belag. \textbf{Nein, nicht angemessen in RDFS modellierbar.}
+
+    Begründung: Solche Wertrestriktionen für alle Instanzen einer Klasse (z.B. \textit{hasValue}) gehören nicht zu RDFS.
+
+    \item Alles, was mit irgendetwas belegt ist, ist eine Pizza. \textbf{Ja, in RDFS modellierbar.}
+
+    Begründung: Das entspricht der Semantik von \texttt{rdfs:domain} auf \texttt{ex:hatBelag}.
+
+    \item Pizza Margherita hat keinen Belag aus Fleisch. \textbf{Nein, nicht in RDFS modellierbar.}
+
+    Begründung: Negation ist in RDFS unter Open-World-Annahme nicht ausdrückbar.
+\end{enumerate}
+
+Mögliche RDF(S)-Spezifikationen für die modellierbaren Aussagen:
+
+\begin{lstlisting}
+ex:Pizza      rdfs:subClassOf ex:Lebensmittel .
+ex:Margherita rdf:type        ex:Pizza .
+ex:hatBelag   rdfs:domain     ex:Pizza .
+\end{lstlisting}
+
+\subsubsection{Annotationen}
+
+Es gibt noch rdfs:label und rdfs:comment
+
+label dient dazu um alternative Namen anzugeben (z.B. in einer anderen Sprache oder Synonymen)
+
+comment dient dazu um Kommentare hinzuzufügen (Ist einfach nur deutlich länger als ein label)
+
+Der Syntax um mehrere label oder comment hinzuzufügen geht mit , oder ;
+
+Die FOAF Ontologie ist öffentlich einsehbar unter \href{https://wwwlehre.dhbw-stuttgart.de/~hladik/SW/Ontologien/foaf.ttl}{wwwlehre.dhbw-stuttgart.de} visualisierbar unter \href{http://www.ldf.fi/service/rdf-grapher}{ldf.fi}
+
+\know{Ontologie}{Mit diesen Tools könnten wir nun schon unsere Erste Ontologie bauen. Eine Ontologie ist ja unsere Prüfungsleistung}
+
+% Hier fehlt mir die Zusammenfassung
+
+\subsection{Semantik}
+
+% Hier fehlt mir der Schluss der Vorlesung
 
 \end{document}

@@ -1,0 +1,52 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Michael Jackson als FOAF Person
+
+<http://example.org/michael-jackson>
+    a foaf:Person ;
+    foaf:name "Michael Joseph Jackson" ;
+    foaf:givenName "Michael" ;
+    foaf:familyName "Jackson" ;
+    foaf:title "King of Pop" ;
+    foaf:nick "MJ" ;
+    foaf:birthday "08-29" ;
+    foaf:age 50 ;
+    foaf:based_near <http://example.org/location/Los-Angeles> ;
+    foaf:depiction <http://example.org/images/michael-jackson.jpg> ;
+    foaf:homePage <http://www.michaeljackson.com/> ;
+    foaf:workplaceHomepage <http://example.org/sony-music> ;
+    foaf:page <http://dbpedia.org/resource/Michael_Jackson> ;
+    foaf:made <http://example.org/album/Thriller>,
+             <http://example.org/album/Bad>,
+             <http://example.org/album/Off-The-Wall> ;
+    foaf:topic_interest <http://example.org/dance>,
+                        <http://example.org/music>,
+                        <http://example.org/humanitarian-work> ;
+    foaf:knows <http://example.org/person/Quincy-Jones>,
+              <http://example.org/person/Paul-McCartney> ;
+    rdfs:label "Michael Jackson" ;
+    rdfs:comment "Amerikanischer Sänger, Songwriter und Tänzer, bekannt als 'King of Pop'" .
+
+# Beispiel-Album Thriller
+<http://example.org/album/Thriller>
+    a foaf:Document ;
+    foaf:name "Thriller" ;
+    foaf:maker <http://example.org/michael-jackson> ;
+    rdfs:label "Thriller Album" .
+
+# Beispiel-Album Bad
+<http://example.org/album/Bad>
+    a foaf:Document ;
+    foaf:name "Bad" ;
+    foaf:maker <http://example.org/michael-jackson> ;
+    rdfs:label "Bad Album" .
+
+# Beispiel-Album Off-The-Wall
+<http://example.org/album/Off-The-Wall>
+    a foaf:Document ;
+    foaf:name "Off-The-Wall" ;
+    foaf:maker <http://example.org/michael-jackson> ;
+    rdfs:label "Off-The-Wall Album" .
