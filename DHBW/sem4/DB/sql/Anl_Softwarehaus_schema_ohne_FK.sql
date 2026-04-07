@@ -1,3 +1,4 @@
+
 --
 -- PostgreSQL database dump
 --
@@ -13,7 +14,7 @@ SET client_min_messages = warning;
 -- Name: Softwarehaus; Type: COMMENT; Schema: -; Owner: postgres
 --
 
-COMMENT ON DATABASE Softwarehaus IS 'delete me asap';
+COMMENT ON DATABASE "Softwarehaus" IS 'delete me asap';
 
 
 --
@@ -69,7 +70,8 @@ CREATE TABLE IF NOT EXISTS Mitarbeiter
 
 	PRIMARY KEY (Pers_Nr),
 	CHECK (Geschlecht IN ('m', 'w')),
-	CHECK (Gehalt > 20000  and Gehalt < 150000) 
+	CHECK (Gehalt > 20000  and Gehalt < 150000),
+	CHECK (Eintrittsdatum <= now())
 );	
 
 -- DROP TABLE public.mitarbeiter;
@@ -257,6 +259,48 @@ CREATE TABLE IF NOT EXISTS Projekt
 -- DROP TABLE public.Projekt;
 
 ----------------
--- PostgreSQL database dump comlete;
+-- PostgreSQL database dump complete;
 
-	
+-- Alter Tables mit Foreign Keys von mir (nicht ganz richtig)
+
+-- ALTER TABLE Mitarbeiter_Sekr
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr);
+
+-- ALTER TABLE Mitarbeiter_Finanzb
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr);
+
+-- ALTER TABLE Mitarbeiter_Projekt
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr);
+
+-- ALTER TABLE Projektleiter
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr),
+-- ADD COLUMN IF NOT EXISTS leitet integer,
+-- ADD FOREIGN KEY (leitet) REFERENCES Projekt (Projekt_Nr);
+
+-- ALTER TABLE Mitarbeiter
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr),
+-- ADD COLUMN IF NOT EXISTS Abt_Bez_kurz varchar(8),
+-- ADD FOREIGN KEY (Abt_Bez_kurz) REFERENCES Abteilung (Abt_Bez_kurz);
+
+-- ALTER TABLE Besucht_Kurs
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr),
+-- ADD FOREIGN KEY (Kurs_Nr) REFERENCES Kurs (Kurs_Nr);
+
+-- ALTER TABLE Auftrag
+-- ADD COLUMN IF NOT EXISTS besteht_aus1 integer,
+-- ADD COLUMN IF NOT EXISTS besteht_aus2 integer,
+-- ADD FOREIGN KEY (besteht_aus1, besteht_aus2) REFERENCES Leistung (Auftrag_Nr, Leistung_Nr);
+
+-- ALTER TABLE Kunde
+-- ADD COLUMN IF NOT EXISTS erteilt varchar(255),
+-- ADD CONSTRAINT erteilt_fk
+-- FOREIGN KEY (erteilt) REFERENCES Auftrag (Bezeichnung);
+
+-- ALTER TABLE Leistung
+-- ADD COLUMN IF NOT EXISTS zugeordnet integer,
+-- ADD CONSTRAINT zugeordnet_fk
+-- FOREIGN KEY (zugeordnet) REFERENCES Projekt (Projekt_Nr);
+
+-- ALTER TABLE Arbeitet_an
+-- ADD FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter (Pers_Nr),
+-- ADD FOREIGN KEY (Auftrag_Nr) REFERENCES Auftrag (Auftrag_Nr);

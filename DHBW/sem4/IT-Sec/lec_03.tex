@@ -133,13 +133,73 @@ Letztens gibt es die S-Box % Hier muss ich noch was Ergänzen.
 
 % Machen wir beim nächstem Termin
 
+\lecture{2026-04-07}
+
 \subsection{Asymmetrische Chiffren}
+
+Jeder Teilnehmer hat zwei Schlüssel. Einen Privaten zum entschlüsseln und einen Öffentlichen zum verschlüsseln.
+
+Aus dem Öffentlichen lässt sich die Nachricht nur verschlüssel, nicht entschlüsseln oder Rückschlüsse auf den Privaten Schlüssel rückführbar.
+
+Diese eigenschaften beschreiben eine Einwegfunktion. Die Existenz von diesen ist noch unbewiesen.
 
 \subsubsection{Basis: Faktorisierung}
 
-\subsubsection{Basis; Logarithmus}
+Die vermutete "Einweg-Funktion" ist mit Faktorisierung:
 
-\subsubsection{Basis: Eliptic Curve}
+\[
+f(p, q) = P * q = n
+\]
+
+Und die umkehrabbildung ist schwer:
+
+\[
+f^{-1}(n) = p * q
+\]
+
+\subsubsection{Basis: Logarithmus}
+
+Oder auch per Logarithmus:
+
+\[
+f(x) = g^x \text{ mod } p = y
+\]
+
+Mit der schweren Entschlüsselung
+
+\[
+f^{-1}(y) = \log_g(y) \text{ mod } p
+\]
+
+\subsubsection{RSA-Verfahren}
+
+Wir ermitteln zwei Primzahlen, welche durch einen Generator per Zufall generiert mit eine Chance eine Primzahl zu sein. Diese werden dann getestet mit einem Primzahltest:
+
+\begin{enumerate}
+    \item Rabin-Miller-Test (Einfacher Nachweis von Keiner Primzahl)
+    \item Agarwal-Saxena-Kayal-Test (Richtiger Nachweis)
+\end{enumerate}
+
+Bei 8 Bit wird jedes Zeichen einzeln verschlüsselt. Bei 16 Bit werden dann zwei Zeichen zusammen verschlüsselt.
+
+Kann mit Quantencomputing linearisiert werden. Somit brauchen wir ein neues Verfahren.
+
+\subsubsection{Basis: Eliptic Curve (ECC)}
+
+Wir haben Elliptische Kurven mit einer Punktewolke die diese Kurve beschreibt. Diese Punkte müssen gewisse Regeln befolgen.
+
+So haben wir eigenen (Neue) Rechenregeln auf dieser Kurve.
+
+Hier entsteht wieder eine "Einweg-Funktion"
+
+Bei der wiederholten Addition gibt es einen Zyklus.
+
+% Das war ziemlich unübersichtlich.
+
+\subsubsection{Hashing}
+
+% Hier habe ich nicht ganz aufgepasst. Es ging auch um das Geburtstags-Paradoxon und wie mit einem Hash Nachrichten geprüft werden können.
+% Die Spezifischen Algorithmen müssen wir nicht Lernen.
 
 % Machen wir beim übernächstem Termin
 
@@ -263,5 +323,91 @@ $$M_2 = C_2 \oplus S = C_2 \oplus C_1 \oplus M_1$$
 
 Also reicht ein bekanntes Klartext-Chiffretext-Paar bei wiederverwendetem $IV$ aus,
 um weitere Pakete mit demselben $IV$ zu entschlüsseln.
+
+\lecture{2026-04-07}
+
+\subsection{Algorithmen für schnelle Exponentiation}
+
+Für $x^{26}$ mit $x=2$
+
+\[
+2^{26} = (2^2)^{13} = 4^{13} = 4 * (4^2)^6  = 4 * 16^6 = 4 * (16^2)^3 = 4 * 256^3 = 4 * 256 * 256^2 = 67.108.864
+\]
+
+\subsection{Message-Authentication-Codes}
+
+Hash-Funktionen werden oft in MAC-Verfahren eingesetzt, um die Integrität und Authentizität von Daten zu gewährleisten. Bei einem solchen Keyed-Hash werden die Daten mit einem symmetrischen Schlüssel $k_{AB}$ konkateniert und dann mit der Hash-Funktion $H$ gehasht. Die Nachricht $x$ wird im Rahmen der Hashfunktion zu Blöcken gleicher Größe unterteilt, d.h. es gilt $x = (x_1, x_2, ..., x_n)$.
+
+Man unterscheidet zwei Varianten:
+
+Secret-Prefix: $h = MAC(m, k_{AB}) = H(k_{AB} | m)$
+
+Secret-Suffix: $h = MAC(m, k_{AB}) = H( m | k_{AB})$
+
+\begin{itemize}
+    \item \textbf{Secret-Prefix} $H(k\mid m)$: Bei Merkle-Damgard-Hashfunktionen ist ein Length-Extension-Angriff möglich. Aus $(m, H(k\mid m))$ kann ein Angreifer ein gültiges Tag für $m\parallel m'$ konstruieren, ohne $k$ zu kennen.
+    \item \textbf{Secret-Suffix} $H(m\mid k)$: Kein klassischer Length-Extension-Angriff, aber das Verfahren ist nicht als sicherer MAC bewiesen und kann bei schwacher Kollisionsresistenz angegriffen werden (z.B. über Kollisionen in $m$ mit gleichem Tag).
+    \item \textbf{Warum HMAC?} HMAC nutzt zwei Schlüsselableitungen mit innerem/äußerem Padding:
+    $$\mathrm{HMAC}_k(m)=H\big((k\oplus opad)\parallel H((k\oplus ipad)\parallel m)\big).$$
+    Dadurch wird die einfache Verkettung vermieden; insbesondere sind bekannte Extension-Angriffe auf die naive Konstruktion nicht direkt anwendbar.
+\end{itemize}
+
+Lösungen sind auch auf Moodle.
+
+\subsection{Public-Key-Verfahren - RSA}
+
+Wir haben den public key (e=5, n=21) und den private key (d=17)
+
+a) Wir wollen die Zahl 5 verschlüsseln:
+
+\[
+5^{e} \text{ mod } n = 5^5 \text{ mod } 21 = 3.125 \text{ mod } 21 = 17
+\]
+
+b) Ich erhalte die Nachricht 11:
+
+\[
+11^{d} \text{ mod } n = 11^{17} \text{ mod } 21 = 2
+\]
+
+c) Wir erhalten zwei Nachrichten mit Signatur. Wie sieht die Authentizität aus?
+
+\begin{enumerate}
+    \item Die Zahl 3 mit Signatur 12
+    
+    Die Signatur kann mit $3^{d} \text{ mod } n = 3^{17} \text{ mod } 21 = 12$ geprüft werden. Da 12 der Signatur entspricht ist das der korrekte Absender.
+    \item Die Zahl 4 mit Signatur 15
+    
+    $4^{d} \text{ mod } n = 4^{17} \text{ mod } 21 = 16 \neq 15$. Somit kommt diese Nachricht von einem Falschem Absender 
+\end{enumerate}
+
+d) Wie sehen p und q aus mit $n = p * q$?
+
+Die Primfaktorzerlegung von $n = 21 = 3 * 7$ somit den Mathematischen Angriff durchführen.
+
+Mit x und y einer Beispielnachricht 5 und 17
+
+\begin{align}
+    \phi(n) = (p-1)(q-1) = 2*6 = 12\\
+    d^{-1} = e \text{ mod } \phi(n) = 5 \text{ mod } 12 = 5\\
+    x = y^d \text{ mod } n = 17^17 \text{ mod } 21 = 5
+\end{align}
+
+Somit korrekt den private key errechnet (d = 17), wobei ein (d = 5) hier auch funktioniert.
+
+\subsection{Allgemeine Fragen}
+
+\begin{enumerate}
+    \item Das Vorgehen ist nicht akzeptabel, da dieser Kryptographie-Algorithmus nicht geprüft ist. Lieber einen Offiziell geprüften und standardisierten Algorithmus benutzen.
+    \item Die Bilden mit nicht Bilddaten im nicht sichtbaren Bereichen schicke ich an unseren Steganographen.
+    \item Für eine geheime Nachricht ohne Vortreffen wähle ich ein Asymmetrische Verschlüsselung, da wir nicht im Vorhinein einen Schlüssel austauschen können.
+    \item Dadurch, dass der Schlüssel im Quellcode sichtbar ist, können die Personen die die App haben auch den Schlüssel einlesen und so bei Nutzer ausnutzen um die verschlüsselten privaten Daten doch auslesen zu können. Dies funktioniert, da jeder Nutzer den gleichen Schlüssel hat.
+\end{enumerate}
+
+\subsection{Primzahl-Tests}
+
+% Sehr Langer Text.
+
+Text zum Nachlesen über Primzahl-Tests
 
 \end{document}

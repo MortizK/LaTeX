@@ -155,6 +155,141 @@ ALTER TABLE Mitarbeiter
 
 Weitere Beispiele auf S.20
 
+\lecture{2026-04-07}
+
+\subsubsection{Ternäre Beziehung}
+
+Aus S.22: Dies ist eine beliebte Klausuraufgabe! (Aufgabe unten)
+
+\begin{enumerate}
+    \item Bestimmen Sie die Kardinalitäten der Ternären Beziehung,
+    \item Stellen Sie die vier Relation auf und legen Sie die Schlüssel für die Relation "arbeitet" fest.
+    \item Erstellen Sie die Tabelle "arbeitet" in SQL mit allen Constrains.
+    \item Prüfen Sie ob die Anforderungen erfüllt sind.
+    \item Kann die Trinäre Beziehung in mehrere Binäre Beziehungen umgewandelt werden, ohne das ein Semantikverlust auftritt?
+\end{enumerate}
+
+Wir sollen aus den vier Bedingungen den Beziehungsstatus erstellen. Von Ort (1), Projekt (1), Mitarbeiter (n)
+
+\begin{enumerate}
+    \item Ein Projekt, Ein Ort hat mehrere Mitarbeiter
+    \item Ein Mitarbeiter, Ein Projekt hat Ein Ort
+    \item Ein Ort, Ein Mitarbeiter hat ein Projekt
+    \item Ein Mitarbeiter, Mehrere Projekte hat mehrere Orte
+\end{enumerate}
+
+Nun sollen wir für die "arbeitet" Tabelle bilden.
+
+arbeitet (partielle Funktion):
+
+\begin{enumerate}
+    \item MA x Ort $\rightarrow$ Projekt
+    \item MA x Projekt $\rightarrow$ Ort
+\end{enumerate}
+
+arbeitet1 (Relation): \{[\underline{Mitarbeiter ID, Projekt ID}, Ort ID]\}
+
+arbeitet1 (Relation): \{[\underline{Mitarbeiter ID, Ort ID}, Projekt ID]\}
+
+\begin{lstlisting}
+CREATE TABLE IF NOT EXISTS arbeitet
+(
+	Pers_Nr integer NOT NULL,
+	Projekt_Nr integer NOT NULL,
+	Ort_Nr integer,
+        PRIMARY KEY (Pers_Nr, Projekt_Nr),
+        FOREIGN KEY (Pers_Nr) REFERENCES Mitarbeiter,
+        FOREIGN KEY (Projekt_Nr) REFERENCES Projekt,
+        FOREIGN KEY (Ort_Nr) REFERENCES Ort,
+        CONSTRAINT PersOrt UNIQUE (Pers_Nr, Ort_Nr) 
+); 
+\end{lstlisting}
+
+Wir können eine Trinäre Beziehung auch mit mehreren Binären darstellen. Hierzu muss die Struktur und die Kardinalitäten angepasst werden.
+
+Andere Aufgabe:
+
+\begin{enumerate}
+    \item Ein Thema wird höchstens einmal vergeben
+    \item Ein Assistent kann höchstens einmal promovieren
+    \item Professoren können mehrere Assistenten und unterschiedliche Themen betreuen
+\end{enumerate}
+
+Einfach mal so eine Tabelle
+
+\begin{center}
+    \begin{tabular}{c|c|c|c}
+        Prof & Assistent & Thema & erlaubt\\
+        \hline
+        1000 & 1 & A & \\
+        2000 & 2 & B & \\
+        3000 & 1 & C & nein\\
+        2000 & 4 & A & nein\\
+        1000 & 3 & D & \\
+    \end{tabular}
+\end{center}
+
+Um das jetzt nun umzusetzen brauchen wir einen Primärschlüssel (entweder Assistent oder Thema) und noch einen UNIQUE CHECK auf das jeweils andere. Somit kann ein Assistent höchstens einmal Promovieren und jedes Thema wird nur einmal vergeben.
+
+Primärschlüssel fällt auf den Key nachdem häufiger gesucht wird, da ein Index erstellt wird.
+
+% Aufgabe: ALTER Befehl mit dem Softwarehaus ausprobieren.
+
 \subsection{DML}
+
+% Beginn auf S.23
+
+Datenmanipulationssprache (DML) dient dazu Daten zu manipulieren.
+
+\subsubsection{INSERT}
+
+\begin{lstlisting}
+INSERT INTO Mitarbeiter
+VALUES (1, 'Hans', 'Müller', Null, '1975-03-12', 'm', '2014-07-01', default, 48000);
+
+INSERT INTO Mitarbeiter (pers_nr, nachname)
+VALUES (3, 'Klein');
+\end{lstlisting}
+
+\subsubsection{COPY}
+
+Wir können aus .csv Dateien eine Datenbank befüllen, wie auch die aktuellen Daten in eine .csv Datei schreiben.
+
+Das ist mittlerweile auch über die UI in PgAdmin erreichbar.
+
+\begin{lstlisting}
+copy public.mitarbeiter from
+'C:\data\Mitarbeiter_in.csv' delimiter ',' csv;
+
+copy (SELECT * FROM Mitarbeiter) TO
+'C:\data\Mitarbeiter_aus.csv' delimiter ',' csv;
+\end{lstlisting}
+
+\subsubsection{UPDATE}
+
+Mit Update können wir Daten ändern oder aktualisieren.
+
+\begin{lstlisting}
+UPDATE MitarbeiterS
+SET Nachname = 'Koehler', SET Vorname = 'Moritz'
+WHERE Pers_Nr = 1;
+\end{lstlisting}
+
+\know{Ohne WHERE}{Ohne WHERE wird das update für alle Zeilen ausgeführt.}
+
+Als Zuweisung gehen auch arithmetische Ausdrücke wie \lstinline|Gehalt = Gehalt*1.08|
+
+Es gibt auch noch \lstinline|is Null|
+
+\subsubsection{DELETE}
+
+\begin{lstlisting}
+DELETE FROM Mitarbeiter
+Where Pers_Nr = 1;
+\end{lstlisting}
+
+\subsubsection{Verbundene Tabellen}
+
+
 
 \end{document}
