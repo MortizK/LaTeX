@@ -1,0 +1,186 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Statistik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{Punktschätzung}
+
+\subsection{Einleitung}
+
+Unbekannter Parameter $\vartheta$ soll auf Basis einer Stichprobe geschätzt werden.
+
+Schätzwert $\hat{\vartheta}$
+
+Vorgehen: Verwendung einer Schätzfunktion $\hat{\Theta} = g(x_1, ..., x_n)$
+
+\subsection{Grundbegriffe}
+
+\textbf{Erwartungstreue}
+
+Eine Schätzfunktion
+
+\[
+\hat{\Theta} = g(x_1, ..., x_n)
+\]
+
+heißt erwartungsstreu oder unverzerrt für $\vartheta$, falls:
+
+\[
+E(\hat{\Theta}) = \vartheta
+\]
+
+Falls nur gilt:
+
+\[
+\lim_{n\to\infty} E(\hat{\Theta}) = \vartheta
+\]
+
+so heißt $\hat{\Theta}$ asymptotisch erwartungstreu für $\vartheta$
+
+% Beispiel habe ich nicht aufgeschrieben.
+
+\textbf{Wirksamkeit}
+
+Welche der erwartungstreuen Schätzfunktionen ist "besser"?
+
+Von zwei erwartungstreuen Schätzfunktionen $\hat{\Theta}_1$ und $\hat{\Theta}_2$ für $\vartheta$ heißt $\hat{\Theta}_1$ wirksamer als $\hat{\Theta}_2$ falls:
+
+\[
+Var(\hat{\Theta}_1) < Var(\hat{\Theta}_2)
+\]
+
+% Beispiel hierzu fehlt mir
+
+\begin{center}
+    \begin{tabular}{lc|c}
+        Verteilung von G & $\vartheta$ & wirksamste erwartungstreue \\
+        & & Schätzfunktion \\
+        \hline
+        unbekannt & $\mu$ & $\overline{x}$\\
+        $B(1, p)$ & $p(=\mu)$ & $\overline{x}$\\
+        $N(\mu, \sigma)$, $\sigma$ bekannt/ unbekannt & $\mu$ & $\overline{x}$\\
+        $N(\mu, \sigma)$, $\mu$ bekannt & $\sigma^2$ & $\frac{1}{n}\sum_{i=1}^{n}(x_i - \mu)^2$\\
+        $N(\mu, \sigma)$, $\mu$ unbekannt & $\sigma^2$ & $\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \overline{x})^2 = S^2$\\
+    \end{tabular}
+\end{center}
+
+\textbf{Konsistente Schätzfunktion}
+
+Eine Folge von Schätzfunktionen $\hat{\Theta}_1, \hat{\Theta}_2, ..., \hat{\Theta}_n$ gemäß
+
+\begin{align}
+    \hat{\Theta}_1 = g(x_1) \\
+    \hat{\Theta}_2 = g(x_1, x_2) \\
+    \vdots\\
+    \hat{\Theta}_n = g(x_1, ..., x_n) \\
+\end{align}
+
+heißt konsisten für $\vartheta$, wenn für alle $c > 0$ gilt:
+
+\[
+P(\abs{\hat{\Theta}_n - \vartheta} \geq c) \overrightarrow{n\to\infty} 0
+\]
+
+Das heißt, die Wahrscheinlichkeit, $\vartheta$ deutlich zu verfehlen, geht gegen 0.
+
+Hinreichende Konsistenzbedingung
+
+\[
+E(\hat{\Theta}_n) = \vartheta, \qquad \lim_{n\to\infty} Var(\hat{\Theta}_n) = 0
+\]
+
+% Beispiel habe ich nicht mitgeschrieben.
+
+\subsection{Maximum-Likelihood-Prinzip}
+
+\textbf{Gegeben:}
+
+Ergebnis einer einfachen Stichprobe $(x_1, ..., x_n)$
+
+Likelihoodfunktion $f(x_1, ...., x_n | \vartheta)$
+
+\textbf{Gesucht:}
+
+Schätzwert $\hat{\vartheta}$, der "am besten zu $x_1, ..., x_n$ passt"
+
+\subsubsection{Maximum-Likelihood-Prinzip (ML-Prinzip)}
+
+Wähle $\hat{\vartheta} $ so, dass für alle möglichen $\vartheta$-Werte gilt:
+
+\[
+f(x_1, ..., x_n | \hat{\vartheta}) > f(x_1, ..., x_n | \vartheta)
+\]
+
+Maximierung: 1. Ableitung zu Null setzen und 2. Ableitung < 0 prüfen.
+
+Maximierung für:
+
+\begin{enumerate}
+    \item konkretes Stichprobenergebnis (z.B. (0,1)) $\implies$ ML-Schätzwert
+    \item allgemeines Stichprobenergebnis (z.B. $(x_1, x_2)$) $\implies$ ML-Schätzfunktion
+\end{enumerate}
+
+Maximierung der logarithmieren Likelihoodfunktion liefer das selbe Ergebnis, ist aber oft einfacher:
+
+\[
+\ln f(x_1, ..., x_n | \hat{\vartheta}) > \ln f(x_1, ..., x_n | \vartheta) 
+\]
+
+Das ist möglich, weil $\ln (x)$ streng monoton mit $x$ wächst.
+
+\textbf{Typische Vorgehensweise bei der ML-Schätzung}
+
+\begin{enumerate}
+    \item Likelihoodfunktion aufstellen $f(x_1, ..., x_n | \vartheta)$
+    \item gegebenenfalls logarithmieren $\ln(f(x_1, ..., x_n | \vartheta))$
+    \item Erste Ableitung nullsetzen $\frac{\delta}{\delta v} \ln(f(x_1, ..., x_n | \vartheta)) = 0$
+    \item Vorzeichen der zweiten Ableitung prüfen $\frac{\delta^2}{\delta v^2} \ln(f(x_1, ..., x_n | \vartheta)) < 0$
+\end{enumerate}
+
+% Beispiel habe ich nicht mit aufgeschrieben.
+
+\subsubsection{Maximum-Likelihood-Schätzfunktion}
+
+\begin{center}
+    \begin{tabular}{lc|c}
+        Verteilung von G & $\vartheta$ & ML-Schätzfunktion \\
+        \hline
+        $B(1, p)$ & $p(=\mu)$ & $\overline{x}$ \\
+        $Exp(\lambda)$ & $\mu$ & $\overline{x}$ \\
+        $Exp(\lambda)$ & $\sigma^2$ & $\overline{x}^2$ \\
+        $P(\mu)$ & $\mu$ & $\overline{x}$ \\
+        $N(\mu, \sigma)$, $\sigma$ bekannt/ unbekannt & $\mu$ & $\overline{x}$ \\
+        $N(\mu, \sigma)$, $\mu$ bekannt & $\sigma^2$ & $\frac{1}{n}\sum_{i=1}^{n}(x_i - \mu)^2$ \\
+        $N(\mu, \sigma)$, $\mu$ unbekannt & $\sigma^2$ & $\frac{1}{n}\sum_{i=1}^{n}(x_i - \overline{x})^2$ \\
+    \end{tabular}
+\end{center}
+
+% Der letzte Schätzer ist verzerrt da hier 1/n statt 1/(n-1) rauskommt. Dies ist aber korrekt.
+
+\textbf{Hilfreicher Satz für Ml-Schätzung}
+
+Ist $h$ eine streng monotone Funktion und ist $\hat{\Theta}$ eine Maximum-Likelihood-Schätzfunktion für den Parameter $\vartheta$, so ist die Stichprobenfunktion $h(\hat{\Theta})$ eine Maximum-Likelihood-Schätzfunktion für den transformierten Parameter $h(\vartheta)$.
+
+Hinweis: $h$ kann streng monoton wachsend oder fallend sein
+
+Beispiele:
+
+\begin{enumerate}
+    \item $\hat{\Theta}$ ML-Schätzfunktion für $\sigma^2 \implies \sqrt{\hat{\Theta}}$ ML-Schätzfunktion für $\sigma$
+    \item Ist $G \sim Exp(\lambda)$, so ist $\frac{1}{X}$ ML-Schätzfunktion für $\lambda$
+\end{enumerate}
+
+\subsection{Bayes-Schätzung}
+
+
+
+\end{document}

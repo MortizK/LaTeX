@@ -192,4 +192,53 @@ Es gibt eine Tabelle A.20 wo die Fraktile (Quantile) tabelliert sind. Ab $n > 30
 x_\alpha = \frac{1}{2} (\tilde{x}_\alpha + \sqrt{2n - 1})
 \]
 
+\lecture{2026-04-08}
+
+Wir haben die Aufgabe 11.7 an der Tafel gelöst. Muss ich mir bei Kommilitonen abholen.
+
+\subsubsection{t-Verteilung}
+
+Ist $X \sim N(0,1)$ und $Z \sim X^2(n)$, X, Y unabhängig, so wird die Verteilung von
+
+\[
+T = \frac{X}{\sqrt{\frac{1}{n}Z}}
+\]
+
+als $t$-Verteilung mit $n$ Freiheitsgraden bezeichnet.
+
+Es gilt: $E(T)=0$ und $Var(T) = \frac{n}{n-2}$
+
+Ab $n>30$ Näherung über N(0, 1)-Verteilung (Normalverteilung)
+
+In den Tabellen gibt es nur $\alpha > 0.9 (p=\alpha)$ und es gibt die Symmetrie $x_\alpha = -x_{1-\alpha}$
+
+Die Fraktile:
+
+\begin{enumerate}
+    \item $x_{0.9} = 1.372$
+    \item $x_{0.5} = 0$
+    \item $x_{0.1} = -x_{1-0.1} -1.372$
+\end{enumerate}
+
+Aufgabe 11.8 habe ich auch nicht mitgeschrieben.
+
+\subsection{Verteilung wichtiger Stichprobenfunktion}
+
+\begin{center}
+    \begin{tabular}{c|c}
+        Stichprobenfunktion & Verteilung \\
+        \hline
+        $\sum_{i=1}^{n} x_i$ & $N(n\mu, \sigma \sqrt{n})$ \\
+        $\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_i$ & $N\!\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$ \\
+        $\frac{\overline{x}-\mu}{\sigma}\sqrt{n}$ & $N(0,1)$ \\
+        $\frac{1}{\sigma^2}\sum_{i=1}^{n}(x_i-\mu)^2$ & $\chi^2(n)$ \\
+        $\frac{1}{\sigma^2}\sum_{i=1}^{n}(x_i-\overline{x})^2 = \frac{n-1}{\sigma^2}S^2$ & $\chi^2(n-1)$ \\
+        $\frac{\overline{x}-\mu}{S}\sqrt{n}$ & $t(n-1)$ \\
+    \end{tabular}
+\end{center}
+
+Aufgabe habe ich nicht mitgeschrieben aber es gibt ein Jupyter Notebook.
+
+% Damit ist dieses Kapitel fertig. Ich muss noch was Nacharbeiten!
+
 \end{document}
