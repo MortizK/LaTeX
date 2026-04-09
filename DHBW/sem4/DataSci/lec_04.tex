@@ -1,0 +1,140 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Data Science}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-09}
+
+\section{Classification}
+
+\subsection{k-Nearest Neighbor (kNN) Classifier}
+
+Wenn es einen Neuen Punkt gibt, so wird dieser Hinzugefügt zu dem Cluster, wo es die Geringste Distanz zu den k-nächsten Nachbarn hat (Mehrheitsentscheid zwischen mehreren Klassen). 
+
+Hierzu wird die Euclidean Entfernung genommen.
+
+Es gibt zwei Metriken:
+
+\begin{enumerate}
+    \item Euclidean distance (Diagonale)
+    \item Manhattan distance (Auf einem Grid laufen)
+\end{enumerate}
+
+\subsection{Classifier Performance}
+
+Das Ergebnis hängt sehr Stark von Parameter $k$ ab. So ist es bei $k=1$ patchy und bei zu hohen $k$'s gar keine Classification.
+
+\subsection{Training, Test and Validation}
+
+Um die Performance effektiv zu messen, werden Drei verschiedene Datensets benutzt:
+
+\begin{enumerate}
+    \item Training Set. Hiermit wird der Classifier gebaut
+    \item Validation Set. Hiermit werden hyperparameter eingestellt.
+    \item Test set. Ungesehene Daten um die Performance zu beurteilen.
+\end{enumerate}
+
+Hyperparamter sind die Parameter die im Vorhinein eingestellt werden, wie $k$ bei kNN.
+
+Parameter sind die gewichte (das Gelernte) durch unser Model.
+
+\subsection{Cross Validation}
+
+Wenn wir nur wenig Daten zur Verfügung haben Permutieren wir unsere Sets (Training, Test) und berechnen den Durchschnitt für den Fehler.
+
+So können wir den Generalisierungsfehler gut schätzen um zu schätzen wie gut der Klassifikator auf ungesehene Daten reagieren wird.
+
+Danach den Klassifikator mit allen Daten erstellen.
+
+\subsection{Decision Trees}
+
+Decision Tree Explained Through the \href{https://erickhangati.com/decision-tree-explained-through-titanic-dataset/}{Titanic Dataset}
+
+Wie können wir einen Equivalenten (in Bezug zu der Classification) Baum noch bewerten. Hier hilft die Average Depth oder wie balanciert der Baum ist.
+
+\subsubsection{Spliting Criteria}
+
+Let $f$ be tha label distribution over the $M$ samples in the node under consideration with $f_i$ being the fraction of class $i(i=1,..., K)$ examples:
+
+\[
+f_i = \frac{1}{M}\sum_{j=1}^{M} 1(y^{(j)}==i) = p(i | node)
+\]
+
+Popular ones are:
+
+\begin{enumerate}
+    \item Inhomogeneity of obtained child nodes \textbf{Gini Impurity} (we want it to be low)
+    \[
+        I_{Gini}(f) = \sum_{i=1}^{K} f_i(1-f_i) = 1 - \sum_{i=1}^{K} f_i^2
+    \]
+    Aufgabe: Berechne die Gini Impurity für die Folgende Tabelle:
+
+    \begin{center}
+        \begin{tabular}{ccccc}
+            Sample & $x_1$ & $x_2$ & Label \\
+            \hline
+            1 & true & true & + \\
+            2 & true & true & + \\
+            3 & true & false & - \\
+            4 & false & false & + \\
+            5 & false & true & - \\
+            6 & false & true & - \\
+        \end{tabular}
+    \end{center}
+
+    Wir unterteilen für Feature $x_1$ in zwei Tabellen:
+
+    \begin{center}
+        \begin{tabular}{ccc}
+            Links & $x_1$ & Label \\
+            \hline
+            1 & true & + \\
+            2 & true & + \\
+            3 & true & - \\
+        \end{tabular}
+        \quad
+        \begin{tabular}{ccc}
+            Rechts & $x_1$ & Label \\
+            \hline
+            4 & false & + \\
+            5 & false & - \\
+            6 & false & - \\
+        \end{tabular}
+    \end{center}
+
+    Dann wird aus der Tabelle der Gini Wert für Split $x_1$ berechnet.
+
+    \[
+        Gini_{split}(x_1) = \frac{3}{6}\left(1-\left(\frac{2}{3}\right)^2-\left(\frac{1}{3}\right)^2\right)
+        + \frac{3}{6}\left(1-\left(\frac{1}{3}\right)^2-\left(\frac{2}{3}\right)^2\right)
+        = \frac{4}{9}
+    \]
+
+    \item \textbf{Entropy}
+    
+    Entropy is a measure of the uncertainty associated with a random variable, thus here we want it to be low.
+    \[
+        Entropy(f) = - \sum_{i=1}^{K} f_i*\log(f_i)
+    \]
+    \item \textbf{Classification Error} (ww want it to be low)
+    \[
+        Class.Error(f) = 1 - max_i(f_i)
+    \]
+\end{enumerate}
+
+Bei mehreren Features lassen sich dies auch nach einem \href{https://de.wikipedia.org/wiki/Quadtree}{QuadTree} teilen, sodass in jedem Bereich möglichst gleich viele Punkte mit dem gleichem Label sind.
+
+Am Beispiel von Titanic Dataset. So Teilen, dass ein Bereich möglichst nur aus Überlebenden Besteht. So ist hier der Erste Split das Geschlecht.
+
+Ein Decision Tree kann auch "overfitten". So hilf Pruning (Äste Abschneiden) über z.B. Mehrheitsentscheid. Dies lässt sich mit einem Test Set bewerten.
+
+\end{document}

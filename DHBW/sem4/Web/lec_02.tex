@@ -379,4 +379,182 @@ Die FOAF Ontologie ist öffentlich einsehbar unter \href{https://wwwlehre.dhbw-s
 
 % Hier fehlt mir der Schluss der Vorlesung
 
+\lecture{2026-04-09}
+
+\subsubsection{Ableitungsregeln}
+
+Anschaulich:
+
+\begin{enumerate}
+    \item Jede subjekt- oder Objekt-Knoten kann zu einer Bnode abgeschwächt werden.
+    \item Umkehrung der Skolemisierung.
+\end{enumerate}
+
+Wir haben dafür zwei Regeln:
+
+\begin{enumerate}
+    \item se1. Hier ersetzen wir das Object durch eine Blank Node
+    \item se2. Hier ersetzen wir das Subjekt durch eine Blank Node
+\end{enumerate}
+
+\textbf{Prädikate} können keine BNode werden.
+
+% Übung 3.36
+
+Gegeben sei der Graph G1:
+
+\begin{lstlisting}
+ex:JohnDoe foaf:firstName "John";
+           foaf:lastName  "Doe";
+           ex:worksFor    ex:ACME .
+\end{lstlisting}
+
+Welche der Graphen G2; G3; G4; G5 folgen einfach aus G1?
+Geben Sie ggf. die Ableitungsschritte an.
+
+\begin{lstlisting}
+G2: ex:JohnDoe    ex:worksFor _:n21 ;
+    ex:worksFor   _:n22 .
+G3: ex:JohnDoe    _:n3 "John" .
+G4: ex:JohnDoe    foaf:firstName _:n4 ;
+    foaf:lastName _:n4 .
+G5: _:n51         foaf:firstName _:n52 ;
+    ex:worksFor   ex:ACME .
+\end{lstlisting}
+
+\textbf{Lösung:}
+
+Korrekter Aufschrieb ist im Script S. 140
+
+\begin{enumerate}
+    \item \textbf{G2 folgt aus G1.}
+
+    Begründung: Bei einfacher Ableitung darf das Objekt zu einem leeren Knoten abgeschwächt werden.
+    Setze \texttt{\_:n21 $\mapsto$ ex:ACME} und \texttt{\_:n22 $\mapsto$ ex:ACME}. Dann werden beide Kanten zu
+
+    \begin{lstlisting}
+ex:JohnDoe ex:worksFor ex:ACME .
+    \end{lstlisting}
+
+    Dieses Tripel ist bereits in G1 enthalten.
+
+    \item \textbf{G3 folgt nicht aus G1.}
+
+    Begründung: In RDF muss das Prädikat eine URI/IRI sein. In G3 steht mit \texttt{\_:n3} ein leerer Knoten an der Prädikatsposition; das ist kein zulässiges RDF-Tripel.
+
+    \item \textbf{G4 folgt nicht aus G1.}
+
+    Begründung: Dasselbe \texttt{\_:n4} ist Objekt von \texttt{foaf:firstName} und \texttt{foaf:lastName}; beide Werte müssten also identisch sein. In G1 sind es aber zwei verschiedene Literale (\texttt{"John"} und \texttt{"Doe"}).
+
+    \item \textbf{G5 folgt aus G1.}
+
+    Ableitung durch Abschwächung:
+
+    \begin{lstlisting}
+ex:JohnDoe foaf:firstName "John" .
+ex:JohnDoe ex:worksFor    ex:ACME .
+    \end{lstlisting}
+
+    Ersetze \texttt{ex:JohnDoe} durch \texttt{\_:n51} und \texttt{"John"} durch \texttt{\_:n52}. Damit erhält man genau G5. Hierbei sind aber 3 Schritte Notwendige (die nicht in der kurzschreibweise ersichtlich werden)
+\end{enumerate}
+
+\subsubsection{rdf Regeln}
+
+Es gibt ziemlich viele Regeln für weitere Ableitungen.
+
+Bei Web Suchen habe ich nur Vorlesungsunterlagen gefunden un keine Listen von allen Ableitungsregeln.
+
+% Es gibt noch weiter Regel. Übung 3.39
+
+Gegeben sei der RDF-Graph G:
+
+\begin{lstlisting}
+    a ex:Klaus ex:freund ex:Anna .
+    b ex:freund rdfs:subPropertyOf ex:mag .
+    c ex:freund rdfs:domain ex:Mensch .
+    d ex:freund rdfs:range ex:Mensch .
+    e ex:Mann rdfs:subClassOf ex:Mensch .
+    f ex:besitzt rdfs:domain ex:Mensch .
+    g ex:besitzt rdfs:range ex:Objekt .
+    h ex:Anna ex:besitzt ex:AnnasHaus .
+    i ex:AnnasHaus rdf:type ex:Haus .
+    j ex:mag rdfs:subPropertyOf ex:kennt .
+\end{lstlisting}
+
+Geben Sie für jedes der folgenden Tripel an,
+ob es aus G unter der RDFS-Semantik folgt.
+Falls das Tripel folgt, geben Sie eine
+Ableitung an.
+
+\begin{lstlisting}
+    1 ex:Klaus rdf:type ex:Mann .
+    2 ex:Anna rdf:type ex:Mensch .
+    3 ex:Klaus ex:mag ex:Anna .
+    4 ex:Anna ex:freund ex:Klaus .
+    5 _:n rdf:type ex:Objekt .
+    (_:n ist ein neuer bnode.)
+    6 ex:Haus rdfs:subClassOf ex:Objekt .
+    7 ex:freund rdfs:subPropertyOf ex:kennt .
+\end{lstlisting}
+
+% von Copilot
+
+\textbf{Lösung:}
+
+\begin{enumerate}
+    \item \textbf{Folgt nicht.}
+
+    Aus \texttt{a} und \texttt{c} folgt zwar \texttt{ex:Klaus rdf:type ex:Mensch}, aber es gibt keine Aussage, aus der \texttt{ex:Klaus rdf:type ex:Mann} folgt.
+
+    \item \textbf{Folgt.}
+
+    Aus \texttt{a} und \texttt{d} (Range von \texttt{ex:freund}) folgt:
+
+    \begin{lstlisting}
+ex:Anna rdf:type ex:Mensch .
+    \end{lstlisting}
+
+    (Alternativ auch aus \texttt{h} und \texttt{f} über die Domain von \texttt{ex:besitzt}.)
+
+    \item \textbf{Folgt.}
+
+    Aus \texttt{a} und \texttt{b} (Subproperty) folgt:
+
+    \begin{lstlisting}
+ex:Klaus ex:mag ex:Anna .
+    \end{lstlisting}
+
+    \item \textbf{Folgt nicht.}
+
+    Es gibt in RDFS keine Regel, die \texttt{ex:freund} automatisch invertiert. Aus \texttt{ex:Klaus ex:freund ex:Anna} folgt daher nicht \texttt{ex:Anna ex:freund ex:Klaus}.
+
+    \item \textbf{Folgt.}
+
+    Zuerst folgt aus \texttt{h} und \texttt{g}:
+
+    \begin{lstlisting}
+ex:AnnasHaus rdf:type ex:Objekt .
+    \end{lstlisting}
+
+    Durch einfache Ableitung (Abschwächung des Subjekts auf eine Blank Node) folgt dann:
+
+    \begin{lstlisting}
+_:n rdf:type ex:Objekt .
+    \end{lstlisting}
+
+    \item \textbf{Folgt nicht.}
+
+    Aus \texttt{i} und der aus \texttt{h,g} ableitbaren Typaussage \texttt{ex:AnnasHaus rdf:type ex:Objekt} folgt nur, dass \texttt{ex:AnnasHaus} in beiden Klassen liegt. Eine \texttt{rdfs:subClassOf}-Beziehung zwischen \texttt{ex:Haus} und \texttt{ex:Objekt} folgt daraus nicht.
+
+    \item \textbf{Folgt.}
+
+    Aus \texttt{b} und \texttt{j} sowie der Transitivität von \texttt{rdfs:subPropertyOf} folgt:
+
+    \begin{lstlisting}
+ex:freund rdfs:subPropertyOf ex:kennt .
+    \end{lstlisting}
+\end{enumerate}
+
+% Das Ende Fehlt mir
+
 \end{document}

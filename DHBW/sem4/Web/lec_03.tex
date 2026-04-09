@@ -1,0 +1,90 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Semantic Web}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-09}
+
+\section{Die Web Ontology Language OWL}
+
+\know{Präsentation}{Unsere Präsentation (Klausurersatzleistung) wird eine Ontology in OWL geschrieben.}
+
+\begin{enumerate}
+    \item Klassen (owl:Class) kann nicht Instanz einer anderen Klasse sein
+    \item Objekt-, Daten- und Annotations-Properties (owl:Object/Data/ AnnotationsProperty) verbindet nur Individuen, keine Klassen
+    \item Individuen (owl:NamedIndividual) kann keine Klasse sein
+\end{enumerate}
+
+\subsection{Semantik}
+
+Definition 4.1 (Interpretation für OWL)
+
+Es gibt Unterschiede zwischen RDFS und OWL
+
+\begin{center}
+    \begin{tabular}{l|ll}
+        & RDFS & OWL \\
+        \hline
+        Klasse & Domänenelement 
+        & Menge von \\
+        & mit Klaasen Extension 
+        & Domänenelementen \\
+        \hline
+        Property & Domänenelement 
+        & Menge von Paaren \\
+        & mit Property Extension 
+        & von Domänenelementen \\
+        \hline
+        Literal & Domänenelement
+        & Element einer \\
+        & vom Typ \lstinline|rdfs:Literal| 
+        & konkreten Domäne \\
+    \end{tabular}
+\end{center}
+
+% Beispiel 4.6, es gibt auch noch andere Beispiele
+
+Ein Beispiel im Manchester-Format:
+
+\begin{lstlisting}
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: ex: <http://www.example.org/>
+
+Ontology: ex:Peanuts
+
+ObjectProperty: ex:owns
+DataProperty: ex:age
+Class: ex:Child
+Class: ex:Male
+Class: ex:Boy
+    EquivalentTo: Child and Male
+Individual: ex:Charlie
+    Types:
+        ex:Person
+    Facts:
+        ex:owns ex:Snoopy ,
+        ex:age 8
+\end{lstlisting}
+
+Es gibt auch einen Ontologie-Editor \href{https://protege.stanford.edu/}{Protégé}
+
+\subsection{Vokabular}
+
+\subsection{Klassen}
+
+\subsection{Neue Datentypen}
+
+\subsection{Schlussfolgerungs-Dienste}
+
+\subsection{Zusammenfassung}
+
+\end{document}
