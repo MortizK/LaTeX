@@ -65,16 +65,74 @@ VLAN gibt es nur mit Store \& Forward, da die VLAN Kennung erst nach der Zieladr
 
 VLAN 1 ist Port-basiert. VLAN 2 ist MAC-Adressen-basiert. VLAN 3 ist IP-Adressen-basiert. Gibt noch auf den weiteren Schichten VLANs. Zusammenfassung Folie 6-19
 
+\lecture{2026-04-10}
+
+% Hier fehlt mir einiges
+
 \subsection{Spanning Tree}
 
+Zu Spanning Tree kommt eine \textbf{Klausuraufgabe} mit einigen Punkten (Für eine Ganze Note)
 
+Jede Brücke ist eindeutig:
+
+\begin{enumerate}
+    \item ID (8 oktett): Prio (4 bit) + Inst. (12 bit) + Mac-Adr. (6 oktett)
+    \item Root Pfadkosten (Kosten von Brücke zur Root)
+    \item Port ID (2 okt.): Port-Prio (4 bits) + Port-Nr (niedr. 12 Bits) Port mit kleinster Port-ID besitzt höchste Priorität
+\end{enumerate}
+
+Der Algorithmus:
+
+\begin{enumerate}
+    \item Switch mit kleinster Brücken-ID wird Root-Bridge
+    \item Port mit geringsten Root-Pfadkosten wird Root-Port. Bei gleichen Pfadkosten entscheidet die Port-Prio.
+    \item Bei LAN (Hub) entscheidt die BID der Brücken
+\end{enumerate}
+
+Es gibt ein Sehr Detailliertes Beispiel unter Folie 6-33
+
+% Mir Fehlt noch die Redundanzen und die Port-States
 
 \subsection{Router}
 
+% Startet auf Folie 6-37
 
+Synonym: Gateway
+
+Einordnung: Schicht 3 des OSI-Referenzmodells
+
+Netzzugriff: Benötigt pro Port eine logische Adresse (z.B. IP-Adresse)
+
+Alle Daten (z.B. Emails) werden mehrfach gekapselt und während der Reise teilweise ausgepackt und wieder erneut verpackt, bis der Finale Adressat erreicht ist und dieser die Nachricht auspacken kann.
+
+Das geroutete Netz auf Folie 6-44 ist so aufgebaut, das zwischen Router 1 und Router 2 das Netz 10.12.0.0/24 ist (zu lesen 10.Eins zu Zwei.0.0/24) In so einem Netz müssen wir den Router neben der Default-Route noch explizierte Routen geben (Routing-Tabelle), die nicht über die Default-Route gefunden werden können. Je präziser eine Route (das Netz oder /n), je höher ist die Priorität in der Tabelle.
+
+Die /24 steht für die Netzmaske 255.255.255.0 somit gehören die ersten 24 bit zu dem Netz.
+
+\subsubsection{Routing Protokolle}
+
+% Hier muss ich noch was Nachtragen
+
+Nicht jeder Router kann alle Protokolle.
+
+\begin{enumerate}
+    \item RIP
+    \item OSPF
+    \item ICMP
+\end{enumerate}
+
+Zu jedem der Begriffe (Routing Protokolle?) muss ich noch nacharbeiten. Da hier auch viele Praktische Aufgaben in den Folien sind. Wie:
+
+\begin{enumerate}
+    \item Folie 6-49: erster Broadcast
+    \item Folie 6-56: Ausfall des Routers
+    \item Folie 6-62: Shortest Path First Algorithmus
+\end{enumerate}
 
 \subsection{Quality-of-Service QoS}
 
+% Beginnt bei Folie 6-75
 
+% Hier fehlt mir alles bis Folie 6-80
 
 \end{document}
