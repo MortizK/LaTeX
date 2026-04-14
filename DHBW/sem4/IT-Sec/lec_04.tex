@@ -47,6 +47,147 @@ Ist ein Hybrid Verfahren
 
 \subsection{Zertifikate}
 
+\lecture{2026-04-14}
 
+\section{Übungsaufgaben}
+
+\subsection{Diffie-Hellman-Verfahren}
+
+\begin{enumerate}
+    \item Alice und Bob führen das DH-Verfahren durch, um einen gemeinsamen Kommunikationsschlüssel KAB zu etablieren. Skizzieren Sie, wie der Angreifer Oscar einen Man-in-the-Middle-Angriff durchführen kann.
+    
+    Oscar positioniert sich zwischen Alice und Bob und fängt ihre Nachrichten ab:
+    \begin{itemize}
+        \item Alice generiert geheimen Schlüssel $a$ und sendet $g^a \bmod p$
+        \item Oscar fängt dies ab und sendet stattdessen seinen eigenen $g^o \bmod p$ an Bob
+        \item Bob generiert geheimen Schlüssel $b$ und sendet $g^b \bmod p$
+        \item Oscar fängt dies ab und sendet stattdessen seinen $g^o \bmod p$ an Alice
+        \item Alice und Bob glauben nun, den Schlüssel miteinander vereinbart zu haben, haben aber tatsächlich je einen getrennten Schlüssel mit Oscar: $K_{AO} = g^{ao} \bmod p$ und $K_{BO} = g^{bo} \bmod p$
+    \end{itemize}
+
+    \item Welche Möglichkeiten hat der Angreifer durch diesen Angriff? Welche Schutzziele könnte er verletzen?
+    
+    Oscar kann sich dazwischen schalten und zwei Schlüssel verwalten. Dadurch denken Alice und Bob, dass diese nur miteinander kommunizieren, obwohl Oscar alles im Klartext mithören kann. Somit werden \textbf{Vertraulichkeit und Authentizität} verletzt. Oscar kann:
+    \begin{itemize}
+        \item Alle Nachrichten von Alice zu Bob mitlauschen (Vertraulichkeit)
+        \item Nachrichten verändern/verfälschen, ohne dass dies bemerkt wird (Integrität)
+        \item Falsche Identität des Kommunikationspartners vorspiegeln (Authentizität)
+    \end{itemize}
+    
+    \item Nehmen Sie nun an, dass Alice und Bob jeweils ein asymmetrisches Signatur-Schlüsselpaar ($k_A^{pub}$,$k_A^{priv}$) und ($k_B^{pub}$,$k_B^{priv}$) besitzen. Weiterhin sei Alice der öffentliche Schlüssel von Bob und Bob der öffentliche Schlüssel von Alice bekannt, also die Verknüpfungen $ID_A \leftrightarrow k_A^{pub}$ , und $ID_B \leftrightarrow k_B^{pub}$. Erweitern Sie nun das DH-Verfahren so um ein Authentifikationsverfahren, dass der obige Man-in-the-Middle-Angriff nicht mehr möglich ist. Skizzieren Sie hierzu alle notwendigen Schritte.
+    
+    \textbf{Authentifiziertes DH-Verfahren (Station-to-Station Protocol):}
+    \begin{enumerate}
+        \item Alice generiert $a$ (geheim) und berechnet $g^a \bmod p$
+        \item Alice sendet $g^a \bmod p$ an Bob
+        \item Bob generiert $b$ (geheim) und berechnet $g^b \bmod p$
+        \item Bob signiert $(g^b \bmod p, g^a \bmod p)$ mit seinem privaten Schlüssel $k_B^{priv}$: $\text{sig}_B = \text{Sign}(g^b \bmod p \| g^a \bmod p, k_B^{priv})$
+        \item Bob sendet $(g^b \bmod p, \text{sig}_B)$ an Alice
+        \item Alice verifiziert Bobs Signatur mit $k_B^{pub}$
+        \item Alice signiert $(g^a \bmod p, g^b \bmod p)$ mit ihrem privaten Schlüssel $k_A^{priv}$: $\text{sig}_A = \text{Sign}(g^a \bmod p \| g^b \bmod p, k_A^{priv})$
+        \item Alice sendet $\text{sig}_A$ an Bob
+        \item Bob verifiziert Alices Signatur mit $k_A^{pub}$
+        \item Beide berechnen den gemeinsamen Schlüssel: $K = (g^b)^a \bmod p = (g^a)^b \bmod p = g^{ab} \bmod p$
+    \end{enumerate}
+    
+    Da Oscar die privaten Signatur-Schlüssel nicht kennt, kann er die Nachrichten nicht authentisch signieren. Wenn Oscar versucht, seinen eigenen öffentlichen Schlüssel zu senden, wird Alice oder Bob dies bemerken, wenn sie die Signatur verifizieren.
+\end{enumerate}
+
+\subsection{elektronische Zertifikate}
+
+Welche Cyber-Sicherheitsbedürfnisse können mit Hilfe von elektronischen Zertifikate umgesetzt werden?
+
+Mit einem Zertifikat können öffentliche Schlüssel authentisiert werden. Somit wird die Identität an den Public Key gebunden und Alice kann nun prüfen, ob der Key, den Sie bekommt, auch tatsächlich von Bob kommt, da Oscar seinen Key nicht mit der Signatur von Bob signieren kann. 
+
+Konkret ermöglichen elektronische Zertifikate die Umsetzung der Schutzziele:
+\begin{itemize}
+    \item \textbf{Authentizität:} Bestätigung, dass ein öffentlicher Schlüssel tatsächlich der behaupteten Identität gehört
+    \item \textbf{Vertraulichkeit:} Sicherer Austausch von öffentlichen Schlüsseln, da Zertifikate von einer vertrauenswürdigen Stelle signiert sind
+    \item \textbf{Integrität:} Durch die digitale Signatur des Zertifikates ist nachweisbar, dass weder der öffentliche Schlüssel noch die Identitätsdaten verfälscht wurden
+    \item \textbf{Nichtabstreitbarkeit:} Der Eigentümer des privaten Schlüssels kann keine Handlungen abstreiten, die mit seinem Zertifikat durchgeführt wurden
+\end{itemize}
+
+\subsection{PKI}
+
+\begin{enumerate}
+    \item Mit welchem PKI Dienst wird das Sperren von eigentlich gültigen Zertifikaten umgesetzt?
+    
+    Die \textbf{Certification Authority (CA)} führt ein Sperr-System durch Veröffentlichung einer \textbf{Certificate Revocation List (CRL)} oder über den \textbf{Online Certificate Status Protocol (OCSP)}, wo gesperrte/ungültige Zertifikate aufgelistet oder überprüfbar sind. Dies wird notwendig, wenn:
+    \begin{itemize}
+        \item Ein privater Schlüssel kompromittiert wurde
+        \item Der Mitarbeitande das Unternehmen verlässt
+        \item Die Authentifizierungsdaten sich geändert haben
+        \item Ein Zertifikat vor Ablauf seiner Gültigkeitsdauer nicht mehr vertraut wird
+    \end{itemize}
+    
+    \item Die digitale Signatur wird mit einem Public-Key-Verfahren unter Verwendung des geheimen Schlüssels durchgeführt. Kann ein Angreifer die Nachricht ``entschlüsseln'', d.h. im Klartext lesen?
+    
+    \textbf{Nein.} Eine digitale Signatur ist nicht zum Verschlüsseln der Nachricht gedacht. Die Nachricht wird mit dem privaten Schlüssel des Signers signiert und kann mit dem öffentlichen Schlüssel verifiziert werden. Der Angreifer kann die Signatur zwar mit dem öffentlichen Schlüssel überprüfen (was ja beabsichtigt ist), aber dadurch erhält er keine verschlüsselte Nachricht, sondern nur:
+    \begin{itemize}
+        \item Den Beweis, dass die Nachricht vom Eigentümer des privaten Schlüssels stammt (Authentizität)
+        \item Den Beweis, dass die Nachricht nicht verändert wurde (Integrität)
+    \end{itemize}
+    
+    Die Nachricht selbst wird durch eine Signatur nicht verschlüsselt. Um Vertraulichkeit zu erreichen, ist zusätzlich eine Verschlüsselung mit einem Verschlüsselungsverfahren notwendig.
+    
+    \item Erläutern Sie die Komponenten und deren Aufgaben einer PKI!
+    
+    \begin{enumerate}
+        \item \textbf{Certification Authority (CA):} Die vertrauenswürdige zentrale Instanz, die Zertifikate ausstellt, verwaltet und signiert. Sie ist verantwortlich für die Authentizität und Gültigkeit der ausgestellten Zertifikate.
+        
+        \item \textbf{Registration Authority (RA):} Fungiert als Schnittstelle zwischen Antragstellern und der CA. Sie prüft die Identität der Antragsteller, nimmt Zertifikatsanträge entgegen und leitet diese an die CA weiter. Sie kümmert sich um Administrative Aufgaben.
+        
+        \item \textbf{Validierungsdienst (VA):} Stellt Informationen über die Gültigkeit von Zertifikaten bereit. Dies kann durch:
+        \begin{itemize}
+            \item \textbf{Certificate Revocation List (CRL):} Periodisch veröffentlichte Liste gesperrter Zertifikate
+            \item \textbf{Online Certificate Status Protocol (OCSP):} Echtzeit-Abfrage der Gültigkeitsstatus eines Zertifikates
+        \end{itemize}
+        
+        \item \textbf{Certificate Repository (Verzeichnis):} Zentrales Verzeichnis, in dem Zertifikate und CRLs gespeichert und öffentlich zugänglich gemacht werden
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{PKI - Vertrauensmodelle}
+
+Welches PKI Vertrauensmodell würden Sie in den folgenden Situationen vorschlagen?
+
+\begin{enumerate}
+    \item Sie beraten einen Verband, der für seine Mitglieder eine PKI zur Verfügung stellen möchte. Welches Vertrauensmodell würden Sie für den Verband vorschlagen?
+    
+    \textbf{Lokal zentriertes Modell (Local Trust Model / Verband-eigene CA):} 
+    Der Verband sollte eine eigene Certification Authority (CA) betreiben oder diese durch einen vertrauenswürdigen Dienst betreiben lassen. Alle Mitglieder vertrauen dieser zentralen CA. Dies ist kostenefficient, da alle Mitglieder der Verbands-CA vertrauen und keine externen CAs notwendig sind. Der Verband hat vollständige Kontrolle über die Zertifikatvergabe und kann Richtlinien für die Mitglieder festlegen.
+
+    \item In einem Forschungsvorhaben mit drei teilnehmenden Unternehmen, von denen keines mehr Rechte haben sollte als die anderen, soll eine PKI aufgebaut werden. Welches Modell würden Sie wählen?
+    
+    \textbf{Dezentrales Modell (Peer-to-Peer / Distributed Trust Model):}
+    In diesem Szenario sollte ein dezentrales Modell mit mehreren gleichberechtigten CAs gewählt werden, bei dem jedes der drei Unternehmen als gleichwertige Certification Authority fungiert. Alle drei CAs signieren sich gegenseitig oder werden von einer unbeteiligten, neutralen Instanz gegenseitig glaubwürdig gemacht (Cross-Certification). Dies stellt faire Machtverhältnisse her und verhindert, dass ein Unternehmen durch Kontrolle einer zentralen CA dominiert.
+
+    \item Sie wollen ein Geschäftsmodell aufbauen, bei dem sehr viele Unternehmen mit sehr vielen Nutzern Daten vertrauenswürdig austauschen wollen. Alle Unternehmen haben schon eine PKI. Zukünftig werden noch weitere Unternehmen dazukommen. Welches Vertrauensmodell würden Sie wählen?
+    
+    \textbf{Bridging-Modell (PKI-Bridge) oder Hierarchisches Modell mit Root-CA:}
+    In dieser Situation sollte ein Bridge-Modell oder eine übergeordnete Root-CA gewählt werden:
+    \begin{itemize}
+        \item \textbf{PKI-Bridge:} Eine neutrale Bridge-CA verbindet die verschiedenen CAs der teilnehmenden Unternehmen durch Cross-Zertifizierung. Die Bridge signiert Zertifikate der bestehenden CAs, dadurch können Nutzer zwischen allen verbundenen Unternehmen vertrauen.
+        \item \textbf{Hierarchisches System mit Root-CA:} Eine übergeordnete Root-CA wird etabliert, deren Zertifikat bereits in allen existierenden Systemen vertraut wird. Die Unternehmen-CAs werden von dieser Root-CA zertifiziert.
+    \end{itemize}
+    
+    Dies ermöglicht Skalierbarkeit für sehr viele Unternehmen und Nutzer, neue Unternehmen können hinzugefügt werden, ohne alle bestehenden Verbindungen zu beeinflussen.
+\end{enumerate}
+
+\subsection{Chain of Trust von Zertifikaten}
+
+Bewerten Sie die Vertrauenswürdigkeit von Certification Authorities (CA) am Beispiel folgender News-Meldungen. Geben Sie in den jeweiligen Fällen an, auf welche Weise das Vertrauen unterwandert wurde:
+
+\begin{itemize}
+    \item \textbf{Beispiel 1 - Kompromittierung eines privaten Schlüssels:} Falls der private Schlüssel einer CA gestohlen oder kompromittiert wird, könnte ein Angreifer gefälschte Zertifikate ausstellen, die als legitim erscheinen. Das Vertrauen wird durch die unsachgemäße Verwaltung kritischer Geheimnisse unterwandert.
+    
+    \item \textbf{Beispiel 2 - Malicious Certificate Issuance:} Wenn eine CA böswillig oder unter Druck ungültige Zertifikate ausstellt (z.B. für Domain-Namen, deren Inhaber nicht identifiziert wurden), wird das Vertrauen durch mangelnde oder manipulierte Authentifizierungsprotokolle unterwandert. Dies führt zu Man-in-the-Middle-Angriffen.
+    
+    \item \textbf{Beispiel 3 - Unzureichende Sicherheitsmaßnahmen:} Wenn eine CA nicht adäquate Sicherheitsvorkehrungen trifft (schwache Verschlüsselung, vulnerable Systeme), kann das Vertrauen durch technische Schwachstellen unterwandert werden.
+    
+    \item \textbf{Beispiel 4 - Fehlende Revocation:} Wenn eine CA gesperrte oder ungültige Zertifikate nicht zeitnah in ihre CRL aufnimmt oder nicht über OCSP verfügbar macht, wird das Vertrauen durch mangelhafte Verwaltung von Sperrinformationen unterwandert.
+    
+    \item \textbf{Beispiel 5 - Staatliche Kontrolle oder Zensur:} Wenn eine Regierung eine CA unter ihrer Kontrolle zur Ausstellung von Zertifikaten für Überwachung zwingt oder manipuliert (z.B. zur Durchführung von MITM-Angriffen), wird das Vertrauen durch externe Machtstrukturen unterwandert.
+\end{itemize}
 
 \end{document}

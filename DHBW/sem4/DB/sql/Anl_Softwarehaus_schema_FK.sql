@@ -28,7 +28,8 @@ SET default_with_oids = false;
 ALTER TABLE Mitarbeiter 
 ADD arbeitet_in varchar (8),
 ADD Chef_NR Int,
-ADD FOREIGN KEY(arbeitet_in) REFERENCES Abteilung,
+ADD FOREIGN KEY(arbeitet_in) REFERENCES Abteilung
+on Delete set NULL,
 ADD FOREIGN KEY(Chef_Nr) REFERENCES Mitarbeiter
 ;
 

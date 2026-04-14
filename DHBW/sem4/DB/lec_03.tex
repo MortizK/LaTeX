@@ -288,8 +288,68 @@ DELETE FROM Mitarbeiter
 Where Pers_Nr = 1;
 \end{lstlisting}
 
-\subsubsection{Verbundene Tabellen}
+\subsection{Verbundene Tabellen}
 
+\lecture{2026-14-04}
 
+\subsubsection{DELETE}
+
+Damit DELETE ermöglicht wird bei Beziehungen schon angegeben, was passieren soll wenn DELETE wird:
+
+\begin{lstlisting}
+CREATE TABLE Mitarbeiter
+(
+    ...
+    FOREIGN KEY (arbeitet_in) REFERENCES Abteilung
+    on Delete set NULL;
+)
+\end{lstlisting}
+
+Automatisch wird die regel auf \lstinline|RESTRICT| gesetzt. Also das Delete wird verhindert. Unser Dozent plädiert dazu auch ein \lstinline|RESTRICT| active zu setzen um den Überblick und die intention zu behalten.
+
+Es gibt auch noch \lstinline|CASCADE|, welches die Abhängigkeiten mit löscht.
+
+\subsubsection{UPDATE}
+
+Mit \lstinline|UPDATE ON| wir festgelegt was passieren soll, wenn ein Primärschlüssel verändert wird.
+
+Hier gibt es wieder \lstinline|CASCADE| und \lstinline|RESTRICT|
+
+\subsubsection{Aufgabe}
+
+Aufgabe auf S.36 Relationen mit Löschregeln ausführen mit Begründungen. [Klausuraufgabe]
+
+\begin{lstlisting}
+Alter Table mitarbeiter
+drop constraint mitarbeiter_arbeitet_in_fkey,
+add FOREIGN KEY (arbeitet_in) REFERENCES Abteilung on Delete set null;
+\end{lstlisting}
+
+\know{Klausuraufgabe}{Meistens sind es ähnliche Übungen aus den Vorlesungen mit Begründungen}
+
+\subsection{Aufgabe Erweiterung Softwarehaus}
+
+Erweitern Sie das ERM des Softwarehauses so, dass auch interne Projekt mit zugehörigen Leistungen angelegt werden können. Projekte und zugehörige Leistungen müssen unabhängig voneinander als interne ausgewertet werden können. 
+
+Fügen Sie dann ein solches ein und lasse Sie Projektmitarbeiter daran arbeiten (auch in Kleingruppen möglich). Skript muss erstellt werde.
+
+\section{Semesteraufgabe 4}
+
+Nur ein Skript für alles:
+
+\begin{enumerate}
+    \item Tabellen
+    \item Alter (Fremdschlüssel, Constraints)
+    \item Sollte die Regeln aus der Vorlesung beinhalten
+    \item Sinnvolle Daten
+\end{enumerate}
+
+Alle Komponenten aus dem ERM (oder neueres ER) sind vollständig zu überführen. (evtl. noch nachträglich aktualisieren)
+
+"Wir machen nur dinge die wir auch in der Vorlesung gemacht haben."
+
+Dozent hat ein Skript, was unser SQL prüft ob es funktioniert und valide ist.
+
+Als SQL Skript + Name von dem Studierendem.
 
 \end{document}
