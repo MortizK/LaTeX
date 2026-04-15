@@ -8,6 +8,7 @@
 
 \begin{document}
 \maketitle
+\setcounter{tocdepth}{2}
 \tableofcontents
 \newpage
 
@@ -20,6 +21,7 @@
 % 30.11 21:00-22:00
 % 03.12 11:10-11:50
 % 03.12 13:10-13:30
+% 15.04 13:20-
 
 \section{Anforderungsanalyse}
 
@@ -53,8 +55,8 @@ Niklas Reusch
     %\end{figure}
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=2\textwidth]{./fig/ERM.png}
-        \caption{ERM von Niklas Reusch}
+        \includegraphics[width=2\textwidth]{./fig/ERM_Überarbeitet.png}
+        \caption{ERM von Niklas Reusch - Überarbeitet am 15.04.2026}
         \label{fig:erm_from_niklas_reusch}
 \end{figure}
 \end{landscape}
@@ -73,6 +75,51 @@ Moritz Köhler
 % Verkauf fehlt Zuordnung zu Filiale - done
 % Produkt, Lagerbestand soll einer Filiale zugeordnet sein - done
 
+\subsection{Nicht Normalisiert}
+
+\subsubsection{Entitäten}
+
+Filiale: \{[\underline{Adresse: string}, Name: string]\}
+
+Schicht: \{[\underline{SchichtID: integer}, Startzeit: datetime, Dauer: datetime]\}
+
+Mitarbeiter: \{[\underline{MitarbeiterID: integer}, Gehalt: integer, Adresse: string, Geburtsdatum: datetime, Nachname: string, Vorname: string]\}
+
+Filialleiter: \{[\underline{MitarbeiterID: integer}]\}
+
+Azubi: \{[\underline{MitarbeiterID: integer}]\}
+
+Telefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}]\}
+
+Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
+
+Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bestand: integer, Einheit: string]\}
+
+Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
+
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Menge: integer]\}
+
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime]\}
+
+\subsubsection{Relationen}
+
+braucht: \{[\underline{SchichtID: integer}, FilialeID: integer]\}
+
+durchgeführt-von: \{[\underline{SchichtID: integer, MitarbeiterID: integer}]\}
+
+besitzt: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, MitarbeiterID: integer]\}
+
+kontaktInfo: \{[\underline{Vorwahl: integer, Telefonnummer: integer}, ZuliefererID: integer]\}
+
+liefert: \{[\underline{ZuliefererID: interge, ZutatID: integer}]\}
+
+beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer}]\}
+
+angeleitet: \{[\underline{ProduktID: integer, RezeptID: integer}]\}
+
+durchgeführt: \{[\underline{ProduktID: integer, VerkaufID: integer, MitarbeiterID: integer}]\}
+
+\newpage
 \subsection{Entitäten}
 
 Filiale: \{[\underline{FilialeID: integer}, Adresse: string, Name: string, LeiterID: \textit{MitarbeiterID (FS)}]\}
