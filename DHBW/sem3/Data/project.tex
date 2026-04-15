@@ -21,7 +21,7 @@
 % 30.11 21:00-22:00
 % 03.12 11:10-11:50
 % 03.12 13:10-13:30
-% 15.04 13:20-
+% 15.04 13:20-14:20
 
 \section{Anforderungsanalyse}
 
@@ -292,11 +292,36 @@ konnte für jede Relation durch die 3NF-Prüfung gezeigt werden, dass:
 
 Daraus folgt, dass alle vier Relationen nun die Bedingungen der 3NF erfüllen. Die ursprüngliche große Relation war dagegen noch nicht in 3NF, da einige funktionale Abhängigkeiten weder einen Superschlüssel auf der linken Seite hatten noch ausschließlich Primattribute auf der rechten Seite. Durch die Zerlegung wurden alle transitive Abhängigkeiten und Verstöße gegen die 3NF beseitigt.
 
+\newpage
 \section{Datenschema in SQL}
 
 \begin{flushright}
 Niklas Reusch
 \end{flushright}
+
+\subsection{Beispiel CREATE TABLE}
+
+\begin{lstlisting}
+CREATE TABLE IF NOT EXISTS Mitarbeiter
+(
+    MitarbeiterID integer,
+    Gehalt integer,
+    Adresse varchar,
+    Geburtsdatum date,
+    Nachname varchar,
+    Vorname varchar,
+    PRIMARY KEY (MitarbeiterID)
+);
+\end{lstlisting}
+
+\subsection{Beispiel ALTER TABLE}
+
+\begin{lstlisting}
+ALTER TABLE Verkauf
+ADD FOREIGN KEY (FilialeID) REFERENCES Filiale,
+ADD FOREIGN KEY (MitarbeiterID) REFERENCES Mitarbeiter
+;
+\end{lstlisting}
 
 \section{Entwurf}
 

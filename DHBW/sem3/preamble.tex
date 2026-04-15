@@ -60,3 +60,36 @@
 
 %% Multiple Columns
 \usepackage{multicol}
+
+%% SQL Listing
+\usepackage{listings}
+
+% SQL syntax highlighting
+\lstdefinelanguage{SQL}{
+    morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,DELETE,CREATE,TABLE,PRIMARY,KEY,NOT,NULL,AND,OR,JOIN,LEFT,RIGHT,INNER,ON,AS,ORDER,BY,GROUP,HAVING,LIMIT},
+    sensitive=false,
+    morecomment=[l]{--},
+    morestring=[b]'
+}
+
+\lstdefinestyle{sqlstyle}{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstset{language={}}
+\lstset{style=sqlstyle}
