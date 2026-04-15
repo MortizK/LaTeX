@@ -10,35 +10,7 @@ ALTER TABLE public.projekt
 ALTER TABLE public.leistung
     ADD COLUMN IF NOT EXISTS ist_intern boolean NOT NULL DEFAULT false;
 
--- 2) Auswertungs-Sichten: interne Projekte und interne Leistungen separat
-CREATE OR REPLACE VIEW public.vw_interne_projekte AS
-SELECT
-    p.projekt_nr,
-    p.bezeichung,
-    p.beginn,
-    p.ende,
-    p.plan_std,
-    p.ist_std,
-    p.geleitet_von
-FROM public.projekt p
-WHERE p.ist_intern = true;
-
-CREATE OR REPLACE VIEW public.vw_interne_leistungen AS
-SELECT
-    l.auftrag_nr,
-    l.leistung_nr,
-    l.bezeichung,
-    l.start_termin,
-    l.ende_termin,
-    l.gepl_std,
-    l.zu_projekt,
-    p.ist_intern AS projekt_ist_intern
-FROM public.leistung l
-LEFT JOIN public.projekt p
-    ON p.projekt_nr = l.zu_projekt
-WHERE l.ist_intern = true;
-
--- 3) Beispielstammdaten fuer ein internes Projekt mit internen Leistungen
+-- 2) Beispielstammdaten fuer ein internes Projekt mit internen Leistungen
 -- Interner "Kunde" fuer die bestehende Auftragsstruktur
 INSERT INTO public.kunde (kunden_nr, vorname, nachname, firma)
 VALUES (9001, 'Intern', 'Softwarehaus', 'Softwarehaus intern')
@@ -83,7 +55,3 @@ VALUES
 ON CONFLICT (pers_nr, auftrag_nr, leistung_nr) DO NOTHING;
 
 COMMIT;
-
--- Beispielauswertungen:
--- SELECT * FROM public.vw_interne_projekte ORDER BY projekt_nr;
--- SELECT * FROM public.vw_interne_leistungen ORDER BY auftrag_nr, leistung_nr;
