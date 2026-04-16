@@ -137,4 +137,22 @@ Am Beispiel von Titanic Dataset. So Teilen, dass ein Bereich möglichst nur aus 
 
 Ein Decision Tree kann auch "overfitten". So hilf Pruning (Äste Abschneiden) über z.B. Mehrheitsentscheid. Dies lässt sich mit einem Test Set bewerten.
 
+\lecture{2026-04-16}
+
+\subsubsection{Bagging}
+
+Wir benutzen mehrere Random Subset von einem Trainingssets und trainieren mehrere Klassifikatoren welche dann mit einem Mehrheitsentscheid über einen Punkt entscheiden.
+
+Das Ziel ist es, das Ausreißer weniger globale Effekte erstellen - Erhöhung der Stabilität.
+
+\subsubsection{Random Forest}
+
+Wir erstellen einfach mehrere Entscheidungsbäume mit jeweils einem random subset and Trainingsdaten.
+
+Er kann Multi-klassen und nicht lineare Entscheidungen lösen. Und er braucht nicht allzu viel Speicher ein Trainingszeit.
+
+Unsere Beide Hyperparameter müssen meistens nicht angepasst werden.
+
+Es gibt einen Beweis, das ein beliebig großer Random forest auf die Wahre Funktion konvergiert.
+
 \end{document}

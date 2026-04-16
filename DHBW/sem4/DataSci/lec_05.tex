@@ -1,0 +1,70 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Data Science}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-16}
+
+\section{Supervised Learning for Classification}
+
+\subsection{Probabilistic Data Science}
+
+% Ähnlich wie in Statistik
+
+Summenregel und Produktregel
+
+\[
+p(X) = \sum_{Y} p(X, Y)
+\]
+
+\[
+p(X, Y) = p(Y|X)p(X)
+\]
+
+Bayes' Theorem:
+
+\[
+p(Y|X) = \frac{p(X|Y)p(Y)}{p(X)}
+\]
+
+oder auch:
+
+\[
+\text{posterior} = \text{likelihood} * \text{prior} / \text{evidence}
+\]
+
+Es gibt zwei sichten auf Statistik:
+
+\begin{enumerate}
+    \item Frequentist
+    \item Bayesian
+\end{enumerate}
+
+\subsubsection{The Role of the Prior}
+
+Wir können unser Knowledge mit neuen Daten immer wieder anpassen, bis wir mit unserem model zufrieden sind.
+
+Bei einem Texterkennungsmodel könnte das die Verteilung der Buchstaben in der Deutschen Sprache sein.
+
+\subsubsection{Mean vs. Median}
+
+Beide haben Ihre Eigene Aussage. So ist der Median eher im Zentrum einer Verteilung und ein Mean wird eher durch Ausreißer verschoben.
+
+\subsection{Multivariate Normal}
+
+Normal über alle Daten
+
+Normal über alle Klassen der Daten eignet sich meist besser
+
+Wir können mit einer \textbf{Null Hypothese} Testen, ob unsere Daten unter einer Annahme überhaupt wahrscheinlich ist. Es gibt Test um zu schätzen ob eine Null Hypothese Sinn macht.
+
+\end{document}

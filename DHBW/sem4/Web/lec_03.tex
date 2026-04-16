@@ -79,12 +79,217 @@ Es gibt auch einen Ontologie-Editor \href{https://protege.stanford.edu/}{Protég
 
 \subsection{Vokabular}
 
+% Hier fehlt mir noch etwas von dem letztem Termin
+
+\lecture{2026-04-16}
+
+% Fehlt mir
+
 \subsection{Klassen}
+
+% Hier fehlt mir alles bis zur Übung 4.20
+
+Übung 4.20 % Muss mich noch etwas mit dem tool Protégé auseinandersetzen
+
+Gegeben sei das Vokabular:
+
+\begin{itemize}
+    \item die Klassen Pizza, Lebensmittel, Wurst, Gemuese, Belag
+    \item die ObjectProperty belegtMit,
+    \item das Individuum Salami.
+\end{itemize}
+
+Modellieren Sie die folgenden Aussagen als OWL-Ontologie in Manchester-Syntax.
+
+\begin{enumerate}
+    \item Jede Pizza ist ein Lebensmittel.
+    
+\begin{lstlisting}
+Class: Pizza
+    SubClassOf: Lebensmittel
+\end{lstlisting}
+    \item Alles, das mit irgendetwas belegt ist, ist eine Pizza.
+    
+\begin{lstlisting}
+ObjectProperty: belegtMit
+    Domain: Pizza
+
+\end{lstlisting}
+    \item Alles, womit irgendetwas belegt ist, ist ein Belag.
+
+\begin{lstlisting}
+ObjectProperty: belegtMit
+    Range: Belag
+
+\end{lstlisting}
+    \item Jede Wurst ist sowohl Lebensmittel als auch Belag.
+    
+\begin{lstlisting}
+Class: Wurst
+    SubClassOf: Lebensmittel,
+                Belag
+\end{lstlisting}
+    \item Salami ist eine Wurst.
+    
+\begin{lstlisting}
+Individual: Salami
+    Types: Wurst
+\end{lstlisting}
+    \item Keine Wurst ist ein Gemüse.
+    
+\begin{lstlisting}
+Class: Wurst
+    SubClassOf: not Gemuese
+\end{lstlisting}
+\end{enumerate}
+
+Kompakte Gesamtlösung (Manchester-Syntax):
+
+\begin{lstlisting}
+Ontology: <http://example.org/pizza>
+
+Class: Pizza
+    SubClassOf: Lebensmittel
+
+Class: Lebensmittel
+
+Class: Wurst
+    SubClassOf: Lebensmittel,
+                Belag,
+                not Gemuese
+
+Class: Gemuese
+
+Class: Belag
+
+ObjectProperty: belegtMit
+    Domain: Pizza
+    Range: Belag
+
+Individual: Salami
+    Types: Wurst
+\end{lstlisting}
+
+% Habe erst wieder bei Übung 4.28 mitgemacht
+
+Übung 4.28
+
+Öffnen Sie die von Ihnen erstellte Pizza-Ontologie (Übung 4.20) in Protégé. Gegeben seien die zusätzlichen Klassen Margherita, QuattroStagioni, Tomate, Käse und Artischocke.
+
+Erweitern Sie die Ontologie um die folgenden Aussagen:
+
+\begin{enumerate}
+    \item Jede Pizza Margherita ist mit Tomate und Käse belegt.
+    
+\begin{lstlisting}
+Class: Margherita
+    SubClassOf: Pizza,
+                belegtMit some Tomate,
+                belegtMit some Käse
+\end{lstlisting}
+    \item Keine Pizza Margherita ist mit Wurst belegt.
+    
+\begin{lstlisting}
+Class: Margherita
+    SubClassOf: not (belegtMit some Wurst)
+\end{lstlisting}
+    \item Jede Pizza hat höchstens 8 Beläge.
+    
+\begin{lstlisting}
+Class: Pizza
+    SubClassOf: belegtMit max 8 Belag
+\end{lstlisting}
+    \item Jede Pizza Quattro Stagioni hat mindestens 4 Beläge, darunter Artischocke.
+    
+\begin{lstlisting}
+Class: QuattroStagioni
+    SubClassOf: Pizza,
+                belegtMit min 4 Belag,
+                belegtMit some Artischocke
+\end{lstlisting}
+    \item Artischocken und Tomaten sind Gemüse.
+    
+\begin{lstlisting}
+Class: Artischocke
+    SubClassOf: Gemuese
+
+Class: Tomate
+    SubClassOf: Gemuese
+\end{lstlisting}
+\end{enumerate}
+
+\subsubsection{Property Axiome}
+
+\begin{itemize}
+    \item Reflexive
+    \item Irreflexive
+    \item Functional
+    \item InverseFunctional
+    \item Symmetric
+    \item Asymmetric
+\end{itemize}
+
+Übung 4.33
+
+\begin{enumerate}
+    \item Erweitern Sie die Pizza-Ontologie um die Property zutat, die eine Ober-Property von belag ist.
+
+\begin{lstlisting}
+ObjectProperty: belag
+    SubPropertyOf: zutat
+\end{lstlisting}
+
+    \item Drücken Sie aus, dass eine Zutat eines Belags einer Pizza auch eine Zutat der Pizza ist.
+
+\begin{lstlisting}
+ObjectProperty: zutat
+    SubPropertyChain: belag o zutat
+\end{lstlisting}
+
+    \item Welche der genannten Property-Eigenschaften treffen auf die Pizza-Properties belag und zutat zu?
+
+Beide Properties sind in der üblichen Modellierung weder reflexiv noch funktional, weder invers-funktional noch symmetrisch. Sinnvoll sind irreflexiv und asymmetrisch.
+\end{enumerate}
 
 \subsection{Neue Datentypen}
 
 \subsection{Schlussfolgerungs-Dienste}
 
 \subsection{Zusammenfassung}
+
+\newpage
+\lecture{2026-04-16}
+
+\section{Projekt}
+
+Dies sind einfach nur meine Notizen und Recherchierten Quellen.
+
+Die Offizielle Aufgabenstellung haben wir noch nicht bekommen.
+
+\subsection{Quellen}
+
+\href{https://en.wikipedia.org/wiki/FOAF}{Friend of a Friend} Ontology in Wikipedia - Hier geht es um soziale Verbindungen
+
+\href{https://en.wikipedia.org/wiki/GoodRelations}{Good Relations} ist ähnlich zu FOAF, nur Orientiert an Produkte, Verkäufer, Käufer, ...
+
+\href{https://link.springer.com/article/10.1186/s13326-020-00224-y}{Article: The African wildlife} ontology tutorial - Hier wird kurz eine Ontology beschrieben und warum diese geeignet ist um Ontologien zu lehren.
+
+\href{https://github.com/semantalytics/awesome-semantic-web#educational}{Awesome Semantic Web} Repo mit mehreren Links zu anderen Ontologien.
+
+\href{https://github.com/owlcs/pizza-ontology/blob/master/pizza.owl}{Pizza} Ontology als .owl Datei
+
+\href{https://github.com/UCDavisLibrary/wine-ontology/blob/master/wine-ontology.owl}{Wein} Ontology als .owl Datei
+
+\href{https://github.com/yasenstar/protege_pizza}{Pizza Modeling Turorial} - ein Repo wo die Modellierung Schritte von Protégé umgesetzt wurden. Es gibt auch ein \href{https://www.youtube.com/playlist?list=PL6DEHvciXKeUx4P32B3hKMK1t6mC8RhsW}{YouTube Playlist}
+
+\subsection{Thema}
+
+Ideen:
+
+\begin{itemize}
+    \item Brettspiele (Allgemein: Würfel, Karten, Figuren, Aktionen, Punkte)
+    \item Siedler
+    \item Kunstradfahren (da zwei Personen sich schon gut damit auskennen)
+\end{itemize}
 
 \end{document}
