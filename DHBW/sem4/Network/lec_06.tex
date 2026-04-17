@@ -1,0 +1,66 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Netztechnik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-17}
+
+\section{TCP/IP}
+
+Valid Host Range VHR ist Klausurrelevant (Folie 7-14)
+
+\subsection{Subnetting} % Folie 7-18
+
+Klausuraufgabe wie in FOlie 7-19
+
+Wir sollten uns nochmal Subnetting und Supernetting genau angucken, da dies viele Punkte in der Klausur ausmacht.
+
+
+\subsection{Supernetting} % Folie 7-22
+
+
+
+\subsection{ARP} % Folie 7-24
+
+
+
+\subsection{DHCP} % Folie 7-28
+
+
+
+\subsection{IP-Kommunikation} % Folie 7-36
+
+
+
+\subsection{Session Layer} % Folie 7-47
+
+
+
+\subsection{Application Layer} % Folie 7-57
+
+
+
+\section{Routing Beispiele}
+
+Das ist eine Sammlung an Beispielen zum nachvollziehen.
+
+Im Anschluss haben wir das Routing Spiel gespielt: Ich bin Router D
+
+Dieser ist im zweitem Ansatz ausgefallen. Dadurch brachen dei Netze 4 und 11 zusammen.
+
+Nun müssen die anderen Router das updaten. So senden die benachbarten Router an dem Netz nicht mehr das Netz 4 oder 11. Wenn nun ein Router der vorher von Router C seine Verbindung zu Netz 4 bekommen hat keiner mehr empfängt.
+
+Wenn Router H dann später von C eine die Nachricht Netz 4 Metrik 2 bekommt und vorher schon von C die Nachricht Netz 4 Metrik 1 stehen hatte wird die neue Nachricht übernommen, anstatt der niedrigeren (wie es bei Fremdnachrichten wäre) Stichwort: "Count to Infinity"
+
+Wenn ich 180s nicht mehr ein Netz Empfangen habe, lösche ich es aus meiner Tabelle.
+
+\end{document}
