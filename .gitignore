@@ -9,9 +9,12 @@
 *.pyc
 
 # ignore Files which latex creates when compiling
-*.synctex.gz
 */*/*.pdf
 */*/*/*.pdf
+**/*.synctex.gz
+**/*.nav
+**/*.snm
+**/*.vrb
 
 # ignore ALL files in ANY directory
 */*/*/doc/
