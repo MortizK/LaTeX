@@ -1,0 +1,42 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken}
+
+\input{../preamble.tex}
+\lstset{style=sqlstyle}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-21}
+
+\section{SQL-Teil2 (Teile DQl und Views)}
+
+Das erste SELECT statement sollte 16 zurückgeben. Falls nicht, bitte das Backup einspielen.
+
+\begin{lstlisting}
+SELECT * FROM 
+Kunde, Auftrag;
+\end{lstlisting}
+
+Es gibt einen Explain Button, welcher zeigt was der Optimizer aus dem Statement gemacht hat.
+
+In der Relationalen Algebra gibt es keine doppelten Tupel, in SQL aber sehr wohl. Doppelte Werte müssen explizit ausgeschlossen werden.
+
+\begin{lstlisting}
+SELECT DISTINCT Vorname
+FROM Mitarbeiter;
+\end{lstlisting}
+
+\begin{lstlisting}
+SELECT DISTINCT Vorname
+FROM Mitarbeiter
+ORDER BY Vorname;
+\end{lstlisting}
+
+\end{document}

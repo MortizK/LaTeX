@@ -29,4 +29,76 @@ Hier gibt es schöne Klausurfragen (die und die Abfrage. Formulieren sie es in R
     \item Umbenennung $p$
 \end{enumerate}
 
+\lecture{2026-04-21}
+
+Der $\Pi$ Operator ist eine Selektion von Attributen
+
+Frage auf S. 16 ist eine super Klausurfrage.
+
+Habe nur wenige Notizen im Skript gemacht (Lücken ausgefüllt)
+
+\subsection{Übung}
+
+\marginpar{Klausurfrage}
+
+Lösen Sie nachfolgende AUfgabe aus der Relationalen Algebra
+
+Mitarbeiter: \{[Vorname, Nachname, Eintrittsdatum, Gehalts-Stufe]\}
+
+Vergütungsgruppen: \{[Gehalts-Stufe, Vergütungsgehalt]\}
+
+\begin{enumerate}
+    \item Formulieren Sie zu den obigen Schemata in der relationalen Algebra folgende Abfragen:
+    
+    Welche Mitarbeiter (Vorname, Nachname), welche nach dem 1.2.2005 eingetreten sind, sind in der Vergütungsstufe "Expert 2".
+
+    Bitte verwenden Sie nur das Kreuzprodukt.
+
+    Hinweis: Das Datum ist in der Form "JJJJMMTT" abgelegt
+
+    \begin{align*}
+        \Pi_{(Nachname, Vorname)} \sigma ( & Eintrittsdatum>20050201 \wedge \\
+        & Vergütungsgruppen.Gehalts-Stufe=Mitarbeiter.Gehalts-Stufe \wedge \\
+        & Vergütungsstufe='Expert 2')
+    \end{align*}
+
+    \item Zeichnen Sie dazu den Operatorenbaum.
+\end{enumerate}
+
+\subsection{Aufgabe 2}
+
+Für Operator Theta Join:
+
+\begin{itemize}
+    \item Gehen Sie in Zweier-/Dreiergruppen zusammen und bearbeiten Sie einen der nachfolgenden aufgeführten Operatoren (Dozent gibt vor).
+    \item Bereiten Sie eine Folie vor, welche mindestens folgende Teile enthalten muss:
+    \begin{itemize}
+        \item Formale Definition und wenn möglich definiert auf den zuvor behandelten Basisoperatoren (geht nicht immer)
+        \item Beispiel mit den Relationen aus den Beispielen der Basisoperatoren
+        \item Schemadefinition
+        \item Eventuell textuelle Erklärung
+    \end{itemize}
+    \item Vortrag (nicht alle) ausgewählt durch den Dozenten im Kapitel DQL
+    \item Zeitrahmen: ca, 30-40 Min.
+\end{itemize}
+
+Rahmenbedienungen:
+
+\begin{itemize}
+    \item Keine Titelfolie
+    \item Nur eine Folie mit der Erklärung/ Inhalte
+    \item Eine Zweite Folie mit einem Beispiel
+    \item In die Fußzeile soll Platz sein für drei Name (Name1, Name2, Name3) wie auch 'Theta Join' und Seitenzahl
+\end{itemize}
+
+Wir machen 
+
+\begin{itemize}
+    \item Mengendurchschnitt
+    \item Theta Join (Ich)
+    \item Equi Join
+    \item Natürlicher Join
+    \item Gruppierung (und Aggregation)
+\end{itemize}
+
 \end{document}

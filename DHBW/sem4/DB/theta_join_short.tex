@@ -1,0 +1,91 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% -------------------------------------------------
+% Theta Join Kurzpraesentation (2 Folien)
+% Rahmenbedingungen:
+% - Keine Titelfolie
+% - Eine Folie Erklaerung/Inhalte
+% - Eine Folie Beispiel
+% - Fusszeile: Name1, Name2, Name3 | Theta Join | Seitenzahl
+% -------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+
+\input{env.tex}
+
+\setbeamertemplate{navigation symbols}{}
+
+% Eigene Fusszeile nach Vorgabe
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.45\paperwidth,ht=2.5ex,dp=1ex,leftskip=1em]{author in head/foot}%
+      \nameone, \nametwo, \namethree
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.5ex,dp=1ex,center]{title in head/foot}%
+      Theta Join
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.5ex,dp=1ex,rightskip=1em plus1fil]{date in head/foot}%
+      \insertframenumber/\inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\begin{document}
+
+% Folie 1: Erklärung / Inhalte
+\begin{frame}{Theta Join: Definition und Einordnung}
+\textbf{Formale Definition:}
+
+\begin{align*}
+    R \bowtie_{\theta} S &:= \sigma_{\theta}(R \times S) \\
+    [R \bowtie_{\theta} S] &:= [R] \cup [S]
+\end{align*}
+
+\textbf{Bedeutung:}
+\begin{itemize}
+    \item Zuerst Kreuzprodukt $R \times S$ bilden.
+    \item Danach nach $\theta$ (Join Bedingung) filtern.
+    \item $\theta$ kann Vergleiche wie $=$, $<$, $>$, $\leq$, $\geq$, $\neq$ und
+    \item $\theta$ kann logische Verknuepfungen wie $R.a = S.b$ enthalten.
+\end{itemize}
+
+\end{frame}
+
+% Folie 2: Beispiel
+\begin{frame}{Beispiel zum Theta Join}
+Gesucht: \textit{Vorname, Nachname} aller Mitarbeiter mit
+Eintrittsdatum $> 20050201$ und Verguetungsstufe \texttt{Expert\_2}.
+
+\vspace{0.3em}
+\textbf{Relationale Algebra (mit Basisoperatoren):}
+\begin{align*}
+A &= Mitarbeiter \times Vergütungsgruppen \\
+B &= \sigma_{\substack{Mitarbeiter.GehaltsStufe = Vergütungsgruppen.GehaltsStufe \\
+     \land\ Eintrittsdatum > 20050201 \\
+     \land\ Vergütungsgruppen.GehaltsStufe = 'Expert\_2'}}(A) \\
+Ergebnis &= \Pi_{Nachname,\,Vorname}(B)
+\end{align*}
+
+\textbf{Mini-Beispieldaten:}
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Vorname & Nachname & Eintrittsdatum & GehaltsStufe \\
+\midrule
+Anna & Meier & 20060112 & Expert\_2 \\
+Ben & Schulz & 20040210 & Expert\_2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Ergebnis:} Nur \textit{Anna Meier} erfuellt alle Bedingungen.
+\end{frame}
+
+\end{document}

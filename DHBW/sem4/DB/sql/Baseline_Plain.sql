@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict rIedxCCwRHdTZDkWCgMO90w50IaF9U7n5wGensdt1aJzeBCiSNAj2dAGg6tkfWq
+\restrict 6Fw7AfKGa4utn36BEQUcmR5tggXSdgHKlaTYTG61FvXOLOFxGGd49V6floGPe4P
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-04-07 15:24:42
+-- Started on 2026-04-21 15:33:46
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,7 +26,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 224 (class 1259 OID 28195)
+-- TOC entry 224 (class 1259 OID 37160)
 -- Name: abteilung; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -40,7 +40,7 @@ CREATE TABLE public.abteilung (
 ALTER TABLE public.abteilung OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 28250)
+-- TOC entry 230 (class 1259 OID 37215)
 -- Name: arbeitet_an; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -55,7 +55,7 @@ CREATE TABLE public.arbeitet_an (
 ALTER TABLE public.arbeitet_an OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 28232)
+-- TOC entry 228 (class 1259 OID 37197)
 -- Name: auftrag; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -72,7 +72,7 @@ CREATE TABLE public.auftrag (
 ALTER TABLE public.auftrag OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 28215)
+-- TOC entry 226 (class 1259 OID 37180)
 -- Name: besucht_kurs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -86,7 +86,7 @@ CREATE TABLE public.besucht_kurs (
 ALTER TABLE public.besucht_kurs OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 28222)
+-- TOC entry 227 (class 1259 OID 37187)
 -- Name: kunde; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -101,7 +101,7 @@ CREATE TABLE public.kunde (
 ALTER TABLE public.kunde OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 28205)
+-- TOC entry 225 (class 1259 OID 37170)
 -- Name: kurs; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -115,7 +115,7 @@ CREATE TABLE public.kurs (
 ALTER TABLE public.kurs OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 28241)
+-- TOC entry 229 (class 1259 OID 37206)
 -- Name: leistung; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -133,7 +133,7 @@ CREATE TABLE public.leistung (
 ALTER TABLE public.leistung OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 28149)
+-- TOC entry 219 (class 1259 OID 37114)
 -- Name: mitarbeiter; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -158,7 +158,7 @@ CREATE TABLE public.mitarbeiter (
 ALTER TABLE public.mitarbeiter OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 28172)
+-- TOC entry 221 (class 1259 OID 37137)
 -- Name: mitarbeiter_finanzb; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -174,7 +174,7 @@ CREATE TABLE public.mitarbeiter_finanzb (
 ALTER TABLE public.mitarbeiter_finanzb OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 28181)
+-- TOC entry 222 (class 1259 OID 37146)
 -- Name: mitarbeiter_projekt; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -188,7 +188,7 @@ CREATE TABLE public.mitarbeiter_projekt (
 ALTER TABLE public.mitarbeiter_projekt OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 28164)
+-- TOC entry 220 (class 1259 OID 37129)
 -- Name: mitarbeiter_sekr; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -202,7 +202,7 @@ CREATE TABLE public.mitarbeiter_sekr (
 ALTER TABLE public.mitarbeiter_sekr OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 28258)
+-- TOC entry 231 (class 1259 OID 37223)
 -- Name: projekt; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -220,7 +220,7 @@ CREATE TABLE public.projekt (
 ALTER TABLE public.projekt OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 28187)
+-- TOC entry 223 (class 1259 OID 37152)
 -- Name: projektleiter; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -234,7 +234,7 @@ CREATE TABLE public.projektleiter (
 ALTER TABLE public.projektleiter OWNER TO postgres;
 
 --
--- TOC entry 5101 (class 0 OID 28195)
+-- TOC entry 5101 (class 0 OID 37160)
 -- Dependencies: 224
 -- Data for Name: abteilung; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -247,7 +247,7 @@ EDM3	Programmierung	Leinfelden
 
 
 --
--- TOC entry 5107 (class 0 OID 28250)
+-- TOC entry 5107 (class 0 OID 37215)
 -- Dependencies: 230
 -- Data for Name: arbeitet_an; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -272,7 +272,7 @@ COPY public.arbeitet_an (pers_nr, auftrag_nr, leistung_nr, std) FROM stdin;
 
 
 --
--- TOC entry 5105 (class 0 OID 28232)
+-- TOC entry 5105 (class 0 OID 37197)
 -- Dependencies: 228
 -- Data for Name: auftrag; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -286,7 +286,7 @@ COPY public.auftrag (auftrag_nr, auftrags_datum, bezeichnung, abrechnungsart, er
 
 
 --
--- TOC entry 5103 (class 0 OID 28215)
+-- TOC entry 5103 (class 0 OID 37180)
 -- Dependencies: 226
 -- Data for Name: besucht_kurs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -300,7 +300,7 @@ COPY public.besucht_kurs (pers_nr, kurs_nr, termin_kurs) FROM stdin;
 
 
 --
--- TOC entry 5104 (class 0 OID 28222)
+-- TOC entry 5104 (class 0 OID 37187)
 -- Dependencies: 227
 -- Data for Name: kunde; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -314,7 +314,7 @@ COPY public.kunde (kunden_nr, vorname, nachname, firma) FROM stdin;
 
 
 --
--- TOC entry 5102 (class 0 OID 28205)
+-- TOC entry 5102 (class 0 OID 37170)
 -- Dependencies: 225
 -- Data for Name: kurs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -327,7 +327,7 @@ COPY public.kurs (kurs_nr, kurs_bez, institut) FROM stdin;
 
 
 --
--- TOC entry 5106 (class 0 OID 28241)
+-- TOC entry 5106 (class 0 OID 37206)
 -- Dependencies: 229
 -- Data for Name: leistung; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -352,7 +352,7 @@ COPY public.leistung (auftrag_nr, leistung_nr, bezeichung, start_termin, ende_te
 
 
 --
--- TOC entry 5096 (class 0 OID 28149)
+-- TOC entry 5096 (class 0 OID 37114)
 -- Dependencies: 219
 -- Data for Name: mitarbeiter; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -372,7 +372,7 @@ COPY public.mitarbeiter (pers_nr, vorname, nachname, geb_name, geb_datum, geschl
 
 
 --
--- TOC entry 5098 (class 0 OID 28172)
+-- TOC entry 5098 (class 0 OID 37137)
 -- Dependencies: 221
 -- Data for Name: mitarbeiter_finanzb; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -383,7 +383,7 @@ COPY public.mitarbeiter_finanzb (pers_nr, sachgebiet, projektcontroling, spezial
 
 
 --
--- TOC entry 5099 (class 0 OID 28181)
+-- TOC entry 5099 (class 0 OID 37146)
 -- Dependencies: 222
 -- Data for Name: mitarbeiter_projekt; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -400,7 +400,7 @@ COPY public.mitarbeiter_projekt (pers_nr, stundensatz, projekterfahrung) FROM st
 
 
 --
--- TOC entry 5097 (class 0 OID 28164)
+-- TOC entry 5097 (class 0 OID 37129)
 -- Dependencies: 220
 -- Data for Name: mitarbeiter_sekr; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -412,7 +412,7 @@ COPY public.mitarbeiter_sekr (pers_nr, sachgebiet, berufserfahrung) FROM stdin;
 
 
 --
--- TOC entry 5108 (class 0 OID 28258)
+-- TOC entry 5108 (class 0 OID 37223)
 -- Dependencies: 231
 -- Data for Name: projekt; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -426,7 +426,7 @@ COPY public.projekt (projekt_nr, bezeichung, beginn, ende, plan_std, ist_std, ge
 
 
 --
--- TOC entry 5100 (class 0 OID 28187)
+-- TOC entry 5100 (class 0 OID 37152)
 -- Dependencies: 223
 -- Data for Name: projektleiter; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -438,7 +438,7 @@ COPY public.projektleiter (pers_nr, stufe, pl_ausbildung) FROM stdin;
 
 
 --
--- TOC entry 4920 (class 2606 OID 28204)
+-- TOC entry 4920 (class 2606 OID 37169)
 -- Name: abteilung abteilung_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -447,7 +447,7 @@ ALTER TABLE ONLY public.abteilung
 
 
 --
--- TOC entry 4932 (class 2606 OID 28257)
+-- TOC entry 4932 (class 2606 OID 37222)
 -- Name: arbeitet_an arbeitet_an_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -456,7 +456,7 @@ ALTER TABLE ONLY public.arbeitet_an
 
 
 --
--- TOC entry 4928 (class 2606 OID 28240)
+-- TOC entry 4928 (class 2606 OID 37205)
 -- Name: auftrag auftrag_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -465,7 +465,7 @@ ALTER TABLE ONLY public.auftrag
 
 
 --
--- TOC entry 4924 (class 2606 OID 28221)
+-- TOC entry 4924 (class 2606 OID 37186)
 -- Name: besucht_kurs besucht_kurs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -474,7 +474,7 @@ ALTER TABLE ONLY public.besucht_kurs
 
 
 --
--- TOC entry 4926 (class 2606 OID 28231)
+-- TOC entry 4926 (class 2606 OID 37196)
 -- Name: kunde kunde_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -483,7 +483,7 @@ ALTER TABLE ONLY public.kunde
 
 
 --
--- TOC entry 4922 (class 2606 OID 28214)
+-- TOC entry 4922 (class 2606 OID 37179)
 -- Name: kurs kurs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -492,7 +492,7 @@ ALTER TABLE ONLY public.kurs
 
 
 --
--- TOC entry 4930 (class 2606 OID 28249)
+-- TOC entry 4930 (class 2606 OID 37214)
 -- Name: leistung leistung_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -501,7 +501,7 @@ ALTER TABLE ONLY public.leistung
 
 
 --
--- TOC entry 4914 (class 2606 OID 28180)
+-- TOC entry 4914 (class 2606 OID 37145)
 -- Name: mitarbeiter_finanzb mitarbeiter_finanzb_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -510,7 +510,7 @@ ALTER TABLE ONLY public.mitarbeiter_finanzb
 
 
 --
--- TOC entry 4910 (class 2606 OID 28163)
+-- TOC entry 4910 (class 2606 OID 37128)
 -- Name: mitarbeiter mitarbeiter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -519,7 +519,7 @@ ALTER TABLE ONLY public.mitarbeiter
 
 
 --
--- TOC entry 4916 (class 2606 OID 28186)
+-- TOC entry 4916 (class 2606 OID 37151)
 -- Name: mitarbeiter_projekt mitarbeiter_projekt_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -528,7 +528,7 @@ ALTER TABLE ONLY public.mitarbeiter_projekt
 
 
 --
--- TOC entry 4912 (class 2606 OID 28171)
+-- TOC entry 4912 (class 2606 OID 37136)
 -- Name: mitarbeiter_sekr mitarbeiter_sekr_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -537,7 +537,7 @@ ALTER TABLE ONLY public.mitarbeiter_sekr
 
 
 --
--- TOC entry 4934 (class 2606 OID 28265)
+-- TOC entry 4934 (class 2606 OID 37230)
 -- Name: projekt projekt_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -546,7 +546,7 @@ ALTER TABLE ONLY public.projekt
 
 
 --
--- TOC entry 4918 (class 2606 OID 28194)
+-- TOC entry 4918 (class 2606 OID 37159)
 -- Name: projektleiter projektleiter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -555,106 +555,106 @@ ALTER TABLE ONLY public.projektleiter
 
 
 --
--- TOC entry 4946 (class 2606 OID 28328)
+-- TOC entry 4946 (class 2606 OID 37362)
 -- Name: arbeitet_an arbeitet_an_leistung_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.arbeitet_an
-    ADD CONSTRAINT arbeitet_an_leistung_nr_fkey FOREIGN KEY (auftrag_nr, leistung_nr) REFERENCES public.leistung(auftrag_nr, leistung_nr);
+    ADD CONSTRAINT arbeitet_an_leistung_nr_fkey FOREIGN KEY (auftrag_nr, leistung_nr) REFERENCES public.leistung(auftrag_nr, leistung_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4947 (class 2606 OID 28333)
+-- TOC entry 4947 (class 2606 OID 37357)
 -- Name: arbeitet_an arbeitet_an_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.arbeitet_an
-    ADD CONSTRAINT arbeitet_an_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter_projekt(pers_nr);
+    ADD CONSTRAINT arbeitet_an_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter_projekt(pers_nr) ON DELETE RESTRICT;
 
 
 --
--- TOC entry 4943 (class 2606 OID 28313)
+-- TOC entry 4943 (class 2606 OID 37337)
 -- Name: auftrag auftrag_erteilt_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.auftrag
-    ADD CONSTRAINT auftrag_erteilt_von_fkey FOREIGN KEY (erteilt_von) REFERENCES public.kunde(kunden_nr);
+    ADD CONSTRAINT auftrag_erteilt_von_fkey FOREIGN KEY (erteilt_von) REFERENCES public.kunde(kunden_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4941 (class 2606 OID 28307)
+-- TOC entry 4941 (class 2606 OID 37317)
 -- Name: besucht_kurs besucht_kurs_kurs_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.besucht_kurs
-    ADD CONSTRAINT besucht_kurs_kurs_nr_fkey FOREIGN KEY (kurs_nr) REFERENCES public.kurs(kurs_nr);
+    ADD CONSTRAINT besucht_kurs_kurs_nr_fkey FOREIGN KEY (kurs_nr) REFERENCES public.kurs(kurs_nr) ON DELETE RESTRICT;
 
 
 --
--- TOC entry 4942 (class 2606 OID 28302)
+-- TOC entry 4942 (class 2606 OID 37312)
 -- Name: besucht_kurs besucht_kurs_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.besucht_kurs
-    ADD CONSTRAINT besucht_kurs_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr);
+    ADD CONSTRAINT besucht_kurs_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4944 (class 2606 OID 28318)
+-- TOC entry 4944 (class 2606 OID 37342)
 -- Name: leistung leistung_auftrag_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.leistung
-    ADD CONSTRAINT leistung_auftrag_nr_fkey FOREIGN KEY (auftrag_nr) REFERENCES public.auftrag(auftrag_nr);
+    ADD CONSTRAINT leistung_auftrag_nr_fkey FOREIGN KEY (auftrag_nr) REFERENCES public.auftrag(auftrag_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4945 (class 2606 OID 28323)
+-- TOC entry 4945 (class 2606 OID 37347)
 -- Name: leistung leistung_zu_projekt_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.leistung
-    ADD CONSTRAINT leistung_zu_projekt_fkey FOREIGN KEY (zu_projekt) REFERENCES public.projekt(projekt_nr);
+    ADD CONSTRAINT leistung_zu_projekt_fkey FOREIGN KEY (zu_projekt) REFERENCES public.projekt(projekt_nr) ON DELETE SET NULL;
 
 
 --
--- TOC entry 4935 (class 2606 OID 28267)
+-- TOC entry 4935 (class 2606 OID 37302)
 -- Name: mitarbeiter mitarbeiter_arbeitet_in_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mitarbeiter
-    ADD CONSTRAINT mitarbeiter_arbeitet_in_fkey FOREIGN KEY (arbeitet_in) REFERENCES public.abteilung(abt_bez_kurz);
+    ADD CONSTRAINT mitarbeiter_arbeitet_in_fkey FOREIGN KEY (arbeitet_in) REFERENCES public.abteilung(abt_bez_kurz) ON DELETE SET NULL;
 
 
 --
--- TOC entry 4936 (class 2606 OID 28272)
+-- TOC entry 4936 (class 2606 OID 37307)
 -- Name: mitarbeiter mitarbeiter_chef_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mitarbeiter
-    ADD CONSTRAINT mitarbeiter_chef_nr_fkey FOREIGN KEY (chef_nr) REFERENCES public.mitarbeiter(pers_nr);
+    ADD CONSTRAINT mitarbeiter_chef_nr_fkey FOREIGN KEY (chef_nr) REFERENCES public.mitarbeiter(pers_nr) ON DELETE SET NULL;
 
 
 --
--- TOC entry 4938 (class 2606 OID 28282)
+-- TOC entry 4938 (class 2606 OID 37322)
 -- Name: mitarbeiter_finanzb mitarbeiter_finanzb_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mitarbeiter_finanzb
-    ADD CONSTRAINT mitarbeiter_finanzb_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr);
+    ADD CONSTRAINT mitarbeiter_finanzb_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4939 (class 2606 OID 28287)
+-- TOC entry 4939 (class 2606 OID 37327)
 -- Name: mitarbeiter_projekt mitarbeiter_projekt_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mitarbeiter_projekt
-    ADD CONSTRAINT mitarbeiter_projekt_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr);
+    ADD CONSTRAINT mitarbeiter_projekt_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr) ON DELETE CASCADE;
 
 
 --
--- TOC entry 4937 (class 2606 OID 28277)
+-- TOC entry 4937 (class 2606 OID 37241)
 -- Name: mitarbeiter_sekr mitarbeiter_sekr_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -663,28 +663,28 @@ ALTER TABLE ONLY public.mitarbeiter_sekr
 
 
 --
--- TOC entry 4948 (class 2606 OID 28297)
+-- TOC entry 4948 (class 2606 OID 37352)
 -- Name: projekt projekt_geleitet_von_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.projekt
-    ADD CONSTRAINT projekt_geleitet_von_fkey FOREIGN KEY (geleitet_von) REFERENCES public.projektleiter(pers_nr);
+    ADD CONSTRAINT projekt_geleitet_von_fkey FOREIGN KEY (geleitet_von) REFERENCES public.projektleiter(pers_nr) ON DELETE SET NULL;
 
 
 --
--- TOC entry 4940 (class 2606 OID 28292)
+-- TOC entry 4940 (class 2606 OID 37332)
 -- Name: projektleiter projektleiter_pers_nr_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.projektleiter
-    ADD CONSTRAINT projektleiter_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr);
+    ADD CONSTRAINT projektleiter_pers_nr_fkey FOREIGN KEY (pers_nr) REFERENCES public.mitarbeiter(pers_nr) ON DELETE CASCADE;
 
 
--- Completed on 2026-04-07 15:24:42
+-- Completed on 2026-04-21 15:33:46
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict rIedxCCwRHdTZDkWCgMO90w50IaF9U7n5wGensdt1aJzeBCiSNAj2dAGg6tkfWq
+\unrestrict 6Fw7AfKGa4utn36BEQUcmR5tggXSdgHKlaTYTG61FvXOLOFxGGd49V6floGPe4P
 

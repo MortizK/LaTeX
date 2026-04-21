@@ -20,4 +20,110 @@
 
 \subsection{Zero-Knowledge Verfahren}
 
+\lecture{2026-04-21}
+
+Fiat-Shamir-Verfahren
+
+\subsection{Biometrische Verfahren}
+
+Dies ist der dritte Faktor von Sicherheit:
+
+\begin{enumerate}
+    \item Besitz
+    \item Wissen
+    \item Sein (Biometrie)
+\end{enumerate}
+
+Für Zwei Faktor Verfahren brauchen wir zwei von diesen Sicherheitsfaktoren.
+
+Es gibt zwei Kategorien an Biometrischen Merkmalen:
+
+\begin{enumerate}
+    \item statische Merkmale (Fingerabdruck, Gesicht, Iris, ...)
+    \item Dynamische Merkmale (Unterschriften-Dynamik, Sprache, Tipp-Verhalten)
+\end{enumerate}
+
+\section{Übungen}
+
+\subsection{Passwörter}
+
+\begin{enumerate}
+    \item Auf einer Webseite melden sich Nutzer üblicherweise mit Nutzernamen und Passwort an (Passwort-Verfahren). Welcher der beiden Teile übernimmt die Identifikation und welcher die Authentifikation?
+    
+    Der Nutzername die Identifikation und das Password die Authentifikation.
+    \item Welche Probleme treten bei der Verwendung einfacher Passwortverfahren auf?
+    
+    Bei Verlust des Passwortes kann ich mich nicht mehr Authentisieren. Jeder mit dem Wissen von Nutzername und Passwort hat meine Identität.
+    \item Wieso speichert man anstelle der Passwörter häufig nur deren Hashwerte?
+    
+    Damit bei einem Datenleak verhindert wird, das die Angreifer Zugriff auf das Nutzerkonto haben. Zudem wird so garantiert, das der Betreiber nicht die Klartext-Passwörter hat.
+    \item Wozu dient der Salt-Wert? Welcher Angriff würde ohne diesen Wert stark vereinfacht werden?
+    
+    ?
+\end{enumerate}
+
+\subsection{Biometrie}
+
+\begin{enumerate}
+    \item Warum ist es, wenn Biometrische Verfahren zur Authentifikation genutzt werden, besonders schwerwiegend, wenn das biometrische Merkmal (z.B. der Fingerabdruck) bei einem Hacker-Angriff oder Datenleck gestohlen wird?
+    
+    Weil so Personenbezogene Daten gestohlen werden und so andere sich eindeutig als mich ausgeben können, indem sie die Daten (des Fingerabdrucks) einspielen können.
+    \item Ein Unternehmen verwendet zur Zugangskontrolle des Hauptgebäudes ein biometrisches Authentifikationssystem, das mit Gesichtserkennung arbeitet. Das Verfahren weist folgende Fehlerraten auf:
+    
+    \begin{center}
+        FAR = 0,027\%
+
+        FRR = 1,135\%
+    \end{center}
+
+    \begin{enumerate}
+        \item Welche dieser Fehlerraten ist sicherheitsrelevant? Begründen Sie Ihre Antwort.
+        
+        Die FAR (False Acceptance Rate) ist sicherheitsrelevant, da so unberechtigte Personen zugriff zu dem Gebäude bekommen.
+        \item Jeden Tag betreten 1.000 berechtigte und ausgerollte Personen das Gebäude. Wie viele von ihnen werden vom verwendeten biometrischen System im Schnitt abgewiesen?
+        
+        ca. 11 Personen werden abgewiesen
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{OTP-basierte Authentifikation}
+
+\begin{enumerate}
+    \item In der Vorlesung wurden verschiedene One-Time-Password-Verfahren (OTP) vorgestellt, u. a. S/Key und Token-basierte Authentifikation. Gegen welche Angriffe können diese Verfahren prinzipiell schützen, gegen welche nicht?
+    
+
+    \item Viele Online-Banking-Webseiten verwenden OTP-ähnliche Ansätze, um die Transaktionen ihrer Kunden gegen Missbrauch abzusichern, z. B. iTAN, mTAN oder Flicker-Code. Welche Verfahren können tatsächlich helfen, Anwender vor Phishing- Angriffen zu schützen? Könnte hier etwa auch ein RSA SecureID-Token helfen?
+    
+
+\end{enumerate}
+
+\subsection{Authentifikations-Verfahren}
+
+\begin{enumerate}
+    \item Nennen und beschreiben Sie die Prinzipien der grundsätzlich unterschiedlichen generellen Authentifikationserfahren!
+    
+
+    \item Nennen Sie zwei Identifikationsverfahren, die als Fernidentifikation durchgeführt werden können!
+    
+
+\end{enumerate}
+
+\subsection{Einführung in Cli OpenSSL}
+
+Wir erstellen unsere geheime Nachricht. Dazu verwenden wir den Befehl „echo“. Mit > message.txt wird die Ausgabe umgeleitet in eine Datei „message.txt“
+
+echo "Das ist ein ultrageheimer Text" > message.txt
+
+Ausgabe der Text-Datei auf die Konsole kann man mit dem Befehlt cat erreichen:
+
+cat message.txt
+
+\subsection{Symmetrische Verschlüsselung mit openSSL}
+
+\subsection{Asymmetrische Verschlüsselung mit openSSL}
+
+\subsection{Dateien signieren mit openSSL}
+
+\subsection{Zertifikaterstellung mit openSSL}
+
 \end{document}

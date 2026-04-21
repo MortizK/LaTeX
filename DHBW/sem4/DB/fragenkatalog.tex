@@ -30,6 +30,17 @@ Fragen sind auf moodle
     \item Zufällig
     \item Copy Befehl (import/ export in pgadmin)
     \item In jeder Skill Spalte steht Test
+    \item Integrität soll durch Löschregeln bewahrt bleiben.
+    \item Die verschiedenen Löschregeln:
+    \begin{enumerate}
+        \item CASCADE - Hierarchische Abhängigkeit
+        \item Set Null - Wenn ein Datensatz erhalten bleiben soll
+        \item Restrict - Wenn etwas noch erhalten bleiben muss (oder: Alles andere außer oben)
+    \end{enumerate}
+    \item Bei mehreren Löschregeln, können Ketten und Zyklen entstehen, welche viel unerwartet gelöscht wird. Zudem sind SET NULL und NOT NULL Wiedersprüchlich.
+    \item Bei Update macht Set Null keinen Sinn, da wir einen Primärschlüssel ändern und diesen niemals woanders dann Null setzen, da wir die Beziehung erhalten wollen.
+    \item Eine Relation in der Relationalen Algebra ist eine Teilmenge von Kreuzprodukten (jedes mit jedem) von Attributen.
+    \item Eine Operation auf einer Relation ist wieder eine Relation.
 \end{enumerate}
 
 \end{document}
