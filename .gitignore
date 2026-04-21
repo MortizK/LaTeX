@@ -15,6 +15,7 @@
 **/*.nav
 **/*.snm
 **/*.vrb
+**/env.tex
 
 # ignore ALL files in ANY directory
 */*/*/doc/
