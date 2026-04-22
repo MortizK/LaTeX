@@ -53,25 +53,48 @@ Die Entscheidungsregel: lehne $H_0$ genau dann ab, wenn die Realisierung $v$ der
 
 % Hier muss ich mir das von Kommilitonen holen
 
+% Habe ich unter Statistik_Klassifikation*.pdf
+
 \subsection{Binomialtest}
 
 
 
 \subsection{Einstichproben-t-Test und approximativer Gaußtest}
 
+\lecture{2026-04-22}
 
+Ist vollständig in Statistik.pdf
 
 \subsection{Differenztests}
 
+Alles außer diese Tabelle ist in Statistik.pdf
 
+\begin{center}
+    \begin{tabular}{llc}
+        Voraussetzung & anzuwendender Test & Testfunktionswert \\
+        \hline
+        $Z_i$ normalverteilt & Einstichproben-$t$-Test & $v = \frac{\sqrt{n}\,\overline{Z}}{S}$ \\
+        $X_i, Y_i$ dichotom & approximativer Gaußtest & $v = \frac{\sum_{i=1}^{n} Z_i}{\sqrt{\sum_{i=1}^{n} Z-i^2}}$ \\
+        mindestens 5 der $z_i$ > 0 & alternative & $v = \frac{h_{10} - h_{01}}{\sqrt{h_{10} + h_{01}}}$\\
+        mindestens 5 der $z_i$ < 0 & & \\
+        $Z_i$ beliebig verteilt & approximativer Gaußtest & $v = \frac{\sqrt{n}\,\overline{Z}}{S}$ \\
+        $n$ > 30 & & \\
+    \end{tabular}
+\end{center}
+
+\begin{equation*}
+    S = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (Z_i - \overline{Z})^2}
+\end{equation*}
 
 \subsection{$X^2$-Test für die Varianz}
 
-
+Ist vollständig in Statistik.pdf
 
 \subsection{Zweistichprobentests}
 
+Ist vollständig in Statistik.pdf
 
+Hier gibt es auch eine gut Tabelle 7.1: "Testfunktionen zum Vergleich zweier Erwartungswerte" auf S.82 
 
 \subsection{$X^2$-Anpassungstest}
 
