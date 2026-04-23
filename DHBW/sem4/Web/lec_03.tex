@@ -251,11 +251,106 @@ ObjectProperty: zutat
 Beide Properties sind in der üblichen Modellierung weder reflexiv noch funktional, weder invers-funktional noch symmetrisch. Sinnvoll sind irreflexiv und asymmetrisch.
 \end{enumerate}
 
+\lecture{2026-04-23}
+
+% Hier fehlt mir eine Kleinigkeit
+
 \subsection{Neue Datentypen}
+
+Wir können auch eigenen Datentypen definieren.
 
 \subsection{Schlussfolgerungs-Dienste}
 
+% Hier fehlt mir alles
+
 \subsection{Zusammenfassung}
+
+\subsubsection*{Überblick OWL-Sprachelemente: Klassen}
+
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Element} & \textbf{Manchester} & \textbf{OWL TTL} \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Klassenkonstruktoren}} \\
+        \hline
+        Klassennamen & Class & owl:Class \\
+        Konjunktion & and & owl:intersectionOf \\
+        Disjunktion & or & owl:unionOf \\
+        Negation & not & owl:complementOf \\
+        Existentielle Restriktion & some & owl:someValuesFrom \\
+        Universelle Restriktion & only & owl:allValuesFrom \\
+        Lokale Reflexivitaet & Self & owl:hasSelf \\
+        Beziehung mit Nominal & value & owl:hasValue \\
+        Groesser-als & min & owl:minQualifiedCardinality \\
+        Kleiner-als & max & owl:maxQualifiedCardinality \\
+        Nominals & \{ \} & owl:oneOf \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Klassenaxiome}} \\
+        \hline
+        Subsumtion & SubClassOf & rdfs:subClassOf \\
+        Aequivalenz & EquivalentTo & owl:equivalentClass \\
+        Disjunktheit & DisjointWith & owl:disjointWith \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection*{Überblick OWL-Sprachelemente: Properties}
+
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Element} & \textbf{Manchester} & \textbf{OWL TTL} \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Properties}} \\
+        \hline
+        Object Property & ObjectProperty & owl:ObjectProperty \\
+        Data Property & DataProperty & owl:DatatypeProperty \\
+        Annotation Property & AnnotationProperty & owl:AnnotationProperty \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Property-Axiome}} \\
+        \hline
+        Definitionsbereich & Domain & rdfs:domain \\
+        Wertebereich & Range & rdfs:range \\
+        Inklusion & SubPropertyOf & rdfs:subPropertyOf \\
+        Komplexe Inklusion & SubPropertyChain & owl:propertyChainAxiom \\
+        Gleichheit & EquivalentProperty & owl:equivalentProperty \\
+        Disjunktheit & DisjointWith & owl:propertyDisjointWith \\
+        Inverse Property & InverseOf & owl:inverseOf \\
+        Transitivitaet & Transitive & owl:TransitiveProperty \\
+        Symmetrie & (A)Symmetric & owl:(A)SymmetricProperty \\
+        Reflexivitaet & (Ir)Reflexive & owl:(Ir)ReflexiveProperty \\
+        Funktionalitaet & (Inverse)Functional & owl:(Inverse)FunctionalProperty \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection*{Überblick OWL-Sprachelemente: Individuen}
+
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Element} & \textbf{Manchester} & \textbf{OWL TTL} \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Entitaeten}} \\
+        \hline
+        Individuum & Individual & owl:NamedIndividual \\
+        String & "abc" & "abc" \\
+        Integer & 123 & "123"^^xsd:integer \\
+        Dezimalzahl & 123.456 & "123.456"^^xsd:decimal \\
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Assertionen}} \\
+        \hline
+        Klassenzugehoerigkeit & Types & rdf:type (a) \\
+        Property-Beziehung & Facts & (RDF-Tripel) \\
+        Negierte Property-Beziehung & not & owl:NegativePropertyAssertion \\
+        Gleichheit & SameAs & owl:sameAs \\
+        Ungleichheit & DifferentFrom & owl:differentFrom \\
+        \hline
+    \end{tabular}
+\end{center}
+
+
 
 \newpage
 \lecture{2026-04-16}

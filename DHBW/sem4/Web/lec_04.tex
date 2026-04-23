@@ -1,0 +1,173 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Semantic Web}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-04-23}
+
+\section{Ontology Engineering}
+
+Iterativ:
+
+\begin{enumerate}
+    \item Erstellung
+    \item Fehlersuche
+    \item Integration
+    \item Erweiterung
+    \item Goto 2
+\end{enumerate}
+
+Meist Zusammenarbeit von zwei Rollen:
+
+\begin{enumerate}
+    \item Domain Expert: hat Expertenwissen, kennt Domäne
+    \item Ontology Engineer: kennt Ontologiesprache
+\end{enumerate}
+
+\subsection{Thema und Reichweite}
+
+\begin{itemize}
+    \item Thema: Worum geht es?
+    \item Quellen: Wo kann verlässliche Information zur Domäne gefunden werden?
+    \item Zweck: Wozu soll die Ontologie dienen?
+    \item Zielgruppe: Wer soll die Ontologie nutzen?
+    \item Detaillierungsgrad: Was sind die allgemeinsten und speziellsten Begriffe?
+    \item Blickwinkel: Welche Weltsicht liegt zugrunde? (Leser, Künstler, Author, Wissenschaftler, ...)
+    \item Kompetenzfragen: Welche Fragen sollen beantwortet werden?
+    \item Grenzen: Was wird nicht behandelt?
+\end{itemize}
+
+% Hier fehlen mir die anderen schritte. Kann ich mir nochmal anschauen/ Nachtragen, wenn ich das Projekt Starte.
+
+\newpage
+\section{Referat}
+
+\subsection{Aufgabenstellung}
+
+Erstellen Sie in Gruppen bis zu 4 Studenten eine OWL-Ontologie
+
+\begin{itemize}
+    \item Domäne kann frei gewählt werden
+    \begin{itemize}
+        \item Empfehlung: mindestens ein Domain Expert in Gruppe
+    \end{itemize}
+    \item Beschreibung von Reichweite und Grenzen
+    \item Wichtige Begriffe
+    \item Entscheidung für Realisierung als Klasse / Property / Individuum
+    \item interessante Schlussfolgerungen
+    \begin{itemize}
+        \item Modellierung als Ontologie muss echten Mehrwert liefern
+        \item nicht nur aufgehübschte Datenbank
+    \end{itemize}
+\end{itemize}
+
+Präsentieren Sie Ihre Ontologie in einem 10-minütigen Referat
+
+\begin{itemize}
+    \item anschließend 5-minütige Diskussion
+    \item jedes Gruppenmitglied muss Fragen beantworten können
+    \item bei Krankheit: Individuelle Nachhol-Präsentation
+    \item Präsentation und Ontologie bitte vorab an mich
+    \item Benotung
+    \begin{itemize}
+        \item in der Regel gleiche Note für alle Gruppenmitglieder
+        \item bei deutlich abweichenden Beiträgen und Leistungen auch abweichende Noten
+    \end{itemize}
+\end{itemize}
+
+Mögliche Fragen:
+
+\begin{itemize}
+    \item Wer hat was gemacht? 
+    \item 
+\end{itemize}
+
+\subsection{Bewertungskriterien}
+
+\begin{itemize}
+    \item Umfang der Ontologie
+    \begin{itemize}
+        \item bloße Anzahl von Entitäten kein Kriterium
+        \item Klassen anspruchsvoller als Individuen
+        \item Komplexe Zusammenhänge anspruchsvoller als baumförmige Hierarchien
+    \end{itemize}
+    \item Korrektheit und Adäquatheit der Modellierung
+    \begin{itemize}
+        \item Klassenhierarchie korrekt?
+        \item Zuordnung Klasse/Individuum sinnvoll und konsistent?
+        \item Bereichsangaben und Eigenschaften von Properties sinnvoll und umfassend?
+        \item keine Inkonsistenzen!
+    \end{itemize}
+    \item Verwendung anspruchsvoller Konstrukte
+    \begin{itemize}
+        \item Komplexe Klassen
+        \item GCIs
+        \item Mehr als Datenbank / RDFS
+    \end{itemize}
+    \item interessante Folgerungen
+    \begin{itemize}
+        \item neue Unterklassenbeziehung
+        \item neue Instanzen für Individuen
+    \end{itemize}
+    \item Präsentationsstil
+    \begin{itemize}
+        \item Einführung in Domäne
+        \item Designprozess (entsprechend OD101-Leitfaden)
+        \item Wesentliche Designentscheidungen
+        \item Gefundene und entfernte Inkonsistenzen oder sonstige Fehler
+        \item Live-Demo
+    \end{itemize}
+\end{itemize}
+
+\subsection{Tips zur Modellierung}
+
+Dos
+
+\begin{itemize}
+    \item Entitäten sinnvoll in Klassen und Individuen einteilen
+    \begin{itemize}
+        \item FootballSport ist ein Individuum, der Sport „American Football“ (und damit ggf. Instanz der Klassen Sport und Game)
+        \item Football ist die Klasse aller Bälle, mit denen man FootballSport spielen kann.
+    \end{itemize}
+    \item Unterschied zwischen Instanz- und Unterklassenbeziehung beachten
+    \begin{itemize}
+        \item Lucy ist Instanz der Klasse Child
+        \item Child ist Unterklasse von Human
+    \end{itemize}
+    \item Semantik von „Unterklasse“ beachten
+    \begin{itemize}
+        \item X SubClassOf Y bedeutet: Jedes X ist ein Y
+        \item Bildschirm ist keine Unterklasse von Laptop, sondern ein teil
+        \item Sensor ist keine Unterklasse von Messwert, er hat Messwerte
+        \item Zeitintervall ist keine Unterklasse von Dauer, sie hat eine Dauer
+    \end{itemize}
+    \item bei hoher Anzahl von Geschwisterklassen über neue Klassenebene nachdenken
+    \begin{itemize}
+        \item Wenn man 50 Unterklassen von Tier hat, neue Klassen Säugetier, Fisch, Insekt einführen
+    \end{itemize}
+\end{itemize}
+
+Don'ts
+
+\begin{itemize}
+    \item Von Einfachheit der Manchester-Syntax verführen lassen
+    \begin{itemize}
+        \item Nur weil ein Manchester-Ausdruck so ähnlich klingt wie ein englischer Satz, sagt er nicht notwendig dasselbe aus
+    \end{itemize}
+    \item Etwas falsches sagen, weil das, was man meint, in OWL nicht formalisierbar ist
+    \begin{itemize}
+        \item Besser nichts sagen, als etwas falsches sagen.
+        \item ggf. eine allgemeinere Aussage machen.
+    \end{itemize}
+\end{itemize}
+
+\end{document}
