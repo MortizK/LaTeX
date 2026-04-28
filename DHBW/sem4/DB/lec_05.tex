@@ -39,4 +39,105 @@ FROM Mitarbeiter
 ORDER BY Vorname;
 \end{lstlisting}
 
+\lecture{2026-04-28}
+
+\subsection{Einschränkung beim SELECT}
+
+\begin{lstlisting}
+SELECT * FROM Mitarbeiter
+WHERE gehalt BETWEEN 40000 and 60000
+AND skill in ('PR', 'Test')
+AND nachname LIKE '%z'
+ORDER BY gehalt;
+\end{lstlisting}
+
+\begin{lstlisting}
+SELECT SUM(gepl_std) FROM leistung
+WHERE ende_termin IS null;
+\end{lstlisting}
+
+Zu beachten: \lstinline|is null| und NICHT \lstinline|= null|
+
+\begin{lstlisting}
+SELECT Skill, Count(*), AVG(Gehalt)
+from Mitarbeiter
+Group By Skill
+Order By AVG(Gehalt) DESC;
+\end{lstlisting}
+
+Es gibt auch noch \lstinline|round(AVG(Gehalt))::numric2| es gibt auch noch truncate.
+
+\begin{lstlisting}
+SELECT arbeitet_in, Count(*), AVG(Gehalt)
+from Mitarbeiter
+Group By arbeitet_in
+HAVING AVG(Gehalt) > 50000
+Order By AVG(Gehalt) DESC;
+\end{lstlisting}
+
+Statt \lstinline|WHERE| gibt es für Gruppen \lstinline|HAVING|
+
+Wir können auch mehrere Attribute als Gruppen haben \lstinline|Group By arbeitet_in, vorname|
+
+\subsection{Unterabfragen bei SELECT}
+
+\begin{lstlisting}
+SELECT * from Mitarbeiter
+WHERE Gehalt >
+(SELECT AVG(Gehalt) FROM Mitarbeiter)
+\end{lstlisting}
+
+Für unterabfragen mit einer Tabelle anstatt einem einzelnen Wert gibt es mehrere Keywords:
+
+\begin{itemize}
+    \item ANY
+    \item EXISTS
+    \item IN
+    \item ALL
+\end{itemize}
+
+\begin{lstlisting}
+SELECT vorname, nachname, skill, arbeitet_in FROM Mitarbeiter
+WHERE exists (
+	SELECT abt_bez_kurz FROM Abteilung
+	WHERE standort = 'Leinfelden'
+	AND Abteilung.abt_bez_kurz = Mitarbeiter.arbeitet_in
+)
+AND skill is not Null
+ORDER by nachname desc
+\end{lstlisting}
+
+Mit \lstinline|IN| statt \lstinline|EXISTS| geht es einfacher
+
+\begin{lstlisting}
+SELECT vorname, nachname, skill, arbeitet_in FROM Mitarbeiter
+WHERE arbeitet_in in (
+	SELECT abt_bez_kurz FROM Abteilung
+	WHERE standort = 'Leinfelden'
+)
+AND skill is not Null
+ORDER by nachname desc
+\end{lstlisting}
+
+Es gibt einen Unterschied zwischen any und exists. Bei kleinen untertabellen any verwenden und bei großen untertabellen exists verwenden, da dies ein 'true false label hinzufügt'
+
+Unterabfragen gehen auch bei INSERTS.
+
+\begin{lstlisting}
+INSERT INTO Mitarbeiter VALUES
+((SELECT max(pers_nr)+1 FROM Mitarbeiter),'Horst','Mahler',NULL,'01.04.1975','m','15.3.2013',default,49000)
+\end{lstlisting}
+
+\subsection{Autoincrement (SERIAL)}
+
+\begin{lstlisting}
+drop Sequence if exists Mitarbeiter_Pers_Nr_seq cascade;
+CREATE SEQUENCE Mitarbeiter_Pers_Nr_seq;
+ALTER TABLE Mitarbeiter
+ALTER COLUMN Pers_Nr SET DEFAULT nextval('Mitarbeiter_Pers_Nr_seq');
+SELECT setval('Mitarbeiter_Pers_Nr_seq', (
+	SELECT MAX(Pers_nr) FROM Mitarbeiter)
+);
+\end{lstlisting}
+
 \end{document}

@@ -26,10 +26,9 @@ CREATE TABLE IF NOT EXISTS Filiale
     Adresse varchar(100),
     Name varchar(100),
     LeiterID integer,
-    Aktiv boolean, --Boolean falls Filiale geschlossen wird
+    Aktiv boolean default true, --Boolean falls Filiale geschlossen wird (Standardmäßig wahr)
     PRIMARY KEY (FilialeID)
 );
--- Aktiv könnte ein standard wert bekommen (True)
 
 CREATE TABLE IF NOT EXISTS Schicht
 (
@@ -43,14 +42,13 @@ CREATE TABLE IF NOT EXISTS Schicht
 CREATE TABLE IF NOT EXISTS Mitarbeiter
 (
     MitarbeiterID integer,
-    Gehalt integer, --Gehalt wird in Cent gespeichert
+    Gehalt integer, --Gehalt wird in Cent gespeichert (Stundenlohn)
     Adresse varchar(100),
     Geburtsdatum date,
     Nachname varchar(50),
     Vorname varchar(50),
     PRIMARY KEY (MitarbeiterID)
 );
--- Gehalt: ist es Monatlich oder Stundenlohn?
 
 CREATE TABLE IF NOT EXISTS Azubi
 (
@@ -63,16 +61,16 @@ CREATE TABLE IF NOT EXISTS Azubi
 
 CREATE TABLE IF NOT EXISTS MitarbeiterTelefonnummer
 (
-    Vorwahl integer,
-    Telefonnummer integer,
+    Vorwahl varchar(5), --Telefonnummer und Vorwahl werden als Strings gespeichert damit Pluszeichen und führende Nullen gespeichert werden können
+    Telefonnummer varchar(15),
     MitarbeiterID integer,
     PRIMARY KEY (Vorwahl, Telefonnummer)
 );
 
 CREATE TABLE IF NOT EXISTS ZuliefererTelefonnummer
 (
-    Vorwahl integer, 
-    Telefonnummer integer, 
+    Vorwahl varchar(5), 
+    Telefonnummer varchar(15), 
     ZuliefererID integer,
     PRIMARY KEY (Vorwahl, Telefonnummer)
 );
@@ -106,12 +104,10 @@ CREATE TABLE IF NOT EXISTS Rezept
 (
     RezeptID integer,
     Name varchar(100),
-    Anleitung varchar(255),
+    Anleitung varchar, --Keine Begrenzung, da Anleitung beliebig groß werden kann
     Basis integer,
     PRIMARY KEY (RezeptID)
 );
--- varchar(255) ist wahrscheinlich zu kurz für manche Anleitungen. 
--- Kannst hier sehr groß werden oder einen anderen Datentypen verwender
 
 CREATE TABLE IF NOT EXISTS Produkt
 (
@@ -131,7 +127,6 @@ CREATE TABLE IF NOT EXISTS Verkauf
     Gesamtbetrag integer, --Gesamtbetrag wird in Cent gespeichert
     PRIMARY KEY (VerkaufID)
 );
--- Gesamtbetrag wird doch ausgerechnet. Ich glaube das wir das weglassen können.
 
 CREATE TABLE IF NOT EXISTS Status
 (
@@ -140,8 +135,6 @@ CREATE TABLE IF NOT EXISTS Status
     Beschreibung varchar(255),
     PRIMARY KEY (StatusID)
 );
--- Hier passt varchar(255)
--- Kannst du mit Beispielen unten belegen
 
 CREATE TABLE IF NOT EXISTS durchgefuehrt_von
 (
@@ -169,11 +162,10 @@ CREATE TABLE IF NOT EXISTS vorhanden
 (
     ProduktID integer,
     FilialeID integer,
-    StatusID integer,
+    StatusID integer, --Status als Zusatzinformation wie beispielsweise "Produkt ist in ein paar Tagen wieder verfügbar"
     Lagerbestand integer,
     PRIMARY KEY (ProduktID, FilialeID)
 );
--- was genau wollen wir mit Status ausdrücken?
 
 
 -- Part 2
@@ -213,17 +205,16 @@ ALTER COLUMN FilialeID SET NOT NULL;
 
 ALTER TABLE MitarbeiterTelefonnummer
 ADD FOREIGN KEY (MitarbeiterID) REFERENCES Mitarbeiter(MitarbeiterID) ON DELETE CASCADE,
-ADD CONSTRAINT check_mitarbeiter_vorwahl CHECK (Vorwahl > 0),
-ADD CONSTRAINT check_mitarbeiter_nummer CHECK (Telefonnummer > 0);
--- gibt es bessere Checks für Telvonummern?
+ADD CONSTRAINT check_mitarbeiter_vorwahl CHECK (Vorwahl ~ '^\+?[0-9]+$'),
+ADD CONSTRAINT check_mitarbeiter_nummer CHECK (Telefonnummer ~ '^[0-9]+$');
 
 ALTER TABLE MitarbeiterTelefonnummer
 ALTER COLUMN MitarbeiterID SET NOT NULL;
 
 ALTER TABLE ZuliefererTelefonnummer
 ADD FOREIGN KEY (ZuliefererID) REFERENCES Zulieferer(ZuliefererID) ON DELETE CASCADE,
-ADD CONSTRAINT check_zulieferer_vorwahl CHECK (Vorwahl > 0),
-ADD CONSTRAINT check_zulieferer_nummer CHECK (Telefonnummer > 0);
+ADD CONSTRAINT check_zulieferer_vorwahl CHECK (Vorwahl ~ '^\+?[0-9]+$'),
+ADD CONSTRAINT check_zulieferer_nummer CHECK (Telefonnummer ~ '^[0-9]+$');
 
 ALTER TABLE ZuliefererTelefonnummer
 ALTER COLUMN ZuliefererID SET NOT NULL;
@@ -302,7 +293,6 @@ ALTER COLUMN Adresse SET NOT NULL;
 INSERT INTO Status VALUES
 (1, 'verfuegbar', 'Produkt ist in der Filiale verfuegbar'),
 (2, 'nicht verfuegbar', 'Produkt ist aktuell nicht verfuegbar');
--- update sonderzeichen wie 'ue' zu 'ü'
 
 -- =========================
 -- MITARBEITER
@@ -364,18 +354,17 @@ INSERT INTO Zulieferer VALUES
 
 -- =========================
 -- LIEFERT
--- jetzt mit FilialeID
 -- =========================
 INSERT INTO liefert VALUES
-(1, 1, 1), -- Muehle Sued liefert Mehl an Filiale 1
-(1, 6, 1), -- Muehle Sued liefert Dinkelmehl an Filiale 1
-(2, 2, 1), -- Milchhof liefert Butter an Filiale 1
-(2, 4, 1), -- Milchhof liefert Hefe an Filiale 1
-(3, 5, 1), -- Cacao liefert Schokolade an Filiale 1
-(1, 1, 2), -- Muehle Sued liefert Mehl an Filiale 2
-(2, 2, 2), -- Milchhof liefert Butter an Filiale 2
-(2, 4, 2), -- Milchhof liefert Hefe an Filiale 2
-(3, 5, 2); -- Cacao liefert Schokolade an Filiale 2
+(1, 1, 1),
+(1, 6, 1),
+(2, 2, 1),
+(2, 4, 1),
+(3, 5, 1),
+(1, 1, 2),
+(2, 2, 2),
+(2, 4, 2),
+(3, 5, 2);
 
 -- =========================
 -- REZEPT
@@ -390,21 +379,20 @@ INSERT INTO Rezept VALUES
 -- BEINHALTET
 -- =========================
 INSERT INTO beinhaltet VALUES
-(1, 1), -- Grundteig -> Mehl
-(1, 4), -- Grundteig -> Hefe
-(2, 1), -- Buttercroissant -> Mehl
-(2, 2), -- Buttercroissant -> Butter
-(2, 4), -- Buttercroissant -> Hefe
-(3, 1), -- Schoko-Croissant -> Mehl
-(3, 2), -- Schoko-Croissant -> Butter
-(3, 4), -- Schoko-Croissant -> Hefe
-(3, 5), -- Schoko-Croissant -> Schokolade
-(4, 6), -- Dinkelbrot -> Dinkelmehl
-(4, 4); -- Dinkelbrot -> Hefe
+(1, 1),
+(1, 4),
+(2, 1),
+(2, 2),
+(2, 4),
+(3, 1),
+(3, 2),
+(3, 4),
+(3, 5),
+(4, 6),
+(4, 4);
 
 -- =========================
 -- PRODUKT
--- Preis in Cent
 -- =========================
 INSERT INTO Produkt VALUES
 (1, 2, 'Buttercroissant', 180),
@@ -413,25 +401,10 @@ INSERT INTO Produkt VALUES
 
 -- =========================
 -- VERKAUF
--- Gesamtbetrag in Cent
 -- =========================
--- Verkauf 1:
--- 4 Buttercroissants = 4 * 180 = 720
--- 2 Schoko-Croissants = 2 * 230 = 460
--- Gesamt = 1180
 INSERT INTO Verkauf VALUES
-(1, 1, 3, '2024-01-10', 1180);
-
--- Verkauf 2:
--- 3 Dinkelbrote = 3 * 450 = 1350
-INSERT INTO Verkauf VALUES
-(2, 2, 2, '2024-01-10', 1350);
-
--- Verkauf 3:
--- 2 Buttercroissants = 360
--- 1 Dinkelbrot = 450
--- Gesamt = 810
-INSERT INTO Verkauf VALUES
+(1, 1, 3, '2024-01-10', 1180),
+(2, 2, 2, '2024-01-10', 1350),
 (3, 1, 1, '2024-01-10', 810);
 
 -- =========================
@@ -448,27 +421,27 @@ INSERT INTO verkauft VALUES
 -- VORHANDEN
 -- =========================
 INSERT INTO vorhanden VALUES
-(1, 1, 1, 35), -- Buttercroissant in Nagold verfuegbar
-(2, 1, 1, 18), -- Schoko-Croissant in Nagold verfuegbar
-(3, 1, 1, 12), -- Dinkelbrot in Nagold verfuegbar
-(1, 2, 2, 0),  -- Buttercroissant in Herrenberg aktuell nicht verfuegbar
-(2, 2, 1, 10), -- Schoko-Croissant in Herrenberg verfuegbar
-(3, 2, 1, 8);  -- Dinkelbrot in Herrenberg verfuegbar
+(1, 1, 1, 35),
+(2, 1, 1, 18),
+(3, 1, 1, 12),
+(1, 2, 2, 0),
+(2, 2, 1, 10),
+(3, 2, 1, 8);
 
 -- =========================
 -- MITARBEITERTELEFONNUMMER
 -- =========================
 INSERT INTO MitarbeiterTelefonnummer VALUES
-(49, 711123456, 1),
-(49, 711234567, 2),
-(49, 745212345, 3),
-(49, 745223456, 4);
+('+49', '711123456', 1),
+('+49', '711234567', 2),
+('+49', '745212345', 3),
+('+49', '45223456', 4);
 
 -- =========================
 -- ZULIEFERERTELEFONNUMMER
 -- =========================
 INSERT INTO ZuliefererTelefonnummer VALUES
-(49, 731111111, 1),
-(49, 744122222, 2),
-(49, 721333333, 3);
+('+49', '731111111', 1),
+('+49', '744122222', 2),
+('+49', '721333333', 3);
 
