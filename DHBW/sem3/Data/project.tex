@@ -42,10 +42,7 @@ Außerdem müssen verschiedene Benutzer verwaltet werden, welche unterschiedlich
 Niklas Reusch
 \end{flushright}
 
-% Wir müssen unsere Anforderungen für das ER Modell so erweitern, dass wir alle möglichen Beziehungen 
-% Und wir brauchen ca. 10 Entitäten.
-
-Die Grafik wurde ausgetauscht um den aktuellen Stand zu repräsentieren.
+Das Entity-Relationship-Modell wurde aus dem PostgreSQL-Schema mittels pgAdmin generiert. Es modelliert die Struktur aller Entitäten und ihre Beziehungen basierend auf dem finalen Datenschema.
 
 \newpage
 \begin{landscape}
@@ -59,8 +56,8 @@ Die Grafik wurde ausgetauscht um den aktuellen Stand zu repräsentieren.
     \begin{figure}[ht]
         \centering
         \includegraphics[width=2\textwidth]{./fig/ERM_pgadmin.png}
-        \caption{ERM von pgAdmin}
-        \label{fig:erm_from_niklas_reusch}
+        \caption{ER-Modell aus pgAdmin (autogeneriert aus PostgreSQL-Schema)}
+        \label{fig:erm_from_pgadmin}
 \end{figure}
 \end{landscape}
 
@@ -100,9 +97,9 @@ Zutat: \{[\underline{ZutatID: integer, ZuliefererID: integer}, Name: string, Bes
 
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, Basis: RezeptID]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, Status: integer, Menge: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, RezeptID: integer]\}
 
-Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime]\}
+Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, FilialeID: integer, MitarbeiterID: integer]\}
 
 \subsubsection{Relationen}
 
@@ -139,13 +136,14 @@ ZuliefererTelefonnummer: \{[\underline{Vorwahl: integer, Telefonnummer: integer}
 
 Zulieferer: \{[\underline{ZuliefererID: integer}, Name: string, Adresse: string]\}
 
-% Zutat ist eine Schwache Entität, kann aber von mehreren Zulieferern geliefert werden.
-Zutat: \{[\underline{ZutatID: integer, \textit{ZuliefererID (FS)}: integer}, Name: string, Bestand: integer, Einheit: string]\}
+Zutat: \{[\underline{ZutatID: integer}, Name: string, Einheit: string]\}
+
+ZutatBestand: \{[\underline{\textit{ZutatID (FS)}: integer, \textit{FilialeID (FS)}: integer}, Bestand: integer]\}
 
 % Rekursiv
 Rezept: \{[\underline{RezeptID: integer}, Name: string, Anleitung: text, \textit{Basis (FS $\to$ RezeptID)}: integer]\}
 
-Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, \textit{StatusID (FS)}: integer, Lagerbestand: integer]\}
+Produkt: \{[\underline{ProduktID: integer}, Name: string, Preis: integer, \textit{RezeptID (FS)}: integer]\}
 
 Verkauf: \{[\underline{VerkaufID: integer}, Datum: datetime, Gesamtbetrag: integer, \textit{FilialeID (FS)}: integer, \textit{MitarbeiterID (FS)}: integer]\}
 
@@ -155,14 +153,15 @@ Status: \{[\underline{StatusID: integer}, name: string, description: string]\}
 
 durchgeführt-von: \{[\underline{\textit{SchichtID (FS)}: integer, \textit{MitarbeiterID (FS)}: integer}]\}
 
-% beinhaltet: \{[\underline{RezeptID: integer, ZutatID: integer, ZuliefererID: integer}]\}
-beinhaltet: \{[\underline{\textit{RezeptID (FS)}: integer, \textit{ZutatID (FS)}: integer}]\}
+beinhaltet: \{[\underline{\textit{RezeptID (FS)}: integer, \textit{ZutatID (FS)}: integer}, Menge: integer]\}
 
 angeleitet: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{RezeptID (FS)}: integer}]\}
 
 verkauft: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{VerkaufID (FS)}: integer}, Menge: integer]\}
 
 vorhanden: \{[\underline{\textit{ProduktID (FS)}: integer, \textit{FilialeID (FS)}: integer}, \textit{StatusID (FS)}: integer, Lagerbestand: integer]\}
+
+liefert: \{[\underline{\textit{ZuliefererID (FS)}: integer, \textit{ZutatID (FS)}: integer, \textit{FilialeID (FS)}: integer}, Preis: integer, BestellMenge: integer]\}
 
 \newpage
 \subsection{Normalisierung bis 3NF}
@@ -197,7 +196,7 @@ Für jede funktionale Abhängigkeit wird eine eigene Relation gebildet:
 
 \begin{enumerate}
     \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
-    \item Produkt: \{[\underline{ProduktID}, Produktname, Preis, Status, Lagerbestand]\}
+    \item Produkt: \{[\underline{ProduktID}, Name, Preis, RezeptID]\}
     \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag, FilialeID, MitarbeiterID]\}
     \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge]\}
 \end{enumerate}
@@ -243,10 +242,9 @@ Produkt:
     \begin{tabular}{l|c|c}
         $X\to\alpha$ & Super Schl. & prim\\
         \hline
-        ProduktID $\to$ Produktname & \checkmark & x \\
+        ProduktID $\to$ Name & \checkmark & x \\
         ProduktID $\to$ Preis & \checkmark & x \\
-        ProduktID $\to$ Status & \checkmark & x \\
-        ProduktID $\to$ Lagerbestand & \checkmark & x \\
+        ProduktID $\to$ RezeptID & \checkmark & x \\
     \end{tabular}
 \end{center}
 
@@ -281,9 +279,9 @@ Nach der Zerlegung der ursprünglichen großen Relation in die vier Relationen
 
 \begin{itemize}
     \item Mitarbeiter: \{[\underline{MitarbeiterID}, Gehalt, Adresse, Geburtsdatum, Nachname, Vorname]\}
-    \item Produkt: \{[\underline{ProduktID}, Produktname, Preis, Status, Lagerbestand]\}
-    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag]\}
-    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge, MitarbeiterID]\}
+    \item Produkt: \{[\underline{ProduktID}, Name, Preis, RezeptID]\}
+    \item Verkauf: \{[\underline{VerkaufID}, Datum, Gesamtbetrag, FilialeID, MitarbeiterID]\}
+    \item verkauft: \{[\underline{ProduktID, VerkaufID}, Menge]\}
 \end{itemize}
 
 konnte für jede Relation durch die 3NF-Prüfung gezeigt werden, dass:

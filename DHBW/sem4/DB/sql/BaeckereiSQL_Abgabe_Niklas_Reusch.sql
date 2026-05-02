@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS Produkt CASCADE;
 DROP TABLE IF EXISTS beinhaltet CASCADE;
 DROP TABLE IF EXISTS Rezept CASCADE;
 DROP TABLE IF EXISTS liefert CASCADE;
+DROP TABLE IF EXISTS ZutatBestand CASCADE;
 DROP TABLE IF EXISTS Zulieferer CASCADE;
 DROP TABLE IF EXISTS Zutat CASCADE;
 DROP TABLE IF EXISTS durchgefuehrt_von CASCADE;
@@ -87,9 +88,16 @@ CREATE TABLE IF NOT EXISTS Zutat
 (
     ZutatID integer,
     Name varchar(50),
-    Bestand integer,
     Einheit varchar(20),
     PRIMARY KEY (ZutatID)
+);
+
+CREATE TABLE IF NOT EXISTS ZutatBestand
+(
+    ZutatID integer,
+    FilialeID integer,
+    Bestand integer,
+    PRIMARY KEY (ZutatID, FilialeID)
 );
 
 CREATE TABLE IF NOT EXISTS liefert
@@ -97,6 +105,8 @@ CREATE TABLE IF NOT EXISTS liefert
     ZuliefererID integer,
     ZutatID integer,
     FilialeID integer,
+    Preis integer, --Festpreis in Cent
+    BestellMenge integer, --Mindestbestellmenge
     PRIMARY KEY (ZuliefererID, ZutatID, FilialeID)
 );
 
@@ -147,6 +157,7 @@ CREATE TABLE IF NOT EXISTS beinhaltet
 (
     RezeptID integer,
     ZutatID integer,
+    Menge integer, --Benötigte Menge der Zutat
     PRIMARY KEY (RezeptID, ZutatID)
 );
 
@@ -244,7 +255,11 @@ ADD FOREIGN KEY (MitarbeiterID) REFERENCES Mitarbeiter(MitarbeiterID) ON DELETE 
 
 ALTER TABLE beinhaltet
 ADD FOREIGN KEY (RezeptID) REFERENCES Rezept(RezeptID) ON DELETE CASCADE,
-ADD FOREIGN KEY (ZutatID) REFERENCES Zutat(ZutatID) ON DELETE CASCADE;
+ADD FOREIGN KEY (ZutatID) REFERENCES Zutat(ZutatID) ON DELETE CASCADE,
+ADD CONSTRAINT check_Menge_beinhaltet CHECK (Menge > 0);
+
+ALTER TABLE beinhaltet
+ALTER COLUMN Menge SET NOT NULL;
 
 ALTER TABLE verkauft
 ADD FOREIGN KEY (ProduktID) REFERENCES Produkt(ProduktID) ON DELETE CASCADE,
@@ -266,15 +281,25 @@ ALTER COLUMN Lagerbestand SET NOT NULL;
 ALTER TABLE liefert
 ADD FOREIGN KEY (ZuliefererID) REFERENCES Zulieferer(ZuliefererID) ON DELETE CASCADE,
 ADD FOREIGN KEY (ZutatID) REFERENCES Zutat(ZutatID) ON DELETE CASCADE,
-ADD FOREIGN KEY (FilialeID) REFERENCES Filiale(FilialeID) ON DELETE RESTRICT;
+ADD FOREIGN KEY (FilialeID) REFERENCES Filiale(FilialeID) ON DELETE RESTRICT,
+ADD CONSTRAINT check_Preis CHECK (Preis > 0),
+ADD CONSTRAINT check_BestellMenge CHECK (BestellMenge > 0);
 
-ALTER TABLE Zutat
-ADD CONSTRAINT check_Bestand CHECK (Bestand >= 0);
+ALTER TABLE liefert
+ALTER COLUMN Preis SET NOT NULL,
+ALTER COLUMN BestellMenge SET NOT NULL;
 
 ALTER TABLE Zutat
 ALTER COLUMN Name SET NOT NULL,
-ALTER COLUMN Bestand SET NOT NULL,
 ALTER COLUMN Einheit SET NOT NULL;
+
+ALTER TABLE ZutatBestand
+ADD FOREIGN KEY (ZutatID) REFERENCES Zutat(ZutatID) ON DELETE CASCADE,
+ADD FOREIGN KEY (FilialeID) REFERENCES Filiale(FilialeID) ON DELETE RESTRICT,
+ADD CONSTRAINT check_ZutatBestand CHECK (Bestand >= 0);
+
+ALTER TABLE ZutatBestand
+ALTER COLUMN Bestand SET NOT NULL;
 
 ALTER TABLE Status
 ALTER COLUMN Name SET NOT NULL,
@@ -316,28 +341,42 @@ INSERT INTO durchgefuehrt_von VALUES
 (3, 4);
 
 INSERT INTO Zutat VALUES
-(1, 'Mehl', 250, 'kg'),
-(2, 'Butter', 90, 'kg'),
-(3, 'Zucker', 60, 'kg'),
-(4, 'Hefe', 35, 'kg'),
-(5, 'Schokolade', 40, 'kg'),
-(6, 'Dinkelmehl', 70, 'kg');
+(1, 'Mehl', 'kg'),
+(2, 'Butter', 'kg'),
+(3, 'Zucker', 'kg'),
+(4, 'Hefe', 'kg'),
+(5, 'Schokolade', 'kg'),
+(6, 'Dinkelmehl', 'kg');
 
 INSERT INTO Zulieferer VALUES
 (1, 'Muehle Sued', 'Industriestrasse 10, Nagold'),
 (2, 'Milchhof Schwarzwald', 'Dorfstrasse 5, Freudenstadt'),
 (3, 'Cacao Import GmbH', 'Hafenstrasse 8, Karlsruhe');
 
+INSERT INTO ZutatBestand VALUES
+(1, 1, 250),
+(2, 1, 90),
+(3, 1, 60),
+(4, 1, 35),
+(5, 1, 40),
+(6, 1, 70),
+(1, 2, 200),
+(2, 2, 80),
+(3, 2, 50),
+(4, 2, 30),
+(5, 2, 35),
+(6, 2, 60);
+
 INSERT INTO liefert VALUES
-(1, 1, 1),
-(1, 6, 1),
-(2, 2, 1),
-(2, 4, 1),
-(3, 5, 1),
-(1, 1, 2),
-(2, 2, 2),
-(2, 4, 2),
-(3, 5, 2);
+(1, 1, 1, 5000, 100),
+(1, 6, 1, 6000, 80),
+(2, 2, 1, 8500, 50),
+(2, 4, 1, 3000, 20),
+(3, 5, 1, 12000, 25),
+(1, 1, 2, 4900, 100),
+(2, 2, 2, 8400, 50),
+(2, 4, 2, 2900, 20),
+(3, 5, 2, 11900, 25);
 
 INSERT INTO Rezept VALUES
 (1, 'Grundteig', 'Teig herstellen und ruhen lassen', NULL),
@@ -346,17 +385,17 @@ INSERT INTO Rezept VALUES
 (4, 'Dinkelbrot', 'Dinkelteig herstellen und backen', 1);
 
 INSERT INTO beinhaltet VALUES
-(1, 1),
-(1, 4),
-(2, 1),
-(2, 2),
-(2, 4),
-(3, 1),
-(3, 2),
-(3, 4),
-(3, 5),
-(4, 6),
-(4, 4);
+(1, 1, 500),
+(1, 4, 100),
+(2, 1, 350),
+(2, 2, 200),
+(2, 4, 50),
+(3, 1, 350),
+(3, 2, 150),
+(3, 4, 50),
+(3, 5, 100),
+(4, 6, 600),
+(4, 4, 80);
 
 INSERT INTO Produkt VALUES
 (1, 2, 'Buttercroissant', 180),
