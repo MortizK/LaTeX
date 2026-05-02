@@ -22,6 +22,7 @@
 % 03.12 11:10-11:50
 % 03.12 13:10-13:30
 % 15.04 13:20-14:20
+% 02.05 17:00-17:45
 
 \section{Anforderungsanalyse}
 
@@ -44,6 +45,8 @@ Niklas Reusch
 % Wir müssen unsere Anforderungen für das ER Modell so erweitern, dass wir alle möglichen Beziehungen 
 % Und wir brauchen ca. 10 Entitäten.
 
+Die Grafik wurde ausgetauscht um den aktuellen Stand zu repräsentieren.
+
 \newpage
 \begin{landscape}
     %\begin{figure}[ht]
@@ -55,8 +58,8 @@ Niklas Reusch
     %\end{figure}
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=2\textwidth]{./fig/ERM_Überarbeitet.png}
-        \caption{ERM von Niklas Reusch - Überarbeitet am 15.04.2026}
+        \includegraphics[width=2\textwidth]{./fig/ERM_pgadmin.png}
+        \caption{ERM von pgAdmin}
         \label{fig:erm_from_niklas_reusch}
 \end{figure}
 \end{landscape}
@@ -299,29 +302,7 @@ Daraus folgt, dass alle vier Relationen nun die Bedingungen der 3NF erfüllen. D
 Niklas Reusch
 \end{flushright}
 
-\subsection{Beispiel CREATE TABLE}
-
-\begin{lstlisting}
-CREATE TABLE IF NOT EXISTS Mitarbeiter
-(
-    MitarbeiterID integer,
-    Gehalt integer,
-    Adresse varchar,
-    Geburtsdatum date,
-    Nachname varchar,
-    Vorname varchar,
-    PRIMARY KEY (MitarbeiterID)
-);
-\end{lstlisting}
-
-\subsection{Beispiel ALTER TABLE}
-
-\begin{lstlisting}
-ALTER TABLE Verkauf
-ADD FOREIGN KEY (FilialeID) REFERENCES Filiale,
-ADD FOREIGN KEY (MitarbeiterID) REFERENCES Mitarbeiter
-;
-\end{lstlisting}
+Siehe \textit{BaeckereiSQL\_Abgabe\_Niklas\_Reusch.sql}
 
 \section{Entwurf}
 
@@ -370,14 +351,26 @@ Die Relationen erfüllen die Anforderungen der dritten Normalform, da alle Nicht
 
 Die Normalisierung in die dritte Normalform mithilfe des Synthesealgorithmus ist logisch nachvollziehbar. Allerdings wäre eine argumentative Überprüfung der ersten und zweiten Normalform einfacher. Zudem wurde die Überprüfung für mehrere Relationen durchgeführt, was aber nicht notwendig wäre. Insgesamt sind der Entwurf in das relationale Schema, sowie die Normalisierung der Relationen gut gelungen.
 
-% \newpage
+\newpage
 \subsection{Feedback: Datenschema}
 
 \begin{flushright}
-von Moritz Köhler für Niklas Reusch
+von Moritz Köhler für Niklas Reusch am 02.05.2026
 \end{flushright}
 
+Die SQL-Implementierung überführt die Relationen aus dem relationalen Modell insgesamt sorgfältig und vollständig in PostgreSQL. Die Struktur ist verständlich, die Löschregeln (CASCADE, RESTRICT, SET NULL) sind sinnvoll gesetzt, und die Testdaten ermöglichen aussagekräftige Abfragen. Besonders hervorzuheben ist die korrekte Trennung der Telefonnummern sowie die Implementierung der Spezialisierung Azubi mit Verantwortlichem.
 
+Dennoch gibt es einige Punkte bei der Übertragung vom relationalen Modell zu beachten:
+
+\begin{enumerate}
+    \item \textbf{Konsistenz bei Lagerbeständen}: Das relationale Modell definiert Zutat mit einem globalen Bestand-Attribut. Die liefert-Relation verknüpft Zulieferer, Zutaten und Filialen, enthält aber keine Bestands- oder Mengenwerte. Dies ist inkonsistent: Falls jede Filiale eigene Zutatenbestände haben soll (wie in vorhanden für Produkte), sollte dies explizit durch eine zusätzliche Spalte in liefert oder eine separate Lagerbestands-Relation modelliert sein. Die aktuelle Implementierung lässt unklar, wie filialgebundene Zutatenbestände verwaltet werden.
+
+    \item \textbf{Rezept-Mengen in beinhaltet}: Die beinhaltet-Relation verbindet Rezepte mit Zutaten, enthält aber keine Spalten für die benötigte Menge oder Einheit. Dies ist für die praktische Nutzung essentiell (z.B. ``500g Mehl für Rezept 1''). Die Relation sollte um ``Menge'' und optional ``Einheit'' ergänzt werden.
+
+    \item \textbf{Produktzuweisung zu Rezepten pro Filiale}: Die Tabelle Produkt hat ein einzelnes RezeptID-Feld. Falls ein Produkt in verschiedenen Filialen unterschiedliche Rezepte verwenden kann, ist dies nicht abbildbar. Das relationale Modell sollte präzisieren, ob dies über eine ternäre Relation (ProduktID, FilialeID, RezeptID) zu lösen ist oder ob ein Produkt global an ein Rezept gebunden ist.
+\end{enumerate}
+
+Insgesamt ist die SQL-Implementierung qualitativ gut gelungen. Die genannten Punkte sind eher Klärungen zwischen dem relationalen Modell und der SQL-Umsetzung, um sicherzustellen, dass beide konsistent sind.
 
 % \newpage
 \subsection{Feedback: Entwurf}
