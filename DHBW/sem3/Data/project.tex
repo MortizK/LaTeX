@@ -358,19 +358,21 @@ Die Normalisierung in die dritte Normalform mithilfe des Synthesealgorithmus ist
 von Moritz Köhler für Niklas Reusch am 02.05.2026
 \end{flushright}
 
-Die SQL-Implementierung überführt die Relationen aus dem relationalen Modell insgesamt sorgfältig und vollständig in PostgreSQL. Die Struktur ist verständlich, die Löschregeln (CASCADE, RESTRICT, SET NULL) sind sinnvoll gesetzt, und die Testdaten ermöglichen aussagekräftige Abfragen. Besonders hervorzuheben ist die korrekte Trennung der Telefonnummern sowie die Implementierung der Spezialisierung Azubi mit Verantwortlichem.
+Deine SQL-Implementierung ist sorgfältig und vollständig — die Relationen sind in PostgreSQL gut übertragen, die Löschregeln sind durchdacht, und die Testdaten lassen sich tatsächlich sinnvoll abfragen. Mir gefällt besonders, wie du die Telefonnummern auslagerst und die Azubi-Spezialisierung mit Verantwortlichem modellierst. Das ist sauber gelöst.
 
-Dennoch gibt es einige Punkte bei der Übertragung vom relationalen Modell zu beachten:
+Bei der Umsetzung bin ich aber auf ein paar Punkte gestoßen, die mir unklar sind:
 
 \begin{enumerate}
-    \item \textbf{Konsistenz bei Lagerbeständen}: Das relationale Modell definiert Zutat mit einem globalen Bestand-Attribut. Die liefert-Relation verknüpft Zulieferer, Zutaten und Filialen, enthält aber keine Bestands- oder Mengenwerte. Dies ist inkonsistent: Falls jede Filiale eigene Zutatenbestände haben soll (wie in vorhanden für Produkte), sollte dies explizit durch eine zusätzliche Spalte in liefert oder eine separate Lagerbestands-Relation modelliert sein. Die aktuelle Implementierung lässt unklar, wie filialgebundene Zutatenbestände verwaltet werden.
+    \item \textbf{Was passiert mit den Zutatenbeständen pro Filiale?}: Im relationalen Modell hat Zutat einen globalen Bestand-Attribut, aber die liefert-Relation verbindet Zulieferer, Zutaten und Filialen — ohne dabei Bestands- oder Mengenwerte zu speichern. Wenn jede Filiale unterschiedliche Zutatenbestände haben soll (wie bei der vorhanden-Relation für Produkte), dann brauchen wir entweder ein Bestand-Feld in liefert oder eine separate Lagerbestands-Relation. Sonst ist unklar, wie du die filialgebundenen Bestände verwaltest.
 
-    \item \textbf{Rezept-Mengen in beinhaltet}: Die beinhaltet-Relation verbindet Rezepte mit Zutaten, enthält aber keine Spalten für die benötigte Menge oder Einheit. Dies ist für die praktische Nutzung essentiell (z.B. ``500g Mehl für Rezept 1''). Die Relation sollte um ``Menge'' und optional ``Einheit'' ergänzt werden.
+    \item \textbf{Die Mengen in beinhaltet fehlen}: Hier verbindest du Rezepte mit Zutaten — aber ohne die benötigte Menge. Ein Rezept braucht aber konkrete Angaben wie ``500g Mehl'' oder ``250ml Milch''. Kannst du hier Menge und optional Einheit hinzufügen?
 
-    \item \textbf{Produktzuweisung zu Rezepten pro Filiale}: Die Tabelle Produkt hat ein einzelnes RezeptID-Feld. Falls ein Produkt in verschiedenen Filialen unterschiedliche Rezepte verwenden kann, ist dies nicht abbildbar. Das relationale Modell sollte präzisieren, ob dies über eine ternäre Relation (ProduktID, FilialeID, RezeptID) zu lösen ist oder ob ein Produkt global an ein Rezept gebunden ist.
+    \item \textbf{Rezepte pro Filiale?}: Du speicherst im Produkt nur eine RezeptID. Aber die Anforderung sagt, dass Rezepte pro Filiale unterschiedlich sein können. Falls das zutrifft, brauchst du eine Relation, die (ProduktID, FilialeID, RezeptID) verbindet — oder klarstellen, dass ein Produkt global an ein Rezept gebunden ist.
 \end{enumerate}
 
-Insgesamt ist die SQL-Implementierung qualitativ gut gelungen. Die genannten Punkte sind eher Klärungen zwischen dem relationalen Modell und der SQL-Umsetzung, um sicherzustellen, dass beide konsistent sind.
+Insgesamt: Die Umsetzung ist solid. Die Punkte hier sind weniger Fehler als eher Unklarheiten zwischen unserem relationalen Modell und deiner SQL-Umsetzung.
+
+Zudem würde ich mir noch etwas mehr INSERTS Wünschen, damit ich es in der nächsten Aufgabe einfacher habe aussagekräftige Abfragen auszuführen.
 
 % \newpage
 \subsection{Feedback: Entwurf}
