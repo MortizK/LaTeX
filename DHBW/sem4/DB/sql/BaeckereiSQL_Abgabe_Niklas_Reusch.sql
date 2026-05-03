@@ -1,5 +1,6 @@
 -- Tabellenloeschung der Baeckerei
 
+DROP TABLE IF EXISTS ProduktRezeptFiliale CASCADE;
 DROP TABLE IF EXISTS vorhanden CASCADE;
 DROP TABLE IF EXISTS verkauft CASCADE;
 DROP TABLE IF EXISTS Verkauf CASCADE;
@@ -122,10 +123,17 @@ CREATE TABLE IF NOT EXISTS Rezept
 CREATE TABLE IF NOT EXISTS Produkt
 (
     ProduktID integer,
-    RezeptID integer,
     Name varchar(100),
     Preis integer, --Preis wird in Cent gespeichert
     PRIMARY KEY (ProduktID)
+);
+
+CREATE TABLE IF NOT EXISTS ProduktRezeptFiliale 
+(
+    ProduktID integer,
+    FilialeID integer,
+    RezeptID integer,
+    PRIMARY KEY (ProduktID, FilialeID) -- Bedeutet: ein Produkt hat pro Filiale genau ein Rezept
 );
 
 CREATE TABLE IF NOT EXISTS Verkauf
@@ -231,13 +239,21 @@ ALTER TABLE ZuliefererTelefonnummer
 ALTER COLUMN ZuliefererID SET NOT NULL;
 
 ALTER TABLE Produkt
-ADD FOREIGN KEY (RezeptID) REFERENCES Rezept(RezeptID) ON DELETE RESTRICT,
 ADD CONSTRAINT check_preis CHECK (Preis >= 0);
 
 ALTER TABLE Produkt
 ALTER COLUMN Name SET NOT NULL,
-ALTER COLUMN RezeptID SET NOT NULL,
 ALTER COLUMN Preis SET NOT NULL;
+
+ALTER TABLE ProduktRezeptFiliale
+ADD FOREIGN KEY (ProduktID) REFERENCES Produkt(ProduktID) ON DELETE CASCADE,
+ADD FOREIGN KEY (FilialeID) REFERENCES Filiale(FilialeID) ON DELETE RESTRICT,
+ADD FOREIGN KEY (RezeptID) REFERENCES Rezept(RezeptID) ON DELETE RESTRICT;
+
+ALTER TABLE ProduktRezeptFiliale
+ALTER COLUMN ProduktID SET NOT NULL,
+ALTER COLUMN FilialeID SET NOT NULL,
+ALTER COLUMN RezeptID SET NOT NULL;
 
 ALTER TABLE Verkauf
 ADD FOREIGN KEY (FilialeID) REFERENCES Filiale(FilialeID) ON DELETE RESTRICT,
@@ -320,7 +336,9 @@ INSERT INTO Mitarbeiter VALUES
 (1, 380000, 'Nagold, Marktstrasse 3', '1987-04-12', 'Meier', 'Laura'),
 (2, 360000, 'Herrenberg, Bahnhofstrasse 8', '1985-09-03', 'Schulz', 'Tim'),
 (3, 290000, 'Nagold, Iselshaeuser Strasse 15', '1998-02-17', 'Becker', 'Anna'),
-(4, 120000, 'Nagold, Gartenweg 6', '2005-11-21', 'Klein', 'Max');
+(4, 120000, 'Nagold, Gartenweg 6', '2005-11-21', 'Klein', 'Max'),
+(5, 300000, 'Calw, Hauptstrasse 2', '1995-06-10', 'Weber', 'Lukas'),
+(6, 310000, 'Nagold, Waldstrasse 9', '1992-03-18', 'Fischer', 'Eva');
 
 INSERT INTO Filiale VALUES
 (1, 'Marktplatz 1, Nagold', 'Filiale Nagold Zentrum', 1, true),
@@ -332,13 +350,17 @@ INSERT INTO Azubi VALUES
 INSERT INTO Schicht VALUES
 (1, '2024-01-10 06:00:00', '2024-01-10 14:00:00', 1),
 (2, '2024-01-10 05:30:00', '2024-01-10 13:30:00', 2),
-(3, '2024-01-10 14:00:00', '2024-01-10 20:00:00', 1);
+(3, '2024-01-10 14:00:00', '2024-01-10 20:00:00', 1),
+(4, '2024-01-11 06:00:00', '2024-01-11 14:00:00', 1),
+(5, '2024-01-11 14:00:00', '2024-01-11 20:00:00', 2);
 
 INSERT INTO durchgefuehrt_von VALUES
 (1, 1),
 (1, 3),
 (2, 2),
-(3, 4);
+(3, 4),
+(4, 5),
+(5, 6);
 
 INSERT INTO Zutat VALUES
 (1, 'Mehl', 'kg'),
@@ -382,7 +404,9 @@ INSERT INTO Rezept VALUES
 (1, 'Grundteig', 'Teig herstellen und ruhen lassen', NULL),
 (2, 'Buttercroissant', 'Teig tourieren, formen und backen', 1),
 (3, 'Schoko-Croissant', 'Schokolade einrollen und backen', 2),
-(4, 'Dinkelbrot', 'Dinkelteig herstellen und backen', 1);
+(4, 'Dinkelbrot', 'Dinkelteig herstellen und backen', 1),
+(5, 'Zimtcroissant', 'Zimt einarbeiten und backen', 2),
+(6, 'Baguette', 'Teig formen und backen', 1);
 
 INSERT INTO beinhaltet VALUES
 (1, 1, 500),
@@ -395,24 +419,48 @@ INSERT INTO beinhaltet VALUES
 (3, 4, 50),
 (3, 5, 100),
 (4, 6, 600),
-(4, 4, 80);
+(4, 4, 80),
+(5, 3, 100),
+(6, 1, 400),
+(6, 4, 50);
 
 INSERT INTO Produkt VALUES
-(1, 2, 'Buttercroissant', 180),
-(2, 3, 'Schoko-Croissant', 230),
-(3, 4, 'Dinkelbrot', 450);
+(1, 'Buttercroissant', 180),
+(2, 'Schoko-Croissant', 230),
+(3, 'Dinkelbrot', 450),
+(4, 'Zimtcroissant', 250),
+(5, 'Baguette', 200);
+
+INSERT INTO ProduktRezeptFiliale VALUES
+(1, 1, 2),
+(1, 2, 2),
+(2, 1, 3),
+(2, 2, 3),
+(3, 1, 4),
+(3, 2, 4),
+(4, 1, 5),
+(4, 2, 5),
+(5, 1, 6),
+(5, 2, 6);
 
 INSERT INTO Verkauf VALUES
 (1, 1, 3, '2024-01-10', 1180),
 (2, 2, 2, '2024-01-10', 1350),
-(3, 1, 1, '2024-01-10', 810);
+(3, 1, 1, '2024-01-10', 810),
+(4, 1, 3, '2024-01-11', 950),
+(5, 2, 2, '2024-01-11', 1120),
+(6, 1, 1, '2024-01-11', 760);
 
 INSERT INTO verkauft VALUES
 (1, 1, 4),
 (2, 1, 2),
 (3, 2, 3),
 (1, 3, 2),
-(3, 3, 1);
+(3, 3, 1),
+(4, 4, 3),
+(5, 4, 2),
+(1, 5, 5),
+(2, 6, 2);
 
 INSERT INTO vorhanden VALUES
 (1, 1, 1, 35),
@@ -420,13 +468,19 @@ INSERT INTO vorhanden VALUES
 (3, 1, 1, 12),
 (1, 2, 2, 0),
 (2, 2, 1, 10),
-(3, 2, 1, 8);
+(3, 2, 1, 8),
+(4, 1, 1, 20),
+(5, 1, 1, 25),
+(4, 2, 2, 0),
+(5, 2, 1, 15);
 
 INSERT INTO MitarbeiterTelefonnummer VALUES
 ('+49', '711123456', 1),
 ('+49', '711234567', 2),
 ('+49', '745212345', 3),
-('+49', '45223456', 4);
+('+49', '45223456', 4),
+('+49', '712345678', 5),
+('+49', '713456789', 6);
 
 INSERT INTO ZuliefererTelefonnummer VALUES
 ('+49', '731111111', 1),
