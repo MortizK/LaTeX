@@ -1,0 +1,34 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{IT Sicherheit}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-05-04}
+
+\section{Sicherheitsmaßnahmen}
+
+\subsection{PAP - Password Authentication Protocol}
+
+Hat zwei Schwachstellen:
+
+\begin{enumerate}
+    \item Passwort und ID werden unverschlüsselt übertragen
+    \item Beides wird als Muster übertragen. Kann also von einem dritten abgehört und selber eingespielt werden um die Identität zu klauen.
+\end{enumerate}
+
+\subsection{CHAP - Challenge Handshake Authentication Protocol}
+
+Es gibt jedes mal eine Challenge, welche beantwortet werden muss. Dies löst Schwachstellen 2. von PAP.
+
+% Alles andere ist in den Folien und muss noch nachgetragen werden
+
+\end{document}
