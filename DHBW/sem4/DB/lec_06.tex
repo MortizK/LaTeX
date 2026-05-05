@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken}
+
+\input{../preamble.tex}
+\lstset{style=sqlstyle}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-05-05}
+
+\section{Views und Sichten}
+
+\begin{lstlisting}
+Create View Projektmitarbeiter As
+Select * from Mitarbeiter
+natural Join Mitarbeiter_Projekt;
+
+Select * from Projektmitarbeiter;
+\end{lstlisting}
+
+\newpage
+\lecture{2026-05-05}
+
+\section{Projekt Aufgabe 5}
+
+Entwerfen Sie sinnvolle Sichten und Regeln für ihr DBMS, welche aus der Anforderungsanalyse hervorgehen.
+
+Wir sollen über unsere Benutzer aus der Anforderungsanalyse Sichten erstellen. Welche Sichten gibt es?
+
+Dies soll wieder als SQL-Skript abgegeben werden. Ein neues Skript.
+
+Wir sollen:
+
+\begin{enumerate}
+    \item Sichten erstellen
+    \item Abfragen auf diese Sichten
+\end{enumerate}
+
+\subsection{Abgabe}
+
+erst nach der Klausur
+
+\subsection{Bewertungskriterien}
+
+\begin{itemize}
+    \item Die Views spiegeln die verschiedenen Benutzer rollen (aus der Anforderungsanalyse) wieder.
+    \item Aus dem Skript lassen sich die Views erzeugen
+    \item Sinnvolle Abfragen sind lauffähig (nicht nur Select * from View)
+\end{itemize}
+
+\end{document}

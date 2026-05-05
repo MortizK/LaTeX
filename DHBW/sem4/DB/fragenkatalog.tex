@@ -3,6 +3,7 @@
 \newcommand{\docTitle}{Datenbanken}
 
 \input{../preamble.tex}
+\lstset{style=sqlstyle}
 
 \title{\docTitle : Fragenkatalog}
 \author{Moritz}
@@ -47,6 +48,35 @@ Fragen sind auf moodle
     \item Bedeutung von "In Relationaler Algebra gibt es keine Multimengen": Es gibt keine gleichen Tupel.
     \item Bei einer Vereinigung zwei Relationen muss die Attributanzahl/ Schema gleich sein.
     \item Nach dem Kreuzprodukt wird das Schema vereinigt.
+    \item Umbenennung von Attributen können bei Joins helfen. Umbenennung von Tabellen, ...
+    \item Einschränkung von WHERE: like, between, is in, is null, >, <
+    \item \begin{lstlisting}
+        SELECT count(*), avg(Gehalt) from Mitarbeiter
+    \end{lstlisting}
+    \item Ein \lstinline|having| kann nur Gruppen einschränken, wenn das Attribut auch im \lstinline|Group By| enthalten ist.
+    \item Reihenfolge von \lstinline|SELECT|:
+    \begin{enumerate}
+        \item FROM
+        \item WHERE
+        \item GROUP BY
+        \item HAVING
+        \item SELECT
+        \item ORDER BY
+    \end{enumerate}
+    selbst wenn es in einer anderen Reihenfolge aufgeschrieben wird:
+    \begin{enumerate}
+        \item SELECT
+        \item from
+        \item Where
+        \item Group By
+        \item having
+        \item Order By
+    \end{enumerate}
+    \item Subquery sind Abfragen um dynamisch Werte in einem anderem Query zu verwenden.
+    \item Ein Vergleich von mehreren Jahren ist möglich durch \lstinline|WHERE Jahr ANY(1968, 1980, 1997)|
+    \item ANY, ALL, EXISTS, In werden verwendet um aus einer Tabelle einen einzelnen Wert zu bekommen.
+    \item Ein Sequence wird verwendet um automatisch einen inkrementierenden Wert für ein Attribut anzulegen. Es ist eine Zählvariable
+    % Eine Frage Fehlt mir irgendwo!
 \end{enumerate}
 
 \end{document}

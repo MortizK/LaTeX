@@ -140,4 +140,62 @@ SELECT setval('Mitarbeiter_Pers_Nr_seq', (
 );
 \end{lstlisting}
 
+\lecture{2026-05-05}
+
+\begin{lstlisting}
+update Mitarbeiterset
+Set gehalt = (select gehalt from mitarbeiter where Pers_Nr = 10)
+where pers_nr = 1;
+\end{lstlisting}
+
+\begin{lstlisting}
+SELECT  Mi1.Pers_NR, Mi1.Gehalt
+FROM    Mitarbeiter Mi1, Mitarbeiter Mi2
+WHERE   Mi1.Gehalt = Mi2.Gehalt
+and     Mi1.Pers_nr <> Mi2.Pers_nr;
+\end{lstlisting}
+
+\subsection{OUTER JOIN}
+
+Wir wollen nun wissen, welche unserer Projekt-Mitarbeiter bisher noch an keiner Leistung gearbeitet haben.
+
+\begin{lstlisting}
+SELECT pers_nr, vorname, nachname, auftrag_nr
+FROM mitarbeiter_projekt
+NATURAL LEFT OUTER JOIN
+arbeitet_an
+NATURAL JOIN mitarbeiter
+where auftrag_nr IS NULL;
+\end{lstlisting}
+
+\subsection{Wie erstellt amn systematisch Abfragen}
+
+Hierzu habe ich ein Foto auf dem Handy von einer Liste die unsere Dozent hatte.
+
+\subsection{Freie Mitarbeiter}
+
+Wir erweitern die Aufgabe nun etwas und wollen nun wissen, welche Mitarbeiter gerade für neue Aufgaben frei sind. D.h. derzeit an keiner Leistung arbeiten und wie lange sie bereits Projekterfahrung haben.
+
+\begin{lstlisting}
+select pers_nr, vorname, nachname, projekterfahrung
+from mitarbeiter natural join mitarbeiter_projekt
+where pers_nr in
+(
+	select pers_nr from mitarbeiter
+	where pers_nr in
+	(
+		Select Pers_nr from mitarbeiter_projekt
+		where pers_nr not in
+		(
+			Select Pers_nr
+			from arbeitet_an
+			natural join leistung
+			where ende_termin is null
+		)
+	)
+);
+\end{lstlisting}
+
+Der Schritt für Schritt Lösungsweg ist unter './sql/query\_freie\_mitarbeiter.sql'
+
 \end{document}
