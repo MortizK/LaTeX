@@ -1,0 +1,64 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Refactoring Report}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Refactoring}
+
+\href{https://refactoring.com/catalog/index.html}{Refactoring Catalog} von Fowler.
+
+\subsection{Aufgabe}
+
+\begin{enumerate}
+    \item Schauen Sie sich alle Refactoring-Pattern an, die unter folgender Webseite genannt und erläutert sind: https://refactoring.com/catalog/index.html
+    \item Wählen Sie 3 beliebige der dort genannten Pattern aus und beurteilen Sie für jedes Pattern einzeln, an welcher Stelle im vorhandenen Code die Anwendung das jeweiligen Pattern Sinn machen könnte.
+    \item Dokumentieren Sie Ihre Überlegungen und Entscheidungen in 2-3 Sätzen pro Pattern (ggf. mit Positionsangaben im Code) in einem Textdokument.
+\end{enumerate}
+
+\subsection{Planung}
+
+To Do:
+
+\begin{enumerate}
+    \item Risikoabschätzung (Wie würde ein Undo aussehen)
+    \item Organisatorische Rahmenbedingungen
+    \item Aufwandsschätzung
+    \item Nutzerschätzung (Wartbarkeitsverbesserung, Fehlerrisiko)
+    \item Nachbedingungen prüfen (Regressionstest)
+\end{enumerate}
+
+\newpage
+\subsection{Umsetzung}
+
+Im HomeController habe ich zwei Funktionen: \lstinline|private void loadXMLTabContent()| und \lstinline|private void loadPDFTabContent()|, die ähnlich klingen und ähnlich sind. Hier kann ich \href{https://refactoring.com/catalog/parameterizeFunction.html}{Parameterize Function} verwenden, um zwei Funktionen in eine Funktion mit geeigneten Parametern zu ändern.
+
+Im Tasks Model habe ich zwei Funktionen, die dasselbe String-Formatting durchführen. Hier kann ich \href{https://refactoring.com/catalog/extractFunction.html}{Extract Function} verwenden, um \lstinline|toTitleCase| zu erstellen.
+
+\begin{lstlisting}[style=javastyle]
+public String getFormatedDifficulty() {
+    String diff = difficulty.toString();
+    return toTitleCase(diff);
+}
+public String getFormatedScope() {
+    String sc = scope.toString();
+    return toTitleCase(sc);
+}
+private String toTitleCase(String s) {
+    return s.charAt(0) + s.substring(1).toLowerCase();
+}
+\end{lstlisting}
+
+Mein DataService vermischt derzeit das Aktualisieren der Benutzeroberfläche und die Zustandsverwaltung. Dies könnte mit \href{https://refactoring.com/catalog/extractClass.html}{Extract Class} umgestaltet werden. Dies könnte zu zwei möglichen Klassen führen: ExamNavigationService und ViewStateService.
+
+Insgesamt habe ich mehrere weitere Stellen gefunden, an denen eine Umgestaltung sinnvoll wäre, und ich bin nicht zufrieden mit der Codequalität. Ich werde eine Refactoring-Planung durchführen, um zu sehen, ob es sich lohnt, einige oder das Gros meiner Anwendung neu zu schreiben (entweder nur als Lernerfahrung oder um den Code dort zu verbessern, wo nötig).
+
+\end{document}
