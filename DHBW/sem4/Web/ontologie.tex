@@ -141,23 +141,21 @@ Don'ts
     \begin{enumerate}
         \item Thema: Worum geht es?  
         
-        Ausschnitt aus Star Wars Teil 4-6  
+            Ausschnitt aus der Originaltrilogie (Episode IV-VI)  
         \item Quellen: Wo kann verlässliche Information zur Domäne gefunden werden? 
         
-        Star Wars Wikis, \href{https://starwars.fandom.com/wiki/Star_Wars}{Fandom}, \href{https://www.jedipedia.net/wiki/Jedipedia:Hauptseite}{Jedipedia}
+            Star Wars Wikis, \href{https://starwars.fandom.com/wiki/Star_Wars}{Fandom}, \href{https://www.jedipedia.net/wiki/Jedipedia:Hauptseite}{Jedipedia}, Filmhandlungen und Charakterbeschreibungen aus den Episoden 4--6
         \item Zweck: Wozu soll die Ontologie dienen? 
         
-        Informationen zu Beziehungen von Charakteren und Spezien liefern 
+            Informationen zu Beziehungen von Charakteren, Spezies und Fraktionen liefern sowie daraus neue Schlussfolgerungen ableiten 
         \item Wer soll die Ontologie benutzen? 
         
         Fans
         \item Detaillierungsgrad: Was sind die allgemeinsten und speziellsten Begriffe? 
         
-        Allgemein: Klassen für Lebewesen und Dinge 
-        \item Allgemein: Klassen für Lebewesen und Dinge 
-        
+            Allgemein: Klassen für Lebewesen, Fraktionen, Orte und relevante Gegenstände 
 
-        \item Speziell: Einzelne Figuren und Gegenstände 
+            \item Speziell: Einzelne Figuren, Droiden, Schiffe und ikonische Artefakte 
         
 
         \item Blickwinkel: Welche Weltsicht liegt zugrunde? 
@@ -167,21 +165,75 @@ Don'ts
         Fiktive Welt wird real beschrieben 
         \item Kompetenzfragen: Welche Fragen sollen beantwortet werden? 
         
+        \begin{itemize}
+            \item Welche Figuren gehören zu den Rebellen, zum Imperium oder zu den Jedi?
+            \item Welche Figuren sind miteinander verwandt, insbesondere innerhalb der Skywalker-Familie?
+            \item Welche Spezies besitzen typische Eigenschaften, die für die Modellierung relevant sind?
+            \item Welche Figuren nutzen oder besitzen bestimmte Droiden, Schiffe oder Lichtschwerter?
+            \item Welche Schlussfolgerungen lassen sich aus Identität, Zugehörigkeit und Verwandtschaft ableiten?
+        \end{itemize}
 
         \item Grenzen: Was wird nicht behandelt? 
         
+        \begin{itemize}
+            \item Nur die Originaltrilogie, keine Prequels, Sequels oder Expanded Universe Inhalte
+            \item Keine vollständige Modellierung aller Orte, Planeten oder Schlachten
+            \item Keine detaillierte Abbildung von Zeitverläufen oder jeder einzelnen Filmszene
+            \item Keine behind-the-scenes Informationen zu Schauspielern, Produktion oder Veröffentlichung
+        \end{itemize}
 
     \end{enumerate}
 
 \subsubsection{Klassen Sammlung}
 
+\begin{itemize}
+    \item \textbf{Person} -- Oberklasse für alle relevanten Figuren
+    \item \textbf{Charakter} -- konkrete handelnde Figur der Handlung
+    \item \textbf{Mensch}, \textbf{Droid}, \textbf{Alien} -- Speziesklassen
+    \item \textbf{Jedi}, \textbf{Sith}, \textbf{Rebel}, \textbf{Imperial} -- Fraktionen bzw. Rollen
+    \item \textbf{FamilyMember} -- Figuren mit modellierter Verwandtschaft
+    \item \textbf{Vehicle}, \textbf{Starship}, \textbf{Speeder} -- relevante Fortbewegungsmittel
+    \item \textbf{Artifact}, \textbf{Lightsaber}, \textbf{Weapon} -- wichtige Gegenstände
+    \item \textbf{Planet}, \textbf{Location} -- begrenzte Ortsklassen für das Referat
+\end{itemize}
+
+Mögliche Properties:
+
+\begin{itemize}
+    \item \textbf{hasSpecies} -- verbindet Charakter mit Spezies
+    \item \textbf{memberOf} -- verbindet Charakter mit Fraktion oder Orden
+    \item \textbf{hasParent}, \textbf{hasChild}, \textbf{hasSibling} -- Verwandtschaft
+    \item \textbf{uses}, \textbf{owns}, \textbf{pilots} -- Besitz und Nutzung
+    \item \textbf{locatedOn} -- Zuordnung zu Orten oder Planeten
+\end{itemize}
 
 \subsubsection{Mögliche Ableitung}
 
-
+\begin{itemize}
+    \item Wenn Luke Skywalker als Sohn von Darth Vader und Darth Vader als Anakin Skywalker modelliert wird, kann die Ontologie Luke und Leia als Kinder derselben Person erkennen.
+    \item Aus einer Modellierung von \emph{memberOf} und geeigneten Klassen kann ein Charakter automatisch als Rebel oder Imperial eingeordnet werden.
+    \item Wenn eine Figur ein Lichtschwert besitzt und zugleich der Klasse Jedi zugeordnet ist, lassen sich typische Jedi-Figuren als Unterklasse oder durch äquivalente Klassen erkennen.
+    \item Durch definierte Verwandtschaftsregeln kann ein neuer Wissensstand entstehen, ohne dass jede Beziehung explizit eingetragen werden muss.
+\end{itemize}
 
 \subsubsection{Individuen}
 
-
+\begin{itemize}
+    \item Luke Skywalker
+    \item Leia Organa
+    \item Han Solo
+    \item Darth Vader / Anakin Skywalker
+    \item Obi-Wan Kenobi
+    \item Yoda
+    \item Chewbacca
+    \item R2-D2
+    \item C-3PO
+    \item Rebel Alliance
+    \item Galactic Empire
+    \item Jedi Order
+    \item Millennium Falcon
+    \item X-wing
+    \item Lightsaber von Luke
+\end{itemize}
 
 \end{document}

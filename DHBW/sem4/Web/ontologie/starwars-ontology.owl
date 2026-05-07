@@ -1,0 +1,488 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/starwars#"
+     xml:base="http://example.org/starwars"
+     xmlns:ex="http://example.org/starwars#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://example.org/starwars">
+        <rdfs:comment xml:lang="de">OWL-Ontologie zu einem Ausschnitt der Originaltrilogie (Episode IV-VI) mit Fokus auf Figuren, Fraktionen, Verwandtschaft und ausgewählten Objekten.</rdfs:comment>
+        <owl:versionInfo>1.0</owl:versionInfo>
+    </owl:Ontology>
+
+    <!-- Object Properties -->
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#hasParent">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Character"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#hasChild">
+        <owl:inverseOf rdf:resource="http://example.org/starwars#hasParent"/>
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Character"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#hasSibling">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://example.org/starwars#hasParent"/>
+            <rdf:Description rdf:about="http://example.org/starwars#hasChild"/>
+        </owl:propertyChainAxiom>
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Character"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#memberOf">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Faction"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#hasMember">
+        <owl:inverseOf rdf:resource="http://example.org/starwars#memberOf"/>
+        <rdfs:domain rdf:resource="http://example.org/starwars#Faction"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Character"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#uses">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Lightsaber"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#owns">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#pilots">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Character"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Starship"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="http://example.org/starwars#locatedOn">
+        <rdfs:domain rdf:resource="http://example.org/starwars#Thing"/>
+        <rdfs:range rdf:resource="http://example.org/starwars#Location"/>
+    </owl:ObjectProperty>
+
+    <!-- Classes -->
+
+    <owl:Class rdf:about="http://example.org/starwars#Thing"/>
+
+    <owl:Class rdf:about="http://example.org/starwars#Character">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://example.org/starwars#hasParent"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://example.org/starwars#Character"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#HumanCharacter">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Character"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#AlienCharacter">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Character"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#DroidCharacter">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Character"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#WookieeCharacter">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#AlienCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#EwokCharacter">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#AlienCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Faction">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Organization">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Vehicle">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Starship">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Vehicle"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Speeder">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Vehicle"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Artifact">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Weapon">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Artifact"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Lightsaber">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Weapon"/>
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Artifact"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Location">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Planet">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Location"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#SpaceStation">
+        <rdfs:subClassOf rdf:resource="http://example.org/starwars#Location"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#RebelCharacter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#memberOf"/>
+                        <owl:hasValue rdf:resource="http://example.org/starwars#RebelAlliance"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#ImperialCharacter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#memberOf"/>
+                        <owl:hasValue rdf:resource="http://example.org/starwars#GalacticEmpire"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#JediCharacter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#memberOf"/>
+                        <owl:hasValue rdf:resource="http://example.org/starwars#JediOrder"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#SithCharacter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#memberOf"/>
+                        <owl:hasValue rdf:resource="http://example.org/starwars#SithOrder"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#ForceUser">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#JediCharacter"/>
+                    <rdf:Description rdf:about="http://example.org/starwars#SithCharacter"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#LightsaberUser">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#uses"/>
+                        <owl:someValuesFrom rdf:resource="http://example.org/starwars#Lightsaber"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#RebelPilot">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#RebelCharacter"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#pilots"/>
+                        <owl:someValuesFrom rdf:resource="http://example.org/starwars#Starship"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#ImperialPilot">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#ImperialCharacter"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#pilots"/>
+                        <owl:someValuesFrom rdf:resource="http://example.org/starwars#Starship"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#SkywalkerFamilyMember">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://example.org/starwars#Character"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://example.org/starwars#hasParent"/>
+                        <owl:hasValue rdf:resource="http://example.org/starwars#AnakinSkywalker"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+
+    <!-- Disjointness -->
+
+    <owl:Class rdf:about="http://example.org/starwars#HumanCharacter">
+        <owl:disjointWith rdf:resource="http://example.org/starwars#DroidCharacter"/>
+        <owl:disjointWith rdf:resource="http://example.org/starwars#AlienCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#DroidCharacter">
+        <owl:disjointWith rdf:resource="http://example.org/starwars#AlienCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#RebelCharacter">
+        <owl:disjointWith rdf:resource="http://example.org/starwars#ImperialCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#JediCharacter">
+        <owl:disjointWith rdf:resource="http://example.org/starwars#SithCharacter"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://example.org/starwars#Starship">
+        <owl:disjointWith rdf:resource="http://example.org/starwars#Speeder"/>
+    </owl:Class>
+
+    <!-- AllDifferent sets -->
+
+    <owl:AllDifferent>
+        <owl:distinctMembers rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://example.org/starwars#RebelAlliance"/>
+            <rdf:Description rdf:about="http://example.org/starwars#GalacticEmpire"/>
+            <rdf:Description rdf:about="http://example.org/starwars#JediOrder"/>
+            <rdf:Description rdf:about="http://example.org/starwars#SithOrder"/>
+        </owl:distinctMembers>
+    </owl:AllDifferent>
+
+    <!-- Named Individuals: factions and organizations -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#RebelAlliance">
+        <rdf:type rdf:resource="http://example.org/starwars#Faction"/>
+        <rdfs:label xml:lang="en">Rebel Alliance</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#GalacticEmpire">
+        <rdf:type rdf:resource="http://example.org/starwars#Faction"/>
+        <rdfs:label xml:lang="en">Galactic Empire</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#JediOrder">
+        <rdf:type rdf:resource="http://example.org/starwars#Faction"/>
+        <rdfs:label xml:lang="en">Jedi Order</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#SithOrder">
+        <rdf:type rdf:resource="http://example.org/starwars#Faction"/>
+        <rdfs:label xml:lang="en">Sith Order</rdfs:label>
+    </owl:NamedIndividual>
+
+    <!-- Named Individuals: locations -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Tatooine">
+        <rdf:type rdf:resource="http://example.org/starwars#Planet"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Alderaan">
+        <rdf:type rdf:resource="http://example.org/starwars#Planet"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Hoth">
+        <rdf:type rdf:resource="http://example.org/starwars#Planet"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Endor">
+        <rdf:type rdf:resource="http://example.org/starwars#Planet"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Dagobah">
+        <rdf:type rdf:resource="http://example.org/starwars#Planet"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#DeathStar">
+        <rdf:type rdf:resource="http://example.org/starwars#SpaceStation"/>
+    </owl:NamedIndividual>
+
+    <!-- Named Individuals: vehicles and objects -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#MillenniumFalcon">
+        <rdf:type rdf:resource="http://example.org/starwars#Starship"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Hoth"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#XWing">
+        <rdf:type rdf:resource="http://example.org/starwars#Starship"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Hoth"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#TIEFighter">
+        <rdf:type rdf:resource="http://example.org/starwars#Starship"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#DeathStar"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#LukeLightsaber">
+        <rdf:type rdf:resource="http://example.org/starwars#Lightsaber"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#ObiWanLightsaber">
+        <rdf:type rdf:resource="http://example.org/starwars#Lightsaber"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#VaderLightsaber">
+        <rdf:type rdf:resource="http://example.org/starwars#Lightsaber"/>
+        <rdf:type rdf:resource="http://example.org/starwars#Thing"/>
+    </owl:NamedIndividual>
+
+    <!-- Named Individuals: characters -->
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#AnakinSkywalker">
+        <rdf:type rdf:resource="http://example.org/starwars#HumanCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#ImperialCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#SithCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#LightsaberUser"/>
+        <rdf:type rdf:resource="http://example.org/starwars#ImperialPilot"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#GalacticEmpire"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#SithOrder"/>
+        <ex:uses rdf:resource="http://example.org/starwars#VaderLightsaber"/>
+        <ex:pilots rdf:resource="http://example.org/starwars#TIEFighter"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#DeathStar"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#DarthVader">
+        <owl:sameAs rdf:resource="http://example.org/starwars#AnakinSkywalker"/>
+        <rdfs:label xml:lang="en">Darth Vader</rdfs:label>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#LukeSkywalker">
+        <rdf:type rdf:resource="http://example.org/starwars#HumanCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#JediCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelPilot"/>
+        <rdf:type rdf:resource="http://example.org/starwars#LightsaberUser"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#JediOrder"/>
+        <ex:hasParent rdf:resource="http://example.org/starwars#AnakinSkywalker"/>
+        <ex:uses rdf:resource="http://example.org/starwars#LukeLightsaber"/>
+        <ex:pilots rdf:resource="http://example.org/starwars#XWing"/>
+        <ex:owns rdf:resource="http://example.org/starwars#LukeLightsaber"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Tatooine"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#LeiaOrgana">
+        <rdf:type rdf:resource="http://example.org/starwars#HumanCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:hasParent rdf:resource="http://example.org/starwars#AnakinSkywalker"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Alderaan"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#HanSolo">
+        <rdf:type rdf:resource="http://example.org/starwars#HumanCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelPilot"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:pilots rdf:resource="http://example.org/starwars#MillenniumFalcon"/>
+        <ex:owns rdf:resource="http://example.org/starwars#MillenniumFalcon"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Hoth"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#ObiWanKenobi">
+        <rdf:type rdf:resource="http://example.org/starwars#HumanCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#JediCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#LightsaberUser"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#JediOrder"/>
+        <ex:uses rdf:resource="http://example.org/starwars#ObiWanLightsaber"/>
+        <ex:owns rdf:resource="http://example.org/starwars#ObiWanLightsaber"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Tatooine"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Yoda">
+        <rdf:type rdf:resource="http://example.org/starwars#AlienCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#JediCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#JediOrder"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Dagobah"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Chewbacca">
+        <rdf:type rdf:resource="http://example.org/starwars#WookieeCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Endor"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#R2D2">
+        <rdf:type rdf:resource="http://example.org/starwars#DroidCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Tatooine"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#C3PO">
+        <rdf:type rdf:resource="http://example.org/starwars#DroidCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Tatooine"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="http://example.org/starwars#Wicket">
+        <rdf:type rdf:resource="http://example.org/starwars#EwokCharacter"/>
+        <rdf:type rdf:resource="http://example.org/starwars#RebelCharacter"/>
+        <ex:memberOf rdf:resource="http://example.org/starwars#RebelAlliance"/>
+        <ex:locatedOn rdf:resource="http://example.org/starwars#Endor"/>
+    </owl:NamedIndividual>
+
+</rdf:RDF>
+
+<!-- Generated for Protégé-friendly RDF/XML OWL 2 ontology -->
