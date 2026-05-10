@@ -135,10 +135,73 @@ Third, it should provide empirical evidence about which serve and attack choices
 
 Fourth, it should clarify the boundary between what can be measured directly from video and what must be inferred statistically.
 
+\section{Related Work}
+
+Beach volleyball tracking and sports video analysis have been addressed in prior work, but remain an active research area due to the challenges of occlusion, fast motion, and the need for tactical insight. We review key related work across three areas: single-view and multi-view sports tracking, ball detection and trajectory reconstruction, and tactical analysis and group activity recognition.
+
+\subsection{Single-View and Multi-View Player Tracking in Sports}
+
+Gomez et al. [1] presented the foundational beach volleyball tracking study, developing methods for player tracking and ball contact detection from single-view video. Their work implemented both classical particle filters and integral histogram approaches, achieving player tracking accuracy of up to 82.6\% for front players, and identified key challenges such as mutual occlusion, perspective distortion, and ball motion blur. This prior work directly motivates the court calibration and player tracking layers in our proposal, though we aim to improve robustness through multi-view geometry when feasible.
+
+SportsMOT [2] provides a large-scale multi-object tracking dataset spanning 240 video clips across basketball, football, and volleyball, with 150K+ annotated frames. The dataset emphasizes diverse camera angles and rapid player motion, making it valuable for training and benchmarking MOT systems in sports. We adopt similar annotation standards and evaluation metrics, particularly the HOTA metric, for our tracking validation.
+
+For related single-sided sports, Gossard et al. [3] and Rahmanian et al. [4] developed comprehensive table tennis datasets (TT3D and TT4D) with frame-level ball positions, spin estimation, and 3D human meshes, demonstrating the feasibility of high-quality court-aligned reconstructions. While table tennis occurs in a controlled indoor setting, their approaches to ball tracking, player pose estimation, and multi-view fusion are directly transferable to beach volleyball.
+
+\subsection{Ball Detection and Trajectory Reconstruction}
+
+TrackNetV4 [5] extends the popular TrackNet series for high-speed small object tracking, using motion attention mechanisms to detect and track balls in sports videos. The architecture is particularly relevant for beach volleyball, where the ball is small, fast-moving, and frequently occluded or motion-blurred. We plan to incorporate or adapt TrackNet components for robust ball detection in Phase 2 of our roadmap.
+
+Chen et al. [6] developed physics-based ball tracking for volleyball videos, combining motion detection with parabolic trajectory fitting to estimate ball contact frames and classify set types. Their approach to inferring contact events from trajectory intersections is closely related to our Phase 2 physical reconstruction layer.
+
+TOTNet [7] addresses occlusion-aware temporal tracking for ball detection in sports, combining temporal consistency with occlusion handling---a key limitation acknowledged in prior beach volleyball work [1]. This method is relevant for robustness in multi-player occlusion scenarios.
+
+\subsection{Tactical and Group Activity Analysis in Sports}
+
+VREN [8] provides the first large information-rich volleyball dataset with expression notation language, capturing player actions, positions, and rally patterns in structured format. This dataset is highly aligned with our Phase 3 (event ontology) and Phase 4 (descriptive tactical analytics) phases, offering both benchmarks and annotation templates.
+
+For group activity recognition, GroupFormer [9] and related skeleton-based methods [10, 11] demonstrate effective approaches to modeling team-level behavior from player trajectories and poses. These methods are relevant for our Phase 5 (conditional decision modeling), where we model team formations and tactical responses.
+
+Graph-based approaches [12] for volleyball analytics use contact-by-contact player interactions as nodes in a graph, enabling prediction of match outcomes and tactical effectiveness. This representation is complementary to our court-aligned trajectory layer and suggests a promising direction for Phase 5 tactical modeling.
+
+\subsection{Multi-View Geometry and Synchronization}
+
+For multi-camera sports systems, Visual Sync [13] provides methods for automatic camera synchronization via object motion, addressing a practical challenge in Phase 7 (multi-camera tournament capture). BasketLiDAR [14] demonstrates a multimodal approach combining LiDAR and RGB cameras for real-time 3D trajectory reconstruction, offering a template for robust multi-view fusion.
+
 \section{Conclusion}
 The project is scientifically promising because it addresses a real tactical problem in a data-scarce sport and because it naturally supports a layered research design. Its realism depends on scope control. If the first stage is limited to court-aligned tracking and conditional tactical estimation, the project is feasible and research-relevant. If it is framed too early as full 3D reconstruction or perfect tactical optimization, the assumptions become too strong.
 
 The most realistic research strategy is therefore to move from geometry to tracking, from tracking to events, and from events to tactical decision models. That sequence allows each layer to be validated before the next one is added.
 
+\begin{thebibliography}{99}
+
+\bibitem{1} Gomez, G., Herrera López, P., Link, D., and Eskofier, B. (2014). ``Tracking of Ball and Players in Beach Volleyball Videos.'' \textit{PLoS ONE}, 9(11), e111730.
+
+\bibitem{2} Cui, Y., Zeng, C., Zhao, X., Yang, Y., Wu, G., and Wang, L. (2023). ``SportsMOT: A Large-Scale Multi-Object Tracking Dataset in Sports Scenes.'' In \textit{ECCV 2022 Workshops}. arXiv:2304.05170.
+
+\bibitem{3} Gossard, T., Ziegler, A., and Zell, A. (2025). ``TT3D: Table Tennis 3D Reconstruction.'' arXiv:2504.10035.
+
+\bibitem{4} Rahmanian, N., Kienzle, D., Gossard, T., Kalaria, D., Lienhart, R., and Sastry, S. (2026). ``TT4D: A Pipeline and Dataset for Table Tennis 4D Reconstruction From Monocular Videos.'' arXiv:2605.01234.
+
+\bibitem{5} Raj, A., Wang, L., and Gedeon, T. (2024). ``TrackNetV4: Enhancing Fast Sports Object Tracking with Motion Attention Maps.'' arXiv:2409.14543.
+
+\bibitem{6} Chen, H. T., Chen, H. S., and Lee, S. Y. (2007). ``Physics-Based Ball Tracking in Volleyball Videos with its Applications to Set Type Recognition and Action Detection.'' In \textit{IEEE International Conference on Acoustics, Speech and Signal Processing}, 1, 1097--1100.
+
+\bibitem{7} Xu, H., Baniya, A. A., Wells, S., Bouadjenek, M. R., Dazely, R., and Aryal, S. (2025). ``TOTNet: Occlusion-Aware Temporal Tracking for Robust Ball Detection in Sports Videos.'' arXiv:2508.09650.
+
+\bibitem{8} Xia, H., Tracy, R., Zhao, Y., Fraisse, E., Wang, Y.-F., and Petzold, L. (2022). ``VREN: Volleyball Rally Dataset with Expression Notation Language.'' arXiv:2209.13846.
+
+\bibitem{9} Li, S., Cao, Q., Liu, L., Yang, K., Liu, S., Hou, J., and Yi, S. (2021). ``GroupFormer: Group Activity Recognition with Clustered Spatial-Temporal Transformer.'' In \textit{ICCV 2021}. arXiv:2108.12630.
+
+\bibitem{10} Li, Z., Chang, X., Li, Y., and Su, J. (2024). ``Skeleton-based Group Activity Recognition via Spatial-Temporal Panoramic Graph.'' In \textit{ECCV 2024}. arXiv:2407.19497.
+
+\bibitem{11} Zhou, H., Kadav, A., Shamsian, A., Geng, S., Lai, F., Zhao, L., Liu, T., Kapadia, M., and Graf, H. P. (2022). ``COMPOSER: Compositional Reasoning of Group Activity in Videos with Keypoint-Only Modality.'' In \textit{ECCV 2022}. arXiv:2112.05892.
+
+\bibitem{12} Tracy, R., Xia, H., Rasla, A., Wang, Y.-F., and Singh, A. (2023). ``Graph Encoding and Neural Network Approaches for Volleyball Analytics.'' arXiv:2308.11142.
+
+\bibitem{13} Liu, S., Yao, D. Y., Gupta, S., and Wang, S. (2025). ``Visual Sync: Multi-Camera Synchronization via Cross-View Object Motion.'' In \textit{NeurIPS 2025}. arXiv:2512.02017.
+
+\bibitem{14} Hayashi, R., Torimi, K., Nagata, R., Ikeda, K., Sako, O., Nakamura, T., Tani, M., and Aoki, Y. (2025). ``BasketLiDAR: The First LiDAR-Camera Multimodal Dataset for Professional Basketball MOT.'' arXiv:2508.15299.
+
+\end{thebibliography}
 
 \end{document}
