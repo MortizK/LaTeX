@@ -1,6 +1,6 @@
 \documentclass[a4paper]{article}
 
-\newcommand{\docTitle}{Studienarbeit}
+\newcommand{\docTitle}{Proposal: volleyball}
 
 \input{../preamble.tex}
 
@@ -49,6 +49,8 @@ First, the video source must contain a stable or semi-stable camera view where t
 
 Second, the first version of the system will use a restricted data setting, ideally one tournament or one camera style, before attempting broader generalization. Cross-tournament variability is a later problem, not an initial requirement.
 
+If official broadcast or federation feeds are unavailable, the first data collection should be treated as a pilot tournament with a synchronized five-camera setup. In that case, the project shifts from single-view analysis to a controlled multi-view research capture.
+
 Third, the tactical target variables must be defined in a way that can be measured from video. For example, serve effectiveness can be defined through reception quality, continuation of the rally, or direct point outcome. Without operational definitions, the project would remain descriptive rather than scientific.
 
 Fourth, the system will likely not reconstruct full 3D ball physics from a single camera in a strict sense. The realistic target is a court-referenced approximation of ball flight and contact events that is good enough for analysis.
@@ -62,8 +64,10 @@ The most feasible components are court calibration, player detection and trackin
 
 The medium-difficulty components are ball detection, ball tracking, and basic event classification. These steps are already more sensitive to occlusion, motion blur, and camera compression, but they are still attainable if the footage quality is controlled.
 
-The most difficult components are physically constrained ball reconstruction, robust shot-type classification, and tactical decision modeling across many matches.
-These parts require more data, more labels, and more careful validation. They are therefore suitable as later research phases rather than as the starting point.
+With five synchronized cameras, ball tracking becomes more feasible because occlusions can be resolved across views, and player identities can be maintained more robustly. The main additional cost is operational complexity: synchronization, calibration, storage, and annotation across views become part of the pipeline.
+
+The most difficult components are physically constrained ball reconstruction, robust shot-type classification, and tactical decision modeling.
+Across many matches, these parts require more data, more labels, and more careful validation. They are therefore suitable as later research phases rather than as the starting point.
 
 Overall, the project is feasible if the first scientific claim is limited to conditional tactical estimation from court-aligned tracking data. It becomes infeasible only if it is framed too early as a fully automatic, high-accuracy, end-to-end understanding system.
 
@@ -99,6 +103,15 @@ Model serve choice, attack choice, and receiver positioning as conditional decis
 Extend the dataset to more matches, tournaments, and camera conditions. Validate whether the learned patterns generalize across contexts and whether the tactical findings remain stable when the data distribution changes.
 
 \textbf{Output:} a scalable analysis pipeline and externally validated tactical estimates.
+
+\subsection{Phase 7: Multi-Camera Tournament Capture}
+If the project cannot rely on official data sources, a pilot tournament should be captured with five cameras: one in each corner of the court area and one camera pointed at the first referee while still keeping the full court visible. This setup changes the project from a single-view calibration problem into a multi-view reconstruction problem.
+
+The main scientific advantage is that geometry becomes more stable. Multiple synchronized views allow better ball tracking under occlusion, more reliable player identity consistency, and a more defensible approximation of ball height and flight path. The referee-facing camera adds context for serve order, stoppages, and score-state validation, which helps align the video with match events.
+
+The main methodological change is that the project would no longer depend on a single homography. Instead, each camera would need its own calibration, followed by a shared court coordinate system for fusing detections across views. This makes the setup more similar to professional multi-camera analytics systems used in larger sports such as the NBA, but the data collection burden is higher.
+
+\textbf{Output:} synchronized multi-view video, cross-view player and ball trajectories, and a stronger basis for event annotation and tactical modeling.
 
 \section{Risk Assessment}
 The largest technical risk is ball tracking. The ball is small, fast, often blurred, and frequently occluded by players. If the ball trajectory is not reliable, downstream event inference and tactical modeling will degrade quickly.
