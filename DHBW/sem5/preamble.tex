@@ -1,0 +1,290 @@
+\usepackage{datetime2}  % for dates
+\usepackage[utf8]{inputenc} % UTF-8 input encoding
+\usepackage[T1]{fontenc} % fixes \textquotedbl with pdflatex/OT1
+\usepackage{textcomp}   % additional text symbols for typewriter/upquote
+\usepackage{xcolor}     % for gray color
+\usepackage{listings}
+\usepackage{marginnote} % for horizontal margin notes
+\usepackage{parskip}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{everypage}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}   % Mengen and natural numbers
+\usepackage{enumerate}  % Custom Enumerations
+\usepackage{multicol}   % Multiple Columns
+\usepackage{tabularx}
+
+\usepackage{hyperref}   % Links
+\hypersetup{
+    pdftitle={\docTitle},
+    pdfauthor={Moritz Köhler},
+    pdfkeywords={DHBW, Hochschule},
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=cyan
+}
+
+% -------
+% Images
+% -------
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./fig/}{#1.pdf_tex}
+}
+
+% ---------------------------------
+% Vertical Side note (Bottom Left)
+% ---------------------------------
+
+\newcommand{\verticaldocinfo}{%
+  \rotatebox{90}{\tiny\color{gray}\texttt{\DTMtoday\_\docTitle\_\jobname}}%
+}
+
+\AddEverypageHook{
+  \put(-40pt,-650pt){\verticaldocinfo}%
+}
+
+% ---------------
+% Math Shortcuts
+% ---------------
+
+% Number sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+
+% Vectors and matrices
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+% Derivatives
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\dpartial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ddt}{\frac{\dd}{\dd t}}
+
+% Norms and absolute values
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+
+% Probability & Statistics
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% Fields and Algebras
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\F}{\mathbb{F}}
+
+% Set Operations
+\newcommand{\compl}[1]{#1^{\mathrm{c}}}
+
+% Matrix and Vector Operations
+\newcommand{\T}{^{\top}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\conj}[1]{\overline{#1}}
+
+% -------------------
+% Main lecture macro 
+% -------------------
+
+\newcommand{\lecture}[1]{%
+  \protect\marginnote{\protect\tiny\protect\color{gray}#1}
+}
+
+% -----------------------------
+% Command for box with heading
+% -----------------------------
+
+\fboxsep2mm
+\newcommand{\know}[2]{
+    \noindent\fbox{
+        \parbox{\textwidth-21pt}{
+
+            \textbf{#1:}
+            \vspace{0.125cm}
+
+            #2
+        }
+    }
+}
+
+% -------------------
+% Listings Languages
+% -------------------
+
+% Shared defaults for code listings
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=false,
+    columns=flexible,
+    upquote=true,
+    extendedchars=false % disable extended char handling to avoid UTF-8 conflicts
+}
+
+% SQL syntax highlighting
+\lstdefinelanguage{SQL}{
+    morekeywords={SELECT,FROM,WHERE,INSERT,INTO,VALUES,UPDATE,SET,DELETE,CREATE,TABLE,PRIMARY,KEY,NOT,NULL,AND,OR,JOIN,LEFT,RIGHT,INNER,ON,AS,ORDER,BY,GROUP,HAVING,LIMIT},
+    sensitive=false,
+    morecomment=[l]{--},
+    morestring=[b]'
+}
+
+% JSON syntax highlighting
+\lstdefinelanguage{json}{
+    morestring=[b]",
+    stringstyle=\color{teal},
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+        morekeywords={true,false,null},
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+            {:}{{{\color{black}:}}}{1}
+            {,}{{{\color{black},}}}{1},
+    showstringspaces=false
+}
+
+% Language specific styles
+\lstdefinestyle{javastyle}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{sqlstyle}{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{cstyle}{
+    language=C,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+\lstdefinestyle{jsonstyle}{
+    language=json,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    keepspaces=true,
+    columns=fullflexible,
+    upquote=true
+}
+
+% Default listing style
+\lstset{language={}}

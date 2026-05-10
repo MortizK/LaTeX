@@ -1,0 +1,131 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Studienarbeit}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Research Goal}
+This proposal develops a computer-vision-based analytics pipeline for beach volleyball that can support tactical questions at the rally level. The scientific goal is not to recover a perfect physical simulation of the game, but to derive reliable, court-aligned measurements that can be used to estimate tactical effectiveness under realistic broadcast or court-camera conditions.
+
+The project is motivated by three concrete questions:
+\begin{itemize}
+	\item Where should the receiver(s) stand for a given serve situation?
+	\item Which attack type, especially poke versus spike, has the highest probability of winning the point, and where should it be placed?
+	\item How should a player serve, for example top spin, float, short, or long, and where should the serve be placed?
+\end{itemize}
+
+These questions are framed as conditional tactical problems. The intended output is therefore not a universal rule set, but a set of data-driven estimates that depend on match context, opponent tendencies, and rally state.
+
+\section{Research Problem and Motivation}
+Beach volleyball is a small-sided sport with high tactical density. Every rally contains a limited number of players, a compact playing area, and a small number of decisive actions. This makes the sport attractive for analytical modeling, because the relationship between position, ball trajectory, and rally outcome is easier to interpret than in many larger team sports.
+
+At the same time, beach volleyball remains difficult to analyze at scale because high-quality labelled data is scarce. Most available footage is broadcast-oriented, visually noisy, and not designed for scientific measurement. As a result, there is a gap between what coaches and analysts would like to know and what can be extracted from existing data sources.
+
+This proposal addresses that gap by building a staged research pipeline: first geometry and tracking, then event inference, then tactical modeling. The core idea is to separate what can be measured robustly from what must be inferred probabilistically.
+
+\section{Research Questions}
+The project is organized around the following research questions:
+\begin{enumerate}
+	\item Can a court-calibrated single-view video pipeline recover player and ball trajectories with sufficient quality for tactical analysis?
+	\item Which serve types and serve locations are associated with the highest point-winning probability under given match conditions?
+	\item Which attack choices and target zones are most effective under specific rally states and defensive formations?
+	\item Can receiver positioning be modeled as a conditional optimization problem rather than as a fixed best position?
+\end{enumerate}
+
+The emphasis is on conditional effectiveness. The project does not seek a universal best serve, best attack, or best receiver position. Instead, it aims to estimate where certain actions are likely to be effective given context.
+
+\section{Assumptions}
+The proposal rests on a small number of explicit assumptions.
+
+First, the video source must contain a stable or semi-stable camera view where the full court is visible most of the time. Court calibration is only meaningful if the playing area can be observed consistently.
+
+Second, the first version of the system will use a restricted data setting, ideally one tournament or one camera style, before attempting broader generalization. Cross-tournament variability is a later problem, not an initial requirement.
+
+Third, the tactical target variables must be defined in a way that can be measured from video. For example, serve effectiveness can be defined through reception quality, continuation of the rally, or direct point outcome. Without operational definitions, the project would remain descriptive rather than scientific.
+
+Fourth, the system will likely not reconstruct full 3D ball physics from a single camera in a strict sense. The realistic target is a court-referenced approximation of ball flight and contact events that is good enough for analysis.
+
+Fifth, tactical recommendations must be interpreted as probabilistic and contextual. They are not deterministic prescriptions, but statistical estimates derived from observed data.
+
+\section{Feasibility}
+The project is feasible as a staged research project, but not all parts have the same level of difficulty.
+
+The most feasible components are court calibration, player detection and tracking, rally segmentation, and the extraction of coarse spatial features such as spacing, coverage zones, and serve placement. These tasks can be developed and validated with a relatively small amount of clean video.
+
+The medium-difficulty components are ball detection, ball tracking, and basic event classification. These steps are already more sensitive to occlusion, motion blur, and camera compression, but they are still attainable if the footage quality is controlled.
+
+The most difficult components are physically constrained ball reconstruction, robust shot-type classification, and tactical decision modeling across many matches.
+These parts require more data, more labels, and more careful validation. They are therefore suitable as later research phases rather than as the starting point.
+
+Overall, the project is feasible if the first scientific claim is limited to conditional tactical estimation from court-aligned tracking data. It becomes infeasible only if it is framed too early as a fully automatic, high-accuracy, end-to-end understanding system.
+
+\section{Methodological Roadmap}
+The project should proceed in phases.
+
+\subsection{Phase 1: Data Acquisition and Court Geometry}
+Collect a small, high-quality initial dataset with a fixed or semi-fixed camera angle and minimal cuts. Prefer full rallies over highlight clips. Calibrate the court via homography so that image coordinates can be mapped to court coordinates.
+
+\textbf{Output:} a court-aligned dataset and a consistent spatial coordinate system.
+
+\subsection{Phase 2: Tracking and Physical Approximation}
+Detect and track both players and the ball. Use temporal tracking to maintain identity consistency across the rally. Apply physically constrained smoothing to approximate ball flight and to infer likely contact events.
+
+\textbf{Output:} player trajectories, ball trajectories, and a first approximation of rally events.
+
+\subsection{Phase 3: Event Ontology and Weak Labels}
+Define a compact event ontology, including serve, receive, set, attack, touch, dig, free ball, and rally end. Use these labels to structure annotation and to train early event classifiers from video and trajectory cues.
+
+\textbf{Output:} a labeled action layer that connects tracking to semantics.
+
+\subsection{Phase 4: Descriptive Tactical Analytics}
+Build descriptive models for player spacing, serve distribution, attack zones, rally flow, and defensive coverage. This phase answers whether raw trajectories already contain useful tactical signal.
+
+\textbf{Output:} tactical heatmaps, rally descriptors, and baseline effectiveness measures.
+
+\subsection{Phase 5: Conditional Decision Modeling}
+Model serve choice, attack choice, and receiver positioning as conditional decision problems. Estimate point-winning probability or rally continuation probability as a function of court state, opponent structure, and action type.
+
+\textbf{Output:} data-driven recommendations with uncertainty bounds.
+
+\subsection{Phase 6: Dataset Scaling and External Validation}
+Extend the dataset to more matches, tournaments, and camera conditions. Validate whether the learned patterns generalize across contexts and whether the tactical findings remain stable when the data distribution changes.
+
+\textbf{Output:} a scalable analysis pipeline and externally validated tactical estimates.
+
+\section{Risk Assessment}
+The largest technical risk is ball tracking. The ball is small, fast, often blurred, and frequently occluded by players. If the ball trajectory is not reliable, downstream event inference and tactical modeling will degrade quickly.
+
+The second major risk is insufficient annotation quality. Tactical modeling requires labels for serve type, attack type, landing zone, rally outcome, and ideally reception or attack quality. If labels are noisy or inconsistent, the models will appear to work while actually learning artifacts.
+
+The third risk is overclaiming from limited data. Serve effectiveness and attack success are strongly contextual. If the dataset is too small, the project may confuse noise with tactical signal.
+
+The fourth risk is domain shift. Different tournaments, venues, camera positions, and lighting conditions may reduce model performance significantly. A model trained on one broadcast style may not generalize to another.
+
+The fifth risk is that the project becomes too broad. A complete pipeline for calibration, tracking, event classification, and decision modeling is ambitious. If all tasks are pursued at once, progress may become fragmented. The research design therefore needs a narrow first milestone and a clear evaluation order.
+
+\section{Expected Contributions}
+The project is expected to contribute in four ways.
+
+First, it should provide a reproducible pipeline for court-aligned beach volleyball video analysis.
+
+Second, it should produce a structured rally representation that connects geometric tracking with semantic event labels.
+
+Third, it should provide empirical evidence about which serve and attack choices are associated with better outcomes under specific contexts.
+
+Fourth, it should clarify the boundary between what can be measured directly from video and what must be inferred statistically.
+
+\section{Conclusion}
+The project is scientifically promising because it addresses a real tactical problem in a data-scarce sport and because it naturally supports a layered research design. Its realism depends on scope control. If the first stage is limited to court-aligned tracking and conditional tactical estimation, the project is feasible and research-relevant. If it is framed too early as full 3D reconstruction or perfect tactical optimization, the assumptions become too strong.
+
+The most realistic research strategy is therefore to move from geometry to tracking, from tracking to events, and from events to tactical decision models. That sequence allows each layer to be validated before the next one is added.
+
+
+\end{document}
