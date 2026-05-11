@@ -3,7 +3,7 @@ name: "ProposalAgent"
 description: "Master's-level research proposal generator for STEM/CS. Use when: creating research proposals, planning thesis projects, formalizing project roadmaps. Workflow: always starts with VS Code askQuestions, refines roadmap from a large free-context input, provides scientific critique (assumptions, feasibility, novelty, risks), writes LaTeX proposal drafts, searches and integrates related work. Invocation: @ProposalAgent for [subject] with [large free-context roadmap draft]"
 user-invocable: true
 argument-hint: "@ProposalAgent for [subject] with [large free-context roadmap draft]"
-tools: []
+tools: [vscode/askQuestions, read, edit, search, web, execute]
 ---
 
 # ProposalAgent: Master's-Level Research Proposal Generator

@@ -1,0 +1,255 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Comparative Study of Human Strategy and Algorithmic Performance in Snake: A Multi-Goal Graph Navigation Benchmark}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This proposal outlines a Master's thesis investigating whether computational algorithms can exceed human performance in the classic Snake game. The core contribution is a systematic benchmark comparing human gameplay (1000+ games from 50+ players) with three classical algorithms (A*, Hamiltonian Cycle, Greedy heuristics) and novel algorithms inspired by human strategic patterns. A new replay file format ensures reproducible data capture across all sources. The project addresses a gap in the literature: multi-goal graph navigation in constrained environments, with implications for game AI, pathfinding, and strategic decision-making. Expected deliverables include a public dataset, comprehensive empirical comparison, and novel algorithmic insights into human-level performance in Snake.
+\end{abstract}
+
+\section{Research Goal}
+
+This thesis investigates the fundamental question: \textit{Can algorithms and AI exceed human performance in the Snake game?} The goal is to design, implement, and systematically evaluate a suite of algorithms against human players on a level playing field (non-automovement, strategic decisions only). By collecting 1000+ human games through a public website and benchmarking multiple algorithmic approaches, this work establishes whether human intuition or computational search is superior for multi-goal navigation in constrained, deterministic environments. The expected outcome is a rigorous empirical comparison that reveals the algorithmic and strategic foundations of Snake mastery.
+
+\section{Research Problem and Motivation}
+
+Snake is a canonical testbed for studying game-playing strategies and pathfinding in environments with multiple undecided goals (food collection) and dynamic constraints (growing body). Unlike classic benchmarks (Chess, Go), Snake has not been systematically studied with respect to human-algorithm comparison on identical gameplay mechanics.
+
+Most prior work focuses on single-algorithm implementations or reinforcement learning agents trained against weak baselines. The novelty gap is threefold: (1) no public human gameplay dataset exists for Snake under non-automovement conditions (separating strategic skill from reaction time), (2) multi-goal graph navigation algorithms are understudied in casual game contexts, and (3) systematic comparison of algorithmic families (classical pathfinding, heuristics, learned strategies) on human-equivalent tasks is rare.
+
+This work addresses these gaps by creating a benchmark dataset and empirical comparison that can inform future research in game AI, pathfinding under uncertainty, and human-AI performance analysis. Insights may transfer to robotics (multi-target navigation), resource gathering tasks, and strategic decision-making systems.
+
+\section{Research Questions}
+
+This thesis systematically addresses four core research questions:
+
+\begin{enumerate}
+\item \textbf{RQ1:} What is the empirical performance ceiling for human players in Snake (10×10 board, non-automovement)? What are the key strategic differences between novice and expert players?
+
+\item \textbf{RQ2:} Can classical pathfinding algorithms (A*, Hamiltonian Cycle, Greedy heuristics) reliably exceed human performance? Which algorithm is most competitive and why?
+
+\item \textbf{RQ3:} Do human gameplay patterns reveal novel multi-goal navigation strategies that, when formalized as algorithms, outperform classical baselines?
+
+\item \textbf{RQ4:} What is the computational efficiency-performance trade-off? Can algorithms achieve both superior performance and fast decision-making compared to human players?
+\end{enumerate}
+
+\section{Assumptions}
+
+The project rests on the following explicit assumptions:
+
+\begin{itemize}
+\item \textbf{A1: Replay Format Stability.} A compact binary or JSON-based replay format can capture all necessary game state, moves, and metadata for storage and analysis across 1000+ games without prohibitive computational overhead. \textit{Feasibility: High. A 10x10 Snake game averages 20-50 moves; 1000 games = 50-250 KB total.}
+
+\item \textbf{A2: Human Recruitment Feasibility.} At least 50 unique players will contribute 1000+ games across 10 months through a public website deployed on a reliable server. \textit{Feasibility: Medium. Depends on aggressive recruitment (Reddit, Discord, academic networks). Baseline expectation: 20 games/player. Mitigation: multi-round recruitment pushes.}
+
+\item \textbf{A3: Algorithm Computational Tractability.} A*, Hamiltonian Cycle, and Greedy algorithms can compute moves within 100ms on a 10×10 board in real-time. \textit{Feasibility: Very High. 100 cells is trivial for modern hardware; expected <1ms per move.}
+
+\item \textbf{A4: Hamiltonian Competitiveness.} Hamiltonian Cycle approximations will be at least competitive with or outperform Greedy heuristics due to exhaustive cycle coverage. \textit{Feasibility: High. Hamiltonian cycles guarantee visiting all cells; empirical validation required.}
+
+\item \textbf{A5: Discoverable Human Patterns.} Analysis of human replays will reveal 3--5 consistent strategic behaviors (e.g., food clustering, perimeter hugging, multi-target sequencing) that differ significantly from baseline algorithms. \textit{Feasibility: Medium. Requires subjective pattern recognition and domain expertise. Fallback: document that humans are fundamentally greedy (still valid finding).}
+
+\item \textbf{A6: Efficiency as Secondary Metric.} On 10×10 boards, computational efficiency differences will be negligible; game performance (score, survival) will be the primary distinguishing metric. \textit{Feasibility: High. Scaling to 50×50+ would change this. Proposal assumes 10×10 focus.}
+\end{itemize}
+
+\section{Feasibility Assessment}
+
+\subsection{Most Feasible (High Confidence)}
+
+\textbf{Phase 0 (Replay Format):} Well-understood problem with mature technologies (JSON/binary serialization). Deliverable in 2 weeks with low technical risk.
+
+\textbf{Phase 1 (Website \& Game Engine):} Straightforward web development (HTML5 Canvas, JavaScript). No novel algorithms required. 3 weeks realistic.
+
+\textbf{Phase 3 (Baseline Bots):} All three algorithms (A*, Hamiltonian, Greedy) are published, well-studied methods. Implementation is engineering-heavy but straightforward. 6 weeks for all three including testing.
+
+\subsection{Medium Feasibility (Moderate Risk)}
+
+\textbf{Phase 2 (Server Deployment):} Standard DevOps; primary risk is uptime discipline. If server fails, data collection halts. Mitigation: reliable hosting (AWS, DigitalOcean) + automated monitoring.
+
+\textbf{Phase 4 (Human Data Collection):} Critical bottleneck. Depends on external factor (player engagement). No technical risk, but recruitment requires sustained effort. Mitigation: launch recruitment in Week 7 (not Week 35); use multiple channels; plan for 3--4 recruitment pushes.
+
+\subsection{Most Difficult (High Uncertainty)}
+
+\textbf{Phase 5 (Pattern Analysis):} Subjective pattern recognition in human replays. No clear algorithmic process. Risks: patterns may be generic or non-actionable. Mitigation: define 5--10 specific patterns to search for beforehand (e.g., ``greedy food clustering'', ``perimeter-hugging'', ``multi-target sequencing''); keep analysis exploratory.
+
+\textbf{Phase 6 (Custom Algorithm Development):} Depends entirely on Phase 5 findings. If no novel patterns emerge, this phase becomes incremental. Mitigation: plan 2--3 algorithm variants; A/B test them; have fallback (hybrid greedy if no patterns discovered).
+
+\textbf{Phase 7 (Statistical Evaluation):} Requires balanced, large sample sizes (100 runs × 5+ variants × skill cohorts). Risk: if human data is skewed (few skilled players), statistical comparison is noisy. Mitigation: stratify players by skill from start; track win rate and avg. score.
+
+\subsection{Critical Choke Points}
+
+\begin{itemize}
+\item Server uptime (Phases 2--4): Multi-day outage halts data collection.
+\item Human recruitment (Phase 4): Only 300--500 games would reduce Phase 7 statistical power significantly.
+\item Pattern discovery (Phase 5): No novel patterns would weaken the thesis novelty claim (though comparison study would remain valid).
+\end{itemize}
+
+\section{Methodological Roadmap}
+
+\subsection{Phase 0: Replay Format Specification \& Implementation (Weeks 1--2)}
+
+\textbf{Deliverables:} 
+\begin{itemize}
+\item Specification document: replay file format (binary or JSON), versioning scheme, metadata schema.
+\item Library implementation: serialization (game state $\to$ replay) and deserialization (replay $\to$ game state).
+\item Test suite: record $\to$ replay $\to$ verify state equivalence.
+\end{itemize}
+
+\textbf{Validation Gate:} Format finalized; all tests pass; identical replay playback confirmed.
+
+\subsection{Phase 1: Website Foundation (Weeks 2--4)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Game UI: 10×10 board, non-automovement (player controls snake with arrow keys, no auto-movement).
+\item Game engine: collision detection, food spawn, score tracking, death detection.
+\item Replay integration: all human moves logged using Phase 0 format.
+\item Local testing: website playable offline; replays write correctly.
+\end{itemize}
+
+\textbf{Validation Gate:} Website playable locally; human moves logged in replay format; no crashes in 10 test games.
+
+\subsection{Phase 2: Data Collection Infrastructure (Weeks 5--7)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Server deployment: website live on stable hosting (AWS, DigitalOcean).
+\item Replay storage: database or file system backend for human game logs.
+\item Analytics dashboard: basic UI to monitor game count, player count, server health.
+\item Monitoring: uptime alerts, error logging.
+\end{itemize}
+
+\textbf{Validation Gate:} Server live and stable for 48 hours; replays stored and retrievable; monitoring operational.
+
+\subsection{Phase 3: Baseline Bot Algorithms (Weeks 3--9, Parallel with Phases 1--2)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item \textbf{A* Pathfinding:} Heuristic-based pathfinding (Manhattan or Euclidean distance); prioritize nearest food; avoid immediate collisions.
+\item \textbf{Hamiltonian Cycle:} Compute cycle through all cells; approximate optimal food collection order; fallback to A* if cycle computation fails.
+\item \textbf{Greedy Heuristic:} Nearest food with simple wall avoidance; baseline for comparison.
+\item \textbf{Integration:} All bots write replays using Phase 0 format.
+\item \textbf{Testing:} 50-game runs per bot; verify no crashes; compare performance.
+\end{itemize}
+
+\textbf{Validation Gate:} All three algorithms generate valid, replayable games; performance metrics (avg. score, survival time) recorded.
+
+\subsection{Phase 4: Human Data Collection (Months 2--11, Ongoing)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Website actively accepting players and logging replays.
+\item Recruitment: periodic promotion (Reddit r/gaming, Discord servers, academic networks).
+\item Target milestones: 500 games by Month 6 (Week 26), 1000 by Month 10 (Week 40).
+\item Optional: player skill tracking (win rate, avg. score, experience level).
+\end{itemize}
+
+\textbf{Validation Gate:} 500+ games collected by Month 6; data quality verified (no corruption, all fields populated).
+
+\subsection{Phase 5: Human Gameplay Pattern Analysis (Weeks 15--20)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Replay analysis: parse 500--1000 human games; compute decision statistics (food choice, wall distance, body length at decision).
+\item Pattern identification: cluster players by strategy (e.g., greedy vs. risk-averse, food clustering vs. perimeter following); identify 3--5 consistent behaviors.
+\item Skill segmentation: separate novice, intermediate, expert by win rate and avg. score; analyze strategy differences.
+\item Report: 5--10 page analysis document with visualizations (strategy distributions, heatmaps, decision trees).
+\end{itemize}
+
+\textbf{Validation Gate:} Analysis report completed; 3+ distinct patterns identified or documented as exploratory null finding (humans fundamentally greedy).
+
+\subsection{Phase 6: Custom Algorithm Development (Weeks 20--35)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Algorithm design: 2--3 novel variants inspired by top human patterns from Phase 5 (e.g., multi-target sequencing, risk-aware greedy, learned heuristics).
+\item Implementation: integrate with Phase 0 replay format.
+\item Testing: 50-game runs per variant; compare to baselines (A*, Hamiltonian, Greedy).
+\item Refinement: adjust parameters based on performance; select best 1--2 variants for Phase 7.
+\end{itemize}
+
+\textbf{Validation Gate:} Custom algorithm(s) tested; shows measurable advantage (higher score, longer survival) vs. at least one baseline, or explicitly documents novel strategy even if performance is neutral.
+
+\subsection{Phase 7: Comprehensive Statistical Evaluation (Weeks 36--48)}
+
+\textbf{Deliverables:}
+\begin{itemize}
+\item Benchmarking: 100 runs per algorithm (A*, Hamiltonian, Greedy, Custom variants) + human cohorts stratified by skill.
+\item Metrics: avg. score, max score, food collection rate, survival time, computational efficiency (decision time).
+\item Statistical analysis: means, variances, confidence intervals; t-tests for pairwise comparisons; effect sizes.
+\item Visualizations: performance distributions, learning curves (if humans play multiple games), algorithm comparison charts.
+\item Final report: 10--15 pages synthesizing all results, addressing RQ1--RQ4, discussing limitations and future work.
+\end{itemize}
+
+\textbf{Validation Gate:} Final report completed; all metrics computed; statistical significance documented; PDF ready for thesis submission.
+
+\section{Risk Assessment}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|l|c|c|p{4cm}|}
+\hline
+\textbf{Risk} & \textbf{L.} & \textbf{I.} & \textbf{Mitigation} \\
+\hline
+Human recruitment fails (300--500 games instead of 1000) & M & H & Multi-channel recruitment; incentives (leaderboard); start Week 7 \\
+\hline
+Replay format redesign needed mid-project & L & M & Version control in format spec; extensibility built in from start \\
+\hline
+No novel patterns emerge (Phase 5) & M & H & Pre-define 5--10 patterns to search for; accept null finding as valid \\
+\hline
+Baseline algorithms identical in performance & M & M & Accept result; use as motivation for Phase 6; still valid finding \\
+\hline
+Timeline slips; Phase 5/6 overrun & M & H & Enforce Phase 5 deadline (3--4 weeks max); decide by Week 22 on pivot \\
+\hline
+Server downtime (multiple days) & L & M & Reliable hosting; automated monitoring; daily backup logs \\
+\hline
+Imbalanced human data (few skilled players) & M & M & Stratify skill from start; track metrics per cohort; report limitations \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Expected Contributions}
+
+This thesis contributes three major outputs:
+
+\begin{enumerate}
+\item \textbf{Benchmark Dataset:} 1000+ Snake games from 50+ human players with full replay data, metadata, and skill annotations. This is the first large-scale, publicly available dataset for human Snake gameplay under non-automovement conditions, isolating strategic decision-making from reaction time.
+
+\item \textbf{Algorithm Suite \& Comparison:} Systematic implementation and empirical comparison of A*, Hamiltonian Cycle, Greedy, and novel human-inspired algorithms on identical task. Results clarify which algorithmic family is most competitive and why, advancing knowledge of multi-goal graph navigation in game AI.
+
+\item \textbf{Human-AI Performance Analysis:} Empirical determination of whether algorithms exceed human performance, and if so, by how much. Characterization of human strategic patterns and their algorithmic equivalents, contributing to human-AI comparison literature.
+
+\end{enumerate}
+
+All deliverables (dataset, code, final report, supplementary visualizations) will be made publicly available to support future research.
+
+\section{Conclusion}
+
+This proposal outlines a feasible, well-scoped Master's thesis that advances the understanding of human and algorithmic game-playing strategy in Snake. The project is technically sound (7 phases with clear gates and milestones), addresses genuine gaps in the literature (human dataset, multi-goal navigation, empirical comparison), and will produce three publishable contributions (dataset, algorithms, analysis).
+
+The primary risks are manageable: human recruitment requires early, aggressive outreach; pattern discovery is exploratory but has a fallback strategy (document null finding); and timeline discipline is essential in Phases 5--7. With disciplined execution of the roadmap and realistic planning for data collection, this thesis is well-positioned to complete within 12 months and contribute meaningfully to game AI and human-algorithm comparison research.
+
+\section*{References}
+
+The Related Work section and full bibliography will be integrated following a comprehensive literature search. Preliminary key areas to be covered:
+
+\begin{itemize}
+\item Pathfinding algorithms (A*, Dijkstra) in games and robotics
+\item Snake-specific AI and implementations
+\item Hamiltonian cycles and graph traversal
+\item Human-AI performance comparison studies
+\item Reinforcement learning for game-playing
+\item Multi-target navigation and resource gathering
+\item Game AI benchmarks and evaluation methodologies
+\end{itemize}
+
+\end{document}
