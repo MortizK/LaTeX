@@ -1,0 +1,137 @@
+@prefix : <http://example.org/starwars#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# starwars-ontology-2nd.ttl
+# - Geordnete, strukturierte Wiedergabe der Kernkonzepte
+# - Fokus: Soziograph (Personen/Beziehungen) + Fraktionen & Spezies
+# - Labels/Kommentare auf Deutsch, OWL‑DL kompatibel (HermiT)
+#################################################################
+
+# --- Kernkonzepte (extrahiert)
+# 1) Entitäten: Agenten (Person, Droid, Species) — Oberklassen
+# 2) Soziale Rollen: Role (Pilot, Smuggler, Mentor, etc.)
+# 3) Gruppen/Fraktionen: SocialGroup (RebelAlliance, GalacticEmpire, JediOrder)
+# 4) Beziehungen: hasParent/hasChild/hasSibling, knows, hasFriend, mentors, memberOf
+# 5) Ableitungen & Semantik: Property chains (grandparent), GCIs (anonyme LHS), EquivalentClasses, DisjointClasses
+# 6) Wartbarkeit: Bevorzuge Oberklassen statt owl:unionOf; Reifikation nur bei attributiven Kanten
+
+#################################################################
+# Klassen — Oberstruktur
+#################################################################
+:Agent a owl:Class ;
+    rdfs:label "Agent"@de ;
+    rdfs:comment "Superklasse für handelnde Akteure"@de .
+
+:Person a owl:Class ;
+    rdfs:subClassOf :Agent ;
+    rdfs:label "Person"@de ;
+    rdfs:comment "Menschliche oder handelnde Figur"@de .
+
+:Droid a owl:Class ;
+    rdfs:subClassOf :Agent ;
+    rdfs:label "Droid"@en ;
+    rdfs:comment "Maschineller Agent"@de .
+
+:Species a owl:Class ;
+    rdfs:label "Spezies"@de ;
+    rdfs:comment "Oberklasse für Spezies"@de .
+
+:Role a owl:Class ;
+    rdfs:label "Rolle"@de ;
+    rdfs:comment "Berufliche/soziale Rollen (Pilot, General, ...)"@de .
+
+:SocialGroup a owl:Class ;
+    rdfs:label "Soziale Gruppe"@de ;
+    rdfs:comment "Organisationen/Fraktionen"@de .
+
+# Spezialisierungen (Beispiele, wartbar als Oberklassen)
+:Human a owl:Class ; rdfs:subClassOf :Species , :Person ; rdfs:label "Mensch"@de .
+:Wookiee a owl:Class ; rdfs:subClassOf :Species , :Person ; rdfs:label "Wookiee"@en .
+
+# Rollen (ausgewählte Beispiele)
+:Pilot a owl:Class ; rdfs:subClassOf :Role , :Person ; rdfs:label "Pilot"@de .
+:Smuggler a owl:Class ; rdfs:subClassOf :Role , :Person ; rdfs:label "Schmuggler"@de .
+:Mentor a owl:Class ; rdfs:subClassOf :Role , :Person ; rdfs:label "Mentor"@de .
+:Mentee a owl:Class ; rdfs:subClassOf :Role , :Person ; rdfs:label "Mentee"@de .
+:General a owl:Class ; rdfs:subClassOf :Role , :Person ; rdfs:label "General"@de .
+
+# Fraktionen / Gruppen
+:RebelAlliance a owl:Class ; rdfs:subClassOf :SocialGroup ; rdfs:label "Rebel Alliance"@en .
+:GalacticEmpire a owl:Class ; rdfs:subClassOf :SocialGroup ; rdfs:label "Galactic Empire"@en .
+:JediOrder a owl:Class ; rdfs:subClassOf :SocialGroup ; rdfs:label "Jedi Order"@en .
+
+#################################################################
+# Properties — Kernbeziehungen
+#################################################################
+:hasParent a owl:ObjectProperty ; rdfs:label "hasParent"@en ; rdfs:domain :Person ; rdfs:range :Person .
+:hasChild a owl:ObjectProperty ; rdfs:label "hasChild"@en ; rdfs:domain :Person ; rdfs:range :Person ; owl:inverseOf :hasParent .
+:hasSibling a owl:ObjectProperty ; rdfs:label "hasSibling"@en ; rdf:type owl:SymmetricProperty ; rdfs:domain :Person ; rdfs:range :Person .
+
+:knows a owl:ObjectProperty ; rdfs:label "knows"@en ; rdf:type owl:SymmetricProperty ; rdfs:domain :Person ; rdfs:range :Person .
+:hasFriend a owl:ObjectProperty ; rdfs:subPropertyOf :knows ; rdfs:label "hasFriend"@en ; rdfs:domain :Person ; rdfs:range :Person .
+:mentors a owl:ObjectProperty ; rdfs:label "mentors"@en ; rdfs:domain :Person ; rdfs:range :Person ; owl:inverseOf :isMentoredBy .
+:isMentoredBy a owl:ObjectProperty ; rdfs:label "isMentoredBy"@en ; rdfs:domain :Person ; rdfs:range :Person .
+:memberOf a owl:ObjectProperty ; rdfs:label "memberOf"@en ; rdfs:domain :Person ; rdfs:range :SocialGroup .
+
+:hasAncestor a owl:ObjectProperty ; rdfs:label "hasAncestor"@en ; rdfs:domain :Person ; rdfs:range :Person .
+:hasGrandparent a owl:ObjectProperty ; rdfs:label "hasGrandparent"@en ; rdfs:subPropertyOf :hasAncestor ; rdfs:domain :Person ; rdfs:range :Person .
+:hasGrandparent owl:propertyChainAxiom ( :hasParent :hasParent ) .
+
+#################################################################
+# Semantische Zusätze: Disjoint / Equivalent / GCIs (geordnet)
+#################################################################
+# Disjoints — wichtige Trennungen
+:Person owl:disjointWith :Droid .
+:Jedi owl:disjointWith :Sith .
+
+# EquivalentClasses — gezielte Rollenformalismen
+:CloseFriend a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf ( :Person [ a owl:Restriction ; owl:onProperty :hasFriend ; owl:minCardinality "2"^^xsd:nonNegativeInteger ] ) ] ;
+    rdfs:label "Enge Freunde"@de .
+
+:MentorRole a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf ( :Person [ a owl:Restriction ; owl:onProperty :mentors ; owl:someValuesFrom :Person ] ) ] ;
+    rdfs:label "Mentorenrolle"@de .
+
+# GCIs — anonyme LHS (sinnvoll und Protégé‑relevant)
+# Beispiel: Person mit Sith‑Elternteil -> HasSithParent
+[ a owl:Class ; owl:intersectionOf ( :Person [ a owl:Restriction ; owl:onProperty :hasParent ; owl:someValuesFrom :Sith ] ) ] rdfs:subClassOf :HasSithParent .
+
+# RebelPilot: Pilot ∧ memberOf RebelAlliance -> RebelPilot
+[ a owl:Class ; owl:intersectionOf ( :Person :Pilot [ a owl:Restriction ; owl:onProperty :memberOf ; owl:someValuesFrom :RebelAlliance ] ) ] rdfs:subClassOf :RebelPilot .
+
+# Wookiee‑Friend: Person mit mind. einem Wookiee Freund
+[ a owl:Class ; owl:intersectionOf ( :Person [ a owl:Restriction ; owl:onProperty :hasFriend ; owl:someValuesFrom :Wookiee ] ) ] rdfs:subClassOf :HasWookieeFriend .
+
+# SocialHub: knows ≥3
+[ a owl:Class ; owl:intersectionOf ( :Person [ a owl:Restriction ; owl:onProperty :knows ; owl:minCardinality "3"^^xsd:nonNegativeInteger ] ) ] rdfs:subClassOf :SocialHub .
+
+# Benannte Klassen (abgeleitete Ziele)
+:HasSithParent a owl:Class .
+:RebelPilot a owl:Class .
+:HasWookieeFriend a owl:Class .
+:SocialHub a owl:Class .
+
+#################################################################
+# Beispiel‑Individuen (geordnet, keine Risiken durch Disjoints)
+#################################################################
+:AnakinSkywalker a :Person , :Sith ; rdfs:label "Anakin Skywalker"@en ; :hasAlias "Darth Vader"@en .
+:LukeSkywalker a :Person , :Jedi , :CanonicalCharacter ; rdfs:label "Luke Skywalker"@en ; :hasParent :AnakinSkywalker ; :memberOf :RebelAlliance .
+:LeiaOrgana a :Person , :CanonicalCharacter ; rdfs:label "Leia Organa"@en ; :memberOf :RebelAlliance .
+:ObiWanKenobi a :Person , :Jedi , :Mentor , :CanonicalCharacter ; rdfs:label "Obi‑Wan Kenobi"@en ; :mentors :LukeSkywalker ; :memberOf :JediOrder .
+:Yoda a :Person , :Jedi , :Mentor ; rdfs:label "Yoda"@en ; :mentors :LukeSkywalker ; :memberOf :JediOrder .
+:HanSolo a :Person , :Smuggler , :Pilot , :CanonicalCharacter ; rdfs:label "Han Solo"@en ; :hasFriend :Chewbacca ; :memberOf :RebelAlliance .
+:Chewbacca a :Person , :Wookiee , :CanonicalCharacter ; rdfs:label "Chewbacca"@en ; :hasFriend :HanSolo .
+:R2D2 a :Droid ; rdfs:label "R2‑D2"@en .
+:C3PO a :Droid ; rdfs:label "C‑3PO"@en .
+
+#################################################################
+# Hinweise zur Wartung
+# - Verwende Oberklassen (Agent/Person/Species) für Domains/Ranges
+# - Wenn Domain/Range mehrere Typen meint, erstelle Oberklasse statt owl:unionOf
+# - Bei Inkonsistenzen: Protégé Explain nutzen; häufige Ursachen: Disjoint + sameAs / falsche SubClassOf
+#################################################################
