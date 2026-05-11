@@ -1,0 +1,290 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Snake Bot Research Proposal}
+\lhead{Moritz -- Master's Thesis}
+\cfoot{\thepage}
+
+\title{\textbf{Algorithmic Snake Bot Design and Evaluation: \\
+A Comparative Study of Pathfinding Strategies and Human Gameplay}}
+\author{Moritz}
+\date{May 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This proposal outlines a Master's-level research project investigating the design, implementation, and evaluation of autonomous Snake game-playing agents. The core objective is to identify effective pathfinding algorithms and encoding human strategy patterns into game AI, with the goal of achieving 100\% win rate on $20 \times 20$ game boards. The project combines graph-theoretic pathfinding (A*, Hamiltonian cycles) with empirical human-computer comparison through crowdsourced gameplay data. Deliverables include a novel public dataset of human Snake gameplay, a suite of implemented bots spanning simple to advanced strategies, and a rigorous comparative evaluation framework. The proposal addresses feasibility, novelty, key assumptions, and mitigation strategies for identified risks.
+\end{abstract}
+
+\section{Research Goal}
+
+We aim to design and implement a suite of autonomous Snake-playing agents that achieve 100\% win rate on $20 \times 20$ game boards by systematically exploring pathfinding algorithms (A*, greedy heuristics, Hamiltonian cycle strategies) and encoding human decision patterns derived from crowdsourced gameplay. The broader objective is to demonstrate that graph-theoretic methods, combined with empirical analysis of human strategy, can produce near-optimal game-playing agents in constrained environments, while establishing a public dataset for future research in game AI and algorithmic strategy transfer.
+
+\section{Research Problem and Motivation}
+
+The Snake game, while simple in rules, presents a non-trivial challenge for pathfinding algorithms due to the agent's self-imposed constraints: the snake's body acts as a dynamic obstacle that grows with each move. Traditional graph search methods (A*, Dijkstra) operate on static or semi-static environments; Snake requires real-time, body-aware pathfinding and long-horizon planning. Additionally, human players employ heuristic strategies (e.g., body-following, spiral patterns) that are rarely formalized or empirically validated against algorithmic approaches. 
+
+The research gap lies in three areas:
+
+\begin{enumerate}
+    \item \textbf{Lack of systematic algorithm comparison}: Existing Snake AI implementations are fragmented across repositories and blogs; no rigorous, controlled benchmark exists comparing A*, Hamiltonian cycles, and hybrid strategies on identical board sizes.
+    \item \textbf{Human strategy formalization}: Human gameplay patterns in Snake are unstudied from an AI perspective. Encoding these patterns algorithmically could yield insights into human problem-solving and inspire new bot strategies.
+    \item \textbf{Absence of public dataset}: No curated, large-scale dataset of human vs. bot Snake gameplay exists for research reproducibility.
+\end{enumerate}
+
+This project addresses all three gaps through infrastructure development, algorithm implementation, and rigorous evaluation.
+
+\section{Research Questions}
+
+\begin{enumerate}
+    \item \textbf{RQ1}: Which pathfinding algorithms (A*, greedy heuristics, Hamiltonian cycle strategies) achieve the highest win rates on $20 \times 20$ boards, and how do their performance characteristics differ (speed, optimality, scalability)?
+    \item \textbf{RQ2}: Can human decision patterns in Snake gameplay be extracted and encoded as algorithmic heuristics? If so, do human-inspired bots outperform or underperform purely algorithmic agents?
+    \item \textbf{RQ3}: How does bot performance scale as board size increases (e.g., $10 \times 10 \to 25 \times 25$), and which algorithm classes maintain generalization?
+    \item \textbf{RQ4}: What statistical differences exist in move optimality, game length, and win rate between human players of varying skill levels and autonomous bots?
+\end{enumerate}
+
+\section{Assumptions}
+
+This project relies on the following critical assumptions:
+
+\begin{enumerate}
+    \item \textbf{Perfect Information \& Offline Computation (A1)}: The Snake environment provides complete board state visibility, and pathfinding algorithms can compute moves offline before execution. If violated, real-time constraints become binding, and algorithms may timeout on larger boards, forcing adoption of greedy or reactive strategies.
+    
+    \item \textbf{Hamiltonian Cycle Existence (A2)}: A Hamiltonian cycle solution exists for all $2n \times 2m$ game boards (even-dimensioned grids). If violated, 100\% win rate becomes theoretically unattainable for certain board sizes, and Phase 5 bot development must pivot to approximate algorithms.
+    
+    \item \textbf{Human Strategy Transferability (A3)}: Patterns in human gameplay are extractable and encodable as algorithmic heuristics with measurable performance gains. If violated, human-inspired bots underperform, and the novelty contribution shifts entirely to pure algorithmic comparison.
+    
+    \item \textbf{Crowdsourcing Data Quality (A4)}: Crowdsourced players engage seriously, producing diverse, high-quality gameplay data representative of skill variation. If violated, the dataset is sparse or noisy, compromising statistical analysis and benchmark reliability.
+    
+    \item \textbf{Algorithm Scalability (A5)}: Algorithms successful on $20 \times 20$ boards generalize to larger instances ($40 \times 40$, $100 \times 100$) with acceptable computational overhead. If violated, bots are limited to small instances, narrowing thesis applicability.
+    
+    \item \textbf{Platform Sustainability (A6)}: A public crowdsourcing server can operate reliably for 12--18 months without major downtime. If violated, data collection stalls, and early-collection advantage evaporates.
+\end{enumerate}
+
+All assumptions are testable within the project timeline and will be explicitly validated or revisited during Phase 3 (Weeks 3--8).
+
+\section{Feasibility Assessment}
+
+We decompose the roadmap into three feasibility tiers:
+
+\subsection*{Tier 1: Most Feasible (Phases 1, 4, 6)}
+
+\textbf{Phases 1 (Infrastructure), 4 (A*/Greedy Bots), and 6 (Evaluation)}. These phases leverage well-established computer science methodology:
+\begin{itemize}
+    \item Replay system: Standard event-log + state reconstruction pattern.
+    \item A* and greedy heuristics: Mature algorithms with extensive literature and proven implementations in game engines.
+    \item Statistical evaluation: Straightforward testing and comparison.
+\end{itemize}
+No algorithmic novelty required; primarily engineering and empirical work. \textbf{Risk level: Low.}
+
+\subsection*{Tier 2: Medium Feasibility (Phases 2, 3)}
+
+\textbf{Phases 2 (Website \& Crowdsourcing) and 3 (Pathfinding Research).}
+\begin{itemize}
+    \item Website deployment: Requires DevOps familiarity but is solvable via AWS Lambda, DigitalOcean, or similar platforms. Testing by Week 8 mitigates deployment risk.
+    \item Literature review on pathfinding: Comprehensive but manageable (4--6 weeks). Hamiltonian cycles in grid graphs are studied in combinatorics literature and game AI. Unfamiliarity requires structured learning but is not prohibitive.
+\end{itemize}
+\textbf{Critical choke point}: Phase 3 research must complete by Week 8 to validate Hamiltonian cycle feasibility. Delayed discovery of intractability forces Phase 5 redesign (2--3 week buffer allocated). \textbf{Risk level: Medium.}
+
+\subsection*{Tier 3: Most Difficult (Phases 5, 7)}
+
+\textbf{Phases 5 (Advanced Bots) and 7 (Thesis Publication).}
+\begin{itemize}
+    \item Phase 5: Requires novel algorithmic design (Hamiltonian heuristics, human-strategy encoding, hybrid approaches). Success depends on Phase 3 research clarity and empirical validation of human patterns. If Hamiltonian strategies fail to exceed 50\% win rate, contingency algorithms (genetic algorithms, reinforcement learning) must be adopted mid-project.
+    \item Phase 7: Requires synthesis of mixed results into coherent thesis narrative. If Phase 4--6 results are "flat" (all bots $\approx 70\%$ win rate), differentiation relies on secondary metrics (optimality, scalability, human transfer efficiency).
+\end{itemize}
+\textbf{Critical choke points}: (i) Hamiltonian cycle success by Week 24; (ii) Result differentiation by Week 40; (iii) Thesis writing completion by Week 52. \textbf{Risk level: High. Mitigation strategies detailed in Section~\ref{sec:risks}.}
+
+\section{Methodological Roadmap}
+\label{sec:roadmap}
+
+The project spans 52 weeks (12 months) organized into 7 sequential and parallel phases:
+
+\subsection*{Phase 1: Foundational Infrastructure (Weeks 1--6)}
+\textbf{What is built}: Game simulator engine (board state, snake movement, collision detection, scoring). Replay system (record all player moves as JSON; state reconstruction for offline analysis). Data schema (player ID, game metadata, board size, timestamp, move sequence).
+
+\textbf{What is validated}: Simulator correctness against reference Snake rules. Replay system consistency (reconstructed board state matches original). Data schema accommodates 1M+ games.
+
+\textbf{Gate to next phase}: Simulator passes 100 unit tests. 10 manual test games verify replay accuracy. Database schema approved for Phase 2 integration.
+
+\textbf{Estimated timeline}: 6 weeks (including testing).
+
+\subsection*{Phase 2: Website \& Crowdsourcing Platform (Weeks 2--20, parallel with Phase 1 \& 3)}
+\textbf{What is built}: Public web interface (playable Snake game in browser). Server backend (user authentication, game session management, data logging). Deployment infrastructure (hosting, database, monitoring).
+
+\textbf{What is validated}: Website uptime >95\% over 2-week pilot. User signup and gameplay flows work end-to-end. 100+ human games collected and logged correctly.
+
+\textbf{Gate to next phase}: Platform live and operational by Week 8. Continuous data collection throughout remainder of project. Contingency: If hosting fails, pivot to local CLI tool + batch upload by Week 10.
+
+\textbf{Estimated timeline}: 8 weeks (frontend + backend). Continuous operation thereafter.
+
+\subsection*{Phase 3: Pathfinding Research \& Algorithm Design (Weeks 3--10, parallel with Phases 1 \& 2)}
+\textbf{What is built}: Literature review synthesizing pathfinding algorithms (A*, Dijkstra, Hamiltonian cycle heuristics, human-strategy encoding). Bot specification document detailing algorithm pseudocode, complexity analysis, and success criteria for each bot type.
+
+\textbf{What is validated}: Hamiltonian cycle feasibility on $20 \times 20$ grids assessed via literature and preliminary experiments (2--3 week buffer). Human strategy patterns identified via preliminary analysis of Phase 2 data (Weeks 9--10). Go/no-go decision: proceed to Phase 4 if A* + greedy achieves >70\% win rate on test boards; proceed to Phase 5 if Hamiltonian heuristics show promise ($>50\%$ win rate in simulation).
+
+\textbf{Gate to next phase}: Algorithm specifications approved. Hamiltonian feasibility confirmed or fallback strategy selected. Risk assessment complete: if Hamiltonian unlikely, pivot Weeks 11--14 to genetic algorithms or reinforcement learning instead.
+
+\textbf{Estimated timeline}: 8 weeks (research + spec writing + preliminary validation).
+
+\subsection*{Phase 4: Bot Implementation Phase 1 -- A\* \& Heuristic Strategies (Weeks 11--22)}
+\textbf{What is built}: 
+\begin{itemize}
+    \item A* bot: Standard pathfinding to food with dynamic obstacle avoidance (snake body).
+    \item Greedy bot: Food-seeking without replanning; move toward nearest food cell.
+    \item Wall-following bot: Spiral pattern heuristic (common human strategy).
+\end{itemize}
+
+\textbf{What is validated}: Each bot tested on $10 \times 10$, $15 \times 15$, $20 \times 20$ boards (100 trials per size). Validation gate: $A^*$ achieves $\geq 85\%$ win rate on $20 \times 20$; greedy $\geq 60\%$. If not met, algorithm is re-tuned or replaced.
+
+\textbf{Gate to next phase}: All Phase 4 bots meet validation criteria. Performance baseline established for Phase 6 comparison.
+
+\textbf{Estimated timeline}: 12 weeks (development + testing + tuning).
+
+\subsection*{Phase 5: Bot Implementation Phase 2 -- Advanced Strategies (Weeks 18--32, parallel with Phase 4)}
+\textbf{What is built}: 
+\begin{itemize}
+    \item Hamiltonian cycle bot: Uses grid-specific Hamiltonian heuristic to achieve near-optimal traversal.
+    \item Human-inspired bot: Decision tree or heuristic encoding extracted from human move patterns (e.g., "if snake head $<5$ cells from tail, activate body-following").
+    \item Hybrid bot: Combines A* with Hamiltonian fallback; adaptive strategy selection.
+\end{itemize}
+
+\textbf{What is validated}: Each bot tested on $20 \times 20$ and $25 \times 25$ boards (100 trials per size). Validation gate: At least one bot achieves $\geq 100\%$ win rate on $20 \times 20$ (per project goal). If Hamiltonian fails, iterate on human-inspired or hybrid approaches (Weeks 25--32 buffer).
+
+\textbf{Gate to next phase}: Target bot(s) meet 100\% win rate criterion or acceptable fallback achieved. If substantial failure (all bots $<70\%$), escalate to contingency (genetic algorithm, RL) by Week 28 decision point.
+
+\textbf{Estimated timeline}: 15 weeks (algorithm innovation + implementation + extensive testing).
+
+\subsection*{Phase 6: Evaluation \& Benchmarking (Weeks 33--44)}
+\textbf{What is built}: Comprehensive evaluation framework comparing all bots (Phase 4 + 5) against 1000+ human-collected games from Phase 2. Metrics: win rate, average game length, move optimality (path length vs. theoretical minimum), computational cost. Statistical analysis: ANOVA, pairwise comparisons, effect sizes. Ablation studies on board size scaling ($10 \times 10$ to $30 \times 30$).
+
+\textbf{What is validated}: Result differentiation achieved (bots rank distinctly in at least 2 metrics). Statistical significance of differences established ($p < 0.05$). Scaling behavior characterized.
+
+\textbf{Gate to next phase}: Evaluation results comprehensive and interpretable. If results "flat" (all bots converge in win rate), escalate to qualitative analysis (move patterns, emerging strategies) to maintain narrative coherence.
+
+\textbf{Estimated timeline}: 12 weeks (testing + analysis + visualization).
+
+\subsection*{Phase 7: Thesis \& Dataset Publication (Weeks 45--52)}
+\textbf{What is built}: Master's thesis (6000--8000 words) synthesizing motivation, methodology, results, and contributions. Public release of source code (GitHub) and human gameplay dataset (anonymized, CC-BY license). Supplementary materials: bot code, replay files, evaluation scripts.
+
+\textbf{What is validated}: Thesis narrative clarity and scientific rigor. Dataset usability verified (third-party successfully reproduces bot evaluation).
+
+\textbf{Gate to next phase}: Thesis submitted and approved. Dataset publicly available.
+
+\textbf{Estimated timeline}: 8 weeks (writing + revision + publication setup).
+
+\textbf{Critical timing notes}: 
+\begin{itemize}
+    \item Phases 1, 2, 3 run in parallel (Weeks 1--10) to maximize efficiency.
+    \item Phases 4 and 5 overlap (Weeks 18--22 concurrent development).
+    \item Phase 3 go/no-go decision at Week 10 gates Phase 5 direction.
+    \item Phase 6 begins Week 33; Phase 4--5 bot development ends by Week 32 (hard scope lock).
+    \item Phase 7 writing begins Week 40 (concurrent with Phase 6), with intensive focus Weeks 45--52.
+\end{itemize}
+
+\section{Risk Assessment}
+\label{sec:risks}
+
+Six major risks are identified with likelihood, impact, and mitigation strategies:
+
+\begin{enumerate}
+    \item \textbf{R1: Hamiltonian Cycle Algorithm Intractability}
+    \begin{itemize}
+        \item \textbf{Likelihood}: Medium (combinatorial problems often yield weak heuristics).
+        \item \textbf{Impact}: High. If Phase 5 Hamiltonian bots fail to exceed 50\% win rate, algorithmic novelty collapses; thesis becomes pure A* benchmark study.
+        \item \textbf{Mitigation}: (i) Front-load Phase 3 research (Weeks 3--8). Literature search identifies weak heuristics early. (ii) By Week 10, conduct preliminary simulation: test Hamiltonian heuristic on 50 random $20 \times 20$ boards. (iii) If win rate $< 40\%$, trigger contingency Week 11: pivot Phase 5 to genetic algorithms or policy-based reinforcement learning (Q-learning, DQN). Allocate 2--3 weeks buffer (Weeks 25--28) for contingency implementation.
+    \end{itemize}
+
+    \item \textbf{R2: Crowdsourcing Platform Deployment Fails}
+    \begin{itemize}
+        \item \textbf{Likelihood}: Low--Medium (DevOps is manageable but unfamiliar territory).
+        \item \textbf{Impact}: Medium--High. If hosting fails mid-project (Week 20+), data collection halts; dataset becomes incomplete; thesis loses human-comparison novelty.
+        \item \textbf{Mitigation}: (i) Deploy MVP platform by Week 8 (AWS Lambda + S3 or DigitalOcean). Test load with 100 concurrent users. (ii) Implement monitoring and alerting (uptime tracking, database backups). (iii) If platform fails irreparably by Week 25, implement offline fallback: local Python/CLI tool for game recording. Recruit 20--30 local testers to generate 500+ games manually (compressed timeline: Weeks 26--30). (iv) Partial dataset is acceptable; thesis narrows to bot-vs-human comparison with available data.
+    \end{itemize}
+
+    \item \textbf{R3: Human Strategy is Non-Encodable}
+    \begin{itemize}
+        \item \textbf{Likelihood}: Medium (human heuristics are often context-dependent and implicit).
+        \item \textbf{Impact}: Medium. If human move patterns don't align with simple algorithmic heuristics (e.g., $< 60\%$ of moves explainable by greedy or wall-following rules), human-inspired Phase 5 bots underperform; novelty reduces to algorithm comparison + dataset.
+        \item \textbf{Mitigation}: (i) Weeks 9--10 (end of Phase 3), analyze Phase 2 human gameplay statistically. Compute correlation between human move choices and simple heuristics (food distance, body distance, wall proximity). (ii) If correlation weak ($< 0.6$), declare human encoding infeasible by Week 12. (iii) Pivot Phase 5: replace human-inspired bot with advanced algorithmic approach (e.g., meta-strategy selection: A* vs. Greedy vs. Wall-follow based on board state). (iv) Thesis repositions: focus on algorithm comparison + dataset publication (still publishable).
+    \end{itemize}
+
+    \item \textbf{R4: Scope Creep}
+    \begin{itemize}
+        \item \textbf{Likelihood}: High (common in software projects; feature requests tempting).
+        \item \textbf{Impact}: High. Adding board size variations, bot visualization, difficulty modes, leaderboards, etc., consumes weeks; by Month 12, thesis writing compressed; narrative suffers.
+        \item \textbf{Mitigation}: (i) \textbf{Hard scope lock by Week 12}. Core deliverables frozen: $20 \times 20$ board evaluation, 6 bot types, 3 metrics (win\%, length, optimality). (ii) Defer secondary features to post-thesis (visualization, UI polish). (iii) Weekly standups (solo or with advisor) to track scope adherence. (iv) If temptation arises, document feature as "Future Work" section in thesis.
+    \end{itemize}
+
+    \item \textbf{R5: Results Convergence (Flat Performance)}
+    \begin{itemize}
+        \item \textbf{Likelihood}: Medium (if algorithm classes are inherently similar in performance).
+        \item \textbf{Impact}: Medium. If all Phase 4 + 5 bots achieve $60\%--75\%$ win rate on $20 \times 20$, differentiation is weak; thesis narrative lacks clear winners/losers; contribution clarity suffers.
+        \item \textbf{Mitigation}: (i) Design Phase 6 evaluation to capture secondary metrics: move optimality (actual path length vs. Euclidean bound), computational cost (CPU time, memory), scaling behavior (performance vs. board size). (ii) If win rates converge, analyze move patterns qualitatively: visualize bot decision trajectories, identify emergent strategies. (iii) Reframe thesis: "Why do distinct algorithms yield similar performance?" → comparative analysis of algorithmic trade-offs, not rankings. (iv) Deploy ablation studies: disable bot features (e.g., A* vs. greedy pathfinding), measure performance drop; this creates artificial differentiation and insights.
+    \end{itemize}
+
+    \item \textbf{R6: Thesis Timeline Pressure}
+    \begin{itemize}
+        \item \textbf{Likelihood}: High (common in research projects; optimization work extends).
+        \item \textbf{Impact}: High. If Phases 4--6 extend into Week 45+, thesis writing (Phase 7) compressed into 2--3 weeks; narrative rushed, figures low-quality, argument structure weak.
+        \item \textbf{Mitigation}: (i) \textbf{Begin thesis outline and structure by Week 40} (end of Phase 5, during Phase 6). Write Introduction, Related Work, Methods sections before results finalized. (ii) \textbf{Allocate Weeks 45--52 exclusively to Phase 7 writing} (bot development halts by Week 40 hard deadline). (iii) If Phase 6 analysis incomplete by Week 44, submit thesis with ``Preliminary Results'' + promise of extended analysis in appendix. (iv) Schedule weekly writing check-ins with advisor starting Week 40 to maintain momentum.
+    \end{itemize}
+
+\end{enumerate}
+
+\section{Expected Contributions}
+
+This project will deliver:
+
+\begin{enumerate}
+    \item \textbf{Public Dataset}: Curated collection of 1000+ Snake games from crowdsourced human players, stratified by skill level and board size ($10 \times 10$ to $25 \times 25$). Dataset includes full move sequences, board states, and metadata (player demographics, game duration). Anonymized and released under CC-BY license. Expected impact: enables future research in game AI, human-computer interaction, and algorithmic strategy transfer.
+    
+    \item \textbf{Algorithmic Contributions}: Suite of 6 implemented and benchmarked bots spanning pathfinding paradigms (A*, greedy heuristics, Hamiltonian cycles, human-inspired strategies, hybrid approaches). At least one bot achieves 100\% win rate on $20 \times 20$ boards. Source code published on GitHub with full documentation.
+    
+    \item \textbf{Empirical Evaluation Framework}: Comprehensive comparison of pathfinding algorithms on Snake, measuring win rate, move optimality, computational cost, and scalability. Statistical analysis establishing significance of performance differences. First systematic benchmark of this kind in Snake game AI literature.
+    
+    \item \textbf{Master's Thesis}: Publication-quality manuscript (6000--8000 words, 15+ citations) synthesizing motivation, methodology, results, and contributions. Suitable for submission to conference (e.g., IEEE Game AI, DiGRA) or journal (e.g., IEEE Transactions on Games).
+    
+    \item \textbf{Insights into Human-Algorithm Transfer}: Analysis of human strategy patterns and empirical assessment of their algorithmic encoding. Findings applicable to broader human-AI collaboration in game playing and decision-making.
+\end{enumerate}
+
+\section{Conclusion}
+
+This Snake Bot research project is feasible within a 12--18 month Master's timeline. Core Phases (1, 4, 6) are low-risk and well-established. Medium-risk phases (2, 3) are mitigated through early deployment testing and structured literature review. High-risk phases (5, 7) are addressed through contingency planning, iterative validation gates, and careful timeline management.
+
+The project's novelty is moderate but solid: it combines a novel public dataset, systematic algorithm benchmarking, and human-strategy analysis in an understudied domain (Snake game AI). The contribution is publishable as a Master's thesis and suitable for workshop or conference dissemination.
+
+\textbf{Recommended path forward}:
+\begin{enumerate}
+    \item \textbf{Weeks 1--3}: Initiate Phases 1, 2, 3 in parallel. Build simulator + website MVP + begin literature review.
+    \item \textbf{Week 10}: Go/no-go decision on Hamiltonian feasibility. Freeze bot specifications.
+    \item \textbf{Week 12}: Hard scope lock. Finalize list of bots to implement.
+    \item \textbf{Week 32}: Bot development ends. Evaluation begins.
+    \item \textbf{Week 40}: Begin thesis writing outline. Bot optimization halts.
+    \item \textbf{Week 52}: Thesis complete; dataset + code published.
+\end{enumerate}
+
+With disciplined execution, clear validation gates, and proactive risk mitigation, this project will produce a coherent Master's-level contribution to game AI and algorithmic strategy research.
+
+\end{document}
