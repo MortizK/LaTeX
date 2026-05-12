@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken}
+
+\input{../preamble.tex}
+\lstset{style=sqlstyle}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-05-12}
+
+\section{Transaktionen und Mehrbenutzersysteme}
+
+Wir brauchen dafür einen Online Shop, um mehrere Benutzer gleichzeitig zu haben.
+
+\subsection{Transaktionen}
+
+Das DBMS muss sich darum kümmern, das bei mehren Änderungen die voneinander abhängig sind oder zwingend nacheinander ausgeführt werden müssen alle eigenschaften von ACID gewährleistet werden.
+
+So beginnt das DBMS mit einem BOT (begin of transaction) und reagiert bei Fehlern mit einem Rollback von den aktuellen Änderungen. Bei Erfolg ein commit, bei Fehler ein rollback.
+
+Beispiel einer Transaktion:
+
+\begin{lstlisting}
+Begin;
+UPDATE Lager
+SET menge_aktuell = menge_aktuell - 1
+WHERE artikel_id = 2
+;
+UPDATE Bestellung
+SET status = 'versendet'
+WHERE bestellung_id = 1
+;
+Commit;
+\end{lstlisting}
+
+\subsection{Mehrbenutzung}
+
+Wenn zwei Kunden gleichzeitig sehen dass noch ein Artikel zur Verfügung stehen. Beide sehen das.
+
+Nun bestellt aber ein den Artikel und der Andere erst danach. So entsteht eine Nebenläufigkeit. Beide bestellten einen Artikel, eine auf alten/ nicht aktuellen Daten.
+
+Ende der Vorlesung und Ende des Moduls.
+
+\end{document}

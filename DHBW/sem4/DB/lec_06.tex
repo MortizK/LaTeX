@@ -25,6 +25,56 @@ natural Join Mitarbeiter_Projekt;
 Select * from Projektmitarbeiter;
 \end{lstlisting}
 
+\lecture{2026-05-12}
+
+\subsection{Datenunabängigkeit durch Views}
+
+\begin{lstlisting}
+Create View mitarbeiter_besucht_kurs As
+Select pers_nr, vorname, nachname, kurs_bez, termin_kurs, institut 
+from Mitarbeiter natural join besucht_kurs
+natural join Kurs
+\end{lstlisting}
+
+Die Natural Joins suchen sich ihre Fremdschlüssel, wie sie die Tabellen miteinander verbinden.
+
+\begin{lstlisting}
+Create View V_kurs AS
+Select * from Kurs
+
+-- Bei * Könnten später probleme auftreten. Lieber Explezit bleiben mit kurs_nr, kurs_bez, institut
+\end{lstlisting}
+
+Wir machen nun eine neue View nachdem wir ein Institut Tabelle angelegt haben.
+
+\begin{lstlisting}
+-- Neue Views nachdem Institut eingefügt wurde
+-- Wir haben die Architektur im Hintergrund (Ebene Intern) geändert,
+-- wollen aber auf der Ebene Extern keine Sichtbare Änderung haben.
+-- somit müssen bei internen änderungen nicht die UI der oberen Ebenen ändern.
+
+Create View mitarbeiter_besucht_kurs As
+Select pers_nr, vorname, nachname, kurs_bez, termin_kurs, institut 
+from Mitarbeiter natural join besucht_kurs
+natural join Kurs
+natural join training_institut
+
+Create VIEW V_Kurs As
+SELECT kurs_nr, kurs_bez, institut
+from Kurs natural join training_institut
+\end{lstlisting}
+
+In diesen View kann kein INSERT mehr gemacht werden, da diese nun eine read only View ist.
+
+\begin{lstlisting}
+ERROR:  cannot insert into view "v_kurs"
+Views that do not select from a single table or view are not automatically updatable. 
+
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule.
+\end{lstlisting}
+
 \newpage
 \lecture{2026-05-05}
 
@@ -54,5 +104,148 @@ erst nach der Klausur
     \item Aus dem Skript lassen sich die Views erzeugen
     \item Sinnvolle Abfragen sind lauffähig (nicht nur Select * from View)
 \end{itemize}
+
+\lecture{2026-05-23}
+
+\section{Probeklausur}
+
+Wir bekommen auch noch die Musterlösung.
+
+Wir haben 60min und es gibt 4 Aufgaben. In dieser Probeklausur fehlen noch Themengebiete die "rankommen könnten".
+
+Die Probeklausur ist nicht die schwerste die unser Dozent machen könnte. Diese Jahr ist wohl etwas umfangreicher.
+
+\subsection{Grundlagen}
+
+Zeitaufwand: 10min
+
+1. Ein DBMS unterteil die Architektur in drei Ebenen:
+
+\begin{enumerate}
+    \item Physikalische Ebene
+    \item Interne Ebene
+    \item Externe Ebene
+\end{enumerate}
+
+Die Physikalische Ebene \dots
+
+Die Interne Ebene besteht aus den angelegten Tabellen mit dessen Attributen.
+
+Die Externe Ebene zeigt die Views an. Diese sind dazu da um nur gezielte Information darzustellen. 
+
+Diese Trennung ist wichtig, denn bei Änderung von tieferen Schichten müssen nur die höheren Schichten (Intern, Extern) bearbeitete werden. Bei Änderungen der Externen Schicht muss keine weitere Änderung vorgenommen werden.
+
+Zudem kann bei Änderungen der Internen Ebene die UI der externen Ebene identisch bleiben. Nur bei Ergänzungen muss hier auch die UI ein Update bekommen.
+
+Dies gibt nicht die volle Punktzahl! Musterlösung:
+
+\begin{enumerate}
+    \item externe Ebene
+    \item konzeptionelle Ebene
+    \item interne Ebene
+\end{enumerate}
+
+Es müssen nicht alle Ebenen Geändert werden, da eine Trennung der ... existiert.
+
+Bei der Klausur haben wir hier mehr Fragen (6)
+
+2. "\dots muss für alle Instanzen gelten?"
+
+Eine Instanz ist ein Tupel in einer Tabelle und beinhaltet alle Attribute aus dem Schema. Attribute können auch NULL sein, sofern dies erlaubt ist.
+
+Dies gibt nur einen Teil der Punktzahl! Musterlösung:
+
+Es müsse für alle Denkbare Relationen gelten.
+
+...
+
+\subsection{ERM}
+
+Zeitaufwand: 10min
+
+Feedback für mich:
+
+\begin{enumerate}
+    \item Ich bin strukturiert vorgegangen
+    \item Zuerst Entitäten gesammelt
+    \item To Dos erstellt (Welche Notation?, Besonderheiten?)
+    \item Grobe ERM Struktur kritzeln
+    \item Sauber zeichnen mit Relationen und Attributen
+\end{enumerate}
+
+Ich muss nochmal die verschiedenen Notationen lernen.
+
+\subsection{Relationale Algebra}
+
+Zeitaufwand: 15min
+
+a) nur mit Kreuzprodukt
+
+((Kunde.name == "Maier" $\cup$ Kunde.KundenNr x Auftrag.erteil\_von).AuftragsNr x gehört\_zu.AuftragsNr).ArtikelNr x Artikel.ArtikelNr
+
+Feedback an mich:
+
+Das oben ist mit Sicherheit Falsch
+
+Die Relationale Algebra muss ich nochmal deutlich wiederholen. Hier habe ich gar keinen Plan von.
+
+Lösungsweg:
+
+\begin{enumerate}
+    \item Erstmal Kreuzprodukt von allem Bilden
+    \item Danach den "Filter" setzen
+    \begin{equation*}
+        \Pi_{ArtiekleNR, Bezeichnung} (o Name='Maier' \cup \dots (Artikel \times Kunde \times Auftrag \times Gehört\_zu))
+    \end{equation*}
+\end{enumerate}
+
+b) SQL-Statement
+
+\begin{lstlisting}
+Select ArtikelNr, Bezeichnung, VK-Preis from Artikel
+Where (ArtikelNr is in (
+    Select ArtikelNr from gehört_zu
+    Where (AuftragsNr is in (
+        SELECT AuftragsNr from Auftrag
+        Where (erteilt_von is in 
+            (SELECT KundenNr from Kunde
+            Where (Name = "Maier"))
+        ))
+    ))
+)
+\end{lstlisting}
+
+Musterlösung: 
+
+Dies habe ich Richtig gemacht.
+
+\subsection{Normalisierung}
+
+% Beginn 14:40, Ende: 15:00
+% Mit zwischenbesprechungen
+
+a) Es gibt nur einen Schlüsselkandidaten: 'ad'
+
+b) Befindet sich in 2NF, da es nicht Schlüssel Attribute gibt, die nur von einem Teil des Schlüssel abhängig sind.
+
+c) $R_1: \underline{a,b},c$ $R_2: \underline{d},e$ $R_3: \underline{a},f$
+
+d) Prüfung auf verlustlos und abhängigkeitsbewahrend der Zerlegung.
+
+
+
+Feedback an mich:
+
+Ich muss nochmal Normalisierung, Zerlegung und weiteres Angucken. Für einfache Schlüssel und zusammengesetzte Schlüssel.
+
+Zerlegung (Pi mal Daumen, Synthese Algo, oder $x \to \alpha$) heißt FAs auslagen, sodass alle nicht Schlüssel Attribute nur von dem Schlüssel abhängig sind. So entstehen neue Relationen.
+
+Musterlösung:
+
+Bei der Zerlegung ist der Synthese Alog oder $x \to \alpha$ die Begründung. Bei Pi mal Daumen sollte man die Entscheidung schriftlich begründen.
+
+Verlustlos mit Schnitt über die Fremdschlüssel.
+
+abhängigkeitsbewahrend, wenn alle FAs auf eine der Teilrelationen dargestellt werden können. Dies wahr auch nur bis 3NF, bei BCNF ist es nicht mehr abhängigkeitsbewahrend.
 
 \end{document}

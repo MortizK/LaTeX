@@ -77,6 +77,18 @@ Fragen sind auf moodle
     \item ANY, ALL, EXISTS, In werden verwendet um aus einer Tabelle einen einzelnen Wert zu bekommen.
     \item Ein Sequence wird verwendet um automatisch einen inkrementierenden Wert für ein Attribut anzulegen. Es ist eine Zählvariable
     % Eine Frage Fehlt mir irgendwo!
-\end{enumerate}
+    \item Das \lstinline|ALL| schaltet die Duplikats-eliminierung bei UNION, INTERSECT und EXCEPT aus.
+    \item Mit dem Kreuzprodukt konnte vor 92 zwei Tabellen miteinander verbunden werden
+    \item Der JOIN teilt dem Optimizer die Fremdschlüssel-Beziehungen mit.
+    \item Was sind die JOINS:
+    \begin{itemize}
+        \item INNER JOIN: Immer beide JOIN Partner
+        \item OUTER JOIN: Hier wird noch zwischen Link und Rechts unterschieden.
+    \end{itemize}
+    \item Views helfen um Anfragen an das DBMS zu kürzen. Zudem können so dem externen Nutzer nur bestimmte Sichten gezeigt werden (ergänzend zu den Rechten) Große Unabhängigkeit zwischen den drei Schichten (intern, extern, physikalisch)
+    \item Ein \lstinline|CREATE VIEW| macht intern ein SELECT mit ausgerollten Attributen.
+\end{enumerate} 
+
+Es kommen noch Fragen die wir nicht mehr besprechen werden. Da heute die letzte Vorlesung ist.
 
 \end{document}
