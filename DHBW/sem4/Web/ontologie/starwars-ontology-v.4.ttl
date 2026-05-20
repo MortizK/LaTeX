@@ -1,0 +1,1492 @@
+@prefix : <urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd> .
+
+<urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd> rdf:type owl:Ontology ;
+                                                                rdfs:comment "Formale Ontologie des Star-Wars-Universums zur semantischen Modellierung von Charakteren, Organisationen, Ereignissen, Fahrzeugen, Himmelskörpern und zentralen Handlungsereignissen aus den Episoden I–VI unter Verwendung von OWL 2. Die Ontologie ermöglicht logische Inferenz, Konsistenzprüfung und automatisches Ableiten von Beziehungen mithilfe von Reasonern wie HermiT."@de .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://webprotege.stanford.edu/mitgliedVon
+<http://webprotege.stanford.edu/mitgliedVon> rdf:type owl:ObjectProperty ;
+                                             owl:inverseOf :hatMitglied ;
+                                             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+                                             rdfs:range <http://webprotege.stanford.edu/Organisation> ;
+                                             rdfs:comment "Ordnet einen Charakter einer Organisation zu."@de ;
+                                             rdfs:label "mitgliedVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#befindetSichAuf
+:befindetSichAuf rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ,
+                          owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( <http://webprotege.stanford.edu/Charakter>
+                                             <http://webprotege.stanford.edu/Objekt>
+                                           )
+                             ] ;
+                 rdfs:range <http://webprotege.stanford.edu/Himmelskörper> ;
+                 rdfs:comment "Ordnet Charaktere oder Objekte einem Himmelskörper zu."@de ;
+                 rdfs:label "befindetSichAuf"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#befindetSichIn
+:befindetSichIn rdf:type owl:ObjectProperty ,
+                         owl:TransitiveProperty ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( <http://webprotege.stanford.edu/Charakter>
+                                            <http://webprotege.stanford.edu/Objekt>
+                                          )
+                            ] ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( <http://webprotege.stanford.edu/Fahrzeug>
+                                           <http://webprotege.stanford.edu/Todesstern>
+                                         )
+                           ] ;
+                rdfs:comment "Ordnet einer Raumstation das Sternsystem zu, in dem sie sich befindet."@de ;
+                rdfs:label "befindetSichIn"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#besitzt
+:besitzt rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :nutztObjekt ;
+         owl:inverseOf :besitztDurch ;
+         rdf:type owl:TransitiveProperty ;
+         rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+         rdfs:range <http://webprotege.stanford.edu/Objekt> ;
+         rdfs:comment "Charakter besitzt oder führt ein Objekt."@de ;
+         rdfs:label "besitzt"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#besitztDurch
+:besitztDurch rdf:type owl:ObjectProperty ,
+                       owl:TransitiveProperty ;
+              rdfs:domain <http://webprotege.stanford.edu/Objekt> ;
+              rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+              rdfs:comment "Inverse Beziehung zu besitzt."@de ;
+              rdfs:label "besitztDurch"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#direktFeindVon
+:direktFeindVon rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :stehtInKonfliktMit ;
+                rdf:type owl:SymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+                rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+                owl:propertyDisjointWith :verbuendetMit ;
+                rdfs:comment "Direkte symmetrische Feindschaft zwischen Charakteren."@de ;
+                rdfs:label "direktFeindVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#elternteilVon
+:elternteilVon rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :vorfahrVon ;
+               owl:inverseOf :kindVon ;
+               rdf:type owl:AsymmetricProperty ,
+                        owl:IrreflexiveProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+               rdfs:range <http://webprotege.stanford.edu/Lebewesen> ;
+               rdfs:comment "Ein Charakter ist Elternteil eines anderen Charakters."@de ;
+               rdfs:label "elternteilVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#findetStattAuf
+:findetStattAuf rdf:type owl:ObjectProperty ;
+                owl:inverseOf :istSchauplatzVon ;
+                rdf:type owl:FunctionalProperty ,
+                         owl:AsymmetricProperty ;
+                rdfs:domain <http://webprotege.stanford.edu/Ereignis> ;
+                rdfs:range <http://webprotege.stanford.edu/Himmelskörper> ;
+                rdfs:comment "Ereignis findet auf einem Himmelskörper oder dessen Luftraum statt."@de ;
+                rdfs:label "findetStattAuf"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#geborenAuf
+:geborenAuf rdf:type owl:ObjectProperty ,
+                     owl:FunctionalProperty ,
+                     owl:AsymmetricProperty ;
+            rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+            rdfs:range <http://webprotege.stanford.edu/Himmelskörper> ;
+            rdfs:comment "Ordnet ein Lebewesen seinen Geburtsort als Himmelskörper zu."@de ;
+            rdfs:label "geborenAuf"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#gehoertZu
+:gehoertZu rdf:type owl:ObjectProperty ,
+                    owl:AsymmetricProperty ;
+           rdfs:domain <http://webprotege.stanford.edu/Objekt> ;
+           rdfs:range <http://webprotege.stanford.edu/Organisation> ;
+           rdfs:comment "Ordnet ein Objekt einer Organisation zu."@de ;
+           rdfs:label "gehörtZu"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#gerettetVon
+:gerettetVon rdf:type owl:ObjectProperty ;
+             owl:inverseOf :rettet ;
+             rdf:type owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:comment "Inverse Beziehung zu rettet."@de ;
+             rdfs:label "gerettetVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#geschwisterVon
+:geschwisterVon rdf:type owl:ObjectProperty ,
+                         owl:SymmetricProperty ;
+                rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+                rdfs:range <http://webprotege.stanford.edu/Lebewesen> ;
+                owl:propertyChainAxiom ( :kindVon
+                                         :elternteilVon
+                                       ) ;
+                rdfs:comment "Personen mit gleichem Elternteil sind Geschwister"@de ;
+                rdfs:label "geschwisterVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#getötetVon
+:getötetVon rdf:type owl:ObjectProperty ;
+            owl:inverseOf :tötet ;
+            rdf:type owl:FunctionalProperty ,
+                     owl:AsymmetricProperty ;
+            rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+            rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+            rdfs:comment "Lebewesen getötet von Charakter Beziehung"@de ;
+            rdfs:label "getötetVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatBewaffnung
+:hatBewaffnung rdf:type owl:ObjectProperty ,
+                        owl:AsymmetricProperty ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( <http://webprotege.stanford.edu/Fahrzeug>
+                                           <http://webprotege.stanford.edu/Todesstern>
+                                         )
+                           ] ;
+               rdfs:range <http://webprotege.stanford.edu/Waffe> ;
+               rdfs:comment "Ordnet einem Fahrzeug oder Todesstern eine eingebaute oder zugehörige Waffe zu."@de ;
+               rdfs:label "hatBewaffnung"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatHeimatwelt
+:hatHeimatwelt rdf:type owl:ObjectProperty ;
+               owl:inverseOf :heimatweltVon ;
+               rdf:type owl:FunctionalProperty ,
+                        owl:AsymmetricProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+               rdfs:range <http://webprotege.stanford.edu/Himmelskörper> ;
+               rdfs:comment "Ordnet einem Charakter genau eine hauptsächliche Heimatwelt zu."@de ;
+               rdfs:label "hatHeimatwelt"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatMachtSeite
+:hatMachtSeite rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ,
+                        owl:AsymmetricProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Machtnutzer> ;
+               rdfs:range <http://webprotege.stanford.edu/SeiteDerMacht> ;
+               rdfs:comment "Ordnet einem Machtnutzer eine Seite der Macht zu."@de ;
+               rdfs:label "hatMachtSeite"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatMitglied
+:hatMitglied rdf:type owl:ObjectProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Organisation> ;
+             rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:comment "Inverse Beziehung zu mitgliedVon: Eine Organisation hat einen Charakter als Mitglied."@de ;
+             rdfs:label "hatMitglied"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatRegierung
+:hatRegierung rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ,
+                       owl:AsymmetricProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( <http://webprotege.stanford.edu/Mond>
+                                          <http://webprotege.stanford.edu/Planet>
+                                        )
+                          ] ;
+              rdfs:range <http://webprotege.stanford.edu/Regierung> ;
+              rdfs:comment "Ordnet einem Planeten oder Mond genau eine Regierung zu."@de ;
+              rdfs:label "hatRegierung"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatTeilnehmer
+:hatTeilnehmer rdf:type owl:ObjectProperty ;
+               owl:inverseOf :nimmtTeilAn ;
+               rdf:type owl:AsymmetricProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Ereignis> ;
+               rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+               rdfs:comment "Inverse Beziehung zu nimmtTeilAn."@de ;
+               rdfs:label "hatTeilnehmer"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatZiel
+:hatZiel rdf:type owl:ObjectProperty ;
+         owl:inverseOf :istZielVon ;
+         rdf:type owl:TransitiveProperty ;
+         rdfs:domain <http://webprotege.stanford.edu/Ereignis> ;
+         rdfs:range owl:Thing ;
+         rdfs:comment "Ereignis hat ein strategisches Ziel."@de ;
+         rdfs:label "hatZiel"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#heimatweltVon
+:heimatweltVon rdf:type owl:ObjectProperty ,
+                        owl:InverseFunctionalProperty ,
+                        owl:AsymmetricProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Himmelskörper> ;
+               rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+               rdfs:comment "Gibt an, welche Charaktere einem Himmelskörper als Heimatwelt zugeordnet sind."@de ;
+               rdfs:label "heimatweltVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#istFeindVonOrganisation
+:istFeindVonOrganisation rdf:type owl:ObjectProperty ;
+                         rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+                         rdfs:range <http://webprotege.stanford.edu/Organisation> ;
+                         owl:propertyChainAxiom ( <http://webprotege.stanford.edu/mitgliedVon>
+                                                  :organisationFeindVon
+                                                ) ;
+                         rdfs:comment "Leitet ab, dass ein Charakter mit einer Organisation im Konflikt steht, wenn seine eigene Organisation mit dieser Organisation verfeindet ist."@de ;
+                         rdfs:label "istFeindVonOrganisation"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#istSchauplatzVon
+:istSchauplatzVon rdf:type owl:ObjectProperty ,
+                           owl:InverseFunctionalProperty ,
+                           owl:AsymmetricProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain <http://webprotege.stanford.edu/Himmelskörper> ;
+                  rdfs:range <http://webprotege.stanford.edu/Ereignis> ;
+                  rdfs:comment "Inverse Beziehung zu findetStattAuf."@de ;
+                  rdfs:label "istSchauplatzVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#istZielVon
+:istZielVon rdf:type owl:ObjectProperty ,
+                     owl:TransitiveProperty ;
+            rdfs:domain owl:Thing ;
+            rdfs:range <http://webprotege.stanford.edu/Ereignis> ;
+            rdfs:comment "Inverse Beziehung zu hatZiel."@de ;
+            rdfs:label "istZielVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#kindVon
+:kindVon rdf:type owl:ObjectProperty ,
+                  owl:AsymmetricProperty ,
+                  owl:IrreflexiveProperty ;
+         rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+         rdfs:range <http://webprotege.stanford.edu/Lebewesen> ;
+         rdfs:comment "Inverse Beziehung zu elternteilVon."@de ;
+         rdfs:label "kindVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#kommandiert
+:kommandiert rdf:type owl:ObjectProperty ;
+             owl:inverseOf :wirdKommandiertVon ;
+             rdf:type owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:range [ rdf:type owl:Class ;
+                          owl:unionOf ( <http://webprotege.stanford.edu/Organisation>
+                                        <http://webprotege.stanford.edu/Raumschiff>
+                                        <http://webprotege.stanford.edu/Todesstern>
+                                      )
+                        ] ;
+             rdfs:comment "Charakter kommandiert ein Objekt, eine Organisation oder ein Ereignis."@de ;
+             rdfs:label "kommandiert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#nimmtTeilAn
+:nimmtTeilAn rdf:type owl:ObjectProperty ,
+                      owl:AsymmetricProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:range <http://webprotege.stanford.edu/Ereignis> ;
+             rdfs:comment "Charakter nimmt an einem Ereignis teil."@de ;
+             rdfs:label "nimmtTeilAn"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#nutztObjekt
+:nutztObjekt rdf:type owl:ObjectProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:range <http://webprotege.stanford.edu/Objekt> ;
+             rdfs:comment "Ein Charakter nutzt ein Objekt, zum Beispiel eine Waffe oder ein Fahrzeug."@de ;
+             rdfs:label "nutztObjekt"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#organisationFeindVon
+:organisationFeindVon rdf:type owl:ObjectProperty ,
+                               owl:SymmetricProperty ,
+                               owl:IrreflexiveProperty ;
+                      rdfs:domain <http://webprotege.stanford.edu/Organisation> ;
+                      rdfs:range <http://webprotege.stanford.edu/Organisation> ;
+                      rdfs:comment "Symmetrische Feindschaft zwischen Organisationen."@de ;
+                      rdfs:label "organisationFeindVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#pilotiert
+:pilotiert rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :nutztObjekt ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+           rdfs:range <http://webprotege.stanford.edu/Fahrzeug> ;
+           rdfs:comment "Spezielle Form von nutztObjekt: Ein Charakter steuert ein Fahrzeug."@de ;
+           rdfs:label "pilotiert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#rettet
+:rettet rdf:type owl:ObjectProperty ,
+                 owl:AsymmetricProperty ,
+                 owl:IrreflexiveProperty ;
+        rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+        rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+        rdfs:comment "Charakter rettet einen anderen Charakter."@de ;
+        rdfs:label "rettet"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#stehtInKonfliktMit
+:stehtInKonfliktMit rdf:type owl:ObjectProperty ,
+                             owl:SymmetricProperty ;
+                    rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+                    rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+                    owl:propertyChainAxiom ( <http://webprotege.stanford.edu/mitgliedVon>
+                                             :organisationFeindVon
+                                             :hatMitglied
+                                           ) ,
+                                           ( <http://webprotege.stanford.edu/mitgliedVon>
+                                             :organisationFeindVon
+                                             [ owl:inverseOf <http://webprotege.stanford.edu/mitgliedVon>
+                                             ]
+                                           ) ;
+                    rdfs:comment "Abgeleiteter Konflikt zwischen Charakteren über verfeindete Organisationen."@de ;
+                    rdfs:label "stehtInKonfliktMit"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#traegtWaffe
+:traegtWaffe rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :nutztObjekt ;
+             rdf:type owl:InverseFunctionalProperty ;
+             rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+             rdfs:range <http://webprotege.stanford.edu/Waffe> ;
+             rdfs:comment "Spezielle Form von nutztObjekt: Ein Charakter führt eine Waffe."@de ;
+             rdfs:label "traegtWaffe"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#trainiert
+:trainiert rdf:type owl:ObjectProperty ;
+           owl:inverseOf :trainiertVon ;
+           rdf:type owl:AsymmetricProperty ,
+                    owl:IrreflexiveProperty ;
+           rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+           rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+           rdfs:comment "Charakter trainiert einen anderen Charakter."@de ;
+           rdfs:label "trainiert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#trainiertVon
+:trainiertVon rdf:type owl:ObjectProperty ,
+                       owl:AsymmetricProperty ,
+                       owl:IrreflexiveProperty ;
+              rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+              rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+              rdfs:comment "Charakter wurde von einem anderen Charakter trainiert."@de ;
+              rdfs:label "trainiertVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#tötet
+:tötet rdf:type owl:ObjectProperty ,
+                owl:InverseFunctionalProperty ,
+                owl:AsymmetricProperty ;
+       rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+       rdfs:range <http://webprotege.stanford.edu/Lebewesen> .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#verbuendetMit
+:verbuendetMit rdf:type owl:ObjectProperty ,
+                        owl:SymmetricProperty ;
+               rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+               rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+               rdfs:comment "Symmetrische Verbündetenbeziehung."@de ;
+               rdfs:label "verbündetMit"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#vorfahrVon
+:vorfahrVon rdf:type owl:ObjectProperty ,
+                     owl:TransitiveProperty ;
+            rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+            rdfs:range <http://webprotege.stanford.edu/Lebewesen> ;
+            rdfs:comment "Transitive Beziehung für Abstammungslinien."@de ;
+            rdfs:label "vorfahrVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#wirdKommandiertVon
+:wirdKommandiertVon rdf:type owl:ObjectProperty ,
+                             owl:AsymmetricProperty ,
+                             owl:IrreflexiveProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( <http://webprotege.stanford.edu/Organisation>
+                                                <http://webprotege.stanford.edu/Raumschiff>
+                                                <http://webprotege.stanford.edu/Todesstern>
+                                              )
+                                ] ;
+                    rdfs:range <http://webprotege.stanford.edu/Charakter> ;
+                    rdfs:comment "Inverse Beziehung zu kommandiert."@de ;
+                    rdfs:label "wirdKommandiertVon"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#zerstoert
+:zerstoert rdf:type owl:ObjectProperty ;
+           owl:inverseOf :zerstoertVon ;
+           rdf:type owl:AsymmetricProperty ,
+                    owl:IrreflexiveProperty ;
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( <http://webprotege.stanford.edu/Charakter>
+                                       <http://webprotege.stanford.edu/Waffe>
+                                     )
+                       ] ;
+           rdfs:range [ rdf:type owl:Class ;
+                        owl:unionOf ( <http://webprotege.stanford.edu/Himmelskörper>
+                                      <http://webprotege.stanford.edu/Objekt>
+                                    )
+                      ] ;
+           rdfs:comment "Etwas oder jemand zerstört ein anderes Objekt oder einen Himmelskörper"@de ;
+           rdfs:label "zerstört"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#zerstoertVon
+:zerstoertVon rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( <http://webprotege.stanford.edu/Himmelskörper>
+                                          <http://webprotege.stanford.edu/Objekt>
+                                        )
+                          ] ;
+              rdfs:range [ rdf:type owl:Class ;
+                           owl:unionOf ( <http://webprotege.stanford.edu/Charakter>
+                                         <http://webprotege.stanford.edu/Waffe>
+                                       )
+                         ] ;
+              rdfs:comment "Inverse Beziehung zu zerstört."@de ;
+              rdfs:label "zerstörtVon"@de .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://webprotege.stanford.edu/R9Z790g1l9Qp40VIDmrZu3X
+<http://webprotege.stanford.edu/R9Z790g1l9Qp40VIDmrZu3X> rdf:type owl:DatatypeProperty ;
+                                                         rdfs:subPropertyOf owl:topDataProperty ;
+                                                         rdf:type owl:FunctionalProperty ;
+                                                         rdfs:domain <http://webprotege.stanford.edu/Lebewesen> ;
+                                                         rdfs:range xsd:boolean ;
+                                                         rdfs:comment "Gibt an, ob ein Lebewesen tot ist." ;
+                                                         rdfs:label "istTot" .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatBezeichnung
+:hatBezeichnung rdf:type owl:DatatypeProperty ;
+                rdfs:domain owl:Thing ;
+                rdfs:comment "Allgemeine Bezeichnung."@de ;
+                rdfs:label "hatBezeichnung"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatName
+:hatName rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :hatBezeichnung ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain owl:Thing ;
+         rdfs:comment "Lesbarer Name einer Entität."@de ;
+         rdfs:label "hatName"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatRufzeichen
+:hatRufzeichen rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :hatBezeichnung ;
+               rdfs:domain <http://webprotege.stanford.edu/Fahrzeug> ,
+                           owl:Thing ;
+               rdfs:comment "Rufzeichen eines Piloten oder Fahrzeugs."@de ;
+               rdfs:label "hatRufzeichen"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#hatTitel
+:hatTitel rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf :hatBezeichnung ;
+          rdfs:domain <http://webprotege.stanford.edu/Charakter> ;
+          rdfs:comment "Titel, Rang oder besondere Bezeichnung eines Charakters."@de ;
+          rdfs:label "hatTitel"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#istZerstoert
+:istZerstoert rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain <http://webprotege.stanford.edu/Objekt> ;
+              rdfs:range xsd:boolean ;
+              rdfs:comment "Gibt an, ob ein Objekt zerstört ist."@de ;
+              rdfs:label "istZerstoert"@de .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://webprotege.stanford.edu/Charakter
+<http://webprotege.stanford.edu/Charakter> rdf:type owl:Class ;
+                                           rdfs:subClassOf owl:Thing ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://webprotege.stanford.edu/mitgliedVon> ;
+                                                             owl:someValuesFrom <http://webprotege.stanford.edu/Organisation>
+                                                           ] ;
+                                           owl:disjointWith <http://webprotege.stanford.edu/Ereignis> ,
+                                                            <http://webprotege.stanford.edu/Fahrzeug> ,
+                                                            <http://webprotege.stanford.edu/Himmelskörper> ,
+                                                            <http://webprotege.stanford.edu/Organisation> ,
+                                                            <http://webprotege.stanford.edu/Regierung> ,
+                                                            <http://webprotege.stanford.edu/SeiteDerMacht> ,
+                                                            <http://webprotege.stanford.edu/Waffe> ;
+                                           rdfs:comment "Repräsentiert eine Person oder intelligente Figur im Star-Wars-Universum."@de ;
+                                           rdfs:label "Charakter"@de .
+
+
+###  http://webprotege.stanford.edu/Droide
+<http://webprotege.stanford.edu/Droide> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://webprotege.stanford.edu/Charakter> ,
+                                                        <http://webprotege.stanford.edu/Objekt> ;
+                                        rdfs:comment "Künstlich erschaffene intelligente Maschine."@de ;
+                                        rdfs:label "Droide"@de .
+
+
+###  http://webprotege.stanford.edu/Duell
+<http://webprotege.stanford.edu/Duell> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://webprotege.stanford.edu/Ereignis> ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :hatTeilnehmer ;
+                                                         owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass <http://webprotege.stanford.edu/Charakter>
+                                                       ] ;
+                                       owl:disjointWith <http://webprotege.stanford.edu/Schlacht> ,
+                                                        <http://webprotege.stanford.edu/Training> ;
+                                       rdfs:comment "Direkter Kampf zwischen zwei Charakteren."@de ;
+                                       rdfs:label "Duell"@de .
+
+
+###  http://webprotege.stanford.edu/Ereignis
+<http://webprotege.stanford.edu/Ereignis> rdf:type owl:Class ;
+                                          rdfs:subClassOf owl:Thing ;
+                                          owl:disjointWith <http://webprotege.stanford.edu/Himmelskörper> ,
+                                                           <http://webprotege.stanford.edu/Objekt> ,
+                                                           <http://webprotege.stanford.edu/Organisation> ,
+                                                           <http://webprotege.stanford.edu/Regierung> ,
+                                                           <http://webprotege.stanford.edu/SeiteDerMacht> ;
+                                          rdfs:comment "Bedeutendes Ereignis innerhalb der Handlung."@de ;
+                                          rdfs:label "Ereignis"@de .
+
+
+###  http://webprotege.stanford.edu/Fahrzeug
+<http://webprotege.stanford.edu/Fahrzeug> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://webprotege.stanford.edu/Objekt> ;
+                                          owl:disjointWith <http://webprotege.stanford.edu/Planet> ,
+                                                           <http://webprotege.stanford.edu/Waffe> ;
+                                          rdfs:comment "Transportmittel oder bewegliches technisches Objekt."@de ;
+                                          rdfs:label "Fahrzeug"@de .
+
+
+###  http://webprotege.stanford.edu/Himmelskörper
+<http://webprotege.stanford.edu/Himmelskörper> rdf:type owl:Class ;
+                                               rdfs:subClassOf owl:Thing ;
+                                               owl:disjointWith <http://webprotege.stanford.edu/Regierung> ,
+                                                                <http://webprotege.stanford.edu/SeiteDerMacht> ;
+                                               rdfs:comment "Astronomisches Objekt wie Planet oder Mond mit Luftraum."@de ;
+                                               rdfs:label "Himmelskörper"@de .
+
+
+###  http://webprotege.stanford.edu/Imperiumsmitglied
+<http://webprotege.stanford.edu/Imperiumsmitglied> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://webprotege.stanford.edu/Charakter> ;
+                                                   rdfs:comment "Abgeleitete Klasse für Charaktere, die Mitglied des Galaktischen Imperiums sind. Wird über ein GCI automatisch inferiert und nicht manuell gepflegt."@de ;
+                                                   rdfs:label "Imperiumsmitglied"@de .
+
+
+###  http://webprotege.stanford.edu/Jedi
+<http://webprotege.stanford.edu/Jedi> rdf:type owl:Class ;
+                                      owl:equivalentClass [ owl:intersectionOf ( <http://webprotege.stanford.edu/Machtnutzer>
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty <http://webprotege.stanford.edu/mitgliedVon> ;
+                                                                                   owl:hasValue :JediOrden
+                                                                                 ]
+                                                                               ) ;
+                                                            rdf:type owl:Class
+                                                          ] ;
+                                      rdfs:subClassOf <http://webprotege.stanford.edu/Machtnutzer> ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :hatMachtSeite ;
+                                                        owl:hasValue :HelleSeite
+                                                      ] ;
+                                      owl:disjointWith <http://webprotege.stanford.edu/Sith> ;
+                                      rdfs:comment "Machtnutzer, die dem Jedi-Orden angehören. Die Klassenzugehörigkeit kann durch den Reasoner aus der Mitgliedschaft im Jedi-Orden und der Verbindung zur Macht abgeleitet werden."@de ;
+                                      rdfs:label "Jedi"@de .
+
+
+###  http://webprotege.stanford.edu/Lebewesen
+<http://webprotege.stanford.edu/Lebewesen> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://webprotege.stanford.edu/Charakter> ;
+                                           owl:disjointWith <http://webprotege.stanford.edu/Objekt> ;
+                                           rdfs:comment "Biologischer Organismus mit Lebensfunktionen."@de ;
+                                           rdfs:label "Lebewesen"@de .
+
+
+###  http://webprotege.stanford.edu/Machtnutzer
+<http://webprotege.stanford.edu/Machtnutzer> rdf:type owl:Class ;
+                                             owl:equivalentClass [ owl:intersectionOf ( <http://webprotege.stanford.edu/Charakter>
+                                                                                        [ rdf:type owl:Restriction ;
+                                                                                          owl:onProperty :hatMachtSeite ;
+                                                                                          owl:someValuesFrom <http://webprotege.stanford.edu/SeiteDerMacht>
+                                                                                        ]
+                                                                                      ) ;
+                                                                   rdf:type owl:Class
+                                                                 ] ;
+                                             rdfs:subClassOf <http://webprotege.stanford.edu/Lebewesen> ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :hatMachtSeite ;
+                                                               owl:someValuesFrom <http://webprotege.stanford.edu/SeiteDerMacht>
+                                                             ] ;
+                                             rdfs:comment "Charakter mit Verbindung zur Macht."@de ;
+                                             rdfs:label "Machtnutzer"@de .
+
+
+###  http://webprotege.stanford.edu/Machtorden
+<http://webprotege.stanford.edu/Machtorden> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://webprotege.stanford.edu/Organisation> ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hatMitglied ;
+                                                              owl:allValuesFrom <http://webprotege.stanford.edu/Machtnutzer>
+                                                            ] ;
+                                            rdfs:comment "Organisation, deren Mitglieder in besonderer Weise mit der Macht verbunden sind"@de ;
+                                            rdfs:label "Machtorden"@de .
+
+
+###  http://webprotege.stanford.edu/Militärorganisation
+<http://webprotege.stanford.edu/Militärorganisation> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://webprotege.stanford.edu/Organisation> ;
+                                                     rdfs:comment "Militärische Gruppierung mit kämpferischer Funktion."@de ;
+                                                     rdfs:label "Militärorganisation"@de .
+
+
+###  http://webprotege.stanford.edu/Mond
+<http://webprotege.stanford.edu/Mond> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://webprotege.stanford.edu/Himmelskörper> ;
+                                      owl:disjointWith <http://webprotege.stanford.edu/Planet> ;
+                                      rdfs:comment "Natürlicher Satellit eines Planeten."@de ;
+                                      rdfs:label "Mond"@de .
+
+
+###  http://webprotege.stanford.edu/Objekt
+<http://webprotege.stanford.edu/Objekt> rdf:type owl:Class ;
+                                        owl:disjointWith <http://webprotege.stanford.edu/Organisation> ,
+                                                         <http://webprotege.stanford.edu/Regierung> ,
+                                                         <http://webprotege.stanford.edu/SeiteDerMacht> ;
+                                        rdfs:comment "Allgemeine Klasse für physische Gegenstände im Star-Wars-Universum."@de ;
+                                        rdfs:label "Objekt"@de .
+
+
+###  http://webprotege.stanford.edu/Organisation
+<http://webprotege.stanford.edu/Organisation> rdf:type owl:Class ;
+                                              rdfs:subClassOf owl:Thing ;
+                                              owl:disjointWith <http://webprotege.stanford.edu/SeiteDerMacht> ;
+                                              rdfs:comment "Gruppierung aus mehreren Charakteren."@de ;
+                                              rdfs:label "Organisation"@de .
+
+
+###  http://webprotege.stanford.edu/Planet
+<http://webprotege.stanford.edu/Planet> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://webprotege.stanford.edu/Himmelskörper> ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :hatRegierung ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass <http://webprotege.stanford.edu/Regierung>
+                                                        ] ;
+                                        owl:disjointWith <http://webprotege.stanford.edu/Todesstern> ,
+                                                         <http://webprotege.stanford.edu/Waffe> ;
+                                        rdfs:comment "Großer Himmelskörper innerhalb der Galaxis."@de ;
+                                        rdfs:label "Planet"@de .
+
+
+###  http://webprotege.stanford.edu/PolitischeOrganisation
+<http://webprotege.stanford.edu/PolitischeOrganisation> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://webprotege.stanford.edu/Organisation> ;
+                                                        rdfs:comment "Politische Gruppierung oder Regierung."@de ;
+                                                        rdfs:label "PolitischeOrganisation"@de .
+
+
+###  http://webprotege.stanford.edu/Raumschiff
+<http://webprotege.stanford.edu/Raumschiff> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://webprotege.stanford.edu/Fahrzeug> ;
+                                            rdfs:comment "Fahrzeug für Reisen und Kämpfe im Weltraum."@de ;
+                                            rdfs:label "Raumschiff"@de .
+
+
+###  http://webprotege.stanford.edu/RebellenMitglied
+<http://webprotege.stanford.edu/RebellenMitglied> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://webprotege.stanford.edu/Charakter> ;
+                                                  rdfs:comment "Abgeleitete Klasse für Charaktere, die Mitglied der Rebellenallianz sind. Wird über ein GCI automatisch inferiert und nicht manuell gepflegt."@de ;
+                                                  rdfs:label "Rebellenmitglied"@de .
+
+
+###  http://webprotege.stanford.edu/Regierung
+<http://webprotege.stanford.edu/Regierung> rdf:type owl:Class ;
+                                           rdfs:comment "Politische Herrschafts- oder Verwaltungsstruktur eines Planeten."@de ;
+                                           rdfs:label "Regierung"@de .
+
+
+###  http://webprotege.stanford.edu/Schlacht
+<http://webprotege.stanford.edu/Schlacht> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://webprotege.stanford.edu/Ereignis> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :findetStattAuf ;
+                                                            owl:someValuesFrom <http://webprotege.stanford.edu/Himmelskörper>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hatTeilnehmer ;
+                                                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass <http://webprotege.stanford.edu/Charakter>
+                                                          ] ;
+                                          owl:disjointWith <http://webprotege.stanford.edu/Training> ;
+                                          rdfs:comment "Militärischer Konflikt zwischen mehreren Parteien."@de ;
+                                          rdfs:label "Schlacht"@de .
+
+
+###  http://webprotege.stanford.edu/SeiteDerMacht
+<http://webprotege.stanford.edu/SeiteDerMacht> rdf:type owl:Class ;
+                                               rdfs:comment "Abstrakte Seite der Macht, der ein Machtnutzer zugeordnet sein kann"@de ;
+                                               rdfs:label "SeiteDerMacht"@de .
+
+
+###  http://webprotege.stanford.edu/Sith
+<http://webprotege.stanford.edu/Sith> rdf:type owl:Class ;
+                                      owl:equivalentClass [ owl:intersectionOf ( <http://webprotege.stanford.edu/Machtnutzer>
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty <http://webprotege.stanford.edu/mitgliedVon> ;
+                                                                                   owl:hasValue :SithOrden
+                                                                                 ]
+                                                                               ) ;
+                                                            rdf:type owl:Class
+                                                          ] ;
+                                      rdfs:subClassOf <http://webprotege.stanford.edu/Machtnutzer> ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :hatMachtSeite ;
+                                                        owl:hasValue :DunkleSeite
+                                                      ] ;
+                                      rdfs:comment "Machtnutzer, die dem Sith-Orden angehören und der dunklen Seite der Macht zugeordnet sind. Die Klasse ist so modelliert, dass HermiT Sith-Zugehörigkeit automatisch inferieren kann."@de ;
+                                      rdfs:label "Sith"@de .
+
+
+###  http://webprotege.stanford.edu/Superwaffe
+<http://webprotege.stanford.edu/Superwaffe> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://webprotege.stanford.edu/Waffe> ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :zerstoert ;
+                                                              owl:someValuesFrom <http://webprotege.stanford.edu/Himmelskörper>
+                                                            ] ;
+                                            rdfs:comment "Besonders mächtige Waffe mit enormer Zerstörungskraft."@de ;
+                                            rdfs:label "Superwaffe"@de .
+
+
+###  http://webprotege.stanford.edu/Todesstern
+<http://webprotege.stanford.edu/Todesstern> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://webprotege.stanford.edu/Himmelskörper> ;
+                                            rdfs:comment "Große künstliche planetenartige Station im Weltraum."@de ;
+                                            rdfs:label "Todesstern"@de .
+
+
+###  http://webprotege.stanford.edu/Training
+<http://webprotege.stanford.edu/Training> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://webprotege.stanford.edu/Ereignis> ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hatTeilnehmer ;
+                                                            owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass <http://webprotege.stanford.edu/Charakter>
+                                                          ] ;
+                                          rdfs:comment "Ausbildungs- oder Trainingsereignis."@de ;
+                                          rdfs:label "Training"@de .
+
+
+###  http://webprotege.stanford.edu/Waffe
+<http://webprotege.stanford.edu/Waffe> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://webprotege.stanford.edu/Objekt> ;
+                                       rdfs:comment "Objekt zum Kämpfen oder Zerstören."@de ;
+                                       rdfs:label "Waffe"@de .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#AdmiralAckbar
+:AdmiralAckbar rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Charakter> ,
+                        <http://webprotege.stanford.edu/Lebewesen> ;
+               <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+               :kommandiert :HomeOne ;
+               :nimmtTeilAn :SchlachtVonEndor ;
+               :hatName "Admiral Ackbar"@de ;
+               :hatTitel "Admiral"@de ;
+               rdfs:label "Admiral Ackbar"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Alderaan
+:Alderaan rdf:type owl:NamedIndividual ,
+                   <http://webprotege.stanford.edu/Planet> ;
+          :hatRegierung :RegierungAlderaan ;
+          :hatName "Alderaan"@de ;
+          :istZerstoert "true"^^xsd:boolean ;
+          rdfs:label "Alderaan"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Bespin
+:Bespin rdf:type owl:NamedIndividual ,
+                 <http://webprotege.stanford.edu/Planet> ;
+        :hatRegierung :RegierungBespin ;
+        :hatName "Bespin"@de ;
+        rdfs:label "Bespin"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#C3PO
+:C3PO rdf:type owl:NamedIndividual ,
+               <http://webprotege.stanford.edu/Droide> ;
+      <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+      :nimmtTeilAn :SchlachtVonEndor ,
+                   :SchlachtVonHoth ,
+                   :SchlachtVonYavin ;
+      :hatName "C-3PO"@de ;
+      rdfs:label "C3PO"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Chewbacca
+:Chewbacca rdf:type owl:NamedIndividual ,
+                    <http://webprotege.stanford.edu/Charakter> ,
+                    <http://webprotege.stanford.edu/Lebewesen> ;
+           <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+           :nimmtTeilAn :SchlachtVonEndor ,
+                        :SchlachtVonHoth ,
+                        :SchlachtVonYavin ;
+           :pilotiert :MillenniumFalke ;
+           :hatName "Chewbacca"@de ;
+           rdfs:label "Chewbacca"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Dagobah
+:Dagobah rdf:type owl:NamedIndividual ,
+                  <http://webprotege.stanford.edu/Planet> ;
+         :hatRegierung :RegierungDagobah ;
+         :hatName "Dagobah"@de ;
+         rdfs:label "Dagobah"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#DarthVader
+:DarthVader rdf:type owl:NamedIndividual ,
+                     <http://webprotege.stanford.edu/Charakter> ;
+            <http://webprotege.stanford.edu/mitgliedVon> :GalaktischesImperium ,
+                                                         :SithOrden ;
+            :besitzt :VadersLichtschwert ;
+            :elternteilVon :LeiaOrgana ,
+                           :LukeSkywalker ;
+            :geborenAuf :Tatooine ;
+            :hatHeimatwelt :Tatooine ;
+            :hatMachtSeite :DunkleSeite ;
+            :kommandiert :Executor ;
+            :nimmtTeilAn :DuellAufTodessternEins ,
+                         :DuellAufTodessternZwei ,
+                         :DuellInBespin ,
+                         :SchlachtVonEndor ,
+                         :SchlachtVonHoth ,
+                         :SchlachtVonYavin ,
+                         :VadersRettung ;
+            :rettet :LukeSkywalker ;
+            :traegtWaffe :VadersLichtschwert ;
+            :trainiertVon :ImperatorPalpatine ,
+                          :ObiWanKenobi ;
+            :tötet :ImperatorPalpatine ,
+                   :ObiWanKenobi ;
+            :hatName "Darth Vader"@de ;
+            :hatTitel "Darth"@de ,
+                      "Dunkler Lord der Sith"@de ;
+            rdfs:label "Darth Vader"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#DuellAufTodessternEins
+:DuellAufTodessternEins rdf:type owl:NamedIndividual ,
+                                 <http://webprotege.stanford.edu/Duell> ;
+                        :findetStattAuf :TodessternEins ;
+                        :hatTeilnehmer :DarthVader ,
+                                       :ObiWanKenobi ;
+                        :hatName "Duell auf dem ersten Todesstern"@de ;
+                        rdfs:label "DuellAufTodessternEins"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#DuellAufTodessternZwei
+:DuellAufTodessternZwei rdf:type owl:NamedIndividual ,
+                                 <http://webprotege.stanford.edu/Duell> ;
+                        :findetStattAuf :TodessternZwei ;
+                        :hatTeilnehmer :DarthVader ,
+                                       :ImperatorPalpatine ,
+                                       :LukeSkywalker ;
+                        :hatName "Duell auf dem zweiten Todesstern"@de ;
+                        rdfs:label "DuellAufTodessternZwei"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#DuellInBespin
+:DuellInBespin rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Duell> ;
+               :findetStattAuf :Bespin ;
+               :hatTeilnehmer :DarthVader ,
+                              :LukeSkywalker ;
+               :hatName "Duell in Bespin"@de ;
+               rdfs:label "Duell in Bespin"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#DunkleSeite
+:DunkleSeite rdf:type owl:NamedIndividual ,
+                      <http://webprotege.stanford.edu/SeiteDerMacht> ;
+             :hatName "Dunkle Seite"@de ;
+             rdfs:label "Dunkle Seite"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#EndorMond
+:EndorMond rdf:type owl:NamedIndividual ,
+                    <http://webprotege.stanford.edu/Mond> ;
+           :hatName "Endor"@de ;
+           rdfs:label "Endor Mond"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Executor
+:Executor rdf:type owl:NamedIndividual ,
+                   <http://webprotege.stanford.edu/Raumschiff> ;
+          :gehoertZu :GalaktischesImperium ;
+          :wirdKommandiertVon :DarthVader ;
+          :hatName "Executor"@de ;
+          :hatRufzeichen "Super-Sternzerstörer"@de ;
+          :istZerstoert "true"^^xsd:boolean ;
+          rdfs:label "Executor"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#GalaktischesImperium
+:GalaktischesImperium rdf:type owl:NamedIndividual ,
+                               <http://webprotege.stanford.edu/Militärorganisation> ,
+                               <http://webprotege.stanford.edu/Organisation> ,
+                               <http://webprotege.stanford.edu/PolitischeOrganisation> ;
+                      :hatName "Galaktisches Imperium"@de ;
+                      rdfs:label "Galaktisches Imperium"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#HanBlaster
+:HanBlaster rdf:type owl:NamedIndividual ,
+                     <http://webprotege.stanford.edu/Waffe> ;
+            :hatName "Hans Blaster"@de ;
+            rdfs:label "Hans Blaster"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#HanSolo
+:HanSolo rdf:type owl:NamedIndividual ,
+                  <http://webprotege.stanford.edu/Charakter> ,
+                  <http://webprotege.stanford.edu/Lebewesen> ;
+         <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+         :besitzt :HanBlaster ,
+                  :MillenniumFalke ;
+         :nimmtTeilAn :SchlachtVonEndor ,
+                      :SchlachtVonHoth ,
+                      :SchlachtVonYavin ;
+         :pilotiert :MillenniumFalke ;
+         :traegtWaffe :HanBlaster ;
+         :hatName "Han Solo"@de ;
+         rdfs:label "Han Solo"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#HelleSeite
+:HelleSeite rdf:type owl:NamedIndividual ,
+                     <http://webprotege.stanford.edu/SeiteDerMacht> ;
+            :hatName "Helle Seite"@de ;
+            rdfs:label "Helle Seite"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#HomeOne
+:HomeOne rdf:type owl:NamedIndividual ,
+                  <http://webprotege.stanford.edu/Raumschiff> ;
+         :gehoertZu :Rebellenallianz ;
+         :wirdKommandiertVon :AdmiralAckbar ;
+         :hatName "Home One"@de ;
+         :hatRufzeichen "Mon-Calamari-Kreuzer"@de ;
+         :istZerstoert "false"^^xsd:boolean ;
+         rdfs:label "Home One"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Hoth
+:Hoth rdf:type owl:NamedIndividual ,
+               <http://webprotege.stanford.edu/Planet> ;
+      :hatRegierung :RegierungHoth ;
+      :hatName "Hoth"@de ;
+      rdfs:label "Hoth"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#ImperatorPalpatine
+:ImperatorPalpatine rdf:type owl:NamedIndividual ,
+                             <http://webprotege.stanford.edu/Charakter> ;
+                    <http://webprotege.stanford.edu/mitgliedVon> :GalaktischesImperium ,
+                                                                 :SithOrden ;
+                    :hatMachtSeite :DunkleSeite ;
+                    :kommandiert :GalaktischesImperium ;
+                    :nimmtTeilAn :DuellAufTodessternZwei ,
+                                 :SchlachtVonEndor ;
+                    :trainiert :DarthVader ;
+                    <http://webprotege.stanford.edu/R9Z790g1l9Qp40VIDmrZu3X> "true"^^xsd:boolean ;
+                    :hatName "Imperator Palpatine"@de ;
+                    :hatTitel "Imperator"@de ;
+                    rdfs:label "Imperator Palpatine"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#JediOrden
+:JediOrden rdf:type owl:NamedIndividual ,
+                    <http://webprotege.stanford.edu/Machtorden> ;
+           :organisationFeindVon :SithOrden ;
+           :hatName "Jedi-Orden"@de ;
+           rdfs:label "Jedi-Orden"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#LandoCalrissian
+:LandoCalrissian rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Charakter> ,
+                          <http://webprotege.stanford.edu/Lebewesen> ;
+                 <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+                 :nimmtTeilAn :SchlachtVonEndor ;
+                 :pilotiert :MillenniumFalke ;
+                 :zerstoert :TodessternZwei ;
+                 :hatName "Lando Calrissian"@de ;
+                 rdfs:label "Lando Calrissian"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#LeiaOrgana
+:LeiaOrgana rdf:type owl:NamedIndividual ,
+                     <http://webprotege.stanford.edu/Charakter> ;
+            <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+            :geborenAuf :Alderaan ;
+            :hatHeimatwelt :Alderaan ;
+            :nimmtTeilAn :SchlachtVonEndor ,
+                         :SchlachtVonHoth ,
+                         :SchlachtVonYavin ;
+            :hatName "Leia Organa"@de ;
+            :hatTitel "Prinzessin"@de ;
+            rdfs:label "Leia Organa"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#LukeSkywalker
+:LukeSkywalker rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Charakter> ;
+               <http://webprotege.stanford.edu/mitgliedVon> :JediOrden ,
+                                                            :Rebellenallianz ;
+               :besitzt :LukesLichtschwert ;
+               :geborenAuf :Tatooine ;
+               :hatHeimatwelt :Tatooine ;
+               :hatMachtSeite :HelleSeite ;
+               :nimmtTeilAn :DuellAufTodessternZwei ,
+                            :DuellInBespin ,
+                            :SchlachtVonEndor ,
+                            :SchlachtVonHoth ,
+                            :SchlachtVonYavin ,
+                            :TrainingAufDagobah ,
+                            :VadersRettung ;
+               :pilotiert :XWingRotFuenf ;
+               :traegtWaffe :LukesLichtschwert ;
+               :trainiertVon :ObiWanKenobi ,
+                             :Yoda ;
+               :zerstoert :TodessternEins ;
+               :hatName "Luke Skywalker"@de ;
+               :hatTitel "Jedi-Ritter"@de ;
+               rdfs:label "Luke Skywalker"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#LukesLichtschwert
+:LukesLichtschwert rdf:type owl:NamedIndividual ,
+                            <http://webprotege.stanford.edu/Waffe> ;
+                   :hatName "Lukes Lichtschwert"@de ;
+                   rdfs:label "Lukes Lichtschwert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#MillenniumFalke
+:MillenniumFalke rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Raumschiff> ;
+                 :gehoertZu :Rebellenallianz ;
+                 :hatName "Millennium Falke"@de ;
+                 :hatRufzeichen "YT-1300" ;
+                 :istZerstoert "false"^^xsd:boolean ;
+                 rdfs:label "Millennium Falke"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#ObiWanKenobi
+:ObiWanKenobi rdf:type owl:NamedIndividual ,
+                       <http://webprotege.stanford.edu/Charakter> ;
+              <http://webprotege.stanford.edu/mitgliedVon> :JediOrden ;
+              :besitzt :ObiWansLichtschwert ;
+              :hatHeimatwelt :Tatooine ;
+              :hatMachtSeite :HelleSeite ;
+              :nimmtTeilAn :DuellAufTodessternEins ;
+              :traegtWaffe :ObiWansLichtschwert ;
+              :trainiert :DarthVader ,
+                         :LukeSkywalker ;
+              <http://webprotege.stanford.edu/R9Z790g1l9Qp40VIDmrZu3X> "true"^^xsd:boolean ;
+              :hatName "Obi-Wan Kenobi"@de ;
+              :hatTitel "Jedi-Meister"@de ;
+              rdfs:label "Obi-Wan Kenobi"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#ObiWansLichtschwert
+:ObiWansLichtschwert rdf:type owl:NamedIndividual ,
+                              <http://webprotege.stanford.edu/Waffe> ;
+                     :hatName "Obi-Wans Lichtschwert"@de ;
+                     rdfs:label "Obi-Wans Lichtschwert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#R2D2
+:R2D2 rdf:type owl:NamedIndividual ,
+               <http://webprotege.stanford.edu/Droide> ;
+      <http://webprotege.stanford.edu/mitgliedVon> :Rebellenallianz ;
+      :nimmtTeilAn :SchlachtVonEndor ,
+                   :SchlachtVonYavin ;
+      :hatName "R2-D2"@de ;
+      rdfs:label "R2D2"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Rebellenallianz
+:Rebellenallianz rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Militärorganisation> ,
+                          <http://webprotege.stanford.edu/Organisation> ,
+                          <http://webprotege.stanford.edu/PolitischeOrganisation> ;
+                 :organisationFeindVon :GalaktischesImperium ;
+                 :hatName "Rebellenallianz"@de ;
+                 rdfs:label "Rebellenallianz"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Rebellenflotte
+:Rebellenflotte rdf:type owl:NamedIndividual ,
+                         <http://webprotege.stanford.edu/Militärorganisation> ,
+                         <http://webprotege.stanford.edu/Organisation> ;
+                :hatName "Rebellenflotte"@de ;
+                rdfs:comment "Militärische Flotte der Rebellenallianz; dient als Beispiel für transitive Teil-Ganzes-Inferenz."@de ;
+                rdfs:label "Rebellenflotte"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#RegierungAlderaan
+:RegierungAlderaan rdf:type owl:NamedIndividual ,
+                            <http://webprotege.stanford.edu/Regierung> ;
+                   rdfs:comment "Beispielhafte Regierungsinstanz zur Demonstration der Kardinalität bei Planeten."@de ;
+                   rdfs:label "Regierung Alderaan"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#RegierungBespin
+:RegierungBespin rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Regierung> ;
+                 rdfs:comment "Regierungsinstanz für den Planeten Bespin."@de ;
+                 rdfs:label "Regierung Bespin"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#RegierungDagobah
+:RegierungDagobah rdf:type owl:NamedIndividual ,
+                           <http://webprotege.stanford.edu/Regierung> ;
+                  rdfs:comment "Regierungsinstanz für den Planeten Dagobah."@de ;
+                  rdfs:label "Regierung Dagobah"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#RegierungHoth
+:RegierungHoth rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Regierung> ;
+               rdfs:comment "Regierungsinstanz für den Planeten Hoth."@de ;
+               rdfs:label "Regierung Hoth"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#RegierungTatooine
+:RegierungTatooine rdf:type owl:NamedIndividual ,
+                            <http://webprotege.stanford.edu/Regierung> ;
+                   rdfs:comment "Beispielhafte Regierungsinstanz zur Demonstration der Kardinalität bei Planeten."@de ;
+                   rdfs:label "Regierung Tatooine"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#SchlachtVonEndor
+:SchlachtVonEndor rdf:type owl:NamedIndividual ,
+                           <http://webprotege.stanford.edu/Schlacht> ;
+                  :findetStattAuf :EndorMond ;
+                  :hatTeilnehmer :AdmiralAckbar ,
+                                 :C3PO ,
+                                 :Chewbacca ,
+                                 :DarthVader ,
+                                 :HanSolo ,
+                                 :ImperatorPalpatine ,
+                                 :LandoCalrissian ,
+                                 :LeiaOrgana ,
+                                 :LukeSkywalker ,
+                                 :R2D2 ;
+                  :hatZiel :TodessternZwei ;
+                  :hatName "Schlacht von Endor"@de ;
+                  rdfs:label "Schlacht von Endor"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#SchlachtVonHoth
+:SchlachtVonHoth rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Schlacht> ;
+                 :findetStattAuf :Hoth ;
+                 :hatTeilnehmer :C3PO ,
+                                :Chewbacca ,
+                                :DarthVader ,
+                                :HanSolo ,
+                                :LeiaOrgana ,
+                                :LukeSkywalker ,
+                                :R2D2 ;
+                 :hatZiel :Hoth ;
+                 :hatName "Schlacht von Hoth"@de ;
+                 rdfs:label "Schlacht von Hoth"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#SchlachtVonYavin
+:SchlachtVonYavin rdf:type owl:NamedIndividual ,
+                           <http://webprotege.stanford.edu/Schlacht> ;
+                  :findetStattAuf :YavinVier ;
+                  :hatTeilnehmer :C3PO ,
+                                 :Chewbacca ,
+                                 :DarthVader ,
+                                 :HanSolo ,
+                                 :LeiaOrgana ,
+                                 :LukeSkywalker ,
+                                 :R2D2 ,
+                                 :Tarkin ;
+                  :hatZiel :TodessternEins ;
+                  :hatName "Schlacht von Yavin"@de ;
+                  rdfs:label "Schlacht von Yavin"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#SithOrden
+:SithOrden rdf:type owl:NamedIndividual ,
+                    <http://webprotege.stanford.edu/Machtorden> ;
+           :hatName "Sith-Orden"@de ;
+           rdfs:label "Sith-Orden"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Tarkin
+:Tarkin rdf:type owl:NamedIndividual ,
+                 <http://webprotege.stanford.edu/Charakter> ;
+        <http://webprotege.stanford.edu/mitgliedVon> :GalaktischesImperium ;
+        :kommandiert :TodessternEins ;
+        :nimmtTeilAn :SchlachtVonYavin ;
+        :nutztObjekt :TodessternEins ;
+        <http://webprotege.stanford.edu/R9Z790g1l9Qp40VIDmrZu3X> "true"^^xsd:boolean ;
+        :hatName "Tarkin"@de ;
+        :hatTitel "Grand Moff"@de ;
+        rdfs:label "Tarkin"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Tatooine
+:Tatooine rdf:type owl:NamedIndividual ,
+                   <http://webprotege.stanford.edu/Planet> ;
+          :hatRegierung :RegierungTatooine ;
+          :hatName "Tatooine"@de ;
+          rdfs:label "Tatooine"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#TodessternEins
+:TodessternEins rdf:type owl:NamedIndividual ,
+                         <http://webprotege.stanford.edu/Superwaffe> ,
+                         <http://webprotege.stanford.edu/Todesstern> ;
+                :gehoertZu :GalaktischesImperium ;
+                :hatBewaffnung :TodessternLaser ;
+                :zerstoert :Alderaan ;
+                :hatName "Erster Todesstern"@de ;
+                :istZerstoert "true"^^xsd:boolean ;
+                rdfs:label "Erster Todesstern"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#TodessternLaser
+:TodessternLaser rdf:type owl:NamedIndividual ,
+                          <http://webprotege.stanford.edu/Superwaffe> ;
+                 :gehoertZu :GalaktischesImperium ;
+                 :zerstoert :Alderaan ;
+                 :hatName "Todesstern-Laser"@de ;
+                 rdfs:label "Todesstern-Laser"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#TodessternZwei
+:TodessternZwei rdf:type owl:NamedIndividual ,
+                         <http://webprotege.stanford.edu/Superwaffe> ,
+                         <http://webprotege.stanford.edu/Todesstern> ;
+                :gehoertZu :GalaktischesImperium ;
+                :hatBewaffnung :TodessternLaser ;
+                :hatName "Zweiter Todesstern"@de ;
+                :istZerstoert "true"^^xsd:boolean ;
+                rdfs:label "TodessternZwei"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#TrainingAufDagobah
+:TrainingAufDagobah rdf:type owl:NamedIndividual ,
+                             <http://webprotege.stanford.edu/Training> ;
+                    :findetStattAuf :Dagobah ;
+                    :hatTeilnehmer :LukeSkywalker ,
+                                   :Yoda ;
+                    :hatName "Training auf Dagobah"@de ;
+                    rdfs:label "Training auf Dagobah"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#VadersLichtschwert
+:VadersLichtschwert rdf:type owl:NamedIndividual ,
+                             <http://webprotege.stanford.edu/Waffe> ;
+                    :hatName "Vaders Lichtschwert"@de ;
+                    rdfs:label "Vaders Lichtschwert"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#VadersRettung
+:VadersRettung rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Ereignis> ;
+               :findetStattAuf :TodessternZwei ;
+               :hatTeilnehmer :DarthVader ,
+                              :ImperatorPalpatine ,
+                              :LukeSkywalker ;
+               :hatName "Vaders Rettung von Luke"@de ;
+               rdfs:label "Vaders Rettung von Luke"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#XWingRotFuenf
+:XWingRotFuenf rdf:type owl:NamedIndividual ,
+                        <http://webprotege.stanford.edu/Raumschiff> ;
+               :gehoertZu :Rebellenallianz ;
+               :hatName "X-Wing Rot Fünf"@de ;
+               :hatRufzeichen "Rot 5"@de ;
+               rdfs:label "X-Wing Rot Fünf"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#YavinVier
+:YavinVier rdf:type owl:NamedIndividual ,
+                    <http://webprotege.stanford.edu/Mond> ;
+           :hatName "Yavin 4"@de ;
+           rdfs:label "Yavin 4"@de .
+
+
+###  urn:webprotege:ontology:d3169af1-f7dc-449d-85dc-cf437ed51cbd#Yoda
+:Yoda rdf:type owl:NamedIndividual ,
+               <http://webprotege.stanford.edu/Charakter> ;
+      <http://webprotege.stanford.edu/mitgliedVon> :JediOrden ;
+      :hatHeimatwelt :Dagobah ;
+      :hatMachtSeite :HelleSeite ;
+      :nimmtTeilAn :TrainingAufDagobah ;
+      :trainiert :LukeSkywalker ;
+      :hatName "Yoda"@de ;
+      :hatTitel "Jedi-Meister"@de ;
+      rdfs:label "Yoda"@de .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ owl:intersectionOf ( <http://webprotege.stanford.edu/Charakter>
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :kindVon ;
+                         owl:someValuesFrom <http://webprotege.stanford.edu/Machtnutzer>
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/Machtnutzer>
+] .
+
+
+[ owl:intersectionOf ( <http://webprotege.stanford.edu/Charakter>
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :trainiert ;
+                         owl:someValuesFrom <http://webprotege.stanford.edu/Machtnutzer>
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/Machtnutzer>
+] .
+
+
+[ owl:intersectionOf ( <http://webprotege.stanford.edu/Charakter>
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://webprotege.stanford.edu/mitgliedVon> ;
+                         owl:hasValue :GalaktischesImperium
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/Imperiumsmitglied>
+] .
+
+
+[ owl:intersectionOf ( <http://webprotege.stanford.edu/Charakter>
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://webprotege.stanford.edu/mitgliedVon> ;
+                         owl:hasValue :Rebellenallianz
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/RebellenMitglied>
+] .
+
+
+[ owl:intersectionOf ( <http://webprotege.stanford.edu/Himmelskörper>
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hatBewaffnung ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass <http://webprotege.stanford.edu/Superwaffe>
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/Todesstern>
+] .
+
+
+[ rdf:type owl:Restriction ;
+  owl:onProperty :nimmtTeilAn ;
+  owl:someValuesFrom <http://webprotege.stanford.edu/Duell> ;
+  rdfs:subClassOf <http://webprotege.stanford.edu/Machtnutzer>
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Alderaan
+                        :Bespin
+                        :Dagobah
+                        :EndorMond
+                        :Hoth
+                        :Tatooine
+                        :YavinVier
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :C3PO
+                        :Chewbacca
+                        :DarthVader
+                        :HanSolo
+                        :ImperatorPalpatine
+                        :LandoCalrissian
+                        :LeiaOrgana
+                        :LukeSkywalker
+                        :ObiWanKenobi
+                        :R2D2
+                        :Tarkin
+                        :Yoda
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :GalaktischesImperium
+                        :JediOrden
+                        :Rebellenallianz
+                        :SithOrden
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.5.13) https://github.com/owlcs/owlapi
