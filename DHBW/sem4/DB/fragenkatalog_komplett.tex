@@ -11,192 +11,203 @@
 
 \begin{document}
 \maketitle
-\tableofcontents
 
-\section{Fragenkatalog}
+\section*{Fragenkatalog}
 
 \begin{enumerate}
     \item Erklären Sie die Begriffe - Datenbanken, DBMS, DBs, Oracle/DB2
     
-    
+    Datenbanken sind ein Topf an Daten, welche von einem DBMS verwaltet. DBs (Datenbank System), welches die beiden vorherige zusammenfasst.
     \item Was ist der Unterschied zwischen Daten und Informationen?
     
-    
+    Daten sind werte (Messwerte) und Informationen sind die Daten in einem Kontext
     \item Wieso bezeichnet man die Schrift als erstes Datenverarbeitungssystem?
     
-    
+    Man konnte Informationen speichern, über Lebensdauern eines Menschen hinweg. Wissen kann gespeichert und erweitert werden.
     \item Was war das Problem mit den Tontäfelchen der Sumerer und wie wurde es von späteren Kulturen gelöst?
     
-    
+    Die Ordnung von Tontäfelchen hat nicht funktioniert. Daten wurden nicht wiedergefunden. Lösung: Einen Katalog erstellen.
     \item Erklären Sie, was man unter „Persistenter“ und unter „Sichere“ Datenhaltung versteht.
     
-    
+    Persistente Daten gehen nicht verloren, selbst wenn das Program beendet wird. Sichere Daten sind Datensicherungen.
     \item Was waren die Probleme beim Hierarchischen Datenmodell?
     
-    
+    Mann konnte nur ein Wurzelelement. Wir können nicht mehrere Wurzelelemente haben.
     \item Wie konnten Netzwerkstrukturen abgebildet werden?
     
-    
+    Mit Verknüpfungen (Pfeile oder Zeiger)
     \item Warum dauerte die Entwicklung eines Produkts aus dem relationalen Konzept von F.T.Codd bei der IBM so lange?
     
-    
+    IBM hat das Konstrukt von Codd nicht verstanden, da es sehr theoretisch und mathematisch war.
     \item Was war die Intention von Codd für die Entwicklung seines Relationalen Modells?
     
-    
+    Das alte war zu kompliziert und konnte nur von Experten benutzt werden
     \item Wozu stellte Codd seine Regeln für ein DBMS auf?
     
-    
+    Es muss alle Bedingungen erfüllen um ein wahres DBMS nach Codd zu sein.
     \item Nennen Sie einige Regeln von Codd und beschreiben Sie diese kurz.
     
-    
+    Die Regeln von Codd: Beispiele
     \item Was versteht man unter: Datenbankmodell, Datenbankschema, Datenbanksprache?
     
+    Datenbankmodell: Wie werden Daten geordnet (Hirachisch, Relational), 
     
+    Datenbankschema (Die Metadaten, Tabellenüberschriften), 
+    
+    Datenbanksprache (Operatoren ausführen: DDL, DML, DQL - Anlegen, bearbeiten, Anzeigen)
     \item Welchem Zweck dient die 3 Ebenen Architektur von Datenbanksystemen und welche Schichten unterscheidet man dabei (kurze Beschreibung)?
     
+    externe Ebenen, konzeptionelle Ebene, interne Ebene. 
     
-    \item 14. Zur Systemarchitektur eines DBMS:
+    Die Ebenen sind Unabhängig voneinander. Es ist eine Abstraktion zur Entwicklung der Ebenen einzeln. Komplexität verringern.
+    \item Zur Systemarchitektur eines DBMS:
     \begin{itemize}
         \item Wozu dienen folgende Teile?
         \item Data Dictionary, Anfrageverwaltung, Transaktionsmanager, Recovery-Manager
     \end{itemize}
     
-    
+     Data Dictionary ist die Verwaltung der Metadaten (Attribute, Datentyp, \dots). 
+     
+     Anfrageverwaltung nimmt die Anfragen an und versucht diese besser zu strukturieren. 
+     
+     Transaktionsmanager macht aus mehreren Eine und wird entweder gesamt oder gar nicht ausgeführt. 
+     
+     Recovery-Manager logged die Daten und kann bei Fehler die Abfragen rückwerts abwickeln.
     \item Was versteht man unter einem Datenbankentwurfs-Prozess?
     
-    
+    Datenbankentwurfsprozess ist die engineer mäßige herangehensweise
     \item Wissen Sie noch die einzelnen Schritte?
     
-    
+    Die einzelnen Schritte sind: Anforderungsanalyse, Konzeptioneller Entwurf, logischer Entwurf, Datenbank-Definition, Physikalischer Entwurf
     \item Wie lauten die Beschreibungsverfahren für diesen Prozess?
     
-    
+    ERM Graphisch, Die verschieden SQL Bereiche (DDL, DML, DQL)
     \item Was versteht man unter einer Anforderungsanalyse und was ist das Ergebnis?
     
-    
+    Eine Anforderungsanalyse die Sammlung und Dokumentation von den Anforderungen des Kundens.
     \item Was ist der konzeptionelle Datenbankentwurf, was ist sein Ziel und welche Methode wird hierzu verwendet?
     
-    
+    konzeptioneller Datenbank Entwurf dient der Modellierung. Es wird also etwas aus der realen Welt modelliert.
     \item Was versteht man unter einem Entitäts-Typ und unter einer Entität?
     
-    
+    Eine Entität Typ ist das Object und die Entität ist der einzelnen z.B. Student
     \item Aus welchen Komponenten besteht das ERM und was versteht man darunter?
     
-    
+    Das ERM besteht aus dem Entitäts Typen, deren Beziehungen und die Attribute von den Entitäts Typen.
     \item Was versteht man unter dem Wertebereich eines Attributs?
     
+    Der Wertebereich eines Attributs sind die Gültigen Werte eines Attributs. So hat das Geschlecht den Wertebereich: "Männlich, Weiblich, Divers, Nicht angegeben"
+    \item Wie definiert man Schlüsselattribute eines Entitäts-Typs und warum führt man künstliche Schlüssel ein?
     
-    \item Wie definiert man Schlüsselattribute eines ‚Entitäts-Typs und warum führt man künstliche Schlüssel ein?
-    
-    
+    Schlüsselattribute sind eindeutige Indentifikator für das Tupel (Eine Zeile, eine Entität).
     \item Wie geht man mit Mengenattributen in einem Entitäts-Typ um?
     
-    
+    Ein Mengenattribut wird als neuer Entitätstyp implementiert.
     \item Wie sollte der Text in einer Beziehungs-Raute gewählt werden und welches sind die bevorzugten Leserichtungen im ERM?
     
-    
+    Eine Beziehung wird als Handlung von rechts nach links gelesen und sollte ein Satz ein.
     \item Was ist zu tun wenn die Leserichtung in einem ERM nicht eingehalten werden kann?
     
-    
+    Rollen hinzufügen um klar zu machen wer handelt.
     \item Was sind die grundsätzlichen Unterschiede zwischen der Chen-Notation und der (min,max)-Notation?
     
-    
+    Chen-Notation vs. (min, max). Die Grenzen sind unterschiedlich und die leserichtung ändert sich. Chen von der Entität weg und bei (min, max) steht es bei der ausgehenden Entität.
     \item Was versteht man unter ternären Beziehungen und wozu werden diese benötigt?
     
-    
+    Terniär-Beziehung zwischen drei Entitäten. Einsatz, wenn binäre Beziehungen nicht konsistent dies darstellen können.
     \item Wozu benötigt man die Modellierung von rekursiven Beziehungen und was ist das Besondere daran?
     
-    
+    Wenn eine Entität mit sich selber in Beziehung steht. Hier muss es Rollen geben, da sonst die Beziehung nicht eindeutig ist.
     \item Was versteht man unter Spezialisierung und wozu benötigt man diese?
     
-    
+    Spezialisierung als Prüfungsfrage: Sie haben Spezialisierungen verwendet und der Kunde fragt wofür wir diese brauchen. Antwort: Ich habe Entität die nur bestimmte Ausprägungen habe und allgemeiner Ausprägungen von oberen Entitäten besitzen. Dient zur Verhinderung von leeren Feldern in der Datenbank. Also Generalisierung (unten nach oben) oder Spezialisierung (oben nach unten)
     \item Was ist in diesem Zusammenhang eine Vererbung?
     
-    
+    Attribute und Beziehungen werden vererbt.
     \item Nennen Sie ein Beispiel für eine Partitionierung. Was ist dann eine Aggregation?
     
-    
+    Partionierung ist die Einteilung in verschieden Teile (Parts). Eine Aggregation ist \dots % Satz Fehlt
     \item Was versteht man unter einem existenzabhängigen Entitäts-Typs und wie wird diese identifiziert?
     
-    
+    existenzabhängige Entitäten werden mit der oberen Entität gemeinsam gekillt. In dem ERM wird dies mit einer doppelte Linie gezeichnet. Erkennen kann ich das, wenn es Abhängigkeiten gibt.
     \item Was sind Sichten in einem ER-Modell und wie geht man damit um?
     
-    
+    Sichten konsolidieren, verschieden Gruppen haben unterschiedliche Sichten in der Datenbank.
     \item Was versteht man unter einem logischen Datenbankentwurf?
     
-    
+    Der logische Datenbankentwurf ist die übersetzung des konzeptionellem Modell ind ein bestimmtes Datenbankmodell. Bei uns ER zu Relational.
     \item Wie ist eine Relation aufgebaut?
     
-    
+    $$R\subseteq D_1\times D_2\times \dots \times D_n$$
     \item Was versteht man unter einem Wertebereich oder Domäne?
     
-    
+    Der Wertebereich oder Domäne sind die Datentypen.
     \item Was ist im RM eine Instanz und was ein Schema und wie ist die Schreibweise?
     
-    
+    $[R] = Schema$ und $R = Instanz$
     \item Wie setzt man einen schwachen Entitäts-Typ in das RM um?
     
-    
+    Ein Schwacher Entitätstyp wird in ERM umgesetzt, indem diese einen Fremdschlüssel und zusammen mit einem anderen sind diese dann der Primärschlüssel.
     \item Wie wird eine binäre Beziehung umgesetzt?
     
-    
+    Wir machen aus einer Beziehung drei Relationen. Die beiden Entitäten jeweils eine und die Beziehung auch eine.
     \item Wie verfährt man mit der Beziehungsrelation bei 1:1, 1:N und N:1-Beziehungen?
     
-    
+    Ich habe drei Relationen und lege alle Schlüssel fest und ziehe die beiden Relationen zusammen die den gleichen Primärschlüssel haben.
     \item Was muss bei der Umsetzung von 1:1- Beziehungen in Relationen beachtet werden?
     
-    
+    Wir verwenden die maxmin Notation. Somit kommt der Fremdschlüssel dorthin, wo die wenigsten NULL Werte sind.
     \item Welche drei Möglichkeiten bieten sich bei der Umsetzung einer „ist ein“-Beziehung?
     
-    
+    Wir können alles in eine Tabelle einfügen, resultiert in viele NULL Werte. Wir können eine Fremdschlüsselbeziehung durchführen. Die Obere Tabelle weglassen und in die Spezialisierung einfügen.
     \item Warum kann bei eine M:N-Beziehung die Beziehungsrelation nicht mit einer der beiden Entity-Relationen zusammengezogen werden?
     
-    
+    Das liegt daran, das m aus der einen mit n aus der anderen eine Beziehung haben. Ich habe also keine Schlüssel die ich zusammenziehen kann.
     \item Was versteht man unter einer referentiellen Integrität?
     
-    
+    Das es keine ungültige Fremdschlüssel gibt. Dies passiert, wenn ein Tupel gelöscht wird, wenn noch darauf verwiesen wird.
     \item Wozu dient die Normalisierung als Prozess?
     
-    
+    Zum aufdecken von Mängeln im Datenbankentwurf.
     \item Erklären Sie was man unter Anomalien versteht und welche bei einem schlecht designten Datenbankschema auftreten können?
     
-    
+    Eine Anomalie beschreibt die Abweichung von Normen und es gibt Einfügeanomalie, Löschanomalie und Änderungsanomalie.
     \item Was versteht man unter einer FA bei einer Relation?
     
-    
+    Eine Funktionale Abhängigkeit (FA) heißt ein oder mehrere Attribute zeigen eindeutig auf andere Attribute.
     \item Was ist eine triviale FA?
     
-    
+    Eine Triviale FA heißt es bildet auf sich selbst ab oder auf eine Teilmenge. $X\to X$ oder $XY\to X$
     \item Was ist die Hülle von F (F+) und wie kann diese gebildet werden?
     
-    
+    Eine Hülle $(F^+)$ sind alle möglichen FA die aus den Grundfunktion bilden kann, mithilfe von dem Armstrong-Axiome 
     \item Was ist ein Superschlüssel und was ein Schlüsselkandidat?
     
-    
+    Ein Superschlüssel kann reduziert werden und ein Schlüsselkandidat sind vollständig reduziert.
     \item Warum kann die 1NF bei einer Relation prinzipiell vorausgesetzt werden?
     
-    
+    Die 1NF (1. Normalform) ist die Definition von Relationen.
     \item Wann ist eine Relation immer in 2NF?
     
-    
+    Wenn der Primärschlüssel nur aus einem Attribut besteht.
     \item Was ist eine transitive Abhängigkeit?
     
-    
+    Wenn ein Nicht Schlüsselattribute von einem anderem Nicht Schlüsselattribute abhängig ist.
     \item Was ist ein Primattribut?
     
-    
+    Ein Primattribut ist ein Attribut, welches in einem Kanditatenschlüssel.
     \item Wann ist eine Relation in BCNF?
     
-    
+    Wenn die linke Seite (Determinate) immer ein Superschlüssel ist (Erweiterung von 3NF)
     \item Wann spricht man von einer gültigen Zerlegung zweier Relationen?
     
-    
+    % Antwort fehlt
     \item Wann ist eine Zerlegung verbundtreu/verlustlos?
     
-    
+    % Antwort fehlt
     \item Wann gilt, dass eine Zerlegung abhängigkeitsbewahrend ist?
     
-    
+    Wenn alle Funktionalen Abhängigkeiten aus der Ursprünglichen Relation in der Zerlegung erhalten bleiben, dann ist eine Zerlegung abhängigkeitsbewahrend. 
     \item Welches ist der Vorteil einer Client-Server Architektur bei einem DBMS?
     
     
