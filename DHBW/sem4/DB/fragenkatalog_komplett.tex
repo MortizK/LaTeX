@@ -1,0 +1,349 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken}
+
+\input{../preamble.tex}
+\lstset{style=sqlstyle}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Fragenkatalog}
+
+\begin{enumerate}
+    \item Erklären Sie die Begriffe - Datenbanken, DBMS, DBs, Oracle/DB2
+    
+    
+    \item Was ist der Unterschied zwischen Daten und Informationen?
+    
+    
+    \item Wieso bezeichnet man die Schrift als erstes Datenverarbeitungssystem?
+    
+    
+    \item Was war das Problem mit den Tontäfelchen der Sumerer und wie wurde es von späteren Kulturen gelöst?
+    
+    
+    \item Erklären Sie, was man unter „Persistenter“ und unter „Sichere“ Datenhaltung versteht.
+    
+    
+    \item Was waren die Probleme beim Hierarchischen Datenmodell?
+    
+    
+    \item Wie konnten Netzwerkstrukturen abgebildet werden?
+    
+    
+    \item Warum dauerte die Entwicklung eines Produkts aus dem relationalen Konzept von F.T.Codd bei der IBM so lange?
+    
+    
+    \item Was war die Intention von Codd für die Entwicklung seines Relationalen Modells?
+    
+    
+    \item Wozu stellte Codd seine Regeln für ein DBMS auf?
+    
+    
+    \item Nennen Sie einige Regeln von Codd und beschreiben Sie diese kurz.
+    
+    
+    \item Was versteht man unter: Datenbankmodell, Datenbankschema, Datenbanksprache?
+    
+    
+    \item Welchem Zweck dient die 3 Ebenen Architektur von Datenbanksystemen und welche Schichten unterscheidet man dabei (kurze Beschreibung)?
+    
+    
+    \item 14. Zur Systemarchitektur eines DBMS:
+    \begin{itemize}
+        \item Wozu dienen folgende Teile?
+        \item Data Dictionary, Anfrageverwaltung, Transaktionsmanager, Recovery-Manager
+    \end{itemize}
+    
+    
+    \item Was versteht man unter einem Datenbankentwurfs-Prozess?
+    
+    
+    \item Wissen Sie noch die einzelnen Schritte?
+    
+    
+    \item Wie lauten die Beschreibungsverfahren für diesen Prozess?
+    
+    
+    \item Was versteht man unter einer Anforderungsanalyse und was ist das Ergebnis?
+    
+    
+    \item Was ist der konzeptionelle Datenbankentwurf, was ist sein Ziel und welche Methode wird hierzu verwendet?
+    
+    
+    \item Was versteht man unter einem Entitäts-Typ und unter einer Entität?
+    
+    
+    \item Aus welchen Komponenten besteht das ERM und was versteht man darunter?
+    
+    
+    \item Was versteht man unter dem Wertebereich eines Attributs?
+    
+    
+    \item Wie definiert man Schlüsselattribute eines ‚Entitäts-Typs und warum führt man künstliche Schlüssel ein?
+    
+    
+    \item Wie geht man mit Mengenattributen in einem Entitäts-Typ um?
+    
+    
+    \item Wie sollte der Text in einer Beziehungs-Raute gewählt werden und welches sind die bevorzugten Leserichtungen im ERM?
+    
+    
+    \item Was ist zu tun wenn die Leserichtung in einem ERM nicht eingehalten werden kann?
+    
+    
+    \item Was sind die grundsätzlichen Unterschiede zwischen der Chen-Notation und der (min,max)-Notation?
+    
+    
+    \item Was versteht man unter ternären Beziehungen und wozu werden diese benötigt?
+    
+    
+    \item Wozu benötigt man die Modellierung von rekursiven Beziehungen und was ist das Besondere daran?
+    
+    
+    \item Was versteht man unter Spezialisierung und wozu benötigt man diese?
+    
+    
+    \item Was ist in diesem Zusammenhang eine Vererbung?
+    
+    
+    \item Nennen Sie ein Beispiel für eine Partitionierung. Was ist dann eine Aggregation?
+    
+    
+    \item Was versteht man unter einem existenzabhängigen Entitäts-Typs und wie wird diese identifiziert?
+    
+    
+    \item Was sind Sichten in einem ER-Modell und wie geht man damit um?
+    
+    
+    \item Was versteht man unter einem logischen Datenbankentwurf?
+    
+    
+    \item Wie ist eine Relation aufgebaut?
+    
+    
+    \item Was versteht man unter einem Wertebereich oder Domäne?
+    
+    
+    \item Was ist im RM eine Instanz und was ein Schema und wie ist die Schreibweise?
+    
+    
+    \item Wie setzt man einen schwachen Entitäts-Typ in das RM um?
+    
+    
+    \item Wie wird eine binäre Beziehung umgesetzt?
+    
+    
+    \item Wie verfährt man mit der Beziehungsrelation bei 1:1, 1:N und N:1-Beziehungen?
+    
+    
+    \item Was muss bei der Umsetzung von 1:1- Beziehungen in Relationen beachtet werden?
+    
+    
+    \item Welche drei Möglichkeiten bieten sich bei der Umsetzung einer „ist ein“-Beziehung?
+    
+    
+    \item Warum kann bei eine M:N-Beziehung die Beziehungsrelation nicht mit einer der beiden Entity-Relationen zusammengezogen werden?
+    
+    
+    \item Was versteht man unter einer referentiellen Integrität?
+    
+    
+    \item Wozu dient die Normalisierung als Prozess?
+    
+    
+    \item Erklären Sie was man unter Anomalien versteht und welche bei einem schlecht designten Datenbankschema auftreten können?
+    
+    
+    \item Was versteht man unter einer FA bei einer Relation?
+    
+    
+    \item Was ist eine triviale FA?
+    
+    
+    \item Was ist die Hülle von F (F+) und wie kann diese gebildet werden?
+    
+    
+    \item Was ist ein Superschlüssel und was ein Schlüsselkandidat?
+    
+    
+    \item Warum kann die 1NF bei einer Relation prinzipiell vorausgesetzt werden?
+    
+    
+    \item Wann ist eine Relation immer in 2NF?
+    
+    
+    \item Was ist eine transitive Abhängigkeit?
+    
+    
+    \item Was ist ein Primattribut?
+    
+    
+    \item Wann ist eine Relation in BCNF?
+    
+    
+    \item Wann spricht man von einer gültigen Zerlegung zweier Relationen?
+    
+    
+    \item Wann ist eine Zerlegung verbundtreu/verlustlos?
+    
+    
+    \item Wann gilt, dass eine Zerlegung abhängigkeitsbewahrend ist?
+    
+    
+    \item Welches ist der Vorteil einer Client-Server Architektur bei einem DBMS?
+    
+    
+    \item Aus welchen Sprachteilen besteht SQL?
+    
+    
+    \item Welche fünf Anforderungen werden an das Anlegen von Tabellen an die DDL gestellt?
+    
+    
+    \item Weshalb sollte man sich vor dem Anlegen von Tabellen Gedanken zur Konzeption machen (ERM, Relationales Modell,…)?
+    
+    
+    \item Welche Vorteile bietet es, sich Gedanken um den „richtigen“ Datentyp zu machen?
+    
+    
+    \item Was versteht man unter einem Constraint und welche kennen Sie in SQL?
+    
+    
+    \item Was macht das DBMS intern wenn wir einen Primärschlüssel anlegen?
+    
+    
+    \item Wie erfolgt die Verbindung zweier Tabellen in der DDL?
+    
+    
+    \item Was muss beachtet werden, wenn bereits beim CREATE eine Fremdschlüsselbeziehung zu einer anderen Tabelle angelegt wird?
+    
+    
+    \item Wie würden Sie nachfolgende Anforderung nachträglich in eine Tabelle einfügen (in der DDL formulieren)? - Das Eintrittsdatum in der Tabelle Mitarbeiter darf nicht kleiner als das heutige Datum sein (now()
+    
+    
+    \item Welche drei Möglichkeiten gibt es in der DML Daten zu manipulieren?
+    
+    
+    \item Was ist beim INSERT von Daten zu beachten?
+    
+    
+    \item An welcher Position in der Tabelle wird ein neuer Datensatz eingefügt?
+    
+    
+    \item Wie fügt man am besten Massendaten in eine Datenbank ein?
+    
+    
+    \item Was passiert in der DB wenn wir schreiben: UPDATE Mitarbeiter Set Skill = „Test“
+    
+    
+    \item Weshalb erhielten wir eine Fehlermeldung als wir den Mitarbeiter mit der Personalnummer 5 löschen wollten?
+    
+    
+    \item Wozu dient eine Löschregel im DBMS?
+    
+    
+    \item In welchem Zusammenhang (Verbindung zweier Tabellen) verwenden wir die Löschregeln:
+        \begin{itemize}
+            \item Cascade
+            \item Set NULL
+            \item Restrict
+        \end{itemize}
+    
+
+    \item Was ist beim Aufstellen der Löschenregeln in einer Beziehungsstruktur in einer Datenbank zu beachten?
+
+
+    \item Warum gibt Set NULL bei der Updateregel keinen Sinn?
+    
+    
+    \item Was versteht man in der relationalen Algebra unter einer Relation?
+    
+    
+    \item Was ist das Ergebnis einer Operation auf eine Relation.
+    
+    
+    \item Beschreiben Sie kurz, was in der Relationalen Algebra unter einer Selektion und unter einer Projektion verstanden wird.
+    
+    
+    \item Was ist ein Prädikat einer Operation und was ist sein Ergebnis?
+    
+    
+    \item Ist eine Verknüpfung der Operationen Selektion und Projektion kommutativ.
+    
+    
+    \item Was bedeutet der Satz: In der Relationalen Algebra gibt es keine Multimengen?
+    
+    
+    \item Was muss bei der Vereinigung zweier Relationen gleich sein, damit dies erlaubt ist?
+    
+    
+    \item Wie sieht das Relationenschema nach der Operation „Kreuzprodukt“ aus?
+    
+    
+    \item Wozu benötigt man die Operation „Umbenennung“?
+    
+    
+    \item Welche Möglichkeiten der Einschränkung in der WHERE-Klausel kennen Sie?
+    
+    
+    \item Wir suchen die Anzahl Mitarbeiter und das Durchschnittsgehalt. Wie schreiben wir das in SQL?
+    
+    
+    \item Was ist an nachfolgendem SQL-Statement falsch und warum?
+        \begin{lstlisting}
+            SELECT arbeitet\_in, Count(*), Gehalt
+            from Mitarbeiter
+            Group By arbeitet\_in
+            having Gehalt > 50000
+            ;
+        \end{lstlisting}
+    
+    
+    \item Wie arbeitet das DBMS ein SELECT ab (Reihenfolge)?
+        \begin{lstlisting}
+            SELECT …
+            from …
+            Where …
+            Group By …
+            Having …
+            Order By …
+        \end{lstlisting}
+    
+    
+    \item Was versteht man unter einer Unterabfragen (subqueries) und wozu verwenden wir diese?
+
+
+    \item Wie kann ich den Vergleich Jahr=1968 or Jahr=1980 or Jahr= 1991 in einer Unterabfrage schreiben.
+    
+    
+    \item Warum verwenden wir bei der Unterabfrage ANY, ALL, EXISTS und IN?
+    
+    
+    \item Was lege ich mit dem Statement \lstinline|CREATE SEQUENCE Mitarbeiter\_Pers\_Nr\_seq;| an und wozu verwenden wir dies?
+    
+    
+    \item Was macht das ALL beim \lstinline|UNION, INTERSECT| und \lstinline|EXCEPT|?
+    
+    
+    \item Wie erstellte man vor Einführung des JOIN mit SQL-92 eine Verbindung zweier Tabellen?
+    
+    
+    \item Was teilt der JOIN Operator dem Optimizer mit?
+    
+    
+    \item Was versteht man unter einem INNER Join und einem OUTER JOIN?
+    
+    
+    \item Wozu dient eine View (Sicht)?
+    
+    
+    \item Was macht das DBMS intern wenn wir eine View mit \lstinline|CREATE VIEW…| anlegen?
+\end{enumerate}
+
+\end{document}
