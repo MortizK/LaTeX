@@ -210,102 +210,104 @@
     Wenn alle Funktionalen Abhängigkeiten aus der Ursprünglichen Relation in der Zerlegung erhalten bleiben, dann ist eine Zerlegung abhängigkeitsbewahrend. 
     \item Welches ist der Vorteil einer Client-Server Architektur bei einem DBMS?
     
-    
+    % Antwort fehlt
     \item Aus welchen Sprachteilen besteht SQL?
     
-    
+    DDL, DML, DQL, DCL, TCL
     \item Welche fünf Anforderungen werden an das Anlegen von Tabellen an die DDL gestellt?
     
-    
+    Primärschlüssel, Fremdschlüssel, Integritätsbedingungs Attribute, Relationsschema, Wertebereich
     \item Weshalb sollte man sich vor dem Anlegen von Tabellen Gedanken zur Konzeption machen (ERM, Relationales Modell,…)?
     
-    
+    In einem ERM Kann man schon erkennen, ob Anomalien oder Redundanzen entstehen. Zudem bietet die Abstraktion eine Möglichkeit zu Normalisieren und Änderungen einfach vorzunehmen.
     \item Welche Vorteile bietet es, sich Gedanken um den „richtigen“ Datentyp zu machen?
     
-    
+    Um Daten zu sparen, effizienz
     \item Was versteht man unter einem Constraint und welche kennen Sie in SQL?
     
-    
+    check, not null, default, unique, primary key, foreign key
     \item Was macht das DBMS intern wenn wir einen Primärschlüssel anlegen?
     
-    
+    Bei einem Primärschlüssel wird im Hintergrund noch unique, not null und noch einen Index angelegt.
     \item Wie erfolgt die Verbindung zweier Tabellen in der DDL?
     
+    Zwei Tabellen werden mit einem Fremdschlüssel verbunden. Entweder direkt oder mit einer Verbindungstabelle.
+    \item Was muss beachtet werden, wenn bereits beim \lstinline|CREATE| eine Fremdschlüsselbeziehung zu einer anderen Tabelle angelegt wird?
     
-    \item Was muss beachtet werden, wenn bereits beim CREATE eine Fremdschlüsselbeziehung zu einer anderen Tabelle angelegt wird?
+    Ein Create mit Verbundenen Tabellen bindet diese beiden aneinander. Die Zweite Tabelle muss bereits existieren.
+    \item Wie würden Sie nachfolgende Anforderung nachträglich in eine Tabelle einfügen (in der DDL formulieren)? - Das Eintrittsdatum in der Tabelle Mitarbeiter darf nicht kleiner als das heutige Datum sein (now())
     
-    
-    \item Wie würden Sie nachfolgende Anforderung nachträglich in eine Tabelle einfügen (in der DDL formulieren)? - Das Eintrittsdatum in der Tabelle Mitarbeiter darf nicht kleiner als das heutige Datum sein (now()
-    
-    
+    Alter Table, Check Constraints
+    % Vollständiges SQL fehlt hier
     \item Welche drei Möglichkeiten gibt es in der DML Daten zu manipulieren?
     
-    
+    insert, delete, update
     \item Was ist beim INSERT von Daten zu beachten?
     
-    
+    Reihenfolge beachten oder Spaltenname angeben
     \item An welcher Position in der Tabelle wird ein neuer Datensatz eingefügt?
     
-    
+    Zufällig
     \item Wie fügt man am besten Massendaten in eine Datenbank ein?
     
+    Copy Befehl (import/ export in pgadmin)
+    \item Was passiert in der DB wenn wir schreiben: \lstinline|UPDATE Mitarbeiter Set Skill = "Test"|
     
-    \item Was passiert in der DB wenn wir schreiben: UPDATE Mitarbeiter Set Skill = „Test“
-    
-    
+    In jeder Skill Spalte steht Test
     \item Weshalb erhielten wir eine Fehlermeldung als wir den Mitarbeiter mit der Personalnummer 5 löschen wollten?
     
-    
+    % Antwort fehlt
     \item Wozu dient eine Löschregel im DBMS?
-    
-    
-    \item In welchem Zusammenhang (Verbindung zweier Tabellen) verwenden wir die Löschregeln:
-        \begin{itemize}
-            \item Cascade
-            \item Set NULL
-            \item Restrict
-        \end{itemize}
-    
 
+    Integrität soll durch Löschregeln bewahrt bleiben.
+    \item In welchem Zusammenhang (Verbindung zweier Tabellen) verwenden wir die Löschregeln:
+    
+    \begin{itemize}
+        \item CASCADE - Hierarchische Abhängigkeit
+        \item Set Null - Wenn ein Datensatz erhalten bleiben soll
+        \item Restrict - Wenn etwas noch erhalten bleiben muss (oder: Alles andere außer oben)
+    \end{itemize}
     \item Was ist beim Aufstellen der Löschenregeln in einer Beziehungsstruktur in einer Datenbank zu beachten?
 
-
+    Bei mehreren Löschregeln, können Ketten und Zyklen entstehen, welche viel unerwartet gelöscht wird. Zudem sind SET NULL und NOT NULL Wiedersprüchlich.
     \item Warum gibt Set NULL bei der Updateregel keinen Sinn?
     
-    
+    Bei Update macht Set Null keinen Sinn, da wir einen Primärschlüssel ändern und diesen niemals woanders dann Null setzen, da wir die Beziehung erhalten wollen.
     \item Was versteht man in der relationalen Algebra unter einer Relation?
     
-    
+    Eine Relation in der Relationalen Algebra ist eine Teilmenge von Kreuzprodukten (jedes mit jedem) von Attributen.
     \item Was ist das Ergebnis einer Operation auf eine Relation.
     
-    
+    Eine Operation auf einer Relation ist wieder eine Relation.
     \item Beschreiben Sie kurz, was in der Relationalen Algebra unter einer Selektion und unter einer Projektion verstanden wird.
     
-    
+    Selektion wählt bestimmte Tupel aus (Zeilen einschränken). Bei einer Projektion bestimmte Attribute (Spalten einschränken).
     \item Was ist ein Prädikat einer Operation und was ist sein Ergebnis?
     
-    
+    Das Prädikat kann nur wahr oder falsch sein.
     \item Ist eine Verknüpfung der Operationen Selektion und Projektion kommutativ.
     
-    
+    Selektion und Projektion sind nicht kommutativ.
     \item Was bedeutet der Satz: In der Relationalen Algebra gibt es keine Multimengen?
     
-    
+    Es gibt keine gleichen Tupel.
     \item Was muss bei der Vereinigung zweier Relationen gleich sein, damit dies erlaubt ist?
     
+    Bei einer Vereinigung zwei Relationen muss die Attributanzahl/ Schema gleich sein.
+    \item Wie sieht das Relationenschema nach der Operation "Kreuzprodukt" aus?
     
-    \item Wie sieht das Relationenschema nach der Operation „Kreuzprodukt“ aus?
+    Nach dem Kreuzprodukt wird das Schema vereinigt.
+    \item Wozu benötigt man die Operation "Umbenennung"?
     
-    
-    \item Wozu benötigt man die Operation „Umbenennung“?
-    
-    
+    Umbenennung von Attributen können bei Joins helfen. Umbenennung von Tabellen, ...
     \item Welche Möglichkeiten der Einschränkung in der WHERE-Klausel kennen Sie?
     
-    
+    Einschränkung von WHERE: like, between, is in, is null, >, <
     \item Wir suchen die Anzahl Mitarbeiter und das Durchschnittsgehalt. Wie schreiben wir das in SQL?
     
-    
+    \begin{lstlisting}
+        SELECT count(*), avg(Gehalt) from Mitarbeiter
+    \end{lstlisting}
     \item Was ist an nachfolgendem SQL-Statement falsch und warum?
         \begin{lstlisting}
             SELECT arbeitet\_in, Count(*), Gehalt
@@ -315,7 +317,7 @@
             ;
         \end{lstlisting}
     
-    
+    Ein \lstinline|having| kann nur Gruppen einschränken, wenn das Attribut auch im \lstinline|Group By| enthalten ist.
     \item Wie arbeitet das DBMS ein SELECT ab (Reihenfolge)?
         \begin{lstlisting}
             SELECT …
@@ -326,35 +328,49 @@
             Order By …
         \end{lstlisting}
     
-    
+    Reihenfolge von \lstinline|SELECT|:
+    \begin{enumerate}
+        \item FROM
+        \item WHERE
+        \item GROUP BY
+        \item HAVING
+        \item SELECT
+        \item ORDER BY
+    \end{enumerate}
+    selbst wenn es in einer anderen Reihenfolge aufgeschrieben wird.
     \item Was versteht man unter einer Unterabfragen (subqueries) und wozu verwenden wir diese?
 
-
+    Subquery sind Abfragen um dynamisch Werte in einem anderem Query zu verwenden.
     \item Wie kann ich den Vergleich Jahr=1968 or Jahr=1980 or Jahr= 1991 in einer Unterabfrage schreiben.
     
-    
+    Ein Vergleich von mehreren Jahren ist möglich durch \lstinline|WHERE Jahr ANY(1968, 1980, 1997)|
     \item Warum verwenden wir bei der Unterabfrage ANY, ALL, EXISTS und IN?
     
-    
+    ANY, ALL, EXISTS, In werden verwendet um aus einer Tabelle einen einzelnen Wert zu bekommen.
     \item Was lege ich mit dem Statement \lstinline|CREATE SEQUENCE Mitarbeiter\_Pers\_Nr\_seq;| an und wozu verwenden wir dies?
     
+    Ein Sequence wird verwendet um automatisch einen inkrementierenden Wert für ein Attribut anzulegen. Es ist eine Zählvariable
+    \item Was macht das \lstinline|ALL| beim \lstinline|UNION, INTERSECT| und \lstinline|EXCEPT|?
     
-    \item Was macht das ALL beim \lstinline|UNION, INTERSECT| und \lstinline|EXCEPT|?
-    
-    
+    Das \lstinline|ALL| schaltet die Duplikats-eliminierung bei UNION, INTERSECT und EXCEPT aus.
     \item Wie erstellte man vor Einführung des JOIN mit SQL-92 eine Verbindung zweier Tabellen?
     
-    
+    Mit dem Kreuzprodukt konnte vor 92 zwei Tabellen miteinander verbunden werden
     \item Was teilt der JOIN Operator dem Optimizer mit?
     
-    
+    Der JOIN teilt dem Optimizer die Fremdschlüssel-Beziehungen mit.
     \item Was versteht man unter einem INNER Join und einem OUTER JOIN?
     
-    
+    \begin{itemize}
+        \item INNER JOIN: Immer beide JOIN Partner
+        \item OUTER JOIN: Hier wird noch zwischen Link und Rechts unterschieden.
+    \end{itemize}
     \item Wozu dient eine View (Sicht)?
     
-    
+    Views helfen um Anfragen an das DBMS zu kürzen. Zudem können so dem externen Nutzer nur bestimmte Sichten gezeigt werden (ergänzend zu den Rechten) Große Unabhängigkeit zwischen den drei Schichten (intern, extern, physikalisch)
     \item Was macht das DBMS intern wenn wir eine View mit \lstinline|CREATE VIEW…| anlegen?
+    
+    Ein \lstinline|CREATE VIEW| macht intern ein SELECT mit ausgerollten Attributen.
 \end{enumerate}
 
 \end{document}
