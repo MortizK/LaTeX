@@ -381,4 +381,30 @@ Order By …
     Ein \lstinline|CREATE VIEW| macht intern ein SELECT mit ausgerollten Attributen.
 \end{enumerate}
 
+\newpage
+\section*{Klausurfragen}
+
+\begin{enumerate}
+    \item Sie bestehen auf eine 3 Ebenen Architektur für das neue einzurichtende Datenbanksystem.
+    Erläutern Sie Ihrem Kunden kurz welche Schichten hier unterschieden werden und weshalb diese Trennung wichtig ist.
+
+    Man unterscheidet folgende Ebenen:
+
+    \begin{enumerate}
+        \item Die externe Ebene stellt die Sicht des Kunden auf die Daten dar und hier kann für jede Benutzergruppe eine eigene Sicht auf die Daten zur Verfügung gestellt werden.
+        \item Die konzeptionelle Ebene beschreibt welche Daten gespeichert werden sollen und wie die Beziehung der Daten untereinander aufgebaut ist. Hier werden auch die vom Kunden vorgegebenen Rahmenbedingungen (semantische Beschreibung der Daten) modelliert.
+        \item Die interne Ebene stellt die wirkliche Speicherung der Daten im internen Speicher dar. Hier wird z.B. festgelegt wie das DBMS bestimmte Kundenanfragen verarbeiten soll.
+    \end{enumerate}
+
+    Dem Kunden sagen Sie, dass diese Trennung wichtig ist um eine Datenunabhängigkeit zwischen den Ebenen zu erreichen. Wenn er z.B. Änderungswünsche an seine Daten hat, müssen nicht alle Ebenen geändert werden.
+    \item Was bedeutet es wenn es heißt: "…muss für alle Instanzen gelten"? Erklären Sie auch den Begriff Instanz.
+    
+    Die Eigenschaft, welche in diesem Satz beschrieben ist, z.B. eine funktionale Abhängigkeit, darf nicht nur für das aktuelle Beispiel gelten, sondern muss für alle denkbaren Relationen (Tabellen) gültig sein. Eine Instanz ist eine konkrete Ausprägung eines bestimmten Datenbank-Schemas mit den zugehörigen aktuellen Werten. Es stellt eine Momentaufnahme der Relation dar.
+\end{enumerate}
+
+\newpage
+\section*{Generierte Klausurfragen}
+
+
+
 \end{document}

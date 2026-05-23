@@ -19,3 +19,6 @@
 
 # ignore ALL files in ANY directory
 */*/*/doc/
+
+# ignore for .github
+.github/
