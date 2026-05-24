@@ -1,0 +1,168 @@
+% Spickzettel — Statistik (TINF24)
+% Generiert: 2026-05-24
+% Eingelesene Quelldateien (lokal):
+% DHBW/sem4/Math/doc/StatistikUebungen.pdf
+% DHBW/sem4/Math/doc/Statistik.pdf
+% DHBW/sem4/Math/doc/Statistik_Vollständig.pdf
+% DHBW/sem4/Math/doc/Statistik_Anhang.pdf
+% DHBW/sem4/Math/doc/Anhang/Statistik_Anhang_Binomialverteilung.pdf
+% DHBW/sem4/Math/doc/Anhang/Statistik_Anhang_Poissonverteilung.pdf
+% DHBW/sem4/Math/doc/Anhang/Statistik_Anhang_Normalverteilung.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_1_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_2_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_3_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_4_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_5_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_6_LoesungenUebungsaufgaben.pdf
+% DHBW/sem4/Math/doc/AufgabenLösungen/Kapitel_7_LoesungenUebungsaufgaben.pdf
+
+\documentclass[11pt,a4paper]{article}
+\newcommand{\docTitle}{Spickzettel --- Statistik (TINF24)}
+\input{../preamble.tex}
+% Ergänzende minimale Pakete (falls nicht in preamble.tex):
+\usepackage{paralist,amssymb,amsmath}
+
+\begin{document}
+% Kurze fehlende Makros, falls nicht in preamble.tex definiert
+\providecommand{\Cov}{\operatorname{Cov}}
+
+\pagestyle{plain}
+\vspace*{-1.5cm}
+{\small Spickzettel — Statistik (TINF24) \hfill 2026-05-24}\\
+\vspace{0.5ex}
+
+\section*{Grundlegende Rechenregeln}
+\begin{compactenum}
+\item Erwartungswert: Linearität
+\[E[aX+b]=aE[X]+b,\qquad E\Big[\sum_i X_i\Big]=\sum_i E[X_i].\]
+\item Varianz / Kovarianz:
+\[\operatorname{Var}(X)=E[X^2]-E[X]^2,\qquad \operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y].\]
+\[\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X),\quad \operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2\operatorname{Cov}(X,Y).
+\]
+\item Unabhängigkeit: $\Cov(X,Y)=0\Rightarrow\Var(X+Y)=\Var(X)+\Var(Y)$.
+\item Matrixform (kurz): Für Vektor $X$ und Matrix $A,b$:
+\[\operatorname{Var}(AX+b)=A\operatorname{Var}(X)A^T,\qquad E[AX+b]=AE[X]+b.\]
+\end{compactenum}
+
+\section*{Urnenmodelle}
+\begin{compactenum}
+\item Mit Zurücklegen (multinom): Ziehe $n$ aus $k$ Typen mit Wahrscheinlichkeiten $p_i$.
+\[P(N_1=n_1,\dots)=\frac{n!}{\prod n_i!}\prod p_i^{n_i}.
+\]
+\item Ohne Zurücklegen: Hypergeometrisch (ein Typ): Ziehe $n$ aus $N$ mit $K$ Erfolgen:
+\[P(X=x)=\frac{\binom{K}{x}\binom{N-K}{n-x}}{\binom{N}{n}},\quad E[X]=n\frac{K}{N},\ Var(X)=n\frac{K}{N}\frac{N-K}{N}\frac{N-n}{N-1}.
+\]
+\item Multivariate Hypergeometrisch (counts $n_i$):
+\[P(\{n_i\})=\frac{\prod_i\binom{K_i}{n_i}}{\binom{N}{n}},\quad \sum n_i=n.\]
+\end{compactenum}
+
+\section*{Wichtige Verteilungen (nach Häufigkeit)}
+\small
+\subsection*{Normalverteilung $\mathcal N(\mu,\sigma^2)$}
+\begin{compactenum}
+\item Kurz: Kontinuierlich, Gauss'sche Glocke.
+\item Notation: $X\sim\mathcal N(\mu,\sigma^2)$.
+\item PDF: \[f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}.\]
+\item CDF: $F(x)=\Phi\big(\frac{x-\mu}{\sigma}\big)$ (Standardnormalverteilungsfunktion $\Phi$).
+\item $E[X]=\mu,\;\Var(X)=\sigma^2$.
+\end{compactenum}
+
+\subsection*{Binomialverteilung $\mathrm{Bin}(n,p)$}
+\begin{compactenum}
+\item Kurz: Anzahl Erfolge in $n$ Bernoulli-Versuchen.
+\item PMF: \[P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}.
+\]
+\item $E[X]=np,\;\Var(X)=np(1-p)$.
+\end{compactenum}
+
+\subsection*{Poissonverteilung $\mathrm{Pois}(\lambda)$}
+\begin{compactenum}
+\item Kurz: Limit von Binomial bei großem $n$, kleinem $p$ mit $np=\lambda$.
+\item PMF: \[P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}.
+\]
+\item $E[X]=\Var(X)=\lambda$.
+\end{compactenum}
+
+\subsection*{Exponentialverteilung $\mathrm{Exp}(\lambda)$}
+\begin{compactenum}
+\item Kurz: Wartezeit bei Poisson-Prozess.
+\item PDF: $f(x)=\lambda e^{-\lambda x},\;x\ge0$; CDF: $1-e^{-\lambda x}$.
+\item $E[X]=1/\lambda,\;\Var(X)=1/\lambda^2$.
+\end{compactenum}
+
+\subsection*{Student-$t$ mit $\nu$ Freiheitsgraden}
+\begin{compactenum}
+\item Kurz: Stichprobenmittel mit unbekannter Varianz (Normalgrundlage).
+\item Notation: $t_\nu$. Erwartungswert $0$ (für $\nu>1$), Var= $\nu/(\nu-2)$ für $\nu>2$.
+\end{compactenum}
+
+\subsection*{Chi-Quadrat $\chi^2_k$}
+\begin{compactenum}
+\item Kurz: Summe von $k$ unabhängigen $Z^2$ mit $Z\sim N(0,1)$.
+\item $E= k,\;\Var=2k$.
+\end{compactenum}
+
+\subsection*{Uniform $U(a,b)$}
+\[f(x)=\frac{1}{b-a},\;E=\frac{a+b}{2},\;\Var=\frac{(b-a)^2}{12}.
+\]
+
+\subsection*{Bernoulli $\mathrm{Ber}(p)$}
+\[P(X=1)=p,\;P(X=0)=1-p,\;E=p,\;\Var=p(1-p).
+\]
+
+\subsection*{Hypergeometrisch}
+\[\text{(s. oben)}\]
+
+\vspace{1ex}
+\normalsize
+
+\section*{ML-Schätzer (häufige Modelle)}
+\small
+\begin{compactenum}
+\item Normal $X_i\stackrel{iid}{\sim}\mathcal N(\mu,\sigma^2)$:
+\[L(\mu,\sigma)=\prod\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x_i-\mu)^2}{2\sigma^2}}.\]
+Maximieren: \[\hat\mu=\bar x,\qquad \hat\sigma^2=\frac{1}{n}\sum (x_i-\bar x)^2.\]
+\item Exponential $f(x)=\lambda e^{-\lambda x}$:\ \[\hat\lambda=\frac{n}{\sum x_i}=1/\bar x.\]
+\item Bernoulli/Binomial: \[\hat p=\frac{\sum x_i}{n}.\]
+\item Poisson: \[\hat\lambda=\bar x.\]
+\item Uniform $U(0,\theta)$ (MLE): \[\hat\theta=\max_i X_i\ (\text{bias korr.: }\frac{n+1}{n}\max X_i).\]
+\end{compactenum}
+\normalsize
+
+\section*{Konfidenzintervalle — Kurzleitfaden}
+\begin{compactenum}
+\item Schritte: Modellannahme → geeignete Statistik wählen → Verteilung der Statistik bestimmen → Quantile → CI bilden.
+\item Normalfall, $\sigma$ bekannt:
+\[\bar X\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}.
+\]
+\item Normalfall, $\sigma$ unbekannt:
+\[\bar X\pm t_{n-1,1-\alpha/2}\frac{s}{\sqrt n},\quad s^2=\frac{1}{n-1}\sum (x_i-\bar x)^2.
+\]
+\item Varianz CI (Normal):
+\[\left(\frac{(n-1)s^2}{\chi^2_{n-1;1-\alpha/2}},\ \frac{(n-1)s^2}{\chi^2_{n-1;\alpha/2}}\right).
+\]
+\item Anteil $p$: \[\hat p\pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}\] (bei kleinen $n$ exakte Clopper–Pearson).
+\end{compactenum}
+
+\section*{Signifikanztests — Ablauf + Formeln}
+\begin{compactenum}
+\item Allgemein: $H_0$ vs. $H_1$, Teststatistik $T$, Bestimme Verteilung unter $H_0$, p-Wert oder kritischer Bereich, Entscheidung.
+\item $t$-Test (einseitig/ beidseitig): \[T=\frac{\bar X-\mu_0}{s/\sqrt n}\sim t_{n-1}.
+\]
+\item $z$-Test für Anteil: \[T=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}\sim N(0,1)\ (\text{approx}).\]
+\item Chi-Quadrat-Anpassungstest: \[\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}\approx\chi^2_{k-1-m}\ (m=\text{geschätzte Par.}).\]
+\item Vorgehen: Signifikanzniveau $\alpha$, berechne $T$, p-Wert $=P_{H_0}(T_{H_0}\ge |t_{obs}|)$, ablehnen falls $p<\alpha$.
+\end{compactenum}
+
+\section*{Nützliches — Fallen, Approximationsregeln, Tabellen}
+\begin{compactenum}
+\item Poisson-Approximation zur Binomial: $n$ groß, $p$ klein, $np=\lambda$ (z.B. $n>50, p<0.1$).
+\item Binomial $\approx$ Normal: $np(1-p)>5$.
+\item Wichtige Quantile (gerundet): $z_{0.95}=1.645,\ z_{0.975}=1.96.$
+\item Student-$t$ (df~8): $t_{0.975}\approx2.306$. Chi-Quadrat grobe: $\chi^2_{k;0.95}$ siehe Tabelle (für k=1:3.84, k=2:5.99, k=3:7.81).
+\item Notation: $\bar x$ Stichprobenmittel, $s^2$ Stichprobenvarianz (ungleichbiased), $\hat\theta$ Schätzer.
+\end{compactenum}
+
+% Ende
+
+\end{document}
