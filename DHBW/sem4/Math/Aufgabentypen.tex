@@ -1,0 +1,531 @@
+% Aufgabentypen für Statistik nach Kapitel sortiert
+% Basierend auf der Struktur aus StatistikUebungen.pdf und den Lösungsdateien
+% Format orientiert an der Probeklausur
+
+\documentclass[12pt, a4paper, titlepage, ngerman]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Aufgabentypen -- Statistik}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{Aufgabentypen Statistik}
+\subtitle{Übersicht der Hauptaufgabentypen nach Kapitel}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+% ============================================================================
+\section{Übungen zu Wahrscheinlichkeitsrechnung und Zufallsvariablen}
+% ============================================================================
+
+\subsection{Reviewfragen}
+
+\textbf{Aufgabentyp:} Grundlegende konzeptuelle Fragen zur Wahrscheinlichkeitsrechnung
+
+\begin{description}
+  \item[Gegebenes:] Aussagen oder Definitionen zu wahrscheinlichkeitstheoretischen Konzepten
+  \item[Gesucht:] Beurteilung der Aussagen (wahr/falsch) oder Ergänzung von Definitionen
+  \item[Methode:] Theoretisches Wissen anwenden, Unterscheidungen treffen (z.B. Elementarereignisse vs. Ereignisse)
+\end{description}
+
+\medskip
+
+\textbf{Beispiel-Schema:}
+\begin{itemize}
+  \item (a) Elementarereignisse schließen sich gegenseitig aus, während Ereignisse sich nicht gegenseitig ausschließen.
+  \item (b) Alle sind disjunkt.
+  \item (c) Alle sind gleichwahrscheinlich.
+\end{itemize}
+
+\subsection{Laplace-Wahrscheinlichkeit}
+
+\textbf{Aufgabentyp:} Berechnung von Wahrscheinlichkeiten bei endlichen Grundmengen mit gleichwahrscheinlichen Elementarereignissen
+
+\begin{description}
+  \item[Gegebenes:] Anzahl möglicher und günstiger Fälle (häufig bei Würfeln, Karten, etc.)
+  \item[Gesucht:] $P(A) = \frac{\text{Anzahl günstiger Fälle}}{\text{Anzahl möglicher Fälle}}$
+  \item[Methode:] Kombinatorik verwenden, verschiedene Ereignisse betrachten
+\end{description}
+
+\medskip
+
+\textbf{Beispiel-Schema:}
+\begin{itemize}
+  \item (a) Die Anzahl der möglichen Würfe ist \ldots. Anzahl der günstigen Fälle für das Ereignis \ldots ist \ldots
+  \item (b) Berechne $P(A)$ für verschiedene Szenarien
+\end{itemize}
+
+\subsection{Urnenmodell}
+
+\textbf{Aufgabentyp:} Kombinatorische Probleme mit Variation und Kombination (mit/ohne Zurücklegen)
+
+\begin{description}
+  \item[Gegebenes:] Urne mit verschiedenen Objekten, Anzahl Züge, mit/ohne Zurücklegen
+  \item[Gesucht:] Wahrscheinlichkeiten verschiedener Ereignisse
+  \item[Methode:] 
+    \begin{itemize}
+      \item Variation ohne Wiederholung: $V(n,k) = \frac{n!}{(n-k)!}$
+      \item Variation mit Wiederholung: $V_w(n,k) = n^k$
+      \item Kombination ohne Wiederholung: $K(n,k) = \binom{n}{k}$
+      \item Kombination mit Wiederholung: $K_w(n,k) = \binom{n+k-1}{k}$
+    \end{itemize}
+\end{description}
+
+\subsection{Rechenregeln für Wahrscheinlichkeiten}
+
+\textbf{Aufgabentyp:} Anwendung von Axiomen und Sätzen der Wahrscheinlichkeit
+
+\begin{description}
+  \item[Gegebenes:] Wahrscheinlichkeiten einzelner oder kombinierter Ereignisse
+  \item[Gesucht:] Wahrscheinlichkeit eines zusammengesetzten Ereignisses
+  \item[Methode:] Verwendung von:
+    \begin{itemize}
+      \item Komplementregel: $P(\overline{A}) = 1 - P(A)$
+      \item Additionssatz: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+      \item Multiplikationssatz für unabhängige Ereignisse: $P(A \cap B) = P(A) \cdot P(B)$
+    \end{itemize}
+\end{description}
+
+\subsection{Bedingte Wahrscheinlichkeiten}
+
+\textbf{Aufgabentyp:} Berechnung bedingter Wahrscheinlichkeiten, Satz von Bayes
+
+\begin{description}
+  \item[Gegebenes:] Wahrscheinlichkeiten verschiedener Ereignisse, bedingte Wahrscheinlichkeiten
+  \item[Gesucht:] $P(A|B)$ oder Umkehrung: $P(B|A)$
+  \item[Methode:] 
+    \begin{itemize}
+      \item Bedingte Wahrscheinlichkeit: $P(A|B) = \frac{P(A \cap B)}{P(B)}$
+      \item Satz von Bayes: $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B|A) \cdot P(A) + P(B|\overline{A}) \cdot P(\overline{A})}$
+      \item Satz der totalen Wahrscheinlichkeit
+    \end{itemize}
+\end{description}
+
+\subsection{Zufallsvariablen}
+
+\textbf{Aufgabentyp:} Definition und Berechnung von Wahrscheinlichkeitsfunktionen
+
+\begin{description}
+  \item[Gegebenes:] Zufallsexperiment, mögliche Ausgänge und deren Wahrscheinlichkeiten
+  \item[Gesucht:] Wahrscheinlichkeitsfunktion $f(x)$, Verteilungsfunktion $F(x)$, oder spezifische Wahrscheinlichkeiten
+  \item[Methode:] 
+    \begin{itemize}
+      \item $f(x_i) = P(X = x_i)$ für diskrete Zufallsvariablen
+      \item $F(x) = P(X \leq x) = \sum_{x_i \leq x} f(x_i)$
+      \item $\int_{-\infty}^{\infty} f(x) dx = 1$ für stetige Zufallsvariablen
+    \end{itemize}
+\end{description}
+
+% ============================================================================
+\section{Übungen zu Verteilungen}
+% ============================================================================
+
+\subsection{Reviewfragen}
+
+\textbf{Aufgabentyp:} Konzeptuelle Fragen zu verschiedenen Verteilungen
+
+\subsection{Spezielle diskrete Verteilungen (Bowling, Würfel, Schachfiguren, Fußball)}
+
+\textbf{Aufgabentyp:} Anwendung diskreter Verteilungen auf konkrete praktische Probleme
+
+\begin{description}
+  \item[Gegebenes:] Konkretes Szenario mit diskretem Merkmalsraum
+  \item[Gesucht:] Wahrscheinlichkeiten, Erwartungswert, Varianz
+  \item[Methode:] Identifikation der Verteilung (z.B. Binomial, Poisson), Anwendung der Verteilungsparameter
+\end{description}
+
+\subsection{Gleichverteilung}
+
+\textbf{Aufgabentyp:} Stetige Gleichverteilung auf einem Intervall
+
+\begin{description}
+  \item[Gegebenes:] Intervall $[a, b]$
+  \item[Gesucht:] Wahrscheinlichkeiten, Erwartungswert $E(X) = \frac{a+b}{2}$, Varianz $\text{Var}(X) = \frac{(b-a)^2}{12}$
+  \item[Dichtefunktion:] $f(x) = \begin{cases} \frac{1}{b-a} & \text{für } a \leq x \leq b \\ 0 & \text{sonst} \end{cases}$
+\end{description}
+
+\subsection{Exponentialverteilung (Warteschlange)}
+
+\textbf{Aufgabentyp:} Exponentialverteilung für Wartezeiten
+
+\begin{description}
+  \item[Gegebenes:] Parameter $\lambda > 0$, Wahrscheinlichkeit $P(X \leq t)$
+  \item[Gesucht:] Parameter $\lambda$, oder Wahrscheinlichkeiten
+  \item[Methode:] 
+    \begin{itemize}
+      \item Verteilungsfunktion: $F(t) = 1 - e^{-\lambda t}$
+      \item Dichtefunktion: $f(t) = \lambda e^{-\lambda t}$
+      \item Auflösen: $P(X \leq t) = p \Rightarrow 1 - e^{-\lambda t} = p \Rightarrow \lambda = -\frac{\ln(1-p)}{t}$
+    \end{itemize}
+\end{description}
+
+\subsection{Normalverteilung}
+
+\textbf{Aufgabentyp:} Anwendung der Normalverteilung (standardisiert und nicht-standardisiert)
+
+\begin{description}
+  \item[Gegebenes:] Parameter $\mu$ und $\sigma$, oder standardnormalverteilte Werte
+  \item[Gesucht:] Wahrscheinlichkeiten, Werte für gegebene Wahrscheinlichkeiten
+  \item[Methode:] 
+    \begin{itemize}
+      \item Standardisierung: $Z = \frac{X - \mu}{\sigma}$
+      \item Lookup in Standardnormalverteilungs-Tabelle
+      \item Eigenschaften der Normalverteilung nutzen
+    \end{itemize}
+\end{description}
+
+\subsection{Drei-Sigma-Bereich}
+
+\textbf{Aufgabentyp:} Anwendung der Drei-Sigma-Regel
+
+\begin{description}
+  \item[Gegebenes:] Normalverteilte Zufallsvariable
+  \item[Gesucht:] Wahrscheinlichkeit im Bereich $[\mu - 3\sigma, \mu + 3\sigma]$
+  \item[Methode:] $P(\mu - 3\sigma \leq X \leq \mu + 3\sigma) \approx 0.9974$
+\end{description}
+
+% ============================================================================
+\section{Übungen zu Verteilungsparameter, Mehrdimensionale Zufallsvariablen}
+% ============================================================================
+
+\subsection{Lageparameter}
+
+\textbf{Aufgabentyp:} Berechnung von Erwartungswert, Varianz und Median
+
+\begin{description}
+  \item[Gegebenes:] Wahrscheinlichkeitsfunktion oder Dichtefunktion einer Zufallsvariablen
+  \item[Gesucht:] $E(X)$, $\text{Var}(X) = E((X - E(X))^2)$, Median
+  \item[Methode:] 
+    \begin{itemize}
+      \item Diskret: $E(X) = \sum x_i \cdot f(x_i)$, $\text{Var}(X) = E(X^2) - (E(X))^2$
+      \item Stetig: $E(X) = \int x \cdot f(x) dx$
+      \item Median: kleinstes $x$ mit $F(x) \geq 0.5$
+    \end{itemize}
+\end{description}
+
+\subsection{Gemeinsame Wahrscheinlichkeitsfunktion}
+
+\textbf{Aufgabentyp:} Berechnung von Randwahrscheinlichkeiten und Abhängigkeit
+
+\begin{description}
+  \item[Gegebenes:] Gemeinsame Wahrscheinlichkeitsfunktion $f(x,y) = P(X = x \text{ und } Y = y)$
+  \item[Gesucht:] Randwahrscheinlichkeiten $f_X(x)$, $f_Y(y)$, Abhängigkeit prüfen
+  \item[Methode:] 
+    \begin{itemize}
+      \item Randwahrscheinlichkeit: $f_X(x) = \sum_y f(x,y)$
+      \item Unabhängigkeit: $f(x,y) = f_X(x) \cdot f_Y(y)$ für alle $(x,y)$
+    \end{itemize}
+\end{description}
+
+\subsection{Zweidimensionale diskrete/stetige Zufallsvariablen}
+
+\textbf{Aufgabentyp:} Berechnung von Wahrscheinlichkeiten und Erwartungswerten für mehrdimensionale Variablen
+
+\begin{description}
+  \item[Gegebenes:] Gemeinsame Verteilung zweier Zufallsvariablen
+  \item[Gesucht:] Wahrscheinlichkeiten, Erwartungswerte, Kovarianzen
+  \item[Methode:] Integration oder Summation über den relevanten Bereich
+\end{description}
+
+\subsection{Erwartungswert}
+
+\textbf{Aufgabentyp:} Berechnung von Erwartungswerten für Funktionen von Zufallsvariablen
+
+\begin{description}
+  \item[Gegebenes:] Zufallsvariable $X$ mit bekannter Verteilung, Funktion $g(X)$
+  \item[Gesucht:] $E(g(X))$
+  \item[Methode:] $E(g(X)) = \sum g(x_i) f(x_i)$ oder $E(g(X)) = \int g(x) f(x) dx$
+\end{description}
+
+% ============================================================================
+\section{Übungen zu Grundlagen der induktiven Statistik}
+% ============================================================================
+
+\subsection{Likelihoodfunktion}
+
+\textbf{Aufgabentyp:} Berechnung und Analyse der Likelihoodfunktion
+
+\begin{description}
+  \item[Gegebenes:] Stichprobe, Verteilungsannahme
+  \item[Gesucht:] Likelihoodfunktion $L(\theta) = \prod_{i=1}^n f(x_i | \theta)$
+  \item[Methode:] Produkt der Wahrscheinlichkeits- oder Dichtefunktionen bilden
+\end{description}
+
+\subsection{Erwartungswert und Varianz von Stichprobenfunktionen}
+
+\textbf{Aufgabentyp:} Berechnung von Eigenschaften von Schätzfunktionen
+
+\begin{description}
+  \item[Gegebenes:] Grundgesamtheit mit Erwartungswert $\mu$ und Varianz $\sigma^2$, Stichprobengröße $n$
+  \item[Gesucht:] $E(\overline{X})$, $\text{Var}(\overline{X})$
+  \item[Methode:] 
+    \begin{itemize}
+      \item $E(\overline{X}) = \mu$
+      \item $\text{Var}(\overline{X}) = \frac{\sigma^2}{n}$
+      \item Standardfehler: $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$
+    \end{itemize}
+\end{description}
+
+\subsection{Fraktile}
+
+\textbf{Aufgabentyp:} Bestimmung von Quantilen einer Verteilung
+
+\begin{description}
+  \item[Gegebenes:] Wahrscheinlichkeit $p$, Verteilung
+  \item[Gesucht:] $x_p$ mit $P(X \leq x_p) = p$
+  \item[Methode:] Umkehrung der Verteilungsfunktion $F^{-1}(p)$
+\end{description}
+
+% ============================================================================
+\section{Aufgaben zur Punktschätzung}
+% ============================================================================
+
+\subsection{Erwartungstreue und Wirksamkeit}
+
+\textbf{Aufgabentyp:} Prüfung und Vergleich von Schätzfunktionen
+
+\begin{description}
+  \item[Gegebenes:] Schätzfunktion $\hat{\theta}$
+  \item[Gesucht:] 
+    \begin{itemize}
+      \item Erwartungstreue: $E(\hat{\theta}) = \theta$?
+      \item Wirksamkeit (Effizienz): welche Schätzfunktion hat kleinere Varianz?
+    \end{itemize}
+  \item[Methode:] Berechnung von $E(\hat{\theta})$ und $\text{Var}(\hat{\theta})$
+\end{description}
+
+\subsection{Maximum-Likelihood-Schätzung}
+
+\textbf{Aufgabentyp:} Bestimmung des Maximum-Likelihood-Schätzers
+
+\begin{description}
+  \item[Gegebenes:] Likelihoodfunktion $L(\theta)$
+  \item[Gesucht:] Parameter $\hat{\theta}_{ML}$ der Likelihoodfunktion maximiert
+  \item[Methode:] 
+    \begin{itemize}
+      \item Logarithmische Likelihoodfunktion: $\ell(\theta) = \ln L(\theta)$
+      \item Erste Ableitung Null setzen: $\frac{d\ell(\theta)}{d\theta} = 0$
+      \item Auflösen nach $\theta$
+    \end{itemize}
+\end{description}
+
+\subsection{Bayes-Schätzung}
+
+\textbf{Aufgabentyp:} Schätzung unter Verwendung von Priori-Information
+
+\begin{description}
+  \item[Gegebenes:] Priori-Verteilung, Likelihoodfunktion, Daten
+  \item[Gesucht:] Posteriori-Schätzung des Parameters
+  \item[Methode:] Satz von Bayes zur Kombination von Priori und Likelihood
+\end{description}
+
+\subsection{Konsistenz}
+
+\textbf{Aufgabentyp:} Überprüfung, ob Schätzfunktion konsistent ist
+
+\begin{description}
+  \item[Gegebenes:] Schätzfunktion $\hat{\theta}_n$
+  \item[Gesucht:] Konvergiert $\hat{\theta}_n \to \theta$ für $n \to \infty$?
+  \item[Methode:] Tschebyscheff-Ungleichung oder andere Konvergenzkriterien
+\end{description}
+
+% ============================================================================
+\section{Übungen zur Intervallschätzung}
+% ============================================================================
+
+\subsection{Schätzintervall (Konfidenzintervall)}
+
+\textbf{Aufgabentyp:} Berechnung von Konfidenzintervallen für Parameter
+
+\begin{description}
+  \item[Gegebenes:] Stichprobe, Konfidenzniveau $1 - \alpha$
+  \item[Gesucht:] Konfidenzintervall $[\text{untere Grenze}, \text{obere Grenze}]$
+  \item[Schema:] 
+    \begin{enumerate}
+      \item Konfidenzniveau festlegen: $1 - \alpha$
+      \item Kritischen Wert bestimmen (z.B. $z_{\alpha/2}$ aus Standard-Normalverteilung oder $t_{\alpha/2}$ aus t-Verteilung)
+      \item Konfidenzintervall berechnen: $\text{Schätzer} \pm \text{kritischer Wert} \cdot \text{Standardfehler}$
+    \end{enumerate}
+\end{description}
+
+\subsubsection{Symmetrisches Konfidenzintervall bei dichotomer Verteilung}
+
+\textbf{Aufgabentyp:} Konfidenzintervall für einen Anteilswert
+
+\begin{description}
+  \item[Gegebenes:] Anzahl der Erfolge $m$ von $n$ Versuchen, Konfidenzniveau $1 - \alpha$
+  \item[Gesucht:] Konfidenzintervall $[d_u, d_o]$ für Anteil $p$
+  \item[Voraussetzung:] $5 \leq m \leq n - 5$ (Approximation mit Normalverteilung)
+  \item[Schema:] 
+    \begin{enumerate}
+      \item Punktschätzer: $\hat{p} = \frac{m}{n}$
+      \item Standardfehler: $\hat{\sigma} = \sqrt{\hat{p}(1 - \hat{p})}$
+      \item Kritischer Wert: $c = z_{1 - \alpha/2}$
+      \item Konfidenzintervall: $\left[\hat{p} - \frac{\hat{\sigma} \cdot c}{\sqrt{n}}, \hat{p} + \frac{\hat{\sigma} \cdot c}{\sqrt{n}}\right]$
+    \end{enumerate}
+\end{description}
+
+\subsubsection{Konfidenzintervall für Mittelwert (Normalverteilung)}
+
+\textbf{Aufgabentyp:} Konfidenzintervall für $\mu$ bei bekannter oder unbekannter Varianz
+
+\begin{description}
+  \item[Gegebenes:] Stichprobe $x_1, \ldots, x_n$, Konfidenzniveau
+  \item[Gesucht:] Konfidenzintervall $[d_u, d_o]$ für $\mu$
+  \item[Methode:] 
+    \begin{itemize}
+      \item $\sigma$ bekannt: $\overline{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$
+      \item $\sigma$ unbekannt: $\overline{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}}$ (t-Test)
+    \end{itemize}
+\end{description}
+
+% ============================================================================
+\section{Übungen zu Signifikanztests}
+% ============================================================================
+
+\subsection{Einstichproben-t-Test}
+
+\textbf{Aufgabentyp:} Hypothesentest für Mittelwert bei unbekannter Varianz
+
+\begin{description}
+  \item[Voraussetzungen:] $n < 30$, $X \sim N(\mu, \sigma)$, $\sigma$ unbekannt
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item Rechtsseitig: $H_0: \mu \leq \mu_0$ vs. $H_1: \mu > \mu_0$
+      \item Linksseitig: $H_0: \mu \geq \mu_0$ vs. $H_1: \mu < \mu_0$
+      \item Zweiseitig: $H_0: \mu = \mu_0$ vs. $H_1: \mu \neq \mu_0$
+    \end{itemize}
+  \item[Testgröße:] $t = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}} \sim t(n-1)$
+  \item[Schema:] 
+    \begin{enumerate}
+      \item Hypothesen formulieren
+      \item Signifikanzniveau $\alpha$ festlegen
+      \item Stichprobenmittelwert und Stichprobenvarianz berechnen
+      \item Testgröße berechnen
+      \item Kritischen Wert bestimmen (t-Tabelle)
+      \item Entscheidung treffen
+    \end{enumerate}
+\end{description}
+
+\subsection{Chi-Quadrat-Anpassungstest}
+
+\textbf{Aufgabentyp:} Hypothesentest auf Goodness of Fit
+
+\begin{description}
+  \item[Gegebenes:] Beobachtete Häufigkeitsverteilung, hypothetische Verteilung
+  \item[Gesucht:] Passt die Beobachtung zu der hypothetischen Verteilung?
+  \item[Hypothesen:] $H_0: F = F_0$ (hypothetische Verteilung) vs. $H_1: F \neq F_0$
+  \item[Testgröße:] $\chi^2 = \sum_{i=1}^k \frac{(h_i - np_i)^2}{np_i} \sim \chi^2(k-1)$
+    \begin{itemize}
+      \item $h_i$ = beobachtete Häufigkeit
+      \item $np_i$ = erwartete Häufigkeit
+      \item Voraussetzung: $\forall i: 5 < np_i$
+    \end{itemize}
+  \item[Schema:] 
+    \begin{enumerate}
+      \item Hypothesen formulieren
+      \item Signifikanzniveau $\alpha$ festlegen
+      \item Erwartete Häufigkeiten berechnen
+      \item Testgröße berechnen
+      \item Kritischen Wert: $\chi^2_{\alpha}(k-1)$ bestimmen
+      \item Entscheidung: Wenn $\chi^2 > \chi^2_{\alpha}$, dann $H_0$ ablehnen
+    \end{enumerate}
+\end{description}
+
+\subsection{Zweistichproben-t-Test}
+
+\textbf{Aufgabentyp:} Vergleich von Mittelwerten zweier Stichproben
+
+\begin{description}
+  \item[Voraussetzungen:] Beide Stichproben normalverteilt, Varianzen gleich
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item $H_0: \mu_1 = \mu_2$ vs. $H_1: \mu_1 \neq \mu_2$ (zweiseitig)
+      \item $H_0: \mu_1 \leq \mu_2$ vs. $H_1: \mu_1 > \mu_2$ (einseitig)
+    \end{itemize}
+  \item[Testgröße:] $t = \frac{\overline{x}_1 - \overline{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2)$
+    \begin{itemize}
+      \item Gepoolte Varianz: $s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$
+    \end{itemize}
+\end{description}
+
+\subsection{Signifikanztest (allgemein)}
+
+\textbf{Aufgabentyp:} Hypothesentest für verschiedene Parameter
+
+\begin{description}
+  \item[Allgemeines Schema:] 
+    \begin{enumerate}
+      \item Hypothesen aufstellen: $H_0$ (Nullhypothese) und $H_1$ (Alternativhypothese)
+      \item Signifikanzniveau $\alpha$ wählen
+      \item Teststatistik/Testgröße berechnen
+      \item Ablehnungsbereich bzw. kritischen Wert bestimmen
+      \item Entscheidung: 
+        \begin{itemize}
+          \item Wenn Testgröße im Ablehnungsbereich liegt: $H_0$ ablehnen
+          \item Sonst: $H_0$ nicht ablehnen
+        \end{itemize}
+      \item Antwort im Sachkontext formulieren
+    \end{enumerate}
+\end{description}
+
+\newpage
+
+\appendix
+
+\section{Wichtige Formeln}
+
+\subsection{Wahrscheinlichkeitsrechnung}
+
+\begin{itemize}
+  \item Laplace-Wahrscheinlichkeit: $P(A) = \frac{|A|}{|\Omega|}$
+  \item Bedingte Wahrscheinlichkeit: $P(A|B) = \frac{P(A \cap B)}{P(B)}$
+  \item Satz von Bayes: $P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$
+\end{itemize}
+
+\subsection{Verteilungsparameter}
+
+\begin{itemize}
+  \item Erwartungswert (diskret): $E(X) = \sum x_i \cdot f(x_i)$
+  \item Varianz: $\text{Var}(X) = E((X - E(X))^2) = E(X^2) - (E(X))^2$
+  \item Standardabweichung: $\sigma = \sqrt{\text{Var}(X)}$
+\end{itemize}
+
+\subsection{Standardnormalverteilung}
+
+\begin{itemize}
+  \item Dichtefunktion: $\phi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$
+  \item Verteilungsfunktion: $\Phi(z) = P(Z \leq z)$
+\end{itemize}
+
+\subsection{Stichprobenverteilungen}
+
+\begin{itemize}
+  \item Erwartungswert des Stichprobenmittels: $E(\overline{X}) = \mu$
+  \item Varianz des Stichprobenmittels: $\text{Var}(\overline{X}) = \frac{\sigma^2}{n}$
+  \item Standardfehler: $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$
+\end{itemize}
+
+\end{document}
