@@ -28,7 +28,7 @@
 
 \pagestyle{plain}
 \vspace*{-1.5cm}
-{\small Spickzettel — Statistik (TINF24) \hfill 2026-05-24}\\
+{\small Spickzettel — Statistik (TINF24) \hfill 2026-05-25}\\
 \vspace{0.5ex}
 
 \section*{Grundlegende Rechenregeln}
@@ -132,6 +132,12 @@ Maximieren: \[\hat\mu=\bar x,\qquad \hat\sigma^2=\frac{1}{n}\sum (x_i-\bar x)^2.
 \section*{Konfidenzintervalle — Kurzleitfaden}
 \begin{compactenum}
 \item Schritte: Modellannahme → geeignete Statistik wählen → Verteilung der Statistik bestimmen → Quantile → CI bilden.
+\item Tabelle wählen:
+\begin{compactenum}
+\item $N(0,1)$ bei $\sigma$ bekannt oder großen $n$-Approx. für Mittelwert/Anteile.
+\item $t$-Tabelle bei Mittelwert mit unbekannter $\sigma$.
+\item $\chi^2$-Tabelle bei Varianz / Standardabweichung eines Normalmodells.
+\end{compactenum}
 \item Normalfall, $\sigma$ bekannt:
 \[\bar X\pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}.
 \]
@@ -142,16 +148,63 @@ Maximieren: \[\hat\mu=\bar x,\qquad \hat\sigma^2=\frac{1}{n}\sum (x_i-\bar x)^2.
 \[\left(\frac{(n-1)s^2}{\chi^2_{n-1;1-\alpha/2}},\ \frac{(n-1)s^2}{\chi^2_{n-1;\alpha/2}}\right).
 \]
 \item Anteil $p$: \[\hat p\pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}\] (bei kleinen $n$ exakte Clopper–Pearson).
+\item Umkehrrechnung Intervall $\to$ Konfidenzniveau:
+\begin{compactenum}
+\item Zentraler z/t-Fall: falls $c$ der verwendete Quantilwert ist, dann
+\[1-\alpha=\begin{cases}
+2\Phi(c)-1,& z\text{-Fall}\\
+2F_{t,\nu}(c)-1,& t\text{-Fall}
+\end{cases}
+\quad\Rightarrow\quad \alpha=1-(\text{Konfidenzniveau}).\]
+\item Bei beidseitigem Intervall immer: $\alpha=2\cdot$ linke Restwahrscheinlichkeit, also $c=z_{1-\alpha/2}$ bzw. $t_{\nu;1-\alpha/2}$.
+\item Wenn nur die Intervallgrenzen $[L,U]$ gegeben sind und das Intervall symmetrisch ist: Mittelpunkt $m=\frac{L+U}{2}$, Halbbreite $h=\frac{U-L}{2}$, dann $c=h/\mathrm{SE}$ und daraus $1-\alpha$ über die Tabelle/Funktion.
+\end{compactenum}
 \end{compactenum}
 
 \section*{Signifikanztests — Ablauf + Formeln}
 \begin{compactenum}
-\item Allgemein: $H_0$ vs. $H_1$, Teststatistik $T$, Bestimme Verteilung unter $H_0$, p-Wert oder kritischer Bereich, Entscheidung.
-\item $t$-Test (einseitig/ beidseitig): \[T=\frac{\bar X-\mu_0}{s/\sqrt n}\sim t_{n-1}.
-\]
-\item $z$-Test für Anteil: \[T=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}\sim N(0,1)\ (\text{approx}).\]
-\item Chi-Quadrat-Anpassungstest: \[\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}\approx\chi^2_{k-1-m}\ (m=\text{geschätzte Par.}).\]
-\item Vorgehen: Signifikanzniveau $\alpha$, berechne $T$, p-Wert $=P_{H_0}(T_{H_0}\ge |t_{obs}|)$, ablehnen falls $p<\alpha$.
+\item Allgemein: $H_0$ vs. $H_1$, Teststatistik $T$, Verteilung unter $H_0$, p-Wert oder kritischer Bereich, Entscheidung.
+\item Merkschema für die Wahl: 1 Stichprobe $\to$ Gauß/t/Binomial/$\chi^2$; 2 Stichproben $\to$ Differenz-/Zweistichprobentest; Häufigkeiten in Tabellen $\to$ Anpassung/Kontingenz; Zusammenhang zweier metrischer Größen $\to$ Korrelationstest.
+\item Einstrichproben-Gaußtest: Mittelwerttest bei normalverteilten Daten mit bekannter $\sigma$.
+\[T=\frac{\bar X-\mu_0}{\sigma/\sqrt n}\sim N(0,1).\]
+Voraussetzung: i.i.d., Normalmodell oder großes $n$; $\sigma$ bekannt.
+\item Binomialtest: Anteil/Erfolgschance in $n$ Bernoulli-Versuchen, exakt.
+\[X\sim\mathrm{Bin}(n,p_0),\quad T=X.\]
+Voraussetzung: unabhängige Bernoulli-Versuche, nur 0/1-Ausgänge, kleines bis mittleres $n$ oder exakter Test gewünscht.
+\item Einstrichproben-$t$-Test: Mittelwerttest bei unbekannter $\sigma$.
+\[T=\frac{\bar X-\mu_0}{s/\sqrt n}\sim t_{n-1}.\]
+Voraussetzung: i.i.d., annähernd normal; bei großem $n$ robust.
+\item Approximativer Gaußtest: für Anteile oder Mittelwerte mit großer Stichprobe.
+\[T\approx N(0,1),\quad \hat p=\frac Xn,\quad T=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}.\]
+Voraussetzung: $np\geq5$ und $n(1-p)\geq5$
+\item Differenztests: Vergleich zweier Parameter.
+\[T_{\bar X_1-\bar X_2}=\frac{(\bar X_1-\bar X_2)-\Delta_0}{\mathrm{SE}},\quad T_{\hat p_1-\hat p_2}=\frac{(\hat p_1-\hat p_2)-\Delta_0}{\mathrm{SE}}.\]
+Unabhängige Stichproben: zwei Gruppen; gepaart: vor/nachher mit Differenzen $D_i$ und dann 1-Stichproben-$t$ auf $D_i$.
+\item Chi-Quadrat-Test für Varianz: Normalmodell, Test von $\sigma^2$.
+\[T=\frac{(n-1)s^2}{\sigma_0^2}\sim\chi^2_{n-1}.\]
+Voraussetzung: Normalverteilung der Grundgesamtheit.
+\item Zweistichprobentests: Mittelwerte oder Anteile zweier Gruppen.
+\[T_{\mu_1-\mu_2}=\frac{(\bar X_1-\bar X_2)-\Delta_0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}\quad(\text{Welch}),\]
+bei gleicher Varianz ggf. gepoolter $t$-Test. Für Anteile: analog mit gepoolter/ungepoolter Standardfehlerformel.
+Voraussetzung: unabhängige Stichproben, gleiche Varianz nur bei gepooltem $t$-Test.
+\item Chi-Quadrat-Anpassungstest: Verteilung einer kategorialen Variable gegen Sollverteilung.
+\[\chi^2=\sum_i\frac{(O_i-E_i)^2}{E_i}\approx\chi^2_{k-1-m}.\]
+Voraussetzung: erwartete Häufigkeiten pro Klasse ideal $\ge 5$, Kategorien disjunkt und vollständig.
+\item Kontingenztest: Unabhängigkeit zweier kategorialer Merkmale in Kreuztabelle.
+\[\chi^2=\sum_{ij}\frac{(O_{ij}-E_{ij})^2}{E_{ij}},\quad E_{ij}=\frac{R_iC_j}{n}.\]
+Voraussetzung: erwartete Zellenbesetzungen möglichst $\ge 5$; Freiheitsgrade $(r-1)(c-1)$.
+\item Korrelationstest: Test auf linearen Zusammenhang $\rho=0$.
+\[T=\frac{r\sqrt{n-2}}{\sqrt{1-r^2}}\sim t_{n-2}.\]
+Voraussetzung: bivariate Normalverteilung oder zumindest annähernd linearer Zusammenhang ohne starke Ausreißer.
+\item Entscheidung: Signifikanzniveau $\alpha$ wählen, $T$ berechnen, p-Wert bestimmen, ablehnen falls $p<\alpha$.
+\item Häufige Formulierungen für Hypothesen:
+\begin{compactenum}
+\item "mindestens", "höchstens", "nicht kleiner als" $\to$ meist in $H_0$ mit $=$ bzw. $\ge/\le$.
+\item "größer", "mehr", "besser", "erhöht" $\to$ $H_1: >$.
+\item "kleiner", "weniger", "gesunken" $\to$ $H_1: <$.
+\item "anders", "unterschiedlich", "verändert" $\to$ $H_1: \neq$.
+\item Praktisch: $H_0$ enthält fast immer die Gleichheit; $H_1$ ist die gesuchte Abweichung.
+\end{compactenum}
 \end{compactenum}
 
 \section*{Nützliches — Fallen, Approximationsregeln, Tabellen}
