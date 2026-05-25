@@ -370,34 +370,128 @@
     \end{enumerate}
 \end{description}
 
-\subsubsection{Symmetrisches Konfidenzintervall bei dichotomer Verteilung}
+\subsubsection{Variation A: Konfidenzintervall für Mittelwert mit $\sigma$ bekannt (n > 30)}
 
-\textbf{Aufgabentyp:} Konfidenzintervall für einen Anteilswert
+\textbf{Aufgabentyp:} Normalverteilte Grundgesamtheit mit bekannter Varianz
 
 \begin{description}
-  \item[Gegebenes:] Anzahl der Erfolge $m$ von $n$ Versuchen, Konfidenzniveau $1 - \alpha$
+  \item[Voraussetzung:] $n > 30$ oder $\sigma$ bekannt
+  \item[Gegebenes:] Stichprobenmittelwert $\overline{x}$, bekannte Standardabweichung $\sigma$, Konfidenzniveau $1 - \alpha$
+  \item[Gesucht:] Konfidenzintervall für $\mu$
+  \item[Verteilung:] Standardnormalverteilung $N(0,1)$
+  \item[Formeln:] 
+    \begin{itemize}
+      \item Kritischer Wert: $c = z_{1 - \alpha/2}$ (aus Normalverteilungs-Tabelle)
+      \item Standardfehler: $\frac{\sigma}{\sqrt{n}}$
+      \item Konfidenzintervall: $\left[\overline{x} - c \cdot \frac{\sigma}{\sqrt{n}}, \overline{x} + c \cdot \frac{\sigma}{\sqrt{n}}\right]$
+    \end{itemize}
+  \item[Typische Werte:] 
+    \begin{itemize}
+      \item $1 - \alpha = 0.90 \Rightarrow c \approx 1.645$
+      \item $1 - \alpha = 0.95 \Rightarrow c \approx 1.96$
+      \item $1 - \alpha = 0.99 \Rightarrow c \approx 2.576$
+    \end{itemize}
+\end{description}
+
+\subsubsection{Variation B: Konfidenzintervall für Mittelwert mit $\sigma$ unbekannt (n < 30)}
+
+\textbf{Aufgabentyp:} Normalverteilte Grundgesamtheit mit unbekannter Varianz (t-Verteilung)
+
+\begin{description}
+  \item[Voraussetzung:] $n < 30$, $X \sim N(\mu, \sigma)$, $\sigma$ unbekannt
+  \item[Gegebenes:] Stichprobenmittelwert $\overline{x}$, Stichprobenvarianz $s^2$, Stichprobengröße $n$, Konfidenzniveau $1 - \alpha$
+  \item[Gesucht:] Konfidenzintervall für $\mu$
+  \item[Verteilung:] t-Verteilung mit $n-1$ Freiheitsgraden
+  \item[Formeln:] 
+    \begin{itemize}
+      \item Stichprobenvarianz: $s^2 = \frac{1}{n-1} \left(\sum_{i=1}^n x_i^2 - \frac{(\sum x_i)^2}{n}\right)$
+      \item Stichprobenstandardabweichung: $s = \sqrt{s^2}$
+      \item Kritischer Wert: $c = t_{1 - \alpha/2, n-1}$ (aus t-Tabelle)
+      \item Standardfehler: $\frac{s}{\sqrt{n}}$
+      \item Konfidenzintervall: $\left[\overline{x} - c \cdot \frac{s}{\sqrt{n}}, \overline{x} + c \cdot \frac{s}{\sqrt{n}}\right]$
+    \end{itemize}
+  \item[Beispiel:] $n = 30$, $\overline{x} = 12$, $s = 3.27$, $1 - \alpha = 0.95$
+    \begin{itemize}
+      \item $c = t_{0.975, 29} \approx 2.045$
+      \item Intervall: $[12 - 2.045 \cdot \frac{3.27}{5.477}, 12 + 2.045 \cdot \frac{3.27}{5.477}] \approx [11.55, 12.45]$
+    \end{itemize}
+\end{description}
+
+\subsubsection{Variation C: Symmetrisches Konfidenzintervall bei dichotomer Verteilung}
+
+\textbf{Aufgabentyp:} Konfidenzintervall für einen Anteilswert $p$ (Erfolgswahrscheinlichkeit)
+
+\begin{description}
+  \item[Voraussetzung:] $5 \leq m \leq n - 5$ (Bedingung für Approximation mit Normalverteilung)
+  \item[Gegebenes:] Anzahl Erfolge $m$ in $n$ Versuchen, Konfidenzniveau $1 - \alpha$
   \item[Gesucht:] Konfidenzintervall $[d_u, d_o]$ für Anteil $p$
-  \item[Voraussetzung:] $5 \leq m \leq n - 5$ (Approximation mit Normalverteilung)
-  \item[Schema:] 
-    \begin{enumerate}
+  \item[Verteilung:] Standardnormalverteilung $N(0,1)$ (Approximation)
+  \item[Formeln:] 
+    \begin{itemize}
       \item Punktschätzer: $\hat{p} = \frac{m}{n}$
-      \item Standardfehler: $\hat{\sigma} = \sqrt{\hat{p}(1 - \hat{p})}$
+      \item Standardabweichung: $\hat{\sigma} = \sqrt{\hat{p}(1 - \hat{p})}$
       \item Kritischer Wert: $c = z_{1 - \alpha/2}$
-      \item Konfidenzintervall: $\left[\hat{p} - \frac{\hat{\sigma} \cdot c}{\sqrt{n}}, \hat{p} + \frac{\hat{\sigma} \cdot c}{\sqrt{n}}\right]$
+      \item Standardfehler: $\frac{\hat{\sigma}}{\sqrt{n}} = \frac{\sqrt{\hat{p}(1 - \hat{p})}}{\sqrt{n}}$
+      \item Konfidenzintervall: $\left[\hat{p} - c \cdot \frac{\hat{\sigma}}{\sqrt{n}}, \hat{p} + c \cdot \frac{\hat{\sigma}}{\sqrt{n}}\right]$
+    \end{itemize}
+  \item[Beispiel:] S-Bahn 274 von 365 Tagen pünktlich, $1 - \alpha = 0.90$
+    \begin{itemize}
+      \item $\hat{p} = \frac{274}{365} = 0.7507$
+      \item $\hat{\sigma} = \sqrt{0.7507 \cdot 0.2493} = 0.4326$
+      \item $c = z_{0.95} = 1.645$
+      \item Intervall: $[0.7507 - 0.372, 0.7507 + 0.372] = [0.3787, 0.7879]$
+    \end{itemize}
+\end{description}
+
+\subsubsection{Variation D: Bestimmung erforderlicher Stichprobengröße}
+
+\textbf{Aufgabentyp:} Berechnung der Stichprobengröße für gewünschte Genauigkeit
+
+\begin{description}
+  \item[Gegebenes:] Fehlertoleranz $\delta$ (Halbbreite des Intervalls), Konfidenzniveau $1 - \alpha$
+  \item[Gesucht:] Minimale Stichprobengröße $n$
+  \item[Formeln für Mittelwert:] 
+    \begin{itemize}
+      \item $\delta = c \cdot \frac{\sigma}{\sqrt{n}} \Rightarrow n = \left(\frac{c \cdot \sigma}{\delta}\right)^2$
+      \item Wenn $\sigma$ unbekannt: Schätzung aus Vorversuch verwenden
+    \end{itemize}
+  \item[Formeln für Anteil:] 
+    \begin{itemize}
+      \item $\delta = c \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \Rightarrow n = \frac{c^2 \cdot \hat{p}(1-\hat{p})}{\delta^2}$
+      \item Falls $\hat{p}$ unbekannt: Konservativer Wert $\hat{p} = 0.5$ verwenden
+    \end{itemize}
+  \item[Beispiel:] Fehlertoleranz $\delta = 0.14$, Konfidenzniveau $0.95$, $\hat{p} = 0.2$
+    \begin{itemize}
+      \item $n = \frac{1.96^2 \cdot 0.2 \cdot 0.8}{0.14^2} = \frac{3.8416 \cdot 0.16}{0.0196} = 31.36 \Rightarrow n \geq 32$
+    \end{itemize}
+\end{description}
+
+\subsubsection{Variation E: Bestimmung des Konfidenzniveaus aus gegebenen Intervallen}
+
+\textbf{Aufgabentyp:} Umkehrung: Aus beobachtetem Intervall das Konfidenzniveau bestimmen
+
+\begin{description}
+  \item[Gegebenes:] Konfidenzintervall $[d_u, d_o]$, Stichprobenwerte
+  \item[Gesucht:] Konfidenzniveau $1 - \alpha$
+  \item[Methode:] 
+    \begin{enumerate}
+      \item Halbbreite berechnen: $\delta = \frac{d_o - d_u}{2}$
+      \item Kritischen Wert bestimmen: $c = \frac{\delta \sqrt{n}}{\hat{\sigma}}$
+      \item Konfidenzniveau aus Normalverteilungstabelle: $1 - \alpha = 2\Phi(c) - 1$
     \end{enumerate}
 \end{description}
 
-\subsubsection{Konfidenzintervall für Mittelwert (Normalverteilung)}
+\subsubsection{Variation F: Konfidenzintervall für Poisson-Verteilung}
 
-\textbf{Aufgabentyp:} Konfidenzintervall für $\mu$ bei bekannter oder unbekannter Varianz
+\textbf{Aufgabentyp:} Spezialfall: Schätzintervall für Poisson-Parameter $\lambda$
 
 \begin{description}
-  \item[Gegebenes:] Stichprobe $x_1, \ldots, x_n$, Konfidenzniveau
-  \item[Gesucht:] Konfidenzintervall $[d_u, d_o]$ für $\mu$
-  \item[Methode:] 
+  \item[Gegebenes:] Ereignisanzahl in fester Zeitperiode, Konfidenzniveau
+  \item[Gesucht:] Konfidenzintervall für $\lambda$
+  \item[Methode:] Approximation mit Normalverteilung für große $n$
     \begin{itemize}
-      \item $\sigma$ bekannt: $\overline{x} \pm z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}$
-      \item $\sigma$ unbekannt: $\overline{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}}$ (t-Test)
+      \item $\lambda$ wird durch Stichprobenmittelwert geschätzt
+      \item Standardabweichung: $\sqrt{\lambda}$
     \end{itemize}
 \end{description}
 
@@ -405,95 +499,322 @@
 \section{Übungen zu Signifikanztests}
 % ============================================================================
 
-\subsection{Einstichproben-t-Test}
+\subsection{Allgemeines Schema für alle Signifikanztests}
 
-\textbf{Aufgabentyp:} Hypothesentest für Mittelwert bei unbekannter Varianz
+\textbf{Gemeinsames Vorgehen:}
+
+\begin{enumerate}
+  \item \textbf{Hypothesen formulieren:}
+    \begin{itemize}
+      \item $H_0$ (Nullhypothese): Die zu testende Behauptung
+      \item $H_1$ (Alternativhypothese): Gegenhypothese
+      \item Einseitig (links/rechts) oder zweiseitig?
+    \end{itemize}
+  \item \textbf{Signifikanzniveau bestimmen:} $\alpha$ (typisch 0.01, 0.05, 0.10)
+  \item \textbf{Testverfahren wählen:} Abhängig von Verteilung, Varianz-Kenntnis, Stichprobengröße
+  \item \textbf{Testgröße berechnen:} Nach spezifischer Formel
+  \item \textbf{Ablehnungsbereich bestimmen:} Aus Tabelle mit kritischem Wert
+  \item \textbf{Entscheidung:} 
+    \begin{itemize}
+      \item Wenn Testgröße im Ablehnungsbereich: $H_0$ ablehnen, $H_1$ annehmen
+      \item Sonst: $H_0$ nicht ablehnen
+    \end{itemize}
+  \item \textbf{Antwort im Sachkontext:} Verständliche Interpretation der Entscheidung
+\end{enumerate}
+
+\subsection{Test-Auswahlbaum}
+
+\textbf{Welcher Test passt?}
+
+\begin{itemize}
+  \item \textbf{Einstichproben-Gaußtest:} $\sigma$ bekannt, beliebig verteilte Grundgesamtheit
+  \item \textbf{Einstichproben-t-Test:} $n < 30$, $\sigma$ unbekannt, normalverteilte Grundgesamtheit
+  \item \textbf{Approximativer Gaußtest:} $n > 30$, dichotome oder beliebige Verteilung
+  \item \textbf{Binomialtest:} Exakter Test für Anteil, kleine Stichproben
+  \item \textbf{Chi-Quadrat-Anpassungstest:} Test auf Verteilungsform
+  \item \textbf{Zweistichproben-t-Test:} Vergleich von zwei Mittelwerten, unabhängige Stichproben
+  \item \textbf{Differenzentest:} Vergleich von zwei Mittelwerten, verbundene Stichproben
+  \item \textbf{Zweistichproben-Gaußtest:} Großer Stichproben ($n > 30$)
+  \item \textbf{Kontingenztest:} Abhängigkeit zweier kategorialer Variablen
+  \item \textbf{Korrelationstest:} Korrelation zwischen zwei stetigen Variablen
+\end{itemize}
+
+\subsection{Variation A: Einstichproben-Gaußtest}
+
+\textbf{Aufgabentyp:} Test auf Mittelwert wenn $\sigma$ bekannt
 
 \begin{description}
-  \item[Voraussetzungen:] $n < 30$, $X \sim N(\mu, \sigma)$, $\sigma$ unbekannt
+  \item[Voraussetzung:] $\sigma$ ist bekannt, beliebige Grundgesamtheit (oder Normalverteilung)
   \item[Hypothesen:] 
     \begin{itemize}
       \item Rechtsseitig: $H_0: \mu \leq \mu_0$ vs. $H_1: \mu > \mu_0$
       \item Linksseitig: $H_0: \mu \geq \mu_0$ vs. $H_1: \mu < \mu_0$
       \item Zweiseitig: $H_0: \mu = \mu_0$ vs. $H_1: \mu \neq \mu_0$
     \end{itemize}
-  \item[Testgröße:] $t = \frac{\overline{x} - \mu_0}{\frac{s}{\sqrt{n}}} \sim t(n-1)$
-  \item[Schema:] 
-    \begin{enumerate}
-      \item Hypothesen formulieren
-      \item Signifikanzniveau $\alpha$ festlegen
-      \item Stichprobenmittelwert und Stichprobenvarianz berechnen
-      \item Testgröße berechnen
-      \item Kritischen Wert bestimmen (t-Tabelle)
-      \item Entscheidung treffen
-    \end{enumerate}
-\end{description}
-
-\subsection{Chi-Quadrat-Anpassungstest}
-
-\textbf{Aufgabentyp:} Hypothesentest auf Goodness of Fit
-
-\begin{description}
-  \item[Gegebenes:] Beobachtete Häufigkeitsverteilung, hypothetische Verteilung
-  \item[Gesucht:] Passt die Beobachtung zu der hypothetischen Verteilung?
-  \item[Hypothesen:] $H_0: F = F_0$ (hypothetische Verteilung) vs. $H_1: F \neq F_0$
-  \item[Testgröße:] $\chi^2 = \sum_{i=1}^k \frac{(h_i - np_i)^2}{np_i} \sim \chi^2(k-1)$
+  \item[Testgröße:] $z = \frac{\overline{x} - \mu_0}{\sigma/\sqrt{n}} \sim N(0,1)$
+  \item[Ablehnungsbereich:] 
     \begin{itemize}
-      \item $h_i$ = beobachtete Häufigkeit
-      \item $np_i$ = erwartete Häufigkeit
-      \item Voraussetzung: $\forall i: 5 < np_i$
+      \item Rechtsseitig: $z > z_{1-\alpha}$
+      \item Linksseitig: $z < -z_{1-\alpha}$
+      \item Zweiseitig: $|z| > z_{1-\alpha/2}$
     \end{itemize}
-  \item[Schema:] 
-    \begin{enumerate}
-      \item Hypothesen formulieren
-      \item Signifikanzniveau $\alpha$ festlegen
-      \item Erwartete Häufigkeiten berechnen
-      \item Testgröße berechnen
-      \item Kritischen Wert: $\chi^2_{\alpha}(k-1)$ bestimmen
-      \item Entscheidung: Wenn $\chi^2 > \chi^2_{\alpha}$, dann $H_0$ ablehnen
-    \end{enumerate}
+  \item[Typische kritische Werte:] $z_{0.90} = 1.282$, $z_{0.95} = 1.645$, $z_{0.975} = 1.96$, $z_{0.995} = 2.576$
 \end{description}
 
-\subsection{Zweistichproben-t-Test}
+\subsection{Variation B: Einstichproben-t-Test}
 
-\textbf{Aufgabentyp:} Vergleich von Mittelwerten zweier Stichproben
+\textbf{Aufgabentyp:} Test auf Mittelwert wenn $\sigma$ unbekannt und $n < 30$
 
 \begin{description}
-  \item[Voraussetzungen:] Beide Stichproben normalverteilt, Varianzen gleich
+  \item[Voraussetzung:] $n < 30$, $X \sim N(\mu, \sigma)$, $\sigma$ unbekannt
   \item[Hypothesen:] 
     \begin{itemize}
-      \item $H_0: \mu_1 = \mu_2$ vs. $H_1: \mu_1 \neq \mu_2$ (zweiseitig)
-      \item $H_0: \mu_1 \leq \mu_2$ vs. $H_1: \mu_1 > \mu_2$ (einseitig)
+      \item Rechtsseitig: $H_0: \mu \leq \mu_0$ vs. $H_1: \mu > \mu_0$
+      \item Linksseitig: $H_0: \mu \geq \mu_0$ vs. $H_1: \mu < \mu_0$
+      \item Zweiseitig: $H_0: \mu = \mu_0$ vs. $H_1: \mu \neq \mu_0$
     \end{itemize}
-  \item[Testgröße:] $t = \frac{\overline{x}_1 - \overline{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2)$
+  \item[Testgröße:] $t = \frac{\overline{x} - \mu_0}{s/\sqrt{n}} \sim t(n-1)$
+  \item[Stichprobenvarianz:] $s = \sqrt{\frac{1}{n-1}\left(\sum x_i^2 - \frac{(\sum x_i)^2}{n}\right)}$
+  \item[Ablehnungsbereich:] Abhängig von Hypothesen, t-Tabelle mit $n-1$ Freiheitsgraden
+  \item[Beispiel:] Fahrzeit $\mu_0 = 60$ s, $n=9$, $\sum t_i = 486$ s, $\sum t_i^2 = 27000$ s$^2$, $\alpha = 0.05$
     \begin{itemize}
-      \item Gepoolte Varianz: $s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$
+      \item $\overline{t} = 486/9 = 54$ s
+      \item $s = \sqrt{\frac{27000/8 - 54^2 \cdot 9/8}{1}} = 9.7468$ s
+      \item $t = \frac{54 - 60}{9.7468/3} = -1.847$
+      \item Linksseitig: $t_{0.95, 8} = -1.860$, da $t > -1.860$: $H_0$ nicht ablehnen
     \end{itemize}
 \end{description}
 
-\subsection{Signifikanztest (allgemein)}
+\subsection{Variation C: Approximativer Gaußtest für Anteil}
 
-\textbf{Aufgabentyp:} Hypothesentest für verschiedene Parameter
+\textbf{Aufgabentyp:} Test auf Anteilswert $p$ bei großer Stichprobe
 
 \begin{description}
-  \item[Allgemeines Schema:] 
-    \begin{enumerate}
-      \item Hypothesen aufstellen: $H_0$ (Nullhypothese) und $H_1$ (Alternativhypothese)
-      \item Signifikanzniveau $\alpha$ wählen
-      \item Teststatistik/Testgröße berechnen
-      \item Ablehnungsbereich bzw. kritischen Wert bestimmen
-      \item Entscheidung: 
-        \begin{itemize}
-          \item Wenn Testgröße im Ablehnungsbereich liegt: $H_0$ ablehnen
-          \item Sonst: $H_0$ nicht ablehnen
-        \end{itemize}
-      \item Antwort im Sachkontext formulieren
-    \end{enumerate}
+  \item[Voraussetzung:] $n > 30$ und $5 \leq np_0 \leq n-5$ (Normalapproximation zulässig)
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item Rechtsseitig: $H_0: p \leq p_0$ vs. $H_1: p > p_0$
+      \item Linksseitig: $H_0: p \geq p_0$ vs. $H_1: p < p_0$
+      \item Zweiseitig: $H_0: p = p_0$ vs. $H_1: p \neq p_0$
+    \end{itemize}
+  \item[Testgröße:] $z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)}} \cdot \sqrt{n}$
+    \begin{itemize}
+      \item $\hat{p} = m/n$ (Anteil der Erfolge in Stichprobe)
+      \item $p_0$ ist der hypothetische Anteil
+    \end{itemize}
+  \item[Beispiel:] Stromverbrauch < 10 kWh, beobachtet 8 von 100, Vermutung $p_0 = 0.05$, $\alpha = 0.05$
+    \begin{itemize}
+      \item $\hat{p} = 0.08$, $z = \frac{0.08 - 0.05}{\sqrt{0.05 \cdot 0.95}} \cdot 10 = 1.377$
+      \item Rechtsseitig: $z_{0.95} = 1.645$, da $z < 1.645$: $H_0$ nicht ablehnen
+    \end{itemize}
+\end{description}
+
+\subsection{Variation D: Binomialtest}
+
+\textbf{Aufgabentyp:} Exakter Test für Anteil (kleine Stichproben)
+
+\begin{description}
+  \item[Voraussetzung:] Anzahl erfolgreicher Versuche folgt Binomialverteilung
+  \item[Hypothesen:] Test auf Wahrscheinlichkeit $p = p_0$
+  \item[Testgröße:] Exakte Wahrscheinlichkeit aus Binomialverteilung
+    \begin{itemize}
+      \item $P(X = k) = \binom{n}{k} p_0^k (1-p_0)^{n-k}$
+      \item Ablehnungsbereich: Alle $k$ mit $P(X \leq k) \leq \alpha$
+    \end{itemize}
+  \item[Beispiel:] Kundenzufriedenheit, $n=30$, $p_0=0.35$, beobachtet 4 Unzufriedene
+    \begin{itemize}
+      \item Ablehnungsbereich bei $\alpha = 0.10$: $P(X \leq k) \leq 0.10$ aus Binomialverteilung
+      \item Bestimmung: $P(X \leq 6) = 0.0586 + 0.0838 + \ldots \approx 0.0586 < 0.10$ für $k=6$
+      \item Wenn beobachtet 4: im Ablehnungsbereich $\{0,1,\ldots,6\}$
+    \end{itemize}
+\end{description}
+
+\subsection{Variation E: Chi-Quadrat-Anpassungstest}
+
+\textbf{Aufgabentyp:} Test auf Goodness of Fit - passt eine hypothetische Verteilung?
+
+\begin{description}
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item $H_0: F = F_0$ (Die Daten folgen der hypothetischen Verteilung)
+      \item $H_1: F \neq F_0$ (Die Daten folgen nicht der hypothetischen Verteilung)
+    \end{itemize}
+  \item[Voraussetzung:] Alle Zellen erfüllen $5 < n p_i$ (erwartete Häufigkeit > 5)
+  \item[Testgröße:] $\chi^2 = \sum_{i=1}^k \frac{(h_i - np_i)^2}{np_i} \sim \chi^2(k-1)$
+    \begin{itemize}
+      \item $h_i$ = beobachtete Häufigkeit in Kategorie $i$
+      \item $np_i$ = erwartete Häufigkeit = $n \cdot p_i$ (Wahrscheinlichkeit unter $H_0$)
+      \item $k$ = Anzahl Kategorien
+    \end{itemize}
+  \item[Ablehnungsbereich:] $\chi^2 > \chi^2_{\alpha}(k-1)$ (rechtsseitig!)
+  \item[Beispiel:] Würfel 500 mal geworfen, $\alpha = 0.05$
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{lcccccc}
+        Augenzahl & 1 & 2 & 3 & 4 & 5 & 6 \\
+        Beobachtet & 95 & 100 & 68 & 66 & 84 & 87 \\
+        Erwartet & \multicolumn{6}{c}{$500/6 \approx 83.33$ für jede}
+      \end{tabular}
+    \end{table}
+    \begin{itemize}
+      \item $\chi^2 = \frac{(95-83.33)^2}{83.33} + \ldots + \frac{(87-83.33)^2}{83.33} = 11.56$
+      \item $\chi^2_{0.95}(5) = 11.07$, da $\chi^2 = 11.56 > 11.07$: $H_0$ ablehnen (Würfel ist unfair)
+    \end{itemize}
+\end{description}
+
+\subsection{Variation F: Zweistichproben-t-Test (unabhängige Stichproben)}
+
+\textbf{Aufgabentyp:} Vergleich von Mittelwerten zweier Grundgesamtheiten
+
+\begin{description}
+  \item[Voraussetzung:] Beide Stichproben normalverteilt, unabhängig, gleiche Varianzen
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item Rechtsseitig: $H_0: \mu_1 \leq \mu_2$ vs. $H_1: \mu_1 > \mu_2$
+      \item Linksseitig: $H_0: \mu_1 \geq \mu_2$ vs. $H_1: \mu_1 < \mu_2$
+      \item Zweiseitig: $H_0: \mu_1 = \mu_2$ vs. $H_1: \mu_1 \neq \mu_2$
+    \end{itemize}
+  \item[Testgröße:] $t = \frac{\overline{x}_1 - \overline{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2)$
+  \item[Gepoolte Varianz:] $s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$
+  \item[Beispiel:] Humeruslängen (rechts vs. links), $n_1 = 18$, $n_2 = 14$
+    \begin{itemize}
+      \item $\overline{x}_1 = 3.976$, $\overline{x}_2 = 3.369$, $s_1 = 1.302$, $s_2 = 1.940$
+      \item $s_p^2 = \frac{17 \cdot 0.25 + 13 \cdot 0.25}{30}$ (vereinfacht)
+      \item $t = 3.27$, $\alpha = 0.01$, $t_{0.99}(30) = 2.457$, da $t > 2.457$: $H_0$ ablehnen
+    \end{itemize}
+\end{description}
+
+\subsection{Variation G: Differenzentest (verbundene Stichproben)}
+
+\textbf{Aufgabentyp:} Vergleich von zwei Messungen an denselben Objekten
+
+\begin{description}
+  \item[Voraussetzung:] Normalverteilte Differenzen
+  \item[Hypothesen:] Test auf mittlere Differenz $\mu_D = 0$
+  \item[Testgröße:] $t = \frac{\overline{d}}{s_D / \sqrt{n}} \sim t(n-1)$
+    \begin{itemize}
+      \item $d_i = x_{1i} - x_{2i}$ (Differenz zwischen den Messungen)
+      \item $\overline{d}$ = mittlere Differenz
+      \item $s_D$ = Standardabweichung der Differenzen
+    \end{itemize}
+  \item[Beispiel:] Humeruslänge rechts vs. links bei denselben Individuen
+    \begin{itemize}
+      \item $\overline{d} = 3.75$ mm, $s_D = 4.05$ mm, $n = 16$
+      \item $t = \frac{3.75}{4.05/4} = 3.70$, zweiseitig mit $\alpha = 0.05$
+      \item $|t| > t_{0.975}(15) = 2.131$: $H_0$ ablehnen (Unterschied signifikant)
+    \end{itemize}
+\end{description}
+
+\subsection{Variation H: Zweistichproben-Gaußtest}
+
+\textbf{Aufgabentyp:} Vergleich von Anteilen bei großen Stichproben
+
+\begin{description}
+  \item[Voraussetzung:] $n_1, n_2 > 30$, beide Stichproben dichotom oder beliebig verteilt
+  \item[Hypothesen:] Test auf Gleichheit von $p_1$ und $p_2$
+  \item[Testgröße:] $z = \frac{\hat{p}_1 - \hat{p}_2}{\sqrt{\hat{p}(1-\hat{p})(1/n_1 + 1/n_2)}}$
+    \begin{itemize}
+      \item $\hat{p} = \frac{m_1 + m_2}{n_1 + n_2}$ (gepoolter Anteil)
+    \end{itemize}
+\end{description}
+
+\subsection{Variation I: Kontingenztest (Chi-Quadrat für Unabhängigkeit)}
+
+\textbf{Aufgabentyp:} Test auf Abhängigkeit zweier kategorialer Variablen
+
+\begin{description}
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item $H_0$: Die beiden Variablen sind unabhängig
+      \item $H_1$: Die beiden Variablen sind abhängig
+    \end{itemize}
+  \item[Kontingenztest-Tabelle:] 2x2 oder größer
+  \item[Testgröße:] $\chi^2 = \sum \frac{(h_{ij} - e_{ij})^2}{e_{ij}} \sim \chi^2((r-1)(c-1))$
+    \begin{itemize}
+      \item $h_{ij}$ = beobachtete Häufigkeit in Zelle $(i,j)$
+      \item $e_{ij} = \frac{\text{Zeilensumme} \times \text{Spaltensumme}}{\text{Gesamtsumme}}$ (erwartete Häufigkeit)
+      \item $r$ = Anzahl Zeilen, $c$ = Anzahl Spalten
+      \item Freiheitsgrade: $(r-1)(c-1)$
+    \end{itemize}
+  \item[Beispiel:] Analysis und Statistik-Bestanden
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{l|cc|c}
+        & Analysis ja & Analysis nein & Total \\
+        \hline
+        Statistik ja & 121 & 19 & 140 \\
+        Statistik nein & 14 & 46 & 60 \\
+        \hline
+        Total & 135 & 65 & 200
+      \end{tabular}
+    \end{table}
+    \begin{itemize}
+      \item $e_{11} = \frac{140 \times 135}{200} = 94.5$
+      \item $\chi^2 = \sum \frac{(h_{ij} - e_{ij})^2}{e_{ij}} = 76.22$
+      \item $\chi^2_{0.95}(1) = 3.841$, da $\chi^2 > 3.841$: $H_0$ ablehnen (abhängig)
+    \end{itemize}
+\end{description}
+
+\subsection{Variation J: Korrelationstest}
+
+\textbf{Aufgabentyp:} Test auf Signifikanz einer Korrelation
+
+\begin{description}
+  \item[Hypothesen:] 
+    \begin{itemize}
+      \item $H_0: \rho = 0$ (keine Korrelation)
+      \item $H_1: \rho \neq 0$ (Korrelation vorhanden)
+    \end{itemize}
+  \item[Voraussetzung:] Bivariate Normalverteilung
+  \item[Testgröße:] $t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} \sim t(n-2)$
+    \begin{itemize}
+      \item $r$ = Stichproben-Korrelationskoeffizient
+      \item $n$ = Stichprobengröße
+    \end{itemize}
+  \item[Stichproben-Korrelationskoeffizient:] $r = \frac{\sum (x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum(x_i - \overline{x})^2 \sum(y_i - \overline{y})^2}}$
+  \item[Beispiel:] Kaufkraft vs. Bevölkerungsdichte, $r = -0.742$, $n = 25$, $\alpha = 0.01$
+    \begin{itemize}
+      \item $t = \frac{-0.742 \sqrt{23}}{\sqrt{1 - 0.549}} = -5.308$
+      \item $t_{0.995}(23) = 2.807$ (zweiseitig), da $|t| = 5.308 > 2.807$: $H_0$ ablehnen
+      \item Signifikante negative Korrelation
+    \end{itemize}
 \end{description}
 
 \newpage
 
 \appendix
+
+\section{Fehler 1. und 2. Art}
+
+\textbf{Zwei mögliche Fehler bei Hypothesentests:}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{l|cc}
+    & $H_0$ ist wahr & $H_0$ ist falsch \\
+    \hline
+    $H_0$ ablehnen & \textbf{Fehler 1. Art} & Richtige Entscheidung \\
+    & Wahrscheinlichkeit: $\alpha$ & (Power: $1 - \beta$) \\
+    \hline
+    $H_0$ nicht ablehnen & Richtige Entscheidung & \textbf{Fehler 2. Art} \\
+    & (Konfidenz: $1 - \alpha$) & Wahrscheinlichkeit: $\beta$ \\
+  \end{tabular}
+\end{table}
+
+\begin{description}
+  \item[Fehler 1. Art ($\alpha$):] Ablehnung von $H_0$, obwohl $H_0$ wahr ist
+    \begin{itemize}
+      \item Signifikanzniveau $\alpha$ kontrolliert diese Fehlerwahrscheinlichkeit
+      \item Typische Werte: $\alpha = 0.01, 0.05, 0.10$
+      \item Beispiel: Kunde wechselt zum Wochenmarkt, obwohl Supermarkt billiger ist
+    \end{itemize}
+  \item[Fehler 2. Art ($\beta$):] Nicht-Ablehnung von $H_0$, obwohl $H_0$ falsch ist
+    \begin{itemize}
+      \item Power des Tests: $1 - \beta$ (Wahrscheinlichkeit, $H_0$ korrekt abzulehnen)
+      \item Schwerer zu kontrollieren, abhängig von Stichprobengröße und Effektgröße
+      \item Beispiel: Kunde bleibt im Supermarkt, obwohl Wochenmarkt billiger ist
+    \end{itemize}
+\end{description}
 
 \section{Wichtige Formeln}
 
@@ -518,6 +839,7 @@
 \begin{itemize}
   \item Dichtefunktion: $\phi(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$
   \item Verteilungsfunktion: $\Phi(z) = P(Z \leq z)$
+  \item Standardisierung: $Z = \frac{X - \mu}{\sigma}$
 \end{itemize}
 
 \subsection{Stichprobenverteilungen}
@@ -526,6 +848,99 @@
   \item Erwartungswert des Stichprobenmittels: $E(\overline{X}) = \mu$
   \item Varianz des Stichprobenmittels: $\text{Var}(\overline{X}) = \frac{\sigma^2}{n}$
   \item Standardfehler: $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$
+  \item Stichprobenvarianz: $s^2 = \frac{1}{n-1} \left(\sum x_i^2 - \frac{(\sum x_i)^2}{n}\right)$
 \end{itemize}
+
+\subsection{Konfidenzintervalle - Zusammenfassung}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Parameter} & \textbf{Bedingung} & \textbf{Konfidenzintervall} \\
+    \midrule
+    Mittelwert $\mu$ & $\sigma$ bekannt & $\overline{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$ \\
+    Mittelwert $\mu$ & $\sigma$ unbekannt, $n < 30$ & $\overline{x} \pm t_{\alpha/2, n-1} \frac{s}{\sqrt{n}}$ \\
+    Anteil $p$ & $n > 30$, $5 \leq m \leq n-5$ & $\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Signifikanztests - Testgrößen}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    \textbf{Test} & \textbf{Bedingung} & \textbf{Testgröße} \\
+    \midrule
+    Gaußtest & $\sigma$ bekannt & $z = \frac{\overline{x} - \mu_0}{\sigma/\sqrt{n}}$ \\
+    t-Test & $\sigma$ unbekannt, $n < 30$ & $t = \frac{\overline{x} - \mu_0}{s/\sqrt{n}}$ \\
+    Approx. Gaußtest & Anteil, $n > 30$ & $z = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)}} \sqrt{n}$ \\
+    $\chi^2$-Test & Goodness of Fit & $\chi^2 = \sum \frac{(h_i - np_i)^2}{np_i}$ \\
+    Zweistichproben-t & Vergleich $\mu_1$ vs. $\mu_2$ & $t = \frac{\overline{x}_1 - \overline{x}_2}{s_p\sqrt{1/n_1 + 1/n_2}}$ \\
+    Korrelation & $\rho$ testen & $t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Wichtige Kritische Werte}
+
+\subsection{Standardnormalverteilung $N(0,1)$}
+
+\begin{itemize}
+  \item $z_{0.90} = 1.282$
+  \item $z_{0.95} = 1.645$
+  \item $z_{0.975} = 1.96$
+  \item $z_{0.995} = 2.576$
+\end{itemize}
+
+\subsection{Chi-Quadrat-Verteilung}
+
+\begin{itemize}
+  \item Häufige Werte bei verschiedenen Freiheitsgraden
+  \item $\chi^2_{0.95}(5) = 11.07$ (Würfel-Test Beispiel)
+  \item $\chi^2_{0.95}(1) = 3.841$ (2x2-Kontingenztabelle)
+\end{itemize}
+
+\section{Entscheidungshilfen}
+
+\subsection{Auswahl des richtigen Tests}
+
+\begin{itemize}
+  \item \textbf{Normalverteilung check:} Shapiro-Wilk Test oder Q-Q-Plot
+  \item \textbf{Varianzgleichheit check:} F-Test oder Levene-Test
+  \item \textbf{Abhängigkeit check:} Sind Messungen verbunden oder unabhängig?
+  \item \textbf{Stichprobengröße:} Unterscheid zwischen $n < 30$ und $n > 30$
+\end{itemize}
+
+\subsection{Interpretation p-Wert}
+
+\begin{description}
+  \item[p-Wert:] Wahrscheinlichkeit, eine so extreme Testgröße zu beobachten, wenn $H_0$ wahr ist
+  \item[Entscheidung:] 
+    \begin{itemize}
+      \item Wenn p-Wert $< \alpha$: $H_0$ ablehnen (signifikantes Ergebnis)
+      \item Wenn p-Wert $\geq \alpha$: $H_0$ nicht ablehnen (nicht signifikant)
+    \end{itemize}
+  \item[Beispiel:] p-Wert = 0.0075 < 0.05 $\Rightarrow$ signifikant auf 5\% Niveau
+\end{description}
+
+\section{Wichtige Tabellen}
+
+\subsection{Standardnormalverteilungs-Tabelle (Auszug)}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccccc}
+    $z$ & $\Phi(z)$ & & $z$ & $\Phi(z)$ \\
+    \hline
+    0.0 & 0.5000 & & 1.6 & 0.9452 \\
+    0.5 & 0.6915 & & 1.96 & 0.975 \\
+    1.0 & 0.8413 & & 2.0 & 0.9772 \\
+    1.28 & 0.8997 & & 2.576 & 0.995 \\
+    1.645 & 0.95 & & 3.0 & 0.9987
+  \end{tabular}
+\end{table}
 
 \end{document}
