@@ -3,7 +3,8 @@
 \newcommand{\docTitle}{Datenbanken}
 
 \input{../preamble.tex}
-\lstset{style=sqlstyle}
+\usepackage[utf8]{inputenc}
+\lstset{style=sqlstyle, extendedchars=true, inputencoding=utf8}
 
 \title{\docTitle}
 \author{Moritz}
@@ -328,12 +329,12 @@ having Gehalt > 50000
     \newpage
     \item Wie arbeitet das DBMS ein SELECT ab (Reihenfolge)?
 \begin{lstlisting}
-SELECT …
-from …
-Where …
-Group By …
-Having …
-Order By …
+SELECT ...
+from ...
+Where ...
+Group By ...
+Having ...
+Order By ...
 \end{lstlisting}
     
     Reihenfolge von \lstinline|SELECT|:
@@ -376,7 +377,7 @@ Order By …
     \item Wozu dient eine View (Sicht)?
     
     Views helfen um Anfragen an das DBMS zu kürzen. Zudem können so dem externen Nutzer nur bestimmte Sichten gezeigt werden (ergänzend zu den Rechten) Große Unabhängigkeit zwischen den drei Schichten (intern, extern, physikalisch)
-    \item Was macht das DBMS intern wenn wir eine View mit \lstinline|CREATE VIEW…| anlegen?
+    \item Was macht das DBMS intern wenn wir eine View mit \lstinline|CREATE VIEW ...| anlegen?
     
     Ein \lstinline|CREATE VIEW| macht intern ein SELECT mit ausgerollten Attributen.
 \end{enumerate}
@@ -405,6 +406,173 @@ Order By …
 \newpage
 \section*{Generierte Klausurfragen}
 
+\subsection*{Zusätzliche Grundlagen-Aufgaben (Probeklausur-Stil)}
 
+Diese Aufgaben folgen dem Muster von Aufgabenteil 1 der Probeklausur und sind kürzere Verständnis- und 
+Erklärfragen zu konzeptionellen Themen der Datenbanken.
+
+\begin{enumerate}
+    \item \textbf{DBMS-Architektur}: Erläutern Sie, weshalb eine 3-Ebenen-Architektur bei modernen 
+    Datenbanksystemen vorteilhaft ist. Welche Probleme können entstehen, wenn diese Architektur nicht beachtet wird?
+    
+    Die 3-Ebenen-Architektur ermöglicht Unabhängigkeit zwischen den Ebenen (Datenunabhängigkeit). 
+    Ohne diese Trennung:
+    \begin{itemize}
+        \item Änderungen auf der physikalischen Ebene beeinflussen die Anwendungen
+        \item Neue Benutzergruppen mit anderen Anforderungen erfordern Änderungen an allen Ebenen
+        \item Wartung und Wartbarkeit werden erheblich schwieriger
+        \item Redundanz und Inkonsistenzen entstehen leichter
+    \end{itemize}
+    
+    \item \textbf{Datenmodelle}: Vergleichen Sie die Vor- und Nachteile des hierarchischen, des Netzwerk- 
+    und des relationalen Datenmodells. Warum setzte sich das relationale Modell durch?
+    
+    \begin{tabular}{|l|l|l|}
+    \hline
+    & \textbf{Hierarchisch} & \textbf{Netzwerk} \\
+    \hline
+    \textbf{Vorteil} & Einfach, intuitive Baumstruktur & Komplexere Beziehungen möglich \\
+    \textbf{Nachteil} & Nur 1:n, m:n schlecht & Komplex zu verstehen, schwer zu warten \\
+    \hline
+    \end{tabular}
+    
+    Das relationale Modell setzte sich durch wegen:
+    \begin{itemize}
+        \item Mathematische Grundlage (stabil und beweisbar)
+        \item Einfache, intuitive Darstellung (Tabellen)
+        \item Flexible Abfragen ohne Navigation (SQL)
+        \item Bessere Normalformen und Integrität
+    \end{itemize}
+    
+    \item \textbf{Codd'sche Regeln}: Erklären Sie in eigenen Worten die Bedeutung von Codd's Regel 
+    Nr. 3 (``Systematic Treatment of Nulls''). Warum ist dies für ein DBMS wichtig?
+    
+    Diese Regel besagt, dass unbekannte oder fehlende Werte (NULL-Werte) einheitlich und konsistent 
+    behandelt werden müssen. Dies ist wichtig, da:
+    \begin{itemize}
+        \item Verschiedene Programmiersprachen sonst unterschiedlich mit NULL umgehen würden
+        \item Abfrageergebnisse dann inkonsistent wären
+        \item Geschäftsregeln nicht zuverlässig implementiert werden könnten
+    \end{itemize}
+    
+    \newpage
+    \item \textbf{Konzeptioneller Entwurf}: Ein Kunde möchte ein Lagerverwaltungssystem aufbauen. 
+    Auf der konzeptionellen Ebene müssen welche Fragen beantwortet werden?
+    
+    \begin{itemize}
+        \item Welche Entities gibt es? (Lagerbestand, Artikel, Lieferant, Lagerort, ...)
+        \item Welche Attribute hat jedes Entity?
+        \item Welche Beziehungen gibt es zwischen den Entities?
+        \item Welche Kardinalitäten gelten?
+        \item Welche Geschäftsregeln müssen beachtet werden?
+        \item Welche Integritätsbedingungen sind notwendig?
+    \end{itemize}
+    
+    \item \textbf{Entity-Relationship-Modell}: Was ist der Unterschied zwischen einer 
+    \textbf{Entität} und einem \textbf{Entitäts-Typ}?
+    
+    \begin{itemize}
+        \item \textbf{Entitäts-Typ}: Das abstrahierte Konzept (z.B. "Kunde")
+        \item \textbf{Entität}: Eine konkrete Ausprägung (z.B. "Kunde mit KundenNr 12345, Name 'Müller'")
+        \item Analog: Entitäts-Typ ist wie eine Klasse in OOP, Entität ist eine Instanz
+    \end{itemize}
+    
+    \item \textbf{Primärschlüssel}: Erklären Sie, warum es oft sinnvoll ist, einen künstlichen 
+    Primärschlüssel (z.B. eine automatisch generierte ID) statt eines natürlichen Schlüssels zu verwenden.
+    
+    Gründe für künstliche Schlüssel:
+    \begin{itemize}
+        \item Natürliche Schlüssel können sich ändern (z.B. Email-Adresse)
+        \item Performance: Numerische IDs sind schneller als Strings
+        \item Stabilität: Unabhängig von Geschäftslogik-Änderungen
+        \item Eindeutigkeit garantiert: Wird vom System generiert
+        \item Einfacher für Foreign Keys
+    \end{itemize}
+    
+    \item \textbf{Kardinalitäten}: Was bedeutet es, wenn Sie in einem ERM eine 1:n-Beziehung 
+    zwischen "Kunde" und "Auftrag" mit chen-Notation (0,n) beim Auftrag angeben?
+    
+    Dies bedeutet:
+    \begin{itemize}
+        \item Ein Kunde kann 0 bis n Aufträge haben (auch kein Auftrag ist möglich)
+        \item Die Beziehung ist optional auf der Auftrag-Seite
+        \item Im relationalen Modell erhält die Auftrag-Tabelle ein Foreign Key auf Kunde, 
+        das NULL sein darf
+    \end{itemize}
+    
+    \newpage
+    \item \textbf{Schwache Entitäten}: Geben Sie ein Beispiel für eine schwache Entität und erklären 
+    Sie, warum diese nicht unabhängig existieren kann.
+    
+    Beispiel: Rechnungspositionen (gehört zu Rechnung)
+    \begin{itemize}
+        \item Schwache Entität: RechnungsPosition
+        \item Besitzer-Entität: Rechnung
+        \item Eine RechnungsPosition kann nicht ohne Rechnung existieren
+        \item Primärschlüssel der schwachen Entität setzt sich zusammen aus:
+        \begin{itemize}
+            \item Foreign Key der Besitzer-Entität (RechnungsNr)
+            \item Teilschlüssel der schwachen Entität (PositionsNr)
+            \item Zusammen: (RechnungsNr, PositionsNr)
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Normalisierung Zweck}: Was ist das Ziel von Normalisierung und welche Probleme 
+    treten ohne Normalisierung auf?
+    
+    Ziel: Einen optimalen Datenbankaufbau zu erreichen
+    
+    Probleme ohne Normalisierung (Anomalien):
+    \begin{itemize}
+        \item \textbf{Einfügeanomalie}: Daten können nicht einfügt werden, wenn nicht alle 
+        abhängigen Attribute vorhanden sind
+        \item \textbf{Löschanomalie}: Das Löschen eines Datensatzes führt zum Verlust anderer Informationen
+        \item \textbf{Änderungsanomalie}: Änderung eines Wertes muss an mehreren Stellen vorgenommen 
+        werden, führt zu Inkonsistenzen
+    \end{itemize}
+    
+    \item \textbf{Funktionale Abhängigkeit}: Was bedeutet die funktionale Abhängigkeit $X \to Y$ 
+    in einer Relation?
+    
+    Dies bedeutet: Wenn zwei Tupel den gleichen Wert in den Attributen $X$ haben, dann müssen sie 
+    auch den gleichen Wert in den Attributen $Y$ haben.
+    
+    Beispiel: StudentenNr $\to$ Name, Adresse
+    (Die StudentenNr bestimmt eindeutig den Namen und die Adresse)
+    
+    \item \textbf{Schlüsselkandidat}: Unterscheiden Sie zwischen Schlüsselkandidat, Primärschlüssel 
+    und Fremdschlüssel.
+    
+    \begin{description}
+        \item[Schlüsselkandidat] Minimal eindeutiger Identifikator (mehrere möglich)
+        \item[Primärschlüssel] Der gewählte Schlüsselkandidat (einer pro Tabelle)
+        \item[Fremdschlüssel] Verweis auf Primärschlüssel einer anderen Tabelle
+    \end{description}
+    
+    \newpage
+    \item \textbf{Relationale Algebra}: Erklären Sie kurz die Selektion ($\sigma$) und Projektion ($\pi$) 
+    und geben Sie ein Beispiel für jede.
+    
+    \begin{itemize}
+        \item \textbf{Selektion ($\sigma$)}: Filtert Zeilen (Tupel) nach Bedingung
+        \begin{lstlisting}
+$\sigma$(Gehalt > 50000)(Mitarbeiter)  $\to$ nur Mitarbeiter mit Gehalt > 50000
+        \end{lstlisting}
+        
+        \item \textbf{Projektion ($\pi$)}: Wählt Spalten (Attribute) aus
+        \begin{lstlisting}
+$\pi$(Name, Gehalt)(Mitarbeiter)  $\to$ nur Name und Gehalt spalten
+        \end{lstlisting}
+    \end{itemize}
+    
+    \item \textbf{SQL vs. Relationale Algebra}: SQL ist eine deklarative Sprache, während die 
+    Relationale Algebra eine formale Notation ist. Erklären Sie den Unterschied.
+    
+    \begin{itemize}
+        \item \textbf{SQL}: "WAS soll ich abfragen?" (Deklarativ) - Es ist einfacher verständlich
+        \item \textbf{Relationale Algebra}: "WIE soll ich es machen?" (Prozedural) - Explizite Operationen
+        \item Der Query Optimizer übersetzt SQL intern in eine effiziente Reihenfolge von RA-Operationen
+    \end{itemize}
+\end{enumerate}
 
 \end{document}

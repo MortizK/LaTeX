@@ -1,0 +1,461 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Datenbanken - Aufgabentypen}
+
+\input{../preamble.tex}
+\usepackage[utf8]{inputenc}
+\lstset{style=sqlstyle, extendedchars=true, inputencoding=utf8}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Aufgabentypen in Datenbanken I}
+
+Dieses Dokument behandelt die verschiedenen Aufgabentypen, die in der Vorlesung Datenbanken I vorkommen.
+Die Aufgabentypen sind in vier Kategorien unterteilt:
+
+\begin{enumerate}
+    \item \textbf{Aufgabenteil 1 - Grundlagen}: Konzeptionelle Fragen (siehe \texttt{fragenkatalog\_komplett.tex})
+    \item \textbf{Aufgabenteil 2 - ERM-Modellierung}: Entity-Relationship-Modellierung basierend auf Szenarien
+    \item \textbf{Aufgabenteil 3 - Relationale Algebra}: Umwandlung von Abfragen in RA und SQL
+    \item \textbf{Aufgabenteil 4 - Normalisierung}: Analyse und Zerlegung von Relationen
+\end{enumerate}
+
+\newpage
+
+\section{Aufgabenteil 2 - ERM-Modellierung}
+
+\subsection{Aufgabenszenario aus Probeklausur}
+
+\textbf{Szenario}: Eine Firma verkauft PCs, deren Komponenten die Kunden selbst zusammenstellen können. 
+Ein Kunde erteilt der Firma online einen Auftrag mit verschiedenen Komponenten für seinen individuellen PC. 
+Die Bearbeitung des Auftrags erfolgt durch einen Disponenten. 
+Die Komponenten werden von verschiedenen Herstellern zu unterschiedlichen Preisen bezogen.
+
+\subsection{Aufgabenstellung}
+
+Modellieren Sie das ER-Modell und legen Sie dazu eigene Attribute und den Primärschlüssel für die 
+Entitäts-Typen fest. Es sollen auch existenzabhängige Entitäten modelliert werden. 
+Modellieren Sie die Kardinalitäten in der Chen-Notation.
+
+\subsection{Vorgehen bei ERM-Aufgaben}
+
+\begin{enumerate}
+    \item \textbf{Szenario analysieren}: Identifizieren Sie alle Entities (Personen, Objekte, Konzepte)
+    \begin{itemize}
+        \item Kunde (erteilt Aufträge)
+        \item Auftrag (wird von Kunde erteilt, enthält Artikel)
+        \item Artikel/Komponente (gehört zu Auftrag, wird von Hersteller bezogen)
+        \item Hersteller (liefert Komponenten)
+        \item Disponent (bearbeitet Aufträge)
+    \end{itemize}
+    
+    \item \textbf{Beziehungen definieren}: Welche Relationen gibt es zwischen den Entities?
+    \begin{itemize}
+        \item Kunde erteilt Auftrag (1:n - ein Kunde kann mehrere Aufträge erteilen)
+        \item Auftrag enthält Artikel (m:n - ein Auftrag kann mehrere Artikel enthalten, ein Artikel kann in mehreren Aufträgen vorkommen)
+        \item Disponent bearbeitet Auftrag (1:n - ein Disponent kann mehrere Aufträge bearbeiten)
+        \item Hersteller liefert Artikel (1:n oder m:n)
+    \end{itemize}
+    
+    \item \textbf{Attribute festlegen}: Für jedes Entity bestimmen Sie aussagekräftige Attribute
+    \begin{itemize}
+        \item Kunde: KundenNr, Name, Adresse, Telefon, E-Mail
+        \item Auftrag: AuftragsNr, Datum, Status
+        \item Artikel: ArtikelNr, Bezeichnung, Beschreibung, VK-Preis
+        \item Hersteller: HerstellerNr, HerstellerName
+        \item Disponent: DisponentNr, Name
+    \end{itemize}
+    
+    \item \textbf{Primärschlüssel wählen}: Eindeutige Identifikatoren
+    \begin{itemize}
+        \item Kunde: KundenNr (oder KundenEmail)
+        \item Auftrag: AuftragsNr
+        \item Artikel: ArtikelNr
+        \item Hersteller: HerstellerNr
+        \item Disponent: DisponentNr
+    \end{itemize}
+    
+    \item \textbf{Kardinalitäten notieren}: In Chen-Notation (min,max) oder Crow's Foot
+    \begin{itemize}
+        \item Kunde (1,1) --- (0,n) Auftrag
+        \item Auftrag (1,1) --- (0,n) Artikel (über m:n Relation ``enthält'')
+        \item Disponent (1,1) --- (0,n) Auftrag
+        \item Hersteller (1,1) --- (0,n) Artikel
+    \end{itemize}
+    
+    \item \textbf{Existenzabhängigkeiten identifizieren}: Schwache Entitäten, die nur im Kontext eines 
+    Besitzers existieren
+    \begin{itemize}
+        \item Beispiel: Auftragsposition könnte existenzabhängig von Auftrag sein (AuftragsNr + PositionsNr = PK)
+    \end{itemize}
+    
+    \item \textbf{Diagram zeichnen}: Erstellen Sie das ER-Modell mit Chen-Notation oder UML
+\end{enumerate}
+
+\subsection{Lösungsansatz}
+
+\subsubsection{Identifizierte Entities}
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Entity} & \textbf{Primärschlüssel} & \textbf{Wichtige Attribute} \\
+\hline
+Kunde & KundenNr & Name, Adresse, Telefon \\
+Auftrag & AuftragsNr & Datum, Status, KundenNr (FK), DisponentNr (FK) \\
+Artikel & ArtikelNr & Bezeichnung, VK-Preis \\
+Hersteller & HerstellerNr & Name, Adresse \\
+Disponent & DisponentNr & Name, Telefon \\
+\hline
+\end{tabular}
+
+\subsubsection{Beziehungen in Chen-Notation}
+
+\begin{itemize}
+    \item \lstinline|Kunde (1,n) ---[erteilt]--- (1,1) Auftrag|
+    \item \lstinline|Auftrag (1,n) ---[enthaelt]--- (m,n) Artikel|
+    \item \lstinline|Disponent (1,n) ---[bearbeitet]--- (1,1) Auftrag|
+    \item \lstinline|Hersteller (1,n) ---[liefert]--- (1,1) Artikel|
+\end{itemize}
+
+\textbf{Hinweis}: Existenzabhängige Entität möglich: ``AuftragsPosition'' (schwach) - 
+existiert nur im Kontext eines Auftrags.
+
+\newpage
+
+\section{Aufgabenteil 3 - Relationale Algebra}
+
+\subsection{Aufgabenszenario}
+
+Gegeben sind folgende relationale Schemata:
+
+\begin{lstlisting}
+Kunde       : {[ KundenNr, Name, ... ]}
+Auftrag     : {[ AuftragsNr, erteilt_von, Datum, ... ]}
+Artikel     : {[ ArtikelNr, Bezeichnung, VK-Preis, ... ]}
+gehoert_zu  : {[ ArtikelNr, AuftragsNr ]}
+\end{lstlisting}
+
+\subsection{Aufgabenstellung}
+
+Formulieren Sie folgende Abfragen:
+
+\begin{enumerate}
+    \item a) Welche Artikel hat der Kunde ``Maier'' bisher bestellt (mit Artikel-Bezeichnung)?
+    \item b) Erstellen Sie das zugehörige SQL-Statement (ohne Join).
+\end{enumerate}
+
+\subsection{Vorgehen bei Relationalen Algebra-Aufgaben}
+
+\subsubsection{Schritt 1: Abfrage verstehen}
+
+Was wird gesucht?
+\begin{itemize}
+    \item \textbf{Gesucht}: Artikelbezeichnungen
+    \item \textbf{Bedingungen}: 
+    \begin{enumerate}
+        \item Kunde mit Name = ``Maier''
+        \item Diese Artikel wurden vom Kunden bestellt (in Aufträgen enthalten)
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Schritt 2: Entities und Beziehungen identifizieren}
+
+Welche Tabellen/Relations sind beteiligt?
+\begin{itemize}
+    \item Kunde (suchen nach Name)
+    \item Auftrag (enthalten die Bestellungen des Kunden)
+    \item gehoert\_zu (Verknüpfung Auftrag zu Artikel)
+    \item Artikel (um die Bezeichnung zu erhalten)
+\end{itemize}
+
+\subsubsection{Schritt 3: Logische Schritte}
+
+\begin{enumerate}
+    \item Kunde ``Maier'' finden
+    \item Seine Aufträge finden (über FK erteilt\_von)
+    \item Artikel aus diesen Aufträgen finden (über gehoert\_zu)
+    \item Artikelbezeichnung projektieren
+\end{enumerate}
+
+\subsection{Lösung - Relationale Algebra}
+
+\subsubsection{Lösung a) - Relationale Algebra (mit Kreuzprodukt)}
+
+\begin{lstlisting}
+// Schritt 1: Finde Kunde "Maier"
+K := σ(Name = "Maier")(Kunde)
+
+// Schritt 2: Finde Auftraege dieses Kunden
+K_Auftraege := σ(erteilt_von = K.KundenNr)(
+    K × Auftrag
+)
+
+// Schritt 3: Finde Artikel in diesen Auftraegen
+K_Artikel := σ(AuftragsNr = K_Auftraege.AuftragsNr)(
+    K_Auftraege × gehoert_zu
+)
+
+// Schritt 4: Verbinde mit Artikel-Tabelle
+K_Artikel_Bez := σ(ArtikelNr = Artikel.ArtikelNr)(
+    K_Artikel × Artikel
+)
+
+// Schritt 5: Projektiere nur Bezeichnung
+ERGEBNIS := π(Bezeichnung)(K_Artikel_Bez)
+\end{lstlisting}
+
+\textbf{Alternative - kompakt geschrieben:}
+
+\begin{lstlisting}
+π(Bezeichnung)(
+    σ(Name = "Maier" AND 
+      Kunde.KundenNr = Auftrag.erteilt_von AND
+      Auftrag.AuftragsNr = gehoert_zu.AuftragsNr AND
+      gehoert_zu.ArtikelNr = Artikel.ArtikelNr
+    )(Kunde × Auftrag × gehoert_zu × Artikel)
+)
+\end{lstlisting}
+
+\subsubsection{Lösung b) - SQL-Statement (ohne JOIN-Syntax)}
+
+\begin{lstlisting}[language=sql]
+SELECT DISTINCT a.Bezeichnung
+FROM Kunde k, Auftrag au, gehoert_zu gz, Artikel a
+WHERE k.Name = 'Maier'
+  AND k.KundenNr = au.erteilt_von
+  AND au.AuftragsNr = gz.AuftragsNr
+  AND gz.ArtikelNr = a.ArtikelNr;
+\end{lstlisting}
+
+\textbf{Alternativ mit JOIN (zum Vergleich):}
+
+\begin{lstlisting}[language=sql]
+SELECT DISTINCT a.Bezeichnung
+FROM Kunde k
+INNER JOIN Auftrag au ON k.KundenNr = au.erteilt_von
+INNER JOIN gehoert_zu gz ON au.AuftragsNr = gz.AuftragsNr
+INNER JOIN Artikel a ON gz.ArtikelNr = a.ArtikelNr
+WHERE k.Name = 'Maier';
+\end{lstlisting}
+
+\subsection{Wichtige Operatoren der Relationalen Algebra}
+
+\begin{description}
+    \item[Selektion ($\sigma$)]: Wählt Tupel (Zeilen) nach Bedingung aus
+    \begin{lstlisting}
+σ(Bedingung)(Relation)
+Beispiel: σ(Name = "Maier")(Kunde)
+    \end{lstlisting}
+    
+    \item[Projektion ($\pi$)]: Wählt Attribute (Spalten) aus
+    \begin{lstlisting}
+π(Attr1, Attr2, ...)(Relation)
+Beispiel: π(Name, Adresse)(Kunde)
+    \end{lstlisting}
+    
+    \item[Kreuzprodukt ($\times$)]: Kombiniert alle Tupel zweier Relationen
+    \begin{lstlisting}
+R1 × R2
+Beispiel: Kunde × Auftrag (erzeugt |Kunde| × |Auftrag| Tupel)
+    \end{lstlisting}
+    
+    \item[Join ($\bowtie$)]: Kombination von Kreuzprodukt und Selektion
+    \begin{lstlisting}
+R1 ⋈(Bedingung) R2 = σ(Bedingung)(R1 × R2)
+    \end{lstlisting}
+    
+    \item[Vereinigung ($\cup$)]: Kombiniert Tupel zweier Relationen (ohne Duplikate)
+    \item[Differenz ($-$)]: Tupel der ersten Relation, die nicht in zweiter enthalten sind
+    \item[Durchschnitt ($\cap$)]: Tupel, die in beiden Relationen enthalten sind
+\end{description}
+
+\newpage
+
+\section{Aufgabenteil 4 - Normalisierung}
+
+\subsection{Aufgabenszenario}
+
+\textbf{Gegeben}: Relationsschema mit funktionalen Abhängigkeiten
+
+\begin{lstlisting}
+Relation [R] mit Attributen: a, b, c, d, e, f
+
+Funktionale Abhaengigkeiten:
+  a -> b, c
+  d -> e
+  a, f -> e
+\end{lstlisting}
+
+\subsection{Aufgabenstellung}
+
+\begin{enumerate}
+    \item a) Welches sind der oder die Schlüsselkandidaten?
+    \item b) In welcher Normalform befindet sich die Relation (mit Begründung)?
+    \item c) Zerlege die Ursprungsrelation und begründe die Zerlegung.
+    \item d) Prüfe, ob die Zerlegung verlustlos und abhängigkeitsbewahrend ist.
+\end{enumerate}
+
+\subsection{Vorgehen bei Normalisierungs-Aufgaben}
+
+\subsubsection{Schritt 1: Schlüsselkandidaten bestimmen}
+
+Ein Schlüsselkandidat ist eine minimale Attributmenge, die alle anderen Attribute funktional bestimmt.
+
+\begin{enumerate}
+    \item \textbf{Linke Seite der FA analysieren}: Welche Attribute bestimmen andere?
+    \begin{itemize}
+        \item $a \to b, c$: Das Attribut $a$ bestimmt $b$ und $c$
+        \item $d \to e$: Das Attribut $d$ bestimmt $e$
+        \item $a, f \to e$: Die Attribute $a, f$ bestimmen $e$
+    \end{itemize}
+    
+    \item \textbf{Attribute klassifizieren}:
+    \begin{itemize}
+        \item \textbf{Auf linker Seite}: $a, d, f$ (bestimmen andere)
+        \item \textbf{Nur auf rechter Seite}: $b, c, e$ (werden bestimmt)
+    \end{itemize}
+    
+    \item \textbf{Kandidatenschlüssel suchen}: Menge von Attributen auf der linken Seite, 
+    die alle anderen funktional bestimmen
+    \begin{itemize}
+        \item Mit $\{a, d, f\}$:
+        \begin{itemize}
+            \item $a \to b, c$
+            \item $d \to e$
+            \item $a, f \to e$ (wird bereits durch $d$ bestimmt)
+            \item $\to$ $\{a, d, f\}$ bestimmt alle Attribute (OK)
+        \end{itemize}
+        
+        \item Ist es minimal? Können wir ein Attribut weglassen?
+        \begin{itemize}
+            \item Ohne $a$: $\{d, f\}$ kann $b, c$ nicht bestimmen (NEIN)
+            \item Ohne $d$: $\{a, f\}$ kann $e$ (via FA $d \to e$) nicht bestimmen (NEIN)
+            \item Ohne $f$: $\{a, d\}$ kann alle anderen bestimmen (ja, da $a \to b,c$ und $d \to e$) (OK)
+        \end{itemize}
+        
+        \item → \textbf{Kandidatenschlüssel}: $\{a, d\}$ oder $\{a, d, f\}$ (müssen überprüft werden)
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Schritt 2: Normalform bestimmen}
+
+\begin{description}
+    \item[1NF]: Alle Attribute sind atomar (keine Mengen in Feldern)
+    \item[2NF]: 1NF + Kein Nicht-Schlüssel-Attribut ist partiell abhängig von einem Kandidatenschlüssel
+    \begin{itemize}
+        \item Partielle Abhängigkeit: Ein Nicht-Schlüssel-Attribut hängt nur von \textit{Teil} des Kandidatenschlüssels ab
+    \end{itemize}
+    
+    \item[3NF]: 2NF + Kein Nicht-Schlüssel-Attribut ist transitiv abhängig von einem Kandidatenschlüssel
+    \begin{itemize}
+        \item Transitive Abhängigkeit: $X \to Y$ und $Y \to Z$ (wobei weder $X$ noch $Y$ ein Schlüssel)
+    \end{itemize}
+    
+    \item[BCNF]: Stärkere Form von 3NF - die linke Seite jeder FA muss ein Superschlüssel sein
+\end{description}
+
+\subsubsection{Analyse der Beispielrelation}
+
+Angenommen Kandidatenschlüssel = $\{a, d\}$:
+
+\begin{itemize}
+    \item \textbf{Primattribute}: $a, d$ (Teil des Kandidatenschlüssels)
+    \item \textbf{Nicht-Primattribute}: $b, c, e, f$
+    
+    \item \textbf{Überprüfung auf 2NF}: Gibt es partielle Abhängigkeiten?
+    \begin{itemize}
+        \item $a \to b, c$: $a$ ist Teil von $\{a, d\}$ und bestimmt $b, c$ 
+        $\to$ \textbf{PARTIELLE ABHÄNGIGKEIT} (NEIN) \textbf{Nicht in 2NF!}
+    \end{itemize}
+\end{itemize}
+
+\textbf{Ergebnis}: Die Relation ist \textbf{nicht in 2NF}.
+
+\subsubsection{Schritt 3: Zerlegung}
+
+Um 3NF/BCNF zu erreichen, zerlegen wir die Relation:
+
+\begin{lstlisting}
+Ursprungsrelation R: {a, b, c, d, e, f}
+mit FA: a → b, c; d → e; a, f → e
+
+Zerlegung:
+R1: {a, b, c}  mit FA: a -> b, c
+R2: {d, e}     mit FA: d -> e
+R3: {a, d, f}  (Schluessel, falls noetig)
+\end{lstlisting}
+
+\subsubsection{Schritt 4: Verlustlosigkeit und Abhängigkeitsbewahrung}
+
+\begin{description}
+    \item[Verlustlos]: Kann die ursprüngliche Relation durch Join der Zerlegungen wiederhergestellt werden?
+    \begin{itemize}
+        \item Bedingung: $(R1 \cap R2) \to R1$ oder $(R1 \cap R2) \to R2$
+        \item Wenn $R1 \cap R2 = \emptyset$ (kein gemeinsames Attribut), ist ein Join verlustlos, 
+        wenn ein gemeinsames Attribut existiert, das FK ist
+    \end{itemize}
+    
+    \item[Abhängigkeitsbewahrend]: Bleiben alle ursprünglichen FA in den zerlegten Relationen erhalten?
+    \begin{itemize}
+        \item Jede FA muss vollständig in mindestens einer Zerlegung enthalten sein
+    \end{itemize}
+\end{description}
+
+\subsection{Synthese-Algorithmus (BCNF)}
+
+Für komplexe Normalisierungsaufgaben:
+
+\begin{enumerate}
+    \item \textbf{Kanonische Überdeckung}: Vereinfache die Menge der FA
+    \item \textbf{Zerlegung}: Für jede FA $X \to A$ erstelle Relation $\{X \cup A\}$
+    \item \textbf{Vereinigung}: Falls Relationen Schüssel gemeinsam haben
+    \item \textbf{Prüfung}: Verlustlos und abhängigkeitsbewahrend?
+\end{enumerate}
+
+\newpage
+
+\section{Zusammenfassung der Aufgabentypen}
+
+\subsection{Typ 1: Grundlagen-Fragen (siehe fragenkatalog\_komplett.tex)}
+
+\begin{itemize}
+    \item Konzeptionelle Fragen zu Datenbankkonzepten
+    \item Definitionen und Erklärungen
+    \item Abfragen von theoretischem Wissen
+\end{itemize}
+
+\subsection{Typ 2: ERM-Modellierung}
+
+\begin{itemize}
+    \item Szenario analysieren
+    \item Entities, Attribute, Beziehungen identifizieren
+    \item ER-Diagram zeichnen (Chen-Notation oder UML)
+    \item Kardinalitäten dokumentieren
+\end{itemize}
+
+\subsection{Typ 3: Relationale Algebra}
+
+\begin{itemize}
+    \item Abfragen in formale Notation übersetzen
+    \item SQL-Statements schreiben (mit/ohne JOIN)
+    \item Operatoren verstehen: $\sigma$, $\pi$, $\times$, $\bowtie$, $\cup$, $-$, $\cap$
+\end{itemize}
+
+\subsection{Typ 4: Normalisierung}
+
+\begin{itemize}
+    \item Schlüsselkandidaten bestimmen
+    \item Normalform analysieren
+    \item Relationen zerlegen
+    \item Verlustlosigkeit und Abhängigkeitsbewahrung prüfen
+\end{itemize}
+
+\end{document}

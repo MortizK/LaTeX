@@ -137,7 +137,9 @@
     keepspaces=false,
     columns=flexible,
     upquote=true,
-    extendedchars=false % disable extended char handling to avoid UTF-8 conflicts
+    extendedchars=true, % enable extended char handling for UTF-8
+    inputencoding=utf8,
+    literate={…}{...}1 {→}{{$\to$}}1 {σ}{{$\sigma$}}1 {π}{{$\pi$}}1 {×}{{$\times$}}1 {∪}{{$\cup$}}1 {−}{{$-$}}1 {∩}{{$\cap$}}1 {⋈}{{$\bowtie$}}1 {ρ}{{$\rho$}}1
 }
 
 % SQL syntax highlighting
