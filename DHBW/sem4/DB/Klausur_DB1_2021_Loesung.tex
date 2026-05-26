@@ -1,0 +1,605 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usetikzlibrary{positioning}
+\geometry{margin=2cm}
+\setlength{\headheight}{14.49998pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Klausur Datenbanken I - Musterlösung}
+\lhead{DHBW TINF19E}
+\cfoot{\thepage}
+
+\title{\textbf{Klausur Datenbanken I - Musterlösung}}
+\author{Modul T2INF2004 \\[0.3cm] Dozent: Stark \\[0.3cm] Datum: 25.05.2021}
+\date{Bearbeitungszeit: 60 Minuten}
+
+\begin{document}
+
+\maketitle
+\vspace{1cm}
+
+\noindent
+\textbf{Gesamtpunkte:} 42 Punkte
+
+\vspace{1.5cm}
+
+\section*{Aufgabenteil 1 - Grundlagen (13 Punkte)}
+
+\subsection*{1. Hierarchisches vs. Netzwerkmodell}
+
+\textbf{Problem der hierarchischen Datenbank:}
+Das hierarchische Modell konnte nur 1:n-Beziehungen abbilden, nicht aber m:n-Beziehungen. Dies führte zu Redundanzen und Anomalien.
+
+\textbf{Lösung des Netzwerkmodells:}
+Das Netzwerkmodell ermöglichte m:n-Beziehungen und beseitigte damit die Redundanzen des hierarchischen Modells.
+
+\textbf{Warum hat es sich nicht durchgesetzt:}
+\begin{itemize}
+    \item Hohe Komplexität in der Anwendung und Navigation
+    \item Manuelle Navigation durch Zeiger und Verweise notwendig
+    \item Mangelnde Benutzerfreundlichkeit
+    \item Das relationale Modell bot eine einfachere, intuitivere Alternative mit SQL
+\end{itemize}
+
+\subsection*{2. Sequentielle Durchläufe im Datenbankentwurfsprozess}
+
+\textbf{Warum sequenziell:}
+\begin{itemize}
+    \item Jede Stufe baut auf den Ergebnissen der vorherigen auf
+    \item Festlegung von Anforderungen ist Basis für konzeptionellen Entwurf
+    \item Logisches Modell basiert auf konzeptionellem Modell
+    \item Physischer Entwurf erfordert logisches Modell
+\end{itemize}
+
+\textbf{Problem bei Auslassung des konzeptionellen Entwurfs:}
+\begin{itemize}
+    \item Keine klare Modellierung der realen Welt
+    \item Fehlende Semantic führt zu inkonsistentem relationalem Modell
+    \item Redundanzen und Anomalien nicht vermieden
+    \item Spätere Änderungen führen zu großen Umstrukturierungen
+    \item Keine dokumentierte Grundlage für Wartung und Evolution
+\end{itemize}
+
+\subsection*{3. Künstliche Schlüssel im ERM}
+
+\textbf{Wann sinnvoll:}
+\begin{itemize}
+    \item Wenn kein natürlicher Schlüssel existiert oder dieser zu komplex wäre
+    \item Bei Entitäten mit mehreren möglichen Schlüsseln (Designentscheidung)
+    \item Zur Vereinfachung und Leistungsoptimierung
+\end{itemize}
+
+\textbf{Realisierung in der DDL:}
+\begin{verbatim}
+CREATE TABLE Kunde (
+    Kunden_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100),
+    Adresse VARCHAR(200)
+);
+\end{verbatim}
+
+Der künstliche Schlüssel wird als \texttt{PRIMARY KEY} mit \texttt{AUTO\_INCREMENT} definiert.
+
+\subsection*{4. Existenzabhängige Entität in DDL}
+
+\textbf{1. Variante: Fremdschlüssel mit NOT NULL und ON DELETE CASCADE}
+\begin{verbatim}
+CREATE TABLE Bestellung (
+    Bestellung_ID INT,
+    Kunde_ID INT NOT NULL,
+    Datum DATE,
+    PRIMARY KEY (Bestellung_ID, Kunde_ID),
+    FOREIGN KEY (Kunde_ID) REFERENCES Kunde(Kunde_ID)
+        ON DELETE CASCADE
+);
+\end{verbatim}
+
+\textbf{2. Variante: Fremdschlüssel als Teil des Primärschlüssels}
+\begin{verbatim}
+CREATE TABLE Bestellposition (
+    Bestellung_ID INT NOT NULL,
+    Position_Nr INT NOT NULL,
+    Artikel_ID INT,
+    Menge INT,
+    PRIMARY KEY (Bestellung_ID, Position_Nr),
+    FOREIGN KEY (Bestellung_ID) REFERENCES Bestellung(Bestellung_ID)
+);
+\end{verbatim}
+
+Bei Variante 1 wird die Existenzabhängigkeit durch NOT NULL erzwungen. Bei Variante 2 ist die abhängige Entität nicht selbstständig identifizierbar.
+
+\subsection*{5. Prim-Attribut in der 3NF-Prüfung}
+
+\textbf{Definition:}
+Ein Prim-Attribut ist ein Attribut, das Teil eines Schlüsselkandidaten ist.
+
+\textbf{Verwendung bei 3NF-Prüfung:}
+\begin{itemize}
+    \item 3NF verlangt: Jedes Nicht-Schlüssel-Attribut (Non-Prime-Attribut) darf nicht transitiv vom Schlüssel abhängen
+    \item Prim-Attribute sind von dieser Regel ausgenommen
+    \item Die Prüfung konzentriert sich auf Abhängigkeiten von Non-Prime-Attributen
+    \item Ziel: Vermeidung von transitiven Abhängigkeiten (A → B → C)
+\end{itemize}
+
+\subsection*{6. PostgreSQL Query - Elemente ohne Beziehung}
+
+\textbf{Problem:} Alle Elemente aus Tabelle A anzeigen, die \textbf{nicht} an einer Beziehung mit B beteiligt sind.
+
+\textbf{Lösung:}
+\begin{verbatim}
+SELECT * FROM A
+WHERE A.id NOT IN (SELECT id FROM B);
+\end{verbatim}
+
+Oder mit LEFT OUTER JOIN:
+\begin{verbatim}
+SELECT A.* FROM A
+LEFT OUTER JOIN B ON A.id = B.id
+WHERE B.id IS NULL;
+\end{verbatim}
+
+Die zweite Variante ist in der Regel effizienter.
+
+\vspace{2cm}
+
+\section*{Aufgabenteil 2 - ER-Modell (12 Punkte)}
+
+\subsection*{a) ER-Modell}
+
+\subsubsection*{Szenario-Analyse und Anforderungen}
+
+Das Szenario beschreibt ein Fahrzeugvermietungssystem für Reiseveranstalter. Folgende Anforderungen lassen sich extrahieren:
+
+\begin{enumerate}
+    \item \textbf{Buchungsprozess:} Ein Kunde bucht Mietfahrzeuge für eine Wegstrecke (Hin- und Rückfahrt)
+    \item \textbf{Fahrzeugauswahl:} Für eine Wegstrecke können mehrere verschiedene Fahrzeugtypen gebucht werden
+    \item \textbf{Mehrfachbuchungen:} Mehrere Fahrzeuge können für eine Strecke eingesetzt werden
+    \item \textbf{Anbieter-Beschränkung:} Pro Wegstrecke wird aber nur ein Anbieter verwendet (eine Buchung = ein Fahrzeug bei einem Anbieter)
+    \item \textbf{Tarifverwaltung:} Jeder Anbieter definiert seine eigenen Tarife
+    \item \textbf{Rechnungsverwaltung:} Mehrere Buchungen einer Wegstrecke werden auf einer Rechnung zusammengefasst
+\end{enumerate}
+
+\subsubsection*{Identifizierte Entitäten und deren Begründung}
+
+\begin{enumerate}
+    \item \textbf{Kunde}
+    \begin{itemize}
+        \item Attributes: Kunde\_ID (PK), Name, Adresse, Telefon
+        \item Begründung: Zentrale Entität; bucht Fahrzeuge
+    \end{itemize}
+
+    \item \textbf{Wegstrecke}
+    \begin{itemize}
+        \item Attributes: Strecken\_ID (PK), Startort, Zielort, Entfernung, Datum\_Start, Datum\_Ende
+        \item Begründung: Repräsentiert eine Hin- und Rückfahrtstrecke; mehrere Fahrzeuge möglich
+    \end{itemize}
+
+    \item \textbf{Anbieter}
+    \begin{itemize}
+        \item Attributes: Anbieter\_ID (PK), Name, Adresse, Telefon, Email
+        \item Begründung: Vermietungsunternehmen; hat Fahrzeuge und Tarife
+    \end{itemize}
+
+    \item \textbf{Fahrzeug} (existenzabhängig von Anbieter)
+    \begin{itemize}
+        \item Attributes: Fahrzeug\_ID, Kennzeichen, Typ, Baujahr, Anbieter\_ID (FK)
+        \item Composite Key: (Fahrzeug\_ID, Anbieter\_ID)
+        \item Begründung: Gehört immer zu einem Anbieter; ohne Anbieter keine Existenz möglich
+    \end{itemize}
+
+    \item \textbf{Tarif} (existenzabhängig von Anbieter)
+    \begin{itemize}
+        \item Attributes: Tarif\_ID, Bezeichnung, Preis\_pro\_Tag, Kategorien, Anbieter\_ID (FK)
+        \item Composite Key: (Tarif\_ID, Anbieter\_ID)
+        \item Begründung: Tarife sind anbieter-spezifisch; ohne Anbieter nicht sinnvoll
+    \end{itemize}
+
+    \item \textbf{Buchung}
+    \begin{itemize}
+        \item Attributes: Buchungs\_ID (PK), Kunde\_ID (FK), Wegstrecke\_ID (FK), Fahrzeug\_ID (FK), Anbieter\_ID (FK), Tarif\_ID (FK), Buchungsdatum, Mietdauer, Kosten
+        \item Begründung: Assoziative Entität; verbindet Kunde, Strecke, Fahrzeug und Tarif; enthält Buchungsdetails
+        \item Multiplicities: Ein Kunde viele Buchungen, eine Strecke viele Buchungen, ein Fahrzeug viele Buchungen
+    \end{itemize}
+
+    \item \textbf{Rechnung} (existenzabhängig von Buchung - ODER direkt von Strecke)
+    \begin{itemize}
+        \item Attributes: Rechnungs\_ID (PK), Strecken\_ID (FK), Kunde\_ID (FK), Rechnungsdatum, Gesamtbetrag, Status
+        \item Begründung: Fasst mehrere Buchungen einer Strecke zusammen; existiert nur, wenn Buchungen vorhanden
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{ER-Diagramm}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.75, node distance=2cm]
+  % Styles
+  \tikzset{
+    entity/.style={rectangle, draw=black, very thick, minimum width=2cm, minimum height=1cm},
+    weak entity/.style={entity, double, double distance=2pt},
+    relation/.style={diamond, draw=black, very thick, minimum width=1.5cm, minimum height=1cm}
+  }
+  
+  % Entities
+  \node[entity] (Kunde) at (0, 6) {KUNDE};
+  \node[below=0.1cm of Kunde.south, inner sep=0pt] {\tiny Kunde\_ID, Name};
+  
+  \node[entity] (Strecke) at (3, 6) {WEGSTRECKE};
+  \node[below=0.1cm of Strecke.south, inner sep=0pt] {\tiny Strecken\_ID, Ort};
+  
+  \node[entity] (Anbieter) at (6, 6) {ANBIETER};
+  \node[below=0.1cm of Anbieter.south, inner sep=0pt] {\tiny Anbieter\_ID, Name};
+  
+  \node[entity] (Buchung) at (3, 3) {BUCHUNG};
+  \node[below=0.1cm of Buchung.south, inner sep=0pt] {\tiny Buchungs\_ID, Kosten};
+  
+  \node[weak entity] (Fahrzeug) at (6, 3) {FAHRZEUG};
+  \node[below=0.1cm of Fahrzeug.south, inner sep=0pt] {\tiny Fahrzeug\_ID, Typ};
+  
+  \node[weak entity] (Tarif) at (7.5, 4.5) {TARIF};
+  \node[below=0.1cm of Tarif.south, inner sep=0pt] {\tiny Tarif\_ID, Preis};
+  
+  \node[weak entity] (Rechnung) at (1.5, 1) {RECHNUNG};
+  \node[below=0.1cm of Rechnung.south, inner sep=0pt] {\tiny Rechnungs\_ID};
+  
+  % Relationships
+  \draw (Kunde) -- node[above, font=\small] {bucht} (Buchung);
+  \draw (Strecke) -- node[above left, font=\small] {fuer} (Buchung);
+  \draw (Fahrzeug) -- node[right, font=\small] {mit} (Buchung);
+  \draw (Tarif) -- node[right, font=\small] {nach} (Buchung);
+  \draw (Anbieter) -- node[above, font=\small] {besitzt} (Fahrzeug);
+  \draw (Anbieter) -- node[left, font=\small] {hat} (Tarif);
+  \draw (Buchung) -- node[left, font=\small] {enthaelt} (Rechnung);
+  
+  % Cardinality labels
+  \node[font=\tiny] at (0.8, 5) {1:n};
+  \node[font=\tiny] at (2, 5) {1:n};
+  \node[font=\tiny] at (5, 3.7) {1:n};
+  \node[font=\tiny] at (6.5, 4) {1:n};
+  \node[font=\tiny] at (6.2, 5) {1:n};
+  \node[font=\tiny] at (7, 4) {1:n};
+  \node[font=\tiny] at (2, 2) {1:1};
+\end{tikzpicture}
+\caption{ER-Diagramm des Fahrzeugvermietungssystems}
+\end{figure}
+
+\subsubsection*{Detaillierte Beziehungsbeschreibung}
+
+\begin{enumerate}
+    \item \textbf{Kunde -- Buchung (1:n)}
+    \begin{itemize}
+        \item Ein Kunde kann viele Buchungen tätigen
+        \item Eine Buchung gehört genau zu einem Kunde
+    \end{itemize}
+
+    \item \textbf{Wegstrecke -- Buchung (1:n)}
+    \begin{itemize}
+        \item Eine Wegstrecke kann mehrere Buchungen haben (verschiedene Fahrzeuge)
+        \item Eine Buchung bezieht sich auf genau eine Wegstrecke
+    \end{itemize}
+
+    \item \textbf{Fahrzeug -- Buchung (1:n) [mit Integrität]}
+    \begin{itemize}
+        \item Ein Fahrzeug kann für mehrere Strecken gebucht werden
+        \item Wichtig: Eine Buchung = ein Fahrzeug bei einem Anbieter (Constraint)
+    \end{itemize}
+
+    \item \textbf{Tarif -- Buchung (1:n)}
+    \begin{itemize}
+        \item Ein Tarif kann für mehrere Buchungen gelten
+        \item Eine Buchung nutzt genau einen Tarif
+    \end{itemize}
+
+    \item \textbf{Anbieter -- Fahrzeug (1:n) [Existenzabhängigkeit]}
+    \begin{itemize}
+        \item Ein Anbieter besitzt viele Fahrzeuge
+        \item Ein Fahrzeug gehört genau zu einem Anbieter
+        \item Existenzabhängigkeit: Fahrzeug kann ohne Anbieter nicht existieren
+    \end{itemize}
+
+    \item \textbf{Anbieter -- Tarif (1:n) [Existenzabhängigkeit]}
+    \begin{itemize}
+        \item Ein Anbieter hat mehrere Tarife
+        \item Ein Tarif gehört genau zu einem Anbieter
+        \item Existenzabhängigkeit: Tarif ist anbieterspezifisch
+    \end{itemize}
+
+    \item \textbf{Buchung -- Rechnung (1:1 oder 1:n Abhängigkeit)}
+    \begin{itemize}
+        \item Mehrere Buchungen einer Strecke werden auf einer Rechnung zusammengefasst
+        \item Modellierungsvariante: Rechnung ist existenzabhängig (doppeltes Rechteck)
+        \item Bessere Variante: Rechnung direkt mit Strecke verbinden (1:1)
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{b) Löschregeln für existenzabhängige Entitäten}
+
+\subsubsection*{Allgemeines Konzept der Löschregeln}
+
+Existenzabhängige Entitäten werden durch Löschregeln charakterisiert:
+\begin{itemize}
+    \item \textbf{Cascade (C):} Wenn die übergeordnete Entität gelöscht wird, werden auch alle abhängigen Entitäten gelöscht
+    \item \textbf{Restrict (R):} Das Löschen ist nicht erlaubt, solange abhängige Entitäten existieren
+    \item \textbf{Set Null (N):} Der Fremdschlüssel wird auf NULL gesetzt (nicht bei Existenzabhängigkeit!)
+\end{itemize}
+
+\subsubsection*{Konkrete Löschregeln für das Szenario}
+
+\textbf{1. Fahrzeug (abhängig von Anbieter) - Regel: RESTRICT (R)}
+
+\textbf{Begründung:}
+\begin{itemize}
+    \item Ein Fahrzeug gehört immer zu genau einem Anbieter
+    \item Fahrzeuge sind oft in laufende Buchungen involviert
+    \item Ein automatisches Löschen würde zu Integritätsverletzungen führen
+    \item Empfehlung: RESTRICT, da Fahrzeuge archiviert statt gelöscht werden sollten
+\end{itemize}
+
+\textbf{DDL-Implementierung:}
+\begin{verbatim}
+CREATE TABLE Fahrzeug (
+    Fahrzeug_ID INT NOT NULL,
+    Anbieter_ID INT NOT NULL,
+    Kennzeichen VARCHAR(10),
+    Typ VARCHAR(50),
+    PRIMARY KEY (Fahrzeug_ID, Anbieter_ID),
+    FOREIGN KEY (Anbieter_ID) 
+        REFERENCES Anbieter(Anbieter_ID)
+        ON DELETE RESTRICT
+);
+\end{verbatim}
+
+\textbf{2. Tarif (abhängig von Anbieter) - Regel: RESTRICT (R)}
+
+\textbf{Begründung:}
+\begin{itemize}
+    \item Tarife sind essentiell für die Kostenberechnung von Buchungen
+    \item Historische Daten müssen erhalten bleiben (Audit Trail)
+    \item Ein Löschen würde Rechnungen ungültig machen
+    \item Empfehlung: RESTRICT oder ein Flag ''aktiv/inaktiv'' statt Löschen
+\end{itemize}
+
+\textbf{DDL-Implementierung:}
+\begin{verbatim}
+CREATE TABLE Tarif (
+    Tarif_ID INT NOT NULL,
+    Anbieter_ID INT NOT NULL,
+    Bezeichnung VARCHAR(100),
+    Preis_pro_Tag DECIMAL(10, 2),
+    PRIMARY KEY (Tarif_ID, Anbieter_ID),
+    FOREIGN KEY (Anbieter_ID) 
+        REFERENCES Anbieter(Anbieter_ID)
+        ON DELETE RESTRICT
+);
+\end{verbatim}
+
+\textbf{3. Rechnung (abhängig von Buchung/Strecke) - Regel: RESTRICT (R) oder CASCADE (C)}
+
+\textbf{Möglichkeit A: RESTRICT (R) - Konservativ}
+\begin{itemize}
+    \item Eine Rechnung muss erhalten bleiben (Buchhaltung!)
+    \item Löschen ist nicht sinnvoll
+    \item Empfehlung: RESTRICT + Status-Flag (''storniert'')
+\end{itemize}
+
+\textbf{Möglichkeit B: CASCADE (C) - Mit Vorsicht}
+\begin{itemize}
+    \item Falls Buchung storniert wird, kann die Rechnung mitgelöscht werden
+    \item Aber: Rechnungen sollten aus Compliance-Gründen erhalten bleiben!
+    \item Besser: Soft-Delete mit Status-Feld
+\end{itemize}
+
+\textbf{Empfehlung:} CASCADE ist hier nicht sinnvoll. Besser: RESTRICT + Stornierungslogik.
+
+\textbf{DDL-Implementierung (mit Statusfeld):}
+\begin{verbatim}
+CREATE TABLE Rechnung (
+    Rechnungs_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Strecken_ID INT NOT NULL,
+    Kunde_ID INT NOT NULL,
+    Gesamtbetrag DECIMAL(10, 2),
+    Status VARCHAR(20) DEFAULT 'offen',
+    -- Status: 'offen', 'bezahlt', 'storniert'
+    FOREIGN KEY (Strecken_ID) 
+        REFERENCES Wegstrecke(Strecken_ID),
+    FOREIGN KEY (Kunde_ID) 
+        REFERENCES Kunde(Kunde_ID)
+);
+\end{verbatim}
+
+\vspace{2cm}
+
+\section*{Aufgabenteil 3 - Relationale Algebra und SQL (8 Punkte)}
+
+\subsection*{a) Relationale Algebra}
+
+\textbf{Aufgabe:} Welche Ärzte arbeiten auf Station 3?
+
+\textbf{Lösung:}
+\begin{align*}
+\text{Ergebnis} = & \pi_{\text{Pers-Nr, Nachname, Vorname, Fachgebiet, Rang}} \\
+& \left( \sigma_{\text{Stat-Nr} = 3} (\text{Zimmer}) \right) \\
+& \bowtie (\text{Patient} \bowtie \text{behandelt} \bowtie \text{Ärzte} \bowtie \text{Stations\_Personal})
+\end{align*}
+
+\textbf{Alternative ohne Join-Operator (nur Basis-Operatoren):}
+\begin{align*}
+\text{Step 1:} & \quad Z_3 = \sigma_{\text{Stat-Nr} = 3} (\text{Zimmer}) \\
+\text{Step 2:} & \quad P_3 = \sigma_{\text{Raum-Nr} \in Z_3.\text{Raum-Nr}} (\text{Patient}) \\
+\text{Step 3:} & \quad B_3 = \sigma_{\text{Pat-Nr} \in P_3.\text{Pat-Nr}} (\text{behandelt}) \\
+\text{Step 4:} & \quad A_3 = \sigma_{\text{Pers-Nr} \in B_3.\text{Pers-Nr}} (\text{Ärzte}) \\
+\text{Step 5:} & \quad \text{Ergebnis} = \pi_{\text{Pers-Nr, Nachname, Vorname, Fachgebiet, Rang}} \\
+& \quad \quad \quad \quad (\sigma_{\text{Pers-Nr} \in A_3.\text{Pers-Nr}} (\text{Stations\_Personal}) \bowtie A_3)
+\end{align*}
+
+\subsection*{b) SQL zu dieser Abfrage}
+
+\textbf{Lösung:}
+\begin{verbatim}
+SELECT DISTINCT sp.Pers_Nr, sp.Nachname, sp.Vorname, 
+       a.Fachgebiet, a.Rang
+FROM Stations_Personal sp
+INNER JOIN Ärzte a ON sp.Pers_Nr = a.Pers_Nr
+INNER JOIN behandelt b ON a.Pers_Nr = b.Pers_Nr
+INNER JOIN Patient p ON b.Pat_Nr = p.Pat_Nr
+INNER JOIN Zimmer z ON p.Raum_Nr = z.Raum_Nr
+WHERE z.Stat_Nr = 3;
+\end{verbatim}
+
+\vspace{2cm}
+
+\section*{Aufgabenteil 4 - Normalisierung (9 Punkte)}
+
+\textbf{Gegeben:}
+\begin{itemize}
+    \item Relationsschema [R] mit Attributen: a, b, c, d, e
+    \item Funktionale Abhängigkeiten:
+    \begin{itemize}
+        \item $ad \to bc$
+        \item $b \to ac$
+        \item $d \to e$
+    \end{itemize}
+\end{itemize}
+
+\subsection*{a) Schlüsselkandidaten}
+
+\textbf{Bestimmung der Schlüsselkandidaten:}
+
+Wir suchen minimale Mengen von Attributen, die alle anderen Attribute funktional bestimmen.
+
+\textbf{Kandidat 1: \{a, d\}}
+\begin{itemize}
+    \item $ad \to bc$ (gegeben) → Bestimmt b und c \checkmark
+    \item $d \to e$ → Bestimmt e \checkmark
+    \item $ad$ bestimmt: a, b, c, d, e \checkmark
+\end{itemize}
+
+\textbf{Kandidat 2: \{b, d\}}
+\begin{itemize}
+    \item $b \to ac$ (gegeben) → Bestimmt a und c \checkmark
+    \item $d \to e$ → Bestimmt e \checkmark
+    \item Von a,d können wir $ad \to bc$ verwenden → Bestimmt b (redundant) und c \checkmark
+    \item $bd$ bestimmt: a, b, c, d, e \checkmark
+\end{itemize}
+
+\textbf{Überprüfung auf Minimalität:}
+\begin{itemize}
+    \item $\{a\}$: Bestimmt nur a, nicht ausreichend
+    \item $\{d\}$: Bestimmt nur d, e; nicht ausreichend
+    \item $\{b\}$: Bestimmt a, b, c; nicht ausreichend (e fehlt)
+    \item $\{a, d\}$ und $\{b, d\}$: Beide minimal
+\end{itemize}
+
+\textbf{Schlüsselkandidaten:} $\boxed{\{a, d\} \text{ und } \{b, d\}}$
+
+\subsection*{b) Prüfung auf 3NF/BCNF}
+
+\textbf{Annahme: Primärschlüssel = \{a, d\}}
+
+\textbf{Prim-Attribute:} a, d
+\textbf{Non-Prime-Attribute:} b, c, e
+
+\textbf{3NF-Prüfung:}
+
+Für 3NF müssen folgende Bedingungen erfüllt sein:
+\begin{enumerate}
+    \item Relation ist in 2NF (impliziert durch 1NF)
+    \item Kein Non-Prime-Attribut hängt transitiv vom Schlüssel ab
+\end{enumerate}
+
+\textbf{Analyse der FDs:}
+\begin{itemize}
+    \item $ad \to bc$: Linke Seite ist Schlüssel → OK für 3NF (partielle FD)
+    \item $b \to ac$: Linke Seite ist Non-Prime-Attribut
+    \begin{itemize}
+        \item $b$ ist nicht Kandidatenschlüssel
+        \item Rechte Seite enthält a (Prime-Attribut) und c (Non-Prime-Attribut)
+        \item Verletzung: Non-Prime-Attribut c hängt von Non-Prime-Attribut b ab
+        \item \textbf{NICHT in 3NF!}
+    \end{itemize}
+    \item $d \to e$: Linke Seite ist Teil des Schlüssels
+    \begin{itemize}
+        \item Dies ist eine partielle Abhängigkeit des Schlüssels
+        \item NICHT in 2NF! (Zu einer Non-Prime-Attribut von einem Teil des Schlüssels)
+    \end{itemize}
+\end{itemize}
+
+\textbf{Ergebnis:} Die Relation ist \textbf{NICHT in 3NF} und \textbf{NICHT in 2NF}.
+
+\subsection*{c) Zerlegung}
+
+\textbf{Zerlegungsschritte:}
+
+\textbf{Schritt 1: Beseitigung der Abhängigkeit von d → e}
+
+Erstelle $R_1$ mit der FD $d \to e$:
+\begin{itemize}
+    \item $R_1(d, e)$ mit Schlüssel \{d\}
+    \item $R_2(a, b, c, d)$ mit verbleibenden Attributen
+\end{itemize}
+
+\textbf{Schritt 2: Beseitigung der Abhängigkeit von $b \to ac$ in $R_2$}
+
+Erstelle $R_3$ mit der FD $b \to ac$:
+\begin{itemize}
+    \item $R_3(b, a, c)$ mit Schlüssel \{b\}
+    \item $R_4(b, d)$ mit verbleibenden Attributen
+\end{itemize}
+
+\textbf{Finale Zerlegung:}
+\begin{align*}
+R_1 &: (d, e) \quad \text{Schl\"ussel: } \{d\} \\
+R_2 &: (b, a, c) \quad \text{Schl\"ussel: } \{b\} \\
+R_3 &: (a, d) \quad \text{Schl\"ussel: } \{a, d\} \text{ (oder } \{b, d\} \text{)}
+\end{align*}
+
+\textbf{Verifizierung der 3NF:}
+\begin{itemize}
+    \item $R_1$: Nur $d \to e$; alle Attribute sind Schlüssel → OK
+    \item $R_2$: Nur $b \to ac$; $b$ ist Schlüssel → OK
+    \item $R_3$: Nur Primärattribute → OK
+\end{itemize}
+
+\subsection*{d) Verlustlosigkeit der Zerlegung}
+
+\textbf{Zu zeigen:} $R = R_1 \bowtie R_2 \bowtie R_3$
+
+\textbf{Nachweis durch Tupel-Verfolgung:}
+
+Angenommen, wir haben ein Tupel $(a_0, b_0, c_0, d_0, e_0)$ in R mit:
+\begin{itemize}
+    \item $d_0 e_0$ in $R_1$
+    \item $b_0 a_0 c_0$ in $R_2$
+    \item $a_0 d_0$ in $R_3$
+\end{itemize}
+
+\textbf{Rekombination:}
+\begin{align*}
+R_1 \bowtie R_3 &= \{(a_0, d_0, e_0)\} \\
+(R_1 \bowtie R_3) \bowtie R_2 &= \{(a_0, d_0, e_0)\} \bowtie \{(b_0, a_0, c_0)\} \\
+&= \{(a_0, b_0, c_0, d_0, e_0)\}
+\end{align*}
+
+Die Rekombination ergibt genau das ursprüngliche Tupel zurück.
+
+\textbf{Formaler Nachweis:}
+Die Zerlegung ist verlustlos, wenn mindestens eine der folgenden Bedingungen erfüllt ist:
+\begin{itemize}
+    \item Die Zerlegung folgt einer funktionalen Abhängigkeit (Beziehung $ \to $)
+    \item Die Zerlegung kann durch Chase-Algorithmus verifiziert werden
+\end{itemize}
+
+Da wir nach funktionalen Abhängigkeiten zerlegt haben ($ d \to e$ und $b \to ac$), ist die Zerlegung verlustlos.
+
+\textbf{Ergebnis:} \textbf{Die Zerlegung ist verlustlos.} \checkmark
+
+\end{document}
