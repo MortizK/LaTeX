@@ -1,0 +1,366 @@
+% Formelsammlung und Strategien für Kapitel 6 und 7
+
+\documentclass[12pt, a4paper, ngerman]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{fancyhdr}
+
+\geometry{left=2cm, right=2cm, top=2cm, bottom=2cm}
+
+\title{Detaillierte Formeln und Strategien\\Kapitel 6 \& 7}
+\subtitle{Intervallschätzung und Signifikanztests}
+\author{}
+\date{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Formeln Kapitel 6 \& 7}
+\fancyhead[R]{\thepage}
+
+\begin{document}
+
+\maketitle
+
+\section{KAPITEL 6 - Intervallschätzung}
+
+\subsection{Entscheidungsbaum}
+
+\begin{enumerate}
+  \item Ist $\sigma$ bekannt? $\Rightarrow$ Gaußtest
+  \item Ist $n > 30$? $\Rightarrow$ Normalapproximation möglich
+  \item Ist die Grundgesamtheit normalverteilt? $\Rightarrow$ exakte Methode
+  \item Arbeite ich mit Anteilen/Wahrscheinlichkeiten? $\Rightarrow$ dichotome Verteilung
+\end{enumerate}
+
+\subsection{Formeln nach Szenario}
+
+\subsubsection{Szenario 1: $\sigma$ bekannt, $n > 30$ oder Normalverteilung}
+
+\textbf{Konfidenzintervall für $\mu$:}
+$$\left[\overline{x} - z_{\alpha/2} \frac{\sigma}{\sqrt{n}}, \overline{x} + z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\right]$$
+
+\textbf{Berechnungsschritte:}
+\begin{enumerate}
+  \item $\overline{x}$ berechnen: $\overline{x} = \frac{\sum x_i}{n}$
+  \item Kritischen Wert aus Normalverteilungs-Tabelle: $z_{\alpha/2}$
+  \item Standardfehler: $SE = \frac{\sigma}{\sqrt{n}}$
+  \item Untere Grenze: $\overline{x} - z_{\alpha/2} \cdot SE$
+  \item Obere Grenze: $\overline{x} + z_{\alpha/2} \cdot SE$
+\end{enumerate}
+
+\subsubsection{Szenario 2: $\sigma$ unbekannt, $n < 30$, Normalverteilung}
+
+\textbf{Konfidenzintervall für $\mu$:}
+$$\left[\overline{x} - t_{\alpha/2, n-1} \frac{s}{\sqrt{n}}, \overline{x} + t_{\alpha/2, n-1} \frac{s}{\sqrt{n}}\right]$$
+
+\textbf{Berechnungsschritte:}
+\begin{enumerate}
+  \item $\overline{x} = \frac{\sum x_i}{n}$
+  \item Stichprobenvarianz: $s^2 = \frac{1}{n-1}\left(\sum x_i^2 - \frac{(\sum x_i)^2}{n}\right)$
+  \item $s = \sqrt{s^2}$
+  \item Kritischer Wert aus t-Tabelle mit $df = n-1$: $t_{\alpha/2, n-1}$
+  \item Standardfehler: $SE = \frac{s}{\sqrt{n}}$
+  \item Grenzen: $\overline{x} \pm t_{\alpha/2} \cdot SE$
+\end{enumerate}
+
+\textbf{Praktisches Beispiel - Würfel (n=120):}
+\begin{verbatim}
+Daten: 21 Würfe mit 1, 27 mit 2, 20 mit 3, 24 mit 4, 15 mit 5, 13 mit 6
+Konfidenzniveau: 95%
+
+1. x̄ = (21·1 + 27·2 + 20·3 + 24·4 + 15·5 + 13·6) / 120 = 3.2
+2. Σx²ᵢ = 21·1² + 27·2² + ... + 13·6² = 1536
+3. s² = (1/(120-1)) · (1536 - (1200·3.2²)/120) = 2.58
+4. s = √2.58 = 1.61
+5. t₀.₉₇₅(119) ≈ 1.96
+6. SE = 1.61/√120 = 0.147
+7. Intervall: [3.2 - 0.288, 3.2 + 0.288] = [2.912, 3.488]
+\end{verbatim}
+
+\subsubsection{Szenario 3: Anteil $p$ bei dichotomer Verteilung}
+
+\textbf{Voraussetzung:} $5 \leq m \leq n-5$ (Normalapproximation zulässig)
+
+\textbf{Konfidenzintervall für $p$:}
+$$\left[\hat{p} - z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}, \hat{p} + z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\right]$$
+
+\textbf{Berechnungsschritte:}
+\begin{enumerate}
+  \item $\hat{p} = \frac{m}{n}$ (Anteil der Erfolge)
+  \item Varianz: $\hat{p}(1-\hat{p})$
+  \item Standardfehler: $SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$
+  \item Kritischer Wert: $z_{\alpha/2}$
+  \item Halbbreite: $z_{\alpha/2} \cdot SE$
+\end{enumerate}
+
+\textbf{Praktisches Beispiel - S-Bahn (n=365, Konfidenzniveau 90\%):}
+\begin{verbatim}
+1. m = 274 (pünktlich), n = 365
+2. Voraussetzung: 5 ≤ 274 ≤ 360 ✓
+3. p̂ = 274/365 = 0.7507
+4. σ̂ = √(0.7507 · 0.2493) = 0.4326
+5. z₀.₉₅ = 1.645
+6. SE = 0.4326/√365 = 0.0226
+7. Halbbreite = 1.645 · 0.0226 = 0.0372
+8. Intervall: [0.7507 - 0.0372, 0.7507 + 0.0372] = [0.7135, 0.7879]
+\end{verbatim}
+
+\subsubsection{Szenario 4: Erforderliche Stichprobengröße}
+
+\textbf{Für Mittelwert:}
+$$n = \left(\frac{z_{\alpha/2} \sigma}{\delta}\right)^2$$
+wobei $\delta$ = gewünschte Genauigkeit (Halbbreite)
+
+\textbf{Für Anteil:}
+$$n = \frac{z_{\alpha/2}^2 \hat{p}(1-\hat{p})}{\delta^2}$$
+
+\textbf{Wenn $\hat{p}$ unbekannt:} Konservativer Wert $\hat{p} = 0.5$ verwenden $\Rightarrow$ maximale erforderliche $n$
+
+\textbf{Beispiel - Hobby-Statistiker:}
+\begin{verbatim}
+Gegeben: Fehlertoleranz δ = 0.14, Konfidenzniveau 95%, p̂ = 0.2
+Gesucht: n
+
+n = (1.96² · 0.2 · 0.8) / 0.14²
+n = (3.8416 · 0.16) / 0.0196
+n = 0.6147 / 0.0196
+n = 31.4 ⟹ n ≥ 32
+\end{verbatim}
+
+\section{KAPITEL 7 - Signifikanztests}
+
+\subsection{Allgemeines 6-Schritte-Schema}
+
+\begin{enumerate}
+  \item \textbf{Hypothesen:} $H_0$ und $H_1$ klar formulieren (ein- oder zweiseitig?)
+  \item \textbf{Signifikanzniveau:} $\alpha$ wählen (0.01, 0.05, 0.10)
+  \item \textbf{Testgröße:} Nach spezifischer Formel berechnen
+  \item \textbf{Verteilung:} Welche Verteilung für kritischen Wert? (N(0,1), t, $\chi^2$)
+  \item \textbf{Ablehnungsbereich:} Kritischen Wert bestimmen
+  \item \textbf{Entscheidung \& Interpretation:} Im Sachkontext erklären
+\end{enumerate}
+
+\subsection{Test-Auswahlmatrix}
+
+\begin{table}[h]
+  \centering\small
+  \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Situation} & \textbf{Test} & \textbf{Testgröße} & \textbf{Verteil.} & \textbf{Freiheitsgrade} \\
+    \hline
+    $\sigma$ bekannt & Gaußtest & $z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}$ & $N(0,1)$ & -- \\
+    \hline
+    $n < 30$, $\sigma$ unbekannt & t-Test & $t = \frac{\overline{x}-\mu_0}{s/\sqrt{n}}$ & $t(n-1)$ & $n-1$ \\
+    \hline
+    $n > 30$, Anteil & Gaußtest & $z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}$ & $N(0,1)$ & -- \\
+    \hline
+    Verteilungsform & $\chi^2$ & $\chi^2 = \sum \frac{(h_i-np_i)^2}{np_i}$ & $\chi^2(k-1)$ & $k-1$ \\
+    \hline
+    2 Mittelwerte & t-Test & $t = \frac{\overline{x}_1-\overline{x}_2}{s_p\sqrt{1/n_1+1/n_2}}$ & $t(n_1+n_2-2)$ & $n_1+n_2-2$ \\
+    \hline
+    Verbundene Stichproben & t-Test & $t = \frac{\overline{d}}{s_D/\sqrt{n}}$ & $t(n-1)$ & $n-1$ \\
+    \hline
+    Unabhängigkeit 2 Var. & $\chi^2$ & $\chi^2 = \sum \frac{(h_{ij}-e_{ij})^2}{e_{ij}}$ & $\chi^2((r-1)(c-1))$ & $(r-1)(c-1)$ \\
+    \hline
+    Korrelation & t-Test & $t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}$ & $t(n-2)$ & $n-2$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Einstichproben-t-Test (detailliert)}
+
+\textbf{Beispiel: Fahrzeit < 60 Sekunden}
+
+\begin{verbatim}
+Daten: n = 9, Σtᵢ = 486 s, Σtᵢ² = 27000 s², μ₀ = 60 s, α = 0.05
+
+Schritt 1: Hypothesen
+  H₀: μ ≥ 60 (Fahrzeit nicht kürzer)
+  H₁: μ < 60 (Fahrzeit ist kürzer) [LINKSSEITIG]
+
+Schritt 2: α = 0.05
+
+Schritt 3: Testgröße berechnen
+  x̄ = 486/9 = 54 s
+  
+  s² = 1/(n-1) · (Σxᵢ² - (Σxᵢ)²/n)
+     = 1/8 · (27000 - 486²/9)
+     = 1/8 · (27000 - 26244)
+     = 1/8 · 756
+     = 94.5
+  
+  s = √94.5 = 9.7225 s
+  
+  t = (54 - 60) / (9.7225/√9)
+    = -6 / (9.7225/3)
+    = -6 / 3.2408
+    = -1.851
+
+Schritt 4: Kritischen Wert aus t-Tabelle
+  df = n - 1 = 8
+  Linksseitig, α = 0.05: t₀.₀₅(8) = -1.860
+  Ablehnungsbereich: (-∞, -1.860)
+
+Schritt 5: Entscheidung
+  t = -1.851 > -1.860 ⟹ t nicht im Ablehnungsbereich
+  ⟹ H₀ NICHT ablehnen
+
+Schritt 6: Interpretation
+  "Die Hypothese, dass die durchschnittliche Fahrzeit kürzer als 60s ist,
+   kann auf 5% Signifikanzniveau NICHT bestätigt werden."
+\end{verbatim}
+
+\subsection{Chi-Quadrat-Anpassungstest (Würfel)}
+
+\begin{verbatim}
+Daten: 500 Würfwürfe, beobachtete Häufigkeiten:
+Augenzahl:   1    2    3    4    5    6
+Häufigkeit:  95  100   68   66   84   87
+
+H₀: Würfel ist fair (Gleichverteilung)
+H₁: Würfel ist nicht fair
+α = 0.05
+
+Schritt 1-2: Hypothesen und α ✓
+
+Schritt 3: Erwartete Häufigkeiten
+  Unter H₀: np₀ = 500 · (1/6) = 83.33 für jede Kategorie
+  Voraussetzung: 5 < 83.33 ✓
+
+Schritt 3: Testgröße
+  χ² = (95-83.33)²/83.33 + (100-83.33)²/83.33 + ... + (87-83.33)²/83.33
+     = 11.56
+
+Schritt 4: Kritischer Wert
+  χ²₀.₉₅(5) = 11.07   [df = k-1 = 6-1 = 5]
+
+Schritt 5: Entscheidung
+  χ² = 11.56 > 11.07 ⟹ im Ablehnungsbereich
+  ⟹ H₀ ABLEHNEN
+
+Schritt 6: Interpretation
+  "Der Würfel ist auf 5% Signifikanzniveau unfair."
+\end{verbatim}
+
+\subsection{Zweistichproben-t-Test}
+
+\textbf{Formel:}
+$$t = \frac{\overline{x}_1 - \overline{x}_2}{s_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1 + n_2 - 2)$$
+
+\textbf{Gepoolte Varianz:}
+$$s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}$$
+
+\textbf{Beispiel: Humeruslänge (Rechts vs. Links)}
+
+\begin{verbatim}
+n₁ = 18 (rechts), x̄₁ = 3.976, s₁² = 0.25
+n₂ = 14 (links),  x̄₂ = 3.369, s₂² = 0.25
+α = 0.01, zweiseitig
+
+Hypothesen:
+  H₀: μ₁ = μ₂
+  H₁: μ₁ ≠ μ₂
+
+Gepoolte Varianz:
+  sₚ² = (17·0.25 + 13·0.25) / 30 = 0.25
+  sₚ = 0.5
+
+Testgröße:
+  t = (3.976 - 3.369) / (0.5 · √(1/18 + 1/14))
+    = 0.607 / (0.5 · √0.1270)
+    = 0.607 / 0.1783
+    = 3.40
+
+Kritischer Wert:
+  t₀.₉₉₅(30) = 2.75   [df = 32-2 = 30]
+  Ablehnungsbereich: (-∞, -2.75) ∪ (2.75, ∞)
+
+Entscheidung:
+  t = 3.40 > 2.75 ⟹ im Ablehnungsbereich
+  ⟹ H₀ ABLEHNEN
+
+Interpretation:
+  "Die rechte Humeruslänge ist signifikant länger als die linke
+   (auf 1% Signifikanzniveau)."
+\end{verbatim}
+
+\subsection{Kontingenztest (Chi-Quadrat für Unabhängigkeit)}
+
+\textbf{Formel:}
+$$\chi^2 = \sum_{i,j} \frac{(h_{ij} - e_{ij})^2}{e_{ij}} \sim \chi^2((r-1)(c-1))$$
+
+wobei $e_{ij} = \frac{\text{Zeilensumme}_i \times \text{Spaltensumme}_j}{\text{Gesamtsumme}}$
+
+\textbf{Beispiel: Analysis \& Statistik Bestanden}
+
+\begin{verbatim}
+Kontingenztabelle:
+                 Analysis ja  Analysis nein  Total
+Statistik ja        121           19          140
+Statistik nein       14           46           60
+Total               135           65          200
+
+H₀: Analysis und Statistik sind unabhängig
+H₁: Abhängigkeit vorhanden
+α = 0.05
+
+Erwartete Häufigkeiten:
+  e₁₁ = 140 · 135 / 200 = 94.5
+  e₁₂ = 140 · 65 / 200 = 45.5
+  e₂₁ = 60 · 135 / 200 = 40.5
+  e₂₂ = 60 · 65 / 200 = 19.5
+
+Testgröße:
+  χ² = (121-94.5)²/94.5 + (19-45.5)²/45.5 + (14-40.5)²/40.5 + (46-19.5)²/19.5
+     = 7.407 + 19.363 + 17.473 + 35.974
+     = 80.217
+
+Kritischer Wert:
+  χ²₀.₉₅(1) = 3.841   [df = (2-1)(2-1) = 1]
+
+Entscheidung:
+  χ² = 80.217 >> 3.841 ⟹ stark im Ablehnungsbereich
+  ⟹ H₀ ABLEHNEN (signifikante Abhängigkeit)
+
+Interpretation:
+  "Es besteht eine hochsignifikante Abhängigkeit zwischen
+   Analysis- und Statistik-Bestehen (p < 0.001)."
+\end{verbatim}
+
+\subsection{Korrelationstest}
+
+\textbf{Stichproben-Korrelationskoeffizient:}
+$$r = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum(x_i - \overline{x})^2 \sum(y_i - \overline{y})^2}}$$
+
+\textbf{Testgröße:}
+$$t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}} \sim t(n-2)$$
+
+\textbf{Beispiel: Kaufkraft vs. Bevölkerungsdichte}
+
+\begin{verbatim}
+n = 25, r = -0.742, α = 0.01, H₁: ρ < 0 (LINKSSEITIG)
+
+Testgröße:
+  t = -0.742 · √23 / √(1 - 0.549)
+    = -0.742 · 4.796 / 0.671
+    = -5.308
+
+Kritischer Wert:
+  t₀.₉₉(23) = 2.500   [linksseitig: t₀.₀₁(23) = -2.500]
+
+Entscheidung:
+  t = -5.308 < -2.500 ⟹ im Ablehnungsbereich
+  ⟹ H₀ ABLEHNEN
+
+Interpretation:
+  "Es besteht eine signifikante NEGATIVE Korrelation zwischen
+   Kaufkraft und Bevölkerungsdichte (α = 0.01)."
+\end{verbatim}
+
+\end{document}

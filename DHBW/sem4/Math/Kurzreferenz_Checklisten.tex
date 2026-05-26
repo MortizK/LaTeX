@@ -1,0 +1,296 @@
+% Kurzreferenz und Checklisten für Kapitel 6 & 7
+
+\documentclass[10pt, a4paper, ngerman]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\geometry{left=1.5cm, right=1.5cm, top=1.5cm, bottom=1.5cm}
+
+\title{Kurzreferenz Kapitel 6 \& 7}
+\subtitle{Checklisten und Schnellübersichten}
+\author{}
+\date{}
+
+\newcommand{\checkitem}[1]{\item[$\square$] #1}
+
+\begin{document}
+
+\maketitle
+
+\section{KAPITEL 6 - Konfidenzintervalle}
+
+\subsection{Entscheidungsbaum für das richtige Verfahren}
+
+\vspace{0.5cm}
+
+\textbf{Frage 1: Ist $\sigma$ bekannt?}
+
+\begin{tabular}{|p{8cm}|p{8cm}|}
+  \hline
+  \textbf{JA: $\sigma$ bekannt} & \textbf{NEIN: $\sigma$ unbekannt} \\
+  \hline
+  $\Rightarrow$ Gaußtest & $\Rightarrow$ Gehe zu Frage 2 \\
+  \hline
+\end{tabular}
+
+\textbf{Frage 2: Ist $n < 30$?}
+
+\begin{tabular}{|p{8cm}|p{8cm}|}
+  \hline
+  \textbf{JA: $n < 30$} & \textbf{NEIN: $n \geq 30$} \\
+  \hline
+  Ist Grundgesamtheit normalverteilt? & $\Rightarrow$ t-Test (oder Normalapproximation) \\
+  \hline
+\end{tabular}
+
+\textbf{Frage 3: Arbeite ich mit Anteilen?}
+
+\begin{tabular}{|p{8cm}|p{8cm}|}
+  \hline
+  \textbf{JA: dichotome Verteilung} & \textbf{NEIN: stetiges Merkmal} \\
+  \hline
+  $\Rightarrow$ Anteil-KI (Normalapproximation) & $\Rightarrow$ Mittelwert-KI \\
+  \hline
+\end{tabular}
+
+\subsection{Checkliste für Konfidenzintervall-Berechnungen}
+
+\begin{enumerate}
+  \checkitem Voraussetzungen überprüfen:
+    \begin{itemize}
+      \item[] ☐ $5 \leq m \leq n-5$ (für Anteil)
+      \item[] ☐ Normalverteilung gegeben oder $n > 30$?
+      \item[] ☐ Stichprobe zufällig gezogen?
+    \end{itemize}
+  \checkitem Punkt-Schätzer berechnen:
+    \begin{itemize}
+      \item[] ☐ $\overline{x} = \frac{\sum x_i}{n}$ oder $\hat{p} = \frac{m}{n}$
+    \end{itemize}
+  \checkitem Standardfehler berechnen:
+    \begin{itemize}
+      \item[] ☐ $SE = \frac{\sigma}{\sqrt{n}}$ (wenn $\sigma$ bekannt)
+      \item[] ☐ $SE = \frac{s}{\sqrt{n}}$ (wenn $\sigma$ unbekannt)
+      \item[] ☐ $SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ (für Anteil)
+    \end{itemize}
+  \checkitem Kritischen Wert bestimmen:
+    \begin{itemize}
+      \item[] ☐ Aus Normalverteilungs-Tabelle: $z_{\alpha/2}$
+      \item[] ☐ Oder aus t-Tabelle: $t_{\alpha/2, n-1}$
+      \item[] ☐ Konfidenzniveau beachten: $1 - \alpha$
+    \end{itemize}
+  \checkitem Grenzen berechnen:
+    \begin{itemize}
+      \item[] ☐ Untere Grenze: $\text{Schätzer} - \text{kritischer Wert} \cdot SE$
+      \item[] ☐ Obere Grenze: $\text{Schätzer} + \text{kritischer Wert} \cdot SE$
+    \end{itemize}
+  \checkitem Interpretation im Sachkontext
+\end{enumerate}
+
+\subsection{Formel-Schnellreferenz Kapitel 6}
+
+\begin{longtable}{|m{2.5cm}|m{2.5cm}|m{3.5cm}|m{4cm}|}
+  \hline
+  \textbf{Fall} & \textbf{Bedingung} & \textbf{Testgröße} & \textbf{Kritischer Wert} \\
+  \hline
+  \endhead
+  
+  \hline
+  \multicolumn{4}{r}{\textit{Fortsetzung auf nächster Seite}} \\
+  \endfoot
+  
+  Mittelwert & $\sigma$ bekannt & $\overline{x} \pm z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$ & $z_{\alpha/2}$ \\
+  \hline
+  Mittelwert & $\sigma$ unbekannt, $n < 30$ & $\overline{x} \pm t_{\alpha/2,n-1} \frac{s}{\sqrt{n}}$ & $t_{\alpha/2,n-1}$ \\
+  \hline
+  Anteil & $n > 30$, $5 \leq m \leq n-5$ & $\hat{p} \pm z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$ & $z_{\alpha/2}$ \\
+  \hline
+  Stichprobe & Fehlertoleranz $\delta$ & $n = \left(\frac{z_{\alpha/2} \sigma}{\delta}\right)^2$ & -- \\
+  \hline
+  Stichprobe (Anteil) & Fehlertoleranz $\delta$ & $n = \frac{z_{\alpha/2}^2 \hat{p}(1-\hat{p})}{\delta^2}$ & -- \\
+  \hline
+\end{longtable}
+
+\section{KAPITEL 7 - Signifikanztests}
+
+\subsection{6-Schritte Ablauf (immer!))}
+
+\begin{description}
+  \item[Schritt 1:] {\bf Hypothesen} $H_0$ und $H_1$ formulieren
+    \begin{itemize}
+      \item[] Ein- oder zweiseitig?
+      \item[] Gleichheit oder Richtung?
+    \end{itemize}
+  
+  \item[Schritt 2:] {\bf Signifikanzniveau} $\alpha$ festlegen (0.01, 0.05, 0.10)
+  
+  \item[Schritt 3:] {\bf Testgröße} berechnen (nach Formel des Tests)
+  
+  \item[Schritt 4:] {\bf Verteilung} wählen (Normal-, t-, $\chi^2$-Verteilung)
+  
+  \item[Schritt 5:] {\bf Kritischen Wert} bestimmen
+    \begin{itemize}
+      \item[] Rechtsseitig: $c = F^{-1}(1-\alpha)$
+      \item[] Linksseitig: $c = F^{-1}(\alpha)$
+      \item[] Zweiseitig: $c = F^{-1}(1-\alpha/2)$
+    \end{itemize}
+  
+  \item[Schritt 6:] {\bf Entscheidung} treffen und im Kontext interpretieren
+    \begin{itemize}
+      \item[] Wenn Testgröße im Ablehnungsbereich: $H_0$ ablehnen
+      \item[] Sonst: $H_0$ nicht ablehnen
+    \end{itemize}
+\end{description}
+
+\subsection{Test-Auswahl-Schnellreferenz}
+
+{\small
+\begin{longtable}{|m{2cm}|m{2.5cm}|m{2.5cm}|m{3cm}|}
+  \hline
+  \textbf{Test} & \textbf{Voraussetzung} & \textbf{Testgröße} & \textbf{Verteilung} \\
+  \hline
+  \endhead
+  
+  Gaußtest & $\sigma$ bekannt & $z = \frac{\overline{x}-\mu_0}{\sigma/\sqrt{n}}$ & $N(0,1)$ \\
+  \hline
+  t-Test & $n < 30$, $\sigma$ unbekannt & $t = \frac{\overline{x}-\mu_0}{s/\sqrt{n}}$ & $t(n-1)$ \\
+  \hline
+  Approx. Gaußtest & $n > 30$, Anteil & $z = \frac{\hat{p}-p_0}{\sqrt{p_0(1-p_0)/n}}$ & $N(0,1)$ \\
+  \hline
+  Binomial & Kleine Stichprobe & $P(X \leq k)$ exakt & Binomial \\
+  \hline
+  $\chi^2$-Anpassung & Verteilungsform & $\chi^2 = \sum\frac{(h_i-np_i)^2}{np_i}$ & $\chi^2(k-1)$ \\
+  \hline
+  2er t-Test & Unabhängig, normal & $t = \frac{\overline{x}_1-\overline{x}_2}{s_p\sqrt{1/n_1+1/n_2}}$ & $t(n_1+n_2-2)$ \\
+  \hline
+  Differenzentest & Verbunden, normal & $t = \frac{\overline{d}}{s_D/\sqrt{n}}$ & $t(n-1)$ \\
+  \hline
+  Kontingenztest & 2 kategoriale Var. & $\chi^2 = \sum\frac{(h_{ij}-e_{ij})^2}{e_{ij}}$ & $\chi^2((r-1)(c-1))$ \\
+  \hline
+  Korrelation & Bivariate Normalvert. & $t = \frac{r\sqrt{n-2}}{\sqrt{1-r^2}}$ & $t(n-2)$ \\
+  \hline
+\end{longtable}
+}
+
+\subsection{Checkliste für Signifikanztests}
+
+\begin{enumerate}
+  \checkitem Hypothesen korrekt formuliert?
+    \begin{itemize}
+      \item[] ☐ $H_0$ ist die zu testende Behauptung
+      \item[] ☐ $H_1$ ist die Negation oder Gegenhypothese
+      \item[] ☐ Ein- oder zweiseitig? (Wording beachten!)
+    \end{itemize}
+  
+  \checkitem Signifikanzniveau $\alpha$ gewählt?
+    \begin{itemize}
+      \item[] ☐ Typisch: 0.05, 0.01, oder 0.10
+      \item[] ☐ Aus Aufgabe vorgegeben?
+    \end{itemize}
+  
+  \checkitem Voraussetzungen erfüllt?
+    \begin{itemize}
+      \item[] ☐ Stichprobengröße ausreichend?
+      \item[] ☐ Normalverteilung gegeben/prüfbar?
+      \item[] ☐ Unabhängigkeit der Beobachtungen?
+    \end{itemize}
+  
+  \checkitem Testgröße korrekt berechnet?
+    \begin{itemize}
+      \item[] ☐ Alle Zwischenergebnisse notiert
+      \item[] ☐ Arithmetik überprüft
+    \end{itemize}
+  
+  \checkitem Kritischer Wert aus richtiger Tabelle?
+    \begin{itemize}
+      \item[] ☐ Normal-, t-, oder $\chi^2$-Verteilung?
+      \item[] ☐ Freiheitsgrade korrekt?
+      \item[] ☐ Ein- oder zweiseitig?
+    \end{itemize}
+  
+  \checkitem Entscheidung logisch korrekt?
+    \begin{itemize}
+      \item[] ☐ Testgröße im Ablehnungsbereich?
+      \item[] ☐ Vergleich von Testgröße und kritischem Wert
+      \item[] ☐ Nicht: Testgröße < kritischer Wert ❌
+      \item[] ☐ Sondern: |Testgröße| vs. kritischer Wert ✓
+    \end{itemize}
+  
+  \checkitem Interpretation im Sachkontext?
+    \begin{itemize}
+      \item[] ☐ Frage beantwortet (ja/nein)?
+      \item[] ☐ Nicht nur "Hypothese ablehnen/nicht ablehnen"
+      \item[] ☐ Mit Signifikanzniveau erwähnen
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Häufige Fehler und wie man sie vermeidet}
+
+\begin{longtable}{|p{4cm}|p{3.5cm}|p{2.5cm}|}
+  \hline
+  \textbf{Fehler} & \textbf{Problem} & \textbf{Lösung} \\
+  \hline
+  \endhead
+  
+  Falscher Test & Gaußtest statt t-Test & Stichprobengröße und $\sigma$-Kenntnis prüfen \\
+  \hline
+  Voraussetzung ignoriert & $5 \leq m \leq n-5$ nicht erfüllt & Vor Berechnung überprüfen! \\
+  \hline
+  Tabellenablesen & Falsche Verteilung/Freiheitsgrade & Auswahl-Matrix nutzen \\
+  \hline
+  Einseitigkeit verwechselt & Rechtsseitig statt linksseitig & Wording der Aufgabe analysieren \\
+  \hline
+  Vorzeichen ignoriert & Testgröße negativ aber $|z| < c$ & Absolut-Wert bei Zweiseitigkeit \\
+  \hline
+  Stichprobengröße & $n < 30$ aber Normaltest & t-Test verwenden! \\
+  \hline
+  KI statt Test & Aufgabe fragt nach KI nicht Test & Genau lesen! \\
+  \hline
+  Interpretation & "Hypothese ist wahr/falsch" & Nur "ablehnen/nicht ablehnen" \\
+  \hline
+\end{longtable}
+
+\subsection{Kritische Werte Schnellreferenz}
+
+\subsubsection{Standardnormalverteilung $N(0,1)$}
+
+\begin{tabular}{cccccc}
+  Konfidenzniveau & 90\% & 95\% & 99\% & -- & -- \\
+  $\alpha$ & 0.10 & 0.05 & 0.01 & -- & -- \\
+  \hline
+  $z_{\alpha/2}$ (zweiseitig) & 1.645 & 1.96 & 2.576 & -- & -- \\
+  $z_\alpha$ (einseitig) & 1.282 & 1.645 & 2.326 & -- & -- \\
+\end{tabular}
+
+\subsubsection{t-Verteilung (Auszug)}
+
+\begin{tabular}{cccccc}
+  $df \backslash \alpha$ & 0.10 & 0.05 & 0.025 & 0.01 & 0.005 \\
+  \hline
+  8 & 1.397 & 1.860 & 2.306 & 2.896 & 3.355 \\
+  9 & 1.383 & 1.833 & 2.262 & 2.821 & 3.250 \\
+  10 & 1.372 & 1.812 & 2.228 & 2.764 & 3.169 \\
+  20 & 1.325 & 1.725 & 2.086 & 2.528 & 2.845 \\
+  30 & 1.310 & 1.697 & 2.042 & 2.457 & 2.750 \\
+  $\infty$ & 1.282 & 1.645 & 1.96 & 2.326 & 2.576 \\
+\end{tabular}
+
+\subsubsection{Chi-Quadrat-Verteilung}
+
+\begin{tabular}{ccccc}
+  $df \backslash \alpha$ & 0.10 & 0.05 & 0.025 & 0.01 \\
+  \hline
+  1 & 2.706 & 3.841 & 5.024 & 6.635 \\
+  5 & 9.236 & 11.07 & 12.833 & 15.09 \\
+  10 & 15.99 & 18.31 & 20.48 & 23.21 \\
+  15 & 22.31 & 25.00 & 27.49 & 30.58 \\
+\end{tabular}
+
+\end{document}
