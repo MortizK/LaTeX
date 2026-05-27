@@ -1,0 +1,332 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================================
+% KLAUSUR-TEMPLATE: IT-SICHERHEIT (90 Minuten)
+% ============================================================================
+% Automatisch generiert: 27.05.2026
+% Basierend auf Modulhandbuch, Skripten, Notizen und Übungsaufgaben
+% ============================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{enumerate}
+
+% Code-Styling
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    showstringspaces=false
+}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{IT-Sicherheit Klausur}
+\lhead{Bearbeitungszeit: 90 Minuten}
+\cfoot{\thepage}
+
+% ============================================================================
+\title{\textbf{Klausur: IT-Sicherheit}}
+\author{DHBW Stuttgart -- Informatik}
+\date{27.05.2026}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================================
+% ANWEISUNGEN
+% ============================================================================
+
+\section*{KLAUSURANWEISUNGEN}
+
+\begin{itemize}
+    \item \textbf{Bearbeitungszeit:} 90 Minuten
+    \item \textbf{Hilfsmittel:} Keine
+    \item \textbf{Aufgaben:} Alle Aufgaben sind Pflichtaufgaben
+    \item \textbf{Punkteverteilung:} Siehe Aufgabenblatt
+    \item \textbf{Bestanden:} 50\% der Gesamtpunkte
+\end{itemize}
+
+\textbf{Hinweise:}
+\begin{itemize}
+    \item Schreiben Sie leserlich
+    \item Beantworten Sie die Fragen präzise und begründen Sie Ihre Antworten
+    \item Nutzen Sie Diagramme, um komplexe Konzepte zu erklären
+\end{itemize}
+
+\newpage
+
+% ============================================================================
+% AUFGABEN
+% ============================================================================
+
+\section{Grundlagen der IT-Sicherheit [15 Punkte]}
+
+\textbf{Aufgabe 1.1 - Schutzziele (6 Punkte)}
+
+Nennen Sie die sechs Schutzziele der IT-Sicherheit und erläutern Sie kurz, was unter dem Schutzziel \textit{Vertraulichkeit} zu verstehen ist. Geben Sie ein Beispiel, wie dieses Schutzziel in der Praxis verletzt werden kann.
+
+\vspace{4cm}
+
+\textbf{Aufgabe 1.2 - Bedrohungsklassifikation (9 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Klassifizieren Sie folgende Bedrohungen und geben Sie jeweils ein Beispiel an:
+    \begin{itemize}
+        \item Höhere Gewalt
+        \item Fahrlässigkeit
+        \item Vorsatz
+    \end{itemize}
+    
+    \item Unterscheiden Sie zwischen \textit{passiven} und \textit{aktiven} Angriffen und nennen Sie je ein Beispiel.
+\end{enumerate}
+
+\vspace{5cm}
+
+% ============================================================================
+
+\newpage
+
+\section{Symmetrische Verschlüsselung [20 Punkte]}
+
+\textbf{Aufgabe 2.1 - Caesar-Chiffre (8 Punkte)}
+
+Gegeben ist eine Caesar-Chiffre mit Schlüssel $k = 3$ und Blockgröße 1 (ECB-Modus).
+Verwenden Sie die Zuordnung: A $\to$ 0, B $\to$ 1, ..., Z $\to$ 25
+
+\begin{enumerate}[(a)]
+    \item Verschlüsseln Sie die Nachricht ``SICHERHEIT''
+    \item Welche Sicherheitsprobleme hat die ECB-Modus Verschlüsselung?
+    \item Nennen Sie einen sichereren Betriebsmodus und begründen Sie die Verbesserung
+\end{enumerate}
+
+\vspace{4cm}
+
+\textbf{Aufgabe 2.2 - AES und DES (12 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Vergleichen Sie DES und AES hinsichtlich:
+    \begin{itemize}
+        \item Schlüssellänge
+        \item Blockgröße
+        \item Anzahl der Runden
+        \item Sicherheitsniveau (aktuell)
+    \end{itemize}
+    
+    \item Warum ist DES heute nicht mehr sicher?
+    
+    \item Welche Verschlüsselungsstandards sind aktuell für Industrie 4.0 und IoT empfohlen?
+\end{enumerate}
+
+\vspace{5cm}
+
+% ============================================================================
+
+\newpage
+
+\section{Kryptologie und Hashfunktionen [18 Punkte]}
+
+\textbf{Aufgabe 3.1 - Hashfunktionen (9 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Nennen Sie mindestens 3 Anforderungen an sichere Hashfunktionen
+    
+    \item Eine Hashfunktion $H$ erfüllt folgende Eigenschaft nicht:
+    ``Preimage-Resistance (Erste Urbild-Resistenz)''. Welche Angriffe werden dadurch ermöglicht?
+    
+    \item Erklären Sie, warum SHA-1 (160 Bit) kritisch ist, während SHA-256 noch sicher ist.
+\end{enumerate}
+
+\vspace{3cm}
+
+\textbf{Aufgabe 3.2 - Message Authentication Code (9 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Unterscheiden Sie zwischen HMAC und einfachen Keyed-Hash-Verfahren
+    
+    \item Skizzieren Sie einen Angriff auf ``Secret-Prefix'' und ``Secret-Suffix'' Verfahren
+    
+    \item Warum ist HMAC-SHA-256 in modernen Protokollen dem einfachen Keyed-Hash vorzuziehen?
+\end{enumerate}
+
+\vspace{3cm}
+
+% ============================================================================
+
+\newpage
+
+\section{Asymmetrische Verfahren und RSA [17 Punkte]}
+
+\textbf{Aufgabe 4.1 - RSA Grundlagen (10 Punkte)}
+
+Gegeben: Öffentlicher Schlüssel $(e=5, n=21)$, Privater Schlüssel $(d=17)$
+
+\begin{enumerate}[(a)]
+    \item Verschlüsseln Sie die Nachricht ``5'' mit dem öffentlichen Schlüssel
+    
+    \item Entschlüsseln Sie die Nachricht ``11'', die mit dem öffentlichen Schlüssel verschlüsselt wurde
+    
+    \item Erklären Sie, warum dieses Beispiel in der Praxis nicht sicher ist
+    
+    \item Wie groß sollte $n$ mindestens sein, um RSA praktisch sicher zu machen?
+\end{enumerate}
+
+\vspace{4cm}
+
+\textbf{Aufgabe 4.2 - Digitale Signatur (7 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Erklären Sie die Funktionsweise einer digitalen Signatur
+    
+    \item Welche Schutzziele werden durch digitale Signaturen erreicht?
+    
+    \item Ist es möglich, dass ein Angreifer eine gültige Signatur erzeugt, wenn der private Schlüssel des Signierers geschützt ist?
+\end{enumerate}
+
+\vspace{3cm}
+
+% ============================================================================
+
+\newpage
+
+\section{Authentifikation und Identifikation [15 Punkte]}
+
+\textbf{Aufgabe 5.1 - Passwort-Authentifikation (8 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Unterscheiden Sie zwischen Identifikation und Authentifikation
+    
+    \item Erklären Sie den Unterschied zwischen PAP und CHAP und deren Sicherheitsimplikationen
+    
+    \item Warum ist das Speichern von Passwort-Hashes mit Salt sicherer als das Speichern von Passwörtern im Klartext?
+\end{enumerate}
+
+\vspace{3cm}
+
+\textbf{Aufgabe 5.2 - Mehfaktor-Authentifikation (7 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Nennen Sie die drei Faktoren der Authentifikation
+    
+    \item Geben Sie zwei Beispiele für Zweifaktor-Authentifikation und erklären Sie deren Vorteile
+    
+    \item Welche Angriffe können durch MFA nicht verhindert werden?
+\end{enumerate}
+
+\vspace{3cm}
+
+% ============================================================================
+
+\newpage
+
+\section{DSGVO und Sicherheits-Engineering [15 Punkte]}
+
+\textbf{Aufgabe 6.1 - Datenschutz-Grundverordnung (10 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Definieren Sie ``personenbezogene Daten'' gemäß DSGVO
+    
+    \item Nennen Sie mindestens 4 Kategorien von ``Daten besonderer Kategorie''
+    
+    \item Ein Unternehmen speichert Benutzer-Gesichtsererkennungsdaten. Welche DSGVO-Artikel sind relevant?
+    
+    \item Welche Strafen kann ein Unternehmen bei DSGVO-Verstößen erhalten?
+\end{enumerate}
+
+\vspace{3cm}
+
+\textbf{Aufgabe 6.2 - Security Engineering (5 Punkte)}
+
+\begin{enumerate}[(a)]
+    \item Erklären Sie das Konzept ``Secure by Design''
+    
+    \item Nennen Sie zwei Maßnahmen zur Umsetzung von ``Secure by Default''
+\end{enumerate}
+
+\vspace{2cm}
+
+% ============================================================================
+
+\newpage
+
+\section{Praxisaufgabe: Sicherheitsanalyse [10 Punkte]}
+
+\textbf{Aufgabe 7 - Szenarien-Bewertung}
+
+Beurteilen Sie folgende Szenarien unter Sicherheitsgesichtspunkten:
+
+\textbf{Szenario A: Cloud-Authentifikation}
+
+Ein SaaS-Anbieter speichert Benutzerdaten in der Cloud und verschlüsselt diese mit AES-256-CBC. Die Schlüsselverwaltung erfolgt durch den Cloud-Provider. Der Zugriff ist durch Passwörter mit Zwei-Faktor-Authentifikation (SMS-Codes) geschützt.
+
+\begin{enumerate}[(i)]
+    \item Welche Schutzziele sind abgedeckt?
+    \item Welche Risiken bestehen noch?
+    \item Wie würden Sie die Sicherheit verbessern?
+\end{enumerate}
+
+\vspace{4cm}
+
+\textbf{Szenario B: IoT-Geräte}
+
+Ein Hersteller von smarten Türschlössern nutzt pre-shared keys für die Authentifikation zwischen Schloss und App. Die Schlüssel sind in die Firmware des Schlosses eingebettet.
+
+\begin{enumerate}[(i)]
+    \item Identifizieren Sie die Sicherheitsprobleme
+    \item Wie würde ein Angreifer vorgehen?
+    \item Welche Lösung würden Sie empfehlen?
+\end{enumerate}
+
+\vspace{4cm}
+
+% ============================================================================
+
+\newpage
+
+\section*{PUNKTEVERTEILUNG}
+
+\begin{tabularx}{\textwidth}{|l|X|r|}
+    \hline
+    \textbf{Aufgabe} & \textbf{Thema} & \textbf{Punkte} \\
+    \hline
+    1 & Grundlagen IT-Sicherheit & 15 \\
+    2 & Symmetrische Verschlüsselung & 20 \\
+    3 & Kryptologie und Hashfunktionen & 18 \\
+    4 & Asymmetrische Verfahren und RSA & 17 \\
+    5 & Authentifikation und Identifikation & 15 \\
+    6 & DSGVO und Security Engineering & 15 \\
+    7 & Praxisaufgabe: Sicherheitsanalyse & 10 \\
+    \hline
+    & \textbf{SUMME} & \textbf{110 Punkte} \\
+    \hline
+\end{tabularx}
+
+\vspace{1cm}
+
+\textbf{Bewertungsskala:}
+\begin{itemize}
+    \item 1,0: $\geq 99$ Punkte (90\%)
+    \item 1,3: $\geq 90$ Punkte (82\%)
+    \item 1,7: $\geq 82$ Punkte (75\%)
+    \item 2,0: $\geq 77$ Punkte (70\%)
+    \item 2,3: $\geq 69$ Punkte (63\%)
+    \item 2,7: $\geq 60$ Punkte (55\%)
+    \item 3,0: $\geq 55$ Punkte (50\%)
+    \item 4,0: $< 55$ Punkte
+\end{itemize}
+
+\end{document}
