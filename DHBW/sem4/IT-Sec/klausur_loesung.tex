@@ -1,0 +1,2029 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================================
+% MUSTERLÖSUNG: IT-SICHERHEIT KLAUSUR (90 Minuten)
+% ============================================================================
+% Generiert: 27.05.2026
+% Basierend auf Modulhandbuch, Skripten und Notizen
+% ============================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{enumerate}
+\usepackage{tcolorbox}
+
+% Code-Styling
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    breaklines=true,
+    showstringspaces=false
+}
+
+% Farben für Lösungen
+\definecolor{solutionbg}{gray}{0.95}
+\definecolor{pointcolor}{RGB}{0,100,0}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{IT-Sicherheit Musterlösung}
+\lhead{DHBW Stuttgart}
+\cfoot{\thepage}
+
+% ============================================================================
+\title{\textbf{MUSTERLÖSUNG: IT-Sicherheit Klausur}}
+\author{DHBW Stuttgart -- Informatik}
+\date{27.05.2026}
+
+\begin{document}
+
+\maketitle
+
+% ============================================================================
+% HINWEISE FÜR KORREKTOR
+% ============================================================================
+
+\section*{HINWEISE FÜR KORREKTOR}
+
+\begin{tcolorbox}[colback=yellow!10, colframe=orange!50, title=Bewertungshinweise]
+\begin{itemize}
+    \item Die folgende Musterlösung zeigt exemplarische Lösungen für alle Aufgaben
+    \item Alternative korrekte Antworten sind zu akzeptieren, wenn diese sachlich richtig und gut begründet sind
+    \item Teilpunkte sind großzügig zu vergeben bei Verständnis der Konzepte
+    \item Rechenfehler sollten nur dann abgezogen werden, wenn der Rechenweg richtig ist
+    \item Kreuze \checkmark markieren Lösungen, die vollständig sind und die volle Punktzahl erhalten
+\end{itemize}
+\end{tcolorbox}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+% ============================================================================
+% AUFGABE 1: GRUNDLAGEN
+% ============================================================================
+
+\section{Grundlagen der IT-Sicherheit [15 Punkte]}
+
+\subsection{Aufgabe 1.1 - Schutzziele (6 Punkte)}
+
+\subsubsection*{Aufgabenstellung}
+Nennen Sie die sechs Schutzziele der IT-Sicherheit und erläutern Sie kurz, was unter dem Schutzziel \textit{Vertraulichkeit} zu verstehen ist. Geben Sie ein Beispiel, wie dieses Schutzziel in der Praxis verletzt werden kann.
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Die sechs Schutzziele der IT-Sicherheit:} \checkmark
+
+\begin{enumerate}
+    \item \textbf{Vertraulichkeit (Confidentiality)}: Nur autorisierte Personen dürfen Zugriff auf Informationen haben
+    \item \textbf{Integrität (Integrity)}: Daten dürfen nicht unbefugt verändert werden
+    \item \textbf{Verfügbarkeit (Availability)}: Systeme und Daten müssen verfügbar sein
+    \item \textbf{Authentizität (Authenticity)}: Identität von Absender/Empfänger kann überprüft werden
+    \item \textbf{Verbindlichkeit/Zurechenbarkeit (Accountability)}: Handlungen können einer Person zugeordnet werden
+    \item \textbf{Privatheit/Anonymität (Privacy/Anonymity)}: Daten können nicht auf Personen zurückgeführt werden
+\end{enumerate}
+
+\textbf{Erklärung Vertraulichkeit:} \checkmark
+
+Vertraulichkeit bedeutet, dass nur diejenigen Personen Zugriff auf bestimmte Informationen haben dürfen, die dazu berechtigt sind. Unautorisierte Personen sollen diese Informationen nicht einsehen können.
+
+\textbf{Praktisches Beispiel für Verletzung:} \checkmark
+
+Ein Angreifer hackt sich in einen Mailserver ein und liest die Mails der Benutzer, ohne dazu berechtigt zu sein. Dies verletzt die Vertraulichkeit, da private Kommunikation mitgelesen wird.
+
+\textbf{Weiteres Beispiel:}
+\begin{itemize}
+    \item Man-in-the-Middle Angriff: Abhören unverschlüsselter Kommunikation
+    \item Datenleck: Unbefugtes Herunterladen von Kundendaten aus einer Datenbank
+    \item USB-Stick mit sensiblen Daten wird in öffentlichen Verkehrsmitteln vergessen
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Alle 6 Schutzziele genannt (3 Punkte) \checkmark
+    \item Vertraulichkeit erläutert (2 Punkte) \checkmark
+    \item Praktisches Beispiel (1 Punkt) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 1.2 - Bedrohungsklassifikation (9 Punkte)}
+
+\subsubsection*{Aufgabenstellung}
+
+\begin{enumerate}[(a)]
+    \item Klassifizieren Sie folgende Bedrohungen und geben Sie jeweils ein Beispiel an:
+    \begin{itemize}
+        \item Höhere Gewalt
+        \item Fahrlässigkeit
+        \item Vorsatz
+    \end{itemize}
+    
+    \item Unterscheiden Sie zwischen \textit{passiven} und \textit{aktiven} Angriffen und nennen Sie je ein Beispiel.
+\end{enumerate}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Bedrohungsklassifikation:}
+
+\textbf{1. Höhere Gewalt:} \checkmark
+\begin{itemize}
+    \item \textbf{Definition:} Natürliche oder außergewöhnliche Ereignisse, die nicht kontrollierbar sind
+    \item \textbf{Beispiele:}
+    \begin{itemize}
+        \item Blitzschlag, der Stromausfall verursacht
+        \item Erdbeben, das Rechenzentrum beschädigt
+        \item Hochwasser/Überschwemmung
+        \item Feuer durch äußere Einwirkung
+    \end{itemize}
+\end{itemize}
+
+\textbf{2. Fahrlässigkeit:} \checkmark
+\begin{itemize}
+    \item \textbf{Definition:} Unbeabsichtigte Fehler durch menschliches Versagen
+    \item \textbf{Beispiele:}
+    \begin{itemize}
+        \item Datenbankadministrator löscht versehentlich wichtige Daten
+        \item Mitarbeiter gibt Passwort an der Rezeption preis
+        \item Unverschlüsseltes Backup wird in öffentliche Cloud hochgeladen
+        \item Falsche Firewall-Regel öffnet Port unbeabsichtigt
+    \end{itemize}
+\end{itemize}
+
+\textbf{3. Vorsatz:} \checkmark
+\begin{itemize}
+    \item \textbf{Definition:} Absichtliche Angriffe durch böswillige Akteure
+    \item \textbf{Beispiele:}
+    \begin{itemize}
+        \item Hacker führt SQL-Injection durch um Datenbank zu manipulieren
+        \item Malware-Infection durch Drive-by-Download
+        \item Mitarbeiter stiehlt absichtlich Kundendaten
+        \item DDoS-Angriff gegen Website
+        \item Ransomware-Attacke auf Unternehmensnetzwerk
+    \end{itemize}
+\end{itemize}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(b) Passive vs. Aktive Angriffe:} \checkmark
+
+\textbf{Passive Angriffe:}
+\begin{itemize}
+    \item \textbf{Definition:} Angreifer versucht Informationen zu gewinnen, ohne System zu verändern
+    \item \textbf{Schutzziel:} Vertraulichkeit verletzt
+    \item \textbf{Beispiel:} Sniffing-Angriff
+    \begin{itemize}
+        \item Angreifer setzt seinen Computer in den Promiscuous-Modus
+        \item Erfasst alle Netzwerk-Pakete im selben Subnetz
+        \item Liest Passwörter aus unverschlüsselter Kommunikation
+    \end{itemize}
+    \item \textbf{Gegenmassnahmen:} Kryptographie (verschlüsselte Übertragung)
+\end{itemize}
+
+\textbf{Aktive Angriffe:}
+\begin{itemize}
+    \item \textbf{Definition:} Angreifer verändert, erzeugt oder löscht Daten
+    \item \textbf{Schutzziele:} Integrität und/oder Verfügbarkeit verletzt
+    \item \textbf{Beispiel:} Man-in-the-Middle (MITM) Angriff
+    \begin{itemize}
+        \item Angreifer positioniert sich zwischen Sender und Empfänger
+        \item Fängt Datenpakete ab und verändert diese
+        \item Sendet manipulierte Pakete weiter
+        \item Empfänger erhält verfälschte Informationen
+    \end{itemize}
+    \item \textbf{Gegenmassnahmen:} 
+    \begin{itemize}
+        \item Authentifikation (Absenderidentität überprüfen)
+        \item Digitale Signaturen (Tamper-Detection)
+        \item Integrität-Prüfung (Checksummen, MACs)
+    \end{itemize}
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Höhere Gewalt klassifiziert + Beispiel (2 Punkte) \checkmark
+    \item Fahrlässigkeit klassifiziert + Beispiel (2 Punkte) \checkmark
+    \item Vorsatz klassifiziert + Beispiel (2 Punkte) \checkmark
+    \item Passive Angriffe erklärt + Beispiel (2 Punkte) \checkmark
+    \item Aktive Angriffe erklärt + Beispiel (2 Punkte) \checkmark
+\end{itemize}
+
+Allerdings waren nur 9 Punkte zu vergeben, nicht 10. Die Gewichtung sollte sein:
+\begin{itemize}
+    \item (a) 6 Punkte: Je 2 Punkte pro Klassifikation
+    \item (b) 3 Punkte: 1,5 Punkte pro Angrifftyp
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{Symmetrische Verschlüsselung [20 Punkte]}
+
+\subsection{Aufgabe 2.1 - Caesar-Chiffre (8 Punkte)}
+
+\subsubsection*{Aufgabenstellung}
+
+Gegeben ist eine Caesar-Chiffre mit Schlüssel $k = 3$ und Blockgröße 1 (ECB-Modus).
+Verwenden Sie die Zuordnung: A $\to$ 0, B $\to$ 1, ..., Z $\to$ 25
+
+\begin{enumerate}[(a)]
+    \item Verschlüsseln Sie die Nachricht ``SICHERHEIT''
+    \item Welche Sicherheitsprobleme hat die ECB-Modus Verschlüsselung?
+    \item Nennen Sie einen sichereren Betriebsmodus und begründen Sie die Verbesserung
+\end{enumerate}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Verschlüsselung von ``SICHERHEIT'' mit Caesar-Chiffre ($k=3$):} \checkmark
+
+Caesar-Chiffre: $c_i = (m_i + k) \bmod 26$
+
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \textbf{Klartext} & \textbf{Wert} & \textbf{+3} & \textbf{mod 26} & \textbf{Geheimtext} \\
+    \hline
+    S & 18 & 21 & 21 & V \\
+    I & 8 & 11 & 11 & L \\
+    C & 2 & 5 & 5 & F \\
+    H & 7 & 10 & 10 & K \\
+    E & 4 & 7 & 7 & H \\
+    R & 17 & 20 & 20 & U \\
+    H & 7 & 10 & 10 & K \\
+    E & 4 & 7 & 7 & H \\
+    I & 8 & 11 & 11 & L \\
+    T & 19 & 22 & 22 & W \\
+    \hline
+\end{tabular}
+
+\textbf{Geheimtext:} $\boxed{\text{VLFKHUHKLW}}$
+
+\textbf{(b) Sicherheitsprobleme der ECB-Verschlüsselung:} \checkmark
+
+ECB (Electronic Code Book) hat folgende Sicherheitsprobleme:
+
+\begin{enumerate}[1.]
+    \item \textbf{Pattern Preservation:}
+    \begin{itemize}
+        \item Gleiche Klartextblöcke ergeben gleiche Geheimtextblöcke
+        \item Im obigen Beispiel: ``H'' (Wert 7) wird immer zu ``K`` (Wert 10) verschlüsselt
+        \item Siehe Tabelle: E $\to$ H (2x), H $\to$ K (2x), I $\to$ L (2x)
+        \item Ein Angreifer kann Muster erkennen und Informationen ableiten
+    \end{itemize}
+    
+    \item \textbf{Statistische Angriffe:}
+    \begin{itemize}
+        \item Durch Häufigkeitsanalyse können Schlüssel erraten werden
+        \item Buchstaben mit hoher Häufigkeit in Klartexten erzeugen Muster im Geheimtext
+        \item Im Englischen: ``E'' ist häufigster Buchstabe $\to$ wird immer gleich verschlüsselt
+    \end{itemize}
+    
+    \item \textbf{Visuelle Erkennbarkeit:}
+    \begin{itemize}
+        \item Bei Bildern oder Strukturdaten: Muster bleiben erkennbar
+        \item Beispiel: Rechtecke in ECB-verschlüsselten Bildern bleiben als Rechtecke erkennbar
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Sicherer Betriebsmodus - CBC (Cipher Block Chaining):} \checkmark
+
+\textbf{Funktionsweise CBC:}
+$$c_i = E(m_i \oplus c_{i-1})$$
+
+wobei $c_0 = IV$ (Initialization Vector)
+
+\textbf{Vorteile gegenüber ECB:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Keine Pattern-Wiederholung:}
+    \begin{itemize}
+        \item Gleiche Klartextblöcke erzeugen unterschiedliche Geheimtextblöcke
+        \item Durch Abhängigkeit vom vorherigen Block
+        \item Auch bei zufälligem IV
+    \end{itemize}
+    
+    \item \textbf{Statistisches Sicherheit:}
+    \begin{itemize}
+        \item Häufigkeitsanalyse ist nicht möglich
+        \item Geheimtext sieht zufällig aus
+    \end{itemize}
+    
+    \item \textbf{Diffusion:}
+    \begin{itemize}
+        \item Eine Änderung im Klartext beeinflusst alle nachfolgenden Ciphertextblöcke
+        \item Tamper-Detection wird möglich
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Andere sichere Modi:}
+\begin{itemize}
+    \item \textbf{CTR (Counter Mode):} Blockchiffre als Stromchiffre
+    \item \textbf{GCM (Galois/Counter Mode):} Mit authentifiierter Verschlüsselung
+    \item \textbf{OFB (Output Feedback):} Ähnlich wie CBC
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Verschlüsselung korrekt (3 Punkte) \checkmark
+    \item ECB-Sicherheitsprobleme (3 Punkte) \checkmark
+    \item CBC-Modus + Verbesserung (2 Punkte) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 2.2 - AES und DES (12 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Vergleich DES vs. AES:} \checkmark
+
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Kriterium} & \textbf{DES} & \textbf{AES} \\
+    \hline
+    \textbf{Schlüssellänge} & 56 Bit & 128, 192, 256 Bit \\
+    \hline
+    \textbf{Blockgröße} & 64 Bit & 128 Bit \\
+    \hline
+    \textbf{Anzahl Runden} & 16 & 10, 12, 14 (je nach Schlüssellänge) \\
+    \hline
+    \textbf{Sicherheit heute} & UNSICHER & SICHER \\
+    \hline
+    \textbf{Verabschiedung} & 1977 & 2001 (NIST Standard) \\
+    \hline
+    \textbf{Grundkonzept} & Feistel-Netzwerk & Substitution-Permutation \\
+    \hline
+\end{tabular}
+
+\textbf{(b) Warum ist DES heute nicht mehr sicher?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Zu kurze Schlüssellänge (56 Bit):}
+    \begin{itemize}
+        \item Nur $2^{56}$ mögliche Schlüssel $\approx 7,2 \times 10^{16}$
+        \item Moderne Computer können dies in wenigen Stunden durchsuchen
+        \item Brute-Force Attacke ist praktisch durchführbar
+    \end{itemize}
+    
+    \item \textbf{Triple-DES (3DES) wurde zur Übergangslösung:}
+    \begin{itemize}
+        \item Verwendet effektiv 112 Bit Schlüssel
+        \item Ist aber deutlich langsamer
+        \item Blockgröße bleibt nur 64 Bit (zu klein)
+    \end{itemize}
+    
+    \item \textbf{Kleine Blockgröße (64 Bit):}
+    \begin{itemize}
+        \item Nur $2^{64}$ verschiedene mögliche Blöcke
+        \item Nach ca. $2^{32}$ verschlüsselten Blöcken tritt Birthday-Paradox auf
+        \item Wiederholte Blöcke werden sichtbar
+    \end{itemize}
+    
+    \item \textbf{Theoretische Schwächen:}
+    \begin{itemize}
+        \item Lineare Kryptanalyse ist möglich
+        \item Differentielle Kryptanalyse hat Ansatzpunkte
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Empfohlene Standards für Industrie 4.0 und IoT:} \checkmark
+    
+\begin{enumerate}[\textbf{1.}]
+    \item \textbf{AES-256-GCM} (ideal)
+    \begin{itemize}
+        \item 256-Bit Schlüssel für Zukunftssicherheit
+        \item GCM (Galois/Counter Mode) für authentifizierte Verschlüsselung
+        \item Schützt vor Tampering und Abhören
+        \item Performance ist gut
+    \end{itemize}
+    
+    \item \textbf{ChaCha20-Poly1305}
+    \begin{itemize}
+        \item Schneller auf Geräten ohne AES Hardware-Beschleunigung
+        \item Moderner Stream-Cipher
+        \item Verwendet in modernen Protokollen (TLS 1.3)
+    \end{itemize}
+    
+    \item \textbf{Lightweight Kryptographie für Resource-Constrained Devices:}
+    \begin{itemize}
+        \item Simon und Speck (NSA, aber kontrovers)
+        \item PRESENT, RECTANGLE
+        \item Weniger Ressourcen benötigt, aber geringere Sicherheit
+    \end{itemize}
+    
+    \item \textbf{Zu vermeiden:}
+    \begin{itemize}
+        \item DES und 3DES (veraltet)
+        \item RC4 (Stromchiffre mit bekannten Schwächen)
+        \item WEP (Wireless Encryption Protocol - komplett unsicher)
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item DES vs. AES Vergleich (4 Punkte) \checkmark
+    \item Warum DES unsicher (5 Punkte) \checkmark
+    \item Empfehlungen für Industrie 4.0/IoT (3 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{Kryptologie und Hashfunktionen [18 Punkte]}
+
+\subsection{Aufgabe 3.1 - Hashfunktionen (9 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Anforderungen an sichere Hashfunktionen:} \checkmark
+
+Mindestens 3 von folgenden (mit je 1 Punkt):
+
+\begin{enumerate}[1.]
+    \item \textbf{Preimage-Resistance (Erste Urbild-Resistenz):}
+    \begin{itemize}
+        \item Gegeben Hash $h = H(m)$, sollte es praktisch unmöglich sein, $m$ zu finden
+        \item Brute-Force würde $2^{n}$ Versuche benötigen (mit $n$ = Hash-Länge)
+    \end{itemize}
+    
+    \item \textbf{Second Preimage-Resistance (Zweite Urbild-Resistenz):}
+    \begin{itemize}
+        \item Gegeben $m$ und $h = H(m)$, sollte es unmöglich sein, ein anderes $m' \neq m$ mit $H(m') = h$ zu finden
+        \item Verhindert Kollisionen für ein bekanntes Eingabewort
+    \end{itemize}
+    
+    \item \textbf{Collision-Resistance (Kollisionsresistenz):}
+    \begin{itemize}
+        \item Es sollte praktisch unmöglich sein, zwei unterschiedliche Eingaben $m \neq m'$ zu finden mit $H(m) = H(m')$
+        \item Brute-Force würde ca. $2^{n/2}$ Versuche benötigen (Birthday-Paradox)
+        \item Dies ist die wichtigste Eigenschaft
+    \end{itemize}
+    
+    \item \textbf{Determinismus:}
+    \begin{itemize}
+        \item Gleiche Eingabe muss immer gleichen Hash ergeben
+        \item Notwendig für Verifikation
+    \end{itemize}
+    
+    \item \textbf{Avalanche-Effekt:}
+    \begin{itemize}
+        \item Kleine Änderung in der Eingabe sollte großen Unterschied im Hash verursachen
+        \item Verhindert, dass ähnliche Eingaben ähnliche Hashes haben
+    \end{itemize}
+    
+    \item \textbf{Effizienz:}
+    \begin{itemize}
+        \item Hash sollte schnell berechnet werden können
+        \item Wichtig für praktische Anwendungen
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(b) Angriffe bei fehlender Preimage-Resistance:} \checkmark
+
+Wenn $H$ ist nicht Preimage-resistant:
+
+\begin{enumerate}[1.]
+    \item \textbf{Passwort-Recovery:}
+    \begin{itemize}
+        \item Wenn Passwort-Hash $h = H(pw)$ bekannt ist
+        \item Und man kann Preimage finden: $pw = H^{-1}(h)$
+        \item Passwort-Datenbank ist kompromittiert
+    \end{itemize}
+    
+    \item \textbf{Signatur-Fälschung:}
+    \begin{itemize}
+        \item Digitale Signatur schützt nur den Hash, nicht die Nachricht selbst
+        \item Wenn man zu einem gegebenen Hash $h$ eine neue Nachricht $m'$ finden kann
+        \item Die alte Signatur wird gültig für neue Nachricht
+    \end{itemize}
+    
+    \item \textbf{Integrität-Verletzung:}
+    \begin{itemize}
+        \item Message Authentication Code (MAC) wird unsicher
+        \item Angreifer kann Nachricht ändern und neuen MAC berechnen
+    \end{itemize}
+\end{enumerate}
+
+\textbf{(c) SHA-1 vs. SHA-256:} \checkmark
+
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Eigenschaft} & \textbf{SHA-1} & \textbf{SHA-256} \\
+    \hline
+    \textbf{Hash-Länge} & 160 Bit & 256 Bit \\
+    \hline
+    \textbf{Theoretische Sicherheit} & $2^{80}$ & $2^{128}$ \\
+    \hline
+    \textbf{Birthday-Attacke} & $2^{80}$ & $2^{128}$ \\
+    \hline
+    \textbf{Praktische Attacken} & Existieren! & Noch nicht praktisch \\
+    \hline
+    \textbf{Status} & GEBROCHEN & SICHER \\
+    \hline
+\end{tabular}
+
+\textbf{Warum SHA-1 unsicher ist:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Zu kurze Hash-Länge:}
+    \begin{itemize}
+        \item 160 Bit $\approx 2^{80}$ Möglichkeiten
+        \item Moderne Computer können $2^{60}$ Operationen pro Jahr durchführen
+        \item Nach Birthday-Paradox: ca. $2^{80}$ Hashes genügen für Kollision
+        \item Realistische Attacke in Supercomputer-Zeit
+    \end{itemize}
+    
+    \item \textbf{Schwächen in der Struktur:}
+    \begin{itemize}
+        \item SHAttered-Angriff (2017): Google demonstrierte erste praktische Kollision
+        \item Verwendet SHA1('X.509')+SHA1('PEM')
+        \item Bewies, dass Collision-Resistance verloren gegangen ist
+    \end{itemize}
+    
+    \item \textbf{Zukunftssicherheit:}
+    \begin{itemize}
+        \item Mit 256 Bit ist auch nach 20 Jahren noch keine praktische Attacke absehbar
+        \item Quantum-Computer sind noch nicht vorhanden
+        \item SHA-256 ist Post-Quantum sicher genug (vorerst)
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Mindestens 3 Anforderungen (3 Punkte) \checkmark
+    \item Angriffe (3 Punkte) \checkmark
+    \item SHA-1 vs SHA-256 Vergleich (3 Punkte) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 3.2 - Message Authentication Code (9 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) HMAC vs. einfache Keyed-Hash-Verfahren:} \checkmark
+
+\textbf{Einfache Keyed-Hash Varianten:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Secret-Prefix:} $MAC(m, k) = H(k \| m)$
+    \item \textbf{Secret-Suffix:} $MAC(m, k) = H(m \| k)$
+    \item \textbf{Secret-Sandwich:} $MAC(m, k) = H(k \| m \| k)$
+\end{enumerate}
+
+\textbf{HMAC-Struktur:}
+$$HMAC(m, k) = H((k \oplus opad) \| H((k \oplus ipad) \| m))$$
+
+wobei:
+\begin{itemize}
+    \item $opad$ = äußeres Padding (0x5C bytes)
+    \item $ipad$ = inneres Padding (0x36 bytes)
+\end{itemize}
+
+\textbf{Unterschiede:} \checkmark
+
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Aspekt} & \textbf{Einfache Verfahren} & \textbf{HMAC} \\
+    \hline
+    \textbf{Sicherheit} & Anfällig für Angriffe & Resistent gegen Padding-Angriffe \\
+    \hline
+    \textbf{Struktur} & Einfach: $H(k|m)$ & Komplex: zwei Hash-Runden \\
+    \hline
+    \textbf{Seitenkana.-Schutz} & Nein & Ja (über XOR-Operationen) \\
+    \hline
+    \textbf{Standardisiert} & Nein & Ja (RFC 2104) \\
+    \hline
+\end{tabular}
+
+\textbf{(b) Angriffe auf Secret-Prefix und Secret-Suffix:} \checkmark
+
+\textbf{Angriff auf Secret-Suffix $H(m \| k)$:}
+
+\begin{enumerate}[1.]
+    \item Längen-Erweiterungs-Angriff (Length Extension Attack)
+    \item Blockbasierte Hash-Funktionen (SHA-1, SHA-256) sind anfällig
+    \item \textbf{Ablauf:}
+    \begin{itemize}
+        \item Angreifer kennt: Nachricht $m$, Hash $h = H(m \| k)$ und wahrscheinliche Länge von $k$
+        \item Berechnet interner Zustand von SHA nach Verarbeitung von $m \| k$
+        \item Kann dann beliebige Daten $m'$ anhängen
+        \item Hash für $m \| k \| m'$ berechnen, ohne $k$ zu kennen
+    \end{itemize}
+    \item \textbf{Beispiel:} Administrator-Kommando $m$ wird mit Secret-Suffix gehashed
+    \item Angreifer kann zusätzliche Kommandos anhängen
+
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Angriff auf Secret-Prefix $H(k \| m)$:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Hash-Kollisions-Angriff:}
+    \begin{itemize}
+        \item Angreifer findet zwei Nachrichten $m_1, m_2$ mit $H(m_1) = H(m_2)$
+        \item Aber: $H(k \| m_1) \neq H(k \| m_2)$ im Allgemeinen
+    \end{itemize}
+    
+    \item \textbf{Brute-Force-Angriff:}
+    \begin{itemize}
+        \item Wenn $k$ kurz ist, kann man alle möglichen $k$ durchprobieren
+        \item Überprüfe: Gilt $H(k \| m) = h_{known}$?
+        \item Schlüssel-Länge ist der limitierende Faktor
+    \end{itemize}
+    
+    \item \textbf{State-Recovery (bei bestimmten Hashes):}
+    \begin{itemize}
+        \item Bei manchen Hash-Funktionen kann innerer Zustand rekonstruiert werden
+        \item Erlaubt dann Length-Extension-Angriff ähnlich wie Secret-Suffix
+    \end{itemize}
+\end{enumerate}
+
+\textbf{(c) Warum HMAC-SHA-256 sicherer ist:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Resistent gegen Längen-Erweiterung:}
+    \begin{itemize}
+        \item Double-Hashing Struktur verhindert Längen-Erweiterung
+        \item Innerer Hash: $H((k \oplus ipad) \| m)$
+        \item Äußerer Hash: $H((k \oplus opad) \| innerer\_Hash)$
+        \item Angreifer kann nicht einfach $m'$ anhängen
+    \end{itemize}
+    
+    \item \textbf{Schlüssel-Isolation:}
+    \begin{itemize}
+        \item Schlüssel wird mit ipad und opad verarbeitet (XOR)
+        \item Verhindert direkte Verwendung von $k$ im Hash-Prozess
+        \item Schlüssel wird vor jedem Hash-Prozess neu
+    \end{itemize}
+    
+    \item \textbf{FIPS-Standard:}
+    \begin{itemize}
+        \item HMAC ist in RFC 2104 und FIPS 198 standardisiert
+        \item Sollte bei allen modernen Protokollen verwendet werden
+        \item TLS 1.3, OAuth 2.0, JWT verwenden HMAC
+    \end{itemize}
+    
+    \item \textbf{Praktische Sicherheit:}
+    \begin{itemize}
+        \item Auch mit nur 256-Bit Schlüssel ist Brute-Force nicht möglich
+        \item $2^{256}$ ist astronomisch groß
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item HMAC vs. einfache Verfahren (3 Punkte) \checkmark
+    \item Angriffe auf beide Varianten (3 Punkte) \checkmark
+    \item Vorteile HMAC-SHA-256 (3 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{Asymmetrische Verfahren und RSA [17 Punkte]}
+
+\subsection{Aufgabe 4.1 - RSA Grundlagen (10 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+Gegeben: $(e=5, n=21)$, $(d=17)$
+
+\textbf{(a) Verschlüsseln der Nachricht ``5'':} \checkmark
+
+RSA Verschlüsselung: $c = m^e \bmod n$
+
+\begin{align*}
+c &= 5^5 \bmod 21 \\
+  &= 3125 \bmod 21 \\
+  &= 3125 - 148 \times 21 \\
+  &= 3125 - 3108 \\
+  &= 17
+\end{align*}
+
+\textbf{Geheimtext: } $\boxed{17}$
+
+\textbf{(b) Entschlüsseln der Nachricht ``11'':} \checkmark
+
+RSA Entschlüsselung: $m = c^d \bmod n$
+
+\begin{align*}
+m &= 11^{17} \bmod 21
+\end{align*}
+
+Dies ist schwierig zu rechnen. Wir verwenden Square-and-Multiply:
+
+$17 = 16 + 1 = (10001)_2$
+
+\begin{align*}
+11^1 &\equiv 11 \pmod{21} \\
+11^2 &\equiv 121 \equiv 16 \pmod{21} \\
+11^4 &\equiv 16^2 = 256 \equiv 4 \pmod{21} \\
+11^8 &\equiv 4^2 = 16 \pmod{21} \\
+11^{16} &\equiv 16^2 = 256 \equiv 4 \pmod{21}
+\end{align*}
+
+Daher:
+\begin{align*}
+11^{17} &= 11^{16} \times 11^1 \\
+       &\equiv 4 \times 11 \pmod{21} \\
+       &\equiv 44 \pmod{21} \\
+       &\equiv 2 \pmod{21}
+\end{align*}
+
+\textbf{Klartext: } $\boxed{2}$
+
+Verifikation: $2^5 = 32 = 21 + 11 \equiv 11 \pmod{21}$ \checkmark
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Warum ist dieses Beispiel nicht sicher:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{$n$ ist viel zu klein (21):}
+    \begin{itemize}
+        \item Schlüsselraum ist nur $\phi(21) = \phi(3 \times 7) = 2 \times 6 = 12$
+        \item Brute-Force über alle möglichen Klartexte $< 21$ ist trivial
+        \item In der Praxis sollte $n \approx 2048$ Bit sein
+    \end{itemize}
+    
+    \item \textbf{$n$ ist leicht zu faktorisieren:}
+    \begin{itemize}
+        \item $21 = 3 \times 7$ ist sofort ersichtlich
+        \item Wenn ein Angreifer $n$ faktorisieren kann, kann er $\phi(n)$ berechnen
+        \item Aus $\phi(n)$ und $e$ kann man $d$ berechnen
+    \end{itemize}
+    
+    \item \textbf{Keine Padding:}
+    \begin{itemize}
+        \item Praktisches RSA verwendet OAEP-Padding
+        \item Verhindert Angriffe wie Textbook-RSA Padding-Oracle
+    \end{itemize}
+\end{enumerate}
+
+\textbf{(d) Mindestgröße von $n$:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Aktueller Standard (2024):}
+    \begin{itemize}
+        \item \textbf{Minimum:} $n \geq 2048$ Bit (empfohlen)
+        \item \textbf{Sicher bis ca. 2030}
+        \item Entspricht $2^{2048}$ mögliche Werte für $n$
+    \end{itemize}
+    
+    \item \textbf{Zukünftssicherheit:}
+    \begin{itemize}
+        \item \textbf{Empfohlen:} $n = 4096$ Bit für Langzeit-Sicherheit
+        \item \textbf{Post-Quantum:} RSA wird durch Quantencomputer bedroht
+        \item Shor's Algorithmus kann RSA in polynomieller Zeit brechen
+    \end{itemize}
+    
+    \item \textbf{Faktorisierungs-Schwierigkeit:}
+    \begin{itemize}
+        \item Mit aktueller Rechenleistung (2024)
+        \item 512 Bit $n$: In wenigen Stunden faktorisierbar
+        \item 1024 Bit $n$: Experimentell möglich (mit sehr großem Aufwand)
+        \item 2048 Bit $n$: Praktisch unmöglich
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Verschlüsselung (2 Punkte) \checkmark
+    \item Entschlüsselung (3 Punkte) \checkmark
+    \item Sicherheitsprobleme (3 Punkte) \checkmark
+    \item Mindestgröße $n$ (2 Punkte) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 4.2 - Digitale Signatur (7 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Funktionsweise einer digitalen Signatur:} \checkmark
+
+\textbf{Generelles Prinzip:}
+
+\begin{enumerate}[\textbf{Schritt 1:}]
+    \item \textbf{Hash der Nachricht berechnen:}
+    $$h = H(m)$$
+    Wobei $H$ eine sichere Hashfunktion ist (z.B. SHA-256)
+    
+    \item \textbf{Hash mit privatem Schlüssel signieren:}
+    $$sig = h^d \bmod n \quad \text{(bei RSA)}$$
+    Wobei $d$ der private Schlüssel des Absenders ist
+    
+    \item \textbf{Nachricht und Signatur versenden:}
+    Sender versendet: $(m, sig)$
+    
+    \item \textbf{Empfänger verifiziert:}
+    \begin{itemize}
+        \item Hash der erhaltenen Nachricht berechnen: $h' = H(m)$
+        \item Signatur mit öffentlichem Schlüssel entschlüsseln: $h_{ver} = sig^e \bmod n$
+        \item Vergleichen: Ist $h' = h_{ver}$?
+        \item Wenn ja $\to$ Signatur gültig
+        \item Wenn nein $\to$ Signatur ungültig oder Nachricht verfälscht
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Beispiel mit unseren RSA-Parametern:}
+
+Absender möchte Nachricht $m = 5$ signieren. Mit $(d=17, n=21)$:
+
+\begin{align*}
+sig &= H(5)^{17} \bmod 21 \\
+    &= 5^{17} \bmod 21
+\end{align*}
+
+(Annahme: $H(5) = 5$ für dieses Beispiel)
+
+Berechnung (mit $e=5$):
+$$sig^e \bmod 21 = sig^5 \bmod 21 = 5$$
+
+Empfänger erhält $(m=5, sig)$ und verifiziert mit öffentlichem Schlüssel $(e=5, n=21)$
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(b) Schutzziele einer digitalen Signatur:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Authentizität:}
+    \begin{itemize}
+        \item Nur der Absender (Besitzer des privaten Schlüssels) kann Signatur erzeugen
+        \item Empfänger weiß, dass Nachricht wirklich vom Absender kommt
+    \end{itemize}
+    
+    \item \textbf{Integrität:}
+    \begin{itemize}
+        \item Wenn Nachricht auch nur um ein Bit verändert wird
+        \item Ändert sich der Hash komplett (Avalanche-Effekt)
+        \item Signatur wird ungültig
+        \item Empfänger erkennt sofort Verfälschung
+    \end{itemize}
+    
+    \item \textbf{Verbindlichkeit/Non-Repudiation:}
+    \begin{itemize}
+        \item Absender kann nicht behaupten, Nachricht nicht geschrieben zu haben
+        \item Nur er besitzt privaten Schlüssel
+        \item Signatur beweist: Nachricht kam von ihm
+        \item Rechtsgültig in vielen Ländern (digitale Signaturen)
+    \end{itemize}
+    
+    \item \textbf{NICHT geschützt: Vertraulichkeit}
+    \begin{itemize}
+        \item Signatur schützt nicht vor Abhören
+        \item Nachricht selbst ist im Klartext (außer zusätzliche Verschlüsselung)
+        \item Für Vertraulichkeit: zusätzliche Verschlüsselung notwendig
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Kann Angreifer gültige Signatur erzeugen?} \checkmark
+
+\textbf{Antwort: NEIN (wenn privater Schlüssel geschützt ist)}
+
+\begin{enumerate}[1.]
+    \item \textbf{Warum nicht:}
+    \begin{itemize}
+        \item Signatur erfordert privaten Schlüssel $d$
+        \item Nur Absender kennt $d$
+        \item Angreifer kennt nur öffentlichen Schlüssel $e$
+        \item Aus $e$ kann man nicht auf $d$ schließen (RSA-Annahme)
+    \end{itemize}
+    
+    \item \textbf{Sicherheit basiert auf:}
+    \begin{itemize}
+        \item \textbf{Faktorisierungs-Annahme:} Schwer, $n = p \times q$ zu faktorisieren
+        \item Wenn man $p$ und $q$ kennt $\to$ kann man $\phi(n)$ berechnen
+        \item Aus $\phi(n)$ und $e$ $\to$ kann man $d$ berechnen
+        \item Aber: Große $n$ sind praktisch nicht faktorisierbar
+    \end{itemize}
+    
+    \item \textbf{Mögliche Angriffe (aber nicht relevant hier):}
+    \begin{itemize}
+        \item \textbf{Padding-Oracle Attacken:} Bei schwachem Padding möglich
+        \item \textbf{Seitenkana-Angriffe:} Durch Timing oder Power-Analysis
+        \item \textbf{Quantum-Angriff:} Shor's Algorithmus könnte $n$ faktorisieren
+        \item \textbf{Schlüssel-Diebstahl:} Wenn privater Schlüssel gestohlen wird
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Funktionsweise erklärt (3 Punkte) \checkmark
+    \item Schutzziele (2 Punkte) \checkmark
+    \item Kann Angreifer fälschen? (2 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{Authentifikation und Identifikation [15 Punkte]}
+
+\subsection{Aufgabe 5.1 - Passwort-Authentifikation (8 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Identifikation vs. Authentifikation:} \checkmark
+
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Aspekt} & \textbf{Identifikation} & \textbf{Authentifikation} \\
+    \hline
+    \textbf{Definition} & Wer bist du? & Beweise, dass du wirklich der bist \\
+    \hline
+    \textbf{In Login:} & Benutzername & Passwort \\
+    \hline
+    \textbf{Ziel} & Benutzer erkennen & Identität überprüfen \\
+    \hline
+    \textbf{Beispiel} & ``Mein Name ist Alice'' & ``Mein Passwort ist XYZ123'' \\
+    \hline
+\end{tabular}
+
+\textbf{Details:}
+
+\begin{itemize}
+    \item \textbf{Identifikation:}
+    \begin{itemize}
+        \item Behauptung einer Identität
+        \item Kein Beweis notwendig
+        \item Einfach, kann von jedem gemacht werden
+        \item Beispiel: ``Ich bin Moritz''
+    \end{itemize}
+    
+    \item \textbf{Authentifikation:}
+    \begin{itemize}
+        \item Verifizierung, dass die behauptete Identität wahr ist
+        \item Beweis der Identität erforderlich
+        \item Schwer oder unmöglich zu fälschen
+        \item Beispiel: ``Mein Passwort ist [geheim]''
+    \end{itemize}
+\end{itemize}
+
+\textbf{(b) PAP vs. CHAP:} \checkmark
+
+\centering
+\begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Kriterium} & \textbf{PAP} & \textbf{CHAP} \\
+    \hline
+    \textbf{Name} & Password Auth. Prot. & Challenge Handshake Auth. Prot. \\
+    \hline
+    \textbf{Passwort-Übertragung} & IM KLARTEXT! & Nicht übertragen \\
+    \hline
+    \textbf{Challenge-Response} & Nein & Ja \\
+    \hline
+    \textbf{Wiederholung möglich} & Ja (Replay-Angriff!) & Nein (neue Challenge) \\
+    \hline
+    \textbf{Sicherheit} & SCHWACH & BESSER \\
+    \hline
+\end{tabular}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{PAP - Password Authentication Protocol:}
+
+\begin{enumerate}[1.]
+    \item Client sendet: Benutzername + Passwort (unverschlüsselt!)
+    \item Server prüft Passwort
+    \item Problem: Passwort kann auf Leitung abgehört werden
+\end{enumerate}
+
+\textbf{CHAP - Challenge Handshake Authentication Protocol:}
+
+\begin{enumerate}[1.]
+    \item Server sendet: Challenge (Zufallszahl) 
+    \item Client berechnet: $response = H(Passwort \| Challenge)$
+    \item Client sendet: response (nicht das Passwort!)
+    \item Server prüft: Ist $response = H(Passwort \| Challenge)$?
+    \item Passwort wird nie übertragen!
+\end{enumerate}
+
+\textbf{Sicherheitsimplikationen:} \checkmark
+
+\begin{itemize}
+    \item \textbf{PAP Schwächen:}
+    \begin{itemize}
+        \item Sniffing möglich: Angreifer kann Passwort abhören
+        \item Replay möglich: Alte Paket-Sequenzen können erneut gesendet werden
+        \item Sollte NIE über unverschlüsselte Verbindung verwendet werden
+    \end{itemize}
+    
+    \item \textbf{CHAP Vorteile:}
+    \begin{itemize}
+        \item Passwort wird nicht übertragen $\to$ Sniffing funktioniert nicht
+        \item Neue Challenge bei jedem Versuch $\to$ Replay unmöglich
+        \item Aber: Brute-Force auf Challenge/Response möglich (mit bekanntem Passwort)
+    \end{itemize}
+    
+    \item \textbf{Noch besser:} CHAP über SSL/TLS + RADIUS für zentrale Verwaltung
+\end{itemize}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Passwort-Hash mit Salt vs. Klartext:} \checkmark
+
+\textbf{Warum Hash+Salt sicherer ist:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Klartext-Passwörter sind kritisch:}
+    \begin{itemize}
+        \item Wenn Datenbank gestohlen wird $\to$ alle Passwörter sind kompromittiert
+        \item Sofort verwendet werden können (z.B. bei anderen Services)
+        \item Keine Chance, Benutzer zu warnen
+    \end{itemize}
+    
+    \item \textbf{Hash-Vorteile:}
+    \begin{itemize}
+        \item Passwort wird mit Hashfunktion verschlüsselt (One-Way)
+        \item Wenn Datenbank gestohlen wird: nur Hashes sind sichtbar
+        \item Angreifer müsste Passwörter eraten und hashen
+        \item Brute-Force-Angriff wird teuer
+    \end{itemize}
+    
+    \item \textbf{Salt-Vorteile:}
+    \begin{itemize}
+        \item Zufallswert, der mit Passwort konkateniert wird
+        \item Vor dem Hashen: $H(salt \| password)$
+        \item Verhindert Rainbow-Tables: vorgefertigte Hash-Tabellen
+        \item Auch identische Passwörter haben unterschiedliche Hashes
+    \end{itemize}
+    
+    \item \textbf{Beispiel - ohne Salt:}
+    \begin{itemize}
+        \item Benutzer 1 Passwort: ``123456'' $\to$ Hash: abc123
+        \item Benutzer 2 Passwort: ``123456'' $\to$ Hash: abc123
+        \item Angreifer sieht: Viele Benutzer haben gleichen Hash
+        \item Mit Rainbow-Table: Quick-Match gegen bekannte Passwörter
+    \end{itemize}
+    
+    \item \textbf{Beispiel - mit Salt:}
+    \begin{itemize}
+        \item Benutzer 1: salt=xyz, password=``123456'' $\to$ $H(\text{xyz123456})$ = abc123
+        \item Benutzer 2: salt=abc, password=``123456'' $\to$ $H(\text{abc123456})$ = def456
+        \item Angreifer sieht: Unterschiedliche Hashes
+        \item Rainbow-Table ist nutzlos (müsste alle Salts kennen)
+    \end{itemize}
+    
+    \item \textbf{Moderne Best-Practice:}
+    \begin{itemize}
+        \item Verwende: bcrypt, scrypt oder Argon2
+        \item Diese haben automatisch Salt und sind langsam (Cost-Faktor)
+        \item Brute-Force wird dadurch extrem teuer
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Identifikation vs. Authentifikation (2 Punkte) \checkmark
+    \item PAP vs. CHAP Unterschiede (3 Punkte) \checkmark
+    \item Hash+Salt Sicherheit (3 Punkte) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 5.2 - Mehfaktor-Authentifikation (7 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Die drei Authentifikationsfaktoren:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Wissen (Something you know):}
+    \begin{itemize}
+        \item Passwort, PIN, Sicherheitsfrage
+        \item Nur die Person sollte es wissen
+    \end{itemize}
+    
+    \item \textbf{Besitz (Something you have):}
+    \begin{itemize}
+        \item Smartphone, Hardware-Token, SmartCard
+        \item Physisches Gerät wird benötigt
+    \end{itemize}
+    
+    \item \textbf{Biometrie (Something you are):}
+    \begin{itemize}
+        \item Fingerabdruck, Gesichtserkenn, Iris-Scan
+        \item Körperliche/biologische Eigenschaft
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Zusätzliche Faktoren (Erwähnung möglich):}
+\begin{itemize}
+    \item \textbf{Standort (Where you are):} Geografischer Ort
+    \item \textbf{Zeit (When you are):} Zeitlich-basierte OTP
+\end{itemize}
+
+\textbf{(b) Beispiele für Zweifaktor-Authentifikation (2FA):} \checkmark
+
+\textbf{Beispiel 1: Passwort + SMS-Code}
+\begin{enumerate}[1.]
+    \item Faktoren: Wissen (Passwort) + Besitz (Smartphone)
+    \item Ablauf:
+    \begin{itemize}
+        \item Benutzer gibt Passwort ein
+        \item System versendet SMS mit 6-stelligem Code
+        \item Benutzer muss Code eingeben
+        \item Benutzer ist authentifiziert
+    \end{itemize}
+    \item Vorteile:
+    \begin{itemize}
+        \item Weit verbreitet und einfach
+        \item Funktioniert auf jedem Telefon
+        \item Günstig umzusetzen
+    \end{itemize}
+    \item Nachteile:
+    \begin{itemize}
+        \item SMS kann abgefangen werden (SIM-Swapping)
+        \item Verzögerung beim SMS-Versand
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Beispiel 2: Passwort + Authenticator-App (TOTP)}
+\begin{enumerate}[1.]
+    \item Faktoren: Wissen (Passwort) + Biometrie/Besitz (Fingerprint auf Handy)
+    \item Ablauf:
+    \begin{itemize}
+        \item App wie Google Authenticator oder Authy
+        \item Generiert zeitbasierte 6-stellige Codes (alle 30 Sek.)
+        \item QR-Code wird beim Setup gescannt (Shared Secret)
+        \item Benutzer gibt Code ein
+    \end{itemize}
+    \item Vorteile:
+    \begin{itemize}
+        \item Funktioniert offline (kein Internetzugang nötig)
+        \item Sicherer als SMS (kein physischer Übertragungskanal)
+        \item Keine monatlichen SMS-Kosten
+        \item Backup-Codes möglich
+    \end{itemize}
+    \item Nachteile:
+    \begin{itemize}
+        \item Benutzer muss App installieren und verwenden
+        \item Bei Telefon-Verlust: Zugriff verloren (ohne Backup-Codes)
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Weitere Beispiele:}
+\begin{itemize}
+    \item \textbf{Passwort + Hardware-Token:} z.B. YubiKey
+    \item \textbf{Passwort + Fingerprint:} z.B. Windows Hello, iPhone FaceID
+    \item \textbf{Passwort + Email-Bestätigung:} Weniger sicher, aber immer noch 2FA
+\end{itemize}
+
+\textbf{(c) Welche Angriffe werden durch MFA NICHT verhindert?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Phishing-Angriffe (teilweise):}
+    \begin{itemize}
+        \item Benutzer wird auf gefälschte Login-Seite gelockt
+        \item Gibt Passwort + SMS-Code ein (einfaches MFA)
+        \item Hacker kann damit sofort einloggen
+        \item Besser: Phishing-resistant MFA (FIDO2/WebAuthn)
+    \end{itemize}
+    
+    \item \textbf{Malware auf dem Endgerät:}
+    \begin{itemize}
+        \item Keystroke-Logging: alle Eingaben werden aufgezeichnet
+        \item Screen-Scraping: Screenshots zeigen SMS-Codes
+        \item MFA hilft nicht, wenn beide Faktoren auf gleich-Gerät
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+    
+\begin{enumerate}[3.]
+    \item \textbf{Man-in-the-Middle (bei schwachem MFA):}
+    \begin{itemize}
+        \item Angreifer positioniert sich zwischen Benutzer und Server
+        \item Fängt Passwort + MFA-Code ab
+        \item Sendet diese sofort weiter
+        \item Benutzer wundert sich über mehrere Login-Versuche
+    \end{itemize}
+    
+    \item \textbf{SIM-Swapping (bei SMS-MFA):}
+    \begin{itemize}
+        \item Angreifer überzeugt Telefonprovider, SIM zu wechseln
+        \item SMS-Codes gehen jetzt an Angreifer
+        \item MFA ist nutzlos
+    \end{itemize}
+    
+    \item \textbf{Session-Hijacking:}
+    \begin{itemize}
+        \item Nach erfolgreicher Authentifikation: Session-Cookie wird gestohlen
+        \item Angreifer kann mit Cookie weitermachen
+        \item MFA war nur beim Login relevant
+        \item Lösung: Kontinuierliche Verifizierung
+    \end{itemize}
+    
+    \item \textbf{Sozial-Engineering:}
+    \begin{itemize}
+        \item Angreifer redet Benutzer um, Zugang zu geben
+        \item z.B. ``Ich bin vom Support, bitte gib mir deinen Code''
+        \item MFA hilft nicht gegen menschliche Manipulation
+    \end{itemize}
+    
+    \item \textbf{Kompromittierter Server:}
+    \begin{itemize}
+        \item Wenn der Server gehackt wurde
+        \item MFA schützt den Server selbst nicht
+        \item Daten auf dem Server können gestohlen werden
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Beste MFA-Variante gegen Phishing:}
+
+\begin{itemize}
+    \item \textbf{FIDO2/WebAuthn:} Phishing-resistent
+    \begin{itemize}
+        \item Hardware-Key oder Biometrie
+        \item Verifiziert die Domain
+        \item Phishing-Seite wird nicht funktionieren (falsche Domain)
+    \end{itemize}
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Drei Faktoren genannt (2 Punkte) \checkmark
+    \item Zwei 2FA-Beispiele mit Vorteilen (3 Punkte) \checkmark
+    \item Angriffe, die MFA nicht verhindert (2 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{DSGVO und Security Engineering [15 Punkte]}
+
+\subsection{Aufgabe 6.1 - DSGVO (10 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) Definition ``personenbezogene Daten'':} \checkmark
+
+Nach Artikel 4 DSGVO:
+
+\textit{``Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person (betroffene Person) beziehen.''}
+
+\textbf{Details:}
+
+\begin{itemize}
+    \item Direkte Identifikatoren: Name, Adresse, Ausweisnummer
+    \item Indirekte Identifikatoren: IP-Adresse, Cookie-ID, Kundennummer
+    \item Pseudonymisierte Daten: Noch personenbezogen, aber nicht direkt identifizierbar
+    \item Anonyme Daten: Nicht personenbezogen (wenn wirklich nicht zurückverfolgbar)
+    \item Online-Identifikatoren: Login-Namen, E-Mail-Adressen
+\end{itemize}
+
+\textbf{Wichtig:} Auch ``sensible'' Daten (z.B. Telefonnummer, Standort) können personenbezogen sein, auch wenn sie nicht ``special category'' sind.
+
+\textbf{(b) Daten besonderer Kategorie (Artikel 9):} \checkmark
+
+Mindestens 4 Kategorien:
+
+\begin{enumerate}[1.]
+    \item \textbf{Rassische oder ethnische Herkunft}
+    \begin{itemize}
+        \item Beispiele: Ethnisches Profiling, Diskriminierung
+    \end{itemize}
+    
+    \item \textbf{Politische Meinungen}
+    \begin{itemize}
+        \item Beispiele: Wahl-Verhalten, Parteimitgliedschaft
+    \end{itemize}
+    
+    \item \textbf{Religiöse oder weltanschauliche Überzeugungen}
+    \begin{itemize}
+        \item Beispiele: Glaubensgemeinschaft, Kirche
+    \end{itemize}
+    
+    \item \textbf{Gewerkschaftszugehörigkeit}
+    \begin{itemize}
+        \item Beispiele: Mitgliedschaft in Gewerkschaft
+    \end{itemize}
+    
+    \item \textbf{Genetische Daten}
+    \begin{itemize}
+        \item Beispiele: DNA-Profil, genetische Testergebnisse
+    \end{itemize}
+    
+    \item \textbf{Biometrische Daten}
+    \begin{itemize}
+        \item Beispiele: Fingerabdruck, Gesichtserkennungs-Daten, Iris-Scan
+        \item Zur Identifikation einer Person
+    \end{itemize}
+    
+    \item \textbf{Gesundheitsdaten}
+    \begin{itemize}
+        \item Beispiele: Medizinische Diagnose, Behandlung, Rezepte
+    \end{itemize}
+    
+    \item \textbf{Daten zum Sexualleben oder der sexuellen Orientierung}
+    \begin{itemize}
+        \item Beispiele: Sexuelle Orientierung, Sexualverhalten
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(c) Benutzer speichert Gesichtserkennungs-Daten - welche DSGVO-Artikel:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Artikel 9 (Besondere Kategorien):}
+    \begin{itemize}
+        \item Biometrische Daten zur Identifikation fallen unter Art. 9
+        \item Verarbeitung ist grundsätzlich verboten!
+        \item Nur mit ausdrücklicher Zustimmung oder Ausnahmeregelung
+    \end{itemize}
+    
+    \item \textbf{Artikel 4 (Definition personenbezogene Daten):}
+    \begin{itemize}
+        \item Gesichtserkennungs-Daten sind personenbezogen
+        \item Können einer Person zugeordnet werden
+    \end{itemize}
+    
+    \item \textbf{Artikel 5 (Datenschutzprinzipien):}
+    \begin{itemize}
+        \item Rechtmäßigkeit, Fairness, Transparenz
+        \item Zweckbindung (warum werden Biometrien gespeichert?)
+        \item Speicherbegrenzung (wie lange?)
+        \item Datenminimierung (sind wirklich Biometrien nötig?)
+    \end{itemize}
+    
+    \item \textbf{Artikel 6 (Rechtmäßigkeit der Verarbeitung):}
+    \begin{itemize}
+        \item Muss eine rechtliche Grundlage haben
+        \item z.B. Zustimmung (Artikel 7), Vertrag, rechtliche Pflicht
+    \end{itemize}
+    
+    \item \textbf{Artikel 21 (Widerspruchsrecht):}
+    \begin{itemize}
+        \item Betroffene können Verarbeitung ihrer Biometrien widersprechen
+    \end{itemize}
+    
+    \item \textbf{Artikel 32 (Datenschutz durch Technik und Organisati-Org):}
+    \begin{itemize}
+        \item Besondere Schutzmaßnahmen für biometrische Daten
+        \item Verschlüsselung, Zugriffskontrolle, Auditing
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(d) Strafen bei DSGVO-Verstößen:} \checkmark
+
+\textbf{Verwaltungsgeldstrafen nach Artikel 83:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Kategoriestufe 1 (bis zu 10.000.000 EUR oder 2\% Umsatz):}
+    \begin{itemize}
+        \item Verletzung von Dokumentationspflichten
+        \item Unzureichende Transparenzmaßnahmen
+        \item Verletzung technischer Schutzmaßnahmen
+    \end{itemize}
+    
+    \item \textbf{Kategoriestufe 2 (bis zu 20.000.000 EUR oder 4\% Umsatz):}
+    \begin{itemize}
+        \item Verletzung von Grundprinzipien (Art. 5, 6)
+        \item Betroffenenrechte nicht gewährt (Art. 12-22)
+        \item Datenschutz-Folgenabschätzung nicht durchgeführt
+        \item Sicherheitsverletzung nicht gemeldet
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Beispiel-Strafen:}
+
+\begin{itemize}
+    \item \textbf{Google (2019):} 50 Mio. EUR - Mangelnde Transparenz
+    \item \textbf{Amazon (2021):} 746 Mio. EUR - Unrechtmäßige Verarbeitung
+    \item \textbf{Meta/Facebook (2022):} 405 Mio. EUR - Datenübermittlung in USA
+\end{itemize}
+
+\textbf{Zusätzlich:}
+
+\begin{itemize}
+    \item \textbf{Schadensersatz:} Geschädigte können Schadensersatz fordern
+    \item \textbf{Strafrechtliche Verfolgung:} In schweren Fällen
+    \item \textbf{Reputational Damage:} Vertrauen-Verlust, Kundenverlust
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Personenbezogene Daten definiert (2 Punkte) \checkmark
+    \item 4+ Kategorien benannt (2 Punkte) \checkmark
+    \item Relevante DSGVO-Artikel (3 Punkte) \checkmark
+    \item Strafen (3 Punkte) \checkmark
+\end{itemize}
+
+\subsection{Aufgabe 6.2 - Security Engineering (5 Punkte)}
+
+\subsubsection*{Musterlösung}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(a) ``Secure by Design'' Konzept:} \checkmark
+
+\textit{``Secure by Design''} bedeutet, dass Sicherheit von Anfang an in die Entwicklung von Systemen und Produkten integriert wird, nicht erst nachträglich hinzugefügt.
+
+\textbf{Detaillierte Erklärung:}
+
+\begin{enumerate}[1.]
+    \item \textbf{Sicherheit als primäres Ziel:}
+    \begin{itemize}
+        \item Schon bei Anforderungsdefinition Sicherheitsanforderungen festlegen
+        \item Nicht: ``Erst machen, dann sichern''
+        \item Sondern: ``Von Anfang an sicher''
+    \end{itemize}
+    
+    \item \textbf{Architektur-Design:}
+    \begin{itemize}
+        \item Sicherheit in der Systemarchitektur berücksichtigen
+        \item z.B. Least Privilege, Defense in Depth, Zero Trust
+        \item Modulare Architektur für Isolation kritischer Komponenten
+    \end{itemize}
+    
+    \item \textbf{Threat Modeling:}
+    \begin{itemize}
+        \item Frühzeitig potenzielle Angriffe identifizieren
+        \item STRIDE-Methode oder PASTA
+        \item Gegenmassnahmen vorausplanen
+    \end{itemize}
+    
+    \item \textbf{Sichere Kodierungsstandards:}
+    \begin{itemize}
+        \item OWASP Top 10 vermeiden
+        \item Code-Reviews und Static Analysis
+        \item Sichere Bibliotheken und Frameworks verwenden
+    \end{itemize}
+    
+    \item \textbf{Testing und Validierung:}
+    \begin{itemize}
+        \item Security-Tests in jedem Development-Sprint
+        \item Penetration Testing vor Release
+        \item Vulnerability Scanning automatisiert
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Beispiel:}
+
+\begin{itemize}
+    \item \textbf{Schlecht (Ad-hoc Sicherheit):}
+    \begin{itemize}
+        \item Entwickler bauen Web-App: ``Später kümmern wir uns um Sicherheit''
+        \item Nach 1 Jahr: SQL-Injection Lücken entdeckt
+        \item Nachträgliche Fixes sind teuer und fehleranfällig
+    \end{itemize}
+    
+    \item \textbf{Gut (Secure by Design):}
+    \begin{itemize}
+        \item Vor Entwicklung: Threat Model erstellt
+        \item Parameter-Validierung eingeplant
+        \item ORM-Framework gewählt (gegen SQL-Injection)
+        \item Code-Review mit Security-Team
+        \item Keine Sicherheitslücken von Anfang an
+    \end{itemize}
+\end{itemize}
+
+\textbf{(b) Zwei Maßnahmen für ``Secure by Default'':} \checkmark
+
+\textbf{Maßnahme 1: Sichere Standard-Konfiguration}
+
+\begin{itemize}
+    \item \textbf{Definition:} System startet mit maximaler Sicherheit, nicht minimaler
+    \item \textbf{Beispiele:}
+    \begin{itemize}
+        \item Passwort-Komplexitäts-Anforderungen sind Standard (nicht optional)
+        \item TLS/HTTPS ist Standard (nicht HTTP)
+        \item Zwei-Faktor-Authentifikation ist enabled by default
+        \item Firewall ist aktiviert (nicht disabled)
+        \item Datenbank-Verbindungen werden verschlüsselt (nicht im Klartext)
+    \end{itemize}
+    \item \textbf{Vorteil:} Auch wenn Administrator nicht aufpasst, ist System sicher
+    \item \textbf{Benutzer müssen aktiv Sicherheit deaktivieren (wenn sie es wollen)}
+    \begin{itemize}
+        \item Anstatt: Benutzer müssen aktiv Sicherheit aktivieren
+        \item Was die meisten vergessen
+    \end{itemize}
+\end{itemize}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Maßnahme 2: Minimales Privilege-Level (Principle of Least Privilege)}
+
+\begin{itemize}
+    \item \textbf{Definition:} Benutzer/Prozesse bekommen nur minimal notwendige Rechte
+    \item \textbf{Beispiele:}
+    \begin{itemize}
+        \item Web-Server läuft nicht als root, sondern als ``www-data'' User
+        \item Datenbank-Account hat nur SELECT-Rechte, nicht DROP/DELETE
+        \item Prozesse in Container isoliert (nicht mit Host-Zugriff)
+        \item Browser-Extensions nur minimale Permissions (nicht ``alle Websites''
+    \end{itemize}
+    \item \textbf{Vorteil:} Wenn eine Komponente gehackt wird, ist Schaden begrenzt
+    \item \textbf{Beispiel:}
+    \begin{itemize}
+        \item Hacker kompromittiert Web-App
+        \item App läuft als User ``www-data'' mit nur SELECT-Rechten
+        \item Hacker kann Datenbank nicht löschen
+        \item System bleibt verfügbar
+    \end{itemize}
+\end{itemize}
+
+\textbf{Weitere mögliche Maßnahmen:}
+
+\begin{itemize}
+    \item Daten-Verschlüsselung at-rest und in-transit (Standard)
+    \item Audit-Logging aktiviert by default
+    \item Automatische Security-Updates
+    \item Rate-Limiting gegen Brute-Force (Standard)
+    \item Content Security Policy (CSP) Headers
+    \item Input-Validation bei allen Eingaben
+\end{itemize}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung:}
+\begin{itemize}
+    \item Secure by Design erklärt (2 Punkte) \checkmark
+    \item Sichere Standard-Konfiguration (1,5 Punkte) \checkmark
+    \item Least Privilege (1,5 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section{Praxisaufgabe: Sicherheitsanalyse [10 Punkte]}
+
+\subsection{Aufgabe 7 - Szenarien-Bewertung}
+
+\subsubsection*{Szenario A: Cloud-Authentifikation}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Beschreibung:} SaaS-Anbieter mit AES-256-CBC Verschlüsselung, Cloud-Provider Schlüsselverwaltung, Passwort + SMS 2FA
+
+\textbf{(i) Welche Schutzziele sind abgedeckt?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Vertraulichkeit:}
+    \begin{itemize}
+        \item AES-256-CBC bietet gute Verschlüsselung
+        \item Daten in der Cloud sind verschlüsselt
+        \item \textbf{Abgedeckt} \checkmark
+    \end{itemize}
+    
+    \item \textbf{Authentizität:}
+    \begin{itemize}
+        \item Passwort + 2FA (SMS) bietet Authentifikation
+        \item Benutzer kann sich identifizieren
+        \item \textbf{Abgedeckt} \checkmark
+    \end{itemize}
+    
+    \item \textbf{Integrität:}
+    \begin{itemize}
+        \item AES-256-CBC schützt nur vor Abhören, nicht vor Tampering
+        \item GCM würde Integrität schützen, aber nur CBC verwendet
+        \item \textbf{Nur teilweise abgedeckt}
+    \end{itemize}
+    
+    \item \textbf{Verfügbarkeit:}
+    \begin{itemize}
+        \item Cloud-Provider kann DDoS-Schutz bieten
+        \item Aber nicht aus der Beschreibung ersichtlich
+        \item \textbf{Nicht klar} ?
+    \end{itemize}
+    
+    \item \textbf{Verbindlichkeit:}
+    \begin{itemize}
+        \item 2FA mit Passwort + SMS ermöglicht Attribution
+        \item Benutzer kann nicht behaupten, es war nicht er
+        \item \textbf{Abgedeckt} \checkmark
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(ii) Welche Risiken bestehen noch?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Keine Authentizität für Integrität:}
+    \begin{itemize}
+        \item AES-CBC ist nicht authentifiziert
+        \item Wenn Daten manipuliert werden, wird das nicht erkannt
+        \item Lösung: AES-GCM oder CBC mit HMAC verwenden
+    \end{itemize}
+    
+    \item \textbf{SMS-MFA ist nicht Phishing-resistent:}
+    \begin{itemize}
+        \item Phishing-Angreifer kann Passwort + Code abfangen
+        \item Wenn Benutzer auf gefälschte Seite geht und beides eingibt
+        \item Und Angreifer sendet weiter, ist 2FA nutzlos
+    \end{itemize}
+    
+    \item \textbf{SMS-MFA kann abgefangen werden:}
+    \begin{itemize}
+        \item SIM-Swapping möglich
+        \item Oder Interception auf Telefonprovider-Seite
+        \item Besser: TOTP (Time-based OTP) oder FIDO2
+    \end{itemize}
+    
+    \item \textbf{Schlüsselverwaltung durch Cloud-Provider:}
+    \begin{itemize}
+        \item ``Shared Responsibility Model'' - sind Schlüssel wirklich sicher?
+        \item Cloud-Provider könnte Zugriff auf Schlüssel haben
+        \item Insider-Angriff möglich
+        \item GDPR-Compliance fraglich
+    \end{itemize}
+    
+    \item \textbf{Daten im Transit:}
+    \begin{itemize}
+        \item Ist Kommunikation zwischen Client und Cloud verschlüsselt?
+        \item TLS sollte verwendet werden (nicht nur Daten-Verschlüsselung)
+    \end{itemize}
+    
+    \item \textbf{Keine Daten-Minimierung:}
+    \begin{itemize}
+        \item Werden wirklich alle Daten verschlüsselt?
+        \item Oder gibt es Audit-Logs, die im Klartext sind?
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(iii) Wie würden Sie die Sicherheit verbessern?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{AES-GCM statt AES-CBC:}
+    \begin{itemize}
+        \item GCM bietet Authentizität + Verschlüsselung in einem
+        \item Integritäts-Checks sind automatisch
+    \end{itemize}
+    
+    \item \textbf{Phishing-resistente MFA:}
+    \begin{itemize}
+        \item FIDO2/WebAuthn mit Hardware-Keys
+        \item Oder: Biometrische Authentifikation (Face/Fingerprint)
+        \item Zusätzlich: Passwortlos gehen (Passwordless Authentication)
+    \end{itemize}
+    
+    \item \textbf{Bessere Schlüsselverwaltung:}
+    \begin{itemize}
+        \item Customer-Managed Keys (CMK) statt Provider-Managed Keys
+        \item Selbst für Schlüsselhilfsmittel verantwortlich
+        \item Key Rotation implementieren
+    \end{itemize}
+    
+    \item \textbf{Zero-Trust Architecture:}
+    \begin{itemize}
+        \item Assume breach - alle Verbindungen überprüfen
+        \item Micro-segmentation der Cloud-Infrastruktur
+        \item Continuous Verification statt einmaliger Login
+    \end{itemize}
+    
+    \item \textbf{Weitere Maßnahmen:}
+    \begin{itemize}
+        \item TLS 1.3 für Datenverkehr
+        \item DDoS-Schutz implementieren
+        \item Backup und Disaster Recovery
+        \item Regelmäßige Penetration-Tests
+        \item Security Audit-Logs
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\subsubsection*{Szenario B: IoT-Geräte}
+
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{Beschreibung:} Smart-Türschloss mit pre-shared keys in Firmware
+
+\textbf{(i) Identifizieren Sie die Sicherheitsprobleme:} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{KRITISCH: Pre-Shared Keys in Firmware:}
+    \begin{itemize}
+        \item Firmware kann durch Reverse-Engineering extrahiert werden
+        \item Alle Türschlösser mit gleicher Firmware haben gleichen Key
+        \item Ein gehacktes Gerät $\to$ Alle Geräte gefährdet
+        \item Benutzer kann Key nicht ändern
+    \end{itemize}
+    
+    \item \textbf{KRITISCH: Kein Authentisierung der App:}
+    \begin{itemize}
+        \item Wie wird sichergestellt, dass es die ``richtige'' App ist?
+        \item Reverse-Engineering der App offenbart Schlüssel
+        \item Gefälschte App könnte Schloss öffnen
+    \end{itemize}
+    
+    \item \textbf{KRITISCH: Keine gegenseitige Authentifikation:}
+    \begin{itemize}
+        \item Schloss vertraut App automatisch (mit richtigem Key)
+        \item Aber: App vertraut Schloss automatisch?
+        \item Man-in-the-Middle möglich
+    \end{itemize}
+    
+    \item \textbf{Schwach: Physische Sicherheit:}
+    \begin{itemize}
+        \item Firmware könnte durch Hardware-Hacking extrahiert werden
+        \item Side-Channel Angriffe möglich (Power-Analysis)
+        \item Schloss könnte direkt gehackt werden
+    \end{itemize}
+    
+    \item \textbf{Schwach: Keine Replay-Protection:}
+    \begin{itemize}
+        \item Wenn gleicher Key verwendet wird
+        \item Angreifer könnte alte Nachrichten erneut senden
+        \item Locking Commands könnten Protolyse sein
+    \end{itemize}
+    
+    \item \textbf{Schwach: Keine Updates möglich:}
+    \begin{itemize}
+        \item Wenn Sicherheitslücke entdeckt wird
+        \item Firmware kann nicht aktualisiert werden
+        \item Schlüssel ist für immer in Hardware graviert
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(ii) Wie würde ein Angreifer vorgehen?} \checkmark
+
+\begin{enumerate}[\textbf{Szenario 1: Firmware-Extraktion}]
+    \item Angreifer kauft einen Smart-Lock
+    \item Öffnet das Gerät physisch
+    \item Verbindet sich mit JTAG/Serial-Port
+    \item Dumpet die Firmware
+    \item Reverse-Engineert die Firmware
+    \item Findet den Pre-Shared Key
+    \item Kann jetzt alle Schlösser mit dieser Firmware öffnen
+\end{enumerate}
+
+\begin{enumerate}[\textbf{Szenario 2: Reverse-Engineering der App}]
+    \item Angreifer installiert die legale Smart-Lock App
+    \item Dekompiliert die APK (Android) oder Extracts IPA (iOS)
+    \item Sucht nach hardcodierten Schlüsseln
+    \item Findet Pre-Shared Key in den App-Ressourcen
+    \item Schreibt eigene App mit dem Key
+    \item Kann jede Tür öffnen
+\end{enumerate}
+
+\begin{enumerate}[\textbf{Szenario 3: Funk-Sniffing}]
+    \item Angreifer mit SDR (Software Defined Radio)
+    \item Benutzer öffnet Schloss über App
+    \item Angreifer fängt Funk-Signal ab
+    \item Speichert das Unlock-Kommando
+    \item Sendet es später erneut (Replay-Angriff)
+    \item Schloss öffnet sich
+\end{enumerate}
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+
+\textbf{(iii) Welche Lösung würden Sie empfehlen?} \checkmark
+
+\begin{enumerate}[1.]
+    \item \textbf{Asymmetrische Kryptographie (PKI):}
+    \begin{itemize}
+        \item Jeden Smart-Lock ein einzigartiges Zertifikat geben
+        \item Ermöglicht Benutzer-spezifische Schlüssel
+        \item Public-Key ist im Schloss, privater Key bei Benutzer
+        \item Skalierbar auf neue Benutzer
+    \end{itemize}
+    
+    \item \textbf{Challenge-Response Authentifikation:}
+    \begin{itemize}
+        \item Nicht einfach Secret Key senden
+        \item Schloss sendet Challenge
+        \item App antwortet mit: $response = H(Challenge | Secret)$
+        \item Verhindert Replay-Angriffe
+        \item Challenge sollte Timestamp enthalten
+    \end{itemize}
+    
+    \item \textbf{OTA Updates (Over-The-Air):}
+    \begin{itemize}
+        \item Firmware regelmäßig aktualisieren
+        \item Neue Sicherheits-Patches einspielen
+        \item Verschlüsselte Updates übertragen
+    \end{itemize}
+    
+    \item \textbf{Separate Credentials pro Benutzer:}
+    \begin{itemize}
+        \item Nicht ein Schlüssel für alle
+        \item Benutzer bekommt eindeutige Credentials
+        \item Ermöglicht Zugriffskontrolle und Revocation
+        \item Wenn Benutzer geht: nur seinen Key revoken, nicht für alle
+    \end{itemize}
+    
+    \item \textbf{Sichere Schlüsselspeicherung:}
+    \begin{itemize}
+        \item TPM (Trusted Platform Module) im Schloss
+        \item Verhindert Firmware-Dump
+        \item Hardware-basierte Sicherheit
+    \end{itemize}
+    
+    \item \textbf{Verschlüsselte Kommunikation:}
+    \begin{itemize}
+        \item TLS/DTLS für Funk-Kommunikation
+        \item Nicht im Klartext senden
+        \item Authentifizierung beider Seiten
+    \end{itemize}
+\end{enumerate}
+    
+\end{tcolorbox}
+\begin{tcolorbox}[colback=solutionbg, colframe=black!30]
+    
+\begin{enumerate}[7.]
+    \item \textbf{Beispiel-Implementierung:}
+    \begin{itemize}
+        \item Benutzer registriert sich in App/Web-Portal
+        \item Erhält eindeutige Device-ID und Private Key
+        \item Smart-Lock hat Public Key des Herstellers und Device-Zertifikat
+        \item Beim Öffnen:
+        \begin{enumerate}[(1)]
+            \item App sendet User-ID + Timestamp
+            \item Schloss sendet Challenge + nonce
+            \item App signiert: $sig = Sign(Challenge | nonce | Timestamp, PrivateKey)$
+            \item Schloss verifiziert mit Public Key
+            \item Entsperrt nur wenn alles korrekt
+        \end{enumerate}
+    \end{itemize}
+\end{enumerate}
+
+\end{tcolorbox}
+
+\textbf{Punkteverteilung für Aufgabe 7:}
+\begin{itemize}
+    \item Szenario A - Schutzziele (2 Punkte) \checkmark
+    \item Szenario A - Risiken (2 Punkte) \checkmark
+    \item Szenario A - Verbesserungen (1 Punkt) \checkmark
+    \item Szenario B - Sicherheitsprobleme (2 Punkte) \checkmark
+    \item Szenario B - Angreifer-Vorgehen (1 Punkt) \checkmark
+    \item Szenario B - Lösungsvorschlag (2 Punkte) \checkmark
+\end{itemize}
+
+% ============================================================================
+
+\newpage
+
+\section*{ABSCHLIESSENDE HINWEISE}
+
+\subsection*{Gesamtpunkte und Gewichtung}
+
+Die maximale Punktzahl ist 110 Punkte. Die Verteilung nach Aufgaben:
+
+\centering
+\begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Aufgabe} & \textbf{Punkte} & \textbf{Prozent} \\
+    \hline
+    1 & 15 & 13,6\% \\
+    2 & 20 & 18,2\% \\
+    3 & 18 & 16,4\% \\
+    4 & 17 & 15,5\% \\
+    5 & 15 & 13,6\% \\
+    6 & 15 & 13,6\% \\
+    7 & 10 & 9,1\% \\
+    \hline
+    \textbf{TOTAL} & \textbf{110} & \textbf{100\%} \\
+    \hline
+\end{tabular}
+
+\subsection*{Bewertungsskala}
+
+\centering
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{Note} & \textbf{Punkte} & \textbf{Prozent} & \textbf{Beschreibung} \\
+    \hline
+    1,0 & $\geq 99$ & $\geq 90\%$ & Ausgezeichnet \\
+    1,3 & $\geq 90$ & $\geq 82\%$ & Sehr gut \\
+    1,7 & $\geq 82$ & $\geq 75\%$ & Gut \\
+    2,0 & $\geq 77$ & $\geq 70\%$ & Befriedigend \\
+    2,3 & $\geq 69$ & $\geq 63\%$ & Befriedigend \\
+    2,7 & $\geq 60$ & $\geq 55\%$ & Ausreichend \\
+    3,0 & $\geq 55$ & $\geq 50\%$ & Ausreichend \\
+    4,0 & $< 55$ & $< 50\%$ & Nicht bestanden \\
+    \hline
+\end{tabular}
+
+\subsection*{Wichtige Korrektor-Hinweise}
+
+\begin{enumerate}[1.]
+    \item \textbf{Teilpunkte großzügig vergeben:}
+    \begin{itemize}
+        \item Auch wenn Lösung nicht 100\% korrekt ist
+        \item Wenn Verständnis der Konzepte erkennbar ist
+    \end{itemize}
+    
+    \item \textbf{Rechenfehler:}
+    \begin{itemize}
+        \item Wenn Rechenweg richtig ist: volle Punkte trotz Rechenfehler
+        \item Nur Punkte abziehen wenn Ansatz falsch ist
+    \end{itemize}
+    
+    \item \textbf{Alternative Lösungen:}
+    \begin{itemize}
+        \item Akzeptiere alternative korrekte Antworten
+        \item z.B. andere sichere Verschlüsselungsmodi (OFB, GCM statt CBC)
+        \item Andere Begründungen, solange sachlich korrekt
+    \end{itemize}
+    
+    \item \textbf{Bonuspunkte:}
+    \begin{itemize}
+        \item Für besonders tiefe Einsichten
+        \item Für praktische Beispiele
+        \item Für Referenzen zu aktuellen Sicherheitsvorfällen
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
