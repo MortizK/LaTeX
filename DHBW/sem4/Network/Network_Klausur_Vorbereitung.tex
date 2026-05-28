@@ -1,0 +1,990 @@
+\documentclass[12pt,a4paper,german]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{pifont}
+
+% Farben für Code-Blöcke
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Listings-Konfiguration
+\lstset{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{codegray},
+    language=bash,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+      {ä}{{\"a}}1
+      {ö}{{\"o}}1
+      {ü}{{\"u}}1
+      {Ä}{{\"A}}1
+      {Ö}{{\"O}}1
+      {Ü}{{\"U}}1
+      {ß}{{\ss}}1
+}
+
+% Header und Footer
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Network-Klausur}
+\lhead{\rightmark}
+\cfoot{\thepage}
+
+% Hyperref-Setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+
+\title{\textbf{Network-Vorlesung: Klausur-Vorbereitung}\\
+Zusammenfassung Fakten, Wissensfragen und Praktische Aufgaben}
+\author{Basierend auf den Vorlesungsunterlagen (sk1-sk10)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\part{Wichtige Fakten und Wissensfragen}
+
+\chapter{Einführung in Netzwerke}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{Standards}: ISO/OSI, IEEE 802
+    \item \textbf{Datennetze}: LAN, WAN, MAN
+    \item \textbf{Switching}: VLAN, Port-Switching
+    \item \textbf{Routing}: IP-Routing, RIP, OSPF
+    \item \textbf{TCP/IP}: Protokoll-Familie für Datenkommunikation
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Was ist der Unterschied zwischen LAN und WAN?
+    \item Erkläre das ISO/OSI-Referenzmodell (7 Schichten)
+    \item Welche Standards/Normen sind für Netzwerke wichtig?
+    \item Was versteht man unter Netzwerk-Adressierung?
+    \item Welche Aufgaben hat eine Gateway?
+\end{enumerate}
+
+\chapter{Kommunikationsmodelle}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{Modulation}: Umwandlung von Signalen
+    \item \textbf{Digitale Übertragung}: Binäre Kodierung
+    \item \textbf{Duplex-Betrieb}: Halb- und Vollduplex
+    \item \textbf{Multiplex}: Zeitmultiplex (TDM), Frequenzmultiplex (FDM)
+    \item \textbf{BER}: Bitfehlerrate, Qualitätsmass
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Was ist der Unterschied zwischen analogen und digitalen Signalen?
+    \item Erkläre Modulation und Demodulation
+    \item Wann nutzt man Halb-Duplex vs.\ Vollduplex?
+    \item Wie funktioniert Multiplexing?
+    \item Wie wird Bitfehlerrate (BER) gemessen und bewertet?
+\end{enumerate}
+
+\chapter{Verkabelung und Übertragungsmedien}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{Kupferkabel}: Twisted Pair, Koaxial
+    \item \textbf{LWL (Lichtwellenleiter)}: Glasfaser, Multimode/Singlemode
+    \item \textbf{Wireless}: Funkübertragung, Mikrowelle
+    \item \textbf{Strukturierte Verkabelung}: TIA/EIA-568
+    \item \textbf{Dämpfung}: Signalverlust, Reichweite
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Vergleiche Kupferkabel, Koaxial und Glasfaser (Vor-/Nachteile)
+    \item Warum nutzt man geschirmte vs.\ ungeschirmte Kabel?
+    \item Wie funktioniert Lichtwellenleitung?
+    \item Was ist das ``Cabling Standard'' TIA/EIA-568?
+    \item Berechne Reichweite und Dämpfung bei verschiedenen Medien
+\end{enumerate}
+
+\chapter{Netzwerk-Interfaces}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{NIC}: Netzwerk-Schnittstellenkarte
+    \item \textbf{Ethernet}: 10Base-T, 100Base-TX, Gigabit
+    \item \textbf{MAC-Adresse}: Schicht-2-Adressierung
+    \item \textbf{Switching}: MAC-Tabellen, Port-Learning
+    \item \textbf{PHY/MAC-Layer}: Physikalische und Sicherungsschicht
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Erkläre den Aufbau und die Funktion einer MAC-Adresse
+    \item Wie funktioniert das MAC-Learning in Switches?
+    \item Vergleiche unterschiedliche Ethernet-Standards
+    \item Was ist eine VLAN und wozu wird es genutzt?
+    \item Wie wird bei Switches das Spanning Tree Protokoll verwendet?
+\end{enumerate}
+
+\chapter{Local Area Networks (LAN)}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{Switching}: Layer-2-Schicht, MAC-Bridging
+    \item \textbf{VLAN}: Virtual LAN, Segmentierung
+    \item \textbf{Spanning Tree}: Loop-Vermeidung (STP, RSTP)
+    \item \textbf{VTP}: VLAN Trunking Protocol
+    \item \textbf{Link Aggregation}: Port-Bündelung (LAG, 802.3ad)
+\end{itemize}
+
+\section{Wiskensfragen}
+\begin{enumerate}
+    \item Wie unterscheiden sich Hubs, Bridges und Switches?
+    \item Erkläre VLAN-Konzept und 802.1Q-Tagging
+    \item Warum brauchen wir Spanning Tree Protocol?
+    \item Wie funktioniert RSTP (Rapid Spanning Tree)?
+    \item Was ist Port-Bündelung (Link Aggregation) und wofür?
+\end{enumerate}
+
+\chapter{Internetworking und Routing}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{IP-Adressen}: IPv4, IPv6, Subnetting
+    \item \textbf{Routing-Protokolle}: RIP, OSPF, BGP
+    \item \textbf{Default Gateway}: Router-Funktion
+    \item \textbf{Routing-Tabellen}: Nächster Hop-Bestimmung
+    \item \textbf{ARP}: Address Resolution Protocol
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Erkläre IPv4-Subnetting (CIDR-Notation)
+    \item Wie funktioniert ARP (Address Resolution Protocol)?
+    \item Vergleiche Distanz-Vektor vs.\ Link-State Routing
+    \item Wie arbeitet OSPF vs.\ BGP?
+    \item Berechne Subnetz-Adressen und Broadcast-Adressen
+\end{enumerate}
+
+\chapter{TCP/IP-Protokoll}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{TCP}: Transmission Control Protocol (verbindungsorientiert)
+    \item \textbf{UDP}: User Datagram Protocol (verbindungslos)
+    \item \textbf{IP}: Internet Protocol, Routing-Protokoll
+    \item \textbf{DNS}: Domain Name System
+    \item \textbf{DHCP}: Dynamic Host Configuration Protocol
+    \item \textbf{NAT}: Network Address Translation
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Unterschied zwischen TCP und UDP?
+    \item Wie funktioniert ein TCP-Three-Way-Handshake?
+    \item Erkläre die TCP-Zustandsübergänge
+    \item Wie arbeitet DHCP (Discover, Offer, Request, Acknowledge)?
+    \item Was ist NAT und wofür wird es verwendet?
+\end{enumerate}
+
+\chapter{IPv6 und erweiterte TCP/IP}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{IPv6}: Nächste Generation IP
+    \item \textbf{IPv6-Adressen}: 128-Bit, Präfixlänge /64
+    \item \textbf{Auto-Configuration}: SLAAC, DHCPv6
+    \item \textbf{Neighbor Discovery}: ICMPv6
+    \item \textbf{Dual Stack}: IPv4 und IPv6 parallel
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Warum wurde IPv6 entwickelt?
+    \item Erkläre IPv6-Adressformat und Präfixlänge
+    \item Wie funktioniert SLAAC (Stateless Address Autoconfiguration)?
+    \item Unterschied DHCPv6 und SLAAC?
+    \item Wie migriert man von IPv4 zu IPv6?
+\end{enumerate}
+
+\chapter{Multicast und Broadcast}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{Broadcast}: 1-zu-viele Kommunikation (LAN-Ebene)
+    \item \textbf{Multicast}: gezielter 1-zu-viele (Gruppe)
+    \item \textbf{IGMP}: Internet Group Management Protocol
+    \item \textbf{TTL}: Time-to-Live (Multicast-Bereichs-Begrenzung)
+    \item \textbf{Multicast-Adressen}: 224.0.0.0 - 239.255.255.255 (IPv4)
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Unterschied Broadcast und Multicast?
+    \item Wie arbeitet IGMP?
+    \item Welche Probleme entstehen durch Broadcast?
+    \item Wie begrenzt man Multicast-Reichweite mit TTL?
+    \item Gib Beispiele für Multicast-Anwendungen
+\end{enumerate}
+
+\chapter{Mobilnetze und Wireless}
+
+\section{Schlüsselbegriffe}
+\begin{itemize}
+    \item \textbf{WLAN}: 802.11 (a/b/g/n/ac/ax)
+    \item \textbf{Funkkanäle}: Frequenzbänder, Kanalbelegung
+    \item \textbf{SSID}: Service Set Identifier
+    \item \textbf{Authentifizierung}: WPA2, WPA3
+    \item \textbf{Roaming}: Handoff zwischen APs
+\end{itemize}
+
+\section{Wissensfragen}
+\begin{enumerate}
+    \item Erkläre 802.11-Standards und deren Unterschiede
+    \item Wie funktioniert WLAN-Authentifizierung (WPA2/WPA3)?
+    \item Welche Kanäle und Frequenzen werden genutzt?
+    \item Was ist der Unterschied zwischen SSID-Hidden und Open?
+    \item Wie funktioniert Roaming in WLAN-Netzwerken?
+\end{enumerate}
+
+\newpage
+\part{Praktische Aufgabentypem für die Klausur}
+
+\chapter{Aufgabentyp 1: Netzwerk-Design und -Planung}
+
+\section{Szenario 1.1: LAN für Bürogebäude}
+
+Ein Bürogebäude mit 250 Mitarbeitern benötigt ein neues LAN-System:
+\begin{itemize}
+    \item 5 Stockwerke à 50 Mitarbeiter
+    \item Zentrale IT-Infrastruktur in Etage 3
+    \item Verschiedene Abteilungen (Verwaltung, Entwicklung, Support)
+    \item Anforderung: Hohe Verfügbarkeit und Geschwindigkeit
+\end{itemize}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Entwerfe eine Netzwerk-Topologie (welche Topologie auf welcher Schicht?)
+    \item Wähle geeignete Hardware (Switches, Router, Cabling) und begründe
+    \item Dimensioniere die erforderliche Bandbreite pro Etage
+    \item Erstelle ein VLAN-Schema (Trennung nach Abteilungen)
+    \item Plane Redundanz und Backup-Pfade
+    \item Berechne Netzwerk-Adressen und Subnetze
+\end{enumerate}
+
+\subsection{Lösungsansätze}
+\begin{itemize}
+    \item Hierarchisches Design: Core-Distribution-Access
+    \item Glasfaser zwischen Etagen, Cat6A in Büros
+    \item PoE für Access Points
+    \item VLAN pro Abteilung (Admin, Dev, Support, Guest)
+    \item Redundante Uplinks, STP/RSTP aktivieren
+\end{itemize}
+
+\section{Szenario 1.2: Campus-Netzwerk mit mehreren Gebäuden}
+
+Ein Unternehmen mit 3 Gebäuden (200m Entfernung) benötigt ein verbundenes Netzwerk:
+\begin{itemize}
+    \item Gebäude A: Verwaltung (100 Mitarbeiter)
+    \item Gebäude B: Produktion (150 Mitarbeiter)
+    \item Gebäude C: Lager (30 Mitarbeiter)
+    \item Zentrale Services in Gebäude A
+\end{itemize}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Entwerfe eine Multi-Building Netzwerk-Architektur
+    \item Wie verbindest du die Gebäude? (Kupfer, Glasfaser, Funk?)
+    \item Welche Redundanz-Strategien sind nötig?
+    \item Wie segmentierst du die Abteilungen übergreifend?
+    \item Wie migrierst du bestehende Netzwerke?
+\end{enumerate}
+
+\subsection{Lösungsansätze}
+\begin{itemize}
+    \item Glasfaser zwischen Gebäuden (Zukunftssicher)
+    \item Geschirmte Cat6/Cat6A innerhalb Gebäude
+    \item Redundante Uplinks zwischen Gebäuden
+    \item VLANs mit Inter-VLAN-Routing (Router)
+    \item Load-Balancing auf Kern-Switches
+\end{itemize}
+
+\chapter{Aufgabentyp 2: Protokoll-Analyse und Packet-Tracing}
+
+\section{Szenario 2.1: TCP-Verbindung analysieren}
+
+Gegeben ist eine TCP-Verbindung zwischen:
+\begin{lstlisting}
+Client: 192.168.1.50:54321
+Server: 8.8.8.8:443
+\end{lstlisting}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Erkläre den Three-Way-Handshake (SYN, SYN-ACK, ACK)
+    \item Zeichne die Zustände des TCP-State-Machines
+    \item Was passiert bei Paketverlusten (Retransmission)?
+    \item Wie werden ACK-Nummern berechnet?
+    \item Beschreibe die Trennung der Verbindung (4-Way-Handshake)
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item SYN mit Initial Sequence Number (ISN)
+    \item SYN-ACK mit Bestätigung und eigenem ISN
+    \item ACK-Nummer = empfangene Sequence + Datenlänge
+    \item TCP-Fenster (Window Size) für Durchsatzoptimierung
+\end{itemize}
+
+\section{Szenario 2.2: UDP vs.\ TCP für DNS}
+
+Ein DNS-Client möchte eine Domain auflösen:
+\begin{lstlisting}
+Query: example.com -> IP-Adresse
+Client: 192.168.1.50:12345
+DNS-Server: 8.8.8.8:53
+\end{lstlisting}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Warum verwendet DNS Port 53/UDP (statt TCP)?
+    \item Wenn die Response > 512 Bytes ist, was passiert dann?
+    \item Zeichne das DNS-Nachrichtenformat
+    \item Wie funktioniert DNS-Caching?
+    \item Was ist der Unterschied zwischen rekursiven und iterativen Queries?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item UDP für schnelle Abfragen, TCP für Zone-Transfers
+    \item Truncation (TC-Bit) in UDP-Response
+    \item DNS nutzt zusätzlich TCP für größere Responses
+    \item TTL (Time-to-Live) für Cache-Validierung
+\end{itemize}
+
+\chapter{Aufgabentyp 3: Netzwerk-Fehlerbehebung (Troubleshooting)}
+
+\section{Szenario 3.1: Konnektivitätsprobleme in mehreren Etagen}
+
+Problem: Benutzer im 2.\ Stock können Server im 3.\ Stock nicht erreichen
+
+\begin{lstlisting}
+Client (2. Stock):   192.168.2.10 (Subnet: /24)
+Server (3. Stock):   192.168.3.10 (Subnet: /24)
+Router-2:            192.168.2.1
+Router-3:            192.168.3.1
+\end{lstlisting}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Beschreibe dein Troubleshooting-Vorgehen (Schritt-für-Schritt)
+    \item Welche Kommandos würdest du einsetzen?
+    \begin{itemize}
+        \item Ping, Tracert/Traceroute, Pathping
+        \item ipconfig/ifconfig, netstat
+        \item arp -a, route print
+    \end{itemize}
+    \item Was sind mögliche Fehlerquellen auf verschiedenen Schichten?
+    \begin{itemize}
+        \item Layer 1: Kabel, LED-Status
+        \item Layer 2: VLAN-Tagging, Spanning Tree
+        \item Layer 3: Routing-Konfiguration, Firewall-Regeln
+    \end{itemize}
+    \item Wie überprüfst du Switch-Konfiguration?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{enumerate}
+    \item Lokale Konnektivität prüfen (ping 192.168.2.1)
+    \item Default-Gateway überprüfen
+    \item Routing-Tabelle analysieren (route print)
+    \item Auf Router: Routing zwischen den Subnetzen?
+    \item VLAN-Tagging auf trunk ports richtig?
+    \item ACL oder Firewall-Regeln blockieren?
+\end{enumerate}
+
+\section{Szenario 3.2: DHCP-Ausfallszenario}
+
+Problem: Nach Neustart des DHCP-Servers können neue Clients keine IP-Adresse erhalten
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Wie überprüfst du DHCP-Funktionalität?
+    \item Was sind potenzielle Probleme?
+    \begin{itemize}
+        \item DHCP-Server läuft nicht
+        \item DHCP-Relay ist nicht konfiguriert
+        \item DHCP-Spool ist leer
+        \item Broadcast-Blockierung
+    \end{itemize}
+    \item Wie debuggst du DHCP-Kommunikation?
+    \item Wie konfigurierst du DHCP-Failover/Redundanz?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item DHCP-Pakete mit Wireshark/TCPdump analysieren
+    \item DHCP-Server-Logs prüfen
+    \item DHCP-Relay auf Routern überprüfen
+    \item Auf Client: \texttt{ipconfig /renew} (Windows) oder \texttt{dhclient} (Linux)
+    \item Reservierte IP-Bereiche für DHCP definieren
+\end{itemize}
+
+\chapter{Aufgabentyp 4: Performance-Analyse und Optimierung}
+
+\section{Szenario 4.1: Netzwerk wird immer langsamer}
+
+Ein Administrator misst folgende Metriken:
+\begin{lstlisting}
+Verfügbare Bandbreite:    1 Gbps
+Aktuelle Auslastung:      85%
+Paket-Verluste:           2%
+Latenz:                   150ms
+Jitter:                   50ms
+\end{lstlisting}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Sind diese Werte problematisch? Worauf kommt es an?
+    \item Was sind mögliche Ursachen für hohe Latenz?
+    \item Welche Optimierungsmaßnahmen schlägst du vor?
+    \item Wie implementierst du QoS (Quality of Service)?
+    \item Berechne Durchsatz bei verschiedenen Verlustraten
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item 85\% Auslastung ist bedenklich (Puffering)
+    \item 2\% Packet Loss ist zu hoch (sollte < 0.1\%)
+    \item 150ms Latenz ist problematisch für VoIP/Video
+    \item QoS: Prioritäten setzen (Voice, Video, Data)
+    \item Traffic-Shaping, Rate-Limiting für nicht-kritische Dienste
+\end{itemize}
+
+\section{Szenario 4.2: WLAN-Performance-Problem}
+
+In einem Büro nutzen 50 Benutzer ein WLAN-Netzwerk, viele haben Verbindungsprobleme
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Was sind typische Ursachen für schlechtes WLAN?
+    \item Wie misst man WLAN-Signal-Qualität?
+    \begin{itemize}
+        \item RSSI (Received Signal Strength Indicator)
+        \item SNR (Signal-to-Noise Ratio)
+        \item Data Rate
+    \end{itemize}
+    \item Wie optimierst du Kanal-Belegung (2,4 GHz vs.\ 5 GHz)?
+    \item Wie viele APs brauchst du und wo platzierst du sie?
+    \item Welche 802.11-Standards wählst du?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item Zu viele Benutzer pro AP $\rightarrow$ zusätzliche APs
+    \item Interferenzen mit anderen WLANs $\rightarrow$ Kanal-Wechsel
+    \item Schwaches Signal $\rightarrow$ Antenne/Position anpassen
+    \item 5 GHz hat höhere Bandbreite, geringere Reichweite
+    \item 802.11ax (Wi-Fi 6) für hohe Benutzeranzahl
+\end{itemize}
+
+\chapter{Aufgabentyp 5: Netzwerk-Sicherheit und Segmentierung}
+
+\section{Szenario 5.1: Sichere Netzwerk-Architektur}
+
+Ein Unternehmen möchte sein Netzwerk besser sichern. Anforderungen:
+\begin{itemize}
+    \item Trennung von Gast- und Unternehmens-Netzwerk
+    \item Schutz vor DDoS-Attacken
+    \item Sichere Fernzugriffe für Mitarbeiter (VPN)
+    \item Einhaltung von Compliance-Anforderungen
+\end{itemize}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Entwerfe eine DMZ-Architektur (3-Schichten-Modell)
+    \item Wie funktioniert VLAN-Segmentierung?
+    \begin{itemize}
+        \item Management-VLAN
+        \item Guest-VLAN
+        \item Production-VLAN
+        \item Sensitive-Data-VLAN
+    \end{itemize}
+    \item Konfiguriere Inter-VLAN-Routing mit Access Control Lists (ACL)
+    \item Wie implementierst du VPN (Remote Access)?
+    \begin{itemize}
+        \item Welche VPN-Technologien (IPSec, SSL/TLS)?
+        \item Authentifizierung (Zertifikate, 2FA)?
+    \end{itemize}
+    \item DDoS-Schutzmechanismen:
+    \begin{itemize}
+        \item Ratelimiting
+        \item IP-Reputation-Filtering
+        \item Geographische Filterung
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item DMZ: Public Services (Web, Mail)
+    \item Internal Network: Unternehmenssysteme
+    \item Management Network: Admin-Zugriff nur
+    \item ACL-Beispiel: Gast-VLAN darf nicht auf Production
+\end{itemize}
+
+\section{Szenario 5.2: Wireless-Sicherheit}
+
+Sichere die WLAN-Infrastruktur gegen bekannte Angriffe
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Erkläre WPA2 vs.\ WPA3 Unterschiede
+    \item Wie konfigurierst du starke Authentifizierung?
+    \begin{itemize}
+        \item Pre-Shared Key (PSK) vs.\ Enterprise (802.1X)
+    \end{itemize}
+    \item Was ist TKIP und warum ist es obsolet?
+    \item Wie funktioniert 802.1X mit RADIUS?
+    \item Welche weiteren Sicherheitsmaßnahmen?
+    \begin{itemize}
+        \item MAC-Filtering
+        \item SSID-Cloaking (Sicherheit durch Obscurity)
+        \item Encryption: AES-CCMP
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{itemize}
+    \item WPA3: Individualized Data Encryption (IDE), Protection Management Frames
+    \item Enterprise WPA2 mit RADIUS für Unternehmen
+    \item PSK OK für kleine Netzwerke, Enterprise für Sicherheit
+\end{itemize}
+
+\chapter{Aufgabentyp 6: IP-Adressierung und Subnetting}
+
+\section{Szenario 6.1: Subnetting für Multi-Site-Netzwerk}
+
+Ein Unternehmen hat die IP-Range: \textbf{10.0.0.0/16}
+
+Sie benötigt:
+\begin{itemize}
+    \item Verwaltung: 50 Hosts
+    \item Produktion: 200 Hosts
+    \item Entwicklung: 80 Hosts
+    \item Gast: 30 Hosts
+\end{itemize}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Entwerfe ein Subnetting-Schema (VLSM -- Variable Length Subnet Masking)
+    \item Berechne für jedes Subnet:
+    \begin{itemize}
+        \item Netzwerk-Adresse
+        \item Broadcast-Adresse
+        \item Erste/letzte verwendbare Host-Adresse
+        \item Subnet-Mask (CIDR-Notation)
+    \end{itemize}
+    \item Wieviele Bits brauchst du für Hosts bei größtem Subnet?
+    \item Wieviele verfügbare Subnetze hast du noch?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{lstlisting}
+Verwaltung (50 Hosts):    10.0.0.0/26
+  (Netzwerk: 10.0.0.0, Broadcast: 10.0.0.63)
+Produktion (200 Hosts):   10.0.1.0/23
+  (Netzwerk: 10.0.1.0, Broadcast: 10.0.2.255)
+Entwicklung (80 Hosts):   10.0.3.0/25
+  (Netzwerk: 10.0.3.0, Broadcast: 10.0.3.127)
+Gast (30 Hosts):          10.0.4.0/27
+  (Netzwerk: 10.0.4.0, Broadcast: 10.0.4.31)
+\end{lstlisting}
+
+\section{Szenario 6.2: IPv6-Migration}
+
+Plane die Migration von IPv4 zu IPv6
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Dein Unternehmen hat die IPv6-Range: \textbf{2001:db8::/32}
+    \item Design ein Addressing-Schema:
+    \begin{itemize}
+        \item Site ID für verschiedene Standorte
+        \item Subnet ID für verschiedene Funktionen
+        \item Host ID (meist auto-konfiguriert)
+    \end{itemize}
+    \item Berechne Adressen für:
+    \begin{itemize}
+        \item Verwaltungs-Subnet (Berlin)
+        \item Produktion-Subnet (München)
+        \item Guest-Subnet (beide Standorte)
+    \end{itemize}
+    \item Wie konfigurierst du Dual-Stack (IPv4+IPv6)?
+    \item Wie funktioniert SLAAC?
+\end{enumerate}
+
+\subsection{Erwartete Antworten}
+\begin{lstlisting}
+IPv6-Struktur: 2001:db8:site:subnet:interface:host
+Berlin Verwaltung: 2001:db8:0001:1::/64
+München Produktion: 2001:db8:0002:2::/64
+\end{lstlisting}
+
+\chapter{Aufgabentyp 7: Switch- und Router-Konfiguration}
+
+\section{Szenario 7.1: VLAN- und Trunk-Konfiguration}
+
+Konfiguriere folgende Netzwerk-Infrastruktur:
+
+\begin{center}
+\begin{tabular}{cccccc}
+Core Switch & & & & & \\
+/ & | & $\backslash$ & & & \\
+{[}SW1{]} & {[}SW2{]} & {[}SW3{]} & & & \\
+\multicolumn{6}{c}{{[}Clients auf verschiedenen Etagen{]}} \\
+\end{tabular}
+\end{center}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Erstelle VLANs:
+    \begin{itemize}
+        \item VLAN 10: Verwaltung (Netzwerk: 192.168.10.0/24)
+        \item VLAN 20: Produktion (Netzwerk: 192.168.20.0/24)
+        \item VLAN 30: Entwicklung (Netzwerk: 192.168.30.0/24)
+        \item VLAN 99: Management (Netzwerk: 192.168.99.0/24)
+    \end{itemize}
+    \item Konfiguriere Trunk-Links zwischen Switches (802.1Q)
+    \item Konfiguriere Access-Ports für Clients (welches VLAN?)
+    \item Aktiviere Spanning Tree Protocol (STP)
+    \begin{itemize}
+        \item Wähle Root Bridge
+        \item Überprüfe Loop-Freiheit
+    \end{itemize}
+    \item Inter-VLAN-Routing:
+    \begin{itemize}
+        \item Welches Gerät? (Router oder Layer-3-Switch)
+        \item Konfiguriere Sub-Interfaces auf Router
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Erwartete Antworten (vereinfacht)}
+\begin{lstlisting}[language=bash]
+[Core Switch - Cisco IOS Beispiel]
+vlan 10
+name Verwaltung
+vlan 20
+name Produktion
+
+[Trunk zu anderen Switches]
+interface GigabitEthernet0/1
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,99
+
+[Access Port für Client]
+interface FastEthernet0/10
+switchport mode access
+switchport access vlan 10
+\end{lstlisting}
+
+\section{Szenario 7.2: Routing-Konfiguration}
+
+Verbinde mehrere Subnetze mit Routing:
+
+\begin{center}
+\begin{tabular}{ccc}
+Verwaltung & & Produktion \\
+192.168.10.0/24 & & 192.168.20.0/24 \\
+$|$ & & $|$ \\
+{[}Router A{]} & {-}{-}{-} & {[}Router B{]} \\
+(HQ) & & (Filiale)
+\end{tabular}
+\end{center}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Konfiguriere Router-Schnittstellen (IP-Adressen)
+    \item Wähle Routing-Protokoll:
+    \begin{itemize}
+        \item RIP (einfach, aber langsam)
+        \item OSPF (dynamisch, komplexer)
+        \item BGP (für Inter-AS-Routing)
+    \end{itemize}
+    \item Konfiguriere das Protokoll (OSPF Beispiel):
+    \begin{itemize}
+        \item Area Definition
+        \item Interface-Konfiguration
+        \item Metric-Adjustment
+    \end{itemize}
+    \item Überprüfe Routing-Tabellen
+    \item Teste Konnektivität mit Ping/Tracert
+\end{enumerate}
+
+\subsection{Erwartete Antworten (vereinfacht)}
+\begin{lstlisting}[language=bash]
+[Router A]
+router ospf 1
+network 192.168.10.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.255 area 0
+
+[Router B]
+router ospf 1
+network 192.168.20.0 0.0.0.255 area 0
+network 10.0.0.0 0.0.0.255 area 0
+\end{lstlisting}
+
+\chapter{Aufgabentyp 8: Komplexe Szenario-Aufgaben}
+
+\section{Szenario 8.1: Hybrid-Netzwerk mit Cloud-Integration}
+
+Ein Unternehmen benötigt ein Netzwerk mit Cloud-Anbindung:
+
+\subsection{Anforderungen}
+\begin{itemize}
+    \item Lokales Netzwerk: 200 Benutzer
+    \item Cloud-Services (AWS/Azure): Geschäftskritische Anwendungen
+    \item Remote-Mitarbeiter: Sichere VPN-Verbindung
+    \item Hohe Verfügbarkeit: Redundante Pfade
+\end{itemize}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Entwerfe die Gesamtarchitektur:
+    \begin{itemize}
+        \item On-Premise Netzwerk
+        \item Cloud-Verbindung (DCI/Carrier?)
+        \item Remote-Access (VPN)
+        \item Management-Netzwerk
+    \end{itemize}
+    \item Netzwerk-Design:
+    \begin{itemize}
+        \item Welche Topologie (Mesh, Hub-Spoke)?
+        \item Redundanze-Anforderungen?
+        \item WAN-Technologien (MPLS, SD-WAN)?
+    \end{itemize}
+    \item Sicherheit:
+    \begin{itemize}
+        \item Firewall-Positionierung
+        \item VPN-Protokolle und Authentifizierung
+        \item Cloud-Security-Anforderungen
+        \item Zero-Trust-Model?
+    \end{itemize}
+    \item Performance:
+    \begin{itemize}
+        \item Bandbreiten-Dimensionierung
+        \item QoS-Anforderungen
+        \item Cloud-Latenz-Anforderungen
+        \item Caching-Strategien
+    \end{itemize}
+    \item Compliance:
+    \begin{itemize}
+        \item Datenschutz (DSGVO)
+        \item Audit-Anforderungen
+        \item Backup/Disaster-Recovery
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Erwartete Struktur}
+\begin{lstlisting}
+[On-Premise]          [Firewall]        [Cloud Provider]
+- Clients        ->    - Security        - Applications
+- Server             - VPN-Gateway      - Storage
+- Storage            - Load Balancer    - Database
+
+[Remote Users] --VPN--> [Firewall] --Tunnel--> [Cloud]
+\end{lstlisting}
+
+\section{Szenario 8.2: Optimierung eines langsamen Netzwerks}
+
+Ein bestehendes Netzwerk läuft ineffizient:
+
+\subsection{Aktuelle Situation}
+\begin{lstlisting}
+- 10 Mbps WAN-Verbindung zwischen 2 Standorten
+- 85% Auslastung
+- Video-Konferenz Probleme
+- Backup dauert zu lange
+\end{lstlisting}
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Analysiere die Probleme:
+    \begin{itemize}
+        \item Was ist der Bottleneck?
+        \item Welche Services verursachen hohe Last?
+        \item Sind Redundanzen vorhanden?
+    \end{itemize}
+    \item Konfiguriere QoS:
+    \begin{itemize}
+        \item Priorisierung (Video > Voice > Data)
+        \item Rate-Limiting für Backup
+        \item Burst-Behandlung
+    \end{itemize}
+    \item Optimierungsmaßnahmen:
+    \begin{itemize}
+        \item WAN-Verbesserung (Bandbreite upgraden?)
+        \item Traffic-Lokalisierung (Caching, Local Storage)
+        \item Compression und Deduplication
+        \item SD-WAN Evaluierung
+    \end{itemize}
+    \item Berechne neue Anforderungen:
+    \begin{itemize}
+        \item Bandbreite für Video-Konferenz (HD, 20 Nutzer)
+        \item Backup-Anforderungen (RPO/RTO)
+        \item Redundanz-Anforderungen
+    \end{itemize}
+    \item Implementierungs-Plan:
+    \begin{itemize}
+        \item Phased Rollout
+        \item Testing und Validierung
+        \item Monitoring und Alerting
+    \end{itemize}
+\end{enumerate}
+
+\chapter{Aufgabentyp 9: Fehleranalyse und Systemausfallszenario}
+
+\section{Szenario 9.1: Kompletter Netzwerk-Ausfall}
+
+Das gesamte Netzwerk fällt aus. Wie gehst du vor?
+
+\subsection{Aufgaben}
+\begin{enumerate}
+    \item Sofortmaßnahmen (erste 30 Minuten):
+    \begin{itemize}
+        \item Wie priorisierst du Recovery?
+        \item Was überprüfst du zuerst?
+        \item Kommunikation mit Nutzern?
+    \end{itemize}
+    \item Detaillierte Fehlersuche:
+    \begin{itemize}
+        \item Schicht-für-Schicht Diagnose
+        \item Welche Tools/Kommandos?
+        \item Monitoring-Daten analysieren
+    \end{itemize}
+    \item Fehlerszenarien und Lösungen:
+    \begin{itemize}
+        \item \textbf{Szenario 1}: Kern-Switch ausgefallen
+        \item \textbf{Szenario 2}: Internet-Gateway fehlt
+        \item \textbf{Szenario 3}: DHCP-Server nicht erreichbar
+        \item \textbf{Szenario 4}: DNS-Ausfall
+    \end{itemize}
+    \item Post-Mortem:
+    \begin{itemize}
+        \item Ursachenanalyse (RCA)
+        \item Wie hätte man das verhindern können?
+        \item Redundanz-Verbesserungen
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+\part{Wichtige Formeln und Berechnungen}
+
+\chapter{Networking-Formeln}
+
+\section{Durchsatz-Berechnung}
+\[
+\text{Effektiver Durchsatz} = \text{Bandbreite} \times (1 - \text{Packet-Loss-Rate})
+\]
+
+\textit{Beispiel:} $100 \text{ Mbps} \times (1 - 0.02) = 98 \text{ Mbps}$
+
+\section{RTT (Round Trip Time) / Latenz}
+\[
+\text{RTT} = 2 \times \frac{\text{Distanz}}{\text{Lichtgeschwindigkeit}}
+\]
+
+\textit{Beispiel:} $100 \text{ km} \rightarrow \text{RTT} \approx 2 \times \frac{100.000 \text{ m}}{300.000.000 \text{ m/s}} \approx 0.67 \text{ ms}$
+
+\section{Bandbreite für Video-Streaming}
+\[
+\text{Bitrate (Mbps)} = \frac{\text{Auflösung} \times \text{FPS} \times \text{Bit-Tiefe}}{1.000.000}
+\]
+
+\textit{Beispiel:} HD (1280×720, 30 fps, 8-bit): $\approx 10$--$20$ Mbps
+
+\section{TCP-Fenster-Größe und Durchsatz}
+\[
+\text{Durchsatz} = \frac{\text{Window Size}}{\text{RTT}}
+\]
+
+\textit{Beispiel:} $\frac{65.536 \text{ Bytes}}{50 \text{ ms}} = 1.3 \text{ Mbps}$
+
+\section{Subnetting-Berechnung}
+\[
+\text{Verfügbare Hosts} = 2^n - 2
+\]
+wobei $n$ = Anzahl Host-Bits
+
+\textit{Beispiel:} $/24 \rightarrow 8$ Host-Bits $\rightarrow 2^8 - 2 = 254$ Hosts
+
+\part{Checklisten für Klausur-Vorbereitung}
+
+\chapter{Verständnis-Checkliste}
+
+\begin{itemize}
+    \item[$\checkmark$] Kann ich das ISO/OSI-Modell erklären?
+    \item[$\checkmark$] Kenne ich die wichtigsten Protokolle und deren Ports?
+    \item[$\checkmark$] Kann ich Subnetze berechnen?
+    \item[$\checkmark$] Verstehe ich den Unterschied zwischen Routing und Switching?
+    \item[$\checkmark$] Kann ich VLAN-Konzept erklären?
+    \item[$\checkmark$] Kenne ich die verschiedenen Netzwerk-Topologien?
+    \item[$\checkmark$] Verstehe ich TCP vs.\ UDP?
+    \item[$\checkmark$] Kann ich eine Netzwerk-Fehlersuche durchführen?
+\end{itemize}
+
+\chapter{Praktische-Fähigkeits-Checkliste}
+
+\begin{itemize}
+    \item[$\checkmark$] Kann ich eine Netzwerk-Architektur zeichnen?
+    \item[$\checkmark$] Kann ich IP-Adressen berechnen?
+    \item[$\checkmark$] Kann ich eine ACL schreiben?
+    \item[$\checkmark$] Kann ich VLAN/Trunk konfigurieren?
+    \item[$\checkmark$] Verstehe ich Routing-Tabellen?
+    \item[$\checkmark$] Kann ich QoS konfigurieren?
+    \item[$\checkmark$] Kann ich VPN aufsetzen?
+    \item[$\checkmark$] Kann ich Fehlerbehebung durchführen?
+\end{itemize}
+
+\vfill
+\begin{center}
+\textbf{\Large Viel Erfolg bei der Klausur!}
+\end{center}
+
+\end{document}
