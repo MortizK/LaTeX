@@ -99,7 +99,7 @@ LEFT JOIN ZuliefererTelefonnummer zt ON z.ZuliefererID = zt.ZuliefererID
 ORDER BY z.Name, zt.Vorwahl, zt.Telefonnummer;
 
 -- View: Lieferverhältnisse pro Filiale
-CREATE OR REPLACE VIEW v_lieferverhältnisse AS
+CREATE OR REPLACE VIEW v_lieferverhaeltnisse AS
 SELECT 
     f.FilialeID,
     f.Name AS FilialeName,
@@ -174,7 +174,7 @@ GROUP BY f.FilialeID, f.Name, m.MitarbeiterID, m.Vorname, m.Nachname,
 ORDER BY f.FilialeID, m.Nachname;
 
 -- View: Eigentümer-Übersicht (alle Filialen im Überblick)
-CREATE OR REPLACE VIEW v_eigentümer_übersicht AS
+CREATE OR REPLACE VIEW v_eigentuemer_uebersicht AS
 SELECT 
     f.FilialeID,
     f.Name AS FilialeName,
@@ -219,13 +219,13 @@ LEFT JOIN Mitarbeiter m ON f.LeiterID = m.MitarbeiterID
 ORDER BY f.Aktiv DESC, f.Name;
 
 -- View: Tägliche Verkaufsstatistiken pro Filiale
-CREATE OR REPLACE VIEW v_verkaufsstatistik_täglich AS
+CREATE OR REPLACE VIEW v_verkaufsstatistik_taeglich AS
 SELECT 
     v.Datum,
     f.FilialeID,
     f.Name AS FilialeName,
-    COUNT(DISTINCT v.VerkaufID) AS VerkaufsanzahlTäglich,
-    ROUND(SUM(v.Gesamtbetrag)::DECIMAL / 100, 2) AS UmsatzTäglichEuro,
+    COUNT(DISTINCT v.VerkaufID) AS VerkaufsanzahlTaeglich,
+    ROUND(SUM(v.Gesamtbetrag)::DECIMAL / 100, 2) AS UmsatzTaeglichEuro,
     ROUND(AVG(v.Gesamtbetrag)::DECIMAL / 100, 2) AS DurchschnittVerkaufswertEuro,
     ROUND(MIN(v.Gesamtbetrag)::DECIMAL / 100, 2) AS MinVerkaufswertEuro,
     ROUND(MAX(v.Gesamtbetrag)::DECIMAL / 100, 2) AS MaxVerkaufswertEuro
@@ -301,7 +301,7 @@ JOIN Rezept r ON prf.RezeptID = r.RezeptID
 ORDER BY f.FilialeID, p.Name;
 
 -- View: Azubi-Übersicht mit Verantwortlichen
-CREATE OR REPLACE VIEW v_azubi_übersicht AS
+CREATE OR REPLACE VIEW v_azubi_uebersicht AS
 SELECT 
     a.MitarbeiterID AS AzubiID,
     m.Vorname AS AzubiVorname,
@@ -346,3 +346,113 @@ LEFT JOIN Schicht s ON f.FilialeID = s.FilialeID
 LEFT JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
 GROUP BY f.FilialeID, f.Name, f.Adresse, f.Aktiv, m.Vorname, m.Nachname
 ORDER BY f.Aktiv DESC, f.Name;
+
+-- ============================================================
+-- SINNVOLLE ABFRAGEN AUF BASIS DER VIEWS
+-- ============================================================
+
+-- Alle Mitarbeiter einer spezifischen Filiale mit Kontaktdaten
+SELECT * FROM v_mitarbeiter_kontakt 
+WHERE FilialeID = 1
+ORDER BY Nachname;
+
+-- Schichtplan fuer die nächsten 7 Tage
+SELECT * FROM v_schichtplan 
+WHERE Startzeit >= CURRENT_DATE 
+AND Startzeit < CURRENT_DATE + INTERVAL '7 days'
+ORDER BY Startzeit;
+
+-- Kritische Lagerbestände (niedrig: < 100 Einheiten)
+SELECT * FROM v_lagerbestaende 
+WHERE Bestand < 100
+ORDER BY Bestand ASC;
+
+-- Verfügbare Produkte pro Filiale mit Preisen
+SELECT * FROM v_produktverfuegbarkeit 
+WHERE Status = 'verfuegbar'
+ORDER BY FilialeName, ProduktName;
+
+-- Rezepte mit allen Zutaten und Mengen (komplette Zutatenliste)
+SELECT * FROM v_rezept_details 
+WHERE RezeptID = 1
+ORDER BY ZutatName;
+
+-- Kontaktdaten aller Zulieferer
+SELECT DISTINCT ZuliefererID, ZuliefererName, Adresse, 
+       CONCAT(Vorwahl, ' ', Telefonnummer) AS Telefon
+FROM v_zulieferer_kontakt 
+ORDER BY ZuliefererName;
+
+-- Lieferketten: Wer liefert was zu welchem Preis?
+SELECT * FROM v_lieferverhaeltnisse 
+WHERE FilialeName = 'Filiale Nagold Zentrum'
+ORDER BY ZuliefererName, ZutatName;
+
+-- Dashboard fuer Filialleiter: Überblick der Filiale
+SELECT * FROM v_filialleiter_dashboard 
+WHERE FilialeID = 1;
+
+-- Team einer Filiale: Alle Mitarbeiter mit Gehalt und Kontakt
+SELECT * FROM v_mitarbeiter_filiale 
+WHERE FilialeID = 1;
+
+-- Unternehmens-Überblick fuer Eigentuemer
+SELECT * FROM v_eigentuemer_uebersicht 
+WHERE Aktiv = TRUE
+ORDER BY FilialeName;
+
+-- Verkaufsstatistiken pro Tag und Filiale
+SELECT * FROM v_verkaufsstatistik_taeglich 
+WHERE Datum >= CURRENT_DATE - INTERVAL '30 days'
+ORDER BY Datum DESC, FilialeName;
+
+-- Top-Produkte nach Umsatz (was verkauft sich am besten?)
+SELECT * FROM v_verkaufsstatistik_produkt 
+WHERE VerkaufsanzahlGesamt > 0
+ORDER BY UmsatzGesamtEuro DESC
+LIMIT 10;
+
+-- Produktperformance pro Filiale (Verkauf nach Standort)
+SELECT 
+    FilialeName,
+    ProduktName,
+    VerkaufsanzahlFiliale,
+    MengeFiliale,
+    UmsatzFilialeEuro
+FROM v_verkaufsstatistik_produkt_filiale 
+WHERE VerkaufsanzahlFiliale > 0
+ORDER BY FilialeName, UmsatzFilialeEuro DESC;
+
+-- Mitarbeiter-Leistung: Verkaufsranking
+SELECT 
+    FilialeName,
+    Nachname,
+    Vorname,
+    VerkaufsanzahlGesamt,
+    UmsatzGesamtEuro,
+    DurchschnittsVerkaufswertEuro
+FROM v_mitarbeiter_verkaufsleistung 
+ORDER BY UmsatzGesamtEuro DESC;
+
+-- Produkt-Rezept-Zuordnung: Welche Rezepte für welche Produkte pro Filiale?
+SELECT * FROM v_produkt_rezept_filiale 
+WHERE FilialeName = 'Filiale Nagold Zentrum'
+ORDER BY ProduktName;
+
+-- Azubi-Übersicht: Wer sind die Azubis und wer betreut sie?
+SELECT 
+    AzubiVorname || ' ' || AzubiNachname AS AzubiName,
+    AzubiStart,
+    VerantwortlicherVorname || ' ' || VerantwortlicherNachname AS Verantwortlicher
+FROM v_azubi_uebersicht 
+ORDER BY AzubiStart;
+
+-- Rezept-Varianten: Alle Varianten eines Basis-Rezepts
+SELECT * FROM v_rezept_varianten 
+WHERE BasisRezeptID = 1
+ORDER BY BasisRezeptName;
+
+-- Status aller Filialen: Wer ist aktiv, Leitung, Personalausstattung
+SELECT * FROM v_filialen_status 
+ORDER BY Aktiv DESC, FilialeName;
+
