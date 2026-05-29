@@ -92,11 +92,11 @@ SELECT
     z.ZuliefererID,
     z.Name AS ZuliefererName,
     z.Adresse,
-    zt.Vorwahl,
-    zt.Telefonnummer
+    STRING_AGG(CONCAT(zt.Vorwahl, zt.Telefonnummer), ', ') AS Telefonnummern
 FROM Zulieferer z
 LEFT JOIN ZuliefererTelefonnummer zt ON z.ZuliefererID = zt.ZuliefererID
-ORDER BY z.Name, zt.Vorwahl, zt.Telefonnummer;
+GROUP BY z.ZuliefererID
+ORDER BY z.Name;
 
 -- View: Lieferverhältnisse pro Filiale
 CREATE OR REPLACE VIEW v_lieferverhaeltnisse AS
@@ -378,9 +378,7 @@ WHERE RezeptID = 1
 ORDER BY ZutatName;
 
 -- Kontaktdaten aller Zulieferer
-SELECT DISTINCT ZuliefererID, ZuliefererName, Adresse, 
-       CONCAT(Vorwahl, ' ', Telefonnummer) AS Telefon
-FROM v_zulieferer_kontakt 
+SELECT * FROM v_zulieferer_kontakt 
 ORDER BY ZuliefererName;
 
 -- Lieferketten: Wer liefert was zu welchem Preis?
@@ -413,25 +411,12 @@ ORDER BY UmsatzGesamtEuro DESC
 LIMIT 10;
 
 -- Produktperformance pro Filiale (Verkauf nach Standort)
-SELECT 
-    FilialeName,
-    ProduktName,
-    VerkaufsanzahlFiliale,
-    MengeFiliale,
-    UmsatzFilialeEuro
-FROM v_verkaufsstatistik_produkt_filiale 
+SELECT * FROM v_verkaufsstatistik_produkt_filiale 
 WHERE VerkaufsanzahlFiliale > 0
 ORDER BY FilialeName, UmsatzFilialeEuro DESC;
 
 -- Mitarbeiter-Leistung: Verkaufsranking
-SELECT 
-    FilialeName,
-    Nachname,
-    Vorname,
-    VerkaufsanzahlGesamt,
-    UmsatzGesamtEuro,
-    DurchschnittsVerkaufswertEuro
-FROM v_mitarbeiter_verkaufsleistung 
+SELECT * FROM v_mitarbeiter_verkaufsleistung 
 ORDER BY UmsatzGesamtEuro DESC;
 
 -- Produkt-Rezept-Zuordnung: Welche Rezepte für welche Produkte pro Filiale?
@@ -440,11 +425,7 @@ WHERE FilialeName = 'Filiale Nagold Zentrum'
 ORDER BY ProduktName;
 
 -- Azubi-Übersicht: Wer sind die Azubis und wer betreut sie?
-SELECT 
-    AzubiVorname || ' ' || AzubiNachname AS AzubiName,
-    AzubiStart,
-    VerantwortlicherVorname || ' ' || VerantwortlicherNachname AS Verantwortlicher
-FROM v_azubi_uebersicht 
+SELECT * FROM v_azubi_uebersicht 
 ORDER BY AzubiStart;
 
 -- Rezept-Varianten: Alle Varianten eines Basis-Rezepts
