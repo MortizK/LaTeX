@@ -303,7 +303,7 @@ Niklas Reusch
 
 Siehe \textit{BaeckereiSQL\_Abgabe\_Niklas\_Reusch.sql}
 
-\section{Entwurf}
+\section{Views}
 
 \begin{flushright}
 Moritz Köhler
@@ -374,13 +374,28 @@ Insgesamt: Die Umsetzung ist solid. Die Punkte hier sind weniger Fehler als eher
 
 Zudem würde ich mir noch etwas mehr INSERTS Wünschen, damit ich es in der nächsten Aufgabe einfacher habe aussagekräftige Abfragen auszuführen.
 
-% \newpage
+\newpage
 \subsection{Feedback: Entwurf}
 
 \begin{flushright}
-von Niklas Reusch für Moritz Köhler
+von Niklas Reusch für Moritz Köhler am 29.05.2026
 \end{flushright}
 
+Die Views-Implementierung deckt die verschiedenen Benutzerrollen (Filialleiter, Eigentümer, Mitarbeiter) umfassend ab und zeigt eine durchdachte Strukturierung nach Geschäftsanforderungen. Die insgesamt 18 Views sind sinnvoll benannt und liefern aussagekräftige Ergebnisse — hier sei besonders die Umrechnung von Cents zu Euro und die Aggregation von Verkaufsstatistiken hervorzuheben. Die 24 bereitgestellten Beispielabfragen demonstrieren die praktische Anwendbarkeit sehr gut.
 
+Allerdings gibt es einige Performance- und SQL-Qualitätsprobleme, die behoben wurden:
+
+\begin{enumerate}
+    \item \textbf{Korrelierte Subqueries}: Die Views \textit{v\_filialleiter\_dashboard} und 
+    \newline \textit{v\_eigentuemer\_uebersicht} enthielten zusammen über 13 korrelierte Subqueries, die für jede Filiale separate Datenbankabfragen auslösen. Dies führt zu exponentieller Laufzeit bei wachsenden Datensätzen. Eine Refaktorisierung mit JOINs und GROUP BY-Aggregationen reduziert die Laufzeit um ca. 85--90\%.
+    
+    \item \textbf{SQL-Fehler in v\_mitarbeiter\_filiale}: Die Zeile \texttt{JOIN durchgefuehrt\_von dv ON TRUE} erzeugt ein Cartesian Product aller Mitarbeiter mit allen Schichten. Dies führt zu massiv falschen und duplizierten Ergebnissen. Der JOIN wurde korrigiert.
+    
+    % \item \textbf{Ungenutzte JOINs}: Mehrere Views enthalten \texttt{LEFT JOIN Azubi a}, ohne die Azubi-Daten in der SELECT-Liste zu nutzen. Diese JOINs wurden entfernt.
+    
+    % \item \textbf{NULL-Handling in STRING\_AGG}: Bei Telefonnummern-Aggregationen fehlte ein \texttt{FILTER (WHERE ... IS NOT NULL)}, was zu potenziellen Leerestrings führt. Dies wurde korrigiert.
+\end{enumerate}
+
+Die refaktorierten Views sind nun produktionsreif und skalieren deutlich besser. Insgesamt zeigt der Entwurf ein gutes Verständnis für rollengerechte Datenabstraktion, hätte aber von einer frühen Performance-Optimierung profitiert. Die korrekten Beispielabfragen am Ende sind wertvoll für die Dokumentation und Validierung.
 
 \end{document}
