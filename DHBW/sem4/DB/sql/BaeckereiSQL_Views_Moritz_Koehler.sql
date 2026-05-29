@@ -34,7 +34,6 @@ FROM Filiale f
 JOIN Schicht s ON f.FilialeID = s.FilialeID
 JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
 JOIN Mitarbeiter m ON dv.MitarbeiterID = m.MitarbeiterID
-LEFT JOIN Azubi a ON m.MitarbeiterID = a.MitarbeiterID
 ORDER BY f.FilialeID, s.Startzeit, m.Nachname;
 
 -- View: Lagerbestände pro Filiale mit Zutatennamen
@@ -123,34 +122,18 @@ SELECT
     f.FilialeID,
     f.Name AS FilialeName,
     f.Adresse,
-    (
-        SELECT COUNT(*) 
-        FROM Mitarbeiter m 
-        JOIN durchgefuehrt_von dv ON m.MitarbeiterID = dv.MitarbeiterID
-        JOIN Schicht s ON dv.SchichtID = s.SchichtID
-        WHERE s.FilialeID = f.FilialeID
-    ) AS MitarbeiterAnzahl,
-    (
-        SELECT COUNT(*) 
-        FROM Schicht s 
-        WHERE s.FilialeID = f.FilialeID
-    ) AS SchichtAnzahl,
-    (
-        SELECT COUNT(DISTINCT ProduktID) 
-        FROM vorhanden v 
-        WHERE v.FilialeID = f.FilialeID
-    ) AS ProdukteAnzahl,
-    ROUND((
-        SELECT SUM(Gesamtbetrag)::DECIMAL 
-        FROM Verkauf v 
-        WHERE v.FilialeID = f.FilialeID
-    ) / 100, 2) AS GesamtUmsatzEuro,
-    (
-        SELECT COUNT(*) 
-        FROM Verkauf v 
-        WHERE v.FilialeID = f.FilialeID
-    ) AS VerkaufsanzahlGesamt
-FROM Filiale f;
+    COUNT(m.MitarbeiterID) AS MitarbeiterAnzahl,
+    COUNT(s.SchichtID) AS SchichtAnzahl,
+    COUNT(vh.ProduktID) AS ProdukteAnzahl,
+    ROUND(COALESCE(SUM(vk.VerkaufID)::DECIMAL, 0) / 100, 2) AS GesamtUmsatzEuro,
+    COUNT(vk.VerkaufID) AS VerkaufsanzahlGesamt
+FROM Filiale f
+LEFT JOIN Schicht s ON f.FilialeID = s.FilialeID
+LEFT JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
+LEFT JOIN Mitarbeiter m ON dv.MitarbeiterID = m.MitarbeiterID
+LEFT JOIN vorhanden vh ON f.FilialeID = vh.FilialeID
+LEFT JOIN Verkauf vk ON f.FilialeID = vk.FilialeID
+GROUP BY f.FilialeID, f.Name, f.Adresse;
 
 -- View: Mitarbeiter-Übersicht für eine Filiale
 CREATE OR REPLACE VIEW v_mitarbeiter_filiale AS
@@ -164,16 +147,15 @@ SELECT
     ROUND(m.Gehalt::DECIMAL / 100, 2) AS GehaltEuro,
     STRING_AGG(CONCAT(mt.Vorwahl, mt.Telefonnummer), ', ') AS Telefonnummern
 FROM Filiale f
-JOIN durchgefuehrt_von dv ON TRUE
-JOIN Schicht s ON dv.SchichtID = s.SchichtID AND s.FilialeID = f.FilialeID
+JOIN Schicht s ON f.FilialeID = s.FilialeID
+JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
 JOIN Mitarbeiter m ON dv.MitarbeiterID = m.MitarbeiterID
-LEFT JOIN Azubi a ON m.MitarbeiterID = a.MitarbeiterID
 LEFT JOIN MitarbeiterTelefonnummer mt ON m.MitarbeiterID = mt.MitarbeiterID
 GROUP BY f.FilialeID, f.Name, m.MitarbeiterID, m.Vorname, m.Nachname, 
-         m.Geburtsdatum, m.Gehalt, f.LeiterID, a.MitarbeiterID, a.Start
+         m.Geburtsdatum, m.Gehalt
 ORDER BY f.FilialeID, m.Nachname;
 
--- View: Eigentümer-Übersicht (alle Filialen im Überblick)
+-- View: Eigentümer-Übersicht (alle Filialen im Überblick - optimiert mit GROUP BY statt Subqueries)
 CREATE OR REPLACE VIEW v_eigentuemer_uebersicht AS
 SELECT 
     f.FilialeID,
@@ -182,40 +164,20 @@ SELECT
     f.Aktiv,
     m.Vorname AS LeiterVorname,
     m.Nachname AS LeiterNachname,
-    (
-        SELECT COUNT(*) 
-        FROM Mitarbeiter mi 
-        JOIN durchgefuehrt_von dv ON mi.MitarbeiterID = dv.MitarbeiterID
-        JOIN Schicht s ON dv.SchichtID = s.SchichtID
-        WHERE s.FilialeID = f.FilialeID
-    ) AS MitarbeiterAnzahl,
-    (
-        SELECT COUNT(*) 
-        FROM Schicht s 
-        WHERE s.FilialeID = f.FilialeID
-    ) AS SchichtenGesamt,
-    (
-        SELECT COUNT(DISTINCT ProduktID) 
-        FROM vorhanden v 
-        WHERE v.FilialeID = f.FilialeID
-    ) AS ProdukteSortiment,
-    (
-        SELECT SUM(Lagerbestand) 
-        FROM vorhanden v 
-        WHERE v.FilialeID = f.FilialeID
-    ) AS TotalLagerbestand,
-    ROUND((
-        SELECT SUM(Gesamtbetrag)::DECIMAL 
-        FROM Verkauf v 
-        WHERE v.FilialeID = f.FilialeID
-    ) / 100, 2) AS UmsatzGesamtEuro,
-    (
-        SELECT COUNT(*) 
-        FROM Verkauf v 
-        WHERE v.FilialeID = f.FilialeID
-    ) AS VerkaufsanzahlGesamt
+    COUNT(mi.MitarbeiterID) AS MitarbeiterAnzahl,
+    COUNT(s.SchichtID) AS SchichtenGesamt,
+    COUNT(vh.ProduktID) AS ProdukteSortiment,
+    COALESCE(SUM(vh.Lagerbestand), 0) AS TotalLagerbestand,
+    ROUND(COALESCE(SUM(vk.VerkaufID)::DECIMAL, 0) / 100, 2) AS UmsatzGesamtEuro,
+    COUNT(vk.VerkaufID) AS VerkaufsanzahlGesamt
 FROM Filiale f
 LEFT JOIN Mitarbeiter m ON f.LeiterID = m.MitarbeiterID
+LEFT JOIN Schicht s ON f.FilialeID = s.FilialeID
+LEFT JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
+LEFT JOIN Mitarbeiter mi ON dv.MitarbeiterID = mi.MitarbeiterID
+LEFT JOIN vorhanden vh ON f.FilialeID = vh.FilialeID
+LEFT JOIN Verkauf vk ON f.FilialeID = vk.FilialeID
+GROUP BY f.FilialeID, f.Name, f.Adresse, f.Aktiv, m.Vorname, m.Nachname
 ORDER BY f.Aktiv DESC, f.Name;
 
 -- View: Tägliche Verkaufsstatistiken pro Filiale
