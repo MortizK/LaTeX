@@ -378,24 +378,22 @@ Zudem würde ich mir noch etwas mehr INSERTS Wünschen, damit ich es in der näc
 \subsection{Feedback: Entwurf}
 
 \begin{flushright}
-von Niklas Reusch für Moritz Köhler am 29.05.2026
+von Niklas Reusch für Moritz Köhler am 03.06.2026
 \end{flushright}
 
-Die Views-Implementierung deckt die verschiedenen Benutzerrollen (Filialleiter, Eigentümer, Mitarbeiter) umfassend ab und zeigt eine durchdachte Strukturierung nach Geschäftsanforderungen. Die insgesamt 18 Views sind sinnvoll benannt und liefern aussagekräftige Ergebnisse — hier sei besonders die Umrechnung von Cents zu Euro und die Aggregation von Verkaufsstatistiken hervorzuheben. Die 24 bereitgestellten Beispielabfragen demonstrieren die praktische Anwendbarkeit sehr gut.
+Das View-Skript ist allgemein sehr ausführlich und deckt die Anforderungen größtenteils ab. Ich finde sehr gut, dass für die unterschiedlichen Benutzerrollen sehr praxisnahe Views angelegt worden sind, wie zum Beispiel filialbezogene Informationen und Produktdaten. Außerdem werden in vielen Views einzelne Tabellen durch Joins zusammengeführt, wodurch die nötigen Informationen enthalten und gut verständlich sind.
 
-Allerdings gibt es einige Performance- und SQL-Qualitätsprobleme, die behoben wurden:
+Verbessern könnte man die \lstinline|View v_mitarbeiter_kontakt|, da die Zuordnung eines Mitarbeiters zu einer Filiale über die Schichten mit der Tabelle \lstinline|durchgefuehrt_von| erfolgt. Das Problem hierbei ist, dass unser SQL-Schema die Beziehung von einem Mitarbeiter zu mehreren Schichten erlaubt, wodurch Duplikate vorkommen können. Als Lösung könnte man hier zum Beispiel mit dem \lstinline|DISTINCT| Statement arbeiten. 
 
-\begin{enumerate}
-    \item \textbf{Korrelierte Subqueries}: Die Views \textit{v\_filialleiter\_dashboard} und 
-    \newline \textit{v\_eigentuemer\_uebersicht} enthielten zusammen über 13 korrelierte Subqueries, die für jede Filiale separate Datenbankabfragen auslösen. Dies führt zu exponentieller Laufzeit bei wachsenden Datensätzen. Eine Refaktorisierung mit JOINs und GROUP BY-Aggregationen reduziert die Laufzeit um ca. 85--90\%.
-    
-    \item \textbf{SQL-Fehler in v\_mitarbeiter\_filiale}: Die Zeile \texttt{JOIN durchgefuehrt\_von dv ON TRUE} erzeugt ein Cartesian Product aller Mitarbeiter mit allen Schichten. Dies führt zu massiv falschen und duplizierten Ergebnissen. Der JOIN wurde korrigiert.
-    
-    % \item \textbf{Ungenutzte JOINs}: Mehrere Views enthalten \texttt{LEFT JOIN Azubi a}, ohne die Azubi-Daten in der SELECT-Liste zu nutzen. Diese JOINs wurden entfernt.
-    
-    % \item \textbf{NULL-Handling in STRING\_AGG}: Bei Telefonnummern-Aggregationen fehlte ein \texttt{FILTER (WHERE ... IS NOT NULL)}, was zu potenziellen Leerestrings führt. Dies wurde korrigiert.
-\end{enumerate}
+\begin{sloppypar}
+Dasselbe gilt für die \lstinline|Views v_filialleiter_dashboard| und \lstinline|v_eigentuemer_uebersicht|, da durch die Duplikate ein Mitarbeiter möglicherweise mehrmals gezählt werden kann.
+Hierfür könnte man statt \lstinline|COUNT(*)| besser \lstinline|COUNT(DISTINCT m.MitarbeiterID)| benutzen.
+\end{sloppypar}
 
-Die refaktorierten Views sind nun produktionsreif und skalieren deutlich besser. Insgesamt zeigt der Entwurf ein gutes Verständnis für rollengerechte Datenabstraktion, hätte aber von einer frühen Performance-Optimierung profitiert. Die korrekten Beispielabfragen am Ende sind wertvoll für die Dokumentation und Validierung.
+\begin{sloppypar}
+Zudem wird in der \lstinline|View v_verkaufsstatistik_produkt| bei der Berechnung nicht das Mengenattribut der Produkte berücksichtigt. In der \lstinline|View v_verkaufsstatistik_produkt_filiale| machst du das mit \lstinline|SUM(vk.Menge) * p.Preis| bereits richtig.
+\end{sloppypar}
+
+Der Rest ist aber sehr logisch und gelungen.
 
 \end{document}
