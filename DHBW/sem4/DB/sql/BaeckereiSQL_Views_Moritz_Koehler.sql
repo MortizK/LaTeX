@@ -1,6 +1,7 @@
 -- View: Mitarbeiter mit Kontaktinformationen pro Filiale
+-- FIXED: Verwendung von DISTINCT ON um Duplikate durch mehrere Schichten zu vermeiden
 CREATE OR REPLACE VIEW v_mitarbeiter_kontakt AS
-SELECT 
+SELECT DISTINCT ON (m.MitarbeiterID, f.FilialeID)
     m.MitarbeiterID,
     m.Vorname,
     m.Nachname,
@@ -16,7 +17,7 @@ LEFT JOIN durchgefuehrt_von dv ON m.MitarbeiterID = dv.MitarbeiterID
 LEFT JOIN Schicht sc ON dv.SchichtID = sc.SchichtID
 LEFT JOIN Filiale f ON sc.FilialeID = f.FilialeID
 LEFT JOIN MitarbeiterTelefonnummer mt ON m.MitarbeiterID = mt.MitarbeiterID
-ORDER BY f.FilialeID, m.Nachname, m.Vorname;
+ORDER BY m.MitarbeiterID, f.FilialeID, f.FilialeID, m.Nachname, m.Vorname;
 
 -- View: Schicht-Plan pro Filiale mit Mitarbeitern
 CREATE OR REPLACE VIEW v_schichtplan AS
@@ -117,23 +118,45 @@ JOIN Zutat zta ON l.ZutatID = zta.ZutatID
 ORDER BY f.FilialeID, z.Name, zta.Name;
 
 -- View: Filialleiter-Dashboard für eine spezifische Filiale
+-- Syntax aus https://www.postgresql.org/docs/current/queries-with.html
 CREATE OR REPLACE VIEW v_filialleiter_dashboard AS
+WITH mitarbeiter_count AS (
+    SELECT s.FilialeID, COUNT(DISTINCT m.MitarbeiterID) as cnt
+    FROM Schicht s
+    LEFT JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
+    LEFT JOIN Mitarbeiter m ON dv.MitarbeiterID = m.MitarbeiterID
+    GROUP BY s.FilialeID
+),
+schicht_count AS (
+    SELECT FilialeID, COUNT(DISTINCT SchichtID) as cnt
+    FROM Schicht
+    GROUP BY FilialeID
+),
+produkt_count AS (
+    SELECT FilialeID, COUNT(ProduktID) as cnt
+    FROM vorhanden
+    GROUP BY FilialeID
+),
+verkauf_sum AS (
+    SELECT f.FilialeID, COUNT(vk.VerkaufID) as anzahl, SUM(vk.Gesamtbetrag) as summe
+    FROM Filiale f
+    LEFT JOIN Verkauf vk ON f.FilialeID = vk.FilialeID
+    GROUP BY f.FilialeID
+)
 SELECT 
     f.FilialeID,
     f.Name AS FilialeName,
     f.Adresse,
-    COUNT(m.MitarbeiterID) AS MitarbeiterAnzahl,
-    COUNT(s.SchichtID) AS SchichtAnzahl,
-    COUNT(vh.ProduktID) AS ProdukteAnzahl,
-    ROUND(COALESCE(SUM(vk.VerkaufID)::DECIMAL, 0) / 100, 2) AS GesamtUmsatzEuro,
-    COUNT(vk.VerkaufID) AS VerkaufsanzahlGesamt
+    COALESCE(mc.cnt, 0) AS MitarbeiterAnzahl,
+    COALESCE(sc.cnt, 0) AS SchichtAnzahl,
+    COALESCE(pc.cnt, 0) AS ProdukteAnzahl,
+    ROUND(COALESCE(vs.summe, 0)::DECIMAL / 100, 2) AS GesamtUmsatzEuro,
+    COALESCE(vs.anzahl, 0) AS VerkaufsanzahlGesamt
 FROM Filiale f
-LEFT JOIN Schicht s ON f.FilialeID = s.FilialeID
-LEFT JOIN durchgefuehrt_von dv ON s.SchichtID = dv.SchichtID
-LEFT JOIN Mitarbeiter m ON dv.MitarbeiterID = m.MitarbeiterID
-LEFT JOIN vorhanden vh ON f.FilialeID = vh.FilialeID
-LEFT JOIN Verkauf vk ON f.FilialeID = vk.FilialeID
-GROUP BY f.FilialeID, f.Name, f.Adresse;
+LEFT JOIN mitarbeiter_count mc ON f.FilialeID = mc.FilialeID
+LEFT JOIN schicht_count sc ON f.FilialeID = sc.FilialeID
+LEFT JOIN produkt_count pc ON f.FilialeID = pc.FilialeID
+LEFT JOIN verkauf_sum vs ON f.FilialeID = vs.FilialeID;
 
 -- View: Mitarbeiter-Übersicht für eine Filiale
 CREATE OR REPLACE VIEW v_mitarbeiter_filiale AS
@@ -156,6 +179,7 @@ GROUP BY f.FilialeID, f.Name, m.MitarbeiterID, m.Vorname, m.Nachname,
 ORDER BY f.FilialeID, m.Nachname;
 
 -- View: Eigentümer-Übersicht (alle Filialen im Überblick - optimiert mit GROUP BY statt Subqueries)
+-- FIXED: COUNT(DISTINCT mi.MitarbeiterID) um Mehrfachzählung durch mehrere Schichten zu vermeiden
 CREATE OR REPLACE VIEW v_eigentuemer_uebersicht AS
 SELECT 
     f.FilialeID,
@@ -164,7 +188,7 @@ SELECT
     f.Aktiv,
     m.Vorname AS LeiterVorname,
     m.Nachname AS LeiterNachname,
-    COUNT(mi.MitarbeiterID) AS MitarbeiterAnzahl,
+    COUNT(DISTINCT mi.MitarbeiterID) AS MitarbeiterAnzahl,
     COUNT(s.SchichtID) AS SchichtenGesamt,
     COUNT(vh.ProduktID) AS ProdukteSortiment,
     COALESCE(SUM(vh.Lagerbestand), 0) AS TotalLagerbestand,
@@ -197,6 +221,7 @@ GROUP BY v.Datum, f.FilialeID, f.Name
 ORDER BY v.Datum DESC, f.FilialeID;
 
 -- View: Verkaufsstatistiken pro Produkt
+-- FIXED: Umsatzberechnung mit SUM(vk.Menge) * p.Preis statt COUNT * p.Preis um Mengenattribut zu berücksichtigen
 CREATE OR REPLACE VIEW v_verkaufsstatistik_produkt AS
 SELECT 
     p.ProduktID,
@@ -204,7 +229,7 @@ SELECT
     ROUND(p.Preis::DECIMAL / 100, 2) AS PreisEuro,
     COUNT(DISTINCT vk.VerkaufID) AS VerkaufsanzahlGesamt,
     SUM(vk.Menge) AS MengeGesamt,
-    ROUND((COUNT(DISTINCT vk.VerkaufID) * p.Preis)::DECIMAL / 100, 2) AS UmsatzGesamtEuro
+    ROUND(SUM(vk.Menge) * p.Preis::DECIMAL / 100, 2) AS UmsatzGesamtEuro
 FROM Produkt p
 LEFT JOIN verkauft vk ON p.ProduktID = vk.ProduktID
 GROUP BY p.ProduktID, p.Name, p.Preis
