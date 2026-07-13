@@ -1,0 +1,47 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage{fontenc}
+
+\title{Disposition zur Studienarbeit\\Vergleich und Verbesserung von Algorithmen für Snake}
+\author{Moritz Köhler}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Kurzbeschreibung der Arbeit}
+% Eigentlich n x n statt 30 x 30
+Ziel der Studienarbeit ist die Entwicklung, der Vergleich und die iterative Verbesserung mehrerer Algorithmen für das Spiel "Snake". Im Mittelpunkt steht ein 30\,$\times$\,30-Feld, auf dem verschiedene Ansätze wie A*, Hamiltonian-basierte Strategien, Greedy-Heuristiken und hybride Varianten getestet werden. Die Arbeit soll zeigen, welche Verfahren unter identischen Bedingungen die beste Spielstärke, Stabilität und Laufzeit erreichen.
+
+Für die Entwicklung ist ein einheitliches Replay-Format vorgesehen, das Spielzustände, Züge und Metadaten speichert und später reproduzierbar wieder abspielt. Ergänzend soll ein Replay-Viewer entstehen, mit dem einzelne Partien analysiert und strategische Fehler sichtbar gemacht werden können. Ein State-Saver dient dazu, Zwischenstände gezielt zu sichern und wiederherzustellen, ähnlich einer Notation im Schach. Diese Werkzeuge sind nicht nur Hilfsmittel, sondern Teil der eigentlichen Entwicklung, weil sie Vergleiche, Debugging und strategische Verbesserung erst sinnvoll ermöglichen.
+
+\section{Gliederung und Zeitplan}
+\begin{enumerate}
+\item Einordnung des Problems und kurze Übersicht vorhandener Snake-Ansätze
+\item Entwurf des Replay-Formats sowie von Replay-Viewer und State-Saver
+\item Implementierung erster Basisalgorithmen für ein 30\,$\times$\,30-Feld
+\item Test und Vergleich der Algorithmen anhand reproduzierbarer Partien
+\item Analyse der Schwächen und Ableitung verbesserter Strategien
+\item Implementierung und erneuter Vergleich optimierter Varianten
+\item Dokumentation der Ergebnisse und Bewertung der Ansätze
+\end{enumerate}
+
+Der Ablauf ist iterativ geplant: Zuerst werden Infrastruktur und Reproduzierbarkeit geschaffen, danach folgen Basisalgorithmen und Vergleichstests. Aus den Ergebnissen werden gezielt neue Strategien abgeleitet und erneut getestet. Kritische Punkte sind die Komplexität des 30\,$\times$\,30-Feldes und die Frage, ob sich robuste Verbesserungen aus den Vergleichsdaten ableiten lassen; beide Risiken werden durch den Replay-Viewer, saubere Zustandsverwaltung und schrittweises Prototyping reduziert.
+
+\section{Grundlegende Literatur}
+% "Quellen Arbeit ist sehr sauber" - Felix
+Für die algorithmische Grundlage sind A* und allgemeine Heuristiksuche zentral~\cite{Hart1968,Edelkamp2011,Rabin2013}. Für Hamiltonische Ansätze sind Arbeiten zu Hamilton-Pfaden in Gittergraphen relevant~\cite{Itai1982,Chvatal1985}. Ergänzend helfen Quellen zu Game-AI und Benchmarking bei der methodischen Einordnung~\cite{Justesen2019,Togelius2009}. Als aktuelle Referenzimplementierungen und Inspirationsquellen dienen zudem vorhandene Snake-Projekte mit unterschiedlichen Strategien~\cite{snakeRepo,alphaPhoenix}.
+
+\begin{thebibliography}{7}
+\bibitem{Hart1968} P.~E. Hart, N.~J. Nilsson, and B. Raphael. A formal basis for the heuristic determination of minimum cost paths. \textit{IEEE Transactions on Systems Science and Cybernetics}, 4(2):100--107, 1968.
+\bibitem{Edelkamp2011} S. Edelkamp and S. Schroedl. \textit{Heuristic Search: Theory and Applications}. Morgan Kaufmann, 2011.
+\bibitem{Rabin2013} S. Rabin. \textit{AI for Game Developers}, 2nd ed. Course Technology, 2013.
+\bibitem{Itai1982} A. Itai, C.~H. Papadimitriou, and J.~L. Szwarcfiter. Hamilton paths in grid graphs. \textit{SIAM Journal on Computing}, 11(4):676--686, 1982.
+\bibitem{Chvatal1985} V. Chvátal. Hamiltonian cycles. In \textit{Handbook of Combinatorics}. Academic Press, 1985.
+\bibitem{Justesen2019} N. Justesen, P. Bontrager, J. Togelius, and S. Risi. Deep learning for video game playing. \textit{IEEE Transactions on Games}, 12(1):1--20, 2019.
+\bibitem{Togelius2009} J. Togelius, S. Karakovskiy, and J. Koutník. The 2009 two-player {GVGAI} competition. In \textit{IEEE Computational Intelligence and Games (CIG)}, 2009.
+\bibitem{snakeRepo} twanvl. \textit{snake}. GitHub repository, abgerufen am 13.07.2026. \texttt{github.com/twanvl/snake}.
+\bibitem{alphaPhoenix} Brian Haidet. \textit{AlphaPhoenix / Snake\_AI\_(2020a)\_DHCR\_with\_strategy}. GitHub repository, abgerufen am 13.07.2026. \texttt{github.com/BrianHaidet/ AlphaPhoenix/tree/master/Snake\_AI\_(2020a)\_DHCR\_with\_strategy}.
+\end{thebibliography}
+
+\end{document}
