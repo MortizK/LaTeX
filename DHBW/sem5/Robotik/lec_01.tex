@@ -1,0 +1,164 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Robotik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-28-09}
+
+\section{Start}
+
+Wir machen viel Übung und Vorlesung und als Labor etwas mit einem Mehrachsenroboter arbeiten.
+
+\subsection{Prüfungsleistung}
+
+Prüfung enthält teile von QuizAcademy Fragen
+
+MATLAB Onramp macht 15\% der Prüfungsleistung aus
+
+Wir sollten R2026a installieren. 
+
+Idealerweise alle Toolboxen, mindestens Toolboxen:
+
+\begin{itemize}
+    \item Stateflow
+    \item Robotics
+    \item Simscape
+\end{itemize}
+
+Übungen sind unbewertet. Die zweiter Übung ist Voraussetzung für das Labor. Wir müssen das Labor mit der Übung vorbereiten.
+
+Labore geben noch 35\% geben. Zu zweit einen Roboter. Labore werden mittels Demos geprüft. Also einfach melden und Unterschriften Sammeln. Es gibt keine Laborberichte.
+
+Unser Roboter ist der Braccio mit 6 Freiheitsgraden (Eine ist der Greifer)
+
+Dann noch eine Prüfung 50\% mit 30min
+
+\begin{itemize}
+    \item 10 multiple Choice Fragen
+    \item Kleine Rechnung
+\end{itemize}
+
+Wir dürfen Formelsammlung drei Seiten Doppelt mitnehmen und Taschenrechner.
+
+\subsection{Quellen}
+
+P. Corke, W. Jachimczyk, R. Pillat 2023: Robotics, Vision and Control
+
+B. Siciliano, et al. 2003: Robotics - Modelling, Planning and Control
+
+weitere auf den Folien.
+
+\subsection{Übersicht}
+
+\begin{enumerate}
+    \item Einführung
+    \item Sensorik, Aktorik und Steuerungstechnik
+    \item Modellierung und Simulation
+    \item Planung, Vorsteuerung und Regelung
+    \item Mobile Roboter
+    \item Computer Vision
+    \item Robotik und Künstliche Intelligenz
+\end{enumerate}
+
+\subsection{Termine}
+
+Labor entweder 2.11 Gruppe A oder 9.11 Gruppe B
+
+Am 7.12 um 13:00 ist die Prüfung
+
+\section{Einführung}
+
+Drei Robotergesetze von Asimov. Die Anwendbarkeit ist fragwürdig
+
+\begin{enumerate}
+    \item Menschen wissentlich und durch Untätigkeit nicht verletzten
+    \item Muss Befehlen von Menschen gehorchen außer es verstößt 1.
+    \item Muss eine eigne Existenz schützen außer 1. und 2.
+\end{enumerate}
+
+Im Militär gelten diese Gesetze nicht.
+
+Definition: "A robot is a goal-oriented machine that can sense, plan, and act." - P. Corke, et al.
+
+\subsection{Zukunft der Robotik}
+
+Entwicklungstrends:
+
+\begin{enumerate}
+    \item Physical AI
+    \item Agentic AI
+    \item Humanoide werden marktreif
+    \item IT/OT-Konvergenz
+    \item Cobots
+    \item Cyber-Security
+\end{enumerate}
+
+\subsection{Grundlagen der Robotik}
+
+Moravec'sches Paradoxon.
+
+Klassifikation nach Anwendung:
+
+\begin{itemize}
+    \item Industrieroboter
+    \item Cobots
+    \item Mobile Roboter (Auto, Drohne, ...)
+    \item Service-Roboter
+    \item Nano-Roboter
+    \item Humanoide Roboter
+    \item ...
+\end{itemize}
+
+Klassifikation nach Kinematik
+
+\begin{itemize}
+    \item Robot mit kartesischen Koordination (Fräse)
+    \item Roboter mit zylindrischen Koordination
+    \item Knickarmroboter
+    \item Parallelogram-Knickarmroboter
+    \item SCARA-Roboter
+    \item Parallel-Kinematik (Delta-Roboter)
+\end{itemize}
+
+\subsection{Herausforderungen der Robotik}
+
+Diskussion: WElche Herausforderungen können im beschriebenen Szenario auftreten?
+
+Es werden kleine und große Boxen auf einem Förderband angeliefert. Bei Erkennung einer Box im Entladebereich mit Hilfe einer Lichtschranke wird das Förderband gestoppt. Dann soll ein Mehrgelenkroboter mit 5 Freiheitsgraden die Boxen auf dem jeweils passenden Förderband zum Einzeltransport positionieren.
+
+\begin{enumerate}
+    \item Benennen Sie die 5 Freiheitsgrade des Roboters.
+    
+    Drehung (Base), Schulter (Shoulder), Ellbogen (Elbow), Handgelenk (Wrist) und Greifen (Gripper).
+    \item Welche Herausforderungen bestehen bei der Lösung der gegebenen Aufgabenstellung?
+    
+    \begin{itemize}
+        \item Unterscheidung der Boxen anhand ihrer Größe.
+        \item Greifen der Boxen ohne Beschädigung
+        \item Inverse Kinematics (Bewegung des Arms)
+        \item Bahnplanung/ Trajektorenplanung.
+        \item Ist das Förderband wo die Box hin soll frei?
+        \item (Was passiert mit Boxen die nicht auf die weiteren Förderbände gehören?)
+        \item Betriebsmodi, Notaus? (Lösung Zustandsautomat)
+    \end{itemize}
+    \item Wie kann die zugrundeliegende Automatisierungaufgabe alternativ gelöst werden?
+    
+    Ein Schiebearm (Sortierweiche), der die Boxen auf ein Linkes oder Rechtes Förderband wegschiebt (Wie Pfandautomat)
+
+    Oder auch Mechanisch durch die größenunterschied der Boxen
+
+    Problem Vorverlagen, das es gar nicht erst gemischt ist.
+\end{enumerate}
+
+
+
+\end{document}

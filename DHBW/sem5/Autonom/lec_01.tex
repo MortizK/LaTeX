@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Autonomes Fahren}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-09-28}
+
+\section{Organisatorisches}
+
+Benotung: Projekt mit Präsi zu zweit mit 22.11 Abgabe (Autonom Fahren Pipeline)
+
+Projekt in Python
+
+Die Vorlesung kommt eigentlich aus dem DHBW Smart Rollerz Projekt.
+
+\section{Einführung}
+
+\subsection{Automatisierungslevel}
+
+Stufe 0 bis Stufe 5
+
+\begin{itemize}
+    \item Stufe 1: Assistiert
+    \item Stufe 2: Teil-Automatisiert (Längs und Querführung)
+    \item Stufe 3: Hoch-Automatisiert
+    \item Stufe 4: Voll-Automatisiert
+    \item Stufe 5: Fahrerlos
+\end{itemize}
+
+\subsection{Historie}
+
+\subsection{Architekturen}
+
+Es gibt Sensoren -> Modulare Pipeline -> Aktoren
+
+Die Modulare Pipeline kann unterschiedlich aussehen. Gängig ist:
+
+\begin{enumerate}
+    \item Perzeption
+    \item Pfad Planung
+    \item Regelung
+\end{enumerate}
+
+Dies kann dann beliebig Komplex durch unterschiedliche Modelle gelöst werden.
+
+\subsection{Sensoren}
+
+Es wird unterschieden Zwischen Passiven und Aktiven Sensoren.
+
+Ein Passiver Sensor, wie Kamera, muss nichts senden für die Wahrnehmung.
+
+Ein Aktiver, wie ein LiDAR, muss etwas aussenden um wahrzunehmen.
+
+\end{document}
