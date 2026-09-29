@@ -1,0 +1,110 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Künstliche Inteligenz und Maschineslles Lernen}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-09-29}
+
+\section{Logiksysteme}
+
+\subsection{Begriffe}
+
+Eine Formel ist \dots
+
+\begin{itemize}
+    \item eine Tautologie
+    \item erfüllbar
+    \item allgemeingültig
+    \item wiederspruchsvoll
+    \item logisch Folgerung aus einer Menge M
+\end{itemize}
+
+Was ist eigentlich \dots
+
+\begin{itemize}
+    \item das Deduktionstheorem
+    \item die Modus-Ponens-Regel
+    \item ein Deduktives System
+    \item ein Axiom
+    \item ein Theorem
+    \item ein Term
+    \item eine Formel
+    \item eine Interpretation
+    \item ein Modell
+\end{itemize}
+
+Wann ist ein Deduktives System \dots
+
+\begin{itemize}
+    \item vollständig?
+    \item korrekt?
+\end{itemize}
+
+Was ist eigentlich \dots
+
+\begin{itemize}
+    \item konjunktive Normalform
+    \item disjunktive Normalform
+    \item pränexe Normalform
+    \item Skolem-Normalform
+\end{itemize}
+
+\subsection{Resolution}
+
+Wir haben einige Übungen an der Prädikatenlogik gemacht.
+
+Beweisen Sie: 
+
+\marginpar{Hausaufgabe}
+
+\begin{equation}
+    \neg\exists y \forall z[p(z,y) \iff \neg\exists x[p(z,x) \land p(x,z)]] 
+\end{equation}
+
+ist allgemeingültig
+
+Spannende Übung: Minesweeper Prädikat isSafe(x, y) als Logik ausdrücken.
+
+\subsection{Deduktive Datenbanken}
+
+\subsection{Vor und Nachteile}
+
+\begin{tabularx}{\textwidth}{XXX}
+    Repräsentationsform & 
+    Ausdruckskraft & 
+    Kalkülmäßige Verarbeitung \\
+    \hline
+    Aussagenlogik & 
+    Schwach, nur Information kodiert darstellbar &
+    Gut, gewisse Komplexitätsprobleme \\
+    Hornlogik & 
+    Für viele Anwendungen hinreichend & 
+    Prinzipiell gut, verstärkt Komplexitätsprobleme \\
+    Prädikatenlogik 1. Stufe &
+    Kann die meisten Situationen zumindest fragmentarisch darstellen & 
+    In Balance mit der Ausdruckskraft\\
+    Höhere Prädikatenlogik & 
+    Umfassend & 
+    Sehr schlecht \\
+\end{tabularx}
+
+\subsection{Modellierung von Zeit}
+
+Die Zeit kann Verzweigungen sein, ob ein Ereignis stattfindet oder nicht. Also Zug verpassen oder bekommen. 
+
+Allen's Zeitlogik: \href{https://de.wikipedia.org/wiki/Allen-Kalk%C3%BCl}{Wikipedia}
+
+Statt den Inversen Funktionen können auch einfach die Reihenfolge der Parameter getauscht werden.
+
+Wir können auch unsere Inferenz in einer 13x13 Lookup-Tabelle speichern.
+
+\end{document}
