@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Interaktive Systeme}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-01}
+
+\section{Organisatorisch}
+
+Wir machen meistens 2h Vorlesung und dann 1h Übungen
+
+Seminararbeit wird am 26.11.26 veröffentlicht und am 08.01.27 abgegeben. AUFPASSEN das wir das Thema nicht mit KI verfehlen!
+
+Fokus ist auf Interaktiv, nicht auf Systeme. Somit geht es primär um die Mensch Maschinen Interaktion.
+
+\subsection{Überblick}
+
+\begin{enumerate}
+    \item Einführung (Motivation, Definition)
+    \item Information (Menschliche Wahrnehmung, Gestaltwahrnehmung, Menschliche Informationsspeicherung, Hicks' Law und Fitts' Law)
+    \item Interaktion ()
+    \item Entwurfsprinzipien ()
+    \item nicht mitgeschrieben
+    \item nicht mitgeschrieben
+    \item Usability Engineering ()
+    \item (Hypertextsysteme ()) überspringen
+    \item Barrierefreiheit ()
+\end{enumerate}
+
+\section{Einführung}
+
+\subsection{Motivation}
+
+Die Benutzerschnittstelle ist das einzige was ein Benutzer von einem System sieht. Ein System kann also nur so gut sein wie seine Schnittstelle.
+
+Wir brauchen Design (First Buy Kriterium) und Usability (Second Buy Kriterium) als Marketingfaktor
+
+Mittlerweile haben viele Gegenstände ein Interface, was bedient werden muss (Fernbedienung, Kaffeemaschine)
+
+Jenach Nutzung gibt es andere Anforderungen. In der Fertigungshalle muss die Haltbarkeit und Austauschbarkeit leicht sein.
+
+\subsubsection{Was möchte ein Benutzer von seinem "Gerät"?}
+
+\begin{itemize}
+    \item Das System darf keine Fehler machen.
+    \item Wenn der Nutzer ein Fehler macht, soll das System dies korrigieren.
+    \item Es soll nicht anstrengend sein.
+    \item Bedienung soll Spaß machen
+    \item viele weitere
+\end{itemize}
+
+Wenn auch nur ein Kriterium nicht erfüllt ist, wird sich das Produkt nicht durchsetzen!
+
+\subsubsection{Mögliche Lösungsansätze}
+
+\begin{itemize}
+    \item User Centered Design
+    \item Interaktionen mit dem zukünftigen Nutzer
+    \item Lerne deine Benutzer kennen!
+\end{itemize}
+
+\subsubsection{Ein Benutzer}
+
+\begin{itemize}
+    \item Körperliches (Alter, Geschlecht, Gesundheit, Größe, ...)
+    \item Soziales (Herkunft, Gruppenzugehörigkeit, Kulturelles Umfeld, Ausbildung, ...)
+    \item Mentales (Erwartungen, Erfahrungen, Kognitive und Mentale Fähigkeiten, ...)
+    \item Situatives (Tätigkeit, Arbeitsweise, Arbeitsabläufe, Benutzerhäufigkeit, Wichtigkeit der Aufgabe)
+\end{itemize}
+
+Welche Randbedingungen gibt es noch: Preis der Entwicklung, Verkaufspreis
+
+% Hier fehlen Kleinigkeiten Mensch vs. Maschine und Auswirkungen von schlechtem Design
+
+\subsubsection{Vorteile von einem "guten" Design}
+
+Höhere Effizienz nach EN ISO 9241: Im Verhältnis zur Genauigkeit und Vollständigkeit eingesetzten Aufwand, mit dem Benutzer ein bestimmtes Ziel erreicht.
+
+Höhere Produktivität
+
+Weniger Benutzerfehler: Softwarefehler sind meist Design-Fehler. Gutes Design vermeidet und minimiert den Aspekt des "menschlichen Versagens"
+
+Höhere Benutzerzufriedenheit evtl. nach EN ISO 9241.
+
+Weniger Kosten: Nutzer braucht weniger Zeit (Mitarbeiter sind effiziente, Weniger Support, ...)
+
+Wenn man die Regeln kennt, kann man schneller Gestalten.
+
+Ein Vergleich:
+
+Trägt jemand schlechte Kleidung, bemerkt man die Kleidung.
+
+Trägt jemand gute Kleidung, achtet man auf die Person.
+
+Dies lässt sich auch auf Systeme und ihre Schnittstelle übertragen. Beim Fehlen achtet man auf die Fehler, ohne Fehler achtete man auf das was dahinter steht.
+
+\subsection{Definition}
+
+User Interface, Benutzerschnittstelle (UI). Ist die technische Realisierung
+
+Interaktives System (IS). Ist das UI was vom Nutzer benutzt und beeinflusst wird.
+
+Human Computer Interaction (HCI). Definition nach ACM SIGCHI*. Wieder Interaktives System mit noch mehr wie Bewertung, Entwurf, Implementierung, usw.
+
+Ergonomie: Wie meine Vertikale Maus.
+
+Software Ergonomie: Anpassung von Software an die Menschlichen psychologischen Eigenschaften.
+
+Benutzerfreundlichkeit, Gebrauchstauglichkeit (Usability). Erlebte Nutzungsqualität. Oder auch nach Norm DIN EN ISO 9241, Teil 11 - aufgeteilt nach Effektivität, Effizienz und Zufriedenheit.
+
+\know{Seminararbeit}{Die Usability nach DIN EN ISO 9241, Teil 11 mit den drei Teilen ist wichtig.}
+
+Universal Usability: Gilt für alle Nutzer. Sie müssen von allen Benutzer bedient werden können, wie ein Fahrkartenautomat.
+
+Usability Engineering: Die Nutzerzentriete Entwicklung
+
+User Experience (UX): Ist eine Erweiterung von Usability. \href{https://www.usability.de/usability-user-experience.html}{Vergleich Usability vs. UX}. Hier geht es um die gesamte Nutzungserlebnis vom Kauf, Nutzung bis zur Entsorgung/ Reparatur. Darauf achten dass alles was den Nutzer negativ beeinflusst zu vermeiden.
+
+\end{document}
