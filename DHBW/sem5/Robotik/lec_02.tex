@@ -1,0 +1,163 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Robotik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-05}
+
+\section{Sensorik, Aktorik und Steuerungstechnik}
+
+\subsection{Überblick}
+
+Es ist immer Sens, Plan, Act. Dies Interagiert dann mit der Umgebung und bekommt dort mit Sens wieder Feedback, wie agiert wurde.
+
+\subsection{Sensorik für Roboter}
+
+\subsubsection{Encoder}
+
+S. 49 a) Wie viele Inkremente (Impulse) zählt die Steuerung bei eine Drehung der Abtrisbwelle?
+
+\begin{itemize}
+    \item Pro Motorumdrehung werden $512 * 4 = 2048$ Inkremente erfasst
+    \item Pro Abtriesbumdrehung werden somit $2048 * 50 = 102.400$ Inkremente erfasse
+\end{itemize}
+
+b) Die Steuerung misst über ein Zeitintervall $\delta t = 10ms$ genau 4096 Flanken. Wie hoch ist die Drehzahl $n_{ab}$ an der Antriebswell in $\frac{U}{min}$
+
+\begin{itemize}
+    \item Inkremente pro Sekunde: $4096 / 0,01s = 409.600 Ink/s$
+    \item Motordrehzahl: $n_{mo} = \frac{409.600 Ink/s}{2048} = 200\frac{U}{s} = 12.000 \frac{U}{min}$
+    \item Abtriebsdrehzahl: $n_{ab} = n_{mo}/50 = 240 \frac{U}{min}$
+\end{itemize}
+
+\subsubsection{IMUs}
+
+Mit IMUs können wir die Lage anhand der Erd Gravitation bestimmen. In Dynamischen Systeme müssen wir noch die Eigenbewegungen von einem Roboterarm mittels Parameter im Kallmann Filter rausrechnen. Die Parameter sind sensible gegenüber der Position der IMU an dem Roboter.
+
+IMU hilft nicht dabei mein Heading zu bestimmen.
+
+S.52 $$\psi = atan(\frac{-m_y}{m_x}) = atan(\frac{12,7}{22,0}) = 0,5235 rad \approx 30^\circ$$
+
+\subsubsection{Ultraschallsensoren}
+
+Die Schallgeschwindigkeit ist Temperatur abhängig.
+
+\subsubsection{Infrarotsensor (PSD)}
+
+Hat ein Sensorarray, wo die position im Array die Entfernung repräsentiert.
+
+\subsubsection{Lidar}
+
+Ist meist ein Laserscanner mit Rotierendem Spiegel (2D oder 3D).
+
+Die Drehung braucht Zeit, deshalb müssen die Punktewolken dies korrigieren/ berücksichtigen.
+
+\subsubsection{Kamera}
+
+Wird immer wichtiger. Es kann ganz viel mit KI und Deep Learning getan werden um unter anderem auch Lidar und weitere Sensoren zu ersetzen.
+
+Der Mensch funktioniert ja auch mit Augen (Stereo Kamera) und einem Gehirn (Compute mit Deep Learning). Der Mensch macht aber auch genug Fehler die von einem Ingenieur für mehrere System nicht gewährleistet werden darf.
+
+\subsubsection{Weitere Sensoren}
+
+\begin{itemize}
+    \item Kompass
+    \item Time of Flight Kamera (Nur Bewegungen im Bilder)
+    \item Radar (ist deutlich Robuster als LiDAR)
+\end{itemize}
+
+\subsubsection{Fazit}
+
+Aus Redundanz und Werter Robustheit sollte man eigentlich viele Sensoren miteinander Verknüpfen.
+
+Tesla verwendet immernoch nur Kameras.
+
+Zudem können Kameras auch durch Sticker verwirrt/ manipuliert werden.
+
+\subsection{Aktorik für Roboter}
+
+\begin{itemize}
+    \item Bürstenbehaftete DC-Motoren (Günstig)
+    \item Bürstenlose Servomotoren (Effizient, Präzise)
+    \item Harmonic Drives (Hohe Übersetzung)
+    \item Elektrische Direktantriebe (Torque-Motoren)
+    \item Hydraulische Aktoren (Hohe Kraft)
+    \item Pneumatische Aktoren (Hohe Geschwindigkeit, Kleine Kraft)
+\end{itemize}
+
+\subsubsection{Gleichstrommotoren}
+
+\subsubsection{Bürstenlose Gleichstrommotoren (BLDC / EC)}
+
+Rechte Hand Regel - Punkt heißt der Daumen zeigt aus der Zeichenebene Raus. Als Dreht sich das Magnetfeld Richtung Finger (Gegen Uhrzeigersinn).
+
+Durch die Bestromung können wir die Magnetfelder im Stator ändern, sodass der Permanentmagnet in der Mitte sich dreht.
+
+\subsubsection{Elektrische Servoantriebe}
+
+Bringt noch Drehzahl oder Positionsregelung mit.
+
+\subsubsection{Weitere Aktorik}
+
+\begin{itemize}
+    \item Wellgetriebe / Harmonic Drives
+    \item Pneumatische Antriebe
+    \item Elektro-hydraulische Antriebe
+\end{itemize}
+
+\subsubsection{Modellierung}
+
+DC-Motor und Robotergelenk sind auf den Folien S. 72ff (Gekoppelte Differenzial Gleichungen erster Ordnung. Brauchen Startbedingungen)
+
+$$J \dot\omega = \sum M_i$$
+
+$$\text{Trägheit} * \text{Winkelgeschwindigkeit} = \text{Summe aller angreifenden Drehmomente}$$
+
+\know{Drehmoment und Strom}{Drehmoment und Strom sind bei eigentlich allen Elektromotoren proportional zueinander.}
+
+Viskose Reibung (Abhängig vom Drehmoment):
+
+$$M_{fric}(t) = b_f * \omega(t)$$
+
+Induzierte Spannung (Abhängig von Drehzahl):
+
+$$u_i(t) = c_{Mo}*\omega_{Mo}(t)$$
+
+Zum DC-Motor kommt nun noch das Robotergelenk hinzu. Also Encoder und Getriebe.
+
+Die Trägheit von einem Roboterarm ist nicht an allen Gelenken Konstant. Es ändert anhand der Gelenkpositionen und Zuglasten des Armes.
+
+\subsection{Steuerungstechnik für Roboter}
+
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    "Designing a robot architecture is much more of an art than a science \dots the decision made by a developer of a robot architecture are influenced by their own prior experiences, their robot and its environment, and the task that need to be performed." - David Kortenkamp et al.
+    \vspace{5pt}\\
+    Typisch wird unterteil in High Level Funktionen auf OS-basierter Steuerung,
+    welche über ZUstände mit den Hardwarenahen Funktionen zu kommunizieren. Die
+    Hardware nahe interagiert mit den Sensoren und Aktoren mit der Umgebung.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[
+        page=75,
+        width=\textwidth,
+        trim=400pt 0pt 0pt 0pt,
+        clip
+    ]{doc/Robotik_2026.pdf}
+\end{minipage}
+
+
+
+\end{document}

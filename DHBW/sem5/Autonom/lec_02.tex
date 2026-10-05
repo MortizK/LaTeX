@@ -1,0 +1,149 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Autonomes Fahren}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-05}
+
+\section{Bildverarbeitung}
+
+Typische Pipeline:
+
+\begin{enumerate}
+    \item Bildaufnahme
+    \item Vorverarbeitung
+    \item Merkmalsextraktion
+    \item (Segmentierung)
+    \item (Auswertung)
+    \item Klassifikation
+\end{enumerate}
+
+\subsection{Bildaufnahme}
+
+Der Mensch hat: Linse, Iris, Stäbchen/ Zapfen
+
+Eine Kamera hat: Objektiv, Blende, Sensor
+
+Die Blende dient dazu um das Licht für den Sensor zu normalisieren (Tag und Nacht soll es ein Objekt im Bild erkennbar machen)
+
+\href{https://www.youtube.com/watch?v=MytCfECfqWc}{The Science of Camera Sensors}
+
+\subsubsection{Lochkameramodell}
+
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+    Strahlensatz
+
+    $$\frac{h'}{h} = \frac{f}{d}$$
+
+    Mithilfe von Domain Wissen, wie Schildhöhe bei den Smart Rollers, kann mit dem Strahlensatz auch die Entfernung von Schildern ermittelt werden, obwohl nur eine Kamera verbaut wird.
+    
+    (x, y) sind Bildkoordinaten
+
+    (u, v) sind Pixelkoordinaten
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[
+        page=18,
+        width=\textwidth,
+        trim=400pt 0pt 0pt 0pt,
+        clip
+    ]{doc/02_Bildverarbeitung.pdf}
+\end{minipage}
+
+\subsubsection{Weitere Formeln/ Begriffe}
+
+Typische Aufgaben/ Fachbegriffe:
+
+\begin{itemize}
+    \item Projektion in die Bildebene
+    \item Transformation zu Pixelkoordination
+    \item Intrinsische Kameramatrix K
+    \item Homogene Vektoren
+\end{itemize}
+
+\subsubsection{Koordinationsysteme}
+
+\begin{itemize}
+    \item Welt
+    \item Kamera
+    \item Standard Kamera (Achsen sind Horizontal zur Erde)
+    \item Straße
+    \item Straße (ISO8855) (Zi nach oben, statt nach vorne)
+\end{itemize}
+
+Stichworte:
+
+\begin{itemize}
+    \item Rotationsmatrix
+    \item Transformation
+    \item Rotation (roll, pitch, yaw)
+\end{itemize}
+
+\subsection{Bildvorverarbeitung}
+
+\subsubsection{Farbräume}
+
+Für die Berechnung von Farbe auf Schwarz weiß werden die RGB Farben nicht jeweils mit 0.33 Multipliziert. Typische Werte sind [0.299, 0.587, 0.144] Dies ist ähnlich zu den Anzahl der Zapfen in unserem Auge.
+
+\subsubsection{Histogramme (Helligkeit)}
+
+Normierung durch die Anzahl der Pixel, damit das Integral 1 ergibt.
+
+% Ich war sehr unaufmerksam. Hier fehlt einiges.
+
+Stichworte:
+
+\begin{itemize}
+    \item Thresholding/ Punktoperation
+    \item (Lineare) Transformationen
+\end{itemize}
+
+\subsection{Merkmalsextraktion}
+
+\subsubsection{Faltung}
+
+Wir können mittels eine Maske ein Bild kleiner machen, indem wir den Mittelwert von der Umgebung in einen neuen Pixel schreiben.
+
+Diese Maske muss nicht zwingend der Mittelwert sein, sondern kann auch explizit gewählt werden um z.B. Kanten zu finden.
+
+\subsubsection{Filter}
+
+Mögliche Filter:
+
+\begin{itemize}
+    \item Mittelwert
+    \item Gaußscher Glättungsfilter
+    \item Schärfungsfilter
+    \item Laplacian Kantenfilter
+    \item Sobel Kantenfilter
+    \item Prewitt Kantenfilter
+    \item Rauschunterdrückung
+    \item Morphologische Filter (Erosion, Dilatation)
+\end{itemize}
+
+Laplacian Kantenfilter (ohne Diagonale):
+
+$$\begin{bmatrix}
+    0 & 1 & 0\\
+    1 & -4 & 1\\
+    0 & 1 & 0\\
+\end{bmatrix}$$
+
+Dilation macht Helle Pixel größer/ breiter, damit z.B. ein Kantenfilter besser funktioniert.
+
+Erosion macht Dunkle Pixel größer/ breite.
+
+\end{document}
