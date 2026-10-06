@@ -70,9 +70,28 @@ Beweisen Sie:
     \neg\exists y \forall z[p(z,y) \iff \neg\exists x[p(z,x) \land p(x,z)]] 
 \end{equation}
 
-ist allgemeingültig
+ist allgemeingültig. Die Lösung dzu gibt es evtl. auf Moodle.
 
 Spannende Übung: Minesweeper Prädikat isSafe(x, y) als Logik ausdrücken.
+
+Lösung:
+
+\begin{align*}
+    & \operatorname{isSafe}(x, y)\\
+    & \operatorname{isMine}(x, y) \quad \text{(hier ist eine Mine)}\\
+    \forall x,y\; & \operatorname{isMine}(x, y) \implies \neg\operatorname{isSafe}(x, y)\\
+    \forall x,y\; & \operatorname{allMinesFound}(x, y) \implies
+        \forall u,v\; \bigl((\operatorname{Neighbor}(x, y, u, v) \land
+        \operatorname{unknown}(u, v)) \implies \operatorname{isSafe}(u, v)\bigr)\\
+    \forall x,y\; & \bigl(\#\operatorname{mines}(x, y) =
+        \operatorname{label}(x, y)\bigr) \implies \operatorname{allMinesFound}(x, y)
+\end{align*}
+
+\begin{align*}
+    \text{Funktionen:} & \#\operatorname{mines}(x, y)\\
+    & \operatorname{label}(x, y)
+\end{align*}
+
 
 \subsection{Deduktive Datenbanken}
 
@@ -106,5 +125,70 @@ Allen's Zeitlogik: \href{https://de.wikipedia.org/wiki/Allen-Kalk%C3%BCl}{Wikipe
 Statt den Inversen Funktionen können auch einfach die Reihenfolge der Parameter getauscht werden.
 
 Wir können auch unsere Inferenz in einer 13x13 Lookup-Tabelle speichern.
+
+\begin{center}
+    \includegraphics[
+        page=20,
+        width=0.9\textwidth
+    ]{doc/DHBW_KI_003_Logik_2022.pdf}
+\end{center}
+
+\lecture{2026-10-06}
+
+Hinweise:
+
+\begin{itemize}
+    \item Globale Konsistenzprüfung ist NP-Hard
+    \item Konsistenz kann nur als lokale Konsistenz garantiert werden (d.h. in einem drei-knotigen Teilnetz)
+\end{itemize}
+
+Für die Berechnung in einem Teilnetz muss bei Rückwertsgehen der Kanten, die Inversen der Zeitlichen Operatoren genommen werden.
+
+\begin{equation}
+    P(X, Y) = \land (p(R,S) \mid R\in X, S\in Y)
+\end{equation}
+
+\begin{center}
+    \begin{tikzpicture}[
+        >=Latex,
+        node distance=3cm,
+        every node/.style={font=\large},
+        state/.style={circle, draw, minimum size=9mm}
+    ]
+        \node[state] (A) {A};
+        \node[state, right=of A] (B) {B};
+        \node[state, below=of A] (C) {C};
+
+        \draw[->] (A) -- node[above] {$<,\ >$} (B);
+        \draw[->] (B) -- node[right] {$f,\ fi,\ s,\ si$} (C);
+        \draw[->] (C) -- node[left] {$<,\ o,\ m$} (A);
+    \end{tikzpicture}
+\end{center}
+
+\begin{align*}
+    P(\{fi, f, si, s\}, \{>, <\}) = &\{<, o, m, di, fi, >, oi, mi, si\}&\\
+    &\{<, o, m, di, fi, >, oi, mi, si\} &\land \overrightarrow{CA} \neq \emptyset ?\\
+    &P(\{<, oi, mi\}, \{fi,f, si, s\}) &\land \overrightarrow{AB} \neq \emptyset ?\\
+    &P(\{>, <\}, \{<, oi, mi\}) &\land \overrightarrow{BC} \neq \emptyset ?
+\end{align*}
+
+Diese Netze und Konsistenzprüfung können für z.B. Produktionsplanung genutzt werden.
+
+\subsection{Modale Logik}
+
+Hier gibt es noch 2 weitere neue logische Symbole:
+
+\begin{align*}
+    \Box \Phi&: \Phi \text{gilt "notwendigerweise}\\
+    \lozenge \Phi&: \Phi \text{gilt "möglicherweise}
+\end{align*}
+
+\subsection{Schlussregeln}
+
+Deduktiver Schluss. Wenn $A$ gilt und $A\implies B$, dann gilt auch $B$. Immer gültig, sicheres Schließen (apodiktisch)
+
+Induktiver Schluss. Wenn für $n$ Beispiele gilt, Schließen wir auf die Allgemeinheit. Nicht unbedingt gültig, Verallgemeinerung (dialektisch). So lernt Maschine Learning.
+
+Abduktiver Schluss. Wenn $B$ gilt und $A\implies B$, dann gilt $A$. Hypothetisch, von Symptom auf Ursache schließen (rhetorisch)
 
 \end{document}

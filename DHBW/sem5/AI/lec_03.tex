@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Künstliche Inteligenz und Maschineslles Lernen}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-06}
+
+\section{Constraint Satisfaction Problems}
+
+Typisches Beispiel sind "crypto-arithmetic problems" wie SEND + MORE = MONEY, wo die Buchstaben durch Zahlen ersetzt werden.
+
+\begin{align*}
+    c1: & D+E=Y+10*X_1\\
+    c2: & N+R+X_1 = E+10*X_2\\
+    c3: & E+O+X_2 = N + 10*X_3\\
+    c4: & S+M+X_3 = O + 10 * M
+\end{align*}
+
+Bei Graphfärbung wird mit einigen Huristiken in einer Tabelle Farben ausgewählt und Farben der Nachbarn gestrichen.
+
+\begin{enumerate}
+    \item Starte mit Random Farbe
+    \item Streiche aus den Nachbar diese Farbe raus
+    \item Wähle Knoten mit den Wenigsten Möglichkeiten
+    \item Wähle dort eine Farbe die schon möglichst benutzt wurde
+    \item Iteriere, ggf. Backtracking
+\end{enumerate}
+
+\marginpar{Hausaufgabe}
+
+Rucksackproblem im Jupyter Notebook erstellen.
+
+
+
+\end{document}

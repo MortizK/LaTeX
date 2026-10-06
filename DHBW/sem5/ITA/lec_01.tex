@@ -1,0 +1,170 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{IT Architekturen}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-06}
+
+\section{Organisatorisches}
+
+Es gibt zwei Dozenten. Einer die erste Hälfte der Vorlesung, der andere die zweite Hälfte. Kennen sich aus IBM Zeiten.
+
+Es gibt zwei Termine pro Woche, es müssen aber nicht beide stattfinden. Dies wird die Woche vorher geklärt.
+
+In der Vorlesung geht es darum auch mal hinter den Vorhang zu gucken. Also wie Funktioniert Virtualisierung (Also zwei OS auf einem PC)
+
+Ausführliche Vorstellungsrunde mit Firma, Vorerfahrungen, Erwartungen in einem Gespräch.
+
+\subsection{Inhalte}
+
+\begin{enumerate}
+    \item Einführung
+    \item Server Virtualisierung (Proxmox, Docker, Linux LXC, Typ 1 Hypervisor, x86 Virtualisierung)
+    \item Zentralisierter Storage (SAN, NAS)
+    \item Clusterarchitekturen (Datenbank-Cluster, Scale Out Data Center, KI Architekturen)
+    \item IT Betrieb (Application-, System-, IT Service-Management)
+\end{enumerate}
+
+Netzwerk ist aufgrund der Zeit nicht drin.
+
+\subsection{Prüfungsleistung}
+
+Es wird eine Case Study, diese wird am 5. Termin (voraussichtlich 27.10) hochgeladen.
+
+Bearbeitung in 3er Gruppen mit Referat 20min kurz vor der Klausurwoche mit Note. Bewertungsschema von der DHBW.
+
+\section{Einführung}
+
+\subsection{Einführung in IT-Architektur}
+
+Was muss man so berücksichtigen:
+
+\begin{itemize}
+    \item Business Strategie
+    \item Geschäftsprozesse und geschäftliche Fähigkeiten: Reiseziele (Katalog mit Bildern, ...), Buchen, Bezahlen
+    \item Geschäftliche Anforderungen, Randbedingungen: Concurrent User, 1,5 TB Katalogdaten, Server Entfernung -> evtl. Daten Kopieren.
+    \item Leistungsumfang deer IT Lösung: Erweiterung des Webshops, Anzeigen der Daten, Daten lokal, Prüfen der Verfügbarkeit nicht kopieren (da diese ja auch weg sein können), gibt es API?
+    \item IT Infrastruktur und Betrieb: Storage, Netzwerkanbindung, Ausfallsicherung (Selbst, und Extern)
+\end{itemize}
+
+Es gibt Architekten und Enterprise Architekten, welche größere Entscheidungen festlegen (Warenkörbe für Softwarelizenzen, IT Sicherheit, Datenklassifikation)
+
+Die meisten Architekten arbeiten an einem IT-System. Dort entweder als Anwendungs-Architektur (Funktionale Anforderungen, Benutzerschnittstellen) oder Infrastruktur-Architektur (nicht-funktionale Anforderungen, Netzwerk, operationelle Modelle)
+
+\know{Schwerpunkt der Vorlesung:}{\dots ist die Infrastruktur-Architektur, also die nicht-funktionalen Anforderungen.}
+
+Als Architekt arbeite ich immer mit dem Auftraggeber oder Bauherr!
+
+\subsubsection{Vier Domänen des Architekturmodells nach TOGAF}
+
+TOGAF (The Open Group Architecture Framework)
+
+\begin{enumerate}
+    \item Business Architecture Domain\\
+    \hspace{5pt}
+    \begin{itemize*}[itemjoin=\quad]
+        \item Geschäftsprozesse (SCM, CRM, etc.)
+        \item Organisation
+        \item Portfolio
+        \item Standorte
+        \item Business Anforderungen
+    \end{itemize*}
+    \item Data Architecture Domain\\
+    \hspace{5pt}
+    \begin{itemize*}[itemjoin=\quad]
+        \item Logisches Datenmodell
+        \item Physisches Datenmodell
+        \item Datenflüsse
+    \end{itemize*}
+    \item Application Architecture Domain\\
+    \hspace{5pt}
+    \begin{itemize*}[itemjoin=\quad]
+        \item Logische Informationssystem
+        \item Physisches Informationssystem
+        \item Anwendungskoppelung (API, Messaging, BPM, etc.)
+        \item Funktionale Anforderungen
+    \end{itemize*}
+    \item Technology Architecture Domain (unser Schwerpunkt)\\
+    \hspace{5pt}
+    \begin{itemize*}[itemjoin=\quad]
+        \item Server
+        \item Storage
+        \item Netzwerk
+        \item Virtualisierung
+        \item Cluster
+        \item Standards
+        \item Data Center
+        \item Middleware
+        \item Tools
+        \item IT Betriebsprozesse
+        \item Nicht-funktionale Anforderungen (NFR)
+    \end{itemize*}
+\end{enumerate}
+
+\subsubsection{TOGAF-Blume: Architecture Development Method (ADM)}
+
+Es gibt auch die sogenannte \href{https://de.wikipedia.org/wiki/TOGAF#/media/Datei:TOGAF_ADM.svg}{TOGAF-Blume}.
+
+Hier sollte man tatsächlich nur die relevanten Teile Nutzen.
+
+Es entstehen im Laufe dieser Blume unterschiedliche Dokumente, die im Laufe der Entwicklung an unterschiedlichen Stellen Finalisiert werden. (S. 14)
+
+\subsubsection{Architecture}
+
+Hier gibt es zwei:
+
+\begin{itemize}
+    \item Architecture Definition Document (ADD)
+    \item Architecture Requirements Specification (ARS)
+\end{itemize}
+
+Diese beiden Entstehen zum Start und sollten bei dem Migration Planning Finalisiert sein.
+
+\begin{multicols*}{2}
+\raggedcolumns
+
+Bei ADD geht es um:
+
+\begin{itemize}
+    \item Leistungsfähigkeit
+    \item Kapazität
+    \item Verfügbarkeit 
+    \item Sicherheit
+    \item System Management
+    \item Wartbarkeit
+    \item Portabilität
+    \item Skalierbarkeit
+\end{itemize}
+\columnbreak
+
+Bei ARS geht es um:
+
+\begin{itemize}
+    \item Standorte
+    \item Netzwerktopologie
+    \item Benutzerzugänge
+    \item Auf Logischem Level
+    \item Und Physischem Level
+\end{itemize}
+
+\end{multicols*}
+
+\lecture{}
+
+\subsection{Dynamische IT Infrastrukturen}
+
+\subsection{Cloud Computing}
+% Mit Übungsaufgabe
+
+
+
+\end{document}
