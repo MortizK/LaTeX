@@ -1,0 +1,131 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Verteilte Systeme}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-07}
+
+\section{Einführung}
+
+\subsection{Agenda}
+
+\begin{itemize}
+    \item The World of Distributed Systems
+    \item Architecture of Distributed Systems
+    \item Communication (RMI, RPC)
+    \item Global Sates and Synchronization
+    \item (Consistency and Replication)
+    \item (Fault Tolerance)
+    \item Components and "their World"
+\end{itemize}
+
+Wir haben zwei Räume. So 50/50 für Theorie und Praxis.
+
+Theorie wird meist früher enden und bei der Praxis/ Übungen machen wir auch mal bis zu einem Abschluss auch mal länger.
+
+\subsection{Prüfungsleistung}
+
+60\% Eine 45min Klausur ohne Unterlagen am 15.12. Probeklausur gibt es nicht und Klausuraufgaben gibt es nicht.
+
+40\% Eine Hausarbeit in zweier Gruppen. ca. 7 S. Inhalt am 17.12. Thema dürfen wir selber auswählen. Darf auch bis Ende der Klausurwoche abgegeben wird.
+
+Diese Prüfungsleistung wird 50/50 mit IT Architektur verrechnet und nur gemeinsam bestanden.
+
+Mögliche Themen:
+
+\begin{itemize}
+    \item Thor Browser
+    \item 
+\end{itemize}
+
+Sollen eine Liste Pflegen, damit keine Dopplungen existieren.
+
+\section{The World of Distributed Systems}
+
+Ein nicht verteiltes System ist ein ein-Prozess System, welches auch mehrere Cores benutzen darf.
+
+Mittlerweile sind viele Systeme aber schon Verteilte Systems, da bei einem CLoud Sync ja auch schon zwischen Server notwendig sind.
+
+\subsection{History}
+
+Die Zeitgeschichte (Liste S.10) wird nicht abgefragt.
+
+\subsection{Characterization of Distributed Systems}
+
+Es gibt mehrere Herausforderungen:
+
+\begin{itemize}
+    \item Heterogeneity (Unterschiedliche Hardware, Schnittstellen)
+    \item Openness (Ist es Erweiterbar?)
+    \item Security (Confidentiality, Integrity, Availability)
+    \item Scalability (Vertical and horizontal)
+    \begin{itemize}
+        \item Controlling the cost
+        \item Controlling performance loss
+        \item Avoiding bottlenecks
+    \end{itemize}
+    \item Failure Handling 
+    \begin{itemize}
+        \item Detecting failures
+        \item Masking failures
+        \item Tolerating failures
+        \item Recovery of failures
+        \item Redundancy
+    \end{itemize}
+    \item Concurrency (Wie wird mit gleichzeitigem Zugriff umgegangen?)
+    \item Transparency
+    \begin{itemize}
+        \item Access Transparency
+        \item Location Transparency
+        \item Concurrency Transparency
+        \item Replication Transparency
+        \item Failure Transparency
+        \item Mobility Transparency
+        \item performance Transparency
+        \item Scaling Transparency
+    \end{itemize}
+\end{itemize}
+
+\subsection{Concepts}
+
+\subsubsection{Hardware}
+
+Miltiprocessor, Multicomputer, Bus-base (Cable TV), Switch-based (Telephone Network)
+
+Homogeneous Multicomputer Systems and Heterogenous Multicomputer Systems
+
+Switched vs. BUS
+
+Grids vs. Hypercubes (Optimizations for their respecting problems)
+
+\subsubsection{Software}
+
+Loosely coupled systems
+
+Tight coupled systems
+
+\know{Typische Klausurfrage}{Was ist der Hauptunterschied zwischen NOS und DOS?}
+
+\begin{tabular}{ll}
+    System & Main Goal\\
+    \hline
+    DOS & Manage and hide hardware resources\\
+    NOS & Provide local services for remote clients
+\end{tabular}
+
+\subsubsection{Network}
+
+\href{http://en.wikipedia.org/wiki/MOSIX}{MOSIX}
+
+% Hab nicht alles mitgeschrieben. Gilt für alle Konzepte.
+
+\end{document}
