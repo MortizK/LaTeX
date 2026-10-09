@@ -1,0 +1,137 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Maschinelles Lernen}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-09}
+
+\section{Mathematische Grundlagen}
+
+Es gibt eine Handschriftliche Mitschrift auf Moodle.
+
+\begin{itemize}
+    \item Skalar: $x$
+    \item Vektoren: $\vect{x}$
+    \item Matrizen: $\mat{x}$
+\end{itemize}
+
+\subsection{Korrelation und Faltung}
+
+\subsubsection{Korrelation}
+
+% TODO: Formel später mit der Mitschrift abgleichen.
+
+Korrelation
+
+$$R_{xy} = \alpha \sum_{n=1}^{N} x(n) y^*(n)$$
+
+\begin{itemize}
+    \item $\alpha$ Konstante $\alpha \neq 1$ oder $\alpha = \frac{1}{N}$
+    \item $y^*(n)$ komplexe Konjugation von $y(n)$
+\end{itemize}
+
+Kovarianz (Korrelation ohne Mittelwert)
+
+$$C_{xy} = \alpha \sum_{n=1}^{N} (x(n) -\mu_x)(y(n)-\mu_y)$$
+
+Varianz $\sigma^2$
+
+Kovarianzmatrix. Dies sind die Beziehungen zwischen mehreren Variablen (Die Diagonale ist die Variable mit sich selbst.) Optimierung meist so das außerhalb der diagonale die Werte gegen 0 gehen.
+
+Korrelationskoeffizient $\rho$ zwischen $x(n)$ und $y(n)$
+
+$$\rho_{xy} = \frac{C_{xy}}{\sqrt{C_{xx} C_{yy}}} = \frac{C_{xy}}{\sigma_x*\sigma_y}$$
+
+Korreliert nur, wenn es nicht Null ist. Es ist kohärent (Maximale positiv oder negativ) wenn der Betrag = 1 ist. (S.2) Im Beispiel geht es um die Steigung der beiden Signalen.
+
+Korrelationen sind mit Vorsicht zu genießen (Eignet sich zur Auswahl/ Vorverarbeitung)
+
+\begin{itemize}
+    \item Der Standard: Pearson-Korrelation
+    \item Rangkorrelation (nach Spearman oder Kendall, S. 8) - Hier geht es um den Rang. Ausreißer fallen hier nicht so auf.
+\end{itemize}
+
+\know{Korrelation und Kausalität}{Diese sind nicht Gleich. Grafiken S. 10ff oder \href{https://tylervigen.com/spurious-correlations}{Tyler Vigen's project list}, \href{https://web.archive.org/web/20140509212006/http://tylervigen.com/}{Archive}}
+
+\subsubsection{Faltung (Convolution)}
+
+Mathematische Operation auf zwei Funktionen.
+
+$$(x\ast y)(n) = \sum_{m=-\infty}^{\infty}x(m)y(n-m)$$
+
+Vorstellung: Wir invertieren die zweite Funktion und machen einen Moving Window mit Addition aller Produkte.
+
+Die Faltung ist in Bildern (2D Faltung) sehr wichtig. Das sind die Filter wie Kanten oder Schärfe aus Autonomes Fahren.
+
+\subsection{Stochastik}
+
+Ist gleich wie Mathe Semester 4.
+
+\subsubsection{Wahrscheinlichkeiten}
+
+% Ist in der Händischen Mitschrift
+
+Begriffe zum Angucken:
+
+\begin{itemize}
+    \item Bedingte Wahrscheinlichkeit
+    \item nach Bayes
+\end{itemize}
+
+Bayes Theorem:
+
+$$P(A\mid B) = P(B\mid A) * \frac{P(A)}{P(B)}$$
+
+Totale Wahrscheinlichkeit
+
+$$P(A) = P(A\mid B) * P(B) + P(A\mid \overline{B}) * P(\overline{B})$$
+
+Kombination: Bayes-Theorem mit Gesetz der totalen Wahrscheinlichkeit:
+
+% Formel Fehlt mir
+
+\subsubsection{Zufallsvariablen und Wahrscheinlichkeitsverteilungen}
+
+Wir Mappen Zahlen auf Ereignisse.
+
+Begriffe:
+
+\begin{itemize}
+    \item Diskrete Zufallsvariable
+    \item Kontinuierliche Zufallsvariable
+    \item Wahrscheinlichkeitsdichtefunktion/ Probability Density Funktion (PDF)
+    \item Verteilungsfunktion
+    \item Gaußverteilung/ Normalverteilung
+    \item Standardnormalverteilung
+    \item Laplaceverteilung
+\end{itemize}
+
+\subsection{Grundlagen der Optimierung}
+
+\subsubsection{Was versteht man unter Optimierung?}
+
+Mögliches Optimierungsproblem: Wie kann ich meine Ausgaben so optimieren, dass ich möglichst viel fr meinen Urlaub sparen kann?
+
+Mathematisch: Eine Optimierung ist meist eine Globale Maxi- oder Minimierung die noch zusätzliche Nebenbedingungen erfüllt.
+
+\subsubsection{Beispiel für Optimierungsverfahren}
+
+\begin{itemize}
+    \item Grid-Search (Findet Gute Lösung, aber sehr rechenintensiv)
+    \item Lineare Optimierung (Lösung von Gleichungssystemen)
+    \item Least Square
+    \item Gradient Descent
+    \item Kreuzentropie-Methode (Ein Monte-Carlo-Verfahren)
+    \item Schwarzintelligenz-Methode (Ant-Algorithms)
+\end{itemize}
+
+\end{document}
