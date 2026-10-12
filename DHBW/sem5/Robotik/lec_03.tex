@@ -1,0 +1,114 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Robotik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-12-12}
+
+\section{Modellierung und Simulation}
+
+\subsection{Kinematik}
+
+Wir brauchen Position und Drehung eines Punktes. Also 6 Freiheitsgrade.
+
+Homogene Transformationsmatrizen
+
+Wir können mit der Direkte (Vorwärts) Kinematik aus den Winkeln und den Längen der Armen den Endpunkt berechnen.
+
+Die Invers Kinematik ist dann die Mathematische Abbildung von einem Ziel (Punkt) die Gelenkwinkel zu bestimmen.
+
+\know{Wichtig}{Folie 83 ist besonders Prüfungsrelevant. Zudem sollten die Formel von S. 84}
+
+\begin{align*}
+    x^2_{TCP} + y^2_{TCP} &= l_1^2+l_2^2 - 2 l_1l_2\cos(\pi - q_2)\\
+    q_2 &= \pi - \arccos\left(\frac{l_1^2+l_2^2-x_{TCP}^2-y_{TCP}^2}{2l_1l_2}\right)
+\end{align*}
+
+\begin{align*}
+    \beta &= \arctan\left(\frac{y_{TCP}}{x_{TCP}}\right)\\
+    q_1 &= \beta + \gamma
+\end{align*}
+
+$$\gamma = \arccos\left(\frac{l_1^2+x_{TCP}^2+y_{TCP}^2-l_2^2}{2l_1\sqrt{x_{TCP}^2+y_{TCP}^2}}\right)$$
+
+Es gibt also zwei Räume:
+
+\begin{enumerate}
+    \item Gelenkwinkelraum
+    \item Kartesischer Raum
+\end{enumerate}
+
+\subsection{Optimierung}
+
+Jaccobi-Matrix und Gradientenverfahren
+
+\subsection{Differentielle Kinematik}
+
+Gibt es auch noch in invers
+
+DH Transformation:
+
+\begin{enumerate}
+    \item Rotation $\theta_n$
+    \item Translation $d_n$
+    \item Translation $a_n$
+    \item Rotation $\alpha_n$
+\end{enumerate}
+
+\subsection{Dynamik}
+
+\begin{enumerate}
+    \item Lagrange-Formalismus (Einfach, Systematisch, eignet sich für händisch)
+    \item Newton-Euler-Formalismus (Rekursiv)
+\end{enumerate}
+
+\subsection{Lagrange-Formalismus}
+
+Kochrezept dafür (S. 99):
+
+\begin{enumerate}
+    \item Festelgen N verallgemeinerten koordinaten $q_j$
+    \item Aufstellen der Ortsvektoren zu den Massen: $r_j = f(q, t), v_j = \frac{dr_j}{dt}$
+    \item Aufstellen der kinetischen Energie $E_{kin}$ un der potentiellen Energie $E_{pot}$
+    \item Aufstellen der Lagrange-Funktion: $L=E_{kin} - E_{pot}$
+    \item Ermittlung der Euler-Lagrange-Gleichung für alle $j=1, ..., N$: $$\frac{d}{dt}\left(\frac{\delta L}{\delta \dot q_j}\right)-\frac{\delta L}{\delta q_j} = Q_j$$
+\end{enumerate}
+
+\subsection{Simulation}
+
+Es gibt mehrere Entwicklungswerkzeuge für die Robotik:
+
+\begin{itemize}
+    \item Matlab/ Simulink
+    \item ROS/ ROS2
+    \item Nvidia Isaac Sim
+\end{itemize}
+
+\subsubsection{Rapid Control Prototyping}
+
+Es geht um die Methodik:
+
+\begin{enumerate}
+    \item Beschreibung und Modellierung des zu automatisierenden (dynamischen) Systems
+    \item Regelungs- und Steuerungsentwurf anhand des abgeleiteten Modells
+    \item Erprobung der entwickelten Algorithmen in einer Simulationsumgebung
+    \item Umsetzung der entwickelten Algorithmen auf dem Steuergerät (Target)
+    \item Erprobung der entwickelten (in Simulation validierten) Algorithmen am realen System
+\end{enumerate}
+
+Hil (Hardware in the Loop), Sil (System in the Loop, Code Generierung), MiL (Model in the Loop)
+
+\subsection{Matlab/ Simulink}
+
+\href{https://de.mathworks.com/campaigns/offers/matlab-basic-functions-reference-cheat-sheet.html}{Cheat Sheet}
+
+\end{document}

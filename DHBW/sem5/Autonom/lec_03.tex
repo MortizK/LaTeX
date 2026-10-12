@@ -1,0 +1,108 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Autonomes Fahren}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-12}
+
+\section{Grundlagen Deep Learning}
+
+\subsection{Begriffsdefinition}
+
+\begin{itemize}
+    \item KI
+    \item ML (Maschinelles Lernen)
+    \item NN (Neurales Netz)
+    \item DL (Deep Learning)
+\end{itemize}
+
+\subsection{Maschinelles Lernen}
+
+3 Arten:
+
+\begin{itemize}
+    \item Klassifikation
+    \item Regression
+    \item Strukturiert
+\end{itemize}
+
+\subsection{Deep Learning Methoden}
+
+\begin{itemize}
+    \item Supervised Learning (Klassifikation durch Daten-Label Paaren)
+    \item Unsupervised Learning (Clustering durch Lernen ohne Label)
+    \item Self-supervised Learning
+    \item Reinforcement Learning (Lernen durch Interaktionen mit der Umgebung)
+\end{itemize}
+
+\subsection{Tran-Test-Split}
+
+Trainingsdaten und Validierung werden genutzt um die Parameter zu bestimmen.
+
+Der Test besteht aus Daten die noch nie Verwendet wurden, damit auch tatsächlich die verallgemeinerung des Models getestet wird.
+
+\subsection{Loss-Funktion}
+
+\begin{itemize}
+    \item Manhatten Distance
+    \item Quadrierte euklidische Distanz
+    \item Binary cross entropy
+\end{itemize}
+
+\section{Lineare Regression}
+
+\subsection{Lineare Regression}
+
+Bilden einer Geraden durch unsere Daten. Vorhersage einer Zielgröße.
+
+Bei Polynomen wird häufig die Summe der kleinsten Quadrate als Loss-Funktion genommen.
+
+Einige Fehler:
+
+\begin{enumerate}
+    \item Over Fitten: Modell macht außerhalb der Daten keinen Sinn. (Es hat auswendig gelernt und nicht verallgemeinert). Das Modell hat also zu viele Parameter.
+    \item Under Fitten: Modell ist zu einfach um die Verallgemeinerung zu finden.
+\end{enumerate}
+
+\subsection{Logistische Regression}
+
+% Check ich nicht
+
+\section{Feedforward Neural Network}
+
+\subsection{XOR-Problem}
+
+Die Lineare Regression ist limitiert auf lineare Probleme. Das XOR-Problem ist ein solches nicht Lineares Problem.
+
+Das XOR kann durch z.B. zwei Geraden ausgedrückt werden, welche einen Bereich eingrenzen.
+
+Oder wir bauen das XOR aus mehreren Funktionen zusammen (zwei Geraden). Lösung durch Subfunktionen (wie NN)
+
+Oder auch in 3D mit einer Ebene (S. 44)
+
+\subsection{Multilayer Perceptron}
+
+% TODO: Nachholen ab hier
+
+\section{Gradient Descent}
+
+\subsection{Gradient einer linearen Regression}
+
+\subsection{Konvexität}
+
+\subsection{Gradient Descent}
+
+\section{MLP mit PyTorch}
+
+Im Jupyter Notebook
+
+\end{document}
