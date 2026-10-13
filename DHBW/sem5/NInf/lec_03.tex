@@ -1,0 +1,145 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Neue Konzepte der Informatik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-13}
+
+\section{Quantentechnologie}
+
+Die drei Säulen:
+
+\begin{enumerate}
+    \item Quantencomputing
+    \item Wuantensensing
+    \item Quantensicherheit
+\end{enumerate}
+
+\subsection{Quantencomputing}
+
+Vom Bit um Qubit. Das Qubit:
+
+\begin{itemize}
+    \item Zustand ist $\alpha|0\rangle + \beta|1\rangle$ mit komplexen Amplituden
+    \item Auslesen zerstört die Superposition (Beim Messen kommt auch nur eine 0 oder 1 zurück)
+    \item Zwischenschritte sind nicht beobachtbar, nur berechenbar
+    \item Operationen sind immer umkehrbar
+\end{itemize}
+
+Um Die Simulation von 4 Qubit in Bytes auf dem Computer zu speichern brauchen wir:
+
+$$2^4* 16 \text{Byte} = 256 \text{Byte}$$
+
+Die 16 Byte kommen von 2 Komplexen Float jeweils mit 32Bit.
+
+Was ist Verschränkung (Entanglement)? Es gibt scheinbar zwei Zustände die instant miteinander Verbunden sind. Eignet sich aber nicht für Kommunikation, da das Messergebnis Zufällig ist. Wir verstehen noch nicht warum es existiert. 
+
+Wenn sich positron und Elektron trennen muss eins Spin Up haben und das andere Spin Down. Beim messen von dem einem muss das andere das gegenteil sein.
+
+Begriffe zum nachschlagen:
+
+\begin{itemize}
+    \item Bell-Ungleichung
+    \item Gottesman-Knill 
+\end{itemize}
+
+Wir wollen Interferenz erzeugen, sodass Falsche Antworten sich gegenseitig auslöschen. Dies ist auch der Schwierige Teil von der Entwicklung von Algorithmen.
+
+Durch Interferenz wird die Wahrscheinlichkeit das die richtige Antwort beim messen erscheint, erhöht wird.
+
+Ein Quantencomputer besteht aus $w$-Qubits und hat eine Tiefe von $d$ Gattern. Die Anordnung der Gatter bilden den Algorithmus.
+
+Zum nachlesen: 
+
+\begin{itemize}
+    \item Exponential quantum advantage in processing massive classical data, from Haimeng Zhao
+    \item The vast world of quantum advantage, from Hsin-Yuan Huang
+\end{itemize}
+
+\subsection{Optimierung}
+
+Es gibt Mehrere Gatter:
+
+\begin{itemize}
+    \item X - 180° um X
+    \item Z - 180° um Z ($|1\langle$ bekommt ein Minus)
+    \item H - 180° umd die Achse zwischen X und Z
+    \item S, T - Phase um 90° oder 45° (Die Phase ist die Position auf dem Äquator)
+    \item RX, RY, RZ - Drehung um freien Winkel
+\end{itemize}
+
+Wie eine QAOA-Schicht auf unserem Beispiel aussieht:
+
+\begin{enumerate}
+    \item Vorbereitung - alle Qubits auf den gleichverteilen Startzustand konfigurieren.
+    \item Kosten-Schicht - Die Kopplung einbauen
+    \item Misch-Schicht - Phasen in Wahrscheinlichkeit umwandeln
+    \item Messung - alle Qubits messen, häufigste Bitfolge ist Lösungskandidat.
+\end{enumerate}
+
+% TODO: Moodle Checken!
+Es gibt ein Jupyter Notebook, was noch auf Moodle erscheint.
+
+Es gibt mehrere Methoden um die Daten in Qubits zu speichern:
+
+\begin{itemize}
+    \item Basic Encoding
+    \item Amplitude Encoding (eignet sich für wenige Daten)
+    \item Angle Encoding
+    \item SU(2) Encoding
+    \item Re-Uploading
+\end{itemize}
+
+\subsection{Quantenalgorithmen}
+
+\href{https://quantum.cloud.ibm.com/composer}{IBM Quantum Platform}
+
+\begin{itemize}
+    \item Pauli X: 180° um X
+    \item Hadamard: Superposition (True 50/50)
+    \item CNOT (Ein XOR, Die Verschränkung): 
+    \begin{center}
+        \begin{tabular}{c|c|cc}
+            x & y & a & \\
+            \hline
+            0 & 1 & 0 & \\
+            0 & 0 & 1 & \\
+            1 & 0 & 1 & \\
+            1 & 1 & 0 & \\
+        \end{tabular}
+    \end{center}
+    \item Toffuli (Ein AND)
+\end{itemize}
+
+\subsection{Praxis}
+
+Poster erstellen und aufhängen.
+
+\subsubsection*{Ergänzung von Drüppel}
+
+Doppelspaltexperiment. Wir können einzelnen Elektronen schießen.
+
+Mit Tennisbällen entstehen zwei Streifen auf dem Schirm.
+
+Mit Wasserwellen, entsteht ein Interferenz-Muster.
+
+Mit Unbeobachteten Elektronen als "Elektronenwand" entsteht ein Interferenz-Muster.
+
+Mit einzelnen unbeobachteten Elektronen entsteht dennoch ein Interferenz-Muster.
+
+Wenn wir die einzelnen Elektronen beobachten, durch welchen Spalt diese Gehen, entstehen wieder Streifen.
+
+\begin{quote}
+    Somit verändert Beobachtung alles!
+\end{quote}
+
+\end{document}
