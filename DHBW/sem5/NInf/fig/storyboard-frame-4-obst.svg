@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#f4f1e8"/><rect y="350" width="800" height="100" fill="#c1c7bd"/>
+  <rect x="350" y="175" width="380" height="175" rx="10" fill="#8b5a3c"/><path d="M350 220 H730 M350 270 H730" stroke="#633f2d" stroke-width="5"/>
+  <g fill="#f4d35e" stroke="#ad7d22" stroke-width="3"><path d="M410 210q-35 20 0 45q35-25 0-45"/><path d="M490 205q-35 20 0 45q35-25 0-45"/><path d="M580 210q-35 20 0 45q35-25 0-45"/><path d="M660 205q-35 20 0 45q35-25 0-45"/></g>
+  <circle cx="180" cy="175" r="34" fill="#f2b38b" stroke="#7b4937" stroke-width="4"/><path d="M147 170 Q180 128 213 170" fill="#4c3440"/><rect x="158" y="160" width="45" height="13" rx="7" fill="#9fe0e8"/><path d="M150 210 L210 210 L240 350 L120 350Z" fill="#f28b75"/>
+  <rect x="45" y="44" width="280" height="172" rx="15" fill="#fff" stroke="#31536b" stroke-width="4"/>
+  <text x="68" y="80" fill="#31536b" font-family="Arial" font-size="22" font-weight="bold">OBST-CHECK</text><text x="68" y="116" fill="#23836a" font-family="Arial" font-size="22" font-weight="bold">BANANE: REIF</text><text x="68" y="146" fill="#263746" font-family="Arial" font-size="18">heute–morgen essen</text><text x="68" y="176" fill="#263746" font-family="Arial" font-size="17">1 kg · Vitamine · Herkunft: DE</text><text x="68" y="201" fill="#23836a" font-family="Arial" font-size="17">Obst erledigt ✓</text>
+  <circle cx="580" cy="225" r="55" fill="none" stroke="#23836a" stroke-width="7" stroke-dasharray="10 8"/><path d="M580 165 Q590 140 610 145" fill="none" stroke="#23836a" stroke-width="6"/>
+  <text x="40" y="425" fill="#31536b" font-family="Arial" font-size="25" font-weight="bold">4 · OBST: REIFE ERKENNEN</text>
+</svg>

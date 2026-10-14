@@ -1,0 +1,79 @@
+\documentclass[a4paper,landscape,11pt]{article}
+
+\usepackage[margin=1.35cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+% The PNG files are rendered from the SVG storyboard frames and avoid an
+% external Inkscape dependency during the LaTeX build.
+
+\definecolor{brandblue}{HTML}{31536B}
+\definecolor{brandgreen}{HTML}{23836A}
+\definecolor{lightgray}{HTML}{F2F4F3}
+
+\hypersetup{
+  pdftitle={Storyboard Einkaufsassistent},
+  pdfauthor={Moritz Köhler, Jakob Waldmann, Simon Riedinger},
+  colorlinks=true,
+  linkcolor=brandblue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[L]{\footnotesize Einkaufsassistent -- Storyboard}
+\fancyfoot[R]{\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{5pt}
+
+\newcommand{\storyframe}[3]{%
+  \begin{minipage}[t]{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{#2.png}\\[-1pt]
+    \textbf{\textcolor{brandblue}{#1}}\\[-1pt]
+    {\scriptsize #3}
+  \end{minipage}%
+}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\textcolor{brandblue}{Storyboard -- Einkaufsassistent für Smart Glasses}}\\[-1pt]
+  {\scriptsize Moritz Köhler, Jakob Waldmann, Simon Riedinger \quad|\quad 14.\,10.\,2026}
+\end{center}
+\vspace{2pt}
+
+\noindent
+\begin{minipage}[t]{0.32\textwidth}
+  \storyframe{1 -- Zuhause: Planen}{fig/storyboard-frame-1-kueche}
+    {Vorrat, Gäste, MHD-Warnung und günstigster Markt werden zur Einkaufsliste.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}
+  \storyframe{2 -- Ankunft: Route}{fig/storyboard-frame-2-markteingang}
+    {Kim folgt der AR-Route mit Budget, Coupon und zwölf Stationen.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.32\textwidth}
+  \storyframe{3 -- Regal: Produktwahl}{fig/storyboard-frame-3-regal}
+    {Produktinfos, Angebot und Alternative erscheinen beim Blick auf das Regal.}
+\end{minipage}
+
+\vfill
+
+\noindent
+\begin{minipage}[t]{0.47\textwidth}
+  \storyframe{4 -- Obst: Reife prüfen}{fig/storyboard-frame-4-obst}
+    {Die Brille erkennt reife Bananen und zeigt Menge, Vitamine und Herkunft.}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.47\textwidth}
+  \storyframe{5 -- Checkout: Einkauf fertig}{fig/storyboard-frame-5-kasse}
+    {Liste, Budget und Warenkorb stimmen überein; der Selbstscan ist vorbereitet.}
+\end{minipage}
+
+\end{document}

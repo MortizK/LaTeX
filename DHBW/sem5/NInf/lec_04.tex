@@ -1,0 +1,165 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Neue Konzepte der Informatik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-14}
+
+\section{Multimodale Mensch-Maschine-Interaktion}
+
+\subsection{Computer Vision}
+
+Computer Vision ist Algorithmic auf Sensor Daten (LiDAR, Kamera, Radar)
+
+Vier Grundaufgaben:
+
+\begin{enumerate}
+    \item Klassifizierung - Was ist im Bild?
+    \item Objektrennung - Was ist wo im Bild?
+    \item Semantische Segmentierung - Welche Klasse hat jedes Pixel
+    \item Instanzsegmentierung - Zu welchem Objekt gehört jedes Pixel
+\end{enumerate}
+
+\subsubsection{Wie lernt ein CV-Modell}
+
+Bild als Tensor (Matrix x 3; 32 x 32 x 3) wird in einen Vektor flach gemacht.
+
+$$f(\vec{x})=\bar{\bar{W}} * \vec{x} + \vec{b} = \vec{y}$$
+
+Die Matrix $\bar{\bar{W}}$ und der Vektor $\vec{b}$ sind unsere gelernten Parameter. Als Ergebnis gibt es einen Vektor, welche Werte für die verschieden Klassen hat. 
+
+Die Parameter kommen aus gelabelten Daten. Am Beispiel des CIFAR-10 Datenset.
+
+Die Formel oben ist genau die Implementation von einem NN ohne Hidden Layer.
+
+\subsubsection{Concolutional Neural Network (CNN)}
+
+Funktioniert in der Art mehrere Schritte auszuführen. 
+
+\begin{enumerate}
+    \item Kanten und Punkte (Dies machen tatsächlich alle)
+    \item Sind die Angeordnet nach größeren Strukturen (Auge, Nase, Ohr)
+    \item Sind alle Strukturen vorhanden? (Mehrere für ein Gesicht)
+\end{enumerate}
+
+Somit sind in einem Network mehrere Subnetze und Filtern vorhanden. Die Filtermatrizen werden gelernt.
+
+Durch viele Filter erstellen wir viele Neue Kanäle (Statt Farbkanäle nun Filterkanäle). Dies braucht "viel" Speicher und da darauf wieder Filter angewendet werden, brauchen wird nicht sehr viele Parameter für eine vollständige Verbindung, sondern nur die Parameter für die Filter.
+
+\know{Nachfrage: Wie geht es nach den Filtern weiter?}{
+
+}
+
+\subsubsection{Zero-Shot Klassifikation}
+
+Inferenz ohne Training! Das Modell wird auf enorm flexibel und vielen Daten trainiert (das Internet)
+
+Es wird also flexibel sein umd dann auf meinen prompt zu reagieren. z.B. das erkennen von Katzen.
+
+Funktioniert bei Sprache über text embedding. Genauso gibt es einen Bild Encoder welcher ein bild embedding ergibt (CLIP).
+
+Wenn diese beide Vektoren in dieselbe Richtung zeigen sind diese sehr Ähnlich.
+
+Nun können wir selber ein Bild machen, durch den Bild encoder schicken und vergleichen diesen mit den embeddings von unseren Klassen. Das größere Ergebnis wird wahrscheinlich unsere Klassifizierung.
+
+Das gleiche Funktioniert auch mit Segmentierung (Segment Anything (SAM) von Facebook)
+
+\subsection{Multimodale MMI}
+
+Was heißt multimodal (Kommunikationskanal)?
+
+Eingabe: Sprache Touch, Gestik, Blick, Mimick
+
+Ausgabe: Bild, Ton, Sprache, Haptik
+
+CARE-Modell (Coutaz et al. 1995)
+
+\begin{itemize}
+    \item Multimedia-Prinzip (Wort und Bild ergänzen sich)
+    \item Prinzip der räumliche Nähe
+    \item Redundanz-Prinzip (Doppel ist nicht automatisch besser)
+\end{itemize}
+
+Zwei Aufgaben stehen sich nicht im Weg, wenn diese nicht die gleichen Ressourcen (Augen, Hände, Ohren) benutzen.
+
+Erwartungskonformität (DIN Norm)
+
+5 Fragen an jedes System:
+
+% TODO: Muss ich noch von den Folien übernehmen.
+
+\begin{enumerate}
+    \item 
+\end{enumerate}
+
+\subsection{Mensch Maschine Interaktion}
+
+Wir haben das Video von dem Release der Smart Glasses von Meta geguckt. Es gibt technische Fehler auch bei Großunternehmen. Zudem ist die Haltung und Konzentration notwendig für die Bedienung gewöhnungsbedürftig.
+
+\subsection{Smart Glass Workshop}
+
+\subsubsection{Einführung}
+
+Die Brille hat:
+
+\begin{itemize}
+    \item Kamera, Mirkofone, IMU, Eye Tracking
+    \item Computer Vision, Spracherkennung
+    \item Wearable Display
+    \item Split Computing: Brille, Smartphone, Cloud
+\end{itemize}
+
+Aufgabe:
+
+\begin{enumerate}
+    \item Idee skizzieren (App Vorbild, Einsatzort, Warum in Smart Glasses?)
+    \item Zielgruppe, Personas
+    \item User Story 
+    \begin{itemize}
+        \item Als Rolle möchte ihc Funktion, damit Nutzen
+        \item Rahmenbedingungen diskutieren (Wann, wo, wie oft genutzt?, Risiken, Soziales, ...)
+    \end{itemize}
+    \item User Journey beschreiben (Start der Interaktion, Ergebnis)
+    \item Storyboards erstellen (Papier oder Tablet)
+\end{enumerate}
+
+Im zweitem Teil noch die Idee ausarbeite, Interaktionskonzept und UI-Entwurf.
+
+\subsubsection{Ideenfindung}
+
+Eine Idee: App zur Bewertung von Form beim Sport (Volleyball Aufschlag, Spike, etc.)
+
+Von Jakob kam die Idee einen Einkaufsassistenten zu erstellen.
+
+Wir haben uns für den Einkaufsassistenten entschieden!
+
+\subsubsection{Prototyping}
+
+Prototyp unter storyboard und in einer Powerpoint unter Einkaufsassistenten.
+
+\subsubsection{Marktfähigkeit erkunden}
+
+Wiederholung aus Data Science Business Model Canvas (Osterwalder).
+
+\begin{enumerate}
+    \item Wer sind meine Kunden?
+    \item Was ist der Mehrwert des Produktes?
+    \item Was erwarten die Kunden von mit, dem Verkäufer?
+    \item Vertriebskanäle (Webshop, Lidle, etc)
+    \item Wie kommt Gelt in die Kasse?
+    \item Was brauche ich für die Umsetzung? (Know How, Software Licensen)
+    \item Key Activities
+    \item Welche Partner habe ich?
+    \item Was sind meine Kosten?
+\end{enumerate}
+
+\end{document}

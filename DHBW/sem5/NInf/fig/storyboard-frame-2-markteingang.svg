@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#d9edf2"/><rect y="350" width="800" height="100" fill="#aab9b4"/>
+  <rect x="335" y="90" width="390" height="260" fill="#f7f7f2" stroke="#31536b" stroke-width="5"/>
+  <rect x="375" y="150" width="310" height="200" fill="#d8e6d0"/>
+  <text x="390" y="125" fill="#31536b" font-family="Arial" font-size="30" font-weight="bold">MARKT A</text>
+  <rect x="110" y="255" width="120" height="75" fill="none" stroke="#31536b" stroke-width="6"/>
+  <line x1="115" y1="255" x2="90" y2="220" stroke="#31536b" stroke-width="6"/><line x1="225" y1="255" x2="250" y2="220" stroke="#31536b" stroke-width="6"/>
+  <circle cx="135" cy="340" r="14" fill="#31536b"/><circle cx="210" cy="340" r="14" fill="#31536b"/>
+  <circle cx="170" cy="175" r="34" fill="#f2b38b" stroke="#7b4937" stroke-width="4"/>
+  <path d="M137 170 Q170 128 203 170" fill="#4c3440"/><rect x="148" y="160" width="45" height="13" rx="7" fill="#9fe0e8"/>
+  <path d="M145 210 L205 210 L225 300 L125 300Z" fill="#f28b75"/>
+  <rect x="38" y="35" width="310" height="172" rx="16" fill="#fff" stroke="#31536b" stroke-width="4"/>
+  <text x="60" y="70" fill="#31536b" font-family="Arial" font-size="22" font-weight="bold">EINKAUF GESTARTET</text>
+  <text x="60" y="105" fill="#263746" font-family="Arial" font-size="18">Route: 12 Stationen</text><text x="60" y="134" fill="#23836a" font-family="Arial" font-size="22" font-weight="bold">Budget: 60,00 €</text>
+  <text x="60" y="163" fill="#c2473e" font-family="Arial" font-size="17">Coupon: Nudeln −20 %</text><text x="60" y="190" fill="#263746" font-family="Arial" font-size="16">Pfand mitgenommen? ✓</text>
+  <path d="M285 390 L430 390 L465 365 L500 390 L650 390" fill="none" stroke="#23836a" stroke-width="10" stroke-dasharray="18 12"/>
+  <path d="M650 390 l-28 -20 v40z" fill="#23836a"/>
+  <text x="40" y="425" fill="#31536b" font-family="Arial" font-size="25" font-weight="bold">2 · ANKUNFT: LOS GEHT'S</text>
+</svg>
