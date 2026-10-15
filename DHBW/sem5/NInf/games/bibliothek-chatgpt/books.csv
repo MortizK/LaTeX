@@ -1,0 +1,101 @@
+Titel,Fachbereich,Regalfach,Modul
+Datenbanken kompakt,Informatik,INF-A01,Datenbanken
+SQL praxisnah,Informatik,INF-A01,Datenbanken
+Relationale Modelle,Informatik,INF-A02,Datenbanken
+NoSQL verstehen,Informatik,INF-A02,Datenbanken
+Transaktionssysteme,Informatik,INF-A03,Datenbanken
+Datenbankentwurf,Informatik,INF-A04,Datenbanken
+Indexierung und Suche,Informatik,INF-A05,Datenbanken
+Informationssysteme,Informatik,INF-A06,Datenbanken
+Algorithmen leicht erklärt,Informatik,INF-A07,Algorithmen
+Datenstrukturen in der Praxis,Informatik,INF-A08,Algorithmen
+Graphen und Netzwerke,Informatik,INF-A09,Algorithmen
+Sortieren und Suchen,Informatik,INF-A10,Algorithmen
+Komplexität verstehen,Informatik,INF-A11,Algorithmen
+Programmieren mit Python,Informatik,INF-A12,Programmierung
+Java für Einsteiger,Informatik,INF-A13,Programmierung
+Objektorientierte Konzepte,Informatik,INF-A14,Programmierung
+Clean Code Grundlagen,Informatik,INF-A15,Programmierung
+Webentwicklung mit JavaScript,Informatik,INF-A16,Webtechnologien
+Moderne CSS Layouts,Informatik,INF-A17,Webtechnologien
+Frontend Architektur,Informatik,INF-A18,Webtechnologien
+Backend APIs entwickeln,Informatik,INF-A19,Webtechnologien
+Software testen,Informatik,INF-A20,Software Engineering
+Agile Entwicklung,Informatik,INF-A21,Software Engineering
+Versionsverwaltung mit Git,Informatik,INF-A22,Software Engineering
+Anforderungsanalyse,Informatik,INF-A23,Software Engineering
+Softwarearchitektur,Informatik,INF-A24,Software Engineering
+Künstliche Intelligenz,Informatik,INF-B01,Künstliche Intelligenz
+Maschinelles Lernen,Informatik,INF-B01,Künstliche Intelligenz
+Neuronale Netze,Informatik,INF-B02,Künstliche Intelligenz
+Computer Vision,Informatik,INF-B03,Künstliche Intelligenz
+Natural Language Processing,Informatik,INF-B04,Künstliche Intelligenz
+Ethik der KI,Informatik,INF-B05,Künstliche Intelligenz
+Datenanalyse mit R,Informatik,INF-B06,Datenanalyse
+Statistik für Informatik,Informatik,INF-B07,Datenanalyse
+Visualisierung von Daten,Informatik,INF-B08,Datenanalyse
+Data Science Projekte,Informatik,INF-B09,Datenanalyse
+Medieninformatik Grundlagen,Medien,MED-A01,Medieninformatik
+Interaktive Medien,Medien,MED-A01,Medieninformatik
+Mensch Computer Interaktion,Medien,MED-A02,Medieninformatik
+User Experience Design,Medien,MED-A03,Medieninformatik
+User Interface Gestaltung,Medien,MED-A04,Medieninformatik
+Informationsdesign,Medien,MED-A05,Medieninformatik
+Digitale Bildbearbeitung,Medien,MED-A06,Medienproduktion
+Audioproduktion im Studio,Medien,MED-A07,Medienproduktion
+Videotechnik kompakt,Medien,MED-A08,Medienproduktion
+Drehbuch und Storytelling,Medien,MED-A09,Medienproduktion
+Game Design Grundlagen,Medien,MED-A10,Game Development
+Phaser Spiele entwickeln,Medien,MED-A11,Game Development
+Pixel Art für Spiele,Medien,MED-A12,Game Development
+Animation und Bewegung,Medien,MED-A13,Game Development
+Medienrecht,Medien,MED-A14,Medienmanagement
+Digitale Geschäftsmodelle,Wirtschaft,WIR-A01,Betriebswirtschaft
+Grundlagen der BWL,Wirtschaft,WIR-A01,Betriebswirtschaft
+Kostenrechnung verstehen,Wirtschaft,WIR-A02,Rechnungswesen
+Controlling in der Praxis,Wirtschaft,WIR-A03,Controlling
+Investition und Finanzierung,Wirtschaft,WIR-A04,Finanzwirtschaft
+Marketing Grundlagen,Wirtschaft,WIR-A05,Marketing
+Digitales Marketing,Wirtschaft,WIR-A06,Marketing
+Marktforschung kompakt,Wirtschaft,WIR-A07,Marketing
+Projektmanagement,Wirtschaft,WIR-A08,Management
+Führung und Organisation,Wirtschaft,WIR-A09,Management
+Unternehmensstrategie,Wirtschaft,WIR-A10,Management
+Volkswirtschaft verstehen,Wirtschaft,WIR-A11,VWL
+Wirtschaftsrecht,Wirtschaft,WIR-A12,Wirtschaftsrecht
+Arbeitsrecht kompakt,Wirtschaft,WIR-A13,Wirtschaftsrecht
+Nachhaltige Unternehmen,Wirtschaft,WIR-A14,Nachhaltigkeit
+Technische Mechanik,Technik,TEC-A01,Technische Mechanik
+Konstruktion mit CAD,Technik,TEC-A01,Konstruktion
+Werkstoffkunde,Technik,TEC-A02,Produktionstechnik
+Fertigungstechnik,Technik,TEC-A03,Produktionstechnik
+Elektrotechnik Grundlagen,Technik,TEC-A04,Elektrotechnik
+Schaltungstechnik,Technik,TEC-A05,Elektrotechnik
+Mikrocontroller programmieren,Technik,TEC-A06,Embedded Systems
+Robotik in der Praxis,Technik,TEC-A07,Robotik
+Automatisierungstechnik,Technik,TEC-A08,Automatisierung
+Regelungstechnik,Technik,TEC-A09,Automatisierung
+Messtechnik,Technik,TEC-A10,Messtechnik
+Technische Mathematik,Technik,TEC-A11,Mathematik
+Physik für Ingenieure,Technik,TEC-A12,Naturwissenschaften
+Energieeffizienz,Technik,TEC-A13,Energietechnik
+Erneuerbare Energien,Technik,TEC-A14,Energietechnik
+Netzwerke planen,Informatik,INF-B10,Netzwerktechnik
+IT-Sicherheit kompakt,Informatik,INF-B11,IT-Sicherheit
+Kryptografie verstehen,Informatik,INF-B12,IT-Sicherheit
+Cloud Computing,Informatik,INF-B13,Verteilte Systeme
+Betriebssysteme,Informatik,INF-B14,Systemsoftware
+Rechnerarchitektur,Informatik,INF-B15,Systemsoftware
+Medienproduktion planen,Medien,MED-A15,Medienmanagement
+Medienpsychologie,Medien,MED-A16,Medienmanagement
+Kommunikation und Medien,Medien,MED-A17,Medienmanagement
+Technologie und Gesellschaft,Medien,MED-A18,Medienmanagement
+Unternehmenssimulation,Wirtschaft,WIR-A15,Betriebswirtschaft
+Personalmanagement,Wirtschaft,WIR-A16,Management
+Logistik und Supply Chain,Wirtschaft,WIR-A17,Logistik
+Qualitätsmanagement,Technik,TEC-A15,Produktionstechnik
+Technisches Zeichnen,Technik,TEC-A16,Konstruktion
+Maschinenelemente,Technik,TEC-A17,Konstruktion
+Technische Dokumentation,Technik,TEC-A18,Konstruktion
+Digitale Fabrik,Technik,TEC-A19,Automatisierung
+Verteilte Produktionssysteme,Technik,TEC-A20,Automatisierung

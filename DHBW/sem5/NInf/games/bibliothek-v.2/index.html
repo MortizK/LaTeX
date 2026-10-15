@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Escape the Library</title>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+  <style>
+    :root { background: #090909; color: #eee; font-family: "Courier New", monospace; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #090909; }
+    #game { width: min(100vw, 800px); }
+    canvas { display: block; width: 100%; image-rendering: pixelated; border: 2px solid #555; }
+  </style>
+</head>
+<body>
+<div id="game"></div>
+<script>
+/* Escape the Library - alle Spielgrafiken werden bewusst als kleine Pixelformen
+   erzeugt, damit die Datei ohne zusätzliche Assets lauffähig bleibt. */
+const WIDTH = 800, HEIGHT = 600, TILE = 32;
+const COLS = 25, ROWS = 17, MAP_X = 0, MAP_Y = 56;
+const C = { floor: 0x242424, floor2: 0x2b2b2b, wall: 0x101010, shelf: 0x6b4328,
+  white: "#eeeeee", muted: "#9c9c9c", red: "#d52f3f", darkRed: 0x54131b, black: 0x070707 };
+
+const BOOKS = [
+  { title: "Datenbanken", short: "DB", color: 0xe1b24a },
+  { title: "Medieninformatik", short: "MI", color: 0x67a7d8 },
+  { title: "Künstliche Intelligenz", short: "KI", color: 0xc96bd8 }
+];
+
+class BootScene extends Phaser.Scene {
+  constructor() { super("BootScene"); }
+  create() {
+    this.cameras.main.setBackgroundColor(C.black);
+    this.add.text(WIDTH / 2, 220, "ESCAPE THE LIBRARY", {
+      fontFamily: "Courier New", fontSize: "32px", color: C.white, fontStyle: "bold"
+    }).setOrigin(.5);
+    this.add.text(WIDTH / 2, 275, "Die Bibliothek schließt um Mitternacht.", {
+      fontFamily: "Courier New", fontSize: "16px", color: C.muted
+    }).setOrigin(.5);
+    this.add.text(WIDTH / 2, 350, "ENTER zum Starten", {
+      fontFamily: "Courier New", fontSize: "20px", color: C.red
+    }).setOrigin(.5);
+    this.input.keyboard.once("keydown-ENTER", () => this.scene.start("GameScene"));
+  }
+}
+
+class GameScene extends Phaser.Scene {
+  constructor() { super("GameScene"); }
+  create() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,E");
+    this.clock = 21 * 60; // Die Nacht beginnt um 21:00.
+    this.collected = [];
+    this.seenShelves = new Set();
+    this.currentBook = 0;
+    this.lastStep = 0;
+    this.lastNpcMove = 0;
+    this.npcs = [];
+    this.shelves = [];
+    this.signs = [];
+    this.walls = [];
+    this.drawMap();
+    this.player = this.makeActor(2, 14, 0xeeeeee, "P");
+    this.spawnNpcs();
+    this.spawnExit();
+    this.createHud();
+    this.soundOn = true;
+    this.input.keyboard.on("keydown-E", () => this.interact());
+    this.input.keyboard.on("keydown-R", () => this.scene.restart());
+    this.beep(180, .05);
+  }
+
+  drawMap() {
+    this.map = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+    this.graphics = this.add.graphics();
+    for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) {
+      const border = x === 0 || y === 0 || x === COLS - 1 || y === ROWS - 1;
+      // Dichte Regalreihen: Zwischen zwei Reihen bleiben genau zwei Tiles frei.
+      const blocked = border || (x % 3 === 0 && y > 2 && y < 14 && y !== 8);
+      this.map[y][x] = blocked ? 1 : 0;
+      this.graphics.fillStyle(blocked ? C.wall : ((x + y) % 2 ? C.floor : C.floor2), 1);
+      this.graphics.fillRect(MAP_X + x * TILE, MAP_Y + y * TILE, TILE, TILE);
+      if (blocked) {
+        this.graphics.fillStyle(C.shelf, 1);
+        this.graphics.fillRect(x * TILE + 3, MAP_Y + y * TILE + 3, TILE - 6, TILE - 6);
+        this.graphics.fillStyle(0x29170e, 1);
+        this.graphics.fillRect(x * TILE + 7, MAP_Y + y * TILE + 7, TILE - 14, 8);
+        this.graphics.fillRect(x * TILE + 7, MAP_Y + y * TILE + 18, TILE - 14, 8);
+        this.graphics.fillStyle(0x9a6238, 1);
+        this.graphics.fillRect(x * TILE + 5, MAP_Y + y * TILE + 5, TILE - 10, 2);
+        this.graphics.fillRect(x * TILE + 5, MAP_Y + y * TILE + 16, TILE - 10, 2);
+        this.graphics.fillRect(x * TILE + 5, MAP_Y + y * TILE + 27, TILE - 10, 2);
+      }
+    }
+    // Jedes gesuchte Fach ersetzt ein Tile in einer bestehenden Regalreihe.
+    [[3, 6], [12, 10], [21, 6]].forEach((pos, i) => this.addShelf(pos[0], pos[1], i));
+    // Die Schilder stehen jeweils am oberen Ende ihrer Regalreihe.
+    [[3, 2], [12, 2], [21, 2]].forEach((pos, i) => this.addSign(pos[0], pos[1], i));
+  }
+
+  addShelf(x, y, bookIndex) {
+    const shelfArt = this.add.graphics();
+    const left = x * TILE + 4, top = MAP_Y + y * TILE + 3;
+    shelfArt.fillStyle(0x704522, 1);
+    shelfArt.fillRect(left, top, TILE - 8, TILE - 6);
+    shelfArt.fillStyle(0x211108, 1);
+    shelfArt.fillRect(left + 4, top + 4, TILE - 16, 8);
+    shelfArt.fillRect(left + 4, top + 15, TILE - 16, 8);
+    shelfArt.fillStyle(0xb07542, 1);
+    shelfArt.fillRect(left + 2, top + 2, TILE - 12, 2);
+    shelfArt.fillRect(left + 2, top + 13, TILE - 12, 2);
+    shelfArt.fillRect(left + 2, top + 24, TILE - 12, 2);
+    const book = BOOKS[bookIndex];
+    shelfArt.fillStyle(book.color, 1);
+    shelfArt.fillRect(left + 7, top + 5, 3, 6);
+    shelfArt.fillRect(left + 12, top + 5, 3, 6);
+    shelfArt.fillStyle(0x9b4c42, 1);
+    shelfArt.fillRect(left + 6, top + 16, 3, 6);
+    shelfArt.fillRect(left + 11, top + 16, 3, 6);
+    const rect = this.add.rectangle(x * TILE + TILE / 2, MAP_Y + y * TILE + TILE / 2,
+      TILE, TILE, 0xffffff, 0).setStrokeStyle(1, 0xb07542, 0.9);
+    rect.tileX = x;
+    rect.tileY = y;
+    rect.bookIndex = bookIndex;
+    this.shelves.push(rect);
+  }
+
+  addSign(x, y, bookIndex) {
+    const signArt = this.add.graphics();
+    const left = x * TILE + 7, top = MAP_Y + y * TILE + 5;
+    signArt.fillStyle(0x704522, 1);
+    signArt.fillRect(left, top, TILE - 14, 18);
+    signArt.fillStyle(0xb07542, 1);
+    signArt.fillRect(left + 2, top + 2, TILE - 18, 2);
+    signArt.fillRect(left + 2, top + 14, TILE - 18, 2);
+    signArt.fillStyle(0x3a2112, 1);
+    signArt.fillRect(x * TILE + 14, MAP_Y + y * TILE + 23, 4, 7);
+    this.add.text(x * TILE + 16, MAP_Y + y * TILE + 14, BOOKS[bookIndex].short, {
+      fontFamily: "Courier New", fontSize: "8px", color: "#f0c28d", fontStyle: "bold"
+    }).setOrigin(.5);
+    const sign = this.add.rectangle(x * TILE + 16, MAP_Y + y * TILE + 16,
+      TILE, TILE, 0xffffff, 0).setStrokeStyle(1, 0xb07542, 0.9);
+    sign.bookIndex = bookIndex;
+    this.signs.push(sign);
+  }
+
+  makeActor(x, y, color, letter) {
+    const body = this.add.rectangle(x * TILE + TILE / 2, MAP_Y + y * TILE + TILE / 2,
+      18, 22, color).setStrokeStyle(2, C.black);
+    this.add.text(body.x, body.y - 1, letter, { fontFamily: "Courier New", fontSize: "12px",
+      color: "#111111", fontStyle: "bold" }).setOrigin(.5);
+    body.tileX = x; body.tileY = y; body.label = letter;
+    return body;
+  }
+
+  spawnNpcs() {
+    [[11, 3], [21, 13], [14, 9]].forEach((pos, i) => {
+      const npc = this.makeActor(pos[0], pos[1], 0xe87979, "!");
+      npc.nextMove = i * 700;
+      this.npcs.push(npc);
+    });
+  }
+
+  spawnExit() {
+    this.exit = this.add.rectangle(23 * TILE + 16, MAP_Y + 15 * TILE + 16, 24, 24, 0x315d4a)
+      .setStrokeStyle(2, 0x88d3a6);
+    this.add.text(this.exit.x, this.exit.y, "EXIT", { fontFamily: "Courier New",
+      fontSize: "8px", color: "#b9f5cf" }).setOrigin(.5);
+  }
+
+  createHud() {
+    this.add.rectangle(400, 25, 800, 50, 0x080808).setDepth(5);
+    this.controls = this.add.text(12, 10, "WASD / PFEILE: bewegen   E: interagieren   R: Neustart",
+      { fontFamily: "Courier New", fontSize: "11px", color: C.muted }).setDepth(6);
+    this.objective = this.add.text(400, 29, "", { fontFamily: "Courier New",
+      fontSize: "12px", color: C.white, fontStyle: "bold" }).setOrigin(.5, .5).setDepth(6);
+    this.timeText = this.add.text(788, 10, "", { fontFamily: "Courier New",
+      fontSize: "13px", color: C.white }).setOrigin(1, 0).setDepth(6);
+    this.danger = this.add.rectangle(400, 300, 800, 600, C.darkRed, 0).setDepth(10);
+    this.fog = this.add.graphics().setDepth(8);
+    this.updateHud();
+    this.updateFog();
+  }
+
+  updateHud() {
+    const book = BOOKS[this.currentBook];
+    this.objective.setText(book ? `GESUCHT: ${book.title}   [${this.collected.length}/3]` :
+      "ALLE BÜCHER GESAMMELT - FINDE DEN AUSGANG");
+    const hours = Math.floor(this.clock / 60) % 24;
+    const minutes = Math.floor(this.clock % 60);
+    this.timeText.setText(`${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`);
+  }
+
+  update(time, delta) {
+    if (!this.player.active) return;
+    this.clock = Math.min(23 * 60 + 59, this.clock + delta / 1000 * (1 + this.collected.length * .35));
+    this.updateHud();
+    this.movePlayer(time);
+    this.updateFog();
+    const moveDelay = Math.max(260, 850 - (this.clock - 21 * 60) * 1.4);
+    if (time > this.lastNpcMove + moveDelay) { this.moveNpcs(); this.lastNpcMove = time; }
+    this.updateDanger();
+    if (this.currentBook >= BOOKS.length &&
+        Math.abs(this.exit.x - this.player.x) < 26 && Math.abs(this.exit.y - this.player.y) < 26) {
+      this.endGame(true);
+    }
+    if (this.clock >= 23 * 60 + 59) this.endGame(false);
+  }
+
+  movePlayer(time) {
+    if (time < this.lastStep + Math.max(90, 180 + this.collected.length * 35)) return;
+    let dx = 0, dy = 0;
+    if (this.cursors.left.isDown || this.keys.A.isDown) dx = -1;
+    if (this.cursors.right.isDown || this.keys.D.isDown) dx = 1;
+    if (this.cursors.up.isDown || this.keys.W.isDown) dy = -1;
+    if (this.cursors.down.isDown || this.keys.S.isDown) dy = 1;
+    if ((dx || dy) && !this.blocked(this.player.tileX + dx, this.player.tileY + dy)) {
+      this.player.tileX += dx; this.player.tileY += dy;
+      this.player.x = this.player.tileX * TILE + 16; this.player.y = MAP_Y + this.player.tileY * TILE + 16;
+      this.lastStep = time; this.beep(120, .025);
+    }
+  }
+
+  blocked(x, y) { return x < 0 || y < 0 || x >= COLS || y >= ROWS || this.map[y][x] === 1; }
+
+  updateFog() {
+    if (!this.fog || !this.player) return;
+    const radius = 4.2;
+    this.fog.clear();
+    for (let y = 1; y < ROWS - 1; y++) for (let x = 1; x < COLS - 1; x++) {
+      const distance = Phaser.Math.Distance.Between(x, y, this.player.tileX, this.player.tileY);
+      if (distance > radius - 1) {
+        const alpha = Phaser.Math.Clamp((distance - (radius - 1)) / 2, 0.18, 0.94);
+        this.fog.fillStyle(0x050505, alpha);
+        this.fog.fillRect(x * TILE, MAP_Y + y * TILE, TILE, TILE);
+      }
+    }
+  }
+
+  moveNpcs() {
+    this.npcs.forEach(npc => {
+      const path = this.findPath(npc.tileX, npc.tileY, this.player.tileX, this.player.tileY);
+      let next = path.length > 1 ? path[1] : this.randomNearby(npc.tileX, npc.tileY);
+      // Die Studierenden verfolgen den Spieler nur aus kurzer Distanz.
+      if (path.length > 5) next = this.randomNearby(npc.tileX, npc.tileY);
+      if (!this.blocked(next.x, next.y)) {
+        npc.tileX = next.x; npc.tileY = next.y;
+        npc.x = next.x * TILE + 16; npc.y = MAP_Y + next.y * TILE + 16;
+      }
+    });
+  }
+
+  randomNearby(x, y) {
+    const options = [{ x: x + 1, y }, { x: x - 1, y }, { x, y: y + 1 }, { x, y: y - 1 }]
+      .filter(p => !this.blocked(p.x, p.y));
+    return options[Math.floor(Math.random() * options.length)] || { x, y };
+  }
+
+  // BFS auf dem Tile-Grid: Für die kleine Karte ist dies eine robuste A*-ähnliche
+  // Wegsuche und verhindert, dass NPCs durch Regale laufen.
+  findPath(sx, sy, tx, ty) {
+    const queue = [{ x: sx, y: sy }], came = new Map();
+    const key = (x, y) => `${x},${y}`; came.set(key(sx, sy), null);
+    while (queue.length) {
+      const p = queue.shift(); if (p.x === tx && p.y === ty) break;
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx, dy]) => {
+        const n = { x: p.x + dx, y: p.y + dy }, k = key(n.x, n.y);
+        if (!this.blocked(n.x, n.y) && !came.has(k)) { came.set(k, p); queue.push(n); }
+      });
+    }
+    const result = []; let p = { x: tx, y: ty };
+    while (p && came.has(key(p.x, p.y))) { result.unshift(p); p = came.get(key(p.x, p.y)); }
+    return result;
+  }
+
+  interact() {
+    const nearbySign = this.signs.find(s => Math.abs(s.x - this.player.x) <= 30 &&
+      Math.abs(s.y - this.player.y) <= 30);
+    if (nearbySign) {
+      this.scene.launch("SignScene", { shelf: nearbySign.bookIndex, game: this });
+      this.scene.pause();
+      return;
+    }
+    // Das Fach kann aus jedem der vier angrenzenden Tiles erreicht werden.
+    const nearbyShelf = this.shelves.find(s => Math.abs(s.tileX - this.player.tileX) <= 1 &&
+      Math.abs(s.tileY - this.player.tileY) <= 1 &&
+      (s.tileX === this.player.tileX || s.tileY === this.player.tileY));
+    if (nearbyShelf) {
+      this.scene.launch("BookSearchScene", { book: nearbyShelf.bookIndex, game: this });
+      this.scene.pause();
+      return;
+    }
+  }
+
+  updateDanger() {
+    const closest = Math.min(...this.npcs.map(n => Phaser.Math.Distance.Between(
+      n.x, n.y, this.player.x, this.player.y)));
+    this.danger.setAlpha(Math.max(0, 0.42 - closest / 180));
+    if (closest < 18) this.endGame(false);
+  }
+
+  endGame(won) {
+    if (!this.player.active) return;
+    this.player.setActive(false); this.scene.stop("SignScene"); this.scene.stop("BookSearchScene");
+    this.scene.start("GameOverScene", { won, collected: this.collected.length });
+  }
+
+  beep(frequency, duration) {
+    if (!this.soundOn) return;
+    try {
+      const ctx = this.sound.context, osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.frequency.value = frequency; gain.gain.setValueAtTime(.025, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + duration);
+      osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + duration);
+    } catch (error) { this.soundOn = false; }
+  }
+}
+
+class SignScene extends Phaser.Scene {
+  constructor() { super("SignScene"); }
+  create(data) {
+    this.gameScene = data.game; this.bookIndex = data.shelf; const book = BOOKS[data.shelf];
+    this.add.rectangle(400, 300, 580, 260, 0x0b0b0b, .97).setStrokeStyle(3, 0xeeeeee);
+    this.add.text(400, 220, "REGALBESCHRIFTUNG", { fontFamily: "Courier New",
+      fontSize: "22px", color: C.red }).setOrigin(.5);
+    this.add.text(400, 285, `Bereich: ${book.title}\n\nDie Beschriftung verrät: Dieses Regal könnte\n${book.title} enthalten. Drücke E zum Stöbern.`, {
+      fontFamily: "Courier New", fontSize: "16px", color: C.white, align: "center", lineSpacing: 8
+    }).setOrigin(.5);
+    this.add.text(400, 380, "E / ESC zum Schließen", { fontFamily: "Courier New",
+      fontSize: "14px", color: C.muted }).setOrigin(.5);
+    this.input.keyboard.once("keydown-E", () => this.close());
+    this.input.keyboard.once("keydown-ESC", () => this.close());
+  }
+  close() {
+    this.gameScene.seenShelves.add(this.bookIndex);
+    this.scene.stop();
+    this.gameScene.scene.resume();
+  }
+}
+
+class BookSearchScene extends Phaser.Scene {
+  constructor() { super("BookSearchScene"); }
+  create(data) {
+    this.gameScene = data.game; this.book = BOOKS[data.book]; this.index = 0;
+    this.add.rectangle(400, 300, 580, 280, 0x0b0b0b, .98).setStrokeStyle(3, this.book.color);
+    this.title = this.add.text(400, 215, "IM REGAL STÖBERN", { fontFamily: "Courier New",
+      fontSize: "22px", color: C.red }).setOrigin(.5);
+    this.hint = this.add.text(400, 300, "", { fontFamily: "Courier New",
+      fontSize: "20px", color: C.white, align: "center", lineSpacing: 12 }).setOrigin(.5);
+    this.add.text(400, 390, "← → Buch wechseln   E einsammeln   ESC abbrechen", {
+      fontFamily: "Courier New", fontSize: "13px", color: C.muted }).setOrigin(.5);
+    this.input.keyboard.on("keydown-LEFT", () => this.choose(-1));
+    this.input.keyboard.on("keydown-RIGHT", () => this.choose(1));
+    this.input.keyboard.on("keydown-E", () => this.collect());
+    this.input.keyboard.once("keydown-ESC", () => this.close());
+    this.showBook();
+  }
+  choose(direction) { this.index = Phaser.Math.Wrap(this.index + direction, 0, 4); this.showBook(); }
+  showBook() {
+    const names = ["Datenbanken", "Medieninformatik", "Künstliche Intelligenz", "Leeres Buch"];
+    this.hint.setText(`Fach ${this.index + 1}/4\n\n▣  ${names[this.index]}`);
+  }
+  collect() {
+    if (this.index !== BOOKS.findIndex(b => b.title === this.book.title)) {
+      this.hint.setText("Das ist nicht das gesuchte Buch!\nDie Seiten rascheln ...");
+      this.gameScene.beep(70, .2); return;
+    }
+    this.gameScene.collected.push(this.book.title);
+    this.gameScene.currentBook++;
+    this.gameScene.beep(520, .15); this.close();
+  }
+  close() {
+    this.input.keyboard.removeAllListeners();
+    this.scene.stop();
+    this.gameScene.scene.resume();
+  }
+}
+
+class GameOverScene extends Phaser.Scene {
+  constructor() { super("GameOverScene"); }
+  create(data) {
+    const won = data.won;
+    this.add.rectangle(400, 300, 800, 600, won ? 0x10251b : 0x210b0e);
+    this.add.text(400, 225, won ? "DU BIST ENTKOMMEN!" : "DU WURDEST ENTDECKT", {
+      fontFamily: "Courier New", fontSize: "30px", color: won ? "#a8f0bf" : C.red,
+      fontStyle: "bold"
+    }).setOrigin(.5);
+    this.add.text(400, 305, won ? "Die Bücher sind sicher. Die Nacht ist vorbei." :
+      `Gesammelte Bücher: ${data.collected}/3`, { fontFamily: "Courier New",
+      fontSize: "17px", color: C.white }).setOrigin(.5);
+    this.add.text(400, 385, "ENTER oder R für einen neuen Versuch", {
+      fontFamily: "Courier New", fontSize: "16px", color: C.muted }).setOrigin(.5);
+    this.input.keyboard.once("keydown-ENTER", () => this.scene.start("GameScene"));
+    this.input.keyboard.once("keydown-R", () => this.scene.start("GameScene"));
+  }
+}
+
+new Phaser.Game({
+  type: Phaser.AUTO, parent: "game", width: WIDTH, height: HEIGHT,
+  pixelArt: true, backgroundColor: "#070707",
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [BootScene, GameScene, GameOverScene, SignScene, BookSearchScene]
+});
+</script>
+</body>
+</html>

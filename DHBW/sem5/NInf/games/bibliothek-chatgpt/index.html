@@ -1,0 +1,984 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escape the Library</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: #101014; color: #eee;
+    display: grid; place-items: center; font-family: monospace;
+  }
+  main { width: min(100vw, 900px); padding: 12px; }
+  h1 { font-size: clamp(18px, 4vw, 28px); letter-spacing: 3px; }
+  #game { width: 100%; overflow: hidden; border: 3px solid #5b5147; }
+  canvas { display: block; width: 100%; image-rendering: pixelated; }
+  p { font-size: 12px; color: #aaa; line-height: 1.7; }
+  #books-file {
+    display: none;
+    margin: 8px auto 0;
+    color: #eee;
+    font: 12px monospace;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+</head>
+<body>
+<main>
+  <h1>ESCAPE THE LIBRARY</h1>
+  <div id="game"></div>
+  <input id="books-file" type="file" accept=".csv,text/csv">
+  <p>
+    WASD / Pfeiltasten: Bewegung · E: Interaktion ·
+    ← / →: Bücher durchblättern · ESC: Schließen · R: Neustart
+  </p>
+</main>
+<script>
+"use strict";
+
+/* =========================================================
+   Konfiguration und Hilfsfunktionen
+   ========================================================= */
+const W = 800, H = 600, TILE = 32, HUD = 56;
+const COLS = 25, ROWS = 17;
+const NIGHT_SECONDS = 180; // 21:00 bis 00:00 in drei Spielminuten
+const DEPTS = {
+  INF: { name: "Informatik", rows: [1, 4], color: 0x8e7459 },
+  MED: { name: "Medien",     rows: [7],    color: 0x927b63 },
+  WIR: { name: "Wirtschaft", rows: [10],   color: 0x927b63 },
+  TEC: { name: "Technik",    rows: [13,16],color: 0x8e7459 }
+};
+
+const ROW_INFO = [
+  { y: 1,  id: "INF-A", dept: "INF" },
+  { y: 4,  id: "INF-B", dept: "INF" },
+  { y: 7,  id: "MED-A", dept: "MED" },
+  { y: 10, id: "WIR-A", dept: "WIR" },
+  { y: 13, id: "TEC-A", dept: "TEC" },
+  { y: 16, id: "TEC-B", dept: "TEC" }
+];
+
+function shelfId(row, x) {
+  const r = ROW_INFO.find(v => v.y === row);
+  return r ? `${r.id}${String(x - 3).padStart(2, "0")}` : "";
+}
+
+function parseCSV(text) {
+  // Unterstützt UTF-8, BOM, quoted fields und Kommas innerhalb von Feldern.
+  text = text.replace(/^\uFEFF/, "");
+  const rows = [];
+  let row = [], field = "", quoted = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '"' && quoted && text[i + 1] === '"') {
+      field += '"'; i++;
+    } else if (c === '"') {
+      quoted = !quoted;
+    } else if (c === "," && !quoted) {
+      row.push(field); field = "";
+    } else if ((c === "\n" || c === "\r") && !quoted) {
+      if (c === "\r" && text[i + 1] === "\n") i++;
+      row.push(field); field = "";
+      if (row.some(v => v.trim() !== "")) rows.push(row);
+      row = [];
+    } else {
+      field += c;
+    }
+  }
+  if (field.length || row.length) {
+    row.push(field);
+    if (row.some(v => v.trim() !== "")) rows.push(row);
+  }
+
+  if (!rows.length) throw new Error("Die CSV ist leer.");
+  const header = rows.shift().map(s => s.trim());
+  const expected = ["Titel", "Fachbereich", "Regalfach", "Modul"];
+  if (header.join("|") !== expected.join("|")) {
+    throw new Error("CSV-Kopfzeile muss Titel,Fachbereich,Regalfach,Modul sein.");
+  }
+
+  const books = rows.map((r, i) => {
+    if (r.length !== 4) throw new Error(`CSV-Zeile ${i + 2}: genau 4 Felder erforderlich.`);
+    const b = {};
+    expected.forEach((key, j) => b[key] = r[j].trim());
+    if (!b.Titel || !b.Fachbereich || !b.Regalfach || !b.Modul) {
+      throw new Error(`CSV-Zeile ${i + 2}: leeres Pflichtfeld.`);
+    }
+    if (!DEPTS[b.Fachbereich]) {
+      throw new Error(`Unbekannter Fachbereich: ${b.Fachbereich}`);
+    }
+    return b;
+  });
+
+  if (books.length !== 100) {
+    throw new Error(`Erwartet werden 100 Bücher, gefunden: ${books.length}.`);
+  }
+  if (new Set(books.map(b => b.Titel)).size !== 100) {
+    throw new Error("Alle Buchtitel müssen eindeutig sein.");
+  }
+  return books;
+}
+
+function shuffle(a) {
+  const out = a.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function keyPos(x, y) { return `${x},${y}`; }
+function samePos(a, b) { return a.x === b.x && a.y === b.y; }
+function dist(a, b) { return Math.abs(a.x-b.x) + Math.abs(a.y-b.y); }
+
+/* =========================================================
+   BootScene: CSV laden und Titelbildschirm
+   ========================================================= */
+class BootScene extends Phaser.Scene {
+  constructor() { super("BootScene"); }
+
+  create() {
+    this.cameras.main.setBackgroundColor("#111116");
+    this.add.rectangle(400, 300, 800, 600, 0x111116);
+    this.add.text(400, 135, "ESCAPE THE", {
+      fontFamily: "monospace", fontSize: "34px", color: "#e8e0d4",
+      fontStyle: "bold"
+    }).setOrigin(.5);
+    this.add.text(400, 183, "LIBRARY", {
+      fontFamily: "monospace", fontSize: "46px", color: "#c9a27b",
+      fontStyle: "bold"
+    }).setOrigin(.5);
+    this.add.text(400, 245,
+      "Drei Bücher. Dunkle Gänge. Niemand sollte mehr hier sein.", {
+      fontFamily: "monospace", fontSize: "13px", color: "#b8b2aa",
+      align: "center", wordWrap: { width: 620 }
+    }).setOrigin(.5);
+
+    this.add.text(400, 326,
+      "Finde die gesuchten Bücher und entkomme vor Mitternacht.", {
+      fontFamily: "monospace", fontSize: "13px", color: "#eee",
+      align: "center"
+    }).setOrigin(.5);
+
+    this.status = this.add.text(400, 410, "Lade Buchkatalog …", {
+      fontFamily: "monospace", fontSize: "13px", color: "#d9b78c",
+      align: "center"
+    }).setOrigin(.5);
+
+    this.add.text(400, 490, "ENTER  —  SPIEL STARTEN", {
+      fontFamily: "monospace", fontSize: "18px", color: "#8acb87"
+    }).setOrigin(.5);
+
+    this.add.text(400, 548, "WASD / PFEILE · E INTERAGIEREN · ESC SCHLIESSEN", {
+      fontFamily: "monospace", fontSize: "11px", color: "#777"
+    }).setOrigin(.5);
+
+    this.books = null;
+    this.loading = false;
+    this.failed = false;
+    this.fileInput = document.getElementById("books-file");
+    this.fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) this.loadBooksFromFile(file);
+    });
+
+    this.input.keyboard.on("keydown-ENTER", () => this.startGame());
+    this.input.keyboard.on("keydown-R", () => this.startGame());
+    this.loadBooks();
+  }
+
+  async loadBooks() {
+    try {
+      const response = await fetch("./books.csv", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      this.setBooks(await response.text());
+    } catch (err) {
+      if (window.location.protocol === "file:") {
+        this.status.setText("Bitte die lokale Datei books.csv auswählen.");
+        this.status.setColor("#d9b78c");
+        this.fileInput.style.display = "block";
+        return;
+      }
+      this.showLoadError(err);
+    }
+  }
+
+  async loadBooksFromFile(file) {
+    this.failed = false;
+    this.status.setText("Lade Buchkatalog …");
+    this.status.setColor("#d9b78c");
+    try {
+      this.setBooks(await file.text());
+      this.fileInput.style.display = "none";
+    } catch (err) {
+      this.showLoadError(err);
+    }
+  }
+
+  setBooks(text) {
+    this.books = parseCSV(text);
+
+    // Jedes Buch muss zu einem vorhandenen Regalfach gehören.
+    for (const b of this.books) {
+      if (!this.books.length || !ROW_INFO.some(r =>
+        b.Regalfach.startsWith(r.id) &&
+        b.Regalfach === r.id + b.Regalfach.slice(r.id.length) &&
+        /^([A-Z]{3}-[AB]A?\d{2})$/.test(b.Regalfach)
+      )) {
+        throw new Error(`Ungültige Regalfach-ID: ${b.Regalfach}`);
+      }
+      const row = ROW_INFO.find(r => b.Regalfach.startsWith(r.id));
+      if (!row || !DEPTS[row.dept] || b.Fachbereich !== row.dept) {
+        throw new Error(`Fachbereich und Regalfach passen nicht: ${b.Titel}`);
+      }
+      const n = Number(b.Regalfach.slice(row.id.length));
+      if (!Number.isInteger(n) || n < 1 || n > 16) {
+        throw new Error(`Ungültiges Regalfach: ${b.Regalfach}`);
+      }
+    }
+
+    // Sicherstellen, dass jedes dargestellte Fach mindestens ein Buch enthält.
+    const ids = new Set(this.books.map(b => b.Regalfach));
+    for (const r of ROW_INFO) {
+      for (let x = 4; x <= 19; x++) {
+        if (!ids.has(shelfId(r.y, x))) {
+          throw new Error(`Das Regalfach ${shelfId(r.y, x)} ist leer.`);
+        }
+      }
+    }
+
+    this.status.setText(`${this.books.length} Bücher geladen. Bereit.`);
+    this.status.setColor("#8acb87");
+  }
+
+  showLoadError(err) {
+    this.failed = true;
+    this.status.setText("FEHLER: " + err.message);
+    this.status.setColor("#ff7777");
+    console.error(err);
+  }
+
+  startGame() {
+    if (this.loading || !this.books || this.failed) return;
+    this.loading = true;
+    this.scene.start("GameScene", { books: this.books });
+  }
+}
+
+/* =========================================================
+   GameScene: Karte, Bewegung, Gegner, Zeit und HUD
+   ========================================================= */
+class GameScene extends Phaser.Scene {
+  constructor() { super("GameScene"); }
+
+  init(data) {
+    this.books = data.books;
+    this.targets = shuffle(this.books).slice(0, 3);
+    this.collected = [];
+    this.elapsed = 0;
+    this.player = { x: 1, y: 0 };
+    this.npcs = [];
+    this.shelves = new Map();
+    this.signs = [];
+    this.lastMove = 0;
+    this.moveDelay = 145;
+    this.ended = false;
+    this.overlayOpen = false;
+    this.audio = null;
+  }
+
+  create() {
+    this.cameras.main.setBackgroundColor("#17171a");
+    this.world = this.add.container(0, HUD).setDepth(1);
+    this.drawMap();
+
+    this.playerShape = this.add.container(
+      this.player.x*TILE + TILE/2, HUD + this.player.y*TILE + TILE/2
+    ).setDepth(30);
+    this.playerShape.add([
+      this.add.rectangle(0, 2, 16, 20, 0xd6d6d6),
+      this.add.rectangle(0, -7, 12, 9, 0xf0d6b7),
+      this.add.rectangle(-3, -8, 2, 2, 0x242424),
+      this.add.rectangle(3, -8, 2, 2, 0x242424)
+    ]);
+
+    this.createNPCs();
+    this.createHUD();
+    this.createFog();
+    this.createVignette();
+    this.setupAudio();
+
+    this.keys = this.input.keyboard.addKeys({
+      up: "UP", down: "DOWN", left: "LEFT", right: "RIGHT",
+      w: "W", a: "A", s: "S", d: "D", e: "E", esc: "ESC",
+      enter: "ENTER", r: "R"
+    });
+
+    this.input.keyboard.on("keydown-ESC", () => {
+      if (this.overlayOpen) this.closeOverlay();
+    });
+    this.input.keyboard.on("keydown-R", () => {
+      if (this.ended) this.scene.start("BootScene");
+    });
+
+    this.refreshHUD();
+  }
+
+  drawMap() {
+    const g = this.add.graphics().setDepth(2);
+    g.fillStyle(0x242428, 1);
+    g.fillRect(0, HUD, W, H-HUD);
+
+    // Fliesen mit kleinen Farbabweichungen.
+    for (let y = 0; y < ROWS; y++) {
+      for (let x = 0; x < COLS; x++) {
+        const c = ((x+y)%2) ? 0x29292d : 0x2d2d31;
+        g.fillStyle(c, 1);
+        g.fillRect(x*TILE, HUD+y*TILE, TILE, TILE);
+        g.lineStyle(1, 0x343439, .65);
+        g.strokeRect(x*TILE, HUD+y*TILE, TILE, TILE);
+      }
+    }
+
+    // Die Außenwände werden gezeichnet; Spielfiguren bleiben innerhalb der Karte.
+    g.fillStyle(0x51463b, 1);
+    g.fillRect(0, HUD, W, 5);
+    g.fillRect(0, HUD, 5, ROWS*TILE);
+    g.fillRect(W-5, HUD, 5, ROWS*TILE);
+    g.fillRect(0, HUD+(ROWS*TILE)-5, W, 5);
+
+    for (const r of ROW_INFO) {
+      for (let x = 4; x <= 19; x++) {
+        const id = shelfId(r.y, x);
+        this.shelves.set(keyPos(x, r.y), { x, y: r.y, id, dept: r.dept });
+        this.drawShelfTile(g, x, r.y);
+      }
+      // Schild am Ende der Regalreihe, getrennt von den Regalfächern.
+      const sign = { x: 2, y: r.y, dept: r.dept, row: r.id };
+      this.signs.push(sign);
+      this.drawSign(sign);
+    }
+
+    // Grüner Notausgang unten rechts.
+    this.exit = { x: 23, y: 15 };
+    g.fillStyle(0x276b39, 1);
+    g.fillRect(this.exit.x*TILE+2, HUD+this.exit.y*TILE+2, TILE-4, TILE-4);
+    g.fillStyle(0x83e58f, 1);
+    g.fillRect(this.exit.x*TILE+9, HUD+this.exit.y*TILE+5, 14, 22);
+    g.fillStyle(0x276b39, 1);
+    g.fillRect(this.exit.x*TILE+12, HUD+this.exit.y*TILE+8, 8, 16);
+    this.add.text(this.exit.x*TILE+16, HUD+this.exit.y*TILE-7, "EXIT", {
+      fontFamily: "monospace", fontSize: "9px", color: "#9cf0a7",
+      backgroundColor: "#17341f", padding: { x: 2, y: 1 }
+    }).setOrigin(.5);
+  }
+
+  drawShelfTile(g, x, y) {
+    const px = x*TILE, py = HUD+y*TILE;
+    g.fillStyle(0x60432e, 1);
+    g.fillRect(px+1, py+1, TILE-2, TILE-2);
+    g.fillStyle(0x38281f, 1);
+    g.fillRect(px+4, py+4, TILE-8, TILE-8);
+    g.fillStyle(0x8e6240, 1);
+    g.fillRect(px+2, py+2, TILE-4, 3);
+    g.fillRect(px+2, py+15, TILE-4, 3);
+    g.fillRect(px+2, py+27, TILE-4, 3);
+
+    // Kleine stilisierte Buchrücken.
+    const colors = [0xa85e52,0xd0b071,0x687d91,0x81966a,0xb48cba];
+    for (let i = 0; i < 4; i++) {
+      g.fillStyle(colors[(x*3+y+i)%colors.length], 1);
+      g.fillRect(px+5+i*5, py+5+(i%2), 4, 9);
+      g.fillRect(px+5+i*5, py+19-(i%2), 4, 7);
+    }
+  }
+
+  drawSign(sign) {
+    const x = sign.x*TILE, y = HUD+sign.y*TILE;
+    const c = this.add.graphics().setDepth(5);
+    c.fillStyle(0x493426, 1);
+    c.fillRect(x+8, y+7, 16, 18);
+    c.fillStyle(0xb99a69, 1);
+    c.fillRect(x+6, y+5, 20, 13);
+    c.fillStyle(0x30271f, 1);
+    c.fillRect(x+9, y+8, 14, 7);
+    c.fillStyle(0x493426, 1);
+    c.fillRect(x+14, y+18, 4, 9);
+    this.add.text(x+16, y+11, sign.dept, {
+      fontFamily: "monospace", fontSize: "6px", color: "#ffffff"
+    }).setOrigin(.5).setDepth(6);
+  }
+
+  createNPCs() {
+    const spawns = [
+      {x: 22, y: 2}, {x: 1, y: 9}, {x: 22, y: 12}, {x: 1, y: 15}
+    ];
+    for (let i = 0; i < spawns.length; i++) {
+      const p = spawns[i];
+      const npc = {
+        x: p.x, y: p.y, nextMove: 0,
+        delay: 550 + Math.random()*300,
+        shape: this.add.container(
+          p.x*TILE+16, HUD+p.y*TILE+16
+        ).setDepth(25)
+      };
+      npc.shape.add([
+        this.add.rectangle(0, 3, 17, 19, 0xa33c42),
+        this.add.rectangle(0, -7, 13, 11, 0xd87c7c),
+        this.add.rectangle(-3, -7, 2, 2, 0x330d12),
+        this.add.rectangle(3, -7, 2, 2, 0x330d12)
+      ]);
+      this.npcs.push(npc);
+    }
+  }
+
+  createHUD() {
+    this.hud = this.add.graphics().setDepth(200);
+    this.hud.fillStyle(0x101014, 1);
+    this.hud.fillRect(0, 0, W, HUD);
+    this.hud.lineStyle(2, 0x76634f, 1);
+    this.hud.lineBetween(0, HUD-1, W, HUD-1);
+
+    this.helpText = this.add.text(12, 10, "WASD / ↑↓←→  ·  E: Interaktion", {
+      fontFamily: "monospace", fontSize: "11px", color: "#d3c8b8"
+    }).setDepth(201);
+    this.clockText = this.add.text(W-12, 10, "21:00", {
+      fontFamily: "monospace", fontSize: "16px", color: "#e9dfcf"
+    }).setOrigin(1, 0).setDepth(201);
+    this.goalText = this.add.text(W/2, 37, "", {
+      fontFamily: "monospace", fontSize: "13px", color: "#f2e6d3",
+      align: "center", wordWrap: { width: 760 }
+    }).setOrigin(.5).setDepth(201);
+  }
+
+  createFog() {
+    this.fogCanvas = document.createElement("canvas");
+    this.fogCanvas.width = W;
+    this.fogCanvas.height = ROWS*TILE;
+    this.fogCtx = this.fogCanvas.getContext("2d");
+    this.fogTexture = this.textures.createCanvas("fogTexture", W, ROWS*TILE);
+    this.fogImage = this.add.image(0, HUD, "fogTexture")
+      .setOrigin(0, 0).setDepth(80);
+    this.drawFog();
+  }
+
+  drawFog() {
+    const c = this.fogCtx;
+    c.clearRect(0, 0, W, ROWS*TILE);
+    c.fillStyle = "rgba(0,0,0,0.88)";
+    c.fillRect(0, 0, W, ROWS*TILE);
+
+    // Weiche, abgestufte Sicht mit transparenter Mitte.
+    c.globalCompositeOperation = "destination-out";
+    const px = this.player.x*TILE+16;
+    const py = this.player.y*TILE+16;
+    const grad = c.createRadialGradient(px, py, 28, px, py, 155);
+    grad.addColorStop(0, "rgba(0,0,0,1)");
+    grad.addColorStop(.55, "rgba(0,0,0,.92)");
+    grad.addColorStop(1, "rgba(0,0,0,0)");
+    c.fillStyle = grad;
+    c.fillRect(0, 0, W, ROWS*TILE);
+    c.globalCompositeOperation = "source-over";
+    this.fogTexture.refresh();
+  }
+
+  createVignette() {
+    this.vignette = this.add.graphics().setDepth(90);
+  }
+
+  updateVignette() {
+    let nearest = 99;
+    for (const npc of this.npcs) nearest = Math.min(nearest, dist(npc, this.player));
+    const alpha = Phaser.Math.Clamp((5-nearest)/5, 0, 1) * .5;
+    const g = this.vignette;
+    g.clear();
+    if (alpha <= 0) return;
+    // Rote Ränder verstärken sich mit der Nähe eines NPCs.
+    g.fillStyle(0xff1010, alpha*.35);
+    g.fillRect(0, HUD, W, 12);
+    g.fillRect(0, H-12, W, 12);
+    g.fillRect(0, HUD, 12, H-HUD);
+    g.fillRect(W-12, HUD, 12, H-HUD);
+    g.lineStyle(18, 0xff1616, alpha*.6);
+    g.strokeRect(9, HUD+9, W-18, H-HUD-18);
+  }
+
+  setupAudio() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.audio = new AudioCtx();
+    } catch (e) { this.audio = null; }
+  }
+
+  sound(freq, duration, type = "square", volume = .035) {
+    try {
+      if (!this.audio || this.audio.state === "closed") return;
+      if (this.audio.state === "suspended") this.audio.resume().catch(() => {});
+      const osc = this.audio.createOscillator();
+      const gain = this.audio.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(volume, this.audio.currentTime);
+      gain.gain.exponentialRampToValueAtTime(
+        .001, this.audio.currentTime + duration
+      );
+      osc.connect(gain);
+      gain.connect(this.audio.destination);
+      osc.start();
+      osc.stop(this.audio.currentTime + duration);
+    } catch (e) {
+      // Audio ist optional und darf das Spiel niemals beenden.
+      this.audio = null;
+    }
+  }
+
+  refreshHUD() {
+    const minutes = Math.min(179, Math.floor(this.elapsed));
+    const totalMinutes = 21*60 + minutes;
+    const hh = String(Math.floor(totalMinutes/60)%24).padStart(2, "0");
+    const mm = String(totalMinutes%60).padStart(2, "0");
+    this.clockText.setText(`${hh}:${mm}`);
+
+    if (this.collected.length < 3) {
+      this.goalText.setText(
+        `GESUCHT: ${this.targets[this.collected.length].Titel} [${this.collected.length}/3]`
+      );
+    } else {
+      this.goalText.setText("ALLE BÜCHER GESAMMELT — FINDE DEN GRÜNEN AUSGANG!");
+      this.goalText.setColor("#8ae899");
+    }
+  }
+
+  isBlocked(x, y) {
+    if (x < 0 || x >= COLS || y < 0 || y >= ROWS) return true;
+    return this.shelves.has(keyPos(x, y));
+  }
+
+  freeNeighbors(p) {
+    return [
+      {x:p.x+1,y:p.y}, {x:p.x-1,y:p.y},
+      {x:p.x,y:p.y+1}, {x:p.x,y:p.y-1}
+    ].filter(n => !this.isBlocked(n.x,n.y));
+  }
+
+  // BFS auf dem Tile-Raster; Regal-Tiles sind Hindernisse.
+  findPath(start, goal) {
+    const queue = [start];
+    const prev = new Map([[keyPos(start.x,start.y), null]]);
+    let found = false;
+    while (queue.length) {
+      const p = queue.shift();
+      if (samePos(p, goal)) { found = true; break; }
+      for (const n of this.freeNeighbors(p)) {
+        const k = keyPos(n.x,n.y);
+        if (prev.has(k)) continue;
+        prev.set(k, keyPos(p.x,p.y));
+        queue.push(n);
+      }
+    }
+    if (!found) return [];
+    const path = [];
+    let k = keyPos(goal.x,goal.y);
+    while (k !== keyPos(start.x,start.y)) {
+      const [x,y] = k.split(",").map(Number);
+      path.unshift({x,y});
+      k = prev.get(k);
+      if (k == null) return [];
+    }
+    return path;
+  }
+
+  movePlayer(dx, dy) {
+    if (this.ended || this.overlayOpen) return;
+    const nx = this.player.x+dx, ny = this.player.y+dy;
+    if (this.isBlocked(nx,ny)) {
+      this.sound(100, .035, "square", .012);
+      return;
+    }
+    this.player.x = nx; this.player.y = ny;
+    this.playerShape.setPosition(nx*TILE+16, HUD+ny*TILE+16);
+    this.sound(190, .04, "square", .012);
+    this.drawFog();
+    this.checkExit();
+    this.checkCollisions();
+  }
+
+  interact() {
+    if (this.ended || this.overlayOpen) return;
+
+    // Die vier orthogonalen Nachbarpositionen sind gültig; keine Diagonalen.
+    const nearby = [
+      this.player,
+      {x:this.player.x+1,y:this.player.y},
+      {x:this.player.x-1,y:this.player.y},
+      {x:this.player.x,y:this.player.y+1},
+      {x:this.player.x,y:this.player.y-1}
+    ];
+
+    // Regalfächer haben Vorrang, falls Schild und Fach zugleich erreichbar sind.
+    for (const pos of nearby) {
+      const shelf = this.shelves.get(keyPos(pos.x,pos.y));
+      if (shelf) {
+        this.overlayOpen = true;
+        this.scene.launch("BookSearchScene", {
+          shelfId: shelf.id,
+          dept: shelf.dept,
+          books: this.books.filter(b => b.Regalfach === shelf.id),
+          target: this.targets[this.collected.length]?.Titel,
+          collected: this.collected.length
+        });
+        this.scene.pause();
+        return;
+      }
+    }
+
+    for (const sign of this.signs) {
+      if (nearby.some(p => samePos(p,sign))) {
+        this.overlayOpen = true;
+        this.scene.launch("SignScene", {
+          dept: sign.dept, row: sign.row,
+          name: DEPTS[sign.dept].name
+        });
+        this.scene.pause();
+        return;
+      }
+    }
+
+    if (samePos(this.player, this.exit) && this.collected.length === 3) {
+      this.win();
+    }
+  }
+
+  closeOverlay() {
+    this.overlayOpen = false;
+    if (this.scene.isActive("BookSearchScene")) this.scene.stop("BookSearchScene");
+    if (this.scene.isActive("SignScene")) this.scene.stop("SignScene");
+    this.scene.resume();
+  }
+
+  collectBook(title) {
+    if (this.ended || this.collected.includes(title)) return false;
+    const expected = this.targets[this.collected.length];
+    if (!expected || expected.Titel !== title) {
+      this.sound(95, .18, "sawtooth", .04);
+      return false;
+    }
+    this.collected.push(title);
+    this.sound(650, .12, "sine", .055);
+    this.moveDelay = 145 + this.collected.length*48;
+    // Gegner werden mit jedem eingesammelten Buch schneller.
+    for (const npc of this.npcs) npc.delay = Math.max(230, npc.delay-70);
+    this.refreshHUD();
+    return true;
+  }
+
+  checkExit() {
+    if (samePos(this.player,this.exit) && this.collected.length === 3) this.win();
+  }
+
+  checkCollisions() {
+    for (const npc of this.npcs) {
+      if (samePos(npc,this.player)) {
+        this.gameOver("Du wurdest in den dunklen Gängen erwischt.");
+        return;
+      }
+    }
+  }
+
+  moveNPC(npc, now) {
+    const progress = this.collected.length;
+    const nightFactor = this.elapsed/NIGHT_SECONDS;
+    const delay = Math.max(220, npc.delay*(1-nightFactor*.45)-progress*35);
+    if (now < npc.nextMove) return;
+    npc.nextMove = now + delay;
+
+    let next = null;
+    const d = dist(npc,this.player);
+    if (d <= 6 || Math.random() < .35 + nightFactor*.4) {
+      const path = this.findPath(npc,this.player);
+      if (path.length) next = path[0];
+    }
+    if (!next) {
+      const neighbors = this.freeNeighbors(npc);
+      if (neighbors.length) next = Phaser.Utils.Array.GetRandom(neighbors);
+    }
+    if (!next) return;
+
+    // NPCs blockieren sich nicht gegenseitig.
+    npc.x = next.x; npc.y = next.y;
+    npc.shape.setPosition(npc.x*TILE+16, HUD+npc.y*TILE+16);
+    this.checkCollisions();
+  }
+
+  update(time, delta) {
+    if (this.ended || this.overlayOpen) return;
+    this.elapsed += delta/1000;
+    if (this.elapsed >= NIGHT_SECONDS) {
+      this.elapsed = NIGHT_SECONDS;
+      this.refreshHUD();
+      this.gameOver("Mitternacht. Die Bibliothek hat dich eingeschlossen.");
+      return;
+    }
+
+    const kb = this.keys;
+    if (time >= this.lastMove) {
+      let dx = 0, dy = 0;
+      if (Phaser.Input.Keyboard.JustDown(kb.left) ||
+          Phaser.Input.Keyboard.JustDown(kb.a)) dx = -1;
+      else if (Phaser.Input.Keyboard.JustDown(kb.right) ||
+               Phaser.Input.Keyboard.JustDown(kb.d)) dx = 1;
+      else if (Phaser.Input.Keyboard.JustDown(kb.up) ||
+               Phaser.Input.Keyboard.JustDown(kb.w)) dy = -1;
+      else if (Phaser.Input.Keyboard.JustDown(kb.down) ||
+               Phaser.Input.Keyboard.JustDown(kb.s)) dy = 1;
+
+      if (dx || dy) {
+        this.movePlayer(dx,dy);
+        this.lastMove = time + this.moveDelay;
+      }
+    }
+    if (Phaser.Input.Keyboard.JustDown(kb.e)) this.interact();
+
+    for (const npc of this.npcs) this.moveNPC(npc,time);
+    this.refreshHUD();
+    this.updateVignette();
+  }
+
+  gameOver(message) {
+    if (this.ended) return;
+    this.ended = true;
+    this.scene.start("GameOverScene", { won:false, message });
+  }
+
+  win() {
+    if (this.ended) return;
+    this.ended = true;
+    this.scene.start("GameOverScene", {
+      won:true, message:"Du hast die drei Bücher gefunden und bist entkommen!"
+    });
+  }
+}
+
+/* =========================================================
+   SignScene: Fachbereich und Regalbeschriftung
+   ========================================================= */
+class SignScene extends Phaser.Scene {
+  constructor() { super("SignScene"); }
+
+  init(data) { this.info = data; }
+
+  create() {
+    this.add.rectangle(400,300,800,600,0x09090c,.94);
+    this.add.rectangle(400,300,620,330,0x31271f,1)
+      .setStrokeStyle(3,0xb99a69);
+    this.add.text(400,190,"REGALBESCHILDERUNG",{
+      fontFamily:"monospace",fontSize:"17px",color:"#d9b78c"
+    }).setOrigin(.5);
+    this.add.text(400,252,this.info.name,{
+      fontFamily:"monospace",fontSize:"32px",color:"#f3e4ce",
+      fontStyle:"bold"
+    }).setOrigin(.5);
+    this.add.text(400,300,`Reihe: ${this.info.row} · Kürzel: ${this.info.dept}`,{
+      fontFamily:"monospace",fontSize:"16px",color:"#c9b9a4"
+    }).setOrigin(.5);
+    this.add.text(400,355,
+      "Die Regalfächer dieser Reihe enthalten Bücher dieses Fachbereichs.",{
+      fontFamily:"monospace",fontSize:"12px",color:"#c9c4bd",
+      align:"center",wordWrap:{width:520}
+    }).setOrigin(.5);
+    this.add.text(400,425,"E / ESC — SCHLIESSEN",{
+      fontFamily:"monospace",fontSize:"15px",color:"#8acb87"
+    }).setOrigin(.5);
+    this.input.keyboard.once("keydown-E",()=>this.close());
+    this.input.keyboard.once("keydown-ESC",()=>this.close());
+    this.input.keyboard.once("keydown-ENTER",()=>this.close());
+  }
+
+  close() {
+    this.scene.stop();
+    const game = this.scene.get("GameScene");
+    game.overlayOpen = false;
+    this.scene.resume("GameScene");
+  }
+}
+
+/* =========================================================
+   BookSearchScene: Blättern und das korrekte Buch sammeln
+   ========================================================= */
+class BookSearchScene extends Phaser.Scene {
+  constructor() { super("BookSearchScene"); }
+
+  init(data) {
+    this.shelfId = data.shelfId;
+    this.dept = data.dept;
+    this.books = data.books || [];
+    this.target = data.target;
+    this.index = 0;
+    this.feedback = "";
+    this.finished = false;
+  }
+
+  create() {
+    this.add.rectangle(400,300,800,600,0x08080b,.97);
+    this.add.rectangle(400,300,650,440,0x30271f,1)
+      .setStrokeStyle(3,0x9b754d);
+
+    this.add.text(400,105,"REGALFACH DURCHSUCHEN",{
+      fontFamily:"monospace",fontSize:"20px",color:"#d9b78c"
+    }).setOrigin(.5);
+
+    this.add.text(400,145,`${this.shelfId} · ${DEPTS[this.dept].name}`,{
+      fontFamily:"monospace",fontSize:"13px",color:"#c6b9a8"
+    }).setOrigin(.5);
+
+    this.bookTitle = this.add.text(400,225,"",{
+      fontFamily:"monospace",fontSize:"22px",color:"#f2e6d3",
+      align:"center",wordWrap:{width:540}
+    }).setOrigin(.5);
+
+    this.bookModule = this.add.text(400,278,"",{
+      fontFamily:"monospace",fontSize:"14px",color:"#b7c4d0"
+    }).setOrigin(.5);
+
+    this.counter = this.add.text(400,320,"",{
+      fontFamily:"monospace",fontSize:"12px",color:"#a7a19a"
+    }).setOrigin(.5);
+
+    this.feedbackText = this.add.text(400,360,"",{
+      fontFamily:"monospace",fontSize:"13px",color:"#ff8c8c",
+      align:"center",wordWrap:{width:520}
+    }).setOrigin(.5);
+
+    this.add.text(400,425,"← / →  BLÄTTERN      E  BUCH NEHMEN",{
+      fontFamily:"monospace",fontSize:"13px",color:"#e8d6b9"
+    }).setOrigin(.5);
+
+    this.add.text(400,470,"ESC  SCHLIESSEN",{
+      fontFamily:"monospace",fontSize:"12px",color:"#8acb87"
+    }).setOrigin(.5);
+
+    this.keys = this.input.keyboard.addKeys({
+      left:"LEFT", right:"RIGHT", e:"E", esc:"ESC", enter:"ENTER"
+    });
+    this.input.keyboard.on("keydown-LEFT",()=>this.change(-1));
+    this.input.keyboard.on("keydown-RIGHT",()=>this.change(1));
+    this.input.keyboard.on("keydown-E",()=>this.takeBook());
+    this.input.keyboard.on("keydown-ESC",()=>this.close());
+    this.input.keyboard.on("keydown-ENTER",()=>this.close());
+    this.renderBook();
+  }
+
+  renderBook() {
+    if (!this.books.length) {
+      this.bookTitle.setText("Keine Bücher in diesem Fach.");
+      this.bookModule.setText("");
+      this.counter.setText("0 Bücher");
+      return;
+    }
+    const b = this.books[this.index];
+    this.bookTitle.setText(`„${b.Titel}“`);
+    this.bookModule.setText(`Modul: ${b.Modul}`);
+    this.counter.setText(`Buch ${this.index+1} von ${this.books.length}`);
+    this.feedbackText.setText(this.feedback);
+  }
+
+  change(step) {
+    if (this.finished || !this.books.length) return;
+    this.index = (this.index + step + this.books.length) % this.books.length;
+    this.feedback = "";
+    this.renderBook();
+  }
+
+  takeBook() {
+    if (this.finished || !this.books.length) return;
+    const b = this.books[this.index];
+    const game = this.scene.get("GameScene");
+    if (b.Titel !== this.target) {
+      this.feedback = "Das ist das falsche Buch. Suche weiter!";
+      this.feedbackText.setText(this.feedback);
+      game.sound(110,.15,"sawtooth",.035);
+      return;
+    }
+
+    if (game.collectBook(b.Titel)) {
+      this.finished = true;
+      this.feedbackText.setColor("#8ae899");
+      this.feedbackText.setText("RICHTIGES BUCH! Du hast es eingesammelt.");
+      this.time.delayedCall(650,()=>this.close());
+    }
+  }
+
+  close() {
+    if (this.finished && this.scene.get("GameScene").ended) return;
+    this.scene.stop();
+    const game = this.scene.get("GameScene");
+    game.overlayOpen = false;
+    game.drawFog();
+    game.checkCollisions();
+    this.scene.resume("GameScene");
+  }
+}
+
+/* =========================================================
+   GameOverScene: Sieg und Game Over
+   ========================================================= */
+class GameOverScene extends Phaser.Scene {
+  constructor() { super("GameOverScene"); }
+
+  init(data) { this.result = data; }
+
+  create() {
+    this.add.rectangle(400,300,800,600,0x0b0b0e,.98);
+    const color = this.result.won ? "#8ae899" : "#ed6666";
+    this.add.text(400,175,this.result.won ? "DU BIST ENTKOMMEN" : "GAME OVER",{
+      fontFamily:"monospace",fontSize:"32px",color,fontStyle:"bold",
+      align:"center"
+    }).setOrigin(.5);
+
+    this.add.text(400,255,this.result.message || "",{
+      fontFamily:"monospace",fontSize:"15px",color:"#e1d9cf",
+      align:"center",wordWrap:{width:600}
+    }).setOrigin(.5);
+
+    this.add.text(400,355,"ENTER oder R — NEUES SPIEL",{
+      fontFamily:"monospace",fontSize:"17px",color:"#d9b78c"
+    }).setOrigin(.5);
+
+    this.input.keyboard.once("keydown-ENTER",()=>this.scene.start("BootScene"));
+    this.input.keyboard.once("keydown-R",()=>this.scene.start("BootScene"));
+  }
+}
+
+/* =========================================================
+   Phaser-Konfiguration
+   ========================================================= */
+const config = {
+  type: Phaser.CANVAS,
+  width: W,
+  height: H,
+  parent: "game",
+  pixelArt: true,
+  antialias: false,
+  roundPixels: true,
+  backgroundColor: "#17171a",
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: W,
+    height: H
+  },
+  scene: [BootScene, GameScene, GameOverScene, SignScene, BookSearchScene],
+  input: { keyboard: true },
+  render: { pixelArt: true, antialias: false }
+};
+
+new Phaser.Game(config);
+</script>
+</main>
+</body>
+</html>
