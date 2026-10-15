@@ -17,12 +17,6 @@
   #game { width: 100%; overflow: hidden; border: 3px solid #5b5147; }
   canvas { display: block; width: 100%; image-rendering: pixelated; }
   p { font-size: 12px; color: #aaa; line-height: 1.7; }
-  #books-file {
-    display: none;
-    margin: 8px auto 0;
-    color: #eee;
-    font: 12px monospace;
-  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
 </head>
@@ -30,10 +24,9 @@
 <main>
   <h1>ESCAPE THE LIBRARY</h1>
   <div id="game"></div>
-  <input id="books-file" type="file" accept=".csv,text/csv">
   <p>
     WASD / Pfeiltasten: Bewegung · E: Interaktion ·
-    ← / →: Bücher durchblättern · ESC: Schließen · R: Neustart
+    ← / →: Bücher durchblättern · ESC: Schließen
   </p>
 </main>
 <script>
@@ -45,6 +38,7 @@
 const W = 800, H = 600, TILE = 32, HUD = 56;
 const COLS = 25, ROWS = 17;
 const NIGHT_SECONDS = 180; // 21:00 bis 00:00 in drei Spielminuten
+const TARGET_BOOK_COUNT = 3;
 const DEPTS = {
   INF: { name: "Informatik", rows: [1, 4], color: 0x8e7459 },
   MED: { name: "Medien",     rows: [7],    color: 0x927b63 },
@@ -60,6 +54,108 @@ const ROW_INFO = [
   { y: 13, id: "TEC-A", dept: "TEC" },
   { y: 16, id: "TEC-B", dept: "TEC" }
 ];
+
+const BOOKS_CSV = `Titel,Fachbereich,Regalfach,Modul
+Algorithmen verstehen,INF,INF-A01,Grundlagen der Informatik
+Datenbanken kompakt,INF,INF-A02,Datenbanksysteme
+Einführung in Python,INF,INF-A03,Programmierung
+Netzwerke in der Praxis,INF,INF-A04,Computernetze
+Betriebssysteme,INF,INF-A05,Systemarchitektur
+Software Engineering,INF,INF-A06,Softwareentwicklung
+Datenstrukturen,INF,INF-A07,Algorithmen und Datenstrukturen
+Webentwicklung heute,INF,INF-A08,Webtechnologien
+Künstliche Intelligenz,INF,INF-A09,Intelligente Systeme
+IT-Sicherheit,INF,INF-A10,Informationssicherheit
+Verteilte Systeme,INF,INF-A11,Verteilte Anwendungen
+Programmieren mit Java,INF,INF-A12,Objektorientierung
+Compilerbau,INF,INF-A13,Übersetzer
+Cloud Computing,INF,INF-A14,Cloud-Systeme
+Mensch-Computer-Interaktion,INF,INF-A15,Interaktionsdesign
+Theoretische Informatik,INF,INF-A16,Formale Methoden
+C und Speicherverwaltung,INF,INF-B01,Systemprogrammierung
+Mobile Anwendungen,INF,INF-B02,Mobile Entwicklung
+Maschinelles Lernen,INF,INF-B03,Data Science
+Big Data analysieren,INF,INF-B04,Datenanalyse
+Softwaretests,INF,INF-B05,Qualitätssicherung
+Requirements Engineering,INF,INF-B06,Softwareplanung
+Informationsvisualisierung,INF,INF-B07,Visual Analytics
+Computergrafik,INF,INF-B08,Grafische Systeme
+Parallele Programmierung,INF,INF-B09,Hochleistungsrechnen
+Mikrocontroller programmieren,INF,INF-B10,Eingebettete Systeme
+Datenmodellierung,INF,INF-B11,Datenbanksysteme
+Linux für Einsteiger,INF,INF-B12,Betriebssysteme
+Versionsverwaltung mit Git,INF,INF-B13,Entwicklungswerkzeuge
+Kryptografie im Alltag,INF,INF-B14,IT-Sicherheit
+Robotik und Automation,INF,INF-B15,Intelligente Systeme
+Digitale Ethik,INF,INF-B16,Informatik und Gesellschaft
+Mediengeschichte,MED,MED-A01,Medienwissenschaft
+Digitale Fotografie,MED,MED-A02,Bildmedien
+Filmgestaltung,MED,MED-A03,Filmproduktion
+Einführung in den Journalismus,MED,MED-A04,Journalistik
+Social Media verstehen,MED,MED-A05,Digitale Kommunikation
+Medienpsychologie,MED,MED-A06,Medienwirkung
+Audioproduktion,MED,MED-A07,Ton und Klang
+Visuelles Storytelling,MED,MED-A08,Mediengestaltung
+Online-Redaktion,MED,MED-A09,Digitale Publikation
+Werbung und Gesellschaft,MED,MED-A10,Kommunikationswissenschaft
+Medienrecht,MED,MED-A11,Recht und Medien
+Dokumentarfilm,MED,MED-A12,Film und Fernsehen
+Podcast entwickeln,MED,MED-A13,Audiojournalismus
+Informationsdesign,MED,MED-A14,Gestaltung
+Medienmärkte,MED,MED-A15,Medienökonomie
+Digitale Öffentlichkeit,MED,MED-A16,Kommunikationstheorie
+BWL für Einsteiger,WIR,WIR-A01,Betriebswirtschaft
+Kostenrechnung,WIR,WIR-A02,Rechnungswesen
+Marketingstrategien,WIR,WIR-A03,Marketing
+Unternehmensführung,WIR,WIR-A04,Management
+Mikroökonomie,WIR,WIR-A05,Volkswirtschaft
+Investition und Finanzierung,WIR,WIR-A06,Finanzwirtschaft
+Personalmanagement,WIR,WIR-A07,Human Resources
+Projektmanagement,WIR,WIR-A08,Organisation
+Wirtschaftsrecht,WIR,WIR-A09,Recht
+Controlling verstehen,WIR,WIR-A10,Unternehmenssteuerung
+International Business,WIR,WIR-A11,Internationale Wirtschaft
+Supply Chain Management,WIR,WIR-A12,Logistik
+Innovationsmanagement,WIR,WIR-A13,Innovation
+Nachhaltige Geschäftsmodelle,WIR,WIR-A14,Nachhaltigkeit
+Unternehmensgründung,WIR,WIR-A15,Entrepreneurship
+Wirtschaftsstatistik,WIR,WIR-A16,Quantitative Methoden
+Technische Mechanik,TEC,TEC-A01,Mechanik
+Elektrotechnik Grundlagen,TEC,TEC-A02,Elektrotechnik
+Werkstoffkunde,TEC,TEC-A03,Materialwissenschaft
+Technisches Zeichnen,TEC,TEC-A04,Konstruktion
+Regelungstechnik,TEC,TEC-A05,Automatisierung
+Thermodynamik,TEC,TEC-A06,Energietechnik
+Fertigungstechnik,TEC,TEC-A07,Produktion
+Messtechnik,TEC,TEC-A08,Sensorik
+Antriebssysteme,TEC,TEC-A09,Maschinentechnik
+Schaltungstechnik,TEC,TEC-A10,Elektronik
+Strömungsmechanik,TEC,TEC-A11,Fluidtechnik
+CAD in der Konstruktion,TEC,TEC-A12,Produktentwicklung
+Erneuerbare Energien,TEC,TEC-A13,Energietechnik
+Technische Informatik,TEC,TEC-A14,Computersysteme
+Mikrosystemtechnik,TEC,TEC-A15,Präzisionstechnik
+Qualitätsmanagement Technik,TEC,TEC-A16,Qualitätssicherung
+Mechatronik verstehen,TEC,TEC-B01,Mechatronische Systeme
+Fahrzeugtechnik,TEC,TEC-B02,Mobilität
+Leistungselektronik,TEC,TEC-B03,Elektrische Systeme
+Produktionsplanung,TEC,TEC-B04,Produktion
+Lasertechnik,TEC,TEC-B05,Optische Technologien
+Kunststofftechnik,TEC,TEC-B06,Werkstoffe
+Gebäudeautomation,TEC,TEC-B07,Gebäudetechnik
+Batterietechnik,TEC,TEC-B08,Energiespeicher
+Technische Thermodynamik,TEC,TEC-B09,Energie und Wärme
+Sensoren und Aktoren,TEC,TEC-B10,Automatisierung
+Nachrichtentechnik,TEC,TEC-B11,Kommunikationstechnik
+Fahrzeugdiagnostik,TEC,TEC-B12,Fahrzeugsysteme
+Nachhaltige Produktion,TEC,TEC-B13,Produktionstechnik
+Industrierobotik,TEC,TEC-B14,Robotik
+Technische Dokumentation,TEC,TEC-B15,Konstruktionsmethodik
+Arbeitssicherheit in der Technik,TEC,TEC-B16,Sicherheitstechnik
+Algorithmen im Alltag,INF,INF-A01,Grundlagen der Informatik
+Datenbanken für Projekte,INF,INF-A02,Datenbanksysteme
+Film und digitale Kultur,MED,MED-A01,Medienwissenschaft
+Nachhaltige Unternehmensführung,WIR,WIR-A04,Management`;
 
 function shelfId(row, x) {
   const r = ROW_INFO.find(v => v.y === row);
@@ -108,9 +204,13 @@ function parseCSV(text) {
     if (!b.Titel || !b.Fachbereich || !b.Regalfach || !b.Modul) {
       throw new Error(`CSV-Zeile ${i + 2}: leeres Pflichtfeld.`);
     }
-    if (!DEPTS[b.Fachbereich]) {
+    const deptKey = Object.keys(DEPTS).find(key =>
+      key === b.Fachbereich || DEPTS[key].name === b.Fachbereich
+    );
+    if (!deptKey) {
       throw new Error(`Unbekannter Fachbereich: ${b.Fachbereich}`);
     }
+    b.Fachbereich = deptKey;
     return b;
   });
 
@@ -130,6 +230,48 @@ function shuffle(a) {
     [out[i], out[j]] = [out[j], out[i]];
   }
   return out;
+}
+
+function sortBooksAlphabetically(books) {
+  return books.slice().sort((a, b) =>
+    a.Titel.localeCompare(b.Titel, "de", { sensitivity: "base" })
+  );
+}
+
+function organizeBooksByDepartment(books) {
+  const organized = [];
+  for (const dept of Object.keys(DEPTS)) {
+    const departmentBooks = sortBooksAlphabetically(
+      books.filter(book => book.Fachbereich === dept)
+    );
+    const shelves = ROW_INFO
+      .filter(row => row.dept === dept)
+      .flatMap(row => {
+        const shelfIds = [];
+        for (let x = 4; x <= 19; x++) shelfIds.push(shelfId(row.y, x));
+        return shelfIds;
+      });
+    let offset = 0;
+
+    for (const shelf of shelves) {
+      const count = books.filter(book => book.Regalfach === shelf).length;
+      for (let i = 0; i < count; i++) {
+        organized.push({
+          ...departmentBooks[offset],
+          Regalfach: shelf
+        });
+        offset++;
+      }
+    }
+  }
+  return organized;
+}
+
+function getRowLetterRange(rowId) {
+  const row = ROW_INFO.find(info => info.id === rowId);
+  const departmentRows = ROW_INFO.filter(info => info.dept === row?.dept);
+  if (departmentRows.length === 1) return "A-Z";
+  return departmentRows.indexOf(row) === 0 ? "A-M" : "N-Z";
 }
 
 function keyPos(x, y) { return `${x},${y}`; }
@@ -181,40 +323,21 @@ class BootScene extends Phaser.Scene {
     this.books = null;
     this.loading = false;
     this.failed = false;
-    this.fileInput = document.getElementById("books-file");
-    this.fileInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file) this.loadBooksFromFile(file);
-    });
 
-    this.input.keyboard.on("keydown-ENTER", () => this.startGame());
-    this.input.keyboard.on("keydown-R", () => this.startGame());
+    this.input.keyboard.on("keydown-ENTER", this.startGame, this);
+    this.input.keyboard.on("keydown-R", this.startGame, this);
+    this.events.once("shutdown", this.removeKeyboardListeners, this);
     this.loadBooks();
   }
 
-  async loadBooks() {
-    try {
-      const response = await fetch("./books.csv", { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      this.setBooks(await response.text());
-    } catch (err) {
-      if (window.location.protocol === "file:") {
-        this.status.setText("Bitte die lokale Datei books.csv auswählen.");
-        this.status.setColor("#d9b78c");
-        this.fileInput.style.display = "block";
-        return;
-      }
-      this.showLoadError(err);
-    }
+  removeKeyboardListeners() {
+    this.input.keyboard.off("keydown-ENTER", this.startGame, this);
+    this.input.keyboard.off("keydown-R", this.startGame, this);
   }
 
-  async loadBooksFromFile(file) {
-    this.failed = false;
-    this.status.setText("Lade Buchkatalog …");
-    this.status.setColor("#d9b78c");
+  loadBooks() {
     try {
-      this.setBooks(await file.text());
-      this.fileInput.style.display = "none";
+      this.setBooks(BOOKS_CSV);
     } catch (err) {
       this.showLoadError(err);
     }
@@ -252,6 +375,7 @@ class BootScene extends Phaser.Scene {
       }
     }
 
+    this.books = organizeBooksByDepartment(this.books);
     this.status.setText(`${this.books.length} Bücher geladen. Bereit.`);
     this.status.setColor("#8acb87");
   }
@@ -278,7 +402,11 @@ class GameScene extends Phaser.Scene {
 
   init(data) {
     this.books = data.books;
-    this.targets = shuffle(this.books).slice(0, 3);
+    if (!Number.isInteger(TARGET_BOOK_COUNT) ||
+        TARGET_BOOK_COUNT < 1 || TARGET_BOOK_COUNT > this.books.length) {
+      throw new Error("TARGET_BOOK_COUNT muss zwischen 1 und der Buchanzahl liegen.");
+    }
+    this.targets = shuffle(this.books).slice(0, TARGET_BOOK_COUNT);
     this.collected = [];
     this.elapsed = 0;
     this.player = { x: 1, y: 0 };
@@ -296,6 +424,9 @@ class GameScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor("#17171a");
     this.world = this.add.container(0, HUD).setDepth(1);
     this.drawMap();
+    if (!this.findPath(this.player, this.exit).length) {
+      throw new Error("Der grüne Ausgang ist vom Startpunkt aus nicht erreichbar.");
+    }
 
     this.playerShape = this.add.container(
       this.player.x*TILE + TILE/2, HUD + this.player.y*TILE + TILE/2
@@ -317,13 +448,6 @@ class GameScene extends Phaser.Scene {
       up: "UP", down: "DOWN", left: "LEFT", right: "RIGHT",
       w: "W", a: "A", s: "S", d: "D", e: "E", esc: "ESC",
       enter: "ENTER", r: "R"
-    });
-
-    this.input.keyboard.on("keydown-ESC", () => {
-      if (this.overlayOpen) this.closeOverlay();
-    });
-    this.input.keyboard.on("keydown-R", () => {
-      if (this.ended) this.scene.start("BootScene");
     });
 
     this.refreshHUD();
@@ -359,7 +483,10 @@ class GameScene extends Phaser.Scene {
         this.drawShelfTile(g, x, r.y);
       }
       // Schild am Ende der Regalreihe, getrennt von den Regalfächern.
-      const sign = { x: 2, y: r.y, dept: r.dept, row: r.id };
+      const sign = {
+        x: 2, y: r.y, dept: r.dept, row: r.id,
+        range: getRowLetterRange(r.id)
+      };
       this.signs.push(sign);
       this.drawSign(sign);
     }
@@ -412,16 +539,20 @@ class GameScene extends Phaser.Scene {
     this.add.text(x+16, y+11, sign.dept, {
       fontFamily: "monospace", fontSize: "6px", color: "#ffffff"
     }).setOrigin(.5).setDepth(6);
+    this.add.text(x+16, y+17, sign.range, {
+      fontFamily: "monospace", fontSize: "5px", color: "#ffffff"
+    }).setOrigin(.5).setDepth(6);
   }
 
   createNPCs() {
     const spawns = [
-      {x: 22, y: 2}, {x: 1, y: 9}, {x: 22, y: 12}, {x: 1, y: 15}
+      {x: 22, y: 2}, {x: 1, y: 9}, {x: 22, y: 12}
     ];
     for (let i = 0; i < spawns.length; i++) {
       const p = spawns[i];
       const npc = {
         x: p.x, y: p.y, nextMove: 0,
+        wanderTarget: null, nextWanderAt: 0,
         delay: 550 + Math.random()*300,
         shape: this.add.container(
           p.x*TILE+16, HUD+p.y*TILE+16
@@ -457,17 +588,21 @@ class GameScene extends Phaser.Scene {
   }
 
   createFog() {
-    this.fogCanvas = document.createElement("canvas");
-    this.fogCanvas.width = W;
-    this.fogCanvas.height = ROWS*TILE;
-    this.fogCtx = this.fogCanvas.getContext("2d");
-    this.fogTexture = this.textures.createCanvas("fogTexture", W, ROWS*TILE);
-    this.fogImage = this.add.image(0, HUD, "fogTexture")
+    this.fogTextureKey = `fogTexture-${Date.now()}-${Math.random()}`;
+    this.fogTexture = this.textures.createCanvas(
+      this.fogTextureKey, W, ROWS*TILE
+    );
+    if (!this.fogTexture) {
+      throw new Error("Die Fog-of-War-Textur konnte nicht erstellt werden.");
+    }
+    this.fogCtx = this.fogTexture.context;
+    this.fogImage = this.add.image(0, HUD, this.fogTextureKey)
       .setOrigin(0, 0).setDepth(80);
     this.drawFog();
   }
 
   drawFog() {
+    if (!this.fogCtx || !this.fogTexture) return;
     const c = this.fogCtx;
     c.clearRect(0, 0, W, ROWS*TILE);
     c.fillStyle = "rgba(0,0,0,0.88)";
@@ -515,7 +650,7 @@ class GameScene extends Phaser.Scene {
     } catch (e) { this.audio = null; }
   }
 
-  sound(freq, duration, type = "square", volume = .035) {
+  playTone(freq, duration, type = "square", volume = .035) {
     try {
       if (!this.audio || this.audio.state === "closed") return;
       if (this.audio.state === "suspended") this.audio.resume().catch(() => {});
@@ -544,9 +679,11 @@ class GameScene extends Phaser.Scene {
     const mm = String(totalMinutes%60).padStart(2, "0");
     this.clockText.setText(`${hh}:${mm}`);
 
-    if (this.collected.length < 3) {
+    if (this.collected.length < TARGET_BOOK_COUNT) {
+      const target = this.targets[this.collected.length];
       this.goalText.setText(
-        `GESUCHT: ${this.targets[this.collected.length].Titel} [${this.collected.length}/3]`
+        `GESUCHT: ${target.Titel} · Fachbereich: ${DEPTS[target.Fachbereich].name} ` +
+        `[${this.collected.length}/${TARGET_BOOK_COUNT}]`
       );
     } else {
       this.goalText.setText("ALLE BÜCHER GESAMMELT — FINDE DEN GRÜNEN AUSGANG!");
@@ -597,12 +734,12 @@ class GameScene extends Phaser.Scene {
     if (this.ended || this.overlayOpen) return;
     const nx = this.player.x+dx, ny = this.player.y+dy;
     if (this.isBlocked(nx,ny)) {
-      this.sound(100, .035, "square", .012);
+      this.playTone(100, .035, "square", .012);
       return;
     }
     this.player.x = nx; this.player.y = ny;
     this.playerShape.setPosition(nx*TILE+16, HUD+ny*TILE+16);
-    this.sound(190, .04, "square", .012);
+    this.playTone(190, .04, "square", .012);
     this.drawFog();
     this.checkExit();
     this.checkCollisions();
@@ -628,7 +765,9 @@ class GameScene extends Phaser.Scene {
         this.scene.launch("BookSearchScene", {
           shelfId: shelf.id,
           dept: shelf.dept,
-          books: this.books.filter(b => b.Regalfach === shelf.id),
+          books: sortBooksAlphabetically(
+            this.books.filter(b => b.Regalfach === shelf.id)
+          ),
           target: this.targets[this.collected.length]?.Titel,
           collected: this.collected.length
         });
@@ -642,14 +781,15 @@ class GameScene extends Phaser.Scene {
         this.overlayOpen = true;
         this.scene.launch("SignScene", {
           dept: sign.dept, row: sign.row,
-          name: DEPTS[sign.dept].name
+          name: DEPTS[sign.dept].name, range: sign.range
         });
         this.scene.pause();
         return;
       }
     }
 
-    if (samePos(this.player, this.exit) && this.collected.length === 3) {
+    if (samePos(this.player, this.exit) &&
+        this.collected.length === TARGET_BOOK_COUNT) {
       this.win();
     }
   }
@@ -665,11 +805,11 @@ class GameScene extends Phaser.Scene {
     if (this.ended || this.collected.includes(title)) return false;
     const expected = this.targets[this.collected.length];
     if (!expected || expected.Titel !== title) {
-      this.sound(95, .18, "sawtooth", .04);
+      this.playTone(95, .18, "sawtooth", .04);
       return false;
     }
     this.collected.push(title);
-    this.sound(650, .12, "sine", .055);
+    this.playTone(650, .12, "sine", .055);
     this.moveDelay = 145 + this.collected.length*48;
     // Gegner werden mit jedem eingesammelten Buch schneller.
     for (const npc of this.npcs) npc.delay = Math.max(230, npc.delay-70);
@@ -678,7 +818,10 @@ class GameScene extends Phaser.Scene {
   }
 
   checkExit() {
-    if (samePos(this.player,this.exit) && this.collected.length === 3) this.win();
+    if (samePos(this.player, this.exit) &&
+        this.collected.length === TARGET_BOOK_COUNT) {
+      this.win();
+    }
   }
 
   checkCollisions() {
@@ -699,13 +842,21 @@ class GameScene extends Phaser.Scene {
 
     let next = null;
     const d = dist(npc,this.player);
-    if (d <= 6 || Math.random() < .35 + nightFactor*.4) {
+    if (d <= 7) {
       const path = this.findPath(npc,this.player);
       if (path.length) next = path[0];
     }
+
     if (!next) {
-      const neighbors = this.freeNeighbors(npc);
-      if (neighbors.length) next = Phaser.Utils.Array.GetRandom(neighbors);
+      if (this.elapsed >= npc.nextWanderAt ||
+          !npc.wanderTarget || samePos(npc, npc.wanderTarget)) {
+        npc.wanderTarget = this.randomWanderTarget(npc);
+        npc.nextWanderAt = this.elapsed + 5;
+      }
+      if (npc.wanderTarget) {
+        const path = this.findPath(npc, npc.wanderTarget);
+        if (path.length) next = path[0];
+      }
     }
     if (!next) return;
 
@@ -713,6 +864,22 @@ class GameScene extends Phaser.Scene {
     npc.x = next.x; npc.y = next.y;
     npc.shape.setPosition(npc.x*TILE+16, HUD+npc.y*TILE+16);
     this.checkCollisions();
+  }
+
+  randomWanderTarget(npc) {
+    const candidates = [];
+    for (let y = Math.max(0, npc.y-5); y <= Math.min(ROWS-1, npc.y+5); y++) {
+      for (let x = Math.max(0, npc.x-5); x <= Math.min(COLS-1, npc.x+5); x++) {
+        const target = {x, y};
+        if (dist(npc, target) <= 5 &&
+            !samePos(target, this.player) &&
+            !this.isBlocked(x, y) &&
+            this.findPath(npc, target).length) {
+          candidates.push(target);
+        }
+      }
+    }
+    return candidates.length ? Phaser.Utils.Array.GetRandom(candidates) : null;
   }
 
   update(time, delta) {
@@ -785,6 +952,9 @@ class SignScene extends Phaser.Scene {
     }).setOrigin(.5);
     this.add.text(400,300,`Reihe: ${this.info.row} · Kürzel: ${this.info.dept}`,{
       fontFamily:"monospace",fontSize:"16px",color:"#c9b9a4"
+    }).setOrigin(.5);
+    this.add.text(400,330,`Buchstaben: ${this.info.range}`,{
+      fontFamily:"monospace",fontSize:"15px",color:"#d9b78c"
     }).setOrigin(.5);
     this.add.text(400,355,
       "Die Regalfächer dieser Reihe enthalten Bücher dieses Fachbereichs.",{
@@ -868,9 +1038,16 @@ class BookSearchScene extends Phaser.Scene {
     this.input.keyboard.on("keydown-LEFT",()=>this.change(-1));
     this.input.keyboard.on("keydown-RIGHT",()=>this.change(1));
     this.input.keyboard.on("keydown-E",()=>this.takeBook());
-    this.input.keyboard.on("keydown-ESC",()=>this.close());
-    this.input.keyboard.on("keydown-ENTER",()=>this.close());
+    this.input.keyboard.on("keydown", this.handleKeyDown, this);
+    this.input.keyboard.once("keydown-ENTER",()=>this.close());
+    this.events.once("shutdown", () => {
+      this.input.keyboard.off("keydown", this.handleKeyDown, this);
+    });
     this.renderBook();
+  }
+
+  handleKeyDown(event) {
+    if (event.key === "Escape" || event.code === "Escape") this.close();
   }
 
   renderBook() {
@@ -901,7 +1078,7 @@ class BookSearchScene extends Phaser.Scene {
     if (b.Titel !== this.target) {
       this.feedback = "Das ist das falsche Buch. Suche weiter!";
       this.feedbackText.setText(this.feedback);
-      game.sound(110,.15,"sawtooth",.035);
+      game.playTone(110,.15,"sawtooth",.035);
       return;
     }
 
@@ -949,8 +1126,15 @@ class GameOverScene extends Phaser.Scene {
       fontFamily:"monospace",fontSize:"17px",color:"#d9b78c"
     }).setOrigin(.5);
 
-    this.input.keyboard.once("keydown-ENTER",()=>this.scene.start("BootScene"));
-    this.input.keyboard.once("keydown-R",()=>this.scene.start("BootScene"));
+    this.input.keyboard.once("keydown-ENTER",()=>this.restart());
+    this.input.keyboard.once("keydown-R",()=>this.restart());
+  }
+
+  restart() {
+    this.scene.stop("BookSearchScene");
+    this.scene.stop("SignScene");
+    this.scene.stop("GameScene");
+    this.scene.start("BootScene");
   }
 }
 
