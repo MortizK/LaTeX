@@ -1,0 +1,169 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Neue Konzepte der Informatik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-15}
+
+\section{Software Engineering im Spannungsfeld mit KI}
+
+Erstmal mit \href{https://www.youtube.com/watch?v=3TNpOD6bov8}{LGTM Musik Video} (Looks good to me) gestartet.
+
+Kritisch Lustiges Video über den Umgang mit KI in der Entwicklung von Software.
+
+\subsection{IT Security}
+
+Es geht auch um den Prozess von "KI-Security"
+
+Begriffe:
+
+\begin{itemize}
+    \item Retrieval Augmented Generation (RAG)
+    \item Zero-Shot Prompting (ohne Beispiel für Gewünschte Ergebnisse)
+    \item One-Shot Prompting (mit einem Beispiel für Gewünschtes Ergebnis)
+\end{itemize}
+
+Durch Vibe Coding bewegen wir uns in einem Lösungsraum mit irgendwelchen Eigenschaften (Gewünschte und Unerwünschte). Das sind Features, Design, Bugs, Implementationen, Sicherheitslücken, etc.
+
+Funktionale Anforderungen von einfachen Programmen sind stand 2026 eher so bei 98\%. In den 2\% sind Halluzinationen von z.B. Paketen oder auch Lösungen zu ähnlichen Problemen (Harry Potter mit anderen Zaubersprüchen)
+
+\know{Security}{Wir brauchen nebene den funktionalen Anforderungen in dem prompt nun auch noch die Security. Somit brauchen wir eine Vollständige Spezifikation für den prompt, damit die KI dies auch tatsächlich bearbeitet}
+
+\href{https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/}{OWASP LLM Top 10 2026}
+
+\href{https://github.com/asgeirtj/system_prompts_leaks}{Leaked System Prompts}
+
+Es ist mit z.B. Hexstrike und mcp Servern möglich mit Claude und GPT auch zu hacken.
+
+\subsection{Einfluss von KI auf erfahrene und angehende EntwicklerInnen}
+
+"Ohne Metakognition verstärkt KI lernhürden - und erzeugt eine Illusion von Kompetenz"
+
+\know{Bachelorarbeit}{Studierende Schreibe so große Bachelorarbeiten wie noch nie mit mehr Quellen als jemals (Mehr als Dozenten in 3 Monaten lesen könnten).
+
+Also für mich evtl. eher so richtung "Attention is all you need", in der kürze liegt die Würze.}
+
+KI Nutzer: Beschleuniger
+
+\begin{itemize}
+    \item Hatten einen Plan - KI ist nur das Tool, was entwickelt was Sie sowieso schreiben würden.
+    \item Ignoriert falsche oder unpassende Vorschläge
+    \item "Negative Expertise" (Minksy): Wissen, was NICHT, funktioniert.
+    \item ...
+\end{itemize}
+
+Frage: Wie unterscheidet ihr Dozenten zwischen fehlende Kompetenz durch Unwissenheit (KI hat alles gemacht) und einer Person, die vor einer Gruppe nicht präsentieren kann? 
+
+Stichwort zum lernen: Sokratische Methode
+
+\subsection{Develop Experience with Agentic Development}
+
+Von einer \href{https://mmkoretz.de/}{Person} (\href{https://de.linkedin.com/in/mario-matthias-koretz}{LinkedIN}) die schon Erfahrung hat auch größere System Agentic aufzubauen und in den Griff zu bekommen.
+
+Computational Engineering Master und nun mittlerweile Freiberuflich.
+
+\begin{itemize}
+    \item Kein Agent baut bisher nachhaltig unerwiesen rein Spezifikation basiert komplexe Software in der Industrie.
+    \item Bewährt Entwicklungspraktiken sind immer noch die mächtigsten, potenziell mächtiger mit LLMs, wenn ihr wisst, wie.
+    \item z.B. Test driven Development, Pipelines
+\end{itemize}
+
+Wenn alles da ist, was verhindert, dass Fehler unbemerkt bleiben, kann auch Tag 1 auf prod gepusht werden, ohne das was kaputt geht.
+
+DevOps, Projektmanagement, Kompetenzen im Teams, ... müssen funktionieren, sonst machte Agentic keinen Sinn!
+
+\subsubsection{Derteministic vs. Probabilisic}
+
+Bevor man optimiert, sollte man messen.
+
+Issues werden von Agenten nur zu 80\% gelöst. Also nicht vollständig.
+
+Es gibt Software Entwickler die besser entwickeln als Agents, auf dem Aufgabenbereich von Kunden die ihre Anforderung ändern können oder nicht richtig formulieren können.
+
+Also: Es gibt schon genug Unsicherheiten in der Arbeit mit Kunden. LLMs haben noch eine Zusätzliche Unsicherheit obendrauf.
+
+\subsubsection{Agentic Coding mit agilen Methoden}
+
+Software Engineering Dreieck: Tempo, Qualität, Umsatzrendite
+
+Wie macht er es:
+
+\begin{itemize}
+    \item Testlisten ableiten (Kommentare zu den Erwartungen an eine Funktion)
+    \item Inkrementwahl
+    \item Minimale Implementierung für das gewünschte Verhalten
+    \item Refactoring (Umstrukturierung ohne Verhalten ändern)
+    \item Static Code Checks (Guidelines, Code Smell)
+    \item git commit
+    \item Integration testing
+\end{itemize}
+
+In kurz:
+
+\begin{enumerate}
+    \item Testlisten
+    \item Inkrementwahl
+    \item Test (selber machen, um den Agenten zu testen)
+    \item Code (Test steht zur Absicherung, Überimplementierung vermeiden, Agent hat hohes Potenzial)
+    \item Refactoring (Qualitätsabsicherung)
+\end{enumerate}
+
+Code oder Refactoring sollte vom Mensch gemacht werden, damit mindestens an einer Stelle ein Entwickler den Code versteht.
+
+Testlisten sind analog zur Spezifikation.
+
+\subsubsection{Fazit}
+
+Im Zweifel sind wir (der Entwickler) der Depp!
+
+Aktuell gibt es noch keine Zahlen die bestätigen, das der Software Entwickler nicht mehr gebraucht wird.
+
+Summarize kann die KI auf Code Bases ganz gut (auch wenn es nur 80\% erfasst ;))
+
+Bonus: \href{https://isaiprofitable.com/}{Is AI Profitable Yet?}
+
+\subsection{Intro Vibe-Coding Workshop}
+
+Eigenes DHBW/ Hochschul Kontext Game in html, js mit phaser.
+
+Idee:
+
+\begin{itemize}
+    \item Sneak game in einer Bibliothek mit mehreren Etagen:
+    \begin{itemize}
+        \item Kurz vor der Schließung müssen mehrere vorgegebene Bücher gefunden werden.
+        \item Die Bücher sind korrekt und logisch nach Stockwerk, Fachbereich, Regal und Alphabet sortiert.
+        \item Das Spiel konzentriert sich auf das Suchen, die Interaktion mit anderen Personen und die anschließende Flucht.
+        \item Andere Personen können nach dem Weg gefragt werden; ihre Hinweise können hilfreich oder riskant sein.
+        \item Während der Suche müssen Geräusche, Dunkelheit und mögliche Verfolger berücksichtigt werden.
+        \item Nach dem Finden aller Bücher muss rechtzeitig ein Ausgang erreicht werden.
+    \end{itemize}
+    \item Lokal Multiplayer (Letzte Reihe Koch Game mit mehreren Stationen)
+    \item Multiplayer (Vorlesung ist zuende alle rennen nachhause (ÖPNV, Bus, Bahn)) - abgelehnt weil sehr viel aufwand
+    \item Wer bekommt das letzte Franzbrötchen (Mensa Rush)
+    \item Kampf um das letzte Schnitzel (Eins Gegen Eins ohne NPCs)
+    \item Als Dozent einen Stapel an Klausuren korrigieren (Notenwürfeln)
+\end{itemize}
+
+Ergebnis:
+
+\begin{itemize}
+    \item Ich habe alleine Erst mit Copilot und Später mit ChatGPT an meinem Sneak Game in der Bibliothek gearbeitet.
+    
+    Zuerst war ich mit der Grundleistung von den einfachen Modellen von Copilot unzufrieden. Meine Spezifikation wurde nicht vollständig eingehalten und manche Inhalte wurde auch einfach geändert.
+
+    ChatGPT hat zu Anfang direkt eine funktionierende HTML Datei erstellt, die aber zuerst den localhost brauchte um zu funktionieren. Dieses Verhalten wie die Feinjustierung von Mechaniken habe ich mit Copilot durchgeführt und manuell im Browser getestet. 
+
+    \item Meine Kollegen haben an dem Lokalem Multiplayer Spiel gearbeitet und kamen zu unterschiedliche guten Ergebnissen.
+\end{itemize}
+
+\end{document}
