@@ -1,0 +1,149 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Robotik}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-10-19}
+
+\section{Matlab}
+
+\subsection{Plots}
+
+\begin{lstlisting}
+% Test-Daten generieren
+time = [0:0.01:120];
+f = 0.1;
+omega = 2 * pi * f; %Kreisfrequenz rad/s
+sig1 = sin(omega * time);
+sig2 = cos(omega * time);
+
+figure
+plot(time, sig1, 'r', 'LineWidth', 2)
+hold on
+plot(time, sig2, 'b--', 'LineWidth', 2)
+ylim([-1.2, 1.2])
+ylabel('Signal [-]')
+xlabel('Zeit t [s]')
+title('Mein erstes Signal')
+grid on
+legend
+\end{lstlisting}
+
+Mit Subplot und Axis Linking: 
+
+\begin{lstlisting}
+figure
+title('Mein erstes Signal')
+ai(1) = subplot(2, 1, 1);
+plot(time, sig1, 'r');
+hold on
+ylim([-1.2, 1.2])
+ylabel('Signal [-]')
+xlabel('Zeit t [s]')
+grid on
+legend
+
+ai(2) = subplot(2, 1, 2);
+plot(time, sig2, 'b--');
+ylim([-1.2, 1.2])
+ylabel('Signal [-]')
+xlabel('Zeit t [s]')
+grid on
+legend
+
+linkaxes(ai, 'x')
+\end{lstlisting}
+
+Solver soll \textit{Fixed Step} mit \textit{0.01} und als Solver zuerst \textit{ode1 (Euler)}
+
+\subsection{Simulink einbinden}
+
+\begin{lstlisting}
+%% Simulink-Aufruf
+
+x0 = 0;
+out = sim("firstSimulink.slx")
+
+figure('Name', 'Simulationsergebnisse')
+plot(out.tout, out.results, 'r-')
+\end{lstlisting}
+
+Es gibt den Library Browser und wir können die simulationsgeschwindigkeit künstlich auf Echtzeit reduzieren.
+
+\section{Planung, Vorsteuerung und Regelung}
+
+\begin{minipage}[t]{\textwidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[
+        page=113,
+        width=\textwidth,
+        trim=0pt 50pt 0pt 180pt,
+        clip
+    ]{doc/Robotik_2026.pdf}
+\end{minipage}
+
+Wer diese Grafik versteht, hat Regelung verstanden. Diese hat zwei Freiheitsgrade und kann auf störgrößen reagieren.
+
+Wir kennen unsere Wunschbewegung und die Vorsteuerung macht aus der Bewegung unsere Ansteuerung.
+
+Die Regelung kompensiert Störgrößen und Modellfehler. Es Vergleicht die Wunschbewegung mit der Tatsächlichen Bewegung.
+
+\subsection{Trajektorienplanung}
+
+Es gibt $C^n$-stetige Trajektorien. Das $n$ steht für die Anzahl an Ableitungen die stetig sind.
+
+$PTn$-Filter als Online Trajektorienplaner.
+
+\subsection{Vorsteuerung}
+
+Feedforward Control (Keine Regelschleife)
+
+Bildet keine Modellfehler oder Störgrößen ab.
+
+Die Vorsteuerung nimmt keinen einfluss auf das Stabilitätsverhalten (schwingt es auf oder nicht).
+
+\subsection{Regelung}
+
+Feedback Control (Regelungsschleife)
+
+Braucht Sensorik und verändert das Stabilitätsverhalten.
+
+Mögliche Regler:
+
+\begin{itemize}
+    \item Empirisch (z.B. durch händisches Einstellen der PID-Gain)
+    \item Modellbasiert, z.B. durch Polvorgabe für ein gegebenes (lineares) Streckenmodell
+\end{itemize}
+
+PID (Proportional, Integral, Differential)
+
+Das Dargestellter ist eine Kaskade an Regler.
+
+\begin{minipage}[t]{\textwidth}
+    \vspace{0pt}
+    \centering
+    \includegraphics[
+        page=124,
+        width=\textwidth,
+        trim=0pt 50pt 0pt 55pt,
+        clip
+    ]{doc/Robotik_2026.pdf}
+\end{minipage}
+
+\subsection{Vorsteuerung und Regelung in Gelenkkoordination}
+
+Wir machen unsere Vorsteuerung mit "Computed Torque"-Ansatz.
+
+$$\tau = u = Mv + C\dot q + f + g$$
+
+\end{document}

@@ -105,4 +105,74 @@ Oder auch in 3D mit einer Ebene (S. 44)
 
 Im Jupyter Notebook
 
+\lecture{2026-10-19}
+
+\subsection{Backpropagation}
+
+Algorithmus zur Anpassung von der Gewichte im neuronalen Netz
+
+\href{https://www.youtube.com/watch?v=Ilg3gGewQ5U&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi&index=3}{3Blue1Brown} Serie zu Neuronale Netzwerke - Video ist Backpropagation.
+
+\subsection{Regularisierung}
+
+\subsubsection{Definition}
+
+Regularisierung versucht Overfitting zu verhindern.
+
+\subsubsection{Regularisierungsmethoden}
+
+\begin{itemize}
+    \item Parameter
+    \item Early Stopping (Parameter mit geringsten Validierungsfehler)
+    \item Ensemble lernen (mehrere Modeller lernen voneinander)
+    \item Dropout (Permanentes killen von einzelnen Neuronen)
+    \item Daten Augmentierung (Neue Daten Generieren, z.B. Farbkanäle Tauschen, etc.)
+\end{itemize}
+
+\subsection{CNN}
+
+Ist genau das was ich letztens mit Herrn Drüppel besprochen habe.
+
+\subsubsection{Convolution}
+
+Eine Convolution ist eine kleinere Matrix die über eine größere Matrix slidet und Multipliziert die übereinanderliegende Werte, welche dann addiert werden.
+
+Die MAtrix kann auch 3D sein (z.B. bei Farbbildern für die Farbkanäle)
+
+\subsubsection{Downsampling}
+
+Reduziert entweder die Auflösung der Pixel oder aber auch die Anzahl an Kanälen.
+
+Es gibt auch noch Pooling um die Auflösung zu reduzieren:
+
+\begin{itemize}
+    \item Max Pooling (nimmt den Max Wert in einer Umgebung)
+    \item Min Pooling (nimmt den Min Wert in einer Umgebung)
+\end{itemize}
+
+\subsubsection{Upsampling}
+
+Wiederherstellung der Auflösung, z.B. durch Unpooling:
+
+\begin{itemize}
+    \item Neighbour Upsampling (füllt alle neuen Zellen mit dem Wert)
+    \item Bed of Nails Upsampling (füllt nur eine Zelle mit dem Wert)
+\end{itemize}
+
+\subsubsection{Beispiel: ResNet}
+
+ResNet ist eine Bestimmte Anordnung von Downsampling und Upsampling
+
+\subsection{CNN mit PyTorch}
+
+Ist im Jupyter Notebook
+
+\subsection{Anwendungsbeispiel}
+
+\subsubsection{Daten Labeling}
+
+\subsubsection{Architekturbeispiel}
+
+\subsubsection{Training}
+
 \end{document}
