@@ -1,4 +1,10 @@
-*.m
 *.mp4
 *.png
 *.zip
+
+# Ignore MATLAB & Simulink files
+*.m
+slprj/
+*.autosave
+*.asv
+*.slxc
