@@ -4,13 +4,12 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
 \usepackage{hyperref}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
 \begin{document}
 
-\title{Anpassung von Vision-Language-Foundation-Models: Generalisierung erhalten trotz Fine-Tuning?}
+\title{Anpassung von Vision-Language-Foundation-Models:\\
+Generalisierung erhalten trotz Fine-Tuning?}
 
 % TODO: Comment out Authors for double blind review
 \author{\IEEEauthorblockN{1\textsuperscript{st} Simon Riedinger}
@@ -37,41 +36,213 @@ Foundation Models, CLIP, Vision-Language-Modelle, Zero-Shot-Generalisierung, Cat
 \end{IEEEkeywords}
 
 \section{Einleitung und Forschungsfrage}
+Vision-Language-Foundation-Models (VLMs) wie CLIP übertragen
+Bild-Text-Repräsentationen auf neue Klassifikationsaufgaben, ohne dass für
+jede Klasse ein neues Modell trainiert werden muss. Diese Flexibilität ist
+jedoch nicht kostenlos: Wird ein VLM mit wenigen gelabelten Beispielen
+nachtrainiert, steigt die Genauigkeit auf der Zielaufgabe häufig, während
+Zero-Shot- und Out-of-Distribution-(OOD-)Leistung sinken. Dieses
+Spannungsverhältnis wird im Folgenden als Generalisierungsverlust oder
+Catastrophic Forgetting bezeichnet.
+
+Die Forschungsfrage dieses Short Papers lautet: \emph{Wie können
+Vision-Language-Foundation-Models an neue Klassifikationsaufgaben angepasst
+werden, ohne ihre Zero-Shot-Generalisierungsfähigkeit zu verlieren, und welche
+Post-Training-Methoden sind laut aktueller Literatur unter welchen Bedingungen
+am zuverlässigsten?} Dazu wird die Literatur von 2024 bis 2026
+mechanismusbezogen geordnet und nicht als einheitliches Leaderboard gelesen.
+Die zentrale These ist, dass es keinen universellen Sieger gibt: Die
+zuverlässigste Wahl hängt von Referenzdaten, Zielaufgabe und Messprotokoll ab.
+
+Abschnitt II führt die für den Vergleich nötigen Grundlagen ein. Abschnitt III
+ordnet Anpassungsmethoden nach ihrem Schutzmechanismus. Abschnitt IV diskutiert
+widersprüchliche Erklärungen und Messprobleme, bevor Abschnitt V die
+Limitationen der Literaturarbeit bündelt. Abschnitt VI formuliert daraus
+offene Forschungsfragen.
 
 \section{Grundlagen}
+CLIP lernt einen Bild- und einen Textencoder so, dass korrespondierende
+Bild-Text-Paare im gemeinsamen Embedding-Raum nahe beieinander liegen
+\cite{clip}. Bei der Zero-Shot-Klassifikation werden Klassennamen oder
+Templates durch den Textencoder verarbeitet; die vorhergesagte Klasse ist die
+mit dem Bildembedding höchste Ähnlichkeit. Das Vortraining liefert damit nicht
+nur eine Klassifikation, sondern ein übertragbares multimodales
+Repräsentationsproblem.
+
+Adaptation bezeichnet hier das Post-Training eines bereits vortrainierten
+VLMs auf neue gelabelte oder ungelabelte Daten. Full Fine-Tuning aktualisiert
+alle Gewichte mit einem auf die Zielklassen zugeschnittenen Loss. Prompt
+Learning, Adapter oder LoRA beschränken dagegen den Update-Raum; Distillation
+und Weight Interpolation halten das angepasste Modell explizit in der Nähe
+des Ausgangsmodells. WiSE-FT zeigt, dass eine Interpolation zwischen
+vortrainierten und feinabgestimmten Gewichten OOD-Leistung häufig besser
+erhält als reines Fine-Tuning \cite{wisefit}. Der gemeinsame Gedanke ist,
+zielaufgabenspezifische Information hinzuzufügen, ohne die ursprüngliche
+Bild-Text-Geometrie unnötig zu verschieben.
+
+Für die Bewertung genügt deshalb nicht die Zielgenauigkeit. Relevant sind
+mindestens (i) Zero-Shot-Accuracy auf unabhängigen Datensätzen, (ii)
+OOD-Robustheit, (iii) Leistung mit linearem Probing oder Retrieval und
+(iv) Kalibrierung. Ein Modell kann auf einer dieser Achsen gewinnen und auf
+einer anderen verlieren. Außerdem sind Standardbenchmarks teilweise mit
+Pretraining-Daten kontaminiert; bereinigte induktive Protokolle können
+berichtete Gewinne deutlich reduzieren \cite{kravets}.
 
 \section{Aktuelle Ansätze der Literatur (2025/2026)}
+Die Literatur lässt sich nach dem Ort des Schutzes gegen Vergessen ordnen:
+Sie beschränkt entweder den Update-Raum, verankert das neue Modell am
+vortrainierten Modell oder verändert das Trainingssignal selbst.
+
+\subsection{Restriktion des Update-Raums}
+Prompt- und Token-Tuning lassen die Encodergewichte unverändert. DPC
+entkoppelt dafür zwei Prompt-Funktionen, um den Base-New-Trade-off zu
+reduzieren \cite{dpc}. Bei selektiver Parameteradaption werden nur wenige,
+für die Zielaufgabe relevante Parameter aktualisiert. SAFT trainiert etwa
+ungefähr 0,1\,\% der Parameter und berichtet gegenüber Full Fine-Tuning
+robustere OOD-Leistung \cite{saft}; CLIP-AST lernt die Auswahl der Parameter
+automatisch \cite{clipast}. Diese Verfahren sind attraktiv bei Few-Shot-Daten
+ohne zusätzliche Referenzdaten. Ihre Schwäche ist, dass Auswahlheuristiken
+und die gewählte Sparsität selbst vom Backbone und Datensatz abhängen.
+
+\subsection{Ankerung am vortrainierten Modell}
+WiSE-FT und seine Nachfolger mischen die Gewichte des angepassten und des
+vortrainierten Modells. Das ist einfach und benötigt nach dem Training keine
+Referenzdaten, aber ein globaler Interpolationskoeffizient ist nicht für jede
+Domäne optimal \cite{dawin}. Distillation formuliert die Ankerung als
+zusätzliche Verhaltens- oder Relationsbedingung. Select \& Distill und
+multimodale Dual-Teacher-Verfahren erhalten dadurch auch Bild-Text-Relationen
+\cite{selectdistill, dualteacher}. Sie können stärker sein als reine
+Sparsity, setzen aber ungelabelte Referenzdaten und eine geeignete
+Referenzverteilung voraus.
+
+\subsection{Kontrastives Post-Training}
+CLIP-Refine und HELIP trainieren mit kontrastiven Signalen weiter und
+berichten, dass Zero-Shot-Leistung dadurch sogar steigen kann
+\cite{clipprefine, helip}. ComCLIP kombiniert eine gemilderte
+InfoNCE-Temperatur mit Anker- und Relationsverlusten und findet ebenfalls
+starke Gewinne beim linearen Probing \cite{comclip}. Diese Linie ist
+besonders relevant, weil sie Adaption nicht als unvermeidlichen Trade-off
+behandelt. Die Ergebnisse sind jedoch schwer mit CE-Fine-Tuning und
+Interpolation zu vergleichen, da Loss, Batchgröße, Daten und Metriken
+gleichzeitig wechseln.
+
+\begin{table*}[t]
+\centering
+\caption{Bedingte Einordnung der Anpassungsstrategien. Die Rangfolge ist keine
+universelle Bestenliste, sondern eine Synthese der unterschiedlichen Setups.}
+\label{tab:methoden}
+\small
+\begin{tabular}{p{2.8cm}p{3.4cm}p{3.4cm}p{4.1cm}}
+\hline
+\textbf{Strategie} & \textbf{Schutzmechanismus} & \textbf{Geeignetes Setting} & \textbf{Hauptgrenze}\\
+\hline
+Prompt/selektives PEFT & Encoder oder Großteil der Parameter bleibt unverändert & Few-Shot, keine Referenzdaten, geringe Kosten & Auswahl und Sparsität sind backbone- und datensatzabhängig\\
+Interpolation & Abstand zum Pretraining wird post-hoc begrenzt & Einfacher, robuster Ausgangspunkt ohne Referenzdaten & Globales Mischungsverhältnis ist nicht domänenspezifisch\\
+Distillation & Verhalten und Relationen des Ausgangsmodells werden verankert & Ungelabelte Referenzdaten verfügbar & Referenzverteilung kann selbst zum Fehler werden\\
+Kontrastives Post-Training & Bild-Text-Signal bleibt statt reiner CE erhalten & Post-Training mit passenden Paaren oder Hard Negatives & Temperatur- und Setup-Effekte sind noch umstritten\\
+\hline
+\end{tabular}
+\end{table*}
 
 \section{Diskussion}
+Die Befunde widersprechen sich teilweise, weil sie verschiedene Ursachen und
+Settings untersuchen. CLIP-Refine führt Vergessen auf zu wenige negative
+Beispiele im kontrastiven Training zurück \cite{clipprefine}. ComCLIP
+argumentiert dagegen, dass vor allem eine falsch kalibrierte Temperatur
+Gradienten und Repräsentationen destabilisiert \cite{comclip}. FLYP zeigt
+zudem, dass kontrastives Fine-Tuning unter passenden Bedingungen OOD-Leistung
+verbessern kann \cite{flyp}. Damit ist ein kontrastiver Loss nicht allgemein
+ursächlich; der Konflikt spricht eher für eine Interaktion aus Temperatur,
+Negativbeispielen und Datenverteilung.
+
+Auch die Lokalisation des Problems ist nicht einheitlich. WiSE-FT beschreibt
+Gewichtsraum-Drift, während neuere Arbeiten Interferenzen einzelner
+Parameter, Vokabular-Embeddings oder eine Verschiebung der
+Bild-Text-Geometrie betonen \cite{wisefit, svft, iimm}. Diese Erklärungen
+müssen sich nicht vollständig ausschließen: Ein kleiner Parameter-Update kann
+gerade jene Relationen verändern, die für Zero-Shot-Klassifikation relevant
+sind. Aussagen über den Mechanismus sollten deshalb immer an Backbone,
+Adaptionsloss und Zielaufgabe gebunden werden.
+
+Das größte Hindernis für eine belastbare Rangfolge ist die Messung. Kravets
+et al. zeigen, dass wenige Shot-Benchmarks teilweise transduktiv sind; nach
+Bereinigung sinken berichtete Ergebnisse stark \cite{kravets}. Zusätzlich
+divergieren Zero-Shot-Accuracy, Retrieval, lineares Probing und Kalibrierung.
+Ein Verfahren kann die Embedding-Geometrie stabilisieren, ohne dieselbe
+Metrik wie ein anderes Verfahren zu verbessern. Die vorhandene Literatur
+berichtet außerdem häufig nur einen Backbone und wenige Seeds. "Generalisierung
+erhalten" ist daher kein einzelner Skalar, sondern ein Messvektor.
+
+\subsection{Antwort auf die Forschungsfrage}
+Unter diesen Einschränkungen ergibt sich eine konditionale Empfehlung. Für
+Few-Shot-Adaption ohne Referenzdaten sind selektive PEFT-Verfahren die
+plausibelste erste Wahl, weil sie mit kleinem Update-Raum arbeiten. Wenn
+ungelabelte Referenzdaten verfügbar sind, ist Distillation besonders
+geeignet, da sie die ursprünglichen multimodalen Relationen direkt
+berücksichtigt. Für eine einfache und breit einsetzbare Baseline bleibt
+Interpolation sinnvoll. Kontrastives Post-Training ist vielversprechend und
+kann Ziel- und Zero-Shot-Leistung gleichzeitig steigern, ist aber wegen des
+Temperaturstreits noch keine universell abgesicherte Empfehlung.
 
 \section{Limitationen}
+Diese Arbeit ist eine strukturierte Literaturauswertung und keine unabhängige
+Replikation. Die Studien verwenden unterschiedliche Backbones, Datensätze,
+Seeds und Definitionen von Generalisierung; die Zahlen sind daher nicht
+direkt poolbar. Das Korpus ist auf öffentlich auffindbare Arbeiten von
+2024--2026 begrenzt und enthält neben Konferenzpublikationen auch Preprints.
+Publikationsbias kann positive Resultate von neuen Methoden überrepräsentieren.
+Insbesondere die ComCLIP-Temperaturthese und einige 2026er Resultate benötigen
+unabhängige Replikationen. Die Tabelle ist deshalb als Entscheidungshilfe,
+nicht als Meta-Analyse zu verstehen.
 
-\section{Ausblick und offenen Forschungsfragen}
+\section{Ausblick und offene Forschungsfragen}
+Als erstes fehlt ein gemeinsamer, kontaminationsarmer Benchmark mit einem
+standardisierten Retention-Score. Er sollte Zero-Shot- und OOD-Accuracy,
+Probing oder Retrieval sowie ECE gemeinsam berichten und mehrere Seeds und
+Backbones einschließen. Erst damit lassen sich PEFT, Distillation,
+Interpolation und kontrastives Post-Training fair vergleichen.
 
+Zweitens müssen die konkurrierenden Mechanismen im selben Protokoll getestet
+werden: negative Beispiele, Temperatur, Parameterinterferenz,
+Vokabularraum und Embedding-Geometrie. Ein kontrolliertes Experiment könnte
+Loss, Temperatur und Referenzverteilung unabhängig variieren und zugleich
+CE-Fine-Tuning und kontrastives Post-Training vergleichen. Drittens sind
+größere VLMs, domain-ferne Referenzdaten und wiederholte Continual-Learning-
+Schritte unterrepräsentiert. Offen ist insbesondere, ob ein Einzelschritt mit
+guter Retention über viele Adaptionszyklen stabil bleibt.
 
 \begin{thebibliography}{00}
 \bibitem{wisefit}
 M. Wortsman et al., ``Robust fine-tuning of zero-shot models,'' in \textit{Proc. CVPR}, 2022.
 \bibitem{saft}
 B. Nguyen, S. Uhlich, F. Cardinaux, L. Mauch, M. Edraki, and A. Courville, ``SAFT: Towards out-of-distribution generalization in fine-tuning,'' in \textit{Proc. ECCV}, 2024. arXiv:2407.03036.
+\bibitem{clip}
+A. Radford et al., ``Learning transferable visual models from natural language supervision,'' in \textit{Proc. ICML}, 2021.
+\bibitem{dpc}
+M. Li et al., ``DPC: Dual-prompt collaboration for tuning vision-language models,'' in \textit{Proc. CVPR}, 2025.
+\bibitem{clipast}
+Y. Zhang, Y.-X. Deng, M.-H. Guo, and S.-M. Hu, ``Adaptive parameter selection for tuning vision-language models,'' in \textit{Proc. CVPR}, 2025.
+\bibitem{dawin}
+``DAWIN: Domain-aware interpolation for adapting vision-language models,'' in \textit{Proc. ICLR}, 2025.
+\bibitem{selectdistill}
+``Select and distill: Selective knowledge distillation for vision-language model adaptation,'' in \textit{Proc. ECCV}, 2024.
+\bibitem{dualteacher}
+``Adapt without forgetting: Knowledge distillation for vision-language model adaptation,'' in \textit{Proc. ECCV}, 2024.
 \bibitem{clipprefine}
 T. Yamaguchi et al., ``Post-pre-training for modality alignment in vision-language foundation models,'' in \textit{Proc. CVPR}, 2025. arXiv:2504.12717.
+\bibitem{helip}
+``HELIP: Hard pair refinement for vision-language models,'' in \textit{Proc. NAACL}, 2025.
 \bibitem{comclip}
 Z. Wang et al., ``Rethinking contrastive loss in CLIP post-training: A complementary framework with frozen text encoder,'' arXiv:2610.11374, 2026.
+\bibitem{flyp}
+G. Goyal et al., ``Finetune like you pretrain: Improved fine-tuning of zero-shot classifiers,'' in \textit{Proc. CVPR}, 2023.
 \bibitem{kravets}
 M. Kravets et al., ``Rethinking few-shot CLIP benchmarks: A critical analysis in the inductive setting,'' in \textit{Proc. ICCV}, 2025.
+\bibitem{svft}
+M. Chen et al., ``Vocabulary scaling law: Tuning open-vocabulary predictors for their openness,'' in \textit{Proc. CVPR}, 2026.
+\bibitem{iimm}
+V. Vogt-Lowell et al., ``Zero-shot embeddings inform learning and forgetting with vision-language encoders,'' arXiv:2407.15731, 2024.
 
-% ----------------------------------------------------------------
-% Reserviert für Paper-Rumpf (V1 ab 04.11.); aktuell unzitiert.
-% Einkommentieren, sobald im Text zitiert:
-%
-% \bibitem{clip} A. Radford et al., ``Learning transferable visual models from natural language supervision,'' in \textit{Proc. ICML}, 2021.
-% \bibitem{clipast} Y. Zhang, Y.-X. Deng, M.-H. Guo, and S.-M. Hu, ``Adaptive parameter selection for tuning vision-language models,'' in \textit{Proc. CVPR}, 2025, pp. 4280--4290.
-% \bibitem{clipfit} M. Li et al., ``Vision-language model fine-tuning via simple parameter-efficient modification,'' in \textit{Proc. EMNLP}, 2024.
-% \bibitem{iimm} M. Vogt-Lowell et al., ``Zero-shot embeddings inform learning and forgetting with vision-language encoders,'' arXiv:2407.15731, 2024.
-% \bibitem{upt} Y. Xu et al., ``Unsupervised post-training of foundation models: A survey,'' in \textit{Findings of EMNLP}, 2026.
-% \bibitem{aftrepro} A. Nuzhdin et al., ``[Re] Boosting the visual interpretability of CLIP via adversarial fine-tuning,'' Reproduktionsstudie (ICLR 2025), arXiv:2610.14832, 2026.
-% Weitere Quellen 2025/2026: siehe recherche/literatur.md
 \end{thebibliography}
 
 \end{document}
