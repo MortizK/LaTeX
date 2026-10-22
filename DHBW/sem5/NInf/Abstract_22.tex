@@ -1,0 +1,77 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Anpassung von Vision-Language-Foundation-Models: Generalisierung erhalten trotz Fine-Tuning?}
+
+% TODO: Comment out Authors for double blind review
+\author{\IEEEauthorblockN{1\textsuperscript{st} Simon Riedinger}
+\IEEEauthorblockA{DHBW Stuttgart, Deutschland \\
+inf24140@lehre.dhbw-stuttgart.de}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Jakob Waldmann}
+\IEEEauthorblockA{DHBW Stuttgart, Deutschland \\
+inf24103@lehre.dhbw-stuttgart.de}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Moritz Köhler}
+\IEEEauthorblockA{DHBW Stuttgart, Deutschland \\
+inf24004@lehre.dhbw-stuttgart.de}
+}
+
+\maketitle
+
+\begin{abstract}
+Vision-Language-Foundation-Models wie CLIP gelten als vielseitig einsetzbar: Nach einmaligem, generellem Vortraining lösen sie Bildklassifikationsaufgaben per Zero-Shot-Transfer, ohne aufgabenspezifisches Training. In der Praxis werden sie jedoch häufig an neue Aufgaben oder Domänen angepasst. Diese Anpassung steht in einem dokumentierten Spannungsverhältnis: Fine-Tuning verbessert die Zielaufgabe, zerstört aber häufig die ursprüngliche Zero-Shot-Generalisierungsfähigkeit, ein Phänomen, das als Catastrophic Forgetting bezeichnet wird \cite{wisefit, saft, clipprefine}. Die Forschungsfrage lautet: Wie können Vision-Language-Foundation-Models an neue Klassifikationsaufgaben angepasst werden, ohne ihre Zero-Shot-Generalisierungsfähigkeit zu verlieren, und welche Post-Training-Methoden erreichen dies am zuverlässigsten? Die aktuelle Literatur verfolgt dazu im Kern zwei Strategien: zum einen die Beschränkung des Update-Raums, etwa durch spärliche parameterselektive Adaption \cite{saft}, zum anderen die Ankerung am vortrainierten Modell durch Gewichtsinterpolation \cite{wisefit}. Beide Linien berichten vergleichbare Erfolge, ein direkter Vergleich unter identischen Bedingungen fehlt jedoch. Zudem ist der Mechanismus des Vergessens selbst umstritten: Die These unzureichender negativer Beispiele im kontrastiven Lernen \cite{clipprefine} steht der These einer falsch kalibrierten Verlusttemperatur gegenüber \cite{comclip}; eine unabhängige experimentelle Auflösung dieses Widerspruchs liegt nicht vor. Hinzu kommt, dass verbreitete Evaluationsbenchmarks durch Pretraining-Kontamination verfälscht sind \cite{kravets}. Eine belastbare Antwort auf die Forschungsfrage setzt daher vergleichende Untersuchungen unter identischen Trainingsbedingungen voraus; offen bleiben zudem die Übertragbarkeit der Befunde auf größere Modellskalen und die Langzeitstabilität angepasster Modelle.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Foundation Models, CLIP, Vision-Language-Modelle, Zero-Shot-Generalisierung, Catastrophic Forgetting, Parameter-Efficient Fine-Tuning, Bildklassifikation
+\end{IEEEkeywords}
+
+\section{Einleitung und Forschungsfrage}
+
+\section{Grundlagen}
+
+\section{Aktuelle Ansätze der Literatur (2025/2026)}
+
+\section{Diskussion}
+
+\section{Limitationen}
+
+\section{Ausblick und offenen Forschungsfragen}
+
+
+\begin{thebibliography}{00}
+\bibitem{wisefit}
+M. Wortsman et al., ``Robust fine-tuning of zero-shot models,'' in \textit{Proc. CVPR}, 2022.
+\bibitem{saft}
+B. Nguyen, S. Uhlich, F. Cardinaux, L. Mauch, M. Edraki, and A. Courville, ``SAFT: Towards out-of-distribution generalization in fine-tuning,'' in \textit{Proc. ECCV}, 2024. arXiv:2407.03036.
+\bibitem{clipprefine}
+T. Yamaguchi et al., ``Post-pre-training for modality alignment in vision-language foundation models,'' in \textit{Proc. CVPR}, 2025. arXiv:2504.12717.
+\bibitem{comclip}
+Z. Wang et al., ``Rethinking contrastive loss in CLIP post-training: A complementary framework with frozen text encoder,'' arXiv:2610.11374, 2026.
+\bibitem{kravets}
+M. Kravets et al., ``Rethinking few-shot CLIP benchmarks: A critical analysis in the inductive setting,'' in \textit{Proc. ICCV}, 2025.
+
+% ----------------------------------------------------------------
+% Reserviert für Paper-Rumpf (V1 ab 04.11.); aktuell unzitiert.
+% Einkommentieren, sobald im Text zitiert:
+%
+% \bibitem{clip} A. Radford et al., ``Learning transferable visual models from natural language supervision,'' in \textit{Proc. ICML}, 2021.
+% \bibitem{clipast} Y. Zhang, Y.-X. Deng, M.-H. Guo, and S.-M. Hu, ``Adaptive parameter selection for tuning vision-language models,'' in \textit{Proc. CVPR}, 2025, pp. 4280--4290.
+% \bibitem{clipfit} M. Li et al., ``Vision-language model fine-tuning via simple parameter-efficient modification,'' in \textit{Proc. EMNLP}, 2024.
+% \bibitem{iimm} M. Vogt-Lowell et al., ``Zero-shot embeddings inform learning and forgetting with vision-language encoders,'' arXiv:2407.15731, 2024.
+% \bibitem{upt} Y. Xu et al., ``Unsupervised post-training of foundation models: A survey,'' in \textit{Findings of EMNLP}, 2026.
+% \bibitem{aftrepro} A. Nuzhdin et al., ``[Re] Boosting the visual interpretability of CLIP via adversarial fine-tuning,'' Reproduktionsstudie (ICLR 2025), arXiv:2610.14832, 2026.
+% Weitere Quellen 2025/2026: siehe recherche/literatur.md
+\end{thebibliography}
+
+\end{document}
