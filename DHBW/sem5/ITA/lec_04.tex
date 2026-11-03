@@ -1,0 +1,48 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{IT Architektur}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-11-03}
+
+\section{Clusterarchitekturen}
+
+% ITA_40_Clusterarchitekturen_2026.11.pdf
+\subsection{Einführung in Clusterarchitekturen (LB-Cluster, HPC Cluster, HA Cluster), DB-Cluster}
+
+Ein SMP ist eine einzelne Große Maschine mit mehreren CPU Sockets (z.B. Intel 8-way).
+
+Ein Cluster sind mehrere über Internet verbundene Computer. Hier ist die zugriffszeit dann doch relevant und es sollte gesteuert werden auf welchem Rechner was gespeichert/ im RAM ist.
+
+Scale Up (Large SMP) und Scale Out (Network, Distributed Systems). Die Cluster verbinden beides miteinander.
+
+Scale Up ist Rechnerarchitektur. Wir bearbeiten deshalb nur Scale Out.
+
+\subsubsection{Kategorisierung}
+
+\begin{itemize}
+    \item Message-Based oder Message-Passing Cluster
+    \item Shared Storage Cluster (Neben der Kommunikation auch noch einen Shared Storage)
+\end{itemize}
+
+\subsubsection{High-Availability (HA) Cluster mit Shared Storage}
+
+Es git das Prinzip von STONITH (Shoot the other node in the head), welches einer Maschine die Möglichkeit gibt in einem Unbestimmten Zustand die andere Node auszuschalten.
+
+\subsection{Scale Out Data Center und KI Architekturen}
+
+% ITA_41_Clusterarchitekturen_2026.11.pdf
+\subsection{Transactional Workload mit hoher Tendez zum Datasharing}
+
+\subsection{Scientific oder analytic Workload mit geringer Tendenz zum Datasharing}
+
+\end{document}
