@@ -1,0 +1,55 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Autonomes Fahren}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-11-02}
+
+\section{Regelung}
+
+\subsection{Kinematik}
+
+\begin{itemize}
+    \item Bicycle Model
+    \item Ackermann-Lenkung
+\end{itemize}
+
+\subsection{Blackbox-Regler}
+
+\begin{itemize}
+    \item offener Regelkreis
+    \item geschlossener Regelkreis
+    \item Zweipunktregler
+    \item PID-Regler (\href{https://www.youtube.com/watch?v=4Y7zG48uHRo}{Parametrisierung})
+\end{itemize}
+
+\subsection{Geometrische Regler}
+
+\begin{itemize}
+    \item Pure-Pursuit-Regler
+    \item Stanley-Regler 
+    
+    Geeignet für Mittlere Geschwindigkeiten, funktioniert nicht bei Geschwindigkeit = 0
+    
+    kann große Cross Track und Richtungsfehler Korrigieren
+
+    $$\delta = \psi + \tan^{-1}\left(\frac{k_e e}{k_s + v}\right)$$
+
+    Es gibt den Regler auch noch in Komplexer mit Gierraten-Dämpfung, Lenkungs-Dämpfung und Vorsteuerung
+
+    $$\delta = (\psi - \psi_{ss}) + \tan^{-1}\left(\frac{k_e e}{k_s + v}\right) + k_{yaw}(r_{ist} - r_{soll}) + k_steer(\delta_i - \delta_{i+1})$$
+
+    Im Projekt können manche von den Parametern noch Proportional durch die Geschwindigkeit verändert werden. Evtl. auch noch einen Eigenen Regler für hohe und niedrige Geschwindigkeiten.
+    \item Optimale Regler
+\end{itemize}
+
+\end{document}
