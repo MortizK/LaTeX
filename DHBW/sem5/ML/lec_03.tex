@@ -30,15 +30,57 @@
 
 \subsection{Evaluation}
 
+\lecture{2026-11-06}
+
+\subsection{Wiederholung}
+
+\begin{itemize}
+    \item Was versteht man in maschinellen Lernen unter dem Begriff "Merkmale"?
+    
+    Numerische Repräsentation von Eigenschaften
+    \item Wofür wird Merkmalsreduktion benötigt? Welche beiden Formen der Merkmalsreduktion gibt es un worin unterscheiden sie sich?
+    
+    Um Overfitting zu Reduzieren. Weniger Merkmale bedeutet Weniger Arbeitsspeicher.
+
+    Merkmalstransformation und Merkmalselektion.
+    \item Was ist der Unterschied zwischen überwachtem un unüberwachtem Lernen?
+    
+    Beim überwachtem haben wir Lables von denen gelernt werden kann.
+    \item Was versteht man unter "Overfitting" und wie kann man dagegen vorgehen?
+    
+    Eine zu starke Anpassung auf das Trainingsdatenset, bis zum Auswendiglernen. Dagegen kann mit Diversifikation des Datensets und Merkmalsreduktion vorgegangen werden.
+    \item Welche sind die 3 Phasen eines Klassifikatortrainings?
+    
+    \begin{enumerate}
+        \item Trainingsphase
+        \item Testphase
+        \item Deployment
+    \end{enumerate}
+    \item Was ist der Unterschied zwischen Accuracy und Balanced Accuracy bzw. Error Rate und Balanced Error Rate?
+    
+    Accuracy (alles Gleich), Balanced Accuracy (Macht Accuracy gewichtete nach Anzahl in den Klassen.)
+    \item Was ist der Sinn einer Kreuzvalidierung zur Evaluation eines Klassifikators?
+    
+    Mittelt die Ergebnisse von mehreren Durchläufen (Verhindert das zufällig gute oder Schlechte Sets)
+    \item Was sind Hyperparameter? Werden sie im Rahmen des Trainings optimiert?
+    
+    Alle Einstellungen die nicht während des Trainings angepasst werden. (Anzahl der Neuronen, Auslösefunktion, etc.)
+    \item Was sind typische Fehlerquellen beim Design eines ML-Systems?
+    
+    Falsche Merkmale gewählt. Assumptions made. Falscher Klassifikator gewählt.
+\end{itemize}
+
 \subsection{Weiterführende Konzepte}
 
-\lecture{}
+
 
 \subsubsection{Active Learning}
 
 \subsubsection{One-Class-Klassifikation}
 
 \subsubsection{Reinforcement Learning}
+
+Trainieren durch Belohnung. Der Agent optimiert dann die Belohnung.
 
 \subsection{CRISP-DM}
 

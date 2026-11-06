@@ -1,0 +1,64 @@
+\documentclass[a4paper]{article}
+
+\newcommand{\docTitle}{Grundlagen der Künstliche Inteligenz}
+
+\input{../preamble.tex}
+
+\title{\docTitle}
+\author{Moritz}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\lecture{2026-11-04}
+
+\section{Suchverfahren in der KI}
+
+Warum: Es geht prinzipiell darum in einem Großen Zustandsraum eine Lösung zu finden.
+
+\subsection{Uninformierte vs. Informierte Suche}
+
+Uninformierte Suche sind:
+
+\begin{itemize}
+    \item Tiefensuche (Depth-First-Search, DFS) ist ein Stack
+    \item Breitensuche (Breadth-First-Search, BFS) ist ein Queue
+    \item Bidirektionale Suche (Zwei BFS)
+\end{itemize}
+
+Informierte oder Heurischitsche Sucher ist:
+
+\begin{itemize}
+    \item Best-First-Search
+    \item A*
+\end{itemize}
+
+\subsection{Dijkstra (uninformiert)}
+
+
+
+\subsection{A*}
+
+A* ist eine Erweiterung von Dijkstra die bei navigation noch die Luftlinien-Distanz hinzufügt um die Reihenfolge der zu erkundenden Knoten zu ändern.
+
+\subsection{Heuristik muss "zulässig" sein}
+
+Eine Heuristik darf niemals die echten Kosten überschätzen.
+
+Sie heißt zusätzlich monoton oder konsistent wenn außerdem die Dreieckungleichung gilt.
+
+Eine Heuristik is dominant, wenn sie mindestens genauso informativ ist (Wert größergleich)
+
+\subsection{Greedy Best First Search}
+
+
+\subsection{Suchalgorithmen in Spielen}
+
+\begin{itemize}
+    \item Minmax Algorithmus
+    \item Alpha Beta Pruning (Optimierung von Minmax)
+\end{itemize}
+
+\end{document}
